@@ -1,0 +1,219 @@
+/**
+  * \file Wzsk.idl
+  * Wzsk DDS publisher interface description for RTI Code Generator
+  * \author Catherine Johnson
+  * \date created: 23 Jul 2020
+  * \date modified: 23 Jul 2020
+  */
+
+typedef char tinyint;
+typedef octet utinyint;
+typedef short smallint;
+typedef unsigned short usmallint;
+typedef long int;
+typedef unsigned long uint;
+typedef long long bigint;
+typedef unsigned long long ubigint;
+
+struct DdsFloatmat {
+	sequence<float> vec;
+	uint M;
+	uint N;
+};
+
+struct DdsDoublemat {
+	sequence<double> vec;
+	uint M;
+	uint N;
+};
+
+typedef string<65536> stringvec;
+typedef string<50> vecsref;
+
+module DdsJobWzskIprTrace {
+	struct setLevel_req {
+		utinyint levelOn;
+		utinyint levelOff;
+	};
+
+	struct setLevel_reply {
+		boolean success;
+	};
+
+	struct setPOn_req {
+		float pOnLeft;
+		float pOnRight;
+	};
+
+	struct setPOn_reply {
+		boolean success;
+	};
+
+	struct setRoi_req {
+		int roiAx;
+		int roiAy;
+		int roiBx;
+		int roiBy;
+		int roiCx;
+		int roiCy;
+		int roiDx;
+		int roiDy;
+	};
+
+	struct setRoi_reply {
+		boolean success;
+	};
+
+	struct setRoiNotFull_req {
+		boolean roiNotFull;
+	};
+
+	struct setRoiNotFull_reply {
+		boolean success;
+	};
+
+	struct pOnLeftPOnRight {
+		float pOnLeft;
+		float pOnRight;
+	};
+
+	struct levelOnLevelOff {
+		utinyint levelOn;
+		utinyint levelOff;
+	};
+
+	struct roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy {
+		int roiAx;
+		int roiAy;
+		int roiBx;
+		int roiBy;
+		int roiCx;
+		int roiCy;
+		int roiDx;
+		int roiDy;
+	};
+
+	struct leftRight {
+		sequence<boolean, 786432> left;
+		sequence<boolean, 786432> right;
+	};
+};
+
+module DdsJobWzskIprCorner {
+	struct setNTarget_req {
+		uint NTarget;
+	};
+
+	struct setNTarget_reply {
+		boolean success;
+	};
+
+	struct setRoi_req {
+		int roiAx;
+		int roiAy;
+		int roiBx;
+		int roiBy;
+		int roiCx;
+		int roiCy;
+		int roiDx;
+		int roiDy;
+	};
+
+	struct setRoi_reply {
+		boolean success;
+	};
+
+	struct setRoiNotFull_req {
+		boolean roiNotFull;
+	};
+
+	struct setRoiNotFull_reply {
+		boolean success;
+	};
+
+	struct NTarget {
+		uint _NTarget;
+	};
+
+	struct roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy {
+		int roiAx;
+		int roiAy;
+		int roiBx;
+		int roiBy;
+		int roiCx;
+		int roiCy;
+		int roiDx;
+		int roiDy;
+	};
+
+	struct flg {
+		sequence<boolean, 786432> _flg;
+	};
+};
+
+module DdsJobWzskActServo {
+	struct moveto_req {
+		float target;
+	};
+
+	struct moveto_reply {
+		boolean success;
+	};
+
+	struct zero_req {
+		boolean dummy;
+	};
+
+	struct zero_reply {
+		boolean success;
+	};
+
+	struct angleTarget {
+		float angle;
+		float target;
+	};
+};
+
+module DdsJobWzskActLaser {
+	struct setLeft_req {
+		float left;
+	};
+
+	struct setLeft_reply {
+		boolean success;
+	};
+
+	struct setRight_req {
+		float right;
+	};
+
+	struct setRight_reply {
+		boolean success;
+	};
+
+	struct leftRight {
+		float left;
+		float right;
+	};
+};
+
+module DdsJobWzskAcqPtcloud {
+	struct xYZ {
+		sequence<float, 72000> x;
+		sequence<float, 72000> y;
+		sequence<float, 72000> z;
+	};
+};
+
+module DdsJobWzskAcqPreview {
+	struct gray {
+		sequence<octet, 49152> _gray;
+	};
+
+	struct redGreenBlue {
+		sequence<octet, 19200> red;
+		sequence<octet, 19200> green;
+		sequence<octet, 19200> blue;
+	};
+};
+

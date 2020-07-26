@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<IexWzskIni version="0.1.26">
+	<ImeIAVKeylistKey>
+		<Ii num="1">
+			<kls>KlstWzskKAMPersonDetailType</kls>
+			<srf>eml</srf>
+			<ImeIJAVKeylistKey>
+				<Ii num="1">
+					<lcl>enus</lcl>
+					<tit>e-mail</tit>
+				</Ii>
+				<Ii num="2">
+					<lcl>dech</lcl>
+					<tit>E-Mail</tit>
+				</Ii>
+			</ImeIJAVKeylistKey>
+		</Ii>
+		<Ii num="2">
+			<kls>KlstWzskKAMPersonDetailType</kls>
+			<srf>fax</srf>
+			<ImeIJAVKeylistKey>
+				<Ii num="1">
+					<lcl>enus</lcl>
+					<tit>fax</tit>
+				</Ii>
+				<Ii num="2">
+					<lcl>dech</lcl>
+					<tit>Telefax</tit>
+				</Ii>
+			</ImeIJAVKeylistKey>
+		</Ii>
+		<Ii num="3">
+			<kls>KlstWzskKAMPersonDetailType</kls>
+			<srf>mbl</srf>
+			<ImeIJAVKeylistKey>
+				<Ii num="1">
+					<lcl>enus</lcl>
+					<tit>mobile</tit>
+				</Ii>
+				<Ii num="2">
+					<lcl>dech</lcl>
+					<tit>Handy</tit>
+				</Ii>
+			</ImeIJAVKeylistKey>
+		</Ii>
+		<Ii num="4">
+			<kls>KlstWzskKAMPersonDetailType</kls>
+			<srf>tel</srf>
+			<ImeIJAVKeylistKey>
+				<Ii num="1">
+					<lcl>enus</lcl>
+					<tit>phone</tit>
+				</Ii>
+				<Ii num="2">
+					<lcl>dech</lcl>
+					<tit>Telefon</tit>
+				</Ii>
+			</ImeIJAVKeylistKey>
+		</Ii>
+		<Ii num="5">
+			<kls>KlstWzskKMFileContent</kls>
+			<srf>pvwsnap</srf>
+			<ImeIJAVKeylistKey>
+				<Ii num="1">
+					<lcl>enus</lcl>
+					<tit>preview snapshot</tit>
+				</Ii>
+				<Ii num="2">
+					<lcl>dech</lcl>
+					<tit>Vorschau Schnappschuss</tit>
+				</Ii>
+			</ImeIJAVKeylistKey>
+		</Ii>
+		<Ii num="6">
+			<kls>KlstWzskKMFileContent</kls>
+			<srf>xyz</srf>
+			<ImeIJAVKeylistKey>
+				<Ii num="1">
+					<lcl>enus</lcl>
+					<tit>point cloud</tit>
+				</Ii>
+				<Ii num="2">
+					<lcl>dech</lcl>
+					<tit>Punktwolke</tit>
+				</Ii>
+			</ImeIJAVKeylistKey>
+		</Ii>
+		<Ii num="7">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>bmp</srf>
+			<tit>image/bmp</tit>
+		</Ii>
+		<Ii num="8">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>cpp</srf>
+			<tit>text/x-c</tit>
+		</Ii>
+		<Ii num="9">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>css</srf>
+			<tit>text/css</tit>
+		</Ii>
+		<Ii num="10">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>csv</srf>
+			<tit>text/comma-separated-values</tit>
+		</Ii>
+		<Ii num="11">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>doc</srf>
+			<tit>application/msword</tit>
+		</Ii>
+		<Ii num="12">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>docx</srf>
+			<tit>application/vnd.openxmlformats-officedocument.wordprocessingml.document</tit>
+		</Ii>
+		<Ii num="13">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>eps</srf>
+			<tit>application/postscript</tit>
+		</Ii>
+		<Ii num="14">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>gif</srf>
+			<tit>image/gif</tit>
+		</Ii>
+		<Ii num="15">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>h</srf>
+			<tit>text/x-h</tit>
+		</Ii>
+		<Ii num="16">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>hdf</srf>
+			<tit>application/x-hdf</tit>
+		</Ii>
+		<Ii num="17">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>html</srf>
+			<tit>text/html</tit>
+		</Ii>
+		<Ii num="18">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>jpg</srf>
+			<tit>image/jpeg</tit>
+		</Ii>
+		<Ii num="19">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>js</srf>
+			<tit>text/javascript</tit>
+		</Ii>
+		<Ii num="20">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>make</srf>
+			<tit>text/x-makefile</tit>
+		</Ii>
+		<Ii num="21">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>nc</srf>
+			<tit>application/x-netcdf</tit>
+		</Ii>
+		<Ii num="22">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>pdf</srf>
+			<tit>application/pdf</tit>
+		</Ii>
+		<Ii num="23">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>png</srf>
+			<tit>image/png</tit>
+		</Ii>
+		<Ii num="24">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>ppt</srf>
+			<tit>application/mspowerpoint</tit>
+		</Ii>
+		<Ii num="25">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>pptx</srf>
+			<tit>application/vnd.openxmlformats-officedocument.presentationml.presentation</tit>
+		</Ii>
+		<Ii num="26">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>sh</srf>
+			<tit>application/x-sh</tit>
+		</Ii>
+		<Ii num="27">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>sql</srf>
+			<tit>text/x-sql</tit>
+		</Ii>
+		<Ii num="28">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>svg</srf>
+			<tit>image/svg+xml</tit>
+		</Ii>
+		<Ii num="29">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>tex</srf>
+			<tit>application/x-tex</tit>
+		</Ii>
+		<Ii num="30">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>tgz</srf>
+			<tit>application/x-gzip</tit>
+		</Ii>
+		<Ii num="31">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>tif</srf>
+			<tit>image/tiff</tit>
+		</Ii>
+		<Ii num="32">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>txt</srf>
+			<tit>text/plain</tit>
+		</Ii>
+		<Ii num="33">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>xls</srf>
+			<tit>application/msexcel</tit>
+		</Ii>
+		<Ii num="34">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>xlsx</srf>
+			<tit>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</tit>
+		</Ii>
+		<Ii num="35">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>xml</srf>
+			<tit>text/xml</tit>
+		</Ii>
+		<Ii num="36">
+			<kls>KlstWzskKMFileMimetype</kls>
+			<srf>zip</srf>
+			<tit>application/zip</tit>
+		</Ii>
+		<Ii num="37">
+			<kls>KlstWzskKMShotParKey</kls>
+			<srf>deltaTheta</srf>
+			<ImeIJAVKeylistKey>
+				<Ii num="1">
+					<lcl>enus</lcl>
+					<tit>angle increment [\u00b0]</tit>
+				</Ii>
+				<Ii num="2">
+					<lcl>dech</lcl>
+					<tit>Winkel-Schrittweite [\u00b0]</tit>
+				</Ii>
+			</ImeIJAVKeylistKey>
+		</Ii>
+		<Ii num="38">
+			<kls>KlstWzskKMShotParKey</kls>
+			<srf>Npoint</srf>
+			<ImeIJAVKeylistKey>
+				<Ii num="1">
+					<lcl>enus</lcl>
+					<tit>point cloud size</tit>
+				</Ii>
+				<Ii num="2">
+					<lcl>dech</lcl>
+					<tit>Gr\u00f6sse der Punktwolke</tit>
+				</Ii>
+			</ImeIJAVKeylistKey>
+		</Ii>
+	</ImeIAVKeylistKey>
+	<ImeIMUsergroup>
+		<Ii num="1">
+			<srf>wzskusers</srf>
+			<ImeIAMUsergroupAccess>
+				<Ii num="1">
+					<feg>VecWzskVCard</feg>
+					<fea>CrdWzskUsg</fea>
+					<acc>edit;exec;view</acc>
+				</Ii>
+				<Ii num="2">
+					<feg>VecWzskVCard</feg>
+					<fea>CrdWzskUsr</fea>
+					<acc>edit;exec;view</acc>
+				</Ii>
+				<Ii num="3">
+					<feg>VecWzskVCard</feg>
+					<fea>CrdWzskPrs</fea>
+					<acc>edit;exec;view</acc>
+				</Ii>
+				<Ii num="4">
+					<feg>VecWzskVCard</feg>
+					<fea>CrdWzskScf</fea>
+					<acc>edit;exec;view</acc>
+				</Ii>
+				<Ii num="5">
+					<feg>VecWzskVCard</feg>
+					<fea>CrdWzskLlv</fea>
+					<acc>edit;exec;view</acc>
+				</Ii>
+				<Ii num="6">
+					<feg>VecWzskVCard</feg>
+					<fea>CrdWzskLiv</fea>
+					<acc>edit;exec;view</acc>
+				</Ii>
+				<Ii num="7">
+					<feg>VecWzskVCard</feg>
+					<fea>CrdWzskOgr</fea>
+					<acc>edit;exec;view</acc>
+				</Ii>
+				<Ii num="8">
+					<feg>VecWzskVCard</feg>
+					<fea>CrdWzskObj</fea>
+					<acc>edit;exec;view</acc>
+				</Ii>
+				<Ii num="9">
+					<feg>VecWzskVCard</feg>
+					<fea>CrdWzskSes</fea>
+					<acc>edit;exec;view</acc>
+				</Ii>
+				<Ii num="10">
+					<feg>VecWzskVCard</feg>
+					<fea>CrdWzskSht</fea>
+					<acc>edit;exec;view</acc>
+				</Ii>
+				<Ii num="11">
+					<feg>VecWzskVCard</feg>
+					<fea>CrdWzskFil</fea>
+					<acc>edit;exec;view</acc>
+				</Ii>
+			</ImeIAMUsergroupAccess>
+			<ImeIMUser>
+				<Ii num="1">
+					<srf>wzskuser</srf>
+					<ste>act</ste>
+					<lcl>enus</lcl>
+					<ulv>adm</ulv>
+					<pwd>asdf1234</pwd>
+					<ImeIMPerson>
+						<Ii num="1">
+							<sex>f</sex>
+							<tit>Mrs.</tit>
+							<fnm>Emily</fnm>
+							<lnm>Johnson</lnm>
+						</Ii>
+					</ImeIMPerson>
+				</Ii>
+				<Ii num="2">
+					<srf>wzskuserdech</srf>
+					<ste>act</ste>
+					<lcl>dech</lcl>
+					<ulv>adm</ulv>
+					<pwd>asdf1234</pwd>
+					<ImeIMPerson>
+						<Ii num="1">
+							<sex>f</sex>
+							<tit>Fr.</tit>
+							<fnm>Julia</fnm>
+							<lnm>Schmidt</lnm>
+						</Ii>
+					</ImeIMPerson>
+				</Ii>
+			</ImeIMUser>
+		</Ii>
+	</ImeIMUsergroup>
+</IexWzskIni>

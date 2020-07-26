@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<head>
+		<title>3DView_bcont</title>
+		<script>
+			function handleSldTreHJpleftMov() {parent.parent.window.handleSldJpleftMov(document,"SldTreH");};
+			function handleSldTreHJpleftMou() {parent.parent.window.handleSldJpleftMou(document,"SldTreH");};
+			function handleSldTreHJpleftClick(evt) {parent.parent.window.handleSldJpleftClick(document,"SldTreH",false,false,false,evt);};
+			function handleSldTreHJprightMov() {parent.parent.window.handleSldJprightMov(document,"SldTreH");};
+			function handleSldTreHJprightMou() {parent.parent.window.handleSldJprightMou(document,"SldTreH");};
+			function handleSldTreHJprightClick(evt) {parent.parent.window.handleSldJprightClick(document,"SldTreH",false,false,false,evt);};
+			function handleSldTreHMov() {parent.parent.window.handleSldMov(document,"SldTreH");};
+			function handleSldTreHMou() {parent.parent.window.handleSldMou(document,"SldTreH");};
+			function handleSldTreHMdn() {parent.parent.window.handleSldMdn(document,"SldTreH");};
+			function handleSldTreHMove(evt) {parent.parent.window.handleSldMove(document,"SldTreH",false,false,false,evt);};
+			function handleSldTreHMup() {parent.parent.window.handleSldMup(document,"SldTreH",false);};
+			function handleSldTreHValKey(evt) {return parent.parent.window.handleSldValKey(document,"SldTreH",false,false,false,evt);};
+			function handleSldTreHValChange() {parent.parent.window.handleSldValChange(document,"SldTreH",false,false,false);};
+			function handleSldTreVJpleftMov() {parent.parent.window.handleSldJpleftMov(document,"SldTreV");};
+			function handleSldTreVJpleftMou() {parent.parent.window.handleSldJpleftMou(document,"SldTreV");};
+			function handleSldTreVJpleftClick(evt) {parent.parent.window.handleSldJpleftClick(document,"SldTreV",false,false,false,evt);};
+			function handleSldTreVJprightMov() {parent.parent.window.handleSldJprightMov(document,"SldTreV");};
+			function handleSldTreVJprightMou() {parent.parent.window.handleSldJprightMou(document,"SldTreV");};
+			function handleSldTreVJprightClick(evt) {parent.parent.window.handleSldJprightClick(document,"SldTreV",false,false,false,evt);};
+			function handleSldTreVMov() {parent.parent.window.handleSldMov(document,"SldTreV");};
+			function handleSldTreVMou() {parent.parent.window.handleSldMou(document,"SldTreV");};
+			function handleSldTreVMdn() {parent.parent.window.handleSldMdn(document,"SldTreV");};
+			function handleSldTreVMove(evt) {parent.parent.window.handleSldMove(document,"SldTreV",false,false,false,evt);};
+			function handleSldTreVMup() {parent.parent.window.handleSldMup(document,"SldTreV",false);};
+			function handleSldTreVValKey(evt) {return parent.parent.window.handleSldValKey(document,"SldTreV",false,false,false,evt);};
+			function handleSldTreVValChange() {parent.parent.window.handleSldValChange(document,"SldTreV",false,false,false);};
+			function handleButPlayClick() {parent.parent.window.handleButClick("ButPlay");};
+			function handleButStopClick() {parent.parent.window.handleButClick("ButStop");};
+			function handleButAstClick() {parent.parent.window.handleButClick("ButAst");};
+			<!-- IP custScript - INSERT -->
+		</script>
+		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
+		<!-- IP custStyle - INSERT -->
+	</head>
+	<body marginwidth="0" marginheight="0">
+		<table cellspacing="0" border="0" cellpadding="0"><form action="">
+			<colgroup>
+				<col width="5"/>
+				<col width="215"/>
+				<col width="5"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="68"/>
+				<col width="2"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="1"/>
+				<col width="114"/>
+			</colgroup>
+			<tbody id="tbl">
+				<tr><td colspan="11" height="5"></td></tr>
+				<tr id="trTre" class="show">
+					<!-- IP trTre - BEGIN -->
+					<td id="tdTre" height="500" colspan="11"></td>
+					<!-- IP trTre - END -->
+				</tr>
+				<tr id="trPlaystop" class="show">
+					<td height="25"></td>
+					<td colspan="2"></td>
+					<td colspan="8" align="left">
+						<img id="ButPlay" class="but" src="../iconwzsk/play.png" width="16" height="16" alt="ButPlay" onmouseover="src='../iconwzsk/play_hlt.png'" onmouseout="src='../iconwzsk/play.png'" onclick="handleButPlayClick()"/>
+						&#160;<img id="ButStop" class="but" src="../iconwzsk/stop.png" width="16" height="16" alt="ButStop" onmouseover="src='../iconwzsk/stop_hlt.png'" onmouseout="src='../iconwzsk/stop.png'" onclick="handleButStopClick()"/>
+					</td>
+				</tr>
+				<tr id="tr11" class="show"><td colspan="11" height="3"></td></tr>
+				<tr id="tr12" class="show">
+					<td height="1"></td>
+					<td colspan="10" bgcolor="#7f7f7f"></td>
+				</tr>
+				<tr id="tr13" class="show"><td colspan="11" height="3"></td></tr>
+				<tr id="trAcq" class="show">
+					<td height="25"></td>
+					<td colspan="2"></td>
+					<td colspan="8" align="left">
+						<span id="HdgAcq" class="cpt">HdgAcq</span>&#160;&#160;
+					</td>
+				</tr>
+				<tr id="trAst" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptAst" class="cpt">CptAst</span>
+					</td>
+					<td></td>
+					<td colspan="5" align="left">
+						<input id="TxtAst" class="txfnoed" type="text" readonly="readonly" value="TxtAst"/>
+					</td>
+					<td></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr id="trAoa" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptAoa" class="cpt">CptAoa</span>
+					</td>
+					<td></td>
+					<td colspan="5" align="left">
+						<input id="TxtAoa" class="txfnoed" type="text" readonly="readonly" value="TxtAoa"/>
+					</td>
+					<td></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr id="trAst" class="show">
+					<td height="25"></td>
+					<td colspan="2"></td>
+					<td colspan="8" align="left">
+						<span id="ButAst" class="but" onclick="handleButAstClick()">ButAst</span>
+					</td>
+				</tr>
+				<tr><td colspan="11" height="4"></td></tr>
+			</tbody>
+		</form></table>
+	</body>
+</html>
+

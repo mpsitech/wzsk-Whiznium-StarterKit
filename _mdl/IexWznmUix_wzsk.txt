@@ -1,0 +1,736 @@
+- IexWznmUix v0.9.23																			
+- ImeIMCard.sref																			
+- CrdWzskFil																			
+	- ImeIMControl1.srefIxVBasetype	srefHkIxVSection	srefRefIxVTbl	srefRefUref	srefSupRefWznmMControl	supNum	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	Avail	Active	srefsKOption					
+	- mit	mbar	dlg	DlgWzskFilDownload	MenCrd	3	shr	MitCrdDld	void	download		pre.ixCrdaccFilIncl(exec)	pre.refFil()	cap;ddd					
+	- ImeIMControl1.end																		
+	- ImeIMDialog.srefIxVBasetype	srefRefIxVTbl	srefRefUref	sref	Comment														
+	- cust	void		DlgWzskFilDownload															
+		- ImeIMControl3.iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption	
+		- 1	cpt	0	hdr	void		0	app	Cpt	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Download file															
+			- dech	Datei herunterladen															
+			- ImeIJMControlTitle3.end																
+		- 2	dld	0	cont	void		0	app	Dld	void	download						cap	
+		- 3	but	0	ftr	void		0	shr	ButDne	void	done						cap	
+			- ImeIAMControlPar3.x1SrefKKey	srefX2RefWznmMLocale	osrefKVal														
+			- action		dlgclose														
+			- ImeIAMControlPar3.end																
+		- ImeIMControl3.end																	
+	- ImeIMDialog.end																		
+- CrdWzskLiv																			
+	- ImeIMControl1.srefIxVBasetype	srefHkIxVSection	srefRefIxVTbl	srefRefUref	srefSupRefWznmMControl	supNum	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Avail	Active	srefsKOption						
+	- men	mbar	void				app	MenCrd	void										
+		- ImeIJMControlTitle1.srefX1RefWznmMLocale	Title																
+		- enus	Live data																
+		- dech	Live-Daten																
+		- ImeIJMControlTitle1.end																	
+		- ImeIAMControlPar1.x1SrefKKey	srefX2RefWznmMLocale	osrefKVal															
+		- cptwidth	enus	127															
+		- cptwidth	dech	136															
+		- width	enus	250															
+		- width	dech	250															
+		- ImeIAMControlPar1.end																	
+	- ImeIMControl1.end																		
+	- ImeIMPanel.srefIxVIop	srefIxVBasetype	carNum	sref	Detach	Avail	Comment												
+	- ins	form	1	PnlWzskLiv2DView	false														
+		- ImeICControl2.iref																	
+		- 1																	
+		- ImeICControl2.end																	
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- ins	1	cpt	0	hdr	void		0	app	Cpt	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Calibration														
+			- ins	dech	Kalibrierung														
+			- ImeIJMControlTitle2.end																
+		- ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
+		- ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
+		- ins	4	but	0	hdr	void		0	shr	ButClaim	void						custom()	icon;onoff
+		- ins	5	pup	0	cont	void		0	shr	PupPvm	void							
+			- ImeIMFeed2.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec	VecWzskVPvwmode	FeedFPupPvm														
+			- ImeIMFeed2.end																
+		- ins	6	cpt	0	cont	void		5	app	CptPvm	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	preview mode														
+			- ins	dech	Vorschaumodus														
+			- ImeIJMControlTitle2.end																
+		- ins	7	cus	0	cont	void		0	app	CusImg	void							iframe
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	height		384													
+			- ImeIAMControlPar2.end																
+		- ins	8	sld	0	cont	void		0	shr	SldFcs	void					custom()	custom()	
+		- ins	9	cpt	0	cont	void		8	app	CptFcs	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	focus (near -\u003e far)														
+			- ins	dech	Fokus (nah -\u003e fern)														
+			- ImeIJMControlTitle2.end																
+		- ins	10	sld	0	cont	void		0	shr	SldExt	void					custom()	custom()	log;rast
+		- ins	11	cpt	0	cont	void		10	app	CptExt	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	exposure time [ms]														
+			- ins	dech	Belichtungszeit [ms]														
+			- ImeIJMControlTitle2.end																
+		- ins	12	but	1	cont	void		0	shr	ButPlay	void						custom()	icon
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	icon		play													
+			- ImeIAMControlPar2.end																
+		- ins	13	but	1	cont	void		0	shr	ButStop	void						custom()	icon
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	icon		stop													
+			- ImeIAMControlPar2.end																
+		- ins	14	txt	0	cont	void		0	shr	TxtOaf	void					custom()		
+		- ins	15	cpt	0	cont	void		14	app	CptOaf	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	object affiliation														
+			- ins	dech	Objekt-Zuordnung														
+			- ImeIJMControlTitle2.end																
+		- ins	16	but	0	cont	void		0	shr	ButSts	void						custom()	
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Store snapshot														
+			- ins	dech	Schnappschuss machen														
+			- ImeIJMControlTitle2.end																
+		- ins	17	sep	0	cont	void		0	shr	Sep1	void							
+		- ins	18	but	0	cont	void		0	shr	ButTtb	void						custom()	onoff
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Turn turntable														
+			- ins	dech	Drehteller drehen														
+			- ImeIJMControlTitle2.end																
+		- ins	19	sep	0	cont	void		0	shr	Sep2	void							
+		- ins	20	hdg	0	cont	void		0	app	HdgLor	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Laser orientation														
+			- ins	dech	Laser-Orientierung														
+			- ImeIJMControlTitle2.end																
+		- ins	21	chk	0	cont	void		0	app	ChkLgl	void							
+		- ins	22	cpt	0	cont	void		21	app	CptLgl	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	show guidelines														
+			- ins	dech	Hilfslinien anzeigen														
+			- ImeIJMControlTitle2.end																
+		- ins	23	sld	0	cont	void		0	shr	SldLle	void							
+		- ins	24	cpt	0	cont	void		23	app	CptLle	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	left 'on' intensity [\u0025]														
+			- ins	dech	'ein'-Intensit\u00e4t links [\u0025]														
+			- ImeIJMControlTitle2.end																
+		- ins	25	sld	0	cont	void		0	shr	SldLri	void							
+		- ins	26	cpt	0	cont	void		25	app	CptLri	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	right 'on' intensity [\u0025]														
+			- ins	dech	'ein'-Intensit\u00e4t rechts [\u0025]														
+			- ImeIJMControlTitle2.end																
+		- ins	27	upd	0	cont	void		0	shr	UpdLlo	void					custom()		
+		- ins	28	cpt	0	cont	void		27	app	CptLlo	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	lower 'on' threshold level														
+			- ins	dech	unterer 'ein'-Schwellwert														
+			- ImeIJMControlTitle2.end																
+		- ins	29	upd	0	cont	void		0	shr	UpdLuo	void					custom()		
+		- ins	30	cpt	0	cont	void		29	app	CptLuo	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	upper 'off' threshold level														
+			- ins	dech	oberer 'aus'-Schwellwert														
+			- ImeIJMControlTitle2.end																
+		- ins	31	upd	0	cont	void		0	shr	UpdLmd	void					custom()		
+		- ins	32	cpt	0	cont	void		31	app	CptLmd	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	minimum 'on'-'off' difference														
+			- ins	dech	minimale 'ein'-'aus' Differenz														
+			- ImeIJMControlTitle2.end																
+		- ins	33	chk	0	cont	void		0	shr	ChkLro	void							
+		- ins	34	cpt	0	cont	void		33	app	CptLro	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	ROI trapezoid														
+			- ins	dech	ROI-Trapez														
+			- ImeIJMControlTitle2.end																
+		- ins	35	but	0	cont	void		0	shr	ButLtr	void							onoff
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Trace														
+			- ins	dech	Spur nachzeichnen														
+			- ImeIJMControlTitle2.end																
+		- ins	36	but	0	cont	void		0	app	ButLcl	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Clear														
+			- ins	dech	Zur\u00fccksetzen														
+			- ImeIJMControlTitle2.end																
+		- ins	37	sep	0	cont	void		0	shr	Sep3	void							
+		- ins	38	hdg	0	cont	void		0	app	HdgPos	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Pose estimation														
+			- ins	dech	Lagebestimmung														
+			- ImeIJMControlTitle2.end																
+		- ins	39	upd	0	cont	void		0	shr	UpdPnt	void							
+		- ins	40	cpt	0	cont	void		39	app	CptPnt	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	target count														
+			- ins	dech	Anzahl-Vorgabe														
+			- ImeIJMControlTitle2.end																
+		- ins	41	chk	0	cont	void		0	shr	ChkPro	void							
+		- ins	42	cpt	0	cont	void		41	app	CptPro	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	ROI trapezoid														
+			- ins	dech	ROI-Trapez														
+			- ImeIJMControlTitle2.end																
+		- ins	43	but	0	cont	void		0	shr	ButPic	void							onoff
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Identify corners														
+			- ins	dech	Ecken identifizieren														
+			- ImeIJMControlTitle2.end																
+		- ins	44	but	0	cont	void		0	app	ButPcl	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Clear														
+			- ins	dech	Zur\u00fccksetzen														
+			- ImeIJMControlTitle2.end																
+		- ImeIMControl2.end																	
+	- ins	form	2	PnlWzskLiv3DView	false														
+		- ImeICControl2.iref																	
+		- 1																	
+		- ImeICControl2.end																	
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- ins	1	cpt	0	hdr	void		0	app	Cpt	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	3D Reconstruction														
+			- ins	dech	3D-Rekonstruktion														
+			- ImeIJMControlTitle2.end																
+		- ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
+		- ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
+		- ins	4	but	0	hdr	void		0	shr	ButClaim	void						custom()	icon;onoff
+		- ins	5	cus	0	cont	void		0	app	CusTre	void							
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	height		500													
+			- ImeIAMControlPar2.end																
+		- ins	6	sld	0	cont	void		5	app	SldTreH	void							
+		- ins	7	sld	0	cont	void		5	app	SldTreV	void							
+		- ins	8	but	1	cont	void		0	shr	ButPlay	void						custom()	icon
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	icon		play													
+			- ImeIAMControlPar2.end																
+		- ins	9	but	1	cont	void		0	shr	ButStop	void						custom()	icon
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	icon		stop													
+			- ImeIAMControlPar2.end																
+		- ins	10	sep	0	cont	void		0	shr	Sep1	void							
+		- ins	11	hdg	0	cont	void		0	app	HdgAcq	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Shot acquisition														
+			- ins	dech	Aufnahme														
+			- ImeIJMControlTitle2.end																
+		- ins	12	txt	0	cont	void		0	shr	TxtAst	void							
+		- ins	13	cpt	0	cont	void		12	app	CptAst	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	state														
+			- ins	dech	Status														
+			- ImeIJMControlTitle2.end																
+		- ins	14	txt	0	cont	void		0	shr	TxtAoa	void					custom()		
+		- ins	15	cpt	0	cont	void		14	app	CptAoa	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	object affiliation														
+			- ins	dech	Objekt-Zuordnung														
+			- ImeIJMControlTitle2.end																
+		- ins	16	but	0	cont	void		0	shr	ButAst	void						custom()	
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Start														
+			- ins	dech	Start														
+			- ImeIJMControlTitle2.end																
+		- ImeIMControl2.end																	
+	- ImeIMPanel.end																		
+- CrdWzskLlv																			
+	- ImeIMControl1.srefIxVBasetype	srefHkIxVSection	srefRefIxVTbl	srefRefUref	srefSupRefWznmMControl	supNum	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	Avail	Active	srefsKOption					
+	- men	mbar	void				app	MenCrd	void										
+		- ImeIJMControlTitle1.srefX1RefWznmMLocale	Title																
+		- enus	Low-level access																
+		- dech	Low-level Zugriff																
+		- ImeIJMControlTitle1.end																	
+		- ImeIAMControlPar1.x1SrefKKey	srefX2RefWznmMLocale	osrefKVal															
+		- cptwidth	enus	200															
+		- cptwidth	dech	250															
+		- width	enus	200															
+		- width	dech	250															
+		- ImeIAMControlPar1.end																	
+	- ImeIMControl1.end																		
+	- ImeIMPanel.srefIxVIop	srefIxVBasetype	carNum	sref	Detach	Avail	Comment												
+	- ins	form	1	PnlWzskLlvTerm	false	custom()													
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- ins	1	cpt	0	hdr	void		0	app	Cpt	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Terminal														
+			- ins	dech	Terminal														
+			- ImeIJMControlTitle2.end																
+		- ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
+		- ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
+		- ins	4	but	0	hdr	void		0	shr	ButClaim	void						custom()	icon;onoff
+		- ins	5	txt	0	cont	void		0	shr	TxtCst	void							
+		- ins	6	cpt	0	cont	void		5	app	CptCst	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	connection state														
+			- ins	dech	Verbindungsstatus														
+			- ImeIJMControlTitle2.end																
+		- ins	7	sep	0	cont	void		0	app	Sep1	void							
+		- ins	8	hdg	0	cont	void		0	app	HdgDio	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Data in/out														
+			- ins	dech	Ein-/ausgehende Daten														
+			- ImeIJMControlTitle2.end																
+		- ins	9	cus	0	cont	void		0	shr	CusDat	void							
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	height		200													
+			- ImeIAMControlPar2.end																
+		- ins	10	txt	0	cont	void		9	shr	TxtDatLog	void							
+		- ins	11	sep	0	cont	void		0	app	Sep2	void							
+		- ins	12	hdg	0	cont	void		0	app	HdgCex	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Command execution														
+			- ins	dech	Befehlsausf\u00fchrung														
+			- ImeIJMControlTitle2.end																
+		- ins	13	pup	0	cont	void		0	shr	PupCmd	void							
+			- ImeIMFeed2.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- void		FeedFPupCmd														
+			- ImeIMFeed2.end																
+		- ins	14	cpt	0	cont	void		13	app	CptCmd	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	command														
+			- ins	dech	Befehl														
+			- ImeIJMControlTitle2.end																
+		- ins	15	but	0	cont	void		13	shr	ButApd	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Append														
+			- ins	dech	Hinzuf\u00fcgen														
+			- ImeIJMControlTitle2.end																
+		- ins	16	txf	0	cont	void		0	shr	TxfCsq	void							t
+		- ins	17	cpt	0	cont	void		16	app	CptCsq	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	command sequence														
+			- ins	dech	Befehlsfolge														
+			- ImeIJMControlTitle2.end																
+		- ins	18	but	0	cont	void		0	shr	ButSmt	void						custom()	
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Submit														
+			- ins	dech	Absenden														
+			- ImeIJMControlTitle2.end																
+		- ImeIMControl2.end																	
+	- ins	form	2	PnlWzskLlvCamera	false														
+		- ImeICControl2.iref																	
+		- 1																	
+		- ImeICControl2.end																	
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- ins	1	cpt	0	hdr	void		0	app	Cpt	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Camera														
+			- ins	dech	Kamera														
+			- ImeIJMControlTitle2.end																
+		- ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
+		- ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
+		- ins	4	but	0	hdr	void		0	shr	ButClaim	void						custom()	icon;onoff
+		- ins	5	pup	0	cont	void		0	shr	PupMde	void							
+			- ImeIMFeed2.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec	VecWzskVPvwmode	FeedFPupMde														
+			- ImeIMFeed2.end																
+		- ins	6	cpt	0	cont	void		5	app	CptMde	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	mode														
+			- ins	dech	Modus														
+			- ImeIJMControlTitle2.end																
+		- ins	7	cus	0	cont	void		0	app	CusImg	void							
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	height		480													
+			- ImeIAMControlPar2.end																
+		- ins	8	but	1	cont	void		0	shr	ButPlay	void						custom()	icon
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	icon		play													
+			- ImeIAMControlPar2.end																
+		- ins	9	but	1	cont	void		0	shr	ButStop	void						custom()	icon
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	icon		stop													
+			- ImeIAMControlPar2.end																
+		- ins	10	sld	0	cont	void		0	shr	SldFcs	void					custom()	custom()	
+		- ins	11	cpt	0	cont	void		10	app	CptFcs	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	focus (near -\u003e far)														
+			- ins	dech	Fokus (nah -\u003e fern)														
+			- ImeIJMControlTitle2.end																
+		- ins	12	sld	0	cont	void		0	shr	SldExt	void					custom()	custom()	log;rast
+		- ins	13	cpt	0	cont	void		12	app	CptExt	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	exposure time [ms]														
+			- ins	dech	Belichtungszeit [ms]														
+			- ImeIJMControlTitle2.end																
+		- ImeIMControl2.end																	
+	- ins	form	3	PnlWzskLlvTtable	false														
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- ins	1	cpt	0	hdr	void		0	app	Cpt	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Turntable														
+			- ins	dech	Drehteller														
+			- ImeIJMControlTitle2.end																
+		- ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
+		- ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
+		- ins	4	but	0	hdr	void		0	shr	ButClaim	void						custom()	icon;onoff
+		- ins	5	sld	0	cont	void		0	shr	SldTrg	void							
+		- ins	6	cpt	0	cont	void		5	app	CptTrg	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	target angle [\u00b0]														
+			- ins	dech	Zielwinkel [\u00b0]														
+			- ImeIJMControlTitle2.end																
+		- ins	7	txt	0	cont	void		0	shr	TxtSte	void							
+		- ins	8	cpt	0	cont	void		7	app	CptSte	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	state														
+			- ins	dech	Status														
+			- ImeIJMControlTitle2.end																
+		- ins	9	but	0	cont	void		0	shr	ButMve	void						custom()	
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Move														
+			- ins	dech	Bewegen														
+			- ImeIJMControlTitle2.end																
+		- ImeIMControl2.end																	
+	- ins	form	4	PnlWzskLlvLaser	false														
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- ins	1	cpt	0	hdr	void		0	app	Cpt	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Line lasers														
+			- ins	dech	Linienlaser														
+			- ImeIJMControlTitle2.end																
+		- ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
+		- ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
+		- ins	4	but	0	hdr	void		0	shr	ButClaim	void						custom()	icon;onoff
+		- ins	5	chk	0	cont	void		0	shr	ChkErg	void							
+		- ins	6	cpt	0	cont	void		5	app	CptErg	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	entire range														
+			- ins	dech	vollst\u00e4ndige Spanne														
+			- ImeIJMControlTitle2.end																
+		- ins	7	sld	0	cont	void		0	shr	SldLle	void						custom()	
+		- ins	8	cpt	0	cont	void		7	app	CptLle	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	left [\u0025]														
+			- ins	dech	links [\u0025]														
+			- ImeIJMControlTitle2.end																
+		- ins	9	sld	0	cont	void		0	shr	SldLri	void						custom()	
+		- ins	10	cpt	0	cont	void		9	app	CptLri	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	right [\u0025]														
+			- ins	dech	rechts [\u0025]														
+			- ImeIJMControlTitle2.end																
+		- ImeIMControl2.end																	
+	- ImeIMPanel.end																		
+- CrdWzskNav																			
+	- ImeIMControl1.srefIxVBasetype	srefHkIxVSection	srefRefIxVTbl	srefRefUref	srefSupRefWznmMControl	supNum	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	Avail	Active	srefsKOption					
+	- msp	mbar	void		MenApp	4	app	MspApp2	void			MitAppLoiAvail()							
+	- mit	mbar	dlg	DlgWzskNavLoaini	MenApp	5	shr	MitAppLoi	void	loaini		virgin()		cap;ddd					
+	- ImeIMControl1.end																		
+	- ImeIMDialog.srefIxVBasetype	srefRefIxVTbl	srefRefUref	sref	Comment														
+	- import	iex	IexWzskIni	DlgWzskNavLoaini															
+		- ImeICControl3.iref																	
+		- 1																	
+		- ImeICControl3.end																	
+		- ImeIMControl3.iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption	
+		- 1	cpt	0	hdr	void		0	app	Cpt	void	loaini						cap	
+		- 2	sge	0	void	void		0	shr	Sge	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec		FeedFSge														
+				- ImeIMVector3.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption												
+				- lin	VecVDlgWzskNavLoainiSge		noloc;notit;filfed												
+				- ImeIMVector3.end															
+			- ImeIMFeed3.end																
+		- 3	dse	0	hdr	void		0	shr	Dse	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec		FeedFDse														
+				- ImeIMVector3.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption												
+				- lin	VecVDlgWzskNavLoainiDit		filfed												
+				- ImeIMVector3.end															
+			- ImeIMFeed3.end																
+		- 4	dit	0	void	void		0	shr	DitIfi	dituld								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Initialization file															
+			- dech	Initialisierungsdatei															
+			- ImeIJMControlTitle3.end																
+		- 5	uld	0	cont	void		4	app	IfiUld	void	upload					sge(idle)	cap	
+		- 6	cpt	0	cont	void		5	app	IfiCpt	void	filename						cap	
+		- 7	dit	0	void	void		0	shr	DitImp	ditprg	import						cap	
+		- 8	txt	0	cont	void		7	shr	ImpTxtPrg	void							t	
+		- 9	cpt	0	cont	void		8	app	ImpCptPrg	void	progress						cap	
+		- 10	sep	0	cont	void		7	app	ImpSep1	void								
+		- 11	but	1	cont	void		7	shr	ImpButRun	void	run					sge(prsdone)	cap	
+		- 12	but	1	cont	void		7	shr	ImpButSto	void	stop					sge(impidle|import)	cap	
+		- 13	dit	0	void	void		0	shr	DitLfi	ditdld								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Log file															
+			- dech	Protokoll															
+			- ImeIJMControlTitle3.end																
+		- 14	dld	0	cont	void		13	app	LfiDld	void	download					sge(done)	cap	
+		- 15	but	0	ftr	void		0	shr	ButDne	void	done					sge(idle|done)	cap	
+			- ImeIAMControlPar3.x1SrefKKey	srefX2RefWznmMLocale	osrefKVal														
+			- action		dlgclose														
+			- ImeIAMControlPar3.end																
+		- ImeIMControl3.end																	
+	- ImeIMDialog.end																		
+- CrdWzskObj																			
+	- ImeIMControl1.srefIxVBasetype	srefHkIxVSection	srefRefIxVTbl	srefRefUref	srefSupRefWznmMControl	supNum	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	Avail	Active	srefsKOption					
+	- msp	mbar	void		MenCrd	1	app	MspCrd1	void			MitCrdNewAvail()							
+	- mit	mbar	dlg	DlgWzskObjNew	MenCrd	2	shr	MitCrdNew	void	new		pre.ixCrdaccObjIncl(edit)		cap;ddd					
+	- ImeIMControl1.end																		
+	- ImeIMDialog.srefIxVBasetype	srefRefIxVTbl	srefRefUref	sref	Comment														
+	- new	tbl	TblWzskMObject	DlgWzskObjNew															
+		- ImeIMControl3.iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption	
+		- 1	cpt	0	hdr	void		0	app	Cpt	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Create new object															
+			- dech	Neues Objekt anlegen															
+			- ImeIJMControlTitle3.end																
+		- 2	sge	0	void	void		0	shr	Sge	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec		FeedFSge														
+				- ImeIMVector3.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption												
+				- lin	VecVDlgWzskObjNewSge		noloc;notit;filfed												
+				- ImeIMVector3.end															
+			- ImeIMFeed3.end																
+		- 3	pup	0	cont	void		0	shr	PupOgr	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- tbl	TblWzskMObjgroup	FeedFPupOgr														
+			- ImeIMFeed3.end																
+		- 4	cpt	0	cont	void		3	app	CptOgr	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Object group															
+			- dech	Objektgruppe															
+			- ImeIJMControlTitle3.end																
+		- 5	txf	0	cont	void		0	shr	TxfTit	void								
+		- 6	cpt	0	cont	void		5	app	CptTit	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Name															
+			- dech	Name															
+			- ImeIJMControlTitle3.end																
+		- 7	txf	0	cont	void		0	shr	TxfCmt	void							t	
+		- 8	cpt	0	cont	void		7	app	CptCmt	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Comment															
+			- dech	Notiz															
+			- ImeIJMControlTitle3.end																
+		- 9	but	0	ftr	void		0	shr	ButCnc	void	cancel					!sge(create)	cap	
+			- ImeIAMControlPar3.x1SrefKKey	srefX2RefWznmMLocale	osrefKVal														
+			- action		dlgclose														
+			- ImeIAMControlPar3.end																
+		- 10	but	0	ftr	void		0	shr	ButCre	void	create					sge(idle)&valid()	cap	
+			- ImeIAMControlPar3.x1SrefKKey	srefX2RefWznmMLocale	osrefKVal														
+			- action		dlgclose														
+			- ImeIAMControlPar3.end																
+		- ImeIMControl3.end																	
+	- ImeIMDialog.end																		
+- CrdWzskOgr																			
+	- ImeIMControl1.srefIxVBasetype	srefHkIxVSection	srefRefIxVTbl	srefRefUref	srefSupRefWznmMControl	supNum	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	Avail	Active	srefsKOption					
+	- msp	mbar	void		MenCrd	1	app	MspCrd1	void			MitCrdNewAvail()							
+	- mit	mbar	dlg	DlgWzskOgrNew	MenCrd	2	shr	MitCrdNew	void	new		pre.ixCrdaccOgrIncl(edit)		cap;ddd					
+	- ImeIMControl1.end																		
+	- ImeIMDialog.srefIxVBasetype	srefRefIxVTbl	srefRefUref	sref	Comment														
+	- new	tbl	TblWzskMObjgroup	DlgWzskOgrNew															
+		- ImeIMControl3.iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption	
+		- 1	cpt	0	hdr	void		0	app	Cpt	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Create new object group															
+			- dech	Neue Objektgruppe anlegen															
+			- ImeIJMControlTitle3.end																
+		- 2	sge	0	void	void		0	shr	Sge	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec		FeedFSge														
+				- ImeIMVector3.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption												
+				- lin	VecVDlgWzskOgrNewSge		noloc;notit;filfed												
+				- ImeIMVector3.end															
+			- ImeIMFeed3.end																
+		- 3	pup	0	cont	void		0	shr	PupSup	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- tbl	TblWzskMObjgroup	FeedFPupSup														
+			- ImeIMFeed3.end																
+		- 4	cpt	0	cont	void		3	app	CptSup	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Super group															
+			- dech	\u00dcbergeordnete Gruppe															
+			- ImeIJMControlTitle3.end																
+		- 5	txf	0	cont	void		0	shr	TxfSrf	void							s	
+		- 6	cpt	0	cont	void		5	app	CptSrf	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Identifier															
+			- dech	Bezeichner															
+			- ImeIJMControlTitle3.end																
+		- 7	sep	0	cont	void		0	app	Sep1	void								
+		- 8	pup	0	cont	void		0	shr	PupLcl	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec	VecWzskVLocale	FeedFPupLcl														
+			- ImeIMFeed3.end																
+		- 9	cpt	0	cont	void		8	app	CptLcl	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Locale															
+			- dech	Sprachversion															
+			- ImeIJMControlTitle3.end																
+		- 10	txf	0	cont	void		0	shr	TxfTit	void								
+		- 11	cpt	0	cont	void		10	app	CptTit	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Name															
+			- dech	Name															
+			- ImeIJMControlTitle3.end																
+		- 12	sep	0	cont	void		0	app	Sep2	void								
+		- 13	txf	0	cont	void		0	shr	TxfCmt	void							t	
+		- 14	cpt	0	cont	void		13	app	CptCmt	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Comment															
+			- dech	Notiz															
+			- ImeIJMControlTitle3.end																
+		- 15	but	0	ftr	void		0	shr	ButCnc	void	cancel					!sge(create)	cap	
+			- ImeIAMControlPar3.x1SrefKKey	srefX2RefWznmMLocale	osrefKVal														
+			- action		dlgclose														
+			- ImeIAMControlPar3.end																
+		- 16	but	0	ftr	void		0	shr	ButCre	void	create					sge(idle)&valid()	cap	
+			- ImeIAMControlPar3.x1SrefKKey	srefX2RefWznmMLocale	osrefKVal														
+			- action		dlgclose														
+			- ImeIAMControlPar3.end																
+		- ImeIMControl3.end																	
+	- ImeIMDialog.end																		
+- CrdWzskScf																			
+	- ImeIMControl1.srefIxVBasetype	srefHkIxVSection	srefRefIxVTbl	srefRefUref	srefSupRefWznmMControl	supNum	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	Avail	Active	srefsKOption					
+	- men	mbar	void				app	MenCrd	void										
+		- ImeIJMControlTitle1.srefX1RefWznmMLocale	Title																
+		- enus	System configuration																
+		- dech	Systemkonfiguration																
+		- ImeIJMControlTitle1.end																	
+		- ImeIAMControlPar1.x1SrefKKey	srefX2RefWznmMLocale	osrefKVal															
+		- cptwidth	enus	200															
+		- cptwidth	dech	250															
+		- width	enus	200															
+		- width	dech	250															
+		- ImeIAMControlPar1.end																	
+	- msp	mbar	void		MenCrd	1	app	MspCrd1	void										
+	- mit	mbar	dlg	DlgWzskScfCameramat	MenCrd	2	shr	MitCrdCmm	void										
+		- ImeIJMControlTitle1.srefX1RefWznmMLocale	Title																
+		- enus	Calibrate camera matrix ...																
+		- dech	Kameramatrix kalibrieren ...																
+		- ImeIJMControlTitle1.end																	
+	- mit	mbar	dlg	DlgWzskScfTtablecoord	MenCrd	3	shr	MitCrdTtc	void										
+		- ImeIJMControlTitle1.srefX1RefWznmMLocale	Title																
+		- enus	Calibrate turntable coordinates ...																
+		- dech	Drehteller-Koordinaten kalibrieren ...																
+		- ImeIJMControlTitle1.end																	
+	- mit	mbar	dlg	DlgWzskScfLaserpos	MenCrd	4	shr	MitCrdLsp	void										
+		- ImeIJMControlTitle1.srefX1RefWznmMLocale	Title																
+		- enus	Calibrate line laser positions ...																
+		- dech	Linienlaser-Positionen kalibrieren ...																
+		- ImeIJMControlTitle1.end																	
+	- msp	mbar	void		MenCrd	5	app	MspCrd2	void										
+	- ImeIMControl1.end																		
+	- ImeIMPanel.srefIxVIop	srefIxVBasetype	carNum	sref	Detach	Avail	Comment												
+	- ins	form	1	PnlWzskScfConn	false														
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- ins	1	cpt	0	hdr	void		0	app	Cpt	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Connections														
+			- ins	dech	Anschl\u00fcsse														
+			- ImeIJMControlTitle2.end																
+		- ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
+		- ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
+		- ImeIMControl2.end																	
+	- ins	form	2	PnlWzskScfGeom	false														
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- ins	1	cpt	0	hdr	void		0	app	Cpt	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Geometry														
+			- ins	dech	Geometrie														
+			- ImeIJMControlTitle2.end																
+		- ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
+		- ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
+		- ImeIMControl2.end																	
+	- ImeIMPanel.end																		
+	- ImeIMDialog.srefIxVBasetype	srefRefIxVTbl	srefRefUref	sref	Comment														
+	- cust	void		DlgWzskScfCameramat															
+		- ImeIMControl3.iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption	
+		- 1	cpt	0	hdr	void		0	app	Cpt	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Calibrate camera matrix															
+			- dech	Kameramatrix kalibrieren															
+			- ImeIJMControlTitle3.end																
+		- 2	sge	0	void	void		0	shr	Sge	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec		FeedFSge														
+				- ImeIMVector3.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption												
+				- lin	VecVDlgWzskScfCameramatSge		noloc;notit;filfed												
+				- ImeIMVector3.end															
+			- ImeIMFeed3.end																
+		- 3	dse	0	hdr	void		0	shr	Dse	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec		FeedFDse														
+				- ImeIMVector3.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption												
+				- lin	VecVDlgWzskScfCameramatDit		filfed												
+				- ImeIMVector3.end															
+			- ImeIMFeed3.end																
+		- 4	dit	0	void	void		0	shr	DitPlh	ditstd								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Placeholder															
+			- dech	Platzhalter															
+			- ImeIJMControlTitle3.end																
+		- 5	but	0	ftr	void		0	shr	ButDne	void	done					sge(idle|done)	cap	
+			- ImeIAMControlPar3.x1SrefKKey	srefX2RefWznmMLocale	osrefKVal														
+			- action		dlgclose														
+			- ImeIAMControlPar3.end																
+		- ImeIMControl3.end																	
+	- cust	void		DlgWzskScfTtablecoord															
+		- ImeIMControl3.iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption	
+		- 1	cpt	0	hdr	void		0	app	Cpt	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Calibrate turntable coordinates															
+			- dech	Drehteller-Koordinaten kalibrieren															
+			- ImeIJMControlTitle3.end																
+		- 2	sge	0	void	void		0	shr	Sge	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec		FeedFSge														
+				- ImeIMVector3.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption												
+				- lin	VecVDlgWzskScfTtablecoordSge		noloc;notit;filfed												
+				- ImeIMVector3.end															
+			- ImeIMFeed3.end																
+		- 3	dse	0	hdr	void		0	shr	Dse	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec		FeedFDse														
+				- ImeIMVector3.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption												
+				- lin	VecVDlgWzskScfTtablecoordDit		filfed												
+				- ImeIMVector3.end															
+			- ImeIMFeed3.end																
+		- 4	dit	0	void	void		0	shr	DitPlh	ditstd								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Placeholder															
+			- dech	Platzhalter															
+			- ImeIJMControlTitle3.end																
+		- 5	but	0	ftr	void		0	shr	ButDne	void	done					sge(idle|done)	cap	
+			- ImeIAMControlPar3.x1SrefKKey	srefX2RefWznmMLocale	osrefKVal														
+			- action		dlgclose														
+			- ImeIAMControlPar3.end																
+		- ImeIMControl3.end																	
+	- cust	void		DlgWzskScfLaserpos															
+		- ImeIMControl3.iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption	
+		- 1	cpt	0	hdr	void		0	app	Cpt	void								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Calibrate line laser positions															
+			- dech	Linienlaser-Positionen kalibrieren															
+			- ImeIJMControlTitle3.end																
+		- 2	sge	0	void	void		0	shr	Sge	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec		FeedFSge														
+				- ImeIMVector3.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption												
+				- lin	VecVDlgWzskScfLaserposSge		noloc;notit;filfed												
+				- ImeIMVector3.end															
+			- ImeIMFeed3.end																
+		- 3	dse	0	hdr	void		0	shr	Dse	void								
+			- ImeIMFeed3.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment											
+			- vec		FeedFDse														
+				- ImeIMVector3.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption												
+				- lin	VecVDlgWzskScfLaserposDit		filfed												
+				- ImeIMVector3.end															
+			- ImeIMFeed3.end																
+		- 4	dit	0	void	void		0	shr	DitPlh	ditstd								
+			- ImeIJMControlTitle3.srefX1RefWznmMLocale	Title															
+			- enus	Placeholder															
+			- dech	Platzhalter															
+			- ImeIJMControlTitle3.end																
+		- 5	but	0	ftr	void		0	shr	ButDne	void	done					sge(idle|done)	cap	
+			- ImeIAMControlPar3.x1SrefKKey	srefX2RefWznmMLocale	osrefKVal														
+			- action		dlgclose														
+			- ImeIAMControlPar3.end																
+		- ImeIMControl3.end																	
+	- ImeIMDialog.end																		
+- ImeIMCard.end																			

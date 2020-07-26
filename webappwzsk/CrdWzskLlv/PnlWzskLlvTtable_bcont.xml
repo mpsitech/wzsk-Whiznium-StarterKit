@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<head>
+		<title>Ttable_bcont</title>
+		<script>
+			function handleSldTrgJpleftMov() {parent.parent.window.handleSldJpleftMov(document,"SldTrg");};
+			function handleSldTrgJpleftMou() {parent.parent.window.handleSldJpleftMou(document,"SldTrg");};
+			function handleSldTrgJpleftClick(evt) {parent.parent.window.handleSldJpleftClick(document,"SldTrg",true,false,false,evt);};
+			function handleSldTrgJprightMov() {parent.parent.window.handleSldJprightMov(document,"SldTrg");};
+			function handleSldTrgJprightMou() {parent.parent.window.handleSldJprightMou(document,"SldTrg");};
+			function handleSldTrgJprightClick(evt) {parent.parent.window.handleSldJprightClick(document,"SldTrg",true,false,false,evt);};
+			function handleSldTrgMov() {parent.parent.window.handleSldMov(document,"SldTrg");};
+			function handleSldTrgMou() {parent.parent.window.handleSldMou(document,"SldTrg");};
+			function handleSldTrgMdn() {parent.parent.window.handleSldMdn(document,"SldTrg");};
+			function handleSldTrgMove(evt) {parent.parent.window.handleSldMove(document,"SldTrg",true,false,false,evt);};
+			function handleSldTrgMup() {parent.parent.window.handleSldMup(document,"SldTrg",true);};
+			function handleSldTrgValKey(evt) {return parent.parent.window.handleSldValKey(document,"SldTrg",true,false,false,evt);};
+			function handleSldTrgValChange() {parent.parent.window.handleSldValChange(document,"SldTrg",true,false,false);};
+			function handleButMveClick() {parent.parent.window.handleButClick("ButMve");};
+			<!-- IP custScript - INSERT -->
+		</script>
+		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
+		<!-- IP custStyle - INSERT -->
+	</head>
+	<body marginwidth="0" marginheight="0">
+		<table cellspacing="0" border="0" cellpadding="0"><form action="">
+			<colgroup>
+				<col width="5"/>
+				<col width="215"/>
+				<col width="5"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="68"/>
+				<col width="2"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="1"/>
+				<col width="114"/>
+			</colgroup>
+			<tbody id="tbl">
+				<tr><td colspan="11" height="5"></td></tr>
+				<tr id="trTrg" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptTrg" class="cpt">CptTrg</span>
+					</td>
+					<td></td>
+					<td id="tdSldTrg" colspan="5">
+						<svg class="svg" width="340" height="25" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<line class="sldlinact" x1="0" y1="12.5" x2="5" y2="12.5"/>
+							<line class="sldlinact" x1="335" y1="12.5" x2="340" y2="12.5"/>
+							<g id="SldTrgJpleft" class="sld" onmouseover="handleSldTrgJpleftMov()" onmouseout="handleSldTrgJpleftMou()" onclick="handleSldTrgJpleftClick(event)">
+								<rect id="SldTrgJpleftr" class="sldr" x="5" y="2" width="165" height="18"/>
+								<line id="SldTrgJpleftl" class="sldl" x1="5" y1="12.5" x2="167.5" y2="12.5"/>
+							</g>
+							<g id="SldTrgJpright" class="sld" onmouseover="handleSldTrgJprightMov()" onmouseout="handleSldTrgJprightMou()" onclick="handleSldTrgJprightClick(event)">
+								<rect id="SldTrgJprightr" class="sldr" x="170" y="2" width="165" height="18"/>
+								<line id="SldTrgJprightl" class="sldl" x1="172.5" y1="12.5" x2="335" y2="12.5"/>
+							</g>
+							<g id="SldTrg" class="sld" transform="translate(170 0)" onmouseover="handleSldTrgMov()" onmouseout="handleSldTrgMou()" onmousedown="handleSldTrgMdn()">
+								<rect id="SldTrgR" class="sldr" x="-3" y="2" width="6" height="21"/>
+								<g id="SldTrgBar" class="sldl">
+									<line x1="-2" y1="2" x2="-2" y2="23"/>
+									<line x1="2" y1="2" x2="2" y2="23"/>
+								</g>
+							</g>
+						</svg>
+					</td>
+					<td></td>
+					<td colspan="2" align="left">
+						<input id="SldTrgVal" class="txfxs" type="text" value="SldTrgVal" onchange="handleSldTrgValChange()" onkeypress="return handleSldTrgValKey(event)"/>
+					</td>
+				</tr>
+				<tr id="trSte" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptSte" class="cpt">CptSte</span>
+					</td>
+					<td></td>
+					<td colspan="5" align="left">
+						<input id="TxtSte" class="txfnoed" type="text" readonly="readonly" value="TxtSte"/>
+					</td>
+					<td></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr id="trMve" class="show">
+					<td height="25"></td>
+					<td colspan="2"></td>
+					<td colspan="8" align="left">
+						<span id="ButMve" class="but" onclick="handleButMveClick()">ButMve</span>
+					</td>
+				</tr>
+				<tr><td colspan="11" height="4"></td></tr>
+			</tbody>
+		</form></table>
+	</body>
+</html>
+

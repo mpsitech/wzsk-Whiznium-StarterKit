@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PrefWzskcmbd>
+	<StgWzskAppearance>
+		<Si sref="histlength">20</Si>
+		<Si sref="suspsess">true</Si>
+	</StgWzskAppearance>
+	<StgWzskAppsrv>
+		<Si sref="port"></Si>
+		<Si sref="https">false</Si>
+	</StgWzskAppsrv>
+	<StgWzskCamera>
+		<Si sref="hpix">1.4</Si>
+		<Si sref="f">3.78</Si>
+		<Si sref="fn">3</Si>
+	</StgWzskCamera>
+	<StgWzskcmbd>
+		<Si sref="jobprcn">1</Si>
+		<Si sref="opprcn">1</Si>
+		<Si sref="appsrv">true</Si>
+		<Si sref="ddspub">true</Si>
+		<Si sref="uasrv">true</Si>
+	</StgWzskcmbd>
+	<StgWzskDatabase>
+		<Si sref="srefIxDbsVDbstype"/>
+		<Si sref="dbspath"></Si>
+		<Si sref="dbsname"></Si>
+		<Si sref="username"></Si>
+		<Si sref="password"></Si>
+		<Si sref="ip"></Si>
+		<Si sref="port"></Si>
+	</StgWzskDatabase>
+	<StgWzskDdspub>
+		<Si sref="username"></Si>
+		<Si sref="password"></Si>
+	</StgWzskDdspub>
+	<StgWzskFramegeo>
+		<Si sref="wAcq">2592</Si>
+		<Si sref="hAcq">1944</Si>
+		<Si sref="whAcq">5038848</Si>
+		<Si sref="x0Rgb">16</Si>
+		<Si sref="wRgb">1280</Si>
+		<Si sref="y0Rgb">12</Si>
+		<Si sref="hRgb">960</Si>
+		<Si sref="x0Grrd">272</Si>
+		<Si sref="wGrrd">1024</Si>
+		<Si sref="y0Grrd">204</Si>
+		<Si sref="hGrrd">768</Si>
+	</StgWzskFramegeo>
+	<StgWzskGlobal>
+		<Si sref="fpgaNotV4l2gpio">false</Si>
+	</StgWzskGlobal>
+	<StgWzskPath>
+		<Si sref="acvpath"></Si>
+		<Si sref="keypath"></Si>
+		<Si sref="monpath"></Si>
+		<Si sref="tmppath"></Si>
+		<Si sref="webpath"></Si>
+		<Si sref="helpurl"></Si>
+	</StgWzskPath>
+	<StgWzskUasrv>
+		<Si sref="profile"></Si>
+		<Si sref="port"></Si>
+		<Si sref="cycle"></Si>
+		<Si sref="maxbrowse"></Si>
+		<Si sref="maxmon"></Si>
+	</StgWzskUasrv>
+	<StgJobWzskAcqPtcloud>
+		<Si sref="dLeft">0.2</Si>
+		<Si sref="dRight">0.2</Si>
+		<Si sref="dWork">0.2</Si>
+		<Si sref="deltaTheta">5</Si>
+	</StgJobWzskAcqPtcloud>
+	<StgJobWzskActLaser>
+		<Si sref="pathGpio">/dev/gpiochip5</Si>
+		<Si sref="lineoffsetLeft">10</Si>
+		<Si sref="lineoffsetRight">9</Si>
+		<Si sref="pathSpi">/dev/spidev0.0</Si>
+		<Si sref="leftMin">174</Si>
+		<Si sref="leftMax">245</Si>
+		<Si sref="rightMin">174</Si>
+		<Si sref="rightMax">245</Si>
+	</StgJobWzskActLaser>
+	<StgJobWzskActServo>
+		<Si sref="pathroot">/sys/class/pwm/pwmchip</Si>
+		<Si sref="halfstepNotTorque">false</Si>
+		<Si sref="omega">0.025</Si>
+	</StgJobWzskActServo>
+	<StgJobWzskIprCorner>
+		<Si sref="roiNotFull">false</Si>
+	</StgJobWzskIprCorner>
+	<StgJobWzskIprTrace>
+		<Si sref="v4l2RdNotDelta">false</Si>
+		<Si sref="roiNotFull">false</Si>
+		<Si sref="lvlFirst">10</Si>
+		<Si sref="lvlSecond">5</Si>
+		<Si sref="leftOnNotOff">true</Si>
+		<Si sref="rightOnNotOff">true</Si>
+	</StgJobWzskIprTrace>
+	<StgJobWzskSrcFpga>
+		<Si sref="path">/dev/arty</Si>
+	</StgJobWzskSrcFpga>
+	<StgJobWzskSrcV4l2>
+		<Si sref="path">/dev/video1</Si>
+		<Si sref="YUV422NotYUV420">false</Si>
+	</StgJobWzskSrcV4l2>
+</PrefWzskcmbd>

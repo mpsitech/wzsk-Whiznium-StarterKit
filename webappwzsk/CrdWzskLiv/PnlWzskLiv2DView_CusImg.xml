@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<head>
+		<title>CusImg</title>
+		<script>
+			function handleCusImgLoad() {parent.parent.parent.window.handleCusImgLoad(document)};
+			<!-- IP evthdls - INSERT -->
+		</script>
+		<!-- IP style - INSERT -->
+	</head>
+	<body marginwidth="0" marginheight="0" onload="handleCusImgLoad()">
+		<!-- IP pre - IBEGIN -->
+		<div id="divSvg" style="z-index:1;position:absolute;display:block;top:0px;left:0px;width:690px;height:384px;padding:0px 0px 0px;background:rgba(255,255,255,0)">
+			<svg width="690" height="384px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+				<g transform="translate(345.5 192.5)">
+					<g id="scaler" transform="scale(0.5 0.5)">
+						<path id="guide" style="" stroke="none" fill="none" d="M -640,0 L 640,0 M 0,-480 L 0,480"/>
+						<path id="roiCorner" style="" stroke="none" fill="none" d="M -150,-150 L 150,-150 L 150,150 L -150,150 L -150,-150"/>
+						<g id="corner" style="" stroke="blue"/>
+						<path id="roiTraceL" style="" stroke="none" fill="none" d="M -100,-100 L 100,-100 L 100,100 L -100,100 L -100,-100"/>
+						<path id="roiTraceR" style="stroke-dasharray: 5,5" stroke="none" fill="none" d="M -100,-100 L 100,-100 L 100,100 L -100,100 L -100,-100"/>
+						<g id="traceL" style="" stroke="red"/>
+						<g id="traceR" style="" stroke="green"/>
+					</g>
+				</g>
+			</svg>
+		</div>
+		<!-- IP pre - IEND -->
+		<table cellspacing="0" border="0" cellpadding="0">
+			<colgroup>
+				<col width="690"/><!-- IP colgrp - ILINE -->
+			</colgroup>
+			<tbody id="tbl">
+				<!-- IP tbody - IBEGIN -->
+				<tr id="trImg" class="show">
+					<!-- IP trImg - RBEGIN -->
+					<td id="tdImg" height="384" colspan="1">
+						<canvas style="display:block;cursor:pointer" id="cvs" width="690" height="384">This page needs a web-browser capable of displaying canvasses!</canvas>
+					</td>
+					<!-- IP trImg - REND -->
+				</tr>
+				<!-- IP tbody - IEND -->
+			</tbody>
+		</table>
+	</body>
+</html>
+
+
+

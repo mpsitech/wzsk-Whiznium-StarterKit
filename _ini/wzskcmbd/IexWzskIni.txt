@@ -1,0 +1,99 @@
+- IexWzskIni v0.1.26
+- ImeIAVKeylistKey.srefKlsIxWzskVKeylist	sref	Avail	Implied	Title	Comment
+- KlstWzskKAMPersonDetailType	eml				
+	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	- enus	e-mail	
+	- dech	E-Mail	
+	- ImeIJAVKeylistKey.end
+- KlstWzskKAMPersonDetailType	fax				
+	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	- enus	fax	
+	- dech	Telefax	
+	- ImeIJAVKeylistKey.end
+- KlstWzskKAMPersonDetailType	mbl				
+	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	- enus	mobile	
+	- dech	Handy	
+	- ImeIJAVKeylistKey.end
+- KlstWzskKAMPersonDetailType	tel				
+	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	- enus	phone	
+	- dech	Telefon	
+	- ImeIJAVKeylistKey.end
+- KlstWzskKMFileContent	pvwsnap				
+	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	- enus	preview snapshot	
+	- dech	Vorschau Schnappschuss	
+	- ImeIJAVKeylistKey.end
+- KlstWzskKMFileContent	xyz				
+	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	- enus	point cloud	
+	- dech	Punktwolke	
+	- ImeIJAVKeylistKey.end
+- KlstWzskKMFileMimetype	bmp			image/bmp	
+- KlstWzskKMFileMimetype	cpp			text/x-c	
+- KlstWzskKMFileMimetype	css			text/css	
+- KlstWzskKMFileMimetype	csv			text/comma-separated-values	
+- KlstWzskKMFileMimetype	doc			application/msword	
+- KlstWzskKMFileMimetype	docx			application/vnd.openxmlformats-officedocument.wordprocessingml.document	
+- KlstWzskKMFileMimetype	eps			application/postscript	
+- KlstWzskKMFileMimetype	gif			image/gif	
+- KlstWzskKMFileMimetype	h			text/x-h	
+- KlstWzskKMFileMimetype	hdf			application/x-hdf	
+- KlstWzskKMFileMimetype	html			text/html	
+- KlstWzskKMFileMimetype	jpg			image/jpeg	
+- KlstWzskKMFileMimetype	js			text/javascript	
+- KlstWzskKMFileMimetype	make			text/x-makefile	
+- KlstWzskKMFileMimetype	nc			application/x-netcdf	
+- KlstWzskKMFileMimetype	pdf			application/pdf	
+- KlstWzskKMFileMimetype	png			image/png	
+- KlstWzskKMFileMimetype	ppt			application/mspowerpoint	
+- KlstWzskKMFileMimetype	pptx			application/vnd.openxmlformats-officedocument.presentationml.presentation	
+- KlstWzskKMFileMimetype	sh			application/x-sh	
+- KlstWzskKMFileMimetype	sql			text/x-sql	
+- KlstWzskKMFileMimetype	svg			image/svg+xml	
+- KlstWzskKMFileMimetype	tex			application/x-tex	
+- KlstWzskKMFileMimetype	tgz			application/x-gzip	
+- KlstWzskKMFileMimetype	tif			image/tiff	
+- KlstWzskKMFileMimetype	txt			text/plain	
+- KlstWzskKMFileMimetype	xls			application/msexcel	
+- KlstWzskKMFileMimetype	xlsx			application/vnd.openxmlformats-officedocument.spreadsheetml.sheet	
+- KlstWzskKMFileMimetype	xml			text/xml	
+- KlstWzskKMFileMimetype	zip			application/zip	
+- KlstWzskKMShotParKey	deltaTheta				
+	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	- enus	angle increment [\u00b0]	
+	- dech	Winkel-Schrittweite [\u00b0]	
+	- ImeIJAVKeylistKey.end
+- KlstWzskKMShotParKey	Npoint				
+	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	- enus	point cloud size	
+	- dech	Gr\u00f6sse der Punktwolke	
+	- ImeIJAVKeylistKey.end
+- ImeIAVKeylistKey.end
+- ImeIMUsergroup.sref	Comment
+- wzskusers
+	- ImeIAMUsergroupAccess.srefX1IxWzskVFeatgroup	x2FeaSrefUix	srefsIxWzskWAccess
+	- VecWzskVCard	CrdWzskUsg	edit;exec;view
+	- VecWzskVCard	CrdWzskUsr	edit;exec;view
+	- VecWzskVCard	CrdWzskPrs	edit;exec;view
+	- VecWzskVCard	CrdWzskScf	edit;exec;view
+	- VecWzskVCard	CrdWzskLlv	edit;exec;view
+	- VecWzskVCard	CrdWzskLiv	edit;exec;view
+	- VecWzskVCard	CrdWzskOgr	edit;exec;view
+	- VecWzskVCard	CrdWzskObj	edit;exec;view
+	- VecWzskVCard	CrdWzskSes	edit;exec;view
+	- VecWzskVCard	CrdWzskSht	edit;exec;view
+	- VecWzskVCard	CrdWzskFil	edit;exec;view
+	- ImeIAMUsergroupAccess.end
+	- ImeIMUser.sref	srefIxVState	srefIxWzskVLocale	srefIxWzskVUserlevel	Password	Comment
+	- wzskuser	act	enus	adm	asdf1234
+		- ImeIMPerson.srefIxVSex	Title	Firstname	Lastname
+		- f	Mrs.	Emily	Johnson
+		- ImeIMPerson.end
+	- wzskuserdech	act	dech	adm	asdf1234
+		- ImeIMPerson.srefIxVSex	Title	Firstname	Lastname
+		- f	Fr.	Julia	Schmidt
+		- ImeIMPerson.end
+	- ImeIMUser.end
+- ImeIMUsergroup.end
