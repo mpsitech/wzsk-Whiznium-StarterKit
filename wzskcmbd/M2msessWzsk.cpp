@@ -2,8 +2,8 @@
 	* \file M2msessWzsk.cpp
 	* job handler for job M2msessWzsk (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -39,10 +39,12 @@ M2msessWzsk::M2msessWzsk(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
+	srcsysinfo = NULL;
 	iprtrace = NULL;
 	iprcorner = NULL;
 	actservo = NULL;
 	actlaser = NULL;
+	actexposure = NULL;
 	acqptcloud = NULL;
 	acqpreview = NULL;
 
@@ -80,10 +82,14 @@ M2msessWzsk::M2msessWzsk(
 	if (!adm) dbswzsk->tblwzskrmusermusergroup->loadRstByUsr(refWzskMUser, false, urus);
 
 	// determine access rights for each feature group and feature
+	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, adm, urus, refWzskMUser);
+	if (!adm) {
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "loadAllLoadCore0LoadCore1LoadCore2LoadCore3", urus, refWzskMUser, ixWzskWAccessBase);
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "temp", urus, refWzskMUser, ixWzskWAccessBase);
+	};
 	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, adm, urus, refWzskMUser);
 	if (!adm) {
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setLevel", urus, refWzskMUser, ixWzskWAccessBase);
-		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setPOn", urus, refWzskMUser, ixWzskWAccessBase);
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setRoi", urus, refWzskMUser, ixWzskWAccessBase);
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setRoiNotFull", urus, refWzskMUser, ixWzskWAccessBase);
 	};
@@ -109,6 +115,8 @@ M2msessWzsk::M2msessWzsk(
 	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, adm, urus, refWzskMUser);
 	if (!adm) {
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "moveto", urus, refWzskMUser, ixWzskWAccessBase);
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "stop", urus, refWzskMUser, ixWzskWAccessBase);
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "turn", urus, refWzskMUser, ixWzskWAccessBase);
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "zero", urus, refWzskMUser, ixWzskWAccessBase);
 	};
 	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOVAR, adm, urus, refWzskMUser);
@@ -124,8 +132,23 @@ M2msessWzsk::M2msessWzsk(
 	if (!adm) {
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, "leftRight", urus, refWzskMUser, ixWzskWAccessBase);
 	};
+	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, adm, urus, refWzskMUser);
+	if (!adm) {
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setExposure", urus, refWzskMUser, ixWzskWAccessBase);
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setFocus", urus, refWzskMUser, ixWzskWAccessBase);
+	};
+	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, adm, urus, refWzskMUser);
+	if (!adm) {
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "autoNotManualTexp", urus, refWzskMUser, ixWzskWAccessBase);
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "focus", urus, refWzskMUser, ixWzskWAccessBase);
+	};
+	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, adm, urus, refWzskMUser);
+	if (!adm) {
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDeltaTheta", urus, refWzskMUser, ixWzskWAccessBase);
+	};
 	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, adm, urus, refWzskMUser);
 	if (!adm) {
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "deltaTheta", urus, refWzskMUser, ixWzskWAccessBase);
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "xYZ", urus, refWzskMUser, ixWzskWAccessBase);
 	};
 	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, adm, urus, refWzskMUser);
@@ -135,6 +158,10 @@ M2msessWzsk::M2msessWzsk(
 	};
 
 	// create jobs according to access rights
+	if (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "")) != accs.end()) {
+		srcsysinfo = new JobWzskSrcSysinfo(xchg, dbswzsk, jref, ixWzskVLocale);
+		statshr.jrefSrcsysinfo = srcsysinfo->jref;
+	};
 	if ( (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "")) != accs.end()) || (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEVAR, "")) != accs.end()) ) {
 		iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 		statshr.jrefIprtrace = iprtrace->jref;
@@ -151,7 +178,11 @@ M2msessWzsk::M2msessWzsk(
 		actlaser = new JobWzskActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
 		statshr.jrefActlaser = actlaser->jref;
 	};
-	if (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "")) != accs.end()) {
+	if ( (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "")) != accs.end()) || (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "")) != accs.end()) ) {
+		actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
+		statshr.jrefActexposure = actexposure->jref;
+	};
+	if ( (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "")) != accs.end()) || (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "")) != accs.end()) ) {
 		acqptcloud = new JobWzskAcqPtcloud(xchg, dbswzsk, jref, ixWzskVLocale);
 		statshr.jrefAcqptcloud = acqptcloud->jref;
 	};

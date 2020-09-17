@@ -2,8 +2,8 @@
 	* \file M2msessWzsk.h
 	* API code for job M2msessWzsk (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef M2MSESSWZSK_H
@@ -27,21 +27,25 @@ namespace M2msessWzsk {
 	public:
 		static const Sbecore::uint SCRJREFACQPREVIEW = 1;
 		static const Sbecore::uint SCRJREFACQPTCLOUD = 2;
-		static const Sbecore::uint SCRJREFACTLASER = 3;
-		static const Sbecore::uint SCRJREFACTSERVO = 4;
-		static const Sbecore::uint SCRJREFIPRCORNER = 5;
-		static const Sbecore::uint SCRJREFIPRTRACE = 6;
+		static const Sbecore::uint SCRJREFACTEXPOSURE = 3;
+		static const Sbecore::uint SCRJREFACTLASER = 4;
+		static const Sbecore::uint SCRJREFACTSERVO = 5;
+		static const Sbecore::uint SCRJREFIPRCORNER = 6;
+		static const Sbecore::uint SCRJREFIPRTRACE = 7;
+		static const Sbecore::uint SCRJREFSRCSYSINFO = 8;
 
 	public:
-		StatShr(const std::string& scrJrefAcqpreview = "", const std::string& scrJrefAcqptcloud = "", const std::string& scrJrefActlaser = "", const std::string& scrJrefActservo = "", const std::string& scrJrefIprcorner = "", const std::string& scrJrefIprtrace = "");
+		StatShr(const std::string& scrJrefAcqpreview = "", const std::string& scrJrefAcqptcloud = "", const std::string& scrJrefActexposure = "", const std::string& scrJrefActlaser = "", const std::string& scrJrefActservo = "", const std::string& scrJrefIprcorner = "", const std::string& scrJrefIprtrace = "", const std::string& scrJrefSrcsysinfo = "");
 
 	public:
 		std::string scrJrefAcqpreview;
 		std::string scrJrefAcqptcloud;
+		std::string scrJrefActexposure;
 		std::string scrJrefActlaser;
 		std::string scrJrefActservo;
 		std::string scrJrefIprcorner;
 		std::string scrJrefIprtrace;
+		std::string scrJrefSrcsysinfo;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);

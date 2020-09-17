@@ -9,8 +9,8 @@ For more information, type 'rtiddsgen -help' at a command shell
 or consult the RTI Connext manual.
 */
 
-#ifndef DdsWzsk_509371471_hpp
-#define DdsWzsk_509371471_hpp
+#ifndef DdsWzsk_509372353_hpp
+#define DdsWzsk_509372353_hpp
 
 #include <iosfwd>
 
@@ -251,6 +251,163 @@ struct stringvec_AliasTag_t {};
 
 typedef std::string vecsref;
 struct vecsref_AliasTag_t {};
+namespace DdsJobWzskSrcSysinfo {
+
+    class NDDSUSERDllExport loadAllLoadCore0LoadCore1LoadCore2LoadCore3 {
+      public:
+        loadAllLoadCore0LoadCore1LoadCore2LoadCore3();
+
+        loadAllLoadCore0LoadCore1LoadCore2LoadCore3(
+            const ::rti::core::bounded_sequence< float, 60 >& loadAll,
+            const ::rti::core::bounded_sequence< float, 60 >& loadCore0,
+            const ::rti::core::bounded_sequence< float, 60 >& loadCore1,
+            const ::rti::core::bounded_sequence< float, 60 >& loadCore2,
+            const ::rti::core::bounded_sequence< float, 60 >& loadCore3);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        loadAllLoadCore0LoadCore1LoadCore2LoadCore3 (loadAllLoadCore0LoadCore1LoadCore2LoadCore3&&) = default;
+        loadAllLoadCore0LoadCore1LoadCore2LoadCore3& operator=(loadAllLoadCore0LoadCore1LoadCore2LoadCore3&&) = default;
+        loadAllLoadCore0LoadCore1LoadCore2LoadCore3& operator=(const loadAllLoadCore0LoadCore1LoadCore2LoadCore3&) = default;
+        loadAllLoadCore0LoadCore1LoadCore2LoadCore3(const loadAllLoadCore0LoadCore1LoadCore2LoadCore3&) = default;
+        #else
+        loadAllLoadCore0LoadCore1LoadCore2LoadCore3(loadAllLoadCore0LoadCore1LoadCore2LoadCore3&& other_) OMG_NOEXCEPT;  
+        loadAllLoadCore0LoadCore1LoadCore2LoadCore3& operator=(loadAllLoadCore0LoadCore1LoadCore2LoadCore3&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        ::rti::core::bounded_sequence< float, 60 >& loadAll() OMG_NOEXCEPT {
+            return m_loadAll_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& loadAll() const OMG_NOEXCEPT {
+            return m_loadAll_;
+        }
+
+        void loadAll(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_loadAll_ = value;
+        }
+
+        ::rti::core::bounded_sequence< float, 60 >& loadCore0() OMG_NOEXCEPT {
+            return m_loadCore0_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& loadCore0() const OMG_NOEXCEPT {
+            return m_loadCore0_;
+        }
+
+        void loadCore0(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_loadCore0_ = value;
+        }
+
+        ::rti::core::bounded_sequence< float, 60 >& loadCore1() OMG_NOEXCEPT {
+            return m_loadCore1_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& loadCore1() const OMG_NOEXCEPT {
+            return m_loadCore1_;
+        }
+
+        void loadCore1(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_loadCore1_ = value;
+        }
+
+        ::rti::core::bounded_sequence< float, 60 >& loadCore2() OMG_NOEXCEPT {
+            return m_loadCore2_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& loadCore2() const OMG_NOEXCEPT {
+            return m_loadCore2_;
+        }
+
+        void loadCore2(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_loadCore2_ = value;
+        }
+
+        ::rti::core::bounded_sequence< float, 60 >& loadCore3() OMG_NOEXCEPT {
+            return m_loadCore3_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& loadCore3() const OMG_NOEXCEPT {
+            return m_loadCore3_;
+        }
+
+        void loadCore3(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_loadCore3_ = value;
+        }
+
+        bool operator == (const loadAllLoadCore0LoadCore1LoadCore2LoadCore3& other_) const;
+        bool operator != (const loadAllLoadCore0LoadCore1LoadCore2LoadCore3& other_) const;
+
+        void swap(loadAllLoadCore0LoadCore1LoadCore2LoadCore3& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        ::rti::core::bounded_sequence< float, 60 > m_loadAll_;
+        ::rti::core::bounded_sequence< float, 60 > m_loadCore0_;
+        ::rti::core::bounded_sequence< float, 60 > m_loadCore1_;
+        ::rti::core::bounded_sequence< float, 60 > m_loadCore2_;
+        ::rti::core::bounded_sequence< float, 60 > m_loadCore3_;
+
+    };
+
+    inline void swap(loadAllLoadCore0LoadCore1LoadCore2LoadCore3& a, loadAllLoadCore0LoadCore1LoadCore2LoadCore3& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const loadAllLoadCore0LoadCore1LoadCore2LoadCore3& sample);
+
+    class NDDSUSERDllExport temp {
+      public:
+        temp();
+
+        explicit temp(
+            const ::rti::core::bounded_sequence< float, 60 >& _temp);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        temp (temp&&) = default;
+        temp& operator=(temp&&) = default;
+        temp& operator=(const temp&) = default;
+        temp(const temp&) = default;
+        #else
+        temp(temp&& other_) OMG_NOEXCEPT;  
+        temp& operator=(temp&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        ::rti::core::bounded_sequence< float, 60 >& _temp() OMG_NOEXCEPT {
+            return m__temp_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& _temp() const OMG_NOEXCEPT {
+            return m__temp_;
+        }
+
+        void _temp(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m__temp_ = value;
+        }
+
+        bool operator == (const temp& other_) const;
+        bool operator != (const temp& other_) const;
+
+        void swap(temp& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        ::rti::core::bounded_sequence< float, 60 > m__temp_;
+
+    };
+
+    inline void swap(temp& a, temp& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const temp& sample);
+
+} // namespace DdsJobWzskSrcSysinfo  
 namespace DdsJobWzskIprTrace {
 
     class NDDSUSERDllExport setLevel_req {
@@ -364,118 +521,6 @@ namespace DdsJobWzskIprTrace {
     }
 
     NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const setLevel_reply& sample);
-
-    class NDDSUSERDllExport setPOn_req {
-      public:
-        setPOn_req();
-
-        setPOn_req(
-            float pOnLeft,
-            float pOnRight);
-
-        #ifdef RTI_CXX11_RVALUE_REFERENCES
-        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
-        setPOn_req (setPOn_req&&) = default;
-        setPOn_req& operator=(setPOn_req&&) = default;
-        setPOn_req& operator=(const setPOn_req&) = default;
-        setPOn_req(const setPOn_req&) = default;
-        #else
-        setPOn_req(setPOn_req&& other_) OMG_NOEXCEPT;  
-        setPOn_req& operator=(setPOn_req&&  other_) OMG_NOEXCEPT;
-        #endif
-        #endif 
-
-        float& pOnLeft() OMG_NOEXCEPT {
-            return m_pOnLeft_;
-        }
-
-        const float& pOnLeft() const OMG_NOEXCEPT {
-            return m_pOnLeft_;
-        }
-
-        void pOnLeft(float value) {
-            m_pOnLeft_ = value;
-        }
-
-        float& pOnRight() OMG_NOEXCEPT {
-            return m_pOnRight_;
-        }
-
-        const float& pOnRight() const OMG_NOEXCEPT {
-            return m_pOnRight_;
-        }
-
-        void pOnRight(float value) {
-            m_pOnRight_ = value;
-        }
-
-        bool operator == (const setPOn_req& other_) const;
-        bool operator != (const setPOn_req& other_) const;
-
-        void swap(setPOn_req& other_) OMG_NOEXCEPT ;
-
-      private:
-
-        float m_pOnLeft_;
-        float m_pOnRight_;
-
-    };
-
-    inline void swap(setPOn_req& a, setPOn_req& b)  OMG_NOEXCEPT 
-    {
-        a.swap(b);
-    }
-
-    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const setPOn_req& sample);
-
-    class NDDSUSERDllExport setPOn_reply {
-      public:
-        setPOn_reply();
-
-        explicit setPOn_reply(
-            bool success);
-
-        #ifdef RTI_CXX11_RVALUE_REFERENCES
-        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
-        setPOn_reply (setPOn_reply&&) = default;
-        setPOn_reply& operator=(setPOn_reply&&) = default;
-        setPOn_reply& operator=(const setPOn_reply&) = default;
-        setPOn_reply(const setPOn_reply&) = default;
-        #else
-        setPOn_reply(setPOn_reply&& other_) OMG_NOEXCEPT;  
-        setPOn_reply& operator=(setPOn_reply&&  other_) OMG_NOEXCEPT;
-        #endif
-        #endif 
-
-        bool& success() OMG_NOEXCEPT {
-            return m_success_;
-        }
-
-        const bool& success() const OMG_NOEXCEPT {
-            return m_success_;
-        }
-
-        void success(bool value) {
-            m_success_ = value;
-        }
-
-        bool operator == (const setPOn_reply& other_) const;
-        bool operator != (const setPOn_reply& other_) const;
-
-        void swap(setPOn_reply& other_) OMG_NOEXCEPT ;
-
-      private:
-
-        bool m_success_;
-
-    };
-
-    inline void swap(setPOn_reply& a, setPOn_reply& b)  OMG_NOEXCEPT 
-    {
-        a.swap(b);
-    }
-
-    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const setPOn_reply& sample);
 
     class NDDSUSERDllExport setRoi_req {
       public:
@@ -1856,6 +1901,202 @@ namespace DdsJobWzskActServo {
 
     NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const moveto_reply& sample);
 
+    class NDDSUSERDllExport stop_req {
+      public:
+        stop_req();
+
+        explicit stop_req(
+            bool dummy);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        stop_req (stop_req&&) = default;
+        stop_req& operator=(stop_req&&) = default;
+        stop_req& operator=(const stop_req&) = default;
+        stop_req(const stop_req&) = default;
+        #else
+        stop_req(stop_req&& other_) OMG_NOEXCEPT;  
+        stop_req& operator=(stop_req&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        bool& dummy() OMG_NOEXCEPT {
+            return m_dummy_;
+        }
+
+        const bool& dummy() const OMG_NOEXCEPT {
+            return m_dummy_;
+        }
+
+        void dummy(bool value) {
+            m_dummy_ = value;
+        }
+
+        bool operator == (const stop_req& other_) const;
+        bool operator != (const stop_req& other_) const;
+
+        void swap(stop_req& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        bool m_dummy_;
+
+    };
+
+    inline void swap(stop_req& a, stop_req& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const stop_req& sample);
+
+    class NDDSUSERDllExport stop_reply {
+      public:
+        stop_reply();
+
+        explicit stop_reply(
+            bool success);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        stop_reply (stop_reply&&) = default;
+        stop_reply& operator=(stop_reply&&) = default;
+        stop_reply& operator=(const stop_reply&) = default;
+        stop_reply(const stop_reply&) = default;
+        #else
+        stop_reply(stop_reply&& other_) OMG_NOEXCEPT;  
+        stop_reply& operator=(stop_reply&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        bool& success() OMG_NOEXCEPT {
+            return m_success_;
+        }
+
+        const bool& success() const OMG_NOEXCEPT {
+            return m_success_;
+        }
+
+        void success(bool value) {
+            m_success_ = value;
+        }
+
+        bool operator == (const stop_reply& other_) const;
+        bool operator != (const stop_reply& other_) const;
+
+        void swap(stop_reply& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        bool m_success_;
+
+    };
+
+    inline void swap(stop_reply& a, stop_reply& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const stop_reply& sample);
+
+    class NDDSUSERDllExport turn_req {
+      public:
+        turn_req();
+
+        explicit turn_req(
+            bool ccwNotCw);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        turn_req (turn_req&&) = default;
+        turn_req& operator=(turn_req&&) = default;
+        turn_req& operator=(const turn_req&) = default;
+        turn_req(const turn_req&) = default;
+        #else
+        turn_req(turn_req&& other_) OMG_NOEXCEPT;  
+        turn_req& operator=(turn_req&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        bool& ccwNotCw() OMG_NOEXCEPT {
+            return m_ccwNotCw_;
+        }
+
+        const bool& ccwNotCw() const OMG_NOEXCEPT {
+            return m_ccwNotCw_;
+        }
+
+        void ccwNotCw(bool value) {
+            m_ccwNotCw_ = value;
+        }
+
+        bool operator == (const turn_req& other_) const;
+        bool operator != (const turn_req& other_) const;
+
+        void swap(turn_req& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        bool m_ccwNotCw_;
+
+    };
+
+    inline void swap(turn_req& a, turn_req& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const turn_req& sample);
+
+    class NDDSUSERDllExport turn_reply {
+      public:
+        turn_reply();
+
+        explicit turn_reply(
+            bool success);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        turn_reply (turn_reply&&) = default;
+        turn_reply& operator=(turn_reply&&) = default;
+        turn_reply& operator=(const turn_reply&) = default;
+        turn_reply(const turn_reply&) = default;
+        #else
+        turn_reply(turn_reply&& other_) OMG_NOEXCEPT;  
+        turn_reply& operator=(turn_reply&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        bool& success() OMG_NOEXCEPT {
+            return m_success_;
+        }
+
+        const bool& success() const OMG_NOEXCEPT {
+            return m_success_;
+        }
+
+        void success(bool value) {
+            m_success_ = value;
+        }
+
+        bool operator == (const turn_reply& other_) const;
+        bool operator != (const turn_reply& other_) const;
+
+        void swap(turn_reply& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        bool m_success_;
+
+    };
+
+    inline void swap(turn_reply& a, turn_reply& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const turn_reply& sample);
+
     class NDDSUSERDllExport zero_req {
       public:
         zero_req();
@@ -2280,7 +2521,479 @@ namespace DdsJobWzskActLaser {
     NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const leftRight& sample);
 
 } // namespace DdsJobWzskActLaser  
+namespace DdsJobWzskActExposure {
+
+    class NDDSUSERDllExport setExposure_req {
+      public:
+        setExposure_req();
+
+        setExposure_req(
+            bool autoNotManual,
+            float Texp);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        setExposure_req (setExposure_req&&) = default;
+        setExposure_req& operator=(setExposure_req&&) = default;
+        setExposure_req& operator=(const setExposure_req&) = default;
+        setExposure_req(const setExposure_req&) = default;
+        #else
+        setExposure_req(setExposure_req&& other_) OMG_NOEXCEPT;  
+        setExposure_req& operator=(setExposure_req&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        bool& autoNotManual() OMG_NOEXCEPT {
+            return m_autoNotManual_;
+        }
+
+        const bool& autoNotManual() const OMG_NOEXCEPT {
+            return m_autoNotManual_;
+        }
+
+        void autoNotManual(bool value) {
+            m_autoNotManual_ = value;
+        }
+
+        float& Texp() OMG_NOEXCEPT {
+            return m_Texp_;
+        }
+
+        const float& Texp() const OMG_NOEXCEPT {
+            return m_Texp_;
+        }
+
+        void Texp(float value) {
+            m_Texp_ = value;
+        }
+
+        bool operator == (const setExposure_req& other_) const;
+        bool operator != (const setExposure_req& other_) const;
+
+        void swap(setExposure_req& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        bool m_autoNotManual_;
+        float m_Texp_;
+
+    };
+
+    inline void swap(setExposure_req& a, setExposure_req& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const setExposure_req& sample);
+
+    class NDDSUSERDllExport setExposure_reply {
+      public:
+        setExposure_reply();
+
+        explicit setExposure_reply(
+            bool success);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        setExposure_reply (setExposure_reply&&) = default;
+        setExposure_reply& operator=(setExposure_reply&&) = default;
+        setExposure_reply& operator=(const setExposure_reply&) = default;
+        setExposure_reply(const setExposure_reply&) = default;
+        #else
+        setExposure_reply(setExposure_reply&& other_) OMG_NOEXCEPT;  
+        setExposure_reply& operator=(setExposure_reply&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        bool& success() OMG_NOEXCEPT {
+            return m_success_;
+        }
+
+        const bool& success() const OMG_NOEXCEPT {
+            return m_success_;
+        }
+
+        void success(bool value) {
+            m_success_ = value;
+        }
+
+        bool operator == (const setExposure_reply& other_) const;
+        bool operator != (const setExposure_reply& other_) const;
+
+        void swap(setExposure_reply& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        bool m_success_;
+
+    };
+
+    inline void swap(setExposure_reply& a, setExposure_reply& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const setExposure_reply& sample);
+
+    class NDDSUSERDllExport setFocus_req {
+      public:
+        setFocus_req();
+
+        explicit setFocus_req(
+            float focus);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        setFocus_req (setFocus_req&&) = default;
+        setFocus_req& operator=(setFocus_req&&) = default;
+        setFocus_req& operator=(const setFocus_req&) = default;
+        setFocus_req(const setFocus_req&) = default;
+        #else
+        setFocus_req(setFocus_req&& other_) OMG_NOEXCEPT;  
+        setFocus_req& operator=(setFocus_req&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        float& focus() OMG_NOEXCEPT {
+            return m_focus_;
+        }
+
+        const float& focus() const OMG_NOEXCEPT {
+            return m_focus_;
+        }
+
+        void focus(float value) {
+            m_focus_ = value;
+        }
+
+        bool operator == (const setFocus_req& other_) const;
+        bool operator != (const setFocus_req& other_) const;
+
+        void swap(setFocus_req& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        float m_focus_;
+
+    };
+
+    inline void swap(setFocus_req& a, setFocus_req& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const setFocus_req& sample);
+
+    class NDDSUSERDllExport setFocus_reply {
+      public:
+        setFocus_reply();
+
+        explicit setFocus_reply(
+            bool success);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        setFocus_reply (setFocus_reply&&) = default;
+        setFocus_reply& operator=(setFocus_reply&&) = default;
+        setFocus_reply& operator=(const setFocus_reply&) = default;
+        setFocus_reply(const setFocus_reply&) = default;
+        #else
+        setFocus_reply(setFocus_reply&& other_) OMG_NOEXCEPT;  
+        setFocus_reply& operator=(setFocus_reply&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        bool& success() OMG_NOEXCEPT {
+            return m_success_;
+        }
+
+        const bool& success() const OMG_NOEXCEPT {
+            return m_success_;
+        }
+
+        void success(bool value) {
+            m_success_ = value;
+        }
+
+        bool operator == (const setFocus_reply& other_) const;
+        bool operator != (const setFocus_reply& other_) const;
+
+        void swap(setFocus_reply& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        bool m_success_;
+
+    };
+
+    inline void swap(setFocus_reply& a, setFocus_reply& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const setFocus_reply& sample);
+
+    class NDDSUSERDllExport autoNotManualTexp {
+      public:
+        autoNotManualTexp();
+
+        autoNotManualTexp(
+            bool autoNotManual,
+            float Texp);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        autoNotManualTexp (autoNotManualTexp&&) = default;
+        autoNotManualTexp& operator=(autoNotManualTexp&&) = default;
+        autoNotManualTexp& operator=(const autoNotManualTexp&) = default;
+        autoNotManualTexp(const autoNotManualTexp&) = default;
+        #else
+        autoNotManualTexp(autoNotManualTexp&& other_) OMG_NOEXCEPT;  
+        autoNotManualTexp& operator=(autoNotManualTexp&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        bool& autoNotManual() OMG_NOEXCEPT {
+            return m_autoNotManual_;
+        }
+
+        const bool& autoNotManual() const OMG_NOEXCEPT {
+            return m_autoNotManual_;
+        }
+
+        void autoNotManual(bool value) {
+            m_autoNotManual_ = value;
+        }
+
+        float& Texp() OMG_NOEXCEPT {
+            return m_Texp_;
+        }
+
+        const float& Texp() const OMG_NOEXCEPT {
+            return m_Texp_;
+        }
+
+        void Texp(float value) {
+            m_Texp_ = value;
+        }
+
+        bool operator == (const autoNotManualTexp& other_) const;
+        bool operator != (const autoNotManualTexp& other_) const;
+
+        void swap(autoNotManualTexp& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        bool m_autoNotManual_;
+        float m_Texp_;
+
+    };
+
+    inline void swap(autoNotManualTexp& a, autoNotManualTexp& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const autoNotManualTexp& sample);
+
+    class NDDSUSERDllExport focus {
+      public:
+        focus();
+
+        explicit focus(
+            float _focus);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        focus (focus&&) = default;
+        focus& operator=(focus&&) = default;
+        focus& operator=(const focus&) = default;
+        focus(const focus&) = default;
+        #else
+        focus(focus&& other_) OMG_NOEXCEPT;  
+        focus& operator=(focus&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        float& _focus() OMG_NOEXCEPT {
+            return m__focus_;
+        }
+
+        const float& _focus() const OMG_NOEXCEPT {
+            return m__focus_;
+        }
+
+        void _focus(float value) {
+            m__focus_ = value;
+        }
+
+        bool operator == (const focus& other_) const;
+        bool operator != (const focus& other_) const;
+
+        void swap(focus& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        float m__focus_;
+
+    };
+
+    inline void swap(focus& a, focus& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const focus& sample);
+
+} // namespace DdsJobWzskActExposure  
 namespace DdsJobWzskAcqPtcloud {
+
+    class NDDSUSERDllExport setDeltaTheta_req {
+      public:
+        setDeltaTheta_req();
+
+        explicit setDeltaTheta_req(
+            float deltaTheta);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        setDeltaTheta_req (setDeltaTheta_req&&) = default;
+        setDeltaTheta_req& operator=(setDeltaTheta_req&&) = default;
+        setDeltaTheta_req& operator=(const setDeltaTheta_req&) = default;
+        setDeltaTheta_req(const setDeltaTheta_req&) = default;
+        #else
+        setDeltaTheta_req(setDeltaTheta_req&& other_) OMG_NOEXCEPT;  
+        setDeltaTheta_req& operator=(setDeltaTheta_req&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        float& deltaTheta() OMG_NOEXCEPT {
+            return m_deltaTheta_;
+        }
+
+        const float& deltaTheta() const OMG_NOEXCEPT {
+            return m_deltaTheta_;
+        }
+
+        void deltaTheta(float value) {
+            m_deltaTheta_ = value;
+        }
+
+        bool operator == (const setDeltaTheta_req& other_) const;
+        bool operator != (const setDeltaTheta_req& other_) const;
+
+        void swap(setDeltaTheta_req& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        float m_deltaTheta_;
+
+    };
+
+    inline void swap(setDeltaTheta_req& a, setDeltaTheta_req& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const setDeltaTheta_req& sample);
+
+    class NDDSUSERDllExport setDeltaTheta_reply {
+      public:
+        setDeltaTheta_reply();
+
+        explicit setDeltaTheta_reply(
+            bool success);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        setDeltaTheta_reply (setDeltaTheta_reply&&) = default;
+        setDeltaTheta_reply& operator=(setDeltaTheta_reply&&) = default;
+        setDeltaTheta_reply& operator=(const setDeltaTheta_reply&) = default;
+        setDeltaTheta_reply(const setDeltaTheta_reply&) = default;
+        #else
+        setDeltaTheta_reply(setDeltaTheta_reply&& other_) OMG_NOEXCEPT;  
+        setDeltaTheta_reply& operator=(setDeltaTheta_reply&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        bool& success() OMG_NOEXCEPT {
+            return m_success_;
+        }
+
+        const bool& success() const OMG_NOEXCEPT {
+            return m_success_;
+        }
+
+        void success(bool value) {
+            m_success_ = value;
+        }
+
+        bool operator == (const setDeltaTheta_reply& other_) const;
+        bool operator != (const setDeltaTheta_reply& other_) const;
+
+        void swap(setDeltaTheta_reply& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        bool m_success_;
+
+    };
+
+    inline void swap(setDeltaTheta_reply& a, setDeltaTheta_reply& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const setDeltaTheta_reply& sample);
+
+    class NDDSUSERDllExport deltaTheta {
+      public:
+        deltaTheta();
+
+        explicit deltaTheta(
+            float _deltaTheta);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        deltaTheta (deltaTheta&&) = default;
+        deltaTheta& operator=(deltaTheta&&) = default;
+        deltaTheta& operator=(const deltaTheta&) = default;
+        deltaTheta(const deltaTheta&) = default;
+        #else
+        deltaTheta(deltaTheta&& other_) OMG_NOEXCEPT;  
+        deltaTheta& operator=(deltaTheta&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        float& _deltaTheta() OMG_NOEXCEPT {
+            return m__deltaTheta_;
+        }
+
+        const float& _deltaTheta() const OMG_NOEXCEPT {
+            return m__deltaTheta_;
+        }
+
+        void _deltaTheta(float value) {
+            m__deltaTheta_ = value;
+        }
+
+        bool operator == (const deltaTheta& other_) const;
+        bool operator != (const deltaTheta& other_) const;
+
+        void swap(deltaTheta& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        float m__deltaTheta_;
+
+    };
+
+    inline void swap(deltaTheta& a, deltaTheta& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const deltaTheta& sample);
 
     class NDDSUSERDllExport xYZ {
       public:
@@ -2578,6 +3291,78 @@ namespace dds {
         };
 
         template<>
+        struct topic_type_name< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskSrcSysinfo::temp > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskSrcSysinfo::temp";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskSrcSysinfo::temp > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskSrcSysinfo::temp > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskSrcSysinfo::temp& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskSrcSysinfo::temp& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskSrcSysinfo::temp& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskSrcSysinfo::temp& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
         struct topic_type_name< DdsJobWzskIprTrace::setLevel_req > {
             NDDSUSERDllExport static std::string value() {
                 return "DdsJobWzskIprTrace::setLevel_req";
@@ -2644,78 +3429,6 @@ namespace dds {
 
             NDDSUSERDllExport 
             static void allocate_sample(DdsJobWzskIprTrace::setLevel_reply& sample, int, int);
-
-            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
-            ::rti::topic::TypePluginKind::STL;
-        };
-
-        template<>
-        struct topic_type_name< DdsJobWzskIprTrace::setPOn_req > {
-            NDDSUSERDllExport static std::string value() {
-                return "DdsJobWzskIprTrace::setPOn_req";
-            }
-        };
-
-        template<>
-        struct is_topic_type< DdsJobWzskIprTrace::setPOn_req > : public ::dds::core::true_type {};
-
-        template<>
-        struct topic_type_support< DdsJobWzskIprTrace::setPOn_req > {
-            NDDSUSERDllExport 
-            static void register_type(
-                ::dds::domain::DomainParticipant& participant,
-                const std::string & type_name);
-
-            NDDSUSERDllExport 
-            static std::vector<char>& to_cdr_buffer(
-                std::vector<char>& buffer, 
-                const DdsJobWzskIprTrace::setPOn_req& sample,
-                ::dds::core::policy::DataRepresentationId representation 
-                = ::dds::core::policy::DataRepresentation::auto_id());
-
-            NDDSUSERDllExport 
-            static void from_cdr_buffer(DdsJobWzskIprTrace::setPOn_req& sample, const std::vector<char>& buffer);
-            NDDSUSERDllExport 
-            static void reset_sample(DdsJobWzskIprTrace::setPOn_req& sample);
-
-            NDDSUSERDllExport 
-            static void allocate_sample(DdsJobWzskIprTrace::setPOn_req& sample, int, int);
-
-            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
-            ::rti::topic::TypePluginKind::STL;
-        };
-
-        template<>
-        struct topic_type_name< DdsJobWzskIprTrace::setPOn_reply > {
-            NDDSUSERDllExport static std::string value() {
-                return "DdsJobWzskIprTrace::setPOn_reply";
-            }
-        };
-
-        template<>
-        struct is_topic_type< DdsJobWzskIprTrace::setPOn_reply > : public ::dds::core::true_type {};
-
-        template<>
-        struct topic_type_support< DdsJobWzskIprTrace::setPOn_reply > {
-            NDDSUSERDllExport 
-            static void register_type(
-                ::dds::domain::DomainParticipant& participant,
-                const std::string & type_name);
-
-            NDDSUSERDllExport 
-            static std::vector<char>& to_cdr_buffer(
-                std::vector<char>& buffer, 
-                const DdsJobWzskIprTrace::setPOn_reply& sample,
-                ::dds::core::policy::DataRepresentationId representation 
-                = ::dds::core::policy::DataRepresentation::auto_id());
-
-            NDDSUSERDllExport 
-            static void from_cdr_buffer(DdsJobWzskIprTrace::setPOn_reply& sample, const std::vector<char>& buffer);
-            NDDSUSERDllExport 
-            static void reset_sample(DdsJobWzskIprTrace::setPOn_reply& sample);
-
-            NDDSUSERDllExport 
-            static void allocate_sample(DdsJobWzskIprTrace::setPOn_reply& sample, int, int);
 
             static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
             ::rti::topic::TypePluginKind::STL;
@@ -3406,6 +4119,150 @@ namespace dds {
         };
 
         template<>
+        struct topic_type_name< DdsJobWzskActServo::stop_req > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskActServo::stop_req";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskActServo::stop_req > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskActServo::stop_req > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskActServo::stop_req& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskActServo::stop_req& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskActServo::stop_req& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskActServo::stop_req& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskActServo::stop_reply > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskActServo::stop_reply";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskActServo::stop_reply > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskActServo::stop_reply > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskActServo::stop_reply& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskActServo::stop_reply& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskActServo::stop_reply& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskActServo::stop_reply& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskActServo::turn_req > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskActServo::turn_req";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskActServo::turn_req > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskActServo::turn_req > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskActServo::turn_req& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskActServo::turn_req& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskActServo::turn_req& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskActServo::turn_req& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskActServo::turn_reply > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskActServo::turn_reply";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskActServo::turn_reply > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskActServo::turn_reply > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskActServo::turn_reply& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskActServo::turn_reply& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskActServo::turn_reply& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskActServo::turn_reply& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
         struct topic_type_name< DdsJobWzskActServo::zero_req > {
             NDDSUSERDllExport static std::string value() {
                 return "DdsJobWzskActServo::zero_req";
@@ -3694,6 +4551,330 @@ namespace dds {
         };
 
         template<>
+        struct topic_type_name< DdsJobWzskActExposure::setExposure_req > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskActExposure::setExposure_req";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskActExposure::setExposure_req > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskActExposure::setExposure_req > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskActExposure::setExposure_req& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskActExposure::setExposure_req& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskActExposure::setExposure_req& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskActExposure::setExposure_req& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskActExposure::setExposure_reply > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskActExposure::setExposure_reply";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskActExposure::setExposure_reply > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskActExposure::setExposure_reply > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskActExposure::setExposure_reply& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskActExposure::setExposure_reply& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskActExposure::setExposure_reply& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskActExposure::setExposure_reply& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskActExposure::setFocus_req > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskActExposure::setFocus_req";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskActExposure::setFocus_req > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskActExposure::setFocus_req > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskActExposure::setFocus_req& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskActExposure::setFocus_req& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskActExposure::setFocus_req& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskActExposure::setFocus_req& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskActExposure::setFocus_reply > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskActExposure::setFocus_reply";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskActExposure::setFocus_reply > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskActExposure::setFocus_reply > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskActExposure::setFocus_reply& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskActExposure::setFocus_reply& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskActExposure::setFocus_reply& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskActExposure::setFocus_reply& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskActExposure::autoNotManualTexp > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskActExposure::autoNotManualTexp";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskActExposure::autoNotManualTexp > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskActExposure::autoNotManualTexp > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskActExposure::autoNotManualTexp& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskActExposure::autoNotManualTexp& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskActExposure::autoNotManualTexp& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskActExposure::autoNotManualTexp& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskActExposure::focus > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskActExposure::focus";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskActExposure::focus > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskActExposure::focus > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskActExposure::focus& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskActExposure::focus& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskActExposure::focus& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskActExposure::focus& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskAcqPtcloud::setDeltaTheta_req > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskAcqPtcloud::setDeltaTheta_req";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskAcqPtcloud::setDeltaTheta_req > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskAcqPtcloud::setDeltaTheta_req > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskAcqPtcloud::setDeltaTheta_req& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskAcqPtcloud::setDeltaTheta_req& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskAcqPtcloud::setDeltaTheta_req& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskAcqPtcloud::setDeltaTheta_req& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskAcqPtcloud::setDeltaTheta_reply > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskAcqPtcloud::setDeltaTheta_reply";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskAcqPtcloud::setDeltaTheta_reply > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskAcqPtcloud::setDeltaTheta_reply > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskAcqPtcloud::setDeltaTheta_reply& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskAcqPtcloud::setDeltaTheta_reply& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskAcqPtcloud::setDeltaTheta_reply& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskAcqPtcloud::setDeltaTheta_reply& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskAcqPtcloud::deltaTheta > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskAcqPtcloud::deltaTheta";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskAcqPtcloud::deltaTheta > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskAcqPtcloud::deltaTheta > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskAcqPtcloud::deltaTheta& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskAcqPtcloud::deltaTheta& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskAcqPtcloud::deltaTheta& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskAcqPtcloud::deltaTheta& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
         struct topic_type_name< DdsJobWzskAcqPtcloud::xYZ > {
             NDDSUSERDllExport static std::string value() {
                 return "DdsJobWzskAcqPtcloud::xYZ";
@@ -3916,6 +5097,34 @@ namespace rti {
 
         #ifndef NDDS_STANDALONE_TYPE
         template<>
+        struct dynamic_type< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskSrcSysinfo::temp > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskSrcSysinfo::temp > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
         struct dynamic_type< DdsJobWzskIprTrace::setLevel_req > {
             typedef ::dds::core::xtypes::StructType type;
             NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
@@ -3938,34 +5147,6 @@ namespace rti {
 
         template <>
         struct extensibility< DdsJobWzskIprTrace::setLevel_reply > {
-            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
-            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
-        };
-
-        #ifndef NDDS_STANDALONE_TYPE
-        template<>
-        struct dynamic_type< DdsJobWzskIprTrace::setPOn_req > {
-            typedef ::dds::core::xtypes::StructType type;
-            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
-        };
-        #endif
-
-        template <>
-        struct extensibility< DdsJobWzskIprTrace::setPOn_req > {
-            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
-            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
-        };
-
-        #ifndef NDDS_STANDALONE_TYPE
-        template<>
-        struct dynamic_type< DdsJobWzskIprTrace::setPOn_reply > {
-            typedef ::dds::core::xtypes::StructType type;
-            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
-        };
-        #endif
-
-        template <>
-        struct extensibility< DdsJobWzskIprTrace::setPOn_reply > {
             static const ::dds::core::xtypes::ExtensibilityKind::type kind =
             ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
         };
@@ -4238,6 +5419,62 @@ namespace rti {
 
         #ifndef NDDS_STANDALONE_TYPE
         template<>
+        struct dynamic_type< DdsJobWzskActServo::stop_req > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskActServo::stop_req > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskActServo::stop_reply > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskActServo::stop_reply > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskActServo::turn_req > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskActServo::turn_req > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskActServo::turn_reply > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskActServo::turn_reply > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
         struct dynamic_type< DdsJobWzskActServo::zero_req > {
             typedef ::dds::core::xtypes::StructType type;
             NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
@@ -4350,6 +5587,132 @@ namespace rti {
 
         #ifndef NDDS_STANDALONE_TYPE
         template<>
+        struct dynamic_type< DdsJobWzskActExposure::setExposure_req > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskActExposure::setExposure_req > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskActExposure::setExposure_reply > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskActExposure::setExposure_reply > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskActExposure::setFocus_req > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskActExposure::setFocus_req > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskActExposure::setFocus_reply > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskActExposure::setFocus_reply > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskActExposure::autoNotManualTexp > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskActExposure::autoNotManualTexp > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskActExposure::focus > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskActExposure::focus > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskAcqPtcloud::setDeltaTheta_req > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskAcqPtcloud::setDeltaTheta_req > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskAcqPtcloud::setDeltaTheta_reply > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskAcqPtcloud::setDeltaTheta_reply > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskAcqPtcloud::deltaTheta > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskAcqPtcloud::deltaTheta > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
         struct dynamic_type< DdsJobWzskAcqPtcloud::xYZ > {
             typedef ::dds::core::xtypes::StructType type;
             NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
@@ -4400,5 +5763,5 @@ namespace rti {
 #define NDDSUSERDllExport
 #endif
 
-#endif // DdsWzsk_509371471_hpp
+#endif // DdsWzsk_509372353_hpp
 

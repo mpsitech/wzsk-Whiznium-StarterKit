@@ -2,8 +2,8 @@
 	* \file CrdWzskLiv.cpp
 	* job handler for job CrdWzskLiv (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -41,6 +41,7 @@ CrdWzskLiv::CrdWzskLiv(
 	VecVSge::fillFeed(feedFSge);
 
 	pnlheadbar = NULL;
+	pnlsysmon = NULL;
 	pnl3dview = NULL;
 	pnl2dview = NULL;
 
@@ -50,6 +51,7 @@ CrdWzskLiv::CrdWzskLiv(
 	refresh(dbswzsk, moditems);
 
 	pnlheadbar = new PnlWzskLivHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlsysmon = new PnlWzskLivSysmon(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnl3dview = new PnlWzskLiv3DView(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnl2dview = new PnlWzskLiv2DView(xchg, dbswzsk, jref, ixWzskVLocale);
 
@@ -57,6 +59,7 @@ CrdWzskLiv::CrdWzskLiv(
 
 	statshr.jref2DView = pnl2dview->jref;
 	statshr.jref3DView = pnl3dview->jref;
+	statshr.jrefSysmon = pnlsysmon->jref;
 	statshr.jrefHeadbar = pnlheadbar->jref;
 
 	changeStage(dbswzsk, VecVSge::IDLE);
@@ -96,7 +99,11 @@ DpchEngWzsk* CrdWzskLiv::getNewDpchEng(
 void CrdWzskLiv::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	ContInf oldContinf(continf);
 
 	// IP refresh --- BEGIN
@@ -105,6 +112,8 @@ void CrdWzskLiv::refresh(
 
 	// IP refresh --- END
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
+
+	muteRefresh = false;
 };
 
 void CrdWzskLiv::updatePreset(
@@ -229,7 +238,7 @@ void CrdWzskLiv::changeStage(
 
 			setStage(dbswzsk, _ixVSge);
 			reenter = false;
-			if (!muteRefresh) refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
+			refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
 		};
 
 		switch (_ixVSge) {

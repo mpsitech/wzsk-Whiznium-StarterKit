@@ -2,8 +2,8 @@
 	* \file PnlWzskSesDetail.cpp
 	* job handler for job PnlWzskSesDetail (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -112,7 +112,11 @@ void PnlWzskSesDetail::refreshRecSes(
 void PnlWzskSesDetail::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	StatShr oldStatshr(statshr);
 
 	// IP refresh --- BEGIN
@@ -122,6 +126,8 @@ void PnlWzskSesDetail::refresh(
 	// IP refresh --- END
 
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+
+	muteRefresh = false;
 };
 
 void PnlWzskSesDetail::updatePreset(

@@ -2,8 +2,8 @@
 	* \file CrdWzskSht.h
 	* job handler for job CrdWzskSht (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef CRDWZSKSHT_H
@@ -13,8 +13,8 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskShtHeadbar.h"
 #include "PnlWzskShtList.h"
+#include "PnlWzskShtHeadbar.h"
 #include "PnlWzskShtRec.h"
 
 #define VecVWzskShtDo CrdWzskSht::VecVDo
@@ -189,8 +189,8 @@ public:
 	Sbecore::Xmlio::Feed feedFMcbAlert;
 	Sbecore::Xmlio::Feed feedFSge;
 
-	PnlWzskShtHeadbar* pnlheadbar;
 	PnlWzskShtList* pnllist;
+	PnlWzskShtHeadbar* pnlheadbar;
 	PnlWzskShtRec* pnlrec;
 
 	// IP vars.cust --- INSERT
@@ -200,7 +200,7 @@ public:
 
 public:
 	DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 	void changeRef(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint ref, const bool notif = false);
 	void updatePreset(DbsWzsk* dbswzsk, const Sbecore::uint ixWzskVPreset, const Sbecore::ubigint jrefTrig, const bool notif = false);
 
@@ -222,8 +222,8 @@ public:
 
 private:
 	bool handleCallWzskRefPreSet(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv);
-	bool handleCallWzskDlgClose(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskStatChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskDlgClose(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge, DpchEngWzsk** dpcheng = NULL);

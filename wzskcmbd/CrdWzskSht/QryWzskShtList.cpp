@@ -2,8 +2,8 @@
 	* \file QryWzskShtList.cpp
 	* job handler for job QryWzskShtList (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -84,7 +84,9 @@ void QryWzskShtList::rerun(
 	vector<ubigint> lims;
 	vector<ubigint> ofss;
 
+	uint preIxPre = xchg->getIxPreset(VecWzskVPreset::PREWZSKIXPRE, jref);
 	uint preIxOrd = xchg->getIxPreset(VecWzskVPreset::PREWZSKIXORD, jref);
+	ubigint preRefObj = xchg->getRefPreset(VecWzskVPreset::PREWZSKREFOBJ, jref);
 	ubigint preSes = xchg->getRefPreset(VecWzskVPreset::PREWZSKSHTLIST_SES, jref);
 	ubigint preObj = xchg->getRefPreset(VecWzskVPreset::PREWZSKSHTLIST_OBJ, jref);
 	int preSta = xchg->getIntvalPreset(VecWzskVPreset::PREWZSKSHTLIST_STA, jref);
@@ -94,12 +96,23 @@ void QryWzskShtList::rerun(
 
 	cntsum = 0;
 
-	sqlstr = "SELECT COUNT(TblWzskMShot.ref)";
-	sqlstr += " FROM TblWzskMShot";
-	rerun_filtSQL(sqlstr, preSes, preObj, preSta, true);
-	dbswzsk->loadUintBySQL(sqlstr, cnt);
-	cnts.push_back(cnt); lims.push_back(0); ofss.push_back(0);
-	cntsum += cnt;
+	if (preIxPre == VecWzskVPreset::PREWZSKREFOBJ) {
+		sqlstr = "SELECT COUNT(TblWzskMShot.ref)";
+		sqlstr += " FROM TblWzskMShot";
+		sqlstr += " WHERE TblWzskMShot.refWzskMObject = " + to_string(preRefObj) + "";
+		rerun_filtSQL(sqlstr, preSes, preObj, preSta, false);
+		dbswzsk->loadUintBySQL(sqlstr, cnt);
+		cnts.push_back(cnt); lims.push_back(0); ofss.push_back(0);
+		cntsum += cnt;
+
+	} else {
+		sqlstr = "SELECT COUNT(TblWzskMShot.ref)";
+		sqlstr += " FROM TblWzskMShot";
+		rerun_filtSQL(sqlstr, preSes, preObj, preSta, true);
+		dbswzsk->loadUintBySQL(sqlstr, cnt);
+		cnts.push_back(cnt); lims.push_back(0); ofss.push_back(0);
+		cntsum += cnt;
+	};
 
 	statshr.ntot = 0;
 	statshr.nload = 0;
@@ -127,13 +140,23 @@ void QryWzskShtList::rerun(
 		statshr.nload += lims[i];
 	};
 
-	sqlstr = "INSERT INTO TblWzskQShtList(jref, jnum, ref, refWzskMSession, refWzskMObject, start)";
-	sqlstr += " SELECT " + to_string(jref) + ", 0, TblWzskMShot.ref, TblWzskMShot.refWzskMSession, TblWzskMShot.refWzskMObject, TblWzskMShot.start";
-	sqlstr += " FROM TblWzskMShot";
-	rerun_filtSQL(sqlstr, preSes, preObj, preSta, true);
-	rerun_orderSQL(sqlstr, preIxOrd);
-	sqlstr += " LIMIT " + to_string(lims[0]) + " OFFSET " + to_string(ofss[0]);
-	dbswzsk->executeQuery(sqlstr);
+	if (preIxPre == VecWzskVPreset::PREWZSKREFOBJ) {
+		rerun_baseSQL(sqlstr);
+		sqlstr += " FROM TblWzskMShot";
+		sqlstr += " WHERE TblWzskMShot.refWzskMObject = " + to_string(preRefObj) + "";
+		rerun_filtSQL(sqlstr, preSes, preObj, preSta, false);
+		rerun_orderSQL(sqlstr, preIxOrd);
+		sqlstr += " LIMIT " + to_string(lims[0]) + " OFFSET " + to_string(ofss[0]);
+		dbswzsk->executeQuery(sqlstr);
+
+	} else {
+		rerun_baseSQL(sqlstr);
+		sqlstr += " FROM TblWzskMShot";
+		rerun_filtSQL(sqlstr, preSes, preObj, preSta, true);
+		rerun_orderSQL(sqlstr, preIxOrd);
+		sqlstr += " LIMIT " + to_string(lims[0]) + " OFFSET " + to_string(ofss[0]);
+		dbswzsk->executeQuery(sqlstr);
+	};
 
 	sqlstr = "UPDATE TblWzskQShtList SET jnum = qref WHERE jref = " + to_string(jref);
 	dbswzsk->executeQuery(sqlstr);
@@ -145,6 +168,13 @@ void QryWzskShtList::rerun(
 
 	if (call) xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
 
+};
+
+void QryWzskShtList::rerun_baseSQL(
+			string& sqlstr
+		) {
+	sqlstr = "INSERT INTO TblWzskQShtList(jref, jnum, ref, refWzskMSession, refWzskMObject, start)";
+	sqlstr += " SELECT " + to_string(jref) + ", 0, TblWzskMShot.ref, TblWzskMShot.refWzskMSession, TblWzskMShot.refWzskMObject, TblWzskMShot.start";
 };
 
 void QryWzskShtList::rerun_filtSQL(
@@ -217,7 +247,7 @@ void QryWzskShtList::fetch(
 
 			rec->jnum = statshr.jnumFirstload + i;
 			rec->stubRefWzskMSession = StubWzsk::getStubSesStd(dbswzsk, rec->refWzskMSession, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
-			rec->stubRefWzskMObject = StubWzsk::getStubOgrStd(dbswzsk, rec->refWzskMObject, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
+			rec->stubRefWzskMObject = StubWzsk::getStubObjStd(dbswzsk, rec->refWzskMObject, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
 			rec->ftmStart = Ftm::stamp(rec->start);
 		};
 
@@ -355,27 +385,13 @@ void QryWzskShtList::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKSHTMOD) {
-		call->abort = handleCallWzskShtMod(dbswzsk, call->jref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHTUPD_REFEQ) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKSHTUPD_REFEQ) {
 		call->abort = handleCallWzskShtUpd_refEq(dbswzsk, call->jref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHTMOD) {
+		call->abort = handleCallWzskShtMod(dbswzsk, call->jref);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSTUBCHG) && (call->jref == jref)) {
 		call->abort = handleCallWzskStubChgFromSelf(dbswzsk);
 	};
-};
-
-bool QryWzskShtList::handleCallWzskShtMod(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-
-	if ((ixWzskVQrystate == VecWzskVQrystate::UTD) || (ixWzskVQrystate == VecWzskVQrystate::SLM)) {
-		ixWzskVQrystate = VecWzskVQrystate::MNR;
-		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
-	};
-
-	return retval;
 };
 
 bool QryWzskShtList::handleCallWzskShtUpd_refEq(
@@ -386,6 +402,20 @@ bool QryWzskShtList::handleCallWzskShtUpd_refEq(
 
 	if (ixWzskVQrystate != VecWzskVQrystate::OOD) {
 		ixWzskVQrystate = VecWzskVQrystate::OOD;
+		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
+	};
+
+	return retval;
+};
+
+bool QryWzskShtList::handleCallWzskShtMod(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+
+	if ((ixWzskVQrystate == VecWzskVQrystate::UTD) || (ixWzskVQrystate == VecWzskVQrystate::SLM)) {
+		ixWzskVQrystate = VecWzskVQrystate::MNR;
 		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
 	};
 

@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvHeadbar.cpp
 	* job handler for job PnlWzskLlvHeadbar (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -75,7 +75,12 @@ DpchEngWzsk* PnlWzskLlvHeadbar::getNewDpchEng(
 void PnlWzskLlvHeadbar::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
+	muteRefresh = false;
 };
 
 void PnlWzskLlvHeadbar::handleRequest(

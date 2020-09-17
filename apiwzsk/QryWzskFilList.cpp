@@ -2,8 +2,8 @@
 	* \file QryWzskFilList.cpp
 	* API code for job QryWzskFilList (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "QryWzskFilList.h"
@@ -23,8 +23,8 @@ uint QryWzskFilList::VecVOrd::getIx(
 
 	if (s == "reu") return REU;
 	if (s == "ret") return RET;
-	if (s == "own") return OWN;
 	if (s == "fnm") return FNM;
+	if (s == "own") return OWN;
 	if (s == "grp") return GRP;
 
 	return(0);
@@ -35,8 +35,8 @@ string QryWzskFilList::VecVOrd::getSref(
 		) {
 	if (ix == REU) return("reu");
 	if (ix == RET) return("ret");
-	if (ix == OWN) return("own");
 	if (ix == FNM) return("fnm");
+	if (ix == OWN) return("own");
 	if (ix == GRP) return("grp");
 
 	return("");

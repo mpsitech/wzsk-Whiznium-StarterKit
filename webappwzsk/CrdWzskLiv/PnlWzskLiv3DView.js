@@ -2,8 +2,8 @@
   * \file PnlWzskLiv3DView.js
   * web client functionality for panel PnlWzskLiv3DView
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 // IP cust --- IBEGIN
@@ -38,7 +38,7 @@ function animate() {
 	doc.points.rotation.y += 0.01;
 	doc.renderer.render(doc.scene, doc.camera);
 
-	requestAnimationFrame(animate);
+	doc.reqAnimate = requestAnimationFrame(animate);
 };
 
 // IP cust --- IEND
@@ -88,13 +88,23 @@ function initBD(bNotD) {
 	// IP initBD --- RBEGIN
 	initCpt(hdrdoc, "Cpt", retrieveTi(srcdoc, "TagWzskLiv3DView", "Cpt"));
 	initCpt(contcontdoc, "HdgAcq", retrieveTi(srcdoc, "TagWzskLiv3DView", "HdgAcq"));
+	initCpt(contcontdoc, "CptAin", retrieveTi(srcdoc, "TagWzskLiv3DView", "CptAin"));
 	initCpt(contcontdoc, "CptAst", retrieveTi(srcdoc, "TagWzskLiv3DView", "CptAst"));
 	initCpt(contcontdoc, "CptAoa", retrieveTi(srcdoc, "TagWzskLiv3DView", "CptAoa"));
-	initBut(contcontdoc, "ButAst", retrieveTi(srcdoc, "TagWzskLiv3DView", "ButAst"));
+	initBut(contcontdoc, "ButAsr", retrieveTi(srcdoc, "TagWzskLiv3DView", "ButAsr"));
+	initBut(contcontdoc, "ButAir", retrieveTi(srcdoc, "TagWzskLiv3DView", "ButAir"));
 
-	doc.renderer = new THREE.WebGLRenderer();
+	doc.renderer = new THREE.WebGLRenderer({alpha: true});
 	doc.renderer.setSize(690, 500);
 	contcontdoc.getElementById("tdTre").appendChild(doc.renderer.domElement);
+
+	doc.scene = new THREE.Scene();
+	doc.camera = new THREE.PerspectiveCamera(60, 690 / 500, 0.1, 10);
+	doc.renderer.setClearColor(0xf0f0f0, 1);
+	doc.renderer.render(doc.scene, doc.camera);
+
+	doc.reqAnimate = null;
+	setSi(srcdoc, "StatAppWzskLiv3DView", "ButStopActive", "false");
 	// IP initBD --- REND
 
 	refreshBD(bNotD);
@@ -118,17 +128,20 @@ function refreshA() {
 function refreshBD(bNotD) {
 	if (!contcontdoc) return;
 
-	var height = 642; // full cont height
+	var height = 667; // full cont height
 
 	// IP refreshBD.vars --- BEGIN
 	var ButClaimActive = (retrieveSi(srcdoc, "StatShrWzskLiv3DView", "ButClaimActive") == "true");
 
-	var ButPlayActive = (retrieveSi(srcdoc, "StatShrWzskLiv3DView", "ButPlayActive") == "true");
-	var ButStopActive = (retrieveSi(srcdoc, "StatShrWzskLiv3DView", "ButStopActive") == "true");
+	var ButPlayActive = (retrieveSi(srcdoc, "StatAppWzskLiv3DView", "ButPlayActive") == "true");
+	var ButStopActive = (retrieveSi(srcdoc, "StatAppWzskLiv3DView", "ButStopActive") == "true");
+
+	var SldAinActive = (retrieveSi(srcdoc, "StatShrWzskLiv3DView", "SldAinActive") == "true");
 
 	var TxtAoaAvail = (retrieveSi(srcdoc, "StatShrWzskLiv3DView", "TxtAoaAvail") == "true");
 
-	var ButAstActive = (retrieveSi(srcdoc, "StatShrWzskLiv3DView", "ButAstActive") == "true");
+	var ButAsrActive = (retrieveSi(srcdoc, "StatShrWzskLiv3DView", "ButAsrActive") == "true");
+	var ButAirActive = (retrieveSi(srcdoc, "StatShrWzskLiv3DView", "ButAirActive") == "true");
 
 	// IP refreshBD.vars --- END
 
@@ -138,6 +151,8 @@ function refreshBD(bNotD) {
 	refreshButicon(contcontdoc, "ButPlay", "iconwzsk/play", ButPlayActive, false);
 	refreshButicon(contcontdoc, "ButStop", "iconwzsk/stop", ButStopActive, false);
 
+	refreshSld(contcontdoc, "SldAin", true, false, parseFloat(retrieveSi(srcdoc, "StatShrWzskLiv3DView", "SldAinMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskLiv3DView", "SldAinMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskLiv3DView", "SldAin")), SldAinActive, false);
+
 	refreshTxt(contcontdoc, "TxtAst", retrieveCi(srcdoc, "ContInfWzskLiv3DView", "TxtAst"));
 
 	height -= setCtlAvail(contcontdoc, "Aoa", TxtAoaAvail, 25);
@@ -146,7 +161,8 @@ function refreshBD(bNotD) {
 
 	};
 
-	refreshBut(contcontdoc, "ButAst", ButAstActive, false);
+	refreshBut(contcontdoc, "ButAsr", ButAsrActive, false);
+	refreshBut(contcontdoc, "ButAir", ButAirActive, false);
 
 	// IP refreshBD --- END
 
@@ -192,18 +208,34 @@ function handleSldTreVChange(val) {
 	// IP handleSldTreVChange --- INSERT
 };
 
+function handleButPlayClick() {
+	// IP handleButPlayClick --- IBEGIN
+	doc.renderer.clear();
+
+	animate();
+
+	setSi(srcdoc, "StatAppWzskLiv3DView", "ButPlayActive", "false");
+	setSi(srcdoc, "StatAppWzskLiv3DView", "ButStopActive", "true");
+	refreshBD(true);
+	// IP handleButPlayClick --- IEND
+};
+
+function handleButStopClick() {
+	// IP handleButStopClick --- IBEGIN
+	cancelAnimationFrame(doc.reqAnimate);
+	doc.reqAnimate = null;
+
+	setSi(srcdoc, "StatAppWzskLiv3DView", "ButPlayActive", "true");
+	setSi(srcdoc, "StatAppWzskLiv3DView", "ButStopActive", "false");
+	refreshBD(true);
+	// IP handleButStopClick --- IEND
+};
+
 // --- generalized event handlers for app controls
 
 // --- generalized event handlers for shared controls
 
 function handleButClick(ctlsref) {
-if (ctlsref == "ButAst") {
-	doc.renderer.clear();
-	animate();
-
-	return;
-};
-
 	var str = serializeDpchAppDo(srcdoc, "DpchAppWzskLiv3DViewDo", scrJref, ctlsref + "Click");
 	sendReq(str, doc, handleDpchAppDataDoReply);
 };
@@ -446,7 +478,9 @@ function handleSldValChange(_doc, ctlsref, shr, log, _rast) {
 function mergeDpchEngData(dom) {
 	var mask = [];
 
+	if (updateSrcblock(dom, "DpchEngWzskLiv3DViewData", "ContIacWzskLiv3DView", srcdoc)) mask.push("contiac");
 	if (updateSrcblock(dom, "DpchEngWzskLiv3DViewData", "ContInfWzskLiv3DView", srcdoc)) mask.push("continf");
+	if (updateSrcblock(dom, "DpchEngWzskLiv3DViewData", "StatAppWzskLiv3DView", srcdoc)) mask.push("statapp");
 	if (updateSrcblock(dom, "DpchEngWzskLiv3DViewData", "StatShrWzskLiv3DView", srcdoc)) mask.push("statshr");
 	if (updateSrcblock(dom, "DpchEngWzskLiv3DViewData", "TagWzskLiv3DView", srcdoc)) mask.push("tag");
 

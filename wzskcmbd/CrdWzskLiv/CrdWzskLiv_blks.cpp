@@ -2,8 +2,8 @@
 	* \file CrdWzskLiv_blks.cpp
 	* job handler for job CrdWzskLiv (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -138,6 +138,7 @@ void CrdWzskLiv::StatApp::writeXML(
 			, const uint widthMenu
 			, const bool initdone2DView
 			, const bool initdone3DView
+			, const bool initdoneSysmon
 			, const bool initdoneHeadbar
 		) {
 	if (difftag.length() == 0) difftag = "StatAppWzskLiv";
@@ -153,6 +154,7 @@ void CrdWzskLiv::StatApp::writeXML(
 		writeUintAttr(wr, itemtag, "sref", "widthMenu", widthMenu);
 		writeBoolAttr(wr, itemtag, "sref", "initdone2DView", initdone2DView);
 		writeBoolAttr(wr, itemtag, "sref", "initdone3DView", initdone3DView);
+		writeBoolAttr(wr, itemtag, "sref", "initdoneSysmon", initdoneSysmon);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneHeadbar", initdoneHeadbar);
 	xmlTextWriterEndElement(wr);
 };
@@ -164,15 +166,17 @@ void CrdWzskLiv::StatApp::writeXML(
 CrdWzskLiv::StatShr::StatShr(
 			const ubigint jref2DView
 			, const ubigint jref3DView
+			, const ubigint jrefSysmon
 			, const ubigint jrefHeadbar
 		) :
 			Block()
 		{
 	this->jref2DView = jref2DView;
 	this->jref3DView = jref3DView;
+	this->jrefSysmon = jrefSysmon;
 	this->jrefHeadbar = jrefHeadbar;
 
-	mask = {JREF2DVIEW, JREF3DVIEW, JREFHEADBAR};
+	mask = {JREF2DVIEW, JREF3DVIEW, JREFSYSMON, JREFHEADBAR};
 };
 
 void CrdWzskLiv::StatShr::writeXML(
@@ -189,6 +193,7 @@ void CrdWzskLiv::StatShr::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeStringAttr(wr, itemtag, "sref", "scrJref2DView", Scr::scramble(jref2DView));
 		writeStringAttr(wr, itemtag, "sref", "scrJref3DView", Scr::scramble(jref3DView));
+		writeStringAttr(wr, itemtag, "sref", "scrJrefSysmon", Scr::scramble(jrefSysmon));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefHeadbar", Scr::scramble(jrefHeadbar));
 	xmlTextWriterEndElement(wr);
 };
@@ -200,6 +205,7 @@ set<uint> CrdWzskLiv::StatShr::comm(
 
 	if (jref2DView == comp->jref2DView) insert(items, JREF2DVIEW);
 	if (jref3DView == comp->jref3DView) insert(items, JREF3DVIEW);
+	if (jrefSysmon == comp->jrefSysmon) insert(items, JREFSYSMON);
 	if (jrefHeadbar == comp->jrefHeadbar) insert(items, JREFHEADBAR);
 
 	return(items);
@@ -213,7 +219,7 @@ set<uint> CrdWzskLiv::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {JREF2DVIEW, JREF3DVIEW, JREFHEADBAR};
+	diffitems = {JREF2DVIEW, JREF3DVIEW, JREFSYSMON, JREFHEADBAR};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

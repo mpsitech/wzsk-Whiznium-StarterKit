@@ -2,8 +2,8 @@
 	* \file PnlWzskPrsDetail.h
 	* job handler for job PnlWzskPrsDetail (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKPRSDETAIL_H
@@ -284,7 +284,7 @@ public:
 	void refreshRecPrs(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
 	void refreshRecPrsJlnm(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
 
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 
 	void updatePreset(DbsWzsk* dbswzsk, const Sbecore::uint ixWzskVPreset, const Sbecore::ubigint jrefTrig, const bool notif = false);
 

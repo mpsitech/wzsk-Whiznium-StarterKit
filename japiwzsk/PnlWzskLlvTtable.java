@@ -2,8 +2,8 @@
   * \file PnlWzskLlvTtable.java
   * Java API code for job PnlWzskLlvTtable
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 package apiwzsk;
@@ -21,7 +21,6 @@ public class PnlWzskLlvTtable {
 		public static final int BUTREGULARIZECLICK = 1;
 		public static final int BUTMINIMIZECLICK = 2;
 		public static final int BUTCLAIMCLICK = 3;
-		public static final int BUTMVECLICK = 4;
 
 		public static int getIx(
 					String sref
@@ -31,7 +30,6 @@ public class PnlWzskLlvTtable {
 			if (s.equals("butregularizeclick")) return BUTREGULARIZECLICK;
 			if (s.equals("butminimizeclick")) return BUTMINIMIZECLICK;
 			if (s.equals("butclaimclick")) return BUTCLAIMCLICK;
-			if (s.equals("butmveclick")) return BUTMVECLICK;
 
 			return 0;
 		};
@@ -42,7 +40,6 @@ public class PnlWzskLlvTtable {
 			if (ix == BUTREGULARIZECLICK) return("ButRegularizeClick");
 			if (ix == BUTMINIMIZECLICK) return("ButMinimizeClick");
 			if (ix == BUTCLAIMCLICK) return("ButClaimClick");
-			if (ix == BUTMVECLICK) return("ButMveClick");
 
 			return "";
 		};
@@ -140,20 +137,16 @@ public class PnlWzskLlvTtable {
 	public class ContInf extends Block {
 
 		public static final int BUTCLAIMON = 1;
-		public static final int TXTSTE = 2;
 
 		public ContInf(
 					boolean ButClaimOn
-					, String TxtSte
 				) {
 			this.ButClaimOn = ButClaimOn;
-			this.TxtSte = TxtSte;
 
-			mask = new HashSet<Integer>(Arrays.asList(BUTCLAIMON, TXTSTE));
+			mask = new HashSet<Integer>(Arrays.asList(BUTCLAIMON));
 		};
 
 		public boolean ButClaimOn;
-		public String TxtSte;
 
 		public boolean readXML(
 					Document doc
@@ -169,7 +162,6 @@ public class PnlWzskLlvTtable {
 
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				ButClaimOn = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ButClaimOn", mask, BUTCLAIMON);
-				TxtSte = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "TxtSte", mask, TXTSTE);
 
 				return true;
 			};
@@ -183,7 +175,6 @@ public class PnlWzskLlvTtable {
 			HashSet<Integer> items = new HashSet<Integer>();
 
 			if (ButClaimOn == comp.ButClaimOn) items.add(BUTCLAIMON);
-			if (TxtSte.equals(comp.TxtSte)) items.add(TXTSTE);
 
 			return(items);
 		};
@@ -196,7 +187,7 @@ public class PnlWzskLlvTtable {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(BUTCLAIMON, TXTSTE));
+			diffitems = new HashSet<Integer>(Arrays.asList(BUTCLAIMON));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -211,31 +202,31 @@ public class PnlWzskLlvTtable {
 
 		public static final int IXWZSKVEXPSTATE = 1;
 		public static final int BUTCLAIMACTIVE = 2;
-		public static final int SLDTRGMIN = 3;
-		public static final int SLDTRGMAX = 4;
-		public static final int BUTMVEACTIVE = 5;
+		public static final int SLDTRGACTIVE = 3;
+		public static final int SLDTRGMIN = 4;
+		public static final int SLDTRGMAX = 5;
 
 		public StatShr(
 					int ixWzskVExpstate
 					, boolean ButClaimActive
+					, boolean SldTrgActive
 					, double SldTrgMin
 					, double SldTrgMax
-					, boolean ButMveActive
 				) {
 			this.ixWzskVExpstate = ixWzskVExpstate;
 			this.ButClaimActive = ButClaimActive;
+			this.SldTrgActive = SldTrgActive;
 			this.SldTrgMin = SldTrgMin;
 			this.SldTrgMax = SldTrgMax;
-			this.ButMveActive = ButMveActive;
 
-			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGMIN, SLDTRGMAX, BUTMVEACTIVE));
+			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGACTIVE, SLDTRGMIN, SLDTRGMAX));
 		};
 
 		public int ixWzskVExpstate;
 		public boolean ButClaimActive;
+		public boolean SldTrgActive;
 		public double SldTrgMin;
 		public double SldTrgMax;
-		public boolean ButMveActive;
 
 		public boolean readXML(
 					Document doc
@@ -254,9 +245,9 @@ public class PnlWzskLlvTtable {
 				srefIxWzskVExpstate = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "srefIxWzskVExpstate", mask, IXWZSKVEXPSTATE);
 				ixWzskVExpstate = VecWzskVExpstate.getIx(srefIxWzskVExpstate);
 				ButClaimActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButClaimActive", mask, BUTCLAIMACTIVE);
+				SldTrgActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldTrgActive", mask, SLDTRGACTIVE);
 				SldTrgMin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldTrgMin", mask, SLDTRGMIN);
 				SldTrgMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldTrgMax", mask, SLDTRGMAX);
-				ButMveActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButMveActive", mask, BUTMVEACTIVE);
 
 				return true;
 			};
@@ -271,9 +262,9 @@ public class PnlWzskLlvTtable {
 
 			if (ixWzskVExpstate == comp.ixWzskVExpstate) items.add(IXWZSKVEXPSTATE);
 			if (ButClaimActive == comp.ButClaimActive) items.add(BUTCLAIMACTIVE);
+			if (SldTrgActive == comp.SldTrgActive) items.add(SLDTRGACTIVE);
 			if (Xmlio.compareDouble(SldTrgMin, comp.SldTrgMin) < 1.0e-4) items.add(SLDTRGMIN);
 			if (Xmlio.compareDouble(SldTrgMax, comp.SldTrgMax) < 1.0e-4) items.add(SLDTRGMAX);
-			if (ButMveActive == comp.ButMveActive) items.add(BUTMVEACTIVE);
 
 			return(items);
 		};
@@ -286,7 +277,7 @@ public class PnlWzskLlvTtable {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGMIN, SLDTRGMAX, BUTMVEACTIVE));
+			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGACTIVE, SLDTRGMIN, SLDTRGMAX));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -301,27 +292,19 @@ public class PnlWzskLlvTtable {
 
 		public static final int CPT = 1;
 		public static final int CPTTRG = 2;
-		public static final int CPTSTE = 3;
-		public static final int BUTMVE = 4;
 
 		public Tag(
 					String Cpt
 					, String CptTrg
-					, String CptSte
-					, String ButMve
 				) {
 			this.Cpt = Cpt;
 			this.CptTrg = CptTrg;
-			this.CptSte = CptSte;
-			this.ButMve = ButMve;
 
-			mask = new HashSet<Integer>(Arrays.asList(CPT, CPTTRG, CPTSTE, BUTMVE));
+			mask = new HashSet<Integer>(Arrays.asList(CPT, CPTTRG));
 		};
 
 		public String Cpt;
 		public String CptTrg;
-		public String CptSte;
-		public String ButMve;
 
 		public boolean readXML(
 					Document doc
@@ -338,8 +321,6 @@ public class PnlWzskLlvTtable {
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				Cpt = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "Cpt", mask, CPT);
 				CptTrg = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptTrg", mask, CPTTRG);
-				CptSte = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptSte", mask, CPTSTE);
-				ButMve = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButMve", mask, BUTMVE);
 
 				return true;
 			};
@@ -354,8 +335,6 @@ public class PnlWzskLlvTtable {
 
 			if (Cpt.equals(comp.Cpt)) items.add(CPT);
 			if (CptTrg.equals(comp.CptTrg)) items.add(CPTTRG);
-			if (CptSte.equals(comp.CptSte)) items.add(CPTSTE);
-			if (ButMve.equals(comp.ButMve)) items.add(BUTMVE);
 
 			return(items);
 		};
@@ -368,7 +347,7 @@ public class PnlWzskLlvTtable {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(CPT, CPTTRG, CPTSTE, BUTMVE));
+			diffitems = new HashSet<Integer>(Arrays.asList(CPT, CPTTRG));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -501,9 +480,9 @@ public class PnlWzskLlvTtable {
 			super(VecWzskVDpch.DPCHENGWZSKLLVTTABLEDATA);
 
 			contiac = new ContIac(0.0);
-			continf = new ContInf(false, "");
-			statshr = new StatShr(0, false, 0.0, 0.0, false);
-			tag = new Tag("", "", "", "");
+			continf = new ContInf(false);
+			statshr = new StatShr(0, false, false, 0.0, 0.0);
+			tag = new Tag("", "");
 		};
 
 		public ContIac contiac;
@@ -542,9 +521,9 @@ public class PnlWzskLlvTtable {
 			} else {
 				scrJref = "";
 				contiac = new ContIac(0.0);
-				continf = new ContInf(false, "");
-				statshr = new StatShr(0, false, 0.0, 0.0, false);
-				tag = new Tag("", "", "", "");
+				continf = new ContInf(false);
+				statshr = new StatShr(0, false, false, 0.0, 0.0);
+				tag = new Tag("", "");
 			};
 		};
 

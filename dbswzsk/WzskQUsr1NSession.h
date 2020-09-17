@@ -2,8 +2,8 @@
 	* \file WzskQUsr1NSession.h
 	* Dbs and XML wrapper for table TblWzskQUsr1NSession (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef WZSKQUSR1NSESSION_H

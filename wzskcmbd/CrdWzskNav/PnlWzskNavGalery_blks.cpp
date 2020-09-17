@@ -2,8 +2,8 @@
 	* \file PnlWzskNavGalery_blks.cpp
 	* job handler for job PnlWzskNavGalery (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -201,10 +201,8 @@ PnlWzskNavGalery::StatShr::StatShr(
 			, const bool ButSesViewActive
 			, const bool LstShtAvail
 			, const bool ButShtViewActive
-			, const bool ButShtNewcrdActive
 			, const bool LstFilAvail
 			, const bool ButFilViewActive
-			, const bool ButFilNewcrdActive
 		) :
 			Block()
 		{
@@ -216,12 +214,10 @@ PnlWzskNavGalery::StatShr::StatShr(
 	this->ButSesViewActive = ButSesViewActive;
 	this->LstShtAvail = LstShtAvail;
 	this->ButShtViewActive = ButShtViewActive;
-	this->ButShtNewcrdActive = ButShtNewcrdActive;
 	this->LstFilAvail = LstFilAvail;
 	this->ButFilViewActive = ButFilViewActive;
-	this->ButFilNewcrdActive = ButFilNewcrdActive;
 
-	mask = {LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, BUTSHTNEWCRDACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE, BUTFILNEWCRDACTIVE};
+	mask = {LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE};
 };
 
 void PnlWzskNavGalery::StatShr::writeXML(
@@ -244,10 +240,8 @@ void PnlWzskNavGalery::StatShr::writeXML(
 		writeBoolAttr(wr, itemtag, "sref", "ButSesViewActive", ButSesViewActive);
 		writeBoolAttr(wr, itemtag, "sref", "LstShtAvail", LstShtAvail);
 		writeBoolAttr(wr, itemtag, "sref", "ButShtViewActive", ButShtViewActive);
-		writeBoolAttr(wr, itemtag, "sref", "ButShtNewcrdActive", ButShtNewcrdActive);
 		writeBoolAttr(wr, itemtag, "sref", "LstFilAvail", LstFilAvail);
 		writeBoolAttr(wr, itemtag, "sref", "ButFilViewActive", ButFilViewActive);
-		writeBoolAttr(wr, itemtag, "sref", "ButFilNewcrdActive", ButFilNewcrdActive);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -264,10 +258,8 @@ set<uint> PnlWzskNavGalery::StatShr::comm(
 	if (ButSesViewActive == comp->ButSesViewActive) insert(items, BUTSESVIEWACTIVE);
 	if (LstShtAvail == comp->LstShtAvail) insert(items, LSTSHTAVAIL);
 	if (ButShtViewActive == comp->ButShtViewActive) insert(items, BUTSHTVIEWACTIVE);
-	if (ButShtNewcrdActive == comp->ButShtNewcrdActive) insert(items, BUTSHTNEWCRDACTIVE);
 	if (LstFilAvail == comp->LstFilAvail) insert(items, LSTFILAVAIL);
 	if (ButFilViewActive == comp->ButFilViewActive) insert(items, BUTFILVIEWACTIVE);
-	if (ButFilNewcrdActive == comp->ButFilNewcrdActive) insert(items, BUTFILNEWCRDACTIVE);
 
 	return(items);
 };
@@ -280,7 +272,7 @@ set<uint> PnlWzskNavGalery::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, BUTSHTNEWCRDACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE, BUTFILNEWCRDACTIVE};
+	diffitems = {LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

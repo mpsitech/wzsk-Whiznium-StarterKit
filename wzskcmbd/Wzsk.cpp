@@ -2,8 +2,8 @@
 	* \file Wzsk.cpp
 	* Wzsk global functionality (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "Wzsk.h"
@@ -489,6 +489,7 @@ void Wzsk::bitmapToXy(
 			, const unsigned int height
 			, vector<int>& xs
 			, vector<int>& ys
+			, const unsigned int cntPerRowMax
 			, const bool roi
 			, const vector<int>& xsRoi
 			, const vector<int>& ysRoi
@@ -502,6 +503,8 @@ void Wzsk::bitmapToXy(
 	register uint16_t data;
 
 	register uint16_t test;
+
+	unsigned int cnt;
 
 	vector<int> dxsRoi;
 	vector<int> dysRoi;
@@ -530,6 +533,8 @@ void Wzsk::bitmapToXy(
 	};
 
 	for (unsigned int i = 0; i < height; i++) {
+		cnt = 0;
+
 		for (unsigned int j = 0; j < width; j += 16) {
 			ldix = i * width/8 + j/8;
 
@@ -576,8 +581,13 @@ void Wzsk::bitmapToXy(
 					if (!roi || (Nroi%2)) {
 						xs.push_back(((int) stix) - ((int) width)/2);
 						ys.push_back(((int) i) - ((int) height)/2);
+
+						cnt++;
+						if (cnt >= cntPerRowMax) break;
 					};
 				};
+
+			if (cnt >= cntPerRowMax) break;
 		};
 	};
 };

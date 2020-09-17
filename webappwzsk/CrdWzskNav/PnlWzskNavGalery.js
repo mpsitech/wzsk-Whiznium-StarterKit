@@ -2,8 +2,8 @@
   * \file PnlWzskNavGalery.js
   * web client functionality for panel PnlWzskNavGalery
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 // IP cust --- INSERT
@@ -105,13 +105,11 @@ function refreshBD(bNotD) {
 	var LstShtAvail = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "LstShtAvail") == "true");
 	var ButShtViewAvail = !LstShtAlt;
 	var ButShtViewActive = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "ButShtViewActive") == "true");
-	var ButShtNewcrdActive = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "ButShtNewcrdActive") == "true");
 
 	var LstFilAlt = (retrieveSi(srcdoc, "StatAppWzskNavGalery", "LstFilAlt") == "true");
 	var LstFilAvail = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "LstFilAvail") == "true");
 	var ButFilViewAvail = !LstFilAlt;
 	var ButFilViewActive = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "ButFilViewActive") == "true");
-	var ButFilNewcrdActive = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "ButFilNewcrdActive") == "true");
 
 	var mytd, first;
 	// IP refreshBD.vars --- END
@@ -330,7 +328,6 @@ function refreshBD(bNotD) {
 		};
 
 		if (ButShtViewAvail) refreshButicon(contcontdoc, "ButShtView", "icon/view", ButShtViewActive, false);
-		refreshButicon(contcontdoc, "ButShtNewcrd", "icon/newcrd", ButShtNewcrdActive, false);
 
 	} else setCtlAvail(contcontdoc, "Sht2", false, 0);
 
@@ -385,7 +382,6 @@ function refreshBD(bNotD) {
 		};
 
 		if (ButFilViewAvail) refreshButicon(contcontdoc, "ButFilView", "icon/view", ButFilViewActive, false);
-		refreshButicon(contcontdoc, "ButFilNewcrd", "icon/newcrd", ButFilNewcrdActive, false);
 
 	} else setCtlAvail(contcontdoc, "Fil2", false, 0);
 

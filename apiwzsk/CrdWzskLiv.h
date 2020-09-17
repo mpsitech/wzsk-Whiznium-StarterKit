@@ -2,8 +2,8 @@
 	* \file CrdWzskLiv.h
 	* API code for job CrdWzskLiv (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef CRDWZSKLIV_H
@@ -86,10 +86,11 @@ namespace CrdWzskLiv {
 		static const Sbecore::uint WIDTHMENU = 4;
 		static const Sbecore::uint INITDONE2DVIEW = 5;
 		static const Sbecore::uint INITDONE3DVIEW = 6;
-		static const Sbecore::uint INITDONEHEADBAR = 7;
+		static const Sbecore::uint INITDONESYSMON = 7;
+		static const Sbecore::uint INITDONEHEADBAR = 8;
 
 	public:
-		StatApp(const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdone2DView = false, const bool initdone3DView = false, const bool initdoneHeadbar = false);
+		StatApp(const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdone2DView = false, const bool initdone3DView = false, const bool initdoneSysmon = false, const bool initdoneHeadbar = false);
 
 	public:
 		Sbecore::uint ixWzskVReqitmode;
@@ -98,6 +99,7 @@ namespace CrdWzskLiv {
 		Sbecore::uint widthMenu;
 		bool initdone2DView;
 		bool initdone3DView;
+		bool initdoneSysmon;
 		bool initdoneHeadbar;
 
 	public:
@@ -114,14 +116,16 @@ namespace CrdWzskLiv {
 	public:
 		static const Sbecore::uint SCRJREF2DVIEW = 1;
 		static const Sbecore::uint SCRJREF3DVIEW = 2;
-		static const Sbecore::uint SCRJREFHEADBAR = 3;
+		static const Sbecore::uint SCRJREFSYSMON = 3;
+		static const Sbecore::uint SCRJREFHEADBAR = 4;
 
 	public:
-		StatShr(const std::string& scrJref2DView = "", const std::string& scrJref3DView = "", const std::string& scrJrefHeadbar = "");
+		StatShr(const std::string& scrJref2DView = "", const std::string& scrJref3DView = "", const std::string& scrJrefSysmon = "", const std::string& scrJrefHeadbar = "");
 
 	public:
 		std::string scrJref2DView;
 		std::string scrJref3DView;
+		std::string scrJrefSysmon;
 		std::string scrJrefHeadbar;
 
 	public:

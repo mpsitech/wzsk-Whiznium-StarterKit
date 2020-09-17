@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvCamera.h
 	* API code for job PnlWzskLlvCamera (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKLLVCAMERA_H
@@ -50,16 +50,18 @@ namespace PnlWzskLlvCamera {
 
 	public:
 		static const Sbecore::uint NUMFPUPMDE = 1;
-		static const Sbecore::uint SLDFCS = 2;
+		static const Sbecore::uint CHKAEX = 2;
 		static const Sbecore::uint SLDEXT = 3;
+		static const Sbecore::uint SLDFCS = 4;
 
 	public:
-		ContIac(const Sbecore::uint numFPupMde = 1, const double SldFcs = 0.0, const double SldExt = 0.0);
+		ContIac(const Sbecore::uint numFPupMde = 1, const bool ChkAex = false, const double SldExt = 0.0, const double SldFcs = 0.0);
 
 	public:
 		Sbecore::uint numFPupMde;
-		double SldFcs;
+		bool ChkAex;
 		double SldExt;
+		double SldFcs;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -98,33 +100,33 @@ namespace PnlWzskLlvCamera {
 		static const Sbecore::uint BUTCLAIMACTIVE = 2;
 		static const Sbecore::uint BUTPLAYACTIVE = 3;
 		static const Sbecore::uint BUTSTOPACTIVE = 4;
-		static const Sbecore::uint SLDFCSAVAIL = 5;
-		static const Sbecore::uint SLDFCSACTIVE = 6;
-		static const Sbecore::uint SLDFCSMIN = 7;
-		static const Sbecore::uint SLDFCSMAX = 8;
-		static const Sbecore::uint SLDEXTAVAIL = 9;
-		static const Sbecore::uint SLDEXTACTIVE = 10;
-		static const Sbecore::uint SLDEXTMIN = 11;
-		static const Sbecore::uint SLDEXTMAX = 12;
-		static const Sbecore::uint SLDEXTRAST = 13;
+		static const Sbecore::uint CHKAEXACTIVE = 5;
+		static const Sbecore::uint SLDEXTAVAIL = 6;
+		static const Sbecore::uint SLDEXTACTIVE = 7;
+		static const Sbecore::uint SLDEXTMIN = 8;
+		static const Sbecore::uint SLDEXTMAX = 9;
+		static const Sbecore::uint SLDEXTRAST = 10;
+		static const Sbecore::uint SLDFCSACTIVE = 11;
+		static const Sbecore::uint SLDFCSMIN = 12;
+		static const Sbecore::uint SLDFCSMAX = 13;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool ButPlayActive = true, const bool ButStopActive = true, const bool SldFcsAvail = true, const bool SldFcsActive = true, const double SldFcsMin = 0.0, const double SldFcsMax = 1.0, const bool SldExtAvail = true, const bool SldExtActive = true, const double SldExtMin = 0.001, const double SldExtMax = 100.0, const double SldExtRast = 3.16228);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool ButPlayActive = true, const bool ButStopActive = true, const bool ChkAexActive = true, const bool SldExtAvail = true, const bool SldExtActive = true, const double SldExtMin = 0.001, const double SldExtMax = 100.0, const double SldExtRast = 1.77828, const bool SldFcsActive = true, const double SldFcsMin = 0.0, const double SldFcsMax = 1.0);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		bool ButClaimActive;
 		bool ButPlayActive;
 		bool ButStopActive;
-		bool SldFcsAvail;
-		bool SldFcsActive;
-		double SldFcsMin;
-		double SldFcsMax;
+		bool ChkAexActive;
 		bool SldExtAvail;
 		bool SldExtActive;
 		double SldExtMin;
 		double SldExtMax;
 		double SldExtRast;
+		bool SldFcsActive;
+		double SldFcsMin;
+		double SldFcsMax;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -140,17 +142,19 @@ namespace PnlWzskLlvCamera {
 	public:
 		static const Sbecore::uint CPT = 1;
 		static const Sbecore::uint CPTMDE = 2;
-		static const Sbecore::uint CPTFCS = 3;
+		static const Sbecore::uint CPTAEX = 3;
 		static const Sbecore::uint CPTEXT = 4;
+		static const Sbecore::uint CPTFCS = 5;
 
 	public:
-		Tag(const std::string& Cpt = "", const std::string& CptMde = "", const std::string& CptFcs = "", const std::string& CptExt = "");
+		Tag(const std::string& Cpt = "", const std::string& CptMde = "", const std::string& CptAex = "", const std::string& CptExt = "", const std::string& CptFcs = "");
 
 	public:
 		std::string Cpt;
 		std::string CptMde;
-		std::string CptFcs;
+		std::string CptAex;
 		std::string CptExt;
+		std::string CptFcs;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);

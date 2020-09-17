@@ -2,8 +2,8 @@
 	* \file JobWzskSrcFpga.h
 	* job handler for job JobWzskSrcFpga (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef JOBWZSKSRCFPGA_H
@@ -124,7 +124,7 @@ public:
 	// - high-level methods
 
 	// stepper motor
-	bool setOmega(const float omega);
+	bool setStep(const bool rng, const bool ccwNotCw, const float omega);
 	bool getAngle(float& angle);
 
 	// 10kHz clock source

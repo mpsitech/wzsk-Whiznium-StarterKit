@@ -2,8 +2,8 @@
 	* \file M2msessWzsk_blks.cpp
 	* job handler for job M2msessWzsk (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -17,21 +17,25 @@ using namespace Xmlio;
 M2msessWzsk::StatShr::StatShr(
 			const ubigint jrefAcqpreview
 			, const ubigint jrefAcqptcloud
+			, const ubigint jrefActexposure
 			, const ubigint jrefActlaser
 			, const ubigint jrefActservo
 			, const ubigint jrefIprcorner
 			, const ubigint jrefIprtrace
+			, const ubigint jrefSrcsysinfo
 		) :
 			Block()
 		{
 	this->jrefAcqpreview = jrefAcqpreview;
 	this->jrefAcqptcloud = jrefAcqptcloud;
+	this->jrefActexposure = jrefActexposure;
 	this->jrefActlaser = jrefActlaser;
 	this->jrefActservo = jrefActservo;
 	this->jrefIprcorner = jrefIprcorner;
 	this->jrefIprtrace = jrefIprtrace;
+	this->jrefSrcsysinfo = jrefSrcsysinfo;
 
-	mask = {JREFACQPREVIEW, JREFACQPTCLOUD, JREFACTLASER, JREFACTSERVO, JREFIPRCORNER, JREFIPRTRACE};
+	mask = {JREFACQPREVIEW, JREFACQPTCLOUD, JREFACTEXPOSURE, JREFACTLASER, JREFACTSERVO, JREFIPRCORNER, JREFIPRTRACE, JREFSRCSYSINFO};
 };
 
 void M2msessWzsk::StatShr::writeXML(
@@ -48,10 +52,12 @@ void M2msessWzsk::StatShr::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeStringAttr(wr, itemtag, "sref", "scrJrefAcqpreview", Scr::scramble(jrefAcqpreview));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefAcqptcloud", Scr::scramble(jrefAcqptcloud));
+		writeStringAttr(wr, itemtag, "sref", "scrJrefActexposure", Scr::scramble(jrefActexposure));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefActlaser", Scr::scramble(jrefActlaser));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefActservo", Scr::scramble(jrefActservo));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefIprcorner", Scr::scramble(jrefIprcorner));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefIprtrace", Scr::scramble(jrefIprtrace));
+		writeStringAttr(wr, itemtag, "sref", "scrJrefSrcsysinfo", Scr::scramble(jrefSrcsysinfo));
 	xmlTextWriterEndElement(wr);
 };
 
@@ -62,10 +68,12 @@ set<uint> M2msessWzsk::StatShr::comm(
 
 	if (jrefAcqpreview == comp->jrefAcqpreview) insert(items, JREFACQPREVIEW);
 	if (jrefAcqptcloud == comp->jrefAcqptcloud) insert(items, JREFACQPTCLOUD);
+	if (jrefActexposure == comp->jrefActexposure) insert(items, JREFACTEXPOSURE);
 	if (jrefActlaser == comp->jrefActlaser) insert(items, JREFACTLASER);
 	if (jrefActservo == comp->jrefActservo) insert(items, JREFACTSERVO);
 	if (jrefIprcorner == comp->jrefIprcorner) insert(items, JREFIPRCORNER);
 	if (jrefIprtrace == comp->jrefIprtrace) insert(items, JREFIPRTRACE);
+	if (jrefSrcsysinfo == comp->jrefSrcsysinfo) insert(items, JREFSRCSYSINFO);
 
 	return(items);
 };
@@ -78,7 +86,7 @@ set<uint> M2msessWzsk::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {JREFACQPREVIEW, JREFACQPTCLOUD, JREFACTLASER, JREFACTSERVO, JREFIPRCORNER, JREFIPRTRACE};
+	diffitems = {JREFACQPREVIEW, JREFACQPTCLOUD, JREFACTEXPOSURE, JREFACTLASER, JREFACTSERVO, JREFIPRCORNER, JREFIPRTRACE, JREFSRCSYSINFO};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

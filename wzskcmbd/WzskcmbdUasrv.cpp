@@ -2,8 +2,8 @@
 	* \file WzskcmbdUasrv.cpp
 	* OPC UA server based on Matrikon FLEX OPC UA SDK for Wzsk combined daemon (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "Wzskcmbd.h"
@@ -80,13 +80,26 @@ void WzskcmbdUasrv::Session::Initialise(
 		delete req;
 
 		// - probe access rights and add call listeners
+		if (statshr.jrefSrcsysinfo != 0) {
+			insert(jobaccs, VecWzskVJob::JOBWZSKSRCSYSINFO);
+
+			ixVFeatgroups[statshr.jrefSrcsysinfo] = VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefSrcsysinfo, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "loadAllLoadCore0LoadCore1LoadCore2LoadCore3", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "loadAllLoadCore0LoadCore1LoadCore2LoadCore3")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefSrcsysinfo, "loadAllLoadCore0LoadCore1LoadCore2LoadCore3", true);
+			};
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefSrcsysinfo, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "temp", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "temp")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefSrcsysinfo, "temp", true);
+			};
+		};
 		if (statshr.jrefIprtrace != 0) {
 			insert(jobaccs, VecWzskVJob::JOBWZSKIPRTRACE);
 
 			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprtrace, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setLevel", ixAcc);
 			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setLevel")] = ixAcc;
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprtrace, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setPOn", ixAcc);
-			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setPOn")] = ixAcc;
 			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprtrace, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setRoi", ixAcc);
 			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setRoi")] = ixAcc;
 			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprtrace, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setRoiNotFull", ixAcc);
@@ -146,6 +159,10 @@ void WzskcmbdUasrv::Session::Initialise(
 
 			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActservo, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "moveto", ixAcc);
 			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "moveto")] = ixAcc;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActservo, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "stop", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "stop")] = ixAcc;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActservo, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "turn", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "turn")] = ixAcc;
 			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActservo, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "zero", ixAcc);
 			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "zero")] = ixAcc;
 
@@ -171,10 +188,38 @@ void WzskcmbdUasrv::Session::Initialise(
 				xchg->addClstnUasrv(statshr.jrefActlaser, "leftRight", true);
 			};
 		};
+		if (statshr.jrefActexposure != 0) {
+			insert(jobaccs, VecWzskVJob::JOBWZSKACTEXPOSURE);
+
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActexposure, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setExposure", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setExposure")] = ixAcc;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActexposure, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setFocus", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setFocus")] = ixAcc;
+
+			ixVFeatgroups[statshr.jrefActexposure] = VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActexposure, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "autoNotManualTexp", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "autoNotManualTexp")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefActexposure, "autoNotManualTexp", true);
+			};
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActexposure, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "focus", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "focus")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefActexposure, "focus", true);
+			};
+		};
 		if (statshr.jrefAcqptcloud != 0) {
 			insert(jobaccs, VecWzskVJob::JOBWZSKACQPTCLOUD);
 
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDeltaTheta", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDeltaTheta")] = ixAcc;
+
 			ixVFeatgroups[statshr.jrefAcqptcloud] = VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "deltaTheta", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "deltaTheta")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefAcqptcloud, "deltaTheta", true);
+			};
 			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "xYZ", ixAcc);
 			if (ixAcc != 0) {
 				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "xYZ")] = ixAcc;
@@ -397,6 +442,8 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD) jref = session->statshr.jrefIprcorner;
 		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD) jref = session->statshr.jrefActservo;
 		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD) jref = session->statshr.jrefActlaser;
+		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD) jref = session->statshr.jrefActexposure;
+		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD) jref = session->statshr.jrefAcqptcloud;
 	} else {
 		return OpcUa_BadSessionIdInvalid;
 	};
@@ -419,34 +466,6 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 
 				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setLevel",
 							{&levelOn_inv,&levelOff_inv},
-							{&success_ret});
-
-				result.reset(new SafeRefCount_t<CallMethodResult_t>());
-				result->OutputArguments().Initialise(1);
-
-				success_ret_UA->Value(success_ret);
-				success_ret_UA->CopyTo((result->OutputArguments())[0]);
-
-				result->StatusCode() = OpcUa_Good;
-			};
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD) && (srefIxVMethod == "setPOn")) {
-			if (requestParameters->InputArguments().Size() == 2) {
-				IntrusivePtr_t<const Float_t> pOnLeft_inv_UA;
-				float pOnLeft_inv;
-				IntrusivePtr_t<const Float_t> pOnRight_inv_UA;
-				float pOnRight_inv;
-
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), pOnLeft_inv_UA);
-				pOnLeft_inv = pOnLeft_inv_UA->Value();
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[1]), pOnRight_inv_UA);
-				pOnRight_inv = pOnRight_inv_UA->Value();
-
-				bool success_ret;
-				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
-
-				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setPOn",
-							{&pOnLeft_inv,&pOnRight_inv},
 							{&success_ret});
 
 				result.reset(new SafeRefCount_t<CallMethodResult_t>());
@@ -658,6 +677,48 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 				result->StatusCode() = OpcUa_Good;
 			};
 
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD) && (srefIxVMethod == "stop")) {
+			if (requestParameters->InputArguments().Size() == 0) {
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "stop",
+							{},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD) && (srefIxVMethod == "turn")) {
+			if (requestParameters->InputArguments().Size() == 1) {
+				IntrusivePtr_t<const Boolean_t> ccwNotCw_inv_UA;
+				bool ccwNotCw_inv;
+
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), ccwNotCw_inv_UA);
+				ccwNotCw_inv = ccwNotCw_inv_UA->Value();
+
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "turn",
+							{&ccwNotCw_inv},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
+
 		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD) && (srefIxVMethod == "zero")) {
 			if (requestParameters->InputArguments().Size() == 0) {
 				bool success_ret;
@@ -723,6 +784,82 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 
 				result->StatusCode() = OpcUa_Good;
 			};
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD) && (srefIxVMethod == "setExposure")) {
+			if (requestParameters->InputArguments().Size() == 2) {
+				IntrusivePtr_t<const Boolean_t> autoNotManual_inv_UA;
+				bool autoNotManual_inv;
+				IntrusivePtr_t<const Float_t> Texp_inv_UA;
+				float Texp_inv;
+
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), autoNotManual_inv_UA);
+				autoNotManual_inv = autoNotManual_inv_UA->Value();
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[1]), Texp_inv_UA);
+				Texp_inv = Texp_inv_UA->Value();
+
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setExposure",
+							{&autoNotManual_inv,&Texp_inv},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD) && (srefIxVMethod == "setFocus")) {
+			if (requestParameters->InputArguments().Size() == 1) {
+				IntrusivePtr_t<const Float_t> focus_inv_UA;
+				float focus_inv;
+
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), focus_inv_UA);
+				focus_inv = focus_inv_UA->Value();
+
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setFocus",
+							{&focus_inv},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD) && (srefIxVMethod == "setDeltaTheta")) {
+			if (requestParameters->InputArguments().Size() == 1) {
+				IntrusivePtr_t<const Float_t> deltaTheta_inv_UA;
+				float deltaTheta_inv;
+
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), deltaTheta_inv_UA);
+				deltaTheta_inv = deltaTheta_inv_UA->Value();
+
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDeltaTheta",
+							{&deltaTheta_inv},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
 		};
 
 	} else {
@@ -766,7 +903,91 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 		dataValue->StatusCode() = new SafeRefCount_t<StatusCode_t>();
 		*dataValue->StatusCode() = OpcUa_Good;
 
-		if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEVAR) && (srefIxVVar == "pOnLeftPOnRight")) {
+		if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR) && (srefIxVVar == "loadAllLoadCore0LoadCore1LoadCore2LoadCore3")) {
+			JobWzskSrcSysinfo::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "loadAll") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.loadAll.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > loadAll = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				loadAll->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.loadAll[i]);
+					(*loadAll)[i] = item;
+				};
+				dataValue->Value() = loadAll;
+			} else if (subvar == "loadCore0") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.loadCore0.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > loadCore0 = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				loadCore0->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.loadCore0[i]);
+					(*loadCore0)[i] = item;
+				};
+				dataValue->Value() = loadCore0;
+			} else if (subvar == "loadCore1") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.loadCore1.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > loadCore1 = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				loadCore1->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.loadCore1[i]);
+					(*loadCore1)[i] = item;
+				};
+				dataValue->Value() = loadCore1;
+			} else if (subvar == "loadCore2") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.loadCore2.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > loadCore2 = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				loadCore2->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.loadCore2[i]);
+					(*loadCore2)[i] = item;
+				};
+				dataValue->Value() = loadCore2;
+			} else if (subvar == "loadCore3") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.loadCore3.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > loadCore3 = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				loadCore3->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.loadCore3[i]);
+					(*loadCore3)[i] = item;
+				};
+				dataValue->Value() = loadCore3;
+			};
+
+			JobWzskSrcSysinfo::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR) && (srefIxVVar == "temp")) {
+			JobWzskSrcSysinfo::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "temp") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.temp.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > temp = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				temp->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.temp[i]);
+					(*temp)[i] = item;
+				};
+				dataValue->Value() = temp;
+			};
+
+			JobWzskSrcSysinfo::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEVAR) && (srefIxVVar == "pOnLeftPOnRight")) {
 			JobWzskIprTrace::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
 			if (setSourceTimestamp) {
@@ -1003,6 +1224,58 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 			};
 
 			JobWzskActLaser::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR) && (srefIxVVar == "autoNotManualTexp")) {
+			JobWzskActExposure::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "autoNotManual") {
+				IntrusivePtr_t<Boolean_t> autoNotManual = new SafeRefCount_t<Boolean_t>();
+				*autoNotManual = JobWzskActExposure::shrdat.autoNotManual;
+				dataValue->Value() = autoNotManual;
+			} else if (subvar == "Texp") {
+				IntrusivePtr_t<Float_t> Texp = new SafeRefCount_t<Float_t>();
+				*Texp = JobWzskActExposure::shrdat.Texp;
+				dataValue->Value() = Texp;
+			};
+
+			JobWzskActExposure::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR) && (srefIxVVar == "focus")) {
+			JobWzskActExposure::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "focus") {
+				IntrusivePtr_t<Float_t> focus = new SafeRefCount_t<Float_t>();
+				*focus = JobWzskActExposure::shrdat.focus;
+				dataValue->Value() = focus;
+			};
+
+			JobWzskActExposure::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR) && (srefIxVVar == "deltaTheta")) {
+			JobWzskAcqPtcloud::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "deltaTheta") {
+				IntrusivePtr_t<Float_t> deltaTheta = new SafeRefCount_t<Float_t>();
+				*deltaTheta = JobWzskAcqPtcloud::shrdat.deltaTheta;
+				dataValue->Value() = deltaTheta;
+			};
+
+			JobWzskAcqPtcloud::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
 		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR) && (srefIxVVar == "xYZ")) {
 			JobWzskAcqPtcloud::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
@@ -1334,6 +1607,22 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 	vector<string> srefsSubvars;
 	vector<uint> icsVVartypeSubvars;
 
+	fAS_addJobFolder(VecWzskVJob::JOBWZSKSRCSYSINFO, addressSpace, objectsFolder, jobFolder);
+
+	srefsSubvars.resize(5); icsVVartypeSubvars.resize(5);
+	srefsSubvars[0] = "loadAll"; icsVVartypeSubvars[0] = VecVVartype::FLOATVEC;
+	srefsSubvars[1] = "loadCore0"; icsVVartypeSubvars[1] = VecVVartype::FLOATVEC;
+	srefsSubvars[2] = "loadCore1"; icsVVartypeSubvars[2] = VecVVartype::FLOATVEC;
+	srefsSubvars[3] = "loadCore2"; icsVVartypeSubvars[3] = VecVVartype::FLOATVEC;
+	srefsSubvars[4] = "loadCore3"; icsVVartypeSubvars[4] = VecVVartype::FLOATVEC;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKSRCSYSINFO, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR , "loadAllLoadCore0LoadCore1LoadCore2LoadCore3", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
+	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
+	srefsSubvars[0] = "temp"; icsVVartypeSubvars[0] = VecVVartype::FLOATVEC;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKSRCSYSINFO, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR , "temp", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
 	fAS_addJobFolder(VecWzskVJob::JOBWZSKIPRTRACE, addressSpace, objectsFolder, jobFolder);
 
 	srefsParsInv.resize(2); opcUaIdsParsInv.resize(2);
@@ -1344,15 +1633,6 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
 
 	fAS_addMethod(VecWzskVJob::JOBWZSKIPRTRACE, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD , "setLevel", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
-
-	srefsParsInv.resize(2); opcUaIdsParsInv.resize(2);
-	srefsParsInv[0] = "pOnLeft"; opcUaIdsParsInv[0] = OpcUaId_Float;
-	srefsParsInv[1] = "pOnRight"; opcUaIdsParsInv[1] = OpcUaId_Float;
-
-	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
-	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
-
-	fAS_addMethod(VecWzskVJob::JOBWZSKIPRTRACE, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD , "setPOn", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
 
 	srefsParsInv.resize(8); opcUaIdsParsInv.resize(8);
 	srefsParsInv[0] = "roiAx"; opcUaIdsParsInv[0] = OpcUaId_Int32;
@@ -1477,6 +1757,21 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
 	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
 
+	fAS_addMethod(VecWzskVJob::JOBWZSKACTSERVO, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD , "stop", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
+	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
+	srefsParsInv[0] = "ccwNotCw"; opcUaIdsParsInv[0] = OpcUaId_Boolean;
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
+	fAS_addMethod(VecWzskVJob::JOBWZSKACTSERVO, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD , "turn", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
+	srefsParsInv.resize(0); opcUaIdsParsInv.resize(0);
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
 	fAS_addMethod(VecWzskVJob::JOBWZSKACTSERVO, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD , "zero", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
 
 	srefsSubvars.resize(2); icsVVartypeSubvars.resize(2);
@@ -1509,7 +1804,50 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 
 	fAS_addVar(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR , "leftRight", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
+	fAS_addJobFolder(VecWzskVJob::JOBWZSKACTEXPOSURE, addressSpace, objectsFolder, jobFolder);
+
+	srefsParsInv.resize(2); opcUaIdsParsInv.resize(2);
+	srefsParsInv[0] = "autoNotManual"; opcUaIdsParsInv[0] = OpcUaId_Boolean;
+	srefsParsInv[1] = "Texp"; opcUaIdsParsInv[1] = OpcUaId_Float;
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
+	fAS_addMethod(VecWzskVJob::JOBWZSKACTEXPOSURE, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD , "setExposure", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
+	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
+	srefsParsInv[0] = "focus"; opcUaIdsParsInv[0] = OpcUaId_Float;
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
+	fAS_addMethod(VecWzskVJob::JOBWZSKACTEXPOSURE, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD , "setFocus", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
+	srefsSubvars.resize(2); icsVVartypeSubvars.resize(2);
+	srefsSubvars[0] = "autoNotManual"; icsVVartypeSubvars[0] = VecVVartype::BOOLEAN;
+	srefsSubvars[1] = "Texp"; icsVVartypeSubvars[1] = VecVVartype::FLOAT;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKACTEXPOSURE, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR , "autoNotManualTexp", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
+	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
+	srefsSubvars[0] = "focus"; icsVVartypeSubvars[0] = VecVVartype::FLOAT;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKACTEXPOSURE, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR , "focus", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
 	fAS_addJobFolder(VecWzskVJob::JOBWZSKACQPTCLOUD, addressSpace, objectsFolder, jobFolder);
+
+	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
+	srefsParsInv[0] = "deltaTheta"; opcUaIdsParsInv[0] = OpcUaId_Float;
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
+	fAS_addMethod(VecWzskVJob::JOBWZSKACQPTCLOUD, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD , "setDeltaTheta", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
+	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
+	srefsSubvars[0] = "deltaTheta"; icsVVartypeSubvars[0] = VecVVartype::FLOAT;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKACQPTCLOUD, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR , "deltaTheta", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
 	srefsSubvars.resize(3); icsVVartypeSubvars.resize(3);
 	srefsSubvars[0] = "x"; icsVVartypeSubvars[0] = VecVVartype::FLOATVEC;

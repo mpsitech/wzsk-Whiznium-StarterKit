@@ -2,8 +2,8 @@
 	* \file JobWzskAcqPreview.h
 	* job handler for job JobWzskAcqPreview (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef JOBWZSKACQPREVIEW_H
@@ -66,7 +66,7 @@ public:
 
 	public:
 		// IP Shrdat.subs --- IBEGIN
-		// using a result is not absolutely required in this case; only straight copies to UI so far
+		// using a result is not absolutely required in this case; only straight copies to UI (and store to .png in one case) so far
 		/**
 			* ResultitemGray
 			*/
@@ -153,9 +153,9 @@ public:
 	// IP vars.spec --- INSERT
 
 	// IP vars.cust --- IBEGIN
-	Sbecore::uint ixRiSrc;
+	Sbecore::uint ixRiSrc; // locked from ready to process
 
-	Sbecore::uint ixRiBingray;
+	Sbecore::uint ixRiBingray; // locked from ready to process
 	Sbecore::uint ixRiBinreddom;
 	Sbecore::uint ixRiBinrgb;
 	Sbecore::uint ixRiRawgray;
@@ -176,10 +176,13 @@ public:
 		Sbecore::uint ixWzskVPvwmode;
 	};
 
+	void binGrrd(uint16_t* grrd16, uint16_t* pvwgrrd16);
+
 	void binRgb(uint16_t* r16, uint16_t* g16, uint16_t* b16, uint16_t* pvwr16, uint16_t* pvwg16, uint16_t* pvwb16);
 	void binRgb_component(uint16_t* src, uint16_t* dest);
 
-	void binGrrd(uint16_t* grrd16, uint16_t* pvwgrrd16);
+	void rawGr(uint16_t* grrd16, uint16_t* pvwgrrd16);
+	void rawRgb(uint16_t* r16, uint16_t* g16, uint16_t* b16, uint16_t* pvwr16, uint16_t* pvwg16, uint16_t* pvwb16);
 
 	void uint16ToUint8(uint16_t* in16, uint8_t* out8, size_t sizeBuf);
 	// IP cust --- IEND

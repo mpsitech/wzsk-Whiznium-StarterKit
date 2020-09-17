@@ -2,8 +2,8 @@
 	* \file DlgWzskOgrNew.cpp
 	* job handler for job DlgWzskOgrNew (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -92,25 +92,31 @@ DpchEngWzsk* DlgWzskOgrNew::getNewDpchEng(
 void DlgWzskOgrNew::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
-	ContIac oldContiac(contiac);
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	StatShr oldStatshr(statshr);
+	ContIac oldContiac(contiac);
 	ContInf oldContinf(continf);
 
 	// IP refresh --- BEGIN
-	// contiac
-
 	// statshr
 	statshr.ButCncActive = evalButCncActive(dbswzsk);
 	statshr.ButCreActive = evalButCreActive(dbswzsk);
+
+	// contiac
 
 	// continf
 	continf.numFSge = ixVSge;
 
 	// IP refresh --- END
-	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
+
+	muteRefresh = false;
 };
 
 void DlgWzskOgrNew::handleRequest(
@@ -243,7 +249,7 @@ void DlgWzskOgrNew::changeStage(
 
 			setStage(dbswzsk, _ixVSge);
 			reenter = false;
-			if (!muteRefresh) refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
+			refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
 		};
 
 		switch (_ixVSge) {
@@ -338,4 +344,6 @@ void DlgWzskOgrNew::leaveSgeDone(
 		) {
 	// IP leaveSgeDone --- INSERT
 };
+
+
 

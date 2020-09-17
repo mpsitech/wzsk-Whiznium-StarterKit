@@ -2,8 +2,8 @@
 	* \file PnlWzskNavGalery.cpp
 	* API code for job PnlWzskNavGalery (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "PnlWzskNavGalery.h"
@@ -268,10 +268,8 @@ PnlWzskNavGalery::StatShr::StatShr(
 			, const bool ButSesViewActive
 			, const bool LstShtAvail
 			, const bool ButShtViewActive
-			, const bool ButShtNewcrdActive
 			, const bool LstFilAvail
 			, const bool ButFilViewActive
-			, const bool ButFilNewcrdActive
 		) :
 			Block()
 		{
@@ -283,12 +281,10 @@ PnlWzskNavGalery::StatShr::StatShr(
 	this->ButSesViewActive = ButSesViewActive;
 	this->LstShtAvail = LstShtAvail;
 	this->ButShtViewActive = ButShtViewActive;
-	this->ButShtNewcrdActive = ButShtNewcrdActive;
 	this->LstFilAvail = LstFilAvail;
 	this->ButFilViewActive = ButFilViewActive;
-	this->ButFilNewcrdActive = ButFilNewcrdActive;
 
-	mask = {LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, BUTSHTNEWCRDACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE, BUTFILNEWCRDACTIVE};
+	mask = {LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE};
 };
 
 bool PnlWzskNavGalery::StatShr::readXML(
@@ -316,10 +312,8 @@ bool PnlWzskNavGalery::StatShr::readXML(
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButSesViewActive", ButSesViewActive)) add(BUTSESVIEWACTIVE);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "LstShtAvail", LstShtAvail)) add(LSTSHTAVAIL);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButShtViewActive", ButShtViewActive)) add(BUTSHTVIEWACTIVE);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButShtNewcrdActive", ButShtNewcrdActive)) add(BUTSHTNEWCRDACTIVE);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "LstFilAvail", LstFilAvail)) add(LSTFILAVAIL);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButFilViewActive", ButFilViewActive)) add(BUTFILVIEWACTIVE);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButFilNewcrdActive", ButFilNewcrdActive)) add(BUTFILNEWCRDACTIVE);
 	};
 
 	return basefound;
@@ -338,10 +332,8 @@ set<uint> PnlWzskNavGalery::StatShr::comm(
 	if (ButSesViewActive == comp->ButSesViewActive) insert(items, BUTSESVIEWACTIVE);
 	if (LstShtAvail == comp->LstShtAvail) insert(items, LSTSHTAVAIL);
 	if (ButShtViewActive == comp->ButShtViewActive) insert(items, BUTSHTVIEWACTIVE);
-	if (ButShtNewcrdActive == comp->ButShtNewcrdActive) insert(items, BUTSHTNEWCRDACTIVE);
 	if (LstFilAvail == comp->LstFilAvail) insert(items, LSTFILAVAIL);
 	if (ButFilViewActive == comp->ButFilViewActive) insert(items, BUTFILVIEWACTIVE);
-	if (ButFilNewcrdActive == comp->ButFilNewcrdActive) insert(items, BUTFILNEWCRDACTIVE);
 
 	return(items);
 };
@@ -354,7 +346,7 @@ set<uint> PnlWzskNavGalery::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, BUTSHTNEWCRDACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE, BUTFILNEWCRDACTIVE};
+	diffitems = {LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

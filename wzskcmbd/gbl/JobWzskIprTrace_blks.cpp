@@ -2,8 +2,8 @@
 	* \file JobWzskIprTrace_blks.cpp
 	* job handler for job JobWzskIprTrace (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -20,7 +20,6 @@ uint JobWzskIprTrace::VecVMethod::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "setlevel") return SETLEVEL;
-	if (s == "setpon") return SETPON;
 	if (s == "setroi") return SETROI;
 	if (s == "setroinotfull") return SETROINOTFULL;
 
@@ -31,7 +30,6 @@ string JobWzskIprTrace::VecVMethod::getSref(
 			const uint ix
 		) {
 	if (ix == SETLEVEL) return("setLevel");
-	if (ix == SETPON) return("setPOn");
 	if (ix == SETROI) return("setRoi");
 	if (ix == SETROINOTFULL) return("setRoiNotFull");
 
@@ -43,7 +41,7 @@ void JobWzskIprTrace::VecVMethod::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 4; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
+	for (unsigned int i = 1; i <= 3; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
 };
 
 /******************************************************************************
@@ -135,8 +133,7 @@ void JobWzskIprTrace::VecVVar::fillFeed(
 JobWzskIprTrace::Stg::Stg(
 			const bool v4l2RdNotDelta
 			, const bool roiNotFull
-			, const utinyint lvlFirst
-			, const utinyint lvlSecond
+			, const utinyint flgPerRowMax
 			, const bool leftOnNotOff
 			, const bool rightOnNotOff
 		) :
@@ -144,11 +141,10 @@ JobWzskIprTrace::Stg::Stg(
 		{
 	this->v4l2RdNotDelta = v4l2RdNotDelta;
 	this->roiNotFull = roiNotFull;
-	this->lvlFirst = lvlFirst;
-	this->lvlSecond = lvlSecond;
+	this->flgPerRowMax = flgPerRowMax;
 	this->leftOnNotOff = leftOnNotOff;
 	this->rightOnNotOff = rightOnNotOff;
-	mask = {V4L2RDNOTDELTA, ROINOTFULL, LVLFIRST, LVLSECOND, LEFTONNOTOFF, RIGHTONNOTOFF};
+	mask = {V4L2RDNOTDELTA, ROINOTFULL, FLGPERROWMAX, LEFTONNOTOFF, RIGHTONNOTOFF};
 };
 
 bool JobWzskIprTrace::Stg::readXML(
@@ -170,8 +166,7 @@ bool JobWzskIprTrace::Stg::readXML(
 	if (basefound) {
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "v4l2RdNotDelta", v4l2RdNotDelta)) add(V4L2RDNOTDELTA);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "roiNotFull", roiNotFull)) add(ROINOTFULL);
-		if (extractUtinyintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "lvlFirst", lvlFirst)) add(LVLFIRST);
-		if (extractUtinyintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "lvlSecond", lvlSecond)) add(LVLSECOND);
+		if (extractUtinyintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "flgPerRowMax", flgPerRowMax)) add(FLGPERROWMAX);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "leftOnNotOff", leftOnNotOff)) add(LEFTONNOTOFF);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "rightOnNotOff", rightOnNotOff)) add(RIGHTONNOTOFF);
 	};
@@ -193,8 +188,7 @@ void JobWzskIprTrace::Stg::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeBoolAttr(wr, itemtag, "sref", "v4l2RdNotDelta", v4l2RdNotDelta);
 		writeBoolAttr(wr, itemtag, "sref", "roiNotFull", roiNotFull);
-		writeUtinyintAttr(wr, itemtag, "sref", "lvlFirst", lvlFirst);
-		writeUtinyintAttr(wr, itemtag, "sref", "lvlSecond", lvlSecond);
+		writeUtinyintAttr(wr, itemtag, "sref", "flgPerRowMax", flgPerRowMax);
 		writeBoolAttr(wr, itemtag, "sref", "leftOnNotOff", leftOnNotOff);
 		writeBoolAttr(wr, itemtag, "sref", "rightOnNotOff", rightOnNotOff);
 	xmlTextWriterEndElement(wr);
@@ -207,8 +201,7 @@ set<uint> JobWzskIprTrace::Stg::comm(
 
 	if (v4l2RdNotDelta == comp->v4l2RdNotDelta) insert(items, V4L2RDNOTDELTA);
 	if (roiNotFull == comp->roiNotFull) insert(items, ROINOTFULL);
-	if (lvlFirst == comp->lvlFirst) insert(items, LVLFIRST);
-	if (lvlSecond == comp->lvlSecond) insert(items, LVLSECOND);
+	if (flgPerRowMax == comp->flgPerRowMax) insert(items, FLGPERROWMAX);
 	if (leftOnNotOff == comp->leftOnNotOff) insert(items, LEFTONNOTOFF);
 	if (rightOnNotOff == comp->rightOnNotOff) insert(items, RIGHTONNOTOFF);
 
@@ -223,7 +216,7 @@ set<uint> JobWzskIprTrace::Stg::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {V4L2RDNOTDELTA, ROINOTFULL, LVLFIRST, LVLSECOND, LEFTONNOTOFF, RIGHTONNOTOFF};
+	diffitems = {V4L2RDNOTDELTA, ROINOTFULL, FLGPERROWMAX, LEFTONNOTOFF, RIGHTONNOTOFF};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

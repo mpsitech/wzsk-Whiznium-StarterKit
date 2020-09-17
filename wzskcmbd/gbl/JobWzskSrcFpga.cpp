@@ -2,8 +2,8 @@
 	* \file JobWzskSrcFpga.cpp
 	* job handler for job JobWzskSrcFpga (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -118,8 +118,10 @@ JobWzskSrcFpga::Claim::Claim(
 	this->step = step;
 };
 
-bool JobWzskSrcFpga::setOmega(
-			const float omega // in 1/s
+bool JobWzskSrcFpga::setStep(
+			const bool rng
+			, const bool ccwNotCw
+			, const float omega // in 1/s
 		) {
 	bool success = false;
 
@@ -133,7 +135,7 @@ bool JobWzskSrcFpga::setOmega(
 	else Tstep = lround(Tstep_imd);
 
 	try {
-		shrdat.hw.step->set(false, false, Tstep);
+		shrdat.hw.step->set(rng, ccwNotCw, Tstep);
 
 		success = true;
 

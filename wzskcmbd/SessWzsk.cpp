@@ -2,8 +2,8 @@
 	* \file SessWzsk.cpp
 	* job handler for job SessWzsk (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -128,11 +128,11 @@ SessWzsk::SessWzsk(
 	statshr.jrefCrdnav = crdnav->jref;
 
 	xchg->addClstn(VecWzskVCall::CALLWZSKREFPRESET, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKCRDCLOSE, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKCRDOPEN, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKLOG, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKRECACCESS, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKLOG, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKCRDOPEN, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKCRDACTIVE, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKCRDCLOSE, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -1026,16 +1026,16 @@ void SessWzsk::handleCall(
 		) {
 	if (call->ixVCall == VecWzskVCall::CALLWZSKREFPRESET) {
 		call->abort = handleCallWzskRefPreSet(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCRDCLOSE) {
-		call->abort = handleCallWzskCrdClose(dbswzsk, call->jref, call->argInv.ix);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCRDOPEN) {
-		call->abort = handleCallWzskCrdOpen(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref, call->argInv.sref, call->argInv.intval, call->argRet.ref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKLOG) {
-		call->abort = handleCallWzskLog(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref, call->argInv.sref, call->argInv.intval);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKRECACCESS) {
 		call->abort = handleCallWzskRecaccess(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref, call->argRet.ix);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKLOG) {
+		call->abort = handleCallWzskLog(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref, call->argInv.sref, call->argInv.intval);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCRDOPEN) {
+		call->abort = handleCallWzskCrdOpen(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref, call->argInv.sref, call->argInv.intval, call->argRet.ref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCRDACTIVE) {
 		call->abort = handleCallWzskCrdActive(dbswzsk, call->jref, call->argInv.ix, call->argRet.ix);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCRDCLOSE) {
+		call->abort = handleCallWzskCrdClose(dbswzsk, call->jref, call->argInv.ix);
 	};
 };
 
@@ -1065,6 +1065,196 @@ bool SessWzsk::handleCallWzskRefPreSet(
 	return retval;
 };
 
+bool SessWzsk::handleCallWzskRecaccess(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+			, const uint ixInv
+			, const ubigint refInv
+			, uint& ixRet
+		) {
+	bool retval = false;
+	ixRet = checkRecaccess(dbswzsk, ixInv, refInv);
+	return retval;
+};
+
+bool SessWzsk::handleCallWzskLog(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+			, const uint ixInv
+			, const ubigint refInv
+			, const string& srefInv
+			, const int intvalInv
+		) {
+	bool retval = false;
+	logRecaccess(dbswzsk, ixInv, refInv, VecWzskVCard::getIx(srefInv), intvalInv);
+	return retval;
+};
+
+bool SessWzsk::handleCallWzskCrdOpen(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+			, const uint ixInv
+			, const ubigint refInv
+			, const string& srefInv
+			, const int intvalInv
+			, ubigint& refRet
+		) {
+	bool retval = false;
+	bool denied = false;
+
+	uint ixWzskVCard = VecWzskVCard::getIx(srefInv);
+
+	ubigint ref = (ubigint) intvalInv;
+	if (intvalInv == -1) {
+		ref = 0;
+		ref--;
+	};
+
+	uint ixWzskVPreset;
+	ubigint preUref = 0;
+
+	uint ixWzskWAccess;
+	uint ixWzskVRecaccess;
+
+	if (hasActive(ixWzskVCard)) {
+		if (ixInv == 0) {
+			ixWzskVPreset = checkCrdActive(ixWzskVCard);
+			if (ixWzskVPreset == 0) {
+				denied = true;
+			} else {
+				preUref = xchg->getRefPreset(ixWzskVPreset, jref);
+			};
+
+		} else {
+			ixWzskVPreset = ixInv;
+			preUref = refInv;
+		};
+	};
+
+	if (!denied) {
+		ixWzskWAccess = checkCrdaccess(ixWzskVCard);
+		denied = (ixWzskWAccess == 0);
+	};
+
+	if (!denied) {
+		if (intvalInv == -1) {
+			denied = (((ixWzskWAccess & VecWzskWAccess::EDIT) == 0) || ((ixWzskWAccess & VecWzskWAccess::EXEC) == 0));
+		} else if (intvalInv > 0) {
+			ixWzskVRecaccess = checkRecaccess(dbswzsk, ixWzskVCard, intvalInv);
+			denied = (ixWzskVRecaccess == VecWzskVRecaccess::NONE);
+		};
+	};
+
+	if (denied) {
+		refRet = 0;
+
+	} else {
+		if (ixWzskVCard == VecWzskVCard::CRDWZSKUSG) {
+			CrdWzskUsg* crdusg = NULL;
+
+			crdusg = new CrdWzskUsg(xchg, dbswzsk, jref, ixWzskVLocale, ref);
+			crdusgs.push_back(crdusg);
+
+			refRet = crdusg->jref;
+
+		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKUSR) {
+			CrdWzskUsr* crdusr = NULL;
+
+			crdusr = new CrdWzskUsr(xchg, dbswzsk, jref, ixWzskVLocale, ref);
+			crdusrs.push_back(crdusr);
+
+			refRet = crdusr->jref;
+
+		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKPRS) {
+			CrdWzskPrs* crdprs = NULL;
+
+			crdprs = new CrdWzskPrs(xchg, dbswzsk, jref, ixWzskVLocale, ref);
+			crdprss.push_back(crdprs);
+
+			refRet = crdprs->jref;
+
+		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKSCF) {
+			CrdWzskScf* crdscf = NULL;
+
+			crdscf = new CrdWzskScf(xchg, dbswzsk, jref, ixWzskVLocale);
+			crdscfs.push_back(crdscf);
+
+			refRet = crdscf->jref;
+
+		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKNAV) {
+		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKLLV) {
+			CrdWzskLlv* crdllv = NULL;
+
+			crdllv = new CrdWzskLlv(xchg, dbswzsk, jref, ixWzskVLocale);
+			crdllvs.push_back(crdllv);
+
+			refRet = crdllv->jref;
+
+		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKLIV) {
+			CrdWzskLiv* crdliv = NULL;
+
+			crdliv = new CrdWzskLiv(xchg, dbswzsk, jref, ixWzskVLocale);
+			crdlivs.push_back(crdliv);
+
+			refRet = crdliv->jref;
+
+		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKOGR) {
+			CrdWzskOgr* crdogr = NULL;
+
+			crdogr = new CrdWzskOgr(xchg, dbswzsk, jref, ixWzskVLocale, ref);
+			crdogrs.push_back(crdogr);
+
+			refRet = crdogr->jref;
+
+		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKOBJ) {
+			CrdWzskObj* crdobj = NULL;
+
+			crdobj = new CrdWzskObj(xchg, dbswzsk, jref, ixWzskVLocale, ref);
+			crdobjs.push_back(crdobj);
+
+			refRet = crdobj->jref;
+
+		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKSES) {
+			CrdWzskSes* crdses = NULL;
+
+			crdses = new CrdWzskSes(xchg, dbswzsk, jref, ixWzskVLocale, ref);
+			crdsess.push_back(crdses);
+
+			refRet = crdses->jref;
+
+		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKSHT) {
+			CrdWzskSht* crdsht = NULL;
+
+			crdsht = new CrdWzskSht(xchg, dbswzsk, jref, ixWzskVLocale, ref, ixWzskVPreset, preUref);
+			crdshts.push_back(crdsht);
+
+			refRet = crdsht->jref;
+
+		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKFIL) {
+			CrdWzskFil* crdfil = NULL;
+
+			crdfil = new CrdWzskFil(xchg, dbswzsk, jref, ixWzskVLocale, ref, ixWzskVPreset, preUref);
+			crdfils.push_back(crdfil);
+
+			refRet = crdfil->jref;
+
+		};
+	};
+
+	return retval;
+};
+
+bool SessWzsk::handleCallWzskCrdActive(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+			, const uint ixInv
+			, uint& ixRet
+		) {
+	bool retval = false;
+	ixRet = checkCrdActive(ixInv);
+	return retval;
+};
+
 bool SessWzsk::handleCallWzskCrdClose(
 			DbsWzsk* dbswzsk
 			, const ubigint jrefTrig
@@ -1077,13 +1267,7 @@ bool SessWzsk::handleCallWzskCrdClose(
 	ubigint jrefNotif = xchg->getRefPreset(VecWzskVPreset::PREWZSKJREFNOTIFY, jref);
 	if (jrefNotif == jrefTrig) xchg->removePreset(VecWzskVPreset::PREWZSKJREFNOTIFY, jref);
 
-	if (ixInv == VecWzskVCard::CRDWZSKNAV) {
-		if (crdnav) {
-			delete crdnav;
-			crdnav = NULL;
-		};
-
-	} else if (ixInv == VecWzskVCard::CRDWZSKUSG) {
+	if (ixInv == VecWzskVCard::CRDWZSKUSG) {
 		CrdWzskUsg* crdusg = NULL;
 
 		for (auto it = crdusgs.begin(); it != crdusgs.end();) {
@@ -1127,6 +1311,12 @@ bool SessWzsk::handleCallWzskCrdClose(
 				break;
 			} else it++;
 		};
+	} else if (ixInv == VecWzskVCard::CRDWZSKNAV) {
+		if (crdnav) {
+			delete crdnav;
+			crdnav = NULL;
+		};
+
 	} else if (ixInv == VecWzskVCard::CRDWZSKLLV) {
 		CrdWzskLlv* crdllv = NULL;
 
@@ -1205,196 +1395,6 @@ bool SessWzsk::handleCallWzskCrdClose(
 			} else it++;
 		};
 	};
-	return retval;
-};
-
-bool SessWzsk::handleCallWzskCrdOpen(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-			, const uint ixInv
-			, const ubigint refInv
-			, const string& srefInv
-			, const int intvalInv
-			, ubigint& refRet
-		) {
-	bool retval = false;
-	bool denied = false;
-
-	uint ixWzskVCard = VecWzskVCard::getIx(srefInv);
-
-	ubigint ref = (ubigint) intvalInv;
-	if (intvalInv == -1) {
-		ref = 0;
-		ref--;
-	};
-
-	uint ixWzskVPreset;
-	ubigint preUref = 0;
-
-	uint ixWzskWAccess;
-	uint ixWzskVRecaccess;
-
-	if (hasActive(ixWzskVCard)) {
-		if (ixInv == 0) {
-			ixWzskVPreset = checkCrdActive(ixWzskVCard);
-			if (ixWzskVPreset == 0) {
-				denied = true;
-			} else {
-				preUref = xchg->getRefPreset(ixWzskVPreset, jref);
-			};
-
-		} else {
-			ixWzskVPreset = ixInv;
-			preUref = refInv;
-		};
-	};
-
-	if (!denied) {
-		ixWzskWAccess = checkCrdaccess(ixWzskVCard);
-		denied = (ixWzskWAccess == 0);
-	};
-
-	if (!denied) {
-		if (intvalInv == -1) {
-			denied = (((ixWzskWAccess & VecWzskWAccess::EDIT) == 0) || ((ixWzskWAccess & VecWzskWAccess::EXEC) == 0));
-		} else if (intvalInv > 0) {
-			ixWzskVRecaccess = checkRecaccess(dbswzsk, ixWzskVCard, intvalInv);
-			denied = (ixWzskVRecaccess == VecWzskVRecaccess::NONE);
-		};
-	};
-
-	if (denied) {
-		refRet = 0;
-
-	} else {
-		if (ixWzskVCard == VecWzskVCard::CRDWZSKNAV) {
-		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKUSG) {
-			CrdWzskUsg* crdusg = NULL;
-
-			crdusg = new CrdWzskUsg(xchg, dbswzsk, jref, ixWzskVLocale, ref);
-			crdusgs.push_back(crdusg);
-
-			refRet = crdusg->jref;
-
-		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKUSR) {
-			CrdWzskUsr* crdusr = NULL;
-
-			crdusr = new CrdWzskUsr(xchg, dbswzsk, jref, ixWzskVLocale, ref);
-			crdusrs.push_back(crdusr);
-
-			refRet = crdusr->jref;
-
-		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKPRS) {
-			CrdWzskPrs* crdprs = NULL;
-
-			crdprs = new CrdWzskPrs(xchg, dbswzsk, jref, ixWzskVLocale, ref);
-			crdprss.push_back(crdprs);
-
-			refRet = crdprs->jref;
-
-		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKSCF) {
-			CrdWzskScf* crdscf = NULL;
-
-			crdscf = new CrdWzskScf(xchg, dbswzsk, jref, ixWzskVLocale);
-			crdscfs.push_back(crdscf);
-
-			refRet = crdscf->jref;
-
-		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKLLV) {
-			CrdWzskLlv* crdllv = NULL;
-
-			crdllv = new CrdWzskLlv(xchg, dbswzsk, jref, ixWzskVLocale);
-			crdllvs.push_back(crdllv);
-
-			refRet = crdllv->jref;
-
-		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKLIV) {
-			CrdWzskLiv* crdliv = NULL;
-
-			crdliv = new CrdWzskLiv(xchg, dbswzsk, jref, ixWzskVLocale);
-			crdlivs.push_back(crdliv);
-
-			refRet = crdliv->jref;
-
-		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKOGR) {
-			CrdWzskOgr* crdogr = NULL;
-
-			crdogr = new CrdWzskOgr(xchg, dbswzsk, jref, ixWzskVLocale, ref);
-			crdogrs.push_back(crdogr);
-
-			refRet = crdogr->jref;
-
-		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKOBJ) {
-			CrdWzskObj* crdobj = NULL;
-
-			crdobj = new CrdWzskObj(xchg, dbswzsk, jref, ixWzskVLocale, ref);
-			crdobjs.push_back(crdobj);
-
-			refRet = crdobj->jref;
-
-		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKSES) {
-			CrdWzskSes* crdses = NULL;
-
-			crdses = new CrdWzskSes(xchg, dbswzsk, jref, ixWzskVLocale, ref);
-			crdsess.push_back(crdses);
-
-			refRet = crdses->jref;
-
-		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKSHT) {
-			CrdWzskSht* crdsht = NULL;
-
-			crdsht = new CrdWzskSht(xchg, dbswzsk, jref, ixWzskVLocale, ref, ixWzskVPreset, preUref);
-			crdshts.push_back(crdsht);
-
-			refRet = crdsht->jref;
-
-		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKFIL) {
-			CrdWzskFil* crdfil = NULL;
-
-			crdfil = new CrdWzskFil(xchg, dbswzsk, jref, ixWzskVLocale, ref, ixWzskVPreset, preUref);
-			crdfils.push_back(crdfil);
-
-			refRet = crdfil->jref;
-
-		};
-	};
-
-	return retval;
-};
-
-bool SessWzsk::handleCallWzskLog(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-			, const uint ixInv
-			, const ubigint refInv
-			, const string& srefInv
-			, const int intvalInv
-		) {
-	bool retval = false;
-	logRecaccess(dbswzsk, ixInv, refInv, VecWzskVCard::getIx(srefInv), intvalInv);
-	return retval;
-};
-
-bool SessWzsk::handleCallWzskRecaccess(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-			, const uint ixInv
-			, const ubigint refInv
-			, uint& ixRet
-		) {
-	bool retval = false;
-	ixRet = checkRecaccess(dbswzsk, ixInv, refInv);
-	return retval;
-};
-
-bool SessWzsk::handleCallWzskCrdActive(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-			, const uint ixInv
-			, uint& ixRet
-		) {
-	bool retval = false;
-	ixRet = checkCrdActive(ixInv);
 	return retval;
 };
 

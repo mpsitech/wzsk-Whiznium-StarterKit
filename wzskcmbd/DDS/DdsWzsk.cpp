@@ -159,6 +159,146 @@ std::ostream& operator << (std::ostream& o,const DdsDoublemat& sample)
     return o;
 }
 
+namespace DdsJobWzskSrcSysinfo {
+
+    // ---- loadAllLoadCore0LoadCore1LoadCore2LoadCore3: 
+
+    loadAllLoadCore0LoadCore1LoadCore2LoadCore3::loadAllLoadCore0LoadCore1LoadCore2LoadCore3()  {
+    }   
+
+    loadAllLoadCore0LoadCore1LoadCore2LoadCore3::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 (
+        const ::rti::core::bounded_sequence< float, 60 >& loadAll,
+        const ::rti::core::bounded_sequence< float, 60 >& loadCore0,
+        const ::rti::core::bounded_sequence< float, 60 >& loadCore1,
+        const ::rti::core::bounded_sequence< float, 60 >& loadCore2,
+        const ::rti::core::bounded_sequence< float, 60 >& loadCore3)
+        :
+            m_loadAll_( loadAll ),
+            m_loadCore0_( loadCore0 ),
+            m_loadCore1_( loadCore1 ),
+            m_loadCore2_( loadCore2 ),
+            m_loadCore3_( loadCore3 ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    loadAllLoadCore0LoadCore1LoadCore2LoadCore3::loadAllLoadCore0LoadCore1LoadCore2LoadCore3(loadAllLoadCore0LoadCore1LoadCore2LoadCore3&& other_) OMG_NOEXCEPT  :m_loadAll_ (std::move(other_.m_loadAll_))
+    ,
+    m_loadCore0_ (std::move(other_.m_loadCore0_))
+    ,
+    m_loadCore1_ (std::move(other_.m_loadCore1_))
+    ,
+    m_loadCore2_ (std::move(other_.m_loadCore2_))
+    ,
+    m_loadCore3_ (std::move(other_.m_loadCore3_))
+    {
+    } 
+
+    loadAllLoadCore0LoadCore1LoadCore2LoadCore3& loadAllLoadCore0LoadCore1LoadCore2LoadCore3::operator=(loadAllLoadCore0LoadCore1LoadCore2LoadCore3&&  other_) OMG_NOEXCEPT {
+        loadAllLoadCore0LoadCore1LoadCore2LoadCore3 tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void loadAllLoadCore0LoadCore1LoadCore2LoadCore3::swap(loadAllLoadCore0LoadCore1LoadCore2LoadCore3& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_loadAll_, other_.m_loadAll_);
+        swap(m_loadCore0_, other_.m_loadCore0_);
+        swap(m_loadCore1_, other_.m_loadCore1_);
+        swap(m_loadCore2_, other_.m_loadCore2_);
+        swap(m_loadCore3_, other_.m_loadCore3_);
+    }  
+
+    bool loadAllLoadCore0LoadCore1LoadCore2LoadCore3::operator == (const loadAllLoadCore0LoadCore1LoadCore2LoadCore3& other_) const {
+        if (m_loadAll_ != other_.m_loadAll_) {
+            return false;
+        }
+        if (m_loadCore0_ != other_.m_loadCore0_) {
+            return false;
+        }
+        if (m_loadCore1_ != other_.m_loadCore1_) {
+            return false;
+        }
+        if (m_loadCore2_ != other_.m_loadCore2_) {
+            return false;
+        }
+        if (m_loadCore3_ != other_.m_loadCore3_) {
+            return false;
+        }
+        return true;
+    }
+    bool loadAllLoadCore0LoadCore1LoadCore2LoadCore3::operator != (const loadAllLoadCore0LoadCore1LoadCore2LoadCore3& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const loadAllLoadCore0LoadCore1LoadCore2LoadCore3& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "loadAll: " << sample.loadAll()<<", ";
+        o << "loadCore0: " << sample.loadCore0()<<", ";
+        o << "loadCore1: " << sample.loadCore1()<<", ";
+        o << "loadCore2: " << sample.loadCore2()<<", ";
+        o << "loadCore3: " << sample.loadCore3() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- temp: 
+
+    temp::temp()  {
+    }   
+
+    temp::temp (
+        const ::rti::core::bounded_sequence< float, 60 >& _temp)
+        :
+            m__temp_( _temp ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    temp::temp(temp&& other_) OMG_NOEXCEPT  :m__temp_ (std::move(other_.m__temp_))
+    {
+    } 
+
+    temp& temp::operator=(temp&&  other_) OMG_NOEXCEPT {
+        temp tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void temp::swap(temp& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m__temp_, other_.m__temp_);
+    }  
+
+    bool temp::operator == (const temp& other_) const {
+        if (m__temp_ != other_.m__temp_) {
+            return false;
+        }
+        return true;
+    }
+    bool temp::operator != (const temp& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const temp& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "_temp: " << sample._temp() ;
+        o <<"]";
+        return o;
+    }
+
+} // namespace DdsJobWzskSrcSysinfo  
+
 namespace DdsJobWzskIprTrace {
 
     // ---- setLevel_req: 
@@ -265,118 +405,6 @@ namespace DdsJobWzskIprTrace {
     }
 
     std::ostream& operator << (std::ostream& o,const setLevel_reply& sample)
-    {
-        ::rti::util::StreamFlagSaver flag_saver (o);
-        o <<"[";
-        o << "success: " << sample.success() ;
-        o <<"]";
-        return o;
-    }
-
-    // ---- setPOn_req: 
-
-    setPOn_req::setPOn_req() :
-        m_pOnLeft_ (0.0f) ,
-        m_pOnRight_ (0.0f)  {
-    }   
-
-    setPOn_req::setPOn_req (
-        float pOnLeft,
-        float pOnRight)
-        :
-            m_pOnLeft_( pOnLeft ),
-            m_pOnRight_( pOnRight ) {
-    }
-
-    #ifdef RTI_CXX11_RVALUE_REFERENCES
-    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
-    setPOn_req::setPOn_req(setPOn_req&& other_) OMG_NOEXCEPT  :m_pOnLeft_ (std::move(other_.m_pOnLeft_))
-    ,
-    m_pOnRight_ (std::move(other_.m_pOnRight_))
-    {
-    } 
-
-    setPOn_req& setPOn_req::operator=(setPOn_req&&  other_) OMG_NOEXCEPT {
-        setPOn_req tmp(std::move(other_));
-        swap(tmp); 
-        return *this;
-    }
-    #endif
-    #endif   
-
-    void setPOn_req::swap(setPOn_req& other_)  OMG_NOEXCEPT 
-    {
-        using std::swap;
-        swap(m_pOnLeft_, other_.m_pOnLeft_);
-        swap(m_pOnRight_, other_.m_pOnRight_);
-    }  
-
-    bool setPOn_req::operator == (const setPOn_req& other_) const {
-        if (m_pOnLeft_ != other_.m_pOnLeft_) {
-            return false;
-        }
-        if (m_pOnRight_ != other_.m_pOnRight_) {
-            return false;
-        }
-        return true;
-    }
-    bool setPOn_req::operator != (const setPOn_req& other_) const {
-        return !this->operator ==(other_);
-    }
-
-    std::ostream& operator << (std::ostream& o,const setPOn_req& sample)
-    {
-        ::rti::util::StreamFlagSaver flag_saver (o);
-        o <<"[";
-        o << "pOnLeft: " << std::setprecision(9) <<sample.pOnLeft()<<", ";
-        o << "pOnRight: " << std::setprecision(9) <<sample.pOnRight() ;
-        o <<"]";
-        return o;
-    }
-
-    // ---- setPOn_reply: 
-
-    setPOn_reply::setPOn_reply() :
-        m_success_ (0)  {
-    }   
-
-    setPOn_reply::setPOn_reply (
-        bool success)
-        :
-            m_success_( success ) {
-    }
-
-    #ifdef RTI_CXX11_RVALUE_REFERENCES
-    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
-    setPOn_reply::setPOn_reply(setPOn_reply&& other_) OMG_NOEXCEPT  :m_success_ (std::move(other_.m_success_))
-    {
-    } 
-
-    setPOn_reply& setPOn_reply::operator=(setPOn_reply&&  other_) OMG_NOEXCEPT {
-        setPOn_reply tmp(std::move(other_));
-        swap(tmp); 
-        return *this;
-    }
-    #endif
-    #endif   
-
-    void setPOn_reply::swap(setPOn_reply& other_)  OMG_NOEXCEPT 
-    {
-        using std::swap;
-        swap(m_success_, other_.m_success_);
-    }  
-
-    bool setPOn_reply::operator == (const setPOn_reply& other_) const {
-        if (m_success_ != other_.m_success_) {
-            return false;
-        }
-        return true;
-    }
-    bool setPOn_reply::operator != (const setPOn_reply& other_) const {
-        return !this->operator ==(other_);
-    }
-
-    std::ostream& operator << (std::ostream& o,const setPOn_reply& sample)
     {
         ::rti::util::StreamFlagSaver flag_saver (o);
         o <<"[";
@@ -1669,6 +1697,210 @@ namespace DdsJobWzskActServo {
         return o;
     }
 
+    // ---- stop_req: 
+
+    stop_req::stop_req() :
+        m_dummy_ (0)  {
+    }   
+
+    stop_req::stop_req (
+        bool dummy)
+        :
+            m_dummy_( dummy ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    stop_req::stop_req(stop_req&& other_) OMG_NOEXCEPT  :m_dummy_ (std::move(other_.m_dummy_))
+    {
+    } 
+
+    stop_req& stop_req::operator=(stop_req&&  other_) OMG_NOEXCEPT {
+        stop_req tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void stop_req::swap(stop_req& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_dummy_, other_.m_dummy_);
+    }  
+
+    bool stop_req::operator == (const stop_req& other_) const {
+        if (m_dummy_ != other_.m_dummy_) {
+            return false;
+        }
+        return true;
+    }
+    bool stop_req::operator != (const stop_req& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const stop_req& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "dummy: " << sample.dummy() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- stop_reply: 
+
+    stop_reply::stop_reply() :
+        m_success_ (0)  {
+    }   
+
+    stop_reply::stop_reply (
+        bool success)
+        :
+            m_success_( success ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    stop_reply::stop_reply(stop_reply&& other_) OMG_NOEXCEPT  :m_success_ (std::move(other_.m_success_))
+    {
+    } 
+
+    stop_reply& stop_reply::operator=(stop_reply&&  other_) OMG_NOEXCEPT {
+        stop_reply tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void stop_reply::swap(stop_reply& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_success_, other_.m_success_);
+    }  
+
+    bool stop_reply::operator == (const stop_reply& other_) const {
+        if (m_success_ != other_.m_success_) {
+            return false;
+        }
+        return true;
+    }
+    bool stop_reply::operator != (const stop_reply& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const stop_reply& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "success: " << sample.success() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- turn_req: 
+
+    turn_req::turn_req() :
+        m_ccwNotCw_ (0)  {
+    }   
+
+    turn_req::turn_req (
+        bool ccwNotCw)
+        :
+            m_ccwNotCw_( ccwNotCw ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    turn_req::turn_req(turn_req&& other_) OMG_NOEXCEPT  :m_ccwNotCw_ (std::move(other_.m_ccwNotCw_))
+    {
+    } 
+
+    turn_req& turn_req::operator=(turn_req&&  other_) OMG_NOEXCEPT {
+        turn_req tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void turn_req::swap(turn_req& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_ccwNotCw_, other_.m_ccwNotCw_);
+    }  
+
+    bool turn_req::operator == (const turn_req& other_) const {
+        if (m_ccwNotCw_ != other_.m_ccwNotCw_) {
+            return false;
+        }
+        return true;
+    }
+    bool turn_req::operator != (const turn_req& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const turn_req& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "ccwNotCw: " << sample.ccwNotCw() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- turn_reply: 
+
+    turn_reply::turn_reply() :
+        m_success_ (0)  {
+    }   
+
+    turn_reply::turn_reply (
+        bool success)
+        :
+            m_success_( success ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    turn_reply::turn_reply(turn_reply&& other_) OMG_NOEXCEPT  :m_success_ (std::move(other_.m_success_))
+    {
+    } 
+
+    turn_reply& turn_reply::operator=(turn_reply&&  other_) OMG_NOEXCEPT {
+        turn_reply tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void turn_reply::swap(turn_reply& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_success_, other_.m_success_);
+    }  
+
+    bool turn_reply::operator == (const turn_reply& other_) const {
+        if (m_success_ != other_.m_success_) {
+            return false;
+        }
+        return true;
+    }
+    bool turn_reply::operator != (const turn_reply& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const turn_reply& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "success: " << sample.success() ;
+        o <<"]";
+        return o;
+    }
+
     // ---- zero_req: 
 
     zero_req::zero_req() :
@@ -2103,7 +2335,490 @@ namespace DdsJobWzskActLaser {
 
 } // namespace DdsJobWzskActLaser  
 
+namespace DdsJobWzskActExposure {
+
+    // ---- setExposure_req: 
+
+    setExposure_req::setExposure_req() :
+        m_autoNotManual_ (0) ,
+        m_Texp_ (0.0f)  {
+    }   
+
+    setExposure_req::setExposure_req (
+        bool autoNotManual,
+        float Texp)
+        :
+            m_autoNotManual_( autoNotManual ),
+            m_Texp_( Texp ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    setExposure_req::setExposure_req(setExposure_req&& other_) OMG_NOEXCEPT  :m_autoNotManual_ (std::move(other_.m_autoNotManual_))
+    ,
+    m_Texp_ (std::move(other_.m_Texp_))
+    {
+    } 
+
+    setExposure_req& setExposure_req::operator=(setExposure_req&&  other_) OMG_NOEXCEPT {
+        setExposure_req tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void setExposure_req::swap(setExposure_req& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_autoNotManual_, other_.m_autoNotManual_);
+        swap(m_Texp_, other_.m_Texp_);
+    }  
+
+    bool setExposure_req::operator == (const setExposure_req& other_) const {
+        if (m_autoNotManual_ != other_.m_autoNotManual_) {
+            return false;
+        }
+        if (m_Texp_ != other_.m_Texp_) {
+            return false;
+        }
+        return true;
+    }
+    bool setExposure_req::operator != (const setExposure_req& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const setExposure_req& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "autoNotManual: " << sample.autoNotManual()<<", ";
+        o << "Texp: " << std::setprecision(9) <<sample.Texp() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- setExposure_reply: 
+
+    setExposure_reply::setExposure_reply() :
+        m_success_ (0)  {
+    }   
+
+    setExposure_reply::setExposure_reply (
+        bool success)
+        :
+            m_success_( success ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    setExposure_reply::setExposure_reply(setExposure_reply&& other_) OMG_NOEXCEPT  :m_success_ (std::move(other_.m_success_))
+    {
+    } 
+
+    setExposure_reply& setExposure_reply::operator=(setExposure_reply&&  other_) OMG_NOEXCEPT {
+        setExposure_reply tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void setExposure_reply::swap(setExposure_reply& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_success_, other_.m_success_);
+    }  
+
+    bool setExposure_reply::operator == (const setExposure_reply& other_) const {
+        if (m_success_ != other_.m_success_) {
+            return false;
+        }
+        return true;
+    }
+    bool setExposure_reply::operator != (const setExposure_reply& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const setExposure_reply& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "success: " << sample.success() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- setFocus_req: 
+
+    setFocus_req::setFocus_req() :
+        m_focus_ (0.0f)  {
+    }   
+
+    setFocus_req::setFocus_req (
+        float focus)
+        :
+            m_focus_( focus ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    setFocus_req::setFocus_req(setFocus_req&& other_) OMG_NOEXCEPT  :m_focus_ (std::move(other_.m_focus_))
+    {
+    } 
+
+    setFocus_req& setFocus_req::operator=(setFocus_req&&  other_) OMG_NOEXCEPT {
+        setFocus_req tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void setFocus_req::swap(setFocus_req& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_focus_, other_.m_focus_);
+    }  
+
+    bool setFocus_req::operator == (const setFocus_req& other_) const {
+        if (m_focus_ != other_.m_focus_) {
+            return false;
+        }
+        return true;
+    }
+    bool setFocus_req::operator != (const setFocus_req& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const setFocus_req& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "focus: " << std::setprecision(9) <<sample.focus() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- setFocus_reply: 
+
+    setFocus_reply::setFocus_reply() :
+        m_success_ (0)  {
+    }   
+
+    setFocus_reply::setFocus_reply (
+        bool success)
+        :
+            m_success_( success ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    setFocus_reply::setFocus_reply(setFocus_reply&& other_) OMG_NOEXCEPT  :m_success_ (std::move(other_.m_success_))
+    {
+    } 
+
+    setFocus_reply& setFocus_reply::operator=(setFocus_reply&&  other_) OMG_NOEXCEPT {
+        setFocus_reply tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void setFocus_reply::swap(setFocus_reply& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_success_, other_.m_success_);
+    }  
+
+    bool setFocus_reply::operator == (const setFocus_reply& other_) const {
+        if (m_success_ != other_.m_success_) {
+            return false;
+        }
+        return true;
+    }
+    bool setFocus_reply::operator != (const setFocus_reply& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const setFocus_reply& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "success: " << sample.success() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- autoNotManualTexp: 
+
+    autoNotManualTexp::autoNotManualTexp() :
+        m_autoNotManual_ (0) ,
+        m_Texp_ (0.0f)  {
+    }   
+
+    autoNotManualTexp::autoNotManualTexp (
+        bool autoNotManual,
+        float Texp)
+        :
+            m_autoNotManual_( autoNotManual ),
+            m_Texp_( Texp ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    autoNotManualTexp::autoNotManualTexp(autoNotManualTexp&& other_) OMG_NOEXCEPT  :m_autoNotManual_ (std::move(other_.m_autoNotManual_))
+    ,
+    m_Texp_ (std::move(other_.m_Texp_))
+    {
+    } 
+
+    autoNotManualTexp& autoNotManualTexp::operator=(autoNotManualTexp&&  other_) OMG_NOEXCEPT {
+        autoNotManualTexp tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void autoNotManualTexp::swap(autoNotManualTexp& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_autoNotManual_, other_.m_autoNotManual_);
+        swap(m_Texp_, other_.m_Texp_);
+    }  
+
+    bool autoNotManualTexp::operator == (const autoNotManualTexp& other_) const {
+        if (m_autoNotManual_ != other_.m_autoNotManual_) {
+            return false;
+        }
+        if (m_Texp_ != other_.m_Texp_) {
+            return false;
+        }
+        return true;
+    }
+    bool autoNotManualTexp::operator != (const autoNotManualTexp& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const autoNotManualTexp& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "autoNotManual: " << sample.autoNotManual()<<", ";
+        o << "Texp: " << std::setprecision(9) <<sample.Texp() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- focus: 
+
+    focus::focus() :
+        m__focus_ (0.0f)  {
+    }   
+
+    focus::focus (
+        float _focus)
+        :
+            m__focus_( _focus ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    focus::focus(focus&& other_) OMG_NOEXCEPT  :m__focus_ (std::move(other_.m__focus_))
+    {
+    } 
+
+    focus& focus::operator=(focus&&  other_) OMG_NOEXCEPT {
+        focus tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void focus::swap(focus& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m__focus_, other_.m__focus_);
+    }  
+
+    bool focus::operator == (const focus& other_) const {
+        if (m__focus_ != other_.m__focus_) {
+            return false;
+        }
+        return true;
+    }
+    bool focus::operator != (const focus& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const focus& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "_focus: " << std::setprecision(9) <<sample._focus() ;
+        o <<"]";
+        return o;
+    }
+
+} // namespace DdsJobWzskActExposure  
+
 namespace DdsJobWzskAcqPtcloud {
+
+    // ---- setDeltaTheta_req: 
+
+    setDeltaTheta_req::setDeltaTheta_req() :
+        m_deltaTheta_ (0.0f)  {
+    }   
+
+    setDeltaTheta_req::setDeltaTheta_req (
+        float deltaTheta)
+        :
+            m_deltaTheta_( deltaTheta ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    setDeltaTheta_req::setDeltaTheta_req(setDeltaTheta_req&& other_) OMG_NOEXCEPT  :m_deltaTheta_ (std::move(other_.m_deltaTheta_))
+    {
+    } 
+
+    setDeltaTheta_req& setDeltaTheta_req::operator=(setDeltaTheta_req&&  other_) OMG_NOEXCEPT {
+        setDeltaTheta_req tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void setDeltaTheta_req::swap(setDeltaTheta_req& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_deltaTheta_, other_.m_deltaTheta_);
+    }  
+
+    bool setDeltaTheta_req::operator == (const setDeltaTheta_req& other_) const {
+        if (m_deltaTheta_ != other_.m_deltaTheta_) {
+            return false;
+        }
+        return true;
+    }
+    bool setDeltaTheta_req::operator != (const setDeltaTheta_req& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const setDeltaTheta_req& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "deltaTheta: " << std::setprecision(9) <<sample.deltaTheta() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- setDeltaTheta_reply: 
+
+    setDeltaTheta_reply::setDeltaTheta_reply() :
+        m_success_ (0)  {
+    }   
+
+    setDeltaTheta_reply::setDeltaTheta_reply (
+        bool success)
+        :
+            m_success_( success ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    setDeltaTheta_reply::setDeltaTheta_reply(setDeltaTheta_reply&& other_) OMG_NOEXCEPT  :m_success_ (std::move(other_.m_success_))
+    {
+    } 
+
+    setDeltaTheta_reply& setDeltaTheta_reply::operator=(setDeltaTheta_reply&&  other_) OMG_NOEXCEPT {
+        setDeltaTheta_reply tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void setDeltaTheta_reply::swap(setDeltaTheta_reply& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_success_, other_.m_success_);
+    }  
+
+    bool setDeltaTheta_reply::operator == (const setDeltaTheta_reply& other_) const {
+        if (m_success_ != other_.m_success_) {
+            return false;
+        }
+        return true;
+    }
+    bool setDeltaTheta_reply::operator != (const setDeltaTheta_reply& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const setDeltaTheta_reply& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "success: " << sample.success() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- deltaTheta: 
+
+    deltaTheta::deltaTheta() :
+        m__deltaTheta_ (0.0f)  {
+    }   
+
+    deltaTheta::deltaTheta (
+        float _deltaTheta)
+        :
+            m__deltaTheta_( _deltaTheta ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    deltaTheta::deltaTheta(deltaTheta&& other_) OMG_NOEXCEPT  :m__deltaTheta_ (std::move(other_.m__deltaTheta_))
+    {
+    } 
+
+    deltaTheta& deltaTheta::operator=(deltaTheta&&  other_) OMG_NOEXCEPT {
+        deltaTheta tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void deltaTheta::swap(deltaTheta& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m__deltaTheta_, other_.m__deltaTheta_);
+    }  
+
+    bool deltaTheta::operator == (const deltaTheta& other_) const {
+        if (m__deltaTheta_ != other_.m__deltaTheta_) {
+            return false;
+        }
+        return true;
+    }
+    bool deltaTheta::operator != (const deltaTheta& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const deltaTheta& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "_deltaTheta: " << std::setprecision(9) <<sample._deltaTheta() ;
+        o <<"]";
+        return o;
+    }
 
     // ---- xYZ: 
 
@@ -4031,6 +4746,430 @@ namespace rti {
         #ifndef NDDS_STANDALONE_TYPE
 
         template<>
+        struct native_type_code< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadAll_sequence;
+                static DDS_TypeCode loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore0_sequence;
+                static DDS_TypeCode loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore1_sequence;
+                static DDS_TypeCode loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore2_sequence;
+                static DDS_TypeCode loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore3_sequence;
+
+                static DDS_TypeCode_Member loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_members[5]=
+                {
+
+                    {
+                        (char *)"loadAll",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"loadCore0",/* Member name */
+                        {
+                            1,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"loadCore1",/* Member name */
+                        {
+                            2,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"loadCore2",/* Member name */
+                        {
+                            3,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"loadCore3",/* Member name */
+                        {
+                            4,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        5, /* Number of members */
+                        loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for loadAllLoadCore0LoadCore1LoadCore2LoadCore3*/
+
+                if (is_initialized) {
+                    return &loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc;
+                }
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadAll_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore0_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore1_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore2_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore3_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadAll_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore0_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore1_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore2_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore3_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)& loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadAll_sequence;
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_members[1]._representation._typeCode = (RTICdrTypeCode *)& loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore0_sequence;
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_members[2]._representation._typeCode = (RTICdrTypeCode *)& loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore1_sequence;
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_members[3]._representation._typeCode = (RTICdrTypeCode *)& loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore2_sequence;
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_members[4]._representation._typeCode = (RTICdrTypeCode *)& loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc_loadCore3_sequence;
+
+                /* Initialize the values for member annotations. */
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc._data._sampleAccessInfo = sample_access_info();
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 *sample;
+
+                static RTIXCdrMemberAccessInfo loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_memberAccessInfos[5] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->loadAll() - (char *)sample);
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_memberAccessInfos[1].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->loadCore0() - (char *)sample);
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_memberAccessInfos[2].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->loadCore1() - (char *)sample);
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_memberAccessInfos[3].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->loadCore2() - (char *)sample);
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_memberAccessInfos[4].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->loadCore3() - (char *)sample);
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_sampleAccessInfo.memberAccessInfos = 
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 >;
+
+                loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &loadAllLoadCore0LoadCore1LoadCore2LoadCore3_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskSrcSysinfo::temp > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode temp_g_tc__temp_sequence;
+
+                static DDS_TypeCode_Member temp_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"_temp",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode temp_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskSrcSysinfo::temp", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        temp_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for temp*/
+
+                if (is_initialized) {
+                    return &temp_g_tc;
+                }
+
+                temp_g_tc__temp_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+
+                temp_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                temp_g_tc__temp_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                temp_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)& temp_g_tc__temp_sequence;
+
+                /* Initialize the values for member annotations. */
+
+                temp_g_tc._data._sampleAccessInfo = sample_access_info();
+                temp_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &temp_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskSrcSysinfo::temp *sample;
+
+                static RTIXCdrMemberAccessInfo temp_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo temp_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &temp_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskSrcSysinfo::temp);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                temp_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->_temp() - (char *)sample);
+
+                temp_g_sampleAccessInfo.memberAccessInfos = 
+                temp_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskSrcSysinfo::temp);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        temp_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        temp_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                temp_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                temp_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskSrcSysinfo::temp >;
+
+                temp_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &temp_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin temp_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &temp_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskSrcSysinfo::temp >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskSrcSysinfo::temp >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
         struct native_type_code< DdsJobWzskIprTrace::setLevel_req > {
             static DDS_TypeCode * get()
             {
@@ -4377,357 +5516,6 @@ namespace rti {
             return static_cast<const ::dds::core::xtypes::StructType&>(
                 ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
                     *(native_type_code< DdsJobWzskIprTrace::setLevel_reply >::get())));
-        }
-
-        #ifndef NDDS_STANDALONE_TYPE
-
-        template<>
-        struct native_type_code< DdsJobWzskIprTrace::setPOn_req > {
-            static DDS_TypeCode * get()
-            {
-                using namespace ::rti::topic::interpreter;
-
-                static RTIBool is_initialized = RTI_FALSE;
-
-                static DDS_TypeCode_Member setPOn_req_g_tc_members[2]=
-                {
-
-                    {
-                        (char *)"pOnLeft",/* Member name */
-                        {
-                            0,/* Representation ID */
-                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
-                            -1, /* Bitfield bits */
-                            NULL/* Member type code is assigned later */
-                        },
-                        0, /* Ignored */
-                        0, /* Ignored */
-                        0, /* Ignored */
-                        NULL, /* Ignored */
-                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
-                        DDS_PUBLIC_MEMBER,/* Member visibility */
-                        1,
-                        NULL, /* Ignored */
-                        RTICdrTypeCodeAnnotations_INITIALIZER
-                    }, 
-                    {
-                        (char *)"pOnRight",/* Member name */
-                        {
-                            1,/* Representation ID */
-                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
-                            -1, /* Bitfield bits */
-                            NULL/* Member type code is assigned later */
-                        },
-                        0, /* Ignored */
-                        0, /* Ignored */
-                        0, /* Ignored */
-                        NULL, /* Ignored */
-                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
-                        DDS_PUBLIC_MEMBER,/* Member visibility */
-                        1,
-                        NULL, /* Ignored */
-                        RTICdrTypeCodeAnnotations_INITIALIZER
-                    }
-                };
-
-                static DDS_TypeCode setPOn_req_g_tc =
-                {{
-                        DDS_TK_STRUCT, /* Kind */
-                        DDS_BOOLEAN_FALSE, /* Ignored */
-                        -1, /*Ignored*/
-                        (char *)"DdsJobWzskIprTrace::setPOn_req", /* Name */
-                        NULL, /* Ignored */      
-                        0, /* Ignored */
-                        0, /* Ignored */
-                        NULL, /* Ignored */
-                        2, /* Number of members */
-                        setPOn_req_g_tc_members, /* Members */
-                        DDS_VM_NONE, /* Ignored */
-                        RTICdrTypeCodeAnnotations_INITIALIZER,
-                        DDS_BOOLEAN_TRUE, /* _isCopyable */
-                        NULL, /* _sampleAccessInfo: assigned later */
-                        NULL /* _typePlugin: assigned later */
-                    }}; /* Type code for setPOn_req*/
-
-                if (is_initialized) {
-                    return &setPOn_req_g_tc;
-                }
-
-                setPOn_req_g_tc._data._annotations._allowedDataRepresentationMask = 5;
-
-                setPOn_req_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
-                setPOn_req_g_tc_members[1]._representation._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
-
-                /* Initialize the values for member annotations. */
-                setPOn_req_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_FLOAT;
-                setPOn_req_g_tc_members[0]._annotations._defaultValue._u.float_value = 0.0f;
-                setPOn_req_g_tc_members[0]._annotations._minValue._d = RTI_XCDR_TK_FLOAT;
-                setPOn_req_g_tc_members[0]._annotations._minValue._u.float_value = RTIXCdrFloat_MIN;
-                setPOn_req_g_tc_members[0]._annotations._maxValue._d = RTI_XCDR_TK_FLOAT;
-                setPOn_req_g_tc_members[0]._annotations._maxValue._u.float_value = RTIXCdrFloat_MAX;
-
-                setPOn_req_g_tc_members[1]._annotations._defaultValue._d = RTI_XCDR_TK_FLOAT;
-                setPOn_req_g_tc_members[1]._annotations._defaultValue._u.float_value = 0.0f;
-                setPOn_req_g_tc_members[1]._annotations._minValue._d = RTI_XCDR_TK_FLOAT;
-                setPOn_req_g_tc_members[1]._annotations._minValue._u.float_value = RTIXCdrFloat_MIN;
-                setPOn_req_g_tc_members[1]._annotations._maxValue._d = RTI_XCDR_TK_FLOAT;
-                setPOn_req_g_tc_members[1]._annotations._maxValue._u.float_value = RTIXCdrFloat_MAX;
-
-                setPOn_req_g_tc._data._sampleAccessInfo = sample_access_info();
-                setPOn_req_g_tc._data._typePlugin = type_plugin_info();    
-
-                is_initialized = RTI_TRUE;
-
-                return &setPOn_req_g_tc;
-            }
-
-            static RTIXCdrSampleAccessInfo * sample_access_info()
-            {
-                static RTIBool is_initialized = RTI_FALSE;
-
-                DdsJobWzskIprTrace::setPOn_req *sample;
-
-                static RTIXCdrMemberAccessInfo setPOn_req_g_memberAccessInfos[2] =
-                {RTIXCdrMemberAccessInfo_INITIALIZER};
-
-                static RTIXCdrSampleAccessInfo setPOn_req_g_sampleAccessInfo = 
-                RTIXCdrSampleAccessInfo_INITIALIZER;
-
-                if (is_initialized) {
-                    return (RTIXCdrSampleAccessInfo*) &setPOn_req_g_sampleAccessInfo;
-                }
-
-                RTIXCdrHeap_allocateStruct(
-                    &sample, 
-                    DdsJobWzskIprTrace::setPOn_req);
-                if (sample == NULL) {
-                    return NULL;
-                }
-
-                setPOn_req_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
-                (RTIXCdrUnsignedLong) ((char *)&sample->pOnLeft() - (char *)sample);
-
-                setPOn_req_g_memberAccessInfos[1].bindingMemberValueOffset[0] = 
-                (RTIXCdrUnsignedLong) ((char *)&sample->pOnRight() - (char *)sample);
-
-                setPOn_req_g_sampleAccessInfo.memberAccessInfos = 
-                setPOn_req_g_memberAccessInfos;
-
-                {
-                    size_t candidateTypeSize = sizeof(DdsJobWzskIprTrace::setPOn_req);
-
-                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
-                        setPOn_req_g_sampleAccessInfo.typeSize[0] =
-                        RTIXCdrUnsignedLong_MAX;
-                    } else {
-                        setPOn_req_g_sampleAccessInfo.typeSize[0] =
-                        (RTIXCdrUnsignedLong) candidateTypeSize;
-                    }
-                }
-
-                setPOn_req_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
-                RTI_XCDR_TRUE;
-
-                setPOn_req_g_sampleAccessInfo.getMemberValuePointerFcn = 
-                interpreter::get_aggregation_value_pointer< DdsJobWzskIprTrace::setPOn_req >;
-
-                setPOn_req_g_sampleAccessInfo.languageBinding = 
-                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
-
-                RTIXCdrHeap_freeStruct(sample);
-                is_initialized = RTI_TRUE;
-                return (RTIXCdrSampleAccessInfo*) &setPOn_req_g_sampleAccessInfo;
-            }
-
-            static RTIXCdrTypePlugin * type_plugin_info()
-            {
-                static RTIXCdrTypePlugin setPOn_req_g_typePlugin = 
-                {
-                    NULL, /* serialize */
-                    NULL, /* serialize_key */
-                    NULL, /* deserialize_sample */
-                    NULL, /* deserialize_key_sample */
-                    NULL, /* skip */
-                    NULL, /* get_serialized_sample_size */
-                    NULL, /* get_serialized_sample_max_size_ex */
-                    NULL, /* get_serialized_key_max_size_ex */
-                    NULL, /* get_serialized_sample_min_size */
-                    NULL, /* serialized_sample_to_key */
-                    NULL,
-                    NULL,
-                    NULL,
-                    NULL
-                };
-
-                return &setPOn_req_g_typePlugin;
-            }
-        }; // native_type_code
-        #endif
-
-        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskIprTrace::setPOn_req >::get()
-        {
-            return static_cast<const ::dds::core::xtypes::StructType&>(
-                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
-                    *(native_type_code< DdsJobWzskIprTrace::setPOn_req >::get())));
-        }
-
-        #ifndef NDDS_STANDALONE_TYPE
-
-        template<>
-        struct native_type_code< DdsJobWzskIprTrace::setPOn_reply > {
-            static DDS_TypeCode * get()
-            {
-                using namespace ::rti::topic::interpreter;
-
-                static RTIBool is_initialized = RTI_FALSE;
-
-                static DDS_TypeCode_Member setPOn_reply_g_tc_members[1]=
-                {
-
-                    {
-                        (char *)"success",/* Member name */
-                        {
-                            0,/* Representation ID */
-                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
-                            -1, /* Bitfield bits */
-                            NULL/* Member type code is assigned later */
-                        },
-                        0, /* Ignored */
-                        0, /* Ignored */
-                        0, /* Ignored */
-                        NULL, /* Ignored */
-                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
-                        DDS_PUBLIC_MEMBER,/* Member visibility */
-                        1,
-                        NULL, /* Ignored */
-                        RTICdrTypeCodeAnnotations_INITIALIZER
-                    }
-                };
-
-                static DDS_TypeCode setPOn_reply_g_tc =
-                {{
-                        DDS_TK_STRUCT, /* Kind */
-                        DDS_BOOLEAN_FALSE, /* Ignored */
-                        -1, /*Ignored*/
-                        (char *)"DdsJobWzskIprTrace::setPOn_reply", /* Name */
-                        NULL, /* Ignored */      
-                        0, /* Ignored */
-                        0, /* Ignored */
-                        NULL, /* Ignored */
-                        1, /* Number of members */
-                        setPOn_reply_g_tc_members, /* Members */
-                        DDS_VM_NONE, /* Ignored */
-                        RTICdrTypeCodeAnnotations_INITIALIZER,
-                        DDS_BOOLEAN_TRUE, /* _isCopyable */
-                        NULL, /* _sampleAccessInfo: assigned later */
-                        NULL /* _typePlugin: assigned later */
-                    }}; /* Type code for setPOn_reply*/
-
-                if (is_initialized) {
-                    return &setPOn_reply_g_tc;
-                }
-
-                setPOn_reply_g_tc._data._annotations._allowedDataRepresentationMask = 5;
-
-                setPOn_reply_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
-
-                /* Initialize the values for member annotations. */
-                setPOn_reply_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_BOOLEAN;
-                setPOn_reply_g_tc_members[0]._annotations._defaultValue._u.boolean_value = 0;
-
-                setPOn_reply_g_tc._data._sampleAccessInfo = sample_access_info();
-                setPOn_reply_g_tc._data._typePlugin = type_plugin_info();    
-
-                is_initialized = RTI_TRUE;
-
-                return &setPOn_reply_g_tc;
-            }
-
-            static RTIXCdrSampleAccessInfo * sample_access_info()
-            {
-                static RTIBool is_initialized = RTI_FALSE;
-
-                DdsJobWzskIprTrace::setPOn_reply *sample;
-
-                static RTIXCdrMemberAccessInfo setPOn_reply_g_memberAccessInfos[1] =
-                {RTIXCdrMemberAccessInfo_INITIALIZER};
-
-                static RTIXCdrSampleAccessInfo setPOn_reply_g_sampleAccessInfo = 
-                RTIXCdrSampleAccessInfo_INITIALIZER;
-
-                if (is_initialized) {
-                    return (RTIXCdrSampleAccessInfo*) &setPOn_reply_g_sampleAccessInfo;
-                }
-
-                RTIXCdrHeap_allocateStruct(
-                    &sample, 
-                    DdsJobWzskIprTrace::setPOn_reply);
-                if (sample == NULL) {
-                    return NULL;
-                }
-
-                setPOn_reply_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
-                (RTIXCdrUnsignedLong) ((char *)&sample->success() - (char *)sample);
-
-                setPOn_reply_g_sampleAccessInfo.memberAccessInfos = 
-                setPOn_reply_g_memberAccessInfos;
-
-                {
-                    size_t candidateTypeSize = sizeof(DdsJobWzskIprTrace::setPOn_reply);
-
-                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
-                        setPOn_reply_g_sampleAccessInfo.typeSize[0] =
-                        RTIXCdrUnsignedLong_MAX;
-                    } else {
-                        setPOn_reply_g_sampleAccessInfo.typeSize[0] =
-                        (RTIXCdrUnsignedLong) candidateTypeSize;
-                    }
-                }
-
-                setPOn_reply_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
-                RTI_XCDR_TRUE;
-
-                setPOn_reply_g_sampleAccessInfo.getMemberValuePointerFcn = 
-                interpreter::get_aggregation_value_pointer< DdsJobWzskIprTrace::setPOn_reply >;
-
-                setPOn_reply_g_sampleAccessInfo.languageBinding = 
-                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
-
-                RTIXCdrHeap_freeStruct(sample);
-                is_initialized = RTI_TRUE;
-                return (RTIXCdrSampleAccessInfo*) &setPOn_reply_g_sampleAccessInfo;
-            }
-
-            static RTIXCdrTypePlugin * type_plugin_info()
-            {
-                static RTIXCdrTypePlugin setPOn_reply_g_typePlugin = 
-                {
-                    NULL, /* serialize */
-                    NULL, /* serialize_key */
-                    NULL, /* deserialize_sample */
-                    NULL, /* deserialize_key_sample */
-                    NULL, /* skip */
-                    NULL, /* get_serialized_sample_size */
-                    NULL, /* get_serialized_sample_max_size_ex */
-                    NULL, /* get_serialized_key_max_size_ex */
-                    NULL, /* get_serialized_sample_min_size */
-                    NULL, /* serialized_sample_to_key */
-                    NULL,
-                    NULL,
-                    NULL,
-                    NULL
-                };
-
-                return &setPOn_reply_g_typePlugin;
-            }
-        }; // native_type_code
-        #endif
-
-        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskIprTrace::setPOn_reply >::get()
-        {
-            return static_cast<const ::dds::core::xtypes::StructType&>(
-                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
-                    *(native_type_code< DdsJobWzskIprTrace::setPOn_reply >::get())));
         }
 
         #ifndef NDDS_STANDALONE_TYPE
@@ -8691,6 +9479,642 @@ namespace rti {
         #ifndef NDDS_STANDALONE_TYPE
 
         template<>
+        struct native_type_code< DdsJobWzskActServo::stop_req > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member stop_req_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"dummy",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode stop_req_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskActServo::stop_req", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        stop_req_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for stop_req*/
+
+                if (is_initialized) {
+                    return &stop_req_g_tc;
+                }
+
+                stop_req_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                stop_req_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
+
+                /* Initialize the values for member annotations. */
+                stop_req_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_BOOLEAN;
+                stop_req_g_tc_members[0]._annotations._defaultValue._u.boolean_value = 0;
+
+                stop_req_g_tc._data._sampleAccessInfo = sample_access_info();
+                stop_req_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &stop_req_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskActServo::stop_req *sample;
+
+                static RTIXCdrMemberAccessInfo stop_req_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo stop_req_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &stop_req_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskActServo::stop_req);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                stop_req_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->dummy() - (char *)sample);
+
+                stop_req_g_sampleAccessInfo.memberAccessInfos = 
+                stop_req_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskActServo::stop_req);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        stop_req_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        stop_req_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                stop_req_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                stop_req_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskActServo::stop_req >;
+
+                stop_req_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &stop_req_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin stop_req_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &stop_req_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskActServo::stop_req >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskActServo::stop_req >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskActServo::stop_reply > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member stop_reply_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"success",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode stop_reply_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskActServo::stop_reply", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        stop_reply_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for stop_reply*/
+
+                if (is_initialized) {
+                    return &stop_reply_g_tc;
+                }
+
+                stop_reply_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                stop_reply_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
+
+                /* Initialize the values for member annotations. */
+                stop_reply_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_BOOLEAN;
+                stop_reply_g_tc_members[0]._annotations._defaultValue._u.boolean_value = 0;
+
+                stop_reply_g_tc._data._sampleAccessInfo = sample_access_info();
+                stop_reply_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &stop_reply_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskActServo::stop_reply *sample;
+
+                static RTIXCdrMemberAccessInfo stop_reply_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo stop_reply_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &stop_reply_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskActServo::stop_reply);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                stop_reply_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->success() - (char *)sample);
+
+                stop_reply_g_sampleAccessInfo.memberAccessInfos = 
+                stop_reply_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskActServo::stop_reply);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        stop_reply_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        stop_reply_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                stop_reply_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                stop_reply_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskActServo::stop_reply >;
+
+                stop_reply_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &stop_reply_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin stop_reply_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &stop_reply_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskActServo::stop_reply >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskActServo::stop_reply >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskActServo::turn_req > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member turn_req_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"ccwNotCw",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode turn_req_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskActServo::turn_req", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        turn_req_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for turn_req*/
+
+                if (is_initialized) {
+                    return &turn_req_g_tc;
+                }
+
+                turn_req_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                turn_req_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
+
+                /* Initialize the values for member annotations. */
+                turn_req_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_BOOLEAN;
+                turn_req_g_tc_members[0]._annotations._defaultValue._u.boolean_value = 0;
+
+                turn_req_g_tc._data._sampleAccessInfo = sample_access_info();
+                turn_req_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &turn_req_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskActServo::turn_req *sample;
+
+                static RTIXCdrMemberAccessInfo turn_req_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo turn_req_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &turn_req_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskActServo::turn_req);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                turn_req_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->ccwNotCw() - (char *)sample);
+
+                turn_req_g_sampleAccessInfo.memberAccessInfos = 
+                turn_req_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskActServo::turn_req);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        turn_req_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        turn_req_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                turn_req_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                turn_req_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskActServo::turn_req >;
+
+                turn_req_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &turn_req_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin turn_req_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &turn_req_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskActServo::turn_req >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskActServo::turn_req >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskActServo::turn_reply > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member turn_reply_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"success",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode turn_reply_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskActServo::turn_reply", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        turn_reply_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for turn_reply*/
+
+                if (is_initialized) {
+                    return &turn_reply_g_tc;
+                }
+
+                turn_reply_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                turn_reply_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
+
+                /* Initialize the values for member annotations. */
+                turn_reply_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_BOOLEAN;
+                turn_reply_g_tc_members[0]._annotations._defaultValue._u.boolean_value = 0;
+
+                turn_reply_g_tc._data._sampleAccessInfo = sample_access_info();
+                turn_reply_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &turn_reply_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskActServo::turn_reply *sample;
+
+                static RTIXCdrMemberAccessInfo turn_reply_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo turn_reply_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &turn_reply_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskActServo::turn_reply);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                turn_reply_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->success() - (char *)sample);
+
+                turn_reply_g_sampleAccessInfo.memberAccessInfos = 
+                turn_reply_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskActServo::turn_reply);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        turn_reply_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        turn_reply_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                turn_reply_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                turn_reply_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskActServo::turn_reply >;
+
+                turn_reply_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &turn_reply_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin turn_reply_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &turn_reply_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskActServo::turn_reply >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskActServo::turn_reply >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
         struct native_type_code< DdsJobWzskActServo::zero_req > {
             static DDS_TypeCode * get()
             {
@@ -10037,6 +11461,1511 @@ namespace rti {
         #ifndef NDDS_STANDALONE_TYPE
 
         template<>
+        struct native_type_code< DdsJobWzskActExposure::setExposure_req > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member setExposure_req_g_tc_members[2]=
+                {
+
+                    {
+                        (char *)"autoNotManual",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"Texp",/* Member name */
+                        {
+                            1,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode setExposure_req_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskActExposure::setExposure_req", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        2, /* Number of members */
+                        setExposure_req_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for setExposure_req*/
+
+                if (is_initialized) {
+                    return &setExposure_req_g_tc;
+                }
+
+                setExposure_req_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                setExposure_req_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
+                setExposure_req_g_tc_members[1]._representation._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+
+                /* Initialize the values for member annotations. */
+                setExposure_req_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_BOOLEAN;
+                setExposure_req_g_tc_members[0]._annotations._defaultValue._u.boolean_value = 0;
+
+                setExposure_req_g_tc_members[1]._annotations._defaultValue._d = RTI_XCDR_TK_FLOAT;
+                setExposure_req_g_tc_members[1]._annotations._defaultValue._u.float_value = 0.0f;
+                setExposure_req_g_tc_members[1]._annotations._minValue._d = RTI_XCDR_TK_FLOAT;
+                setExposure_req_g_tc_members[1]._annotations._minValue._u.float_value = RTIXCdrFloat_MIN;
+                setExposure_req_g_tc_members[1]._annotations._maxValue._d = RTI_XCDR_TK_FLOAT;
+                setExposure_req_g_tc_members[1]._annotations._maxValue._u.float_value = RTIXCdrFloat_MAX;
+
+                setExposure_req_g_tc._data._sampleAccessInfo = sample_access_info();
+                setExposure_req_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &setExposure_req_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskActExposure::setExposure_req *sample;
+
+                static RTIXCdrMemberAccessInfo setExposure_req_g_memberAccessInfos[2] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo setExposure_req_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &setExposure_req_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskActExposure::setExposure_req);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                setExposure_req_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->autoNotManual() - (char *)sample);
+
+                setExposure_req_g_memberAccessInfos[1].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->Texp() - (char *)sample);
+
+                setExposure_req_g_sampleAccessInfo.memberAccessInfos = 
+                setExposure_req_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskActExposure::setExposure_req);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        setExposure_req_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        setExposure_req_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                setExposure_req_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                setExposure_req_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskActExposure::setExposure_req >;
+
+                setExposure_req_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &setExposure_req_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin setExposure_req_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &setExposure_req_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskActExposure::setExposure_req >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskActExposure::setExposure_req >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskActExposure::setExposure_reply > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member setExposure_reply_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"success",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode setExposure_reply_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskActExposure::setExposure_reply", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        setExposure_reply_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for setExposure_reply*/
+
+                if (is_initialized) {
+                    return &setExposure_reply_g_tc;
+                }
+
+                setExposure_reply_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                setExposure_reply_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
+
+                /* Initialize the values for member annotations. */
+                setExposure_reply_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_BOOLEAN;
+                setExposure_reply_g_tc_members[0]._annotations._defaultValue._u.boolean_value = 0;
+
+                setExposure_reply_g_tc._data._sampleAccessInfo = sample_access_info();
+                setExposure_reply_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &setExposure_reply_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskActExposure::setExposure_reply *sample;
+
+                static RTIXCdrMemberAccessInfo setExposure_reply_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo setExposure_reply_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &setExposure_reply_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskActExposure::setExposure_reply);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                setExposure_reply_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->success() - (char *)sample);
+
+                setExposure_reply_g_sampleAccessInfo.memberAccessInfos = 
+                setExposure_reply_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskActExposure::setExposure_reply);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        setExposure_reply_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        setExposure_reply_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                setExposure_reply_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                setExposure_reply_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskActExposure::setExposure_reply >;
+
+                setExposure_reply_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &setExposure_reply_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin setExposure_reply_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &setExposure_reply_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskActExposure::setExposure_reply >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskActExposure::setExposure_reply >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskActExposure::setFocus_req > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member setFocus_req_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"focus",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode setFocus_req_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskActExposure::setFocus_req", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        setFocus_req_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for setFocus_req*/
+
+                if (is_initialized) {
+                    return &setFocus_req_g_tc;
+                }
+
+                setFocus_req_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                setFocus_req_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+
+                /* Initialize the values for member annotations. */
+                setFocus_req_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_FLOAT;
+                setFocus_req_g_tc_members[0]._annotations._defaultValue._u.float_value = 0.0f;
+                setFocus_req_g_tc_members[0]._annotations._minValue._d = RTI_XCDR_TK_FLOAT;
+                setFocus_req_g_tc_members[0]._annotations._minValue._u.float_value = RTIXCdrFloat_MIN;
+                setFocus_req_g_tc_members[0]._annotations._maxValue._d = RTI_XCDR_TK_FLOAT;
+                setFocus_req_g_tc_members[0]._annotations._maxValue._u.float_value = RTIXCdrFloat_MAX;
+
+                setFocus_req_g_tc._data._sampleAccessInfo = sample_access_info();
+                setFocus_req_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &setFocus_req_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskActExposure::setFocus_req *sample;
+
+                static RTIXCdrMemberAccessInfo setFocus_req_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo setFocus_req_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &setFocus_req_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskActExposure::setFocus_req);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                setFocus_req_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->focus() - (char *)sample);
+
+                setFocus_req_g_sampleAccessInfo.memberAccessInfos = 
+                setFocus_req_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskActExposure::setFocus_req);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        setFocus_req_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        setFocus_req_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                setFocus_req_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                setFocus_req_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskActExposure::setFocus_req >;
+
+                setFocus_req_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &setFocus_req_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin setFocus_req_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &setFocus_req_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskActExposure::setFocus_req >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskActExposure::setFocus_req >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskActExposure::setFocus_reply > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member setFocus_reply_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"success",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode setFocus_reply_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskActExposure::setFocus_reply", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        setFocus_reply_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for setFocus_reply*/
+
+                if (is_initialized) {
+                    return &setFocus_reply_g_tc;
+                }
+
+                setFocus_reply_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                setFocus_reply_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
+
+                /* Initialize the values for member annotations. */
+                setFocus_reply_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_BOOLEAN;
+                setFocus_reply_g_tc_members[0]._annotations._defaultValue._u.boolean_value = 0;
+
+                setFocus_reply_g_tc._data._sampleAccessInfo = sample_access_info();
+                setFocus_reply_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &setFocus_reply_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskActExposure::setFocus_reply *sample;
+
+                static RTIXCdrMemberAccessInfo setFocus_reply_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo setFocus_reply_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &setFocus_reply_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskActExposure::setFocus_reply);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                setFocus_reply_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->success() - (char *)sample);
+
+                setFocus_reply_g_sampleAccessInfo.memberAccessInfos = 
+                setFocus_reply_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskActExposure::setFocus_reply);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        setFocus_reply_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        setFocus_reply_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                setFocus_reply_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                setFocus_reply_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskActExposure::setFocus_reply >;
+
+                setFocus_reply_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &setFocus_reply_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin setFocus_reply_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &setFocus_reply_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskActExposure::setFocus_reply >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskActExposure::setFocus_reply >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskActExposure::autoNotManualTexp > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member autoNotManualTexp_g_tc_members[2]=
+                {
+
+                    {
+                        (char *)"autoNotManual",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"Texp",/* Member name */
+                        {
+                            1,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode autoNotManualTexp_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskActExposure::autoNotManualTexp", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        2, /* Number of members */
+                        autoNotManualTexp_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for autoNotManualTexp*/
+
+                if (is_initialized) {
+                    return &autoNotManualTexp_g_tc;
+                }
+
+                autoNotManualTexp_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                autoNotManualTexp_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
+                autoNotManualTexp_g_tc_members[1]._representation._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+
+                /* Initialize the values for member annotations. */
+                autoNotManualTexp_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_BOOLEAN;
+                autoNotManualTexp_g_tc_members[0]._annotations._defaultValue._u.boolean_value = 0;
+
+                autoNotManualTexp_g_tc_members[1]._annotations._defaultValue._d = RTI_XCDR_TK_FLOAT;
+                autoNotManualTexp_g_tc_members[1]._annotations._defaultValue._u.float_value = 0.0f;
+                autoNotManualTexp_g_tc_members[1]._annotations._minValue._d = RTI_XCDR_TK_FLOAT;
+                autoNotManualTexp_g_tc_members[1]._annotations._minValue._u.float_value = RTIXCdrFloat_MIN;
+                autoNotManualTexp_g_tc_members[1]._annotations._maxValue._d = RTI_XCDR_TK_FLOAT;
+                autoNotManualTexp_g_tc_members[1]._annotations._maxValue._u.float_value = RTIXCdrFloat_MAX;
+
+                autoNotManualTexp_g_tc._data._sampleAccessInfo = sample_access_info();
+                autoNotManualTexp_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &autoNotManualTexp_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskActExposure::autoNotManualTexp *sample;
+
+                static RTIXCdrMemberAccessInfo autoNotManualTexp_g_memberAccessInfos[2] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo autoNotManualTexp_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &autoNotManualTexp_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskActExposure::autoNotManualTexp);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                autoNotManualTexp_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->autoNotManual() - (char *)sample);
+
+                autoNotManualTexp_g_memberAccessInfos[1].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->Texp() - (char *)sample);
+
+                autoNotManualTexp_g_sampleAccessInfo.memberAccessInfos = 
+                autoNotManualTexp_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskActExposure::autoNotManualTexp);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        autoNotManualTexp_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        autoNotManualTexp_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                autoNotManualTexp_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                autoNotManualTexp_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskActExposure::autoNotManualTexp >;
+
+                autoNotManualTexp_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &autoNotManualTexp_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin autoNotManualTexp_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &autoNotManualTexp_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskActExposure::autoNotManualTexp >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskActExposure::autoNotManualTexp >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskActExposure::focus > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member focus_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"_focus",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode focus_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskActExposure::focus", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        focus_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for focus*/
+
+                if (is_initialized) {
+                    return &focus_g_tc;
+                }
+
+                focus_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                focus_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+
+                /* Initialize the values for member annotations. */
+                focus_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_FLOAT;
+                focus_g_tc_members[0]._annotations._defaultValue._u.float_value = 0.0f;
+                focus_g_tc_members[0]._annotations._minValue._d = RTI_XCDR_TK_FLOAT;
+                focus_g_tc_members[0]._annotations._minValue._u.float_value = RTIXCdrFloat_MIN;
+                focus_g_tc_members[0]._annotations._maxValue._d = RTI_XCDR_TK_FLOAT;
+                focus_g_tc_members[0]._annotations._maxValue._u.float_value = RTIXCdrFloat_MAX;
+
+                focus_g_tc._data._sampleAccessInfo = sample_access_info();
+                focus_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &focus_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskActExposure::focus *sample;
+
+                static RTIXCdrMemberAccessInfo focus_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo focus_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &focus_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskActExposure::focus);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                focus_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->_focus() - (char *)sample);
+
+                focus_g_sampleAccessInfo.memberAccessInfos = 
+                focus_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskActExposure::focus);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        focus_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        focus_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                focus_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                focus_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskActExposure::focus >;
+
+                focus_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &focus_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin focus_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &focus_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskActExposure::focus >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskActExposure::focus >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskAcqPtcloud::setDeltaTheta_req > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member setDeltaTheta_req_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"deltaTheta",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode setDeltaTheta_req_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskAcqPtcloud::setDeltaTheta_req", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        setDeltaTheta_req_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for setDeltaTheta_req*/
+
+                if (is_initialized) {
+                    return &setDeltaTheta_req_g_tc;
+                }
+
+                setDeltaTheta_req_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                setDeltaTheta_req_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+
+                /* Initialize the values for member annotations. */
+                setDeltaTheta_req_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_FLOAT;
+                setDeltaTheta_req_g_tc_members[0]._annotations._defaultValue._u.float_value = 0.0f;
+                setDeltaTheta_req_g_tc_members[0]._annotations._minValue._d = RTI_XCDR_TK_FLOAT;
+                setDeltaTheta_req_g_tc_members[0]._annotations._minValue._u.float_value = RTIXCdrFloat_MIN;
+                setDeltaTheta_req_g_tc_members[0]._annotations._maxValue._d = RTI_XCDR_TK_FLOAT;
+                setDeltaTheta_req_g_tc_members[0]._annotations._maxValue._u.float_value = RTIXCdrFloat_MAX;
+
+                setDeltaTheta_req_g_tc._data._sampleAccessInfo = sample_access_info();
+                setDeltaTheta_req_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &setDeltaTheta_req_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskAcqPtcloud::setDeltaTheta_req *sample;
+
+                static RTIXCdrMemberAccessInfo setDeltaTheta_req_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo setDeltaTheta_req_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &setDeltaTheta_req_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskAcqPtcloud::setDeltaTheta_req);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                setDeltaTheta_req_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->deltaTheta() - (char *)sample);
+
+                setDeltaTheta_req_g_sampleAccessInfo.memberAccessInfos = 
+                setDeltaTheta_req_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskAcqPtcloud::setDeltaTheta_req);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        setDeltaTheta_req_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        setDeltaTheta_req_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                setDeltaTheta_req_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                setDeltaTheta_req_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskAcqPtcloud::setDeltaTheta_req >;
+
+                setDeltaTheta_req_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &setDeltaTheta_req_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin setDeltaTheta_req_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &setDeltaTheta_req_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskAcqPtcloud::setDeltaTheta_req >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskAcqPtcloud::setDeltaTheta_req >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskAcqPtcloud::setDeltaTheta_reply > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member setDeltaTheta_reply_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"success",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode setDeltaTheta_reply_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskAcqPtcloud::setDeltaTheta_reply", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        setDeltaTheta_reply_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for setDeltaTheta_reply*/
+
+                if (is_initialized) {
+                    return &setDeltaTheta_reply_g_tc;
+                }
+
+                setDeltaTheta_reply_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                setDeltaTheta_reply_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
+
+                /* Initialize the values for member annotations. */
+                setDeltaTheta_reply_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_BOOLEAN;
+                setDeltaTheta_reply_g_tc_members[0]._annotations._defaultValue._u.boolean_value = 0;
+
+                setDeltaTheta_reply_g_tc._data._sampleAccessInfo = sample_access_info();
+                setDeltaTheta_reply_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &setDeltaTheta_reply_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskAcqPtcloud::setDeltaTheta_reply *sample;
+
+                static RTIXCdrMemberAccessInfo setDeltaTheta_reply_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo setDeltaTheta_reply_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &setDeltaTheta_reply_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskAcqPtcloud::setDeltaTheta_reply);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                setDeltaTheta_reply_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->success() - (char *)sample);
+
+                setDeltaTheta_reply_g_sampleAccessInfo.memberAccessInfos = 
+                setDeltaTheta_reply_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskAcqPtcloud::setDeltaTheta_reply);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        setDeltaTheta_reply_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        setDeltaTheta_reply_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                setDeltaTheta_reply_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                setDeltaTheta_reply_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskAcqPtcloud::setDeltaTheta_reply >;
+
+                setDeltaTheta_reply_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &setDeltaTheta_reply_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin setDeltaTheta_reply_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &setDeltaTheta_reply_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskAcqPtcloud::setDeltaTheta_reply >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskAcqPtcloud::setDeltaTheta_reply >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskAcqPtcloud::deltaTheta > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member deltaTheta_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"_deltaTheta",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode deltaTheta_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskAcqPtcloud::deltaTheta", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        deltaTheta_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for deltaTheta*/
+
+                if (is_initialized) {
+                    return &deltaTheta_g_tc;
+                }
+
+                deltaTheta_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                deltaTheta_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+
+                /* Initialize the values for member annotations. */
+                deltaTheta_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_FLOAT;
+                deltaTheta_g_tc_members[0]._annotations._defaultValue._u.float_value = 0.0f;
+                deltaTheta_g_tc_members[0]._annotations._minValue._d = RTI_XCDR_TK_FLOAT;
+                deltaTheta_g_tc_members[0]._annotations._minValue._u.float_value = RTIXCdrFloat_MIN;
+                deltaTheta_g_tc_members[0]._annotations._maxValue._d = RTI_XCDR_TK_FLOAT;
+                deltaTheta_g_tc_members[0]._annotations._maxValue._u.float_value = RTIXCdrFloat_MAX;
+
+                deltaTheta_g_tc._data._sampleAccessInfo = sample_access_info();
+                deltaTheta_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &deltaTheta_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskAcqPtcloud::deltaTheta *sample;
+
+                static RTIXCdrMemberAccessInfo deltaTheta_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo deltaTheta_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &deltaTheta_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskAcqPtcloud::deltaTheta);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                deltaTheta_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->_deltaTheta() - (char *)sample);
+
+                deltaTheta_g_sampleAccessInfo.memberAccessInfos = 
+                deltaTheta_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskAcqPtcloud::deltaTheta);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        deltaTheta_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        deltaTheta_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                deltaTheta_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                deltaTheta_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskAcqPtcloud::deltaTheta >;
+
+                deltaTheta_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &deltaTheta_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin deltaTheta_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &deltaTheta_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskAcqPtcloud::deltaTheta >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskAcqPtcloud::deltaTheta >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
         struct native_type_code< DdsJobWzskAcqPtcloud::xYZ > {
             static DDS_TypeCode * get()
             {
@@ -10761,6 +13690,146 @@ namespace dds {
             ::rti::topic::allocate_sample(sample.vec(),  100, -1);
         }
 
+        void topic_type_support< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3Plugin_new,
+                DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3Plugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = loadAllLoadCore0LoadCore1LoadCore2LoadCore3Plugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = loadAllLoadCore0LoadCore1LoadCore2LoadCore3Plugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 >::from_cdr_buffer(DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = loadAllLoadCore0LoadCore1LoadCore2LoadCore3Plugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 >::reset_sample(DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3& sample) 
+        {
+            ::rti::topic::reset_sample(sample.loadAll());
+            ::rti::topic::reset_sample(sample.loadCore0());
+            ::rti::topic::reset_sample(sample.loadCore1());
+            ::rti::topic::reset_sample(sample.loadCore2());
+            ::rti::topic::reset_sample(sample.loadCore3());
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 >::allocate_sample(DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+            ::rti::topic::allocate_sample(sample.loadAll(),  60, -1);
+            ::rti::topic::allocate_sample(sample.loadCore0(),  60, -1);
+            ::rti::topic::allocate_sample(sample.loadCore1(),  60, -1);
+            ::rti::topic::allocate_sample(sample.loadCore2(),  60, -1);
+            ::rti::topic::allocate_sample(sample.loadCore3(),  60, -1);
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::temp >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskSrcSysinfo::tempPlugin_new,
+                DdsJobWzskSrcSysinfo::tempPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskSrcSysinfo::temp >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskSrcSysinfo::temp& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = tempPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = tempPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::temp >::from_cdr_buffer(DdsJobWzskSrcSysinfo::temp& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = tempPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskSrcSysinfo::temp from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::temp >::reset_sample(DdsJobWzskSrcSysinfo::temp& sample) 
+        {
+            ::rti::topic::reset_sample(sample._temp());
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::temp >::allocate_sample(DdsJobWzskSrcSysinfo::temp& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+            ::rti::topic::allocate_sample(sample._temp(),  60, -1);
+        }
+
         void topic_type_support< DdsJobWzskIprTrace::setLevel_req >:: register_type(
             ::dds::domain::DomainParticipant& participant,
             const std::string& type_name) 
@@ -10887,137 +13956,6 @@ namespace dds {
         }
 
         void topic_type_support< DdsJobWzskIprTrace::setLevel_reply >::allocate_sample(DdsJobWzskIprTrace::setLevel_reply& sample, int, int) 
-        {
-            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
-
-        }
-
-        void topic_type_support< DdsJobWzskIprTrace::setPOn_req >:: register_type(
-            ::dds::domain::DomainParticipant& participant,
-            const std::string& type_name) 
-        {
-
-            ::rti::domain::register_type_plugin(
-                participant,
-                type_name,
-                DdsJobWzskIprTrace::setPOn_reqPlugin_new,
-                DdsJobWzskIprTrace::setPOn_reqPlugin_delete);
-        }
-
-        std::vector<char>& topic_type_support< DdsJobWzskIprTrace::setPOn_req >::to_cdr_buffer(
-            std::vector<char>& buffer, 
-            const DdsJobWzskIprTrace::setPOn_req& sample,
-            ::dds::core::policy::DataRepresentationId representation)
-        {
-            // First get the length of the buffer
-            unsigned int length = 0;
-            RTIBool ok = setPOn_reqPlugin_serialize_to_cdr_buffer(
-                NULL, 
-                &length,
-                &sample,
-                representation);
-            ::rti::core::check_return_code(
-                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
-                "Failed to calculate cdr buffer size");
-
-            // Create a vector with that size and copy the cdr buffer into it
-            buffer.resize(length);
-            ok = setPOn_reqPlugin_serialize_to_cdr_buffer(
-                &buffer[0], 
-                &length, 
-                &sample,
-                representation);
-            ::rti::core::check_return_code(
-                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
-                "Failed to copy cdr buffer");
-
-            return buffer;
-        }
-
-        void topic_type_support< DdsJobWzskIprTrace::setPOn_req >::from_cdr_buffer(DdsJobWzskIprTrace::setPOn_req& sample, 
-        const std::vector<char>& buffer)
-        {
-
-            RTIBool ok  = setPOn_reqPlugin_deserialize_from_cdr_buffer(
-                &sample, 
-                &buffer[0], 
-                static_cast<unsigned int>(buffer.size()));
-            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
-            "Failed to create DdsJobWzskIprTrace::setPOn_req from cdr buffer");
-        }
-
-        void topic_type_support< DdsJobWzskIprTrace::setPOn_req >::reset_sample(DdsJobWzskIprTrace::setPOn_req& sample) 
-        {
-            sample.pOnLeft(0.0f);
-            sample.pOnRight(0.0f);
-        }
-
-        void topic_type_support< DdsJobWzskIprTrace::setPOn_req >::allocate_sample(DdsJobWzskIprTrace::setPOn_req& sample, int, int) 
-        {
-            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
-
-        }
-
-        void topic_type_support< DdsJobWzskIprTrace::setPOn_reply >:: register_type(
-            ::dds::domain::DomainParticipant& participant,
-            const std::string& type_name) 
-        {
-
-            ::rti::domain::register_type_plugin(
-                participant,
-                type_name,
-                DdsJobWzskIprTrace::setPOn_replyPlugin_new,
-                DdsJobWzskIprTrace::setPOn_replyPlugin_delete);
-        }
-
-        std::vector<char>& topic_type_support< DdsJobWzskIprTrace::setPOn_reply >::to_cdr_buffer(
-            std::vector<char>& buffer, 
-            const DdsJobWzskIprTrace::setPOn_reply& sample,
-            ::dds::core::policy::DataRepresentationId representation)
-        {
-            // First get the length of the buffer
-            unsigned int length = 0;
-            RTIBool ok = setPOn_replyPlugin_serialize_to_cdr_buffer(
-                NULL, 
-                &length,
-                &sample,
-                representation);
-            ::rti::core::check_return_code(
-                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
-                "Failed to calculate cdr buffer size");
-
-            // Create a vector with that size and copy the cdr buffer into it
-            buffer.resize(length);
-            ok = setPOn_replyPlugin_serialize_to_cdr_buffer(
-                &buffer[0], 
-                &length, 
-                &sample,
-                representation);
-            ::rti::core::check_return_code(
-                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
-                "Failed to copy cdr buffer");
-
-            return buffer;
-        }
-
-        void topic_type_support< DdsJobWzskIprTrace::setPOn_reply >::from_cdr_buffer(DdsJobWzskIprTrace::setPOn_reply& sample, 
-        const std::vector<char>& buffer)
-        {
-
-            RTIBool ok  = setPOn_replyPlugin_deserialize_from_cdr_buffer(
-                &sample, 
-                &buffer[0], 
-                static_cast<unsigned int>(buffer.size()));
-            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
-            "Failed to create DdsJobWzskIprTrace::setPOn_reply from cdr buffer");
-        }
-
-        void topic_type_support< DdsJobWzskIprTrace::setPOn_reply >::reset_sample(DdsJobWzskIprTrace::setPOn_reply& sample) 
-        {
-            sample.success(0);
-        }
-
-        void topic_type_support< DdsJobWzskIprTrace::setPOn_reply >::allocate_sample(DdsJobWzskIprTrace::setPOn_reply& sample, int, int) 
         {
             RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
 
@@ -12292,6 +15230,266 @@ namespace dds {
 
         }
 
+        void topic_type_support< DdsJobWzskActServo::stop_req >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskActServo::stop_reqPlugin_new,
+                DdsJobWzskActServo::stop_reqPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskActServo::stop_req >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskActServo::stop_req& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = stop_reqPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = stop_reqPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskActServo::stop_req >::from_cdr_buffer(DdsJobWzskActServo::stop_req& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = stop_reqPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskActServo::stop_req from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskActServo::stop_req >::reset_sample(DdsJobWzskActServo::stop_req& sample) 
+        {
+            sample.dummy(0);
+        }
+
+        void topic_type_support< DdsJobWzskActServo::stop_req >::allocate_sample(DdsJobWzskActServo::stop_req& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskActServo::stop_reply >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskActServo::stop_replyPlugin_new,
+                DdsJobWzskActServo::stop_replyPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskActServo::stop_reply >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskActServo::stop_reply& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = stop_replyPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = stop_replyPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskActServo::stop_reply >::from_cdr_buffer(DdsJobWzskActServo::stop_reply& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = stop_replyPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskActServo::stop_reply from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskActServo::stop_reply >::reset_sample(DdsJobWzskActServo::stop_reply& sample) 
+        {
+            sample.success(0);
+        }
+
+        void topic_type_support< DdsJobWzskActServo::stop_reply >::allocate_sample(DdsJobWzskActServo::stop_reply& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskActServo::turn_req >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskActServo::turn_reqPlugin_new,
+                DdsJobWzskActServo::turn_reqPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskActServo::turn_req >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskActServo::turn_req& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = turn_reqPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = turn_reqPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskActServo::turn_req >::from_cdr_buffer(DdsJobWzskActServo::turn_req& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = turn_reqPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskActServo::turn_req from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskActServo::turn_req >::reset_sample(DdsJobWzskActServo::turn_req& sample) 
+        {
+            sample.ccwNotCw(0);
+        }
+
+        void topic_type_support< DdsJobWzskActServo::turn_req >::allocate_sample(DdsJobWzskActServo::turn_req& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskActServo::turn_reply >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskActServo::turn_replyPlugin_new,
+                DdsJobWzskActServo::turn_replyPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskActServo::turn_reply >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskActServo::turn_reply& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = turn_replyPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = turn_replyPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskActServo::turn_reply >::from_cdr_buffer(DdsJobWzskActServo::turn_reply& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = turn_replyPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskActServo::turn_reply from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskActServo::turn_reply >::reset_sample(DdsJobWzskActServo::turn_reply& sample) 
+        {
+            sample.success(0);
+        }
+
+        void topic_type_support< DdsJobWzskActServo::turn_reply >::allocate_sample(DdsJobWzskActServo::turn_reply& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
         void topic_type_support< DdsJobWzskActServo::zero_req >:: register_type(
             ::dds::domain::DomainParticipant& participant,
             const std::string& type_name) 
@@ -12809,6 +16007,593 @@ namespace dds {
         }
 
         void topic_type_support< DdsJobWzskActLaser::leftRight >::allocate_sample(DdsJobWzskActLaser::leftRight& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setExposure_req >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskActExposure::setExposure_reqPlugin_new,
+                DdsJobWzskActExposure::setExposure_reqPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskActExposure::setExposure_req >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskActExposure::setExposure_req& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = setExposure_reqPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = setExposure_reqPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setExposure_req >::from_cdr_buffer(DdsJobWzskActExposure::setExposure_req& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = setExposure_reqPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskActExposure::setExposure_req from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setExposure_req >::reset_sample(DdsJobWzskActExposure::setExposure_req& sample) 
+        {
+            sample.autoNotManual(0);
+            sample.Texp(0.0f);
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setExposure_req >::allocate_sample(DdsJobWzskActExposure::setExposure_req& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setExposure_reply >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskActExposure::setExposure_replyPlugin_new,
+                DdsJobWzskActExposure::setExposure_replyPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskActExposure::setExposure_reply >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskActExposure::setExposure_reply& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = setExposure_replyPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = setExposure_replyPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setExposure_reply >::from_cdr_buffer(DdsJobWzskActExposure::setExposure_reply& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = setExposure_replyPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskActExposure::setExposure_reply from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setExposure_reply >::reset_sample(DdsJobWzskActExposure::setExposure_reply& sample) 
+        {
+            sample.success(0);
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setExposure_reply >::allocate_sample(DdsJobWzskActExposure::setExposure_reply& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setFocus_req >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskActExposure::setFocus_reqPlugin_new,
+                DdsJobWzskActExposure::setFocus_reqPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskActExposure::setFocus_req >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskActExposure::setFocus_req& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = setFocus_reqPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = setFocus_reqPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setFocus_req >::from_cdr_buffer(DdsJobWzskActExposure::setFocus_req& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = setFocus_reqPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskActExposure::setFocus_req from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setFocus_req >::reset_sample(DdsJobWzskActExposure::setFocus_req& sample) 
+        {
+            sample.focus(0.0f);
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setFocus_req >::allocate_sample(DdsJobWzskActExposure::setFocus_req& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setFocus_reply >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskActExposure::setFocus_replyPlugin_new,
+                DdsJobWzskActExposure::setFocus_replyPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskActExposure::setFocus_reply >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskActExposure::setFocus_reply& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = setFocus_replyPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = setFocus_replyPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setFocus_reply >::from_cdr_buffer(DdsJobWzskActExposure::setFocus_reply& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = setFocus_replyPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskActExposure::setFocus_reply from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setFocus_reply >::reset_sample(DdsJobWzskActExposure::setFocus_reply& sample) 
+        {
+            sample.success(0);
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::setFocus_reply >::allocate_sample(DdsJobWzskActExposure::setFocus_reply& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::autoNotManualTexp >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskActExposure::autoNotManualTexpPlugin_new,
+                DdsJobWzskActExposure::autoNotManualTexpPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskActExposure::autoNotManualTexp >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskActExposure::autoNotManualTexp& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = autoNotManualTexpPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = autoNotManualTexpPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::autoNotManualTexp >::from_cdr_buffer(DdsJobWzskActExposure::autoNotManualTexp& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = autoNotManualTexpPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskActExposure::autoNotManualTexp from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::autoNotManualTexp >::reset_sample(DdsJobWzskActExposure::autoNotManualTexp& sample) 
+        {
+            sample.autoNotManual(0);
+            sample.Texp(0.0f);
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::autoNotManualTexp >::allocate_sample(DdsJobWzskActExposure::autoNotManualTexp& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::focus >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskActExposure::focusPlugin_new,
+                DdsJobWzskActExposure::focusPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskActExposure::focus >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskActExposure::focus& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = focusPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = focusPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::focus >::from_cdr_buffer(DdsJobWzskActExposure::focus& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = focusPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskActExposure::focus from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::focus >::reset_sample(DdsJobWzskActExposure::focus& sample) 
+        {
+            sample._focus(0.0f);
+        }
+
+        void topic_type_support< DdsJobWzskActExposure::focus >::allocate_sample(DdsJobWzskActExposure::focus& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDeltaTheta_req >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskAcqPtcloud::setDeltaTheta_reqPlugin_new,
+                DdsJobWzskAcqPtcloud::setDeltaTheta_reqPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskAcqPtcloud::setDeltaTheta_req >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskAcqPtcloud::setDeltaTheta_req& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = setDeltaTheta_reqPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = setDeltaTheta_reqPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDeltaTheta_req >::from_cdr_buffer(DdsJobWzskAcqPtcloud::setDeltaTheta_req& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = setDeltaTheta_reqPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskAcqPtcloud::setDeltaTheta_req from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDeltaTheta_req >::reset_sample(DdsJobWzskAcqPtcloud::setDeltaTheta_req& sample) 
+        {
+            sample.deltaTheta(0.0f);
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDeltaTheta_req >::allocate_sample(DdsJobWzskAcqPtcloud::setDeltaTheta_req& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDeltaTheta_reply >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskAcqPtcloud::setDeltaTheta_replyPlugin_new,
+                DdsJobWzskAcqPtcloud::setDeltaTheta_replyPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskAcqPtcloud::setDeltaTheta_reply >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskAcqPtcloud::setDeltaTheta_reply& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = setDeltaTheta_replyPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = setDeltaTheta_replyPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDeltaTheta_reply >::from_cdr_buffer(DdsJobWzskAcqPtcloud::setDeltaTheta_reply& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = setDeltaTheta_replyPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskAcqPtcloud::setDeltaTheta_reply from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDeltaTheta_reply >::reset_sample(DdsJobWzskAcqPtcloud::setDeltaTheta_reply& sample) 
+        {
+            sample.success(0);
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDeltaTheta_reply >::allocate_sample(DdsJobWzskAcqPtcloud::setDeltaTheta_reply& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::deltaTheta >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskAcqPtcloud::deltaThetaPlugin_new,
+                DdsJobWzskAcqPtcloud::deltaThetaPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskAcqPtcloud::deltaTheta >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskAcqPtcloud::deltaTheta& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = deltaThetaPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = deltaThetaPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::deltaTheta >::from_cdr_buffer(DdsJobWzskAcqPtcloud::deltaTheta& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = deltaThetaPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskAcqPtcloud::deltaTheta from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::deltaTheta >::reset_sample(DdsJobWzskAcqPtcloud::deltaTheta& sample) 
+        {
+            sample._deltaTheta(0.0f);
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::deltaTheta >::allocate_sample(DdsJobWzskAcqPtcloud::deltaTheta& sample, int, int) 
         {
             RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
 

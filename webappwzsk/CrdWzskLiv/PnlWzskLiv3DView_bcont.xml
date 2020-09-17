@@ -30,9 +30,23 @@
 			function handleSldTreVMup() {parent.parent.window.handleSldMup(document,"SldTreV",false);};
 			function handleSldTreVValKey(evt) {return parent.parent.window.handleSldValKey(document,"SldTreV",false,false,false,evt);};
 			function handleSldTreVValChange() {parent.parent.window.handleSldValChange(document,"SldTreV",false,false,false);};
-			function handleButPlayClick() {parent.parent.window.handleButClick("ButPlay");};
-			function handleButStopClick() {parent.parent.window.handleButClick("ButStop");};
-			function handleButAstClick() {parent.parent.window.handleButClick("ButAst");};
+			function handleButPlayClick() {parent.parent.window.handleButPlayClick();};
+			function handleButStopClick() {parent.parent.window.handleButStopClick();};
+			function handleSldAinJpleftMov() {parent.parent.window.handleSldJpleftMov(document,"SldAin");};
+			function handleSldAinJpleftMou() {parent.parent.window.handleSldJpleftMou(document,"SldAin");};
+			function handleSldAinJpleftClick(evt) {parent.parent.window.handleSldJpleftClick(document,"SldAin",true,false,true,evt);};
+			function handleSldAinJprightMov() {parent.parent.window.handleSldJprightMov(document,"SldAin");};
+			function handleSldAinJprightMou() {parent.parent.window.handleSldJprightMou(document,"SldAin");};
+			function handleSldAinJprightClick(evt) {parent.parent.window.handleSldJprightClick(document,"SldAin",true,false,true,evt);};
+			function handleSldAinMov() {parent.parent.window.handleSldMov(document,"SldAin");};
+			function handleSldAinMou() {parent.parent.window.handleSldMou(document,"SldAin");};
+			function handleSldAinMdn() {parent.parent.window.handleSldMdn(document,"SldAin");};
+			function handleSldAinMove(evt) {parent.parent.window.handleSldMove(document,"SldAin",true,false,true,evt);};
+			function handleSldAinMup() {parent.parent.window.handleSldMup(document,"SldAin",true);};
+			function handleSldAinValKey(evt) {return parent.parent.window.handleSldValKey(document,"SldAin",true,false,true,evt);};
+			function handleSldAinValChange() {parent.parent.window.handleSldValChange(document,"SldAin",true,false,true);};
+			function handleButAsrClick() {parent.parent.window.handleButClick("ButAsr");};
+			function handleButAirClick() {parent.parent.window.handleButClick("ButAir");};
 			<!-- IP custScript - INSERT -->
 		</script>
 		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
@@ -81,6 +95,38 @@
 						<span id="HdgAcq" class="cpt">HdgAcq</span>&#160;&#160;
 					</td>
 				</tr>
+				<tr id="trAin" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptAin" class="cpt">CptAin</span>
+					</td>
+					<td></td>
+					<td id="tdSldAin" colspan="5">
+						<svg class="svg" width="340" height="25" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<line class="sldlinact" x1="0" y1="12.5" x2="5" y2="12.5"/>
+							<line class="sldlinact" x1="335" y1="12.5" x2="340" y2="12.5"/>
+							<g id="SldAinJpleft" class="sld" onmouseover="handleSldAinJpleftMov()" onmouseout="handleSldAinJpleftMou()" onclick="handleSldAinJpleftClick(event)">
+								<rect id="SldAinJpleftr" class="sldr" x="5" y="2" width="165" height="18"/>
+								<line id="SldAinJpleftl" class="sldl" x1="5" y1="12.5" x2="167.5" y2="12.5"/>
+							</g>
+							<g id="SldAinJpright" class="sld" onmouseover="handleSldAinJprightMov()" onmouseout="handleSldAinJprightMou()" onclick="handleSldAinJprightClick(event)">
+								<rect id="SldAinJprightr" class="sldr" x="170" y="2" width="165" height="18"/>
+								<line id="SldAinJprightl" class="sldl" x1="172.5" y1="12.5" x2="335" y2="12.5"/>
+							</g>
+							<g id="SldAin" class="sld" transform="translate(170 0)" onmouseover="handleSldAinMov()" onmouseout="handleSldAinMou()" onmousedown="handleSldAinMdn()">
+								<rect id="SldAinR" class="sldr" x="-3" y="2" width="6" height="21"/>
+								<g id="SldAinBar" class="sldl">
+									<line x1="-2" y1="2" x2="-2" y2="23"/>
+									<line x1="2" y1="2" x2="2" y2="23"/>
+								</g>
+							</g>
+						</svg>
+					</td>
+					<td></td>
+					<td colspan="2" align="left">
+						<input id="SldAinVal" class="txfxs" type="text" value="SldAinVal" onchange="handleSldAinValChange()" onkeypress="return handleSldAinValKey(event)"/>
+					</td>
+				</tr>
 				<tr id="trAst" class="show">
 					<td height="25"></td>
 					<td align="right">
@@ -105,11 +151,12 @@
 					<td></td>
 					<td colspan="2"></td>
 				</tr>
-				<tr id="trAst" class="show">
+				<tr id="trAsrair" class="show">
 					<td height="25"></td>
 					<td colspan="2"></td>
 					<td colspan="8" align="left">
-						<span id="ButAst" class="but" onclick="handleButAstClick()">ButAst</span>
+						<span id="ButAsr" class="but" onclick="handleButAsrClick()">ButAsr</span>
+						&#160;&#160;<span id="ButAir" class="but" onclick="handleButAirClick()">ButAir</span>
 					</td>
 				</tr>
 				<tr><td colspan="11" height="4"></td></tr>

@@ -2,8 +2,8 @@
 	* \file DlgWzskScfLaserpos.cpp
 	* job handler for job DlgWzskScfLaserpos (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -42,15 +42,15 @@ DlgWzskScfLaserpos::DlgWzskScfLaserpos(
 	feedFSge.tag = "FeedFSge";
 	VecVSge::fillFeed(feedFSge);
 
-	actlaser = NULL;
 	iprtrace = NULL;
+	actlaser = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	ixVDit = VecVDit::PLH;
 
-	actlaser = new JobWzskActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
+	actlaser = new JobWzskActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 
@@ -99,27 +99,33 @@ void DlgWzskScfLaserpos::refreshPlh(
 void DlgWzskScfLaserpos::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
-	ContIac oldContiac(contiac);
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	StatShr oldStatshr(statshr);
+	ContIac oldContiac(contiac);
 	ContInf oldContinf(continf);
 
 	// IP refresh --- BEGIN
-	// contiac
-	contiac.numFDse = ixVDit;
-
 	// statshr
 	statshr.ButDneActive = evalButDneActive(dbswzsk);
+
+	// contiac
+	contiac.numFDse = ixVDit;
 
 	// continf
 	continf.numFSge = ixVSge;
 
 	// IP refresh --- END
-	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 
 	refreshPlh(dbswzsk, moditems);
+
+	muteRefresh = false;
 };
 
 void DlgWzskScfLaserpos::handleRequest(
@@ -212,7 +218,7 @@ void DlgWzskScfLaserpos::changeStage(
 
 			setStage(dbswzsk, _ixVSge);
 			reenter = false;
-			if (!muteRefresh) refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
+			refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
 		};
 
 		switch (_ixVSge) {

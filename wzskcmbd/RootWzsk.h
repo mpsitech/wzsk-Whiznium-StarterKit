@@ -2,8 +2,8 @@
 	* \file RootWzsk.h
 	* job handler for job RootWzsk (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef ROOTWZSK_H
@@ -14,12 +14,14 @@
 // IP include.cust --- INSERT
 
 #include "JobWzskSrcV4l2.h"
+#include "JobWzskSrcSysinfo.h"
 #include "JobWzskSrcFpga.h"
 #include "JobWzskIprTrace.h"
 #include "JobWzskIprCorner.h"
 #include "JobWzskIprAngle.h"
 #include "JobWzskActServo.h"
 #include "JobWzskActLaser.h"
+#include "JobWzskActExposure.h"
 #include "JobWzskAcqPtcloud.h"
 #include "JobWzskAcqPreview.h"
 #include "JobWzskAcqFpgapvw.h"
@@ -93,12 +95,14 @@ public:
 public:
 
 	JobWzskSrcV4l2* srcv4l2;
+	JobWzskSrcSysinfo* srcsysinfo;
 	JobWzskSrcFpga* srcfpga;
 	JobWzskIprTrace* iprtrace;
 	JobWzskIprCorner* iprcorner;
 	JobWzskIprAngle* iprangle;
 	JobWzskActServo* actservo;
 	JobWzskActLaser* actlaser;
+	JobWzskActExposure* actexposure;
 	JobWzskAcqPtcloud* acqptcloud;
 	JobWzskAcqPreview* acqpreview;
 	JobWzskAcqFpgapvw* acqfpgapvw;

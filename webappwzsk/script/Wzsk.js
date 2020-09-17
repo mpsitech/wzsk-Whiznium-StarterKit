@@ -2,14 +2,14 @@
   * \file Wzsk.js
   * web client global functionality for Wzsk
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
-WZSK_VERSION = "0.1.26";
+WZSK_VERSION = "0.1.33";
 WZSK_VERSION_MAJOR = 0;
 WZSK_VERSION_MINOR = 1;
-WZSK_VERSION_SUB = 26;
+WZSK_VERSION_SUB = 33;
 
 function getCrdwnd() {
 	if (window.name == "Crd") return window;

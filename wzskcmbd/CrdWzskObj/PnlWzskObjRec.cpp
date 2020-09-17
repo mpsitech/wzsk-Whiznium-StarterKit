@@ -2,8 +2,8 @@
 	* \file PnlWzskObjRec.cpp
 	* job handler for job PnlWzskObjRec (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -38,6 +38,7 @@ PnlWzskObjRec::PnlWzskObjRec(
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
 	pnlref1nfile = NULL;
+	pnl1nshot = NULL;
 	pnldetail = NULL;
 
 	// IP constructor.cust1 --- INSERT
@@ -79,7 +80,11 @@ DpchEngWzsk* PnlWzskObjRec::getNewDpchEng(
 void PnlWzskObjRec::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	ContInf oldContinf(continf);
 	StatShr oldStatshr(statshr);
 
@@ -94,19 +99,23 @@ void PnlWzskObjRec::refresh(
 
 	if (statshr.ixWzskVExpstate == VecWzskVExpstate::MIND) {
 		if (pnldetail) {delete pnldetail; pnldetail = NULL;};
+		if (pnl1nshot) {delete pnl1nshot; pnl1nshot = NULL;};
 		if (pnlref1nfile) {delete pnlref1nfile; pnlref1nfile = NULL;};
 	} else {
 		if (!pnldetail) pnldetail = new PnlWzskObjDetail(xchg, dbswzsk, jref, ixWzskVLocale);
+		if (!pnl1nshot) pnl1nshot = new PnlWzskObj1NShot(xchg, dbswzsk, jref, ixWzskVLocale);
 		if (!pnlref1nfile) pnlref1nfile = new PnlWzskObjRef1NFile(xchg, dbswzsk, jref, ixWzskVLocale);
 	};
 
 	statshr.jrefDetail = ((pnldetail) ? pnldetail->jref : 0);
+	statshr.jref1NShot = ((pnl1nshot) ? pnl1nshot->jref : 0);
 	statshr.jrefRef1NFile = ((pnlref1nfile) ? pnlref1nfile->jref : 0);
 
 	// IP refresh --- END
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 
+	muteRefresh = false;
 };
 
 void PnlWzskObjRec::updatePreset(
@@ -128,6 +137,7 @@ void PnlWzskObjRec::updatePreset(
 
 		if (recObj.ref != 0) {
 			if (pnldetail) pnldetail->updatePreset(dbswzsk, ixWzskVPreset, jrefTrig, notif);
+			if (pnl1nshot) pnl1nshot->updatePreset(dbswzsk, ixWzskVPreset, jrefTrig, notif);
 			if (pnlref1nfile) pnlref1nfile->updatePreset(dbswzsk, ixWzskVPreset, jrefTrig, notif);
 		};
 

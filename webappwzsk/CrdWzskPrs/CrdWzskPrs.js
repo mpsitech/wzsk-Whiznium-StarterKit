@@ -2,8 +2,8 @@
   * \file CrdWzskPrs.js
   * web client functionality for card CrdWzskPrs
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 function getInitdone(pnlshort) {
@@ -332,7 +332,7 @@ function changeHeight(pnlshort, height) {
 // --- view initialization and refresh
 function refresh() {
 
-	doc.title = retrieveCi(srcdoc, "ContInfWzskPrs", "MtxCrdPrs") + " - Whiznium StarterKit 0.1.26";
+	doc.title = retrieveCi(srcdoc, "ContInfWzskPrs", "MtxCrdPrs") + " - Whiznium StarterKit v0.1.33";
 };
 
 // --- event handlers

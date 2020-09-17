@@ -2,8 +2,8 @@
   * \file ApiWzsk.java
   * Wzsk Java API package global functionality
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 package apiwzsk;
@@ -22,10 +22,10 @@ import sbecore.*;
 
 public class ApiWzsk {
 
-	public static final String WZSK_VERSION = "0.1.26";
+	public static final String WZSK_VERSION = "0.1.33";
 	public static final int WZSK_VERSION_MAJOR = 0;
 	public static final int WZSK_VERSION_MINOR = 1;
-	public static final int WZSK_VERSION_SUB = 26;
+	public static final int WZSK_VERSION_SUB = 33;
 
 	public static DpchEngWzsk readDpchEng(
 				String s
@@ -65,6 +65,8 @@ public class ApiWzsk {
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLIV3DVIEWLIVE) dpcheng = (new PnlWzskLiv3DView()).new DpchEngLive();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLIVDATA) dpcheng = (new CrdWzskLiv()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLIVHEADBARDATA) dpcheng = (new PnlWzskLivHeadbar()).new DpchEngData();
+			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLIVSYSMONDATA) dpcheng = (new PnlWzskLivSysmon()).new DpchEngData();
+			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLIVSYSMONLIVE) dpcheng = (new PnlWzskLivSysmon()).new DpchEngLive();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVCAMERADATA) dpcheng = (new PnlWzskLlvCamera()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVCAMERALIVE) dpcheng = (new PnlWzskLlvCamera()).new DpchEngLive();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVDATA) dpcheng = (new CrdWzskLlv()).new DpchEngData();
@@ -78,6 +80,7 @@ public class ApiWzsk {
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKNAVHEADBARDATA) dpcheng = (new PnlWzskNavHeadbar()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKNAVOPDATA) dpcheng = (new PnlWzskNavOp()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKNAVPREDATA) dpcheng = (new PnlWzskNavPre()).new DpchEngData();
+			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKOBJ1NSHOTDATA) dpcheng = (new PnlWzskObj1NShot()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKOBJDATA) dpcheng = (new CrdWzskObj()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKOBJDETAILDATA) dpcheng = (new PnlWzskObjDetail()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKOBJHEADBARDATA) dpcheng = (new PnlWzskObjHeadbar()).new DpchEngData();
@@ -85,7 +88,6 @@ public class ApiWzsk {
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKOBJRECDATA) dpcheng = (new PnlWzskObjRec()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKOBJREF1NFILEDATA) dpcheng = (new PnlWzskObjRef1NFile()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKOGR1NOBJECTDATA) dpcheng = (new PnlWzskOgr1NObject()).new DpchEngData();
-			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKOGR1NSHOTDATA) dpcheng = (new PnlWzskOgr1NShot()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKOGRDATA) dpcheng = (new CrdWzskOgr()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKOGRDETAILDATA) dpcheng = (new PnlWzskOgrDetail()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKOGRHEADBARDATA) dpcheng = (new PnlWzskOgrHeadbar()).new DpchEngData();

@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvLaser.cpp
 	* job handler for job PnlWzskLlvLaser (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -47,6 +47,7 @@ PnlWzskLlvLaser::PnlWzskLlvLaser(
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
+	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::TRY);
 	xchg->addClstn(VecWzskVCall::CALLWZSKCLAIMCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 
 	// IP constructor.cust3 --- INSERT
@@ -81,13 +82,25 @@ DpchEngWzsk* PnlWzskLlvLaser::getNewDpchEng(
 void PnlWzskLlvLaser::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	StatShr oldStatshr(statshr);
 
 	// IP refresh --- RBEGIN
 	bool takenNotAvailable, fulfilled;
 
 	xchg->getCsjobClaim(actlaser, takenNotAvailable, fulfilled);
+
+	// contiac
+	ContIac oldContiac(contiac);
+
+	contiac.SldLle = 100.0 * actlaser->shrdat.left;
+	contiac.SldLri = 100.0 * actlaser->shrdat.right;
+
+	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
 
 	// continf
 	ContInf oldContinf(continf);
@@ -105,6 +118,8 @@ void PnlWzskLlvLaser::refresh(
 	// IP refresh --- REND
 
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+
+	muteRefresh = false;
 };
 
 void PnlWzskLlvLaser::handleRequest(
@@ -172,11 +187,11 @@ void PnlWzskLlvLaser::handleDpchAppDataContiac(
 
 	usmallint min_backup, max_backup;
 
-	if (has(diffitems, ContIac::CHKERG)) contiac.ChkErg = _contiac->ChkErg;
-	if (has(diffitems, ContIac::SLDLLE) && statshr.SldLleActive) contiac.SldLle = _contiac->SldLle;
-	if (has(diffitems, ContIac::SLDLRI) && statshr.SldLriActive) contiac.SldLri = _contiac->SldLri;
+	muteRefresh = true;
 
-	if (hasAny(diffitems, {ContIac::CHKERG,ContIac::SLDLLE})) {
+	if (has(diffitems, ContIac::CHKERG)) contiac.ChkErg = _contiac->ChkErg;
+
+	if (hasAny(diffitems, {ContIac::CHKERG,ContIac::SLDLLE}) && statshr.SldLleActive) {
 		if (contiac.ChkErg) {
 			min_backup = actlaser->stg.leftMin;
 			max_backup = actlaser->stg.leftMax;
@@ -185,7 +200,7 @@ void PnlWzskLlvLaser::handleDpchAppDataContiac(
 			actlaser->stg.leftMax = 1023;
 		};
 
-		actlaser->setLeft(dbswzsk, 0.01 * contiac.SldLle);
+		actlaser->setLeft(dbswzsk, 0.01 * _contiac->SldLle);
 
 		if (contiac.ChkErg) {
 			actlaser->stg.leftMin = min_backup;
@@ -193,7 +208,7 @@ void PnlWzskLlvLaser::handleDpchAppDataContiac(
 		};
 	};
 
-	if (hasAny(diffitems, {ContIac::CHKERG,ContIac::SLDLRI})) {
+	if (hasAny(diffitems, {ContIac::CHKERG,ContIac::SLDLRI}) && statshr.SldLriActive) {
 		if (contiac.ChkErg) {
 			min_backup = actlaser->stg.rightMin;
 			max_backup = actlaser->stg.rightMax;
@@ -202,13 +217,16 @@ void PnlWzskLlvLaser::handleDpchAppDataContiac(
 			actlaser->stg.rightMax = 1023;
 		};
 
-		actlaser->setRight(dbswzsk, 0.01 * contiac.SldLri);
+		actlaser->setRight(dbswzsk, 0.01 * _contiac->SldLri);
 
 		if (contiac.ChkErg) {
 			actlaser->stg.rightMin = min_backup;
 			actlaser->stg.rightMax = max_backup;
 		};
 	};
+
+	muteRefresh = false;
+	refresh(dbswzsk, moditems, true);
 
 	// IP handleDpchAppDataContiac --- IEND
 	insert(moditems, DpchEngData::CONTIAC);
@@ -246,9 +264,7 @@ void PnlWzskLlvLaser::handleDpchAppDoButClaimClick(
 		if (!continf.ButClaimOn) xchg->addCsjobClaim(dbswzsk, actlaser, new Claim(true));
 		else xchg->removeCsjobClaim(dbswzsk, actlaser);
 
-		muteRefresh = false;
-
-		refreshWithDpchEng(dbswzsk, dpcheng);
+		refreshWithDpchEng(dbswzsk, dpcheng, true);
 	};
 	// IP handleDpchAppDoButClaimClick --- IEND
 };
@@ -257,9 +273,27 @@ void PnlWzskLlvLaser::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) {
+		call->abort = handleCallWzskShrdatChg(dbswzsk, call->jref, call->argInv.ix, call->argInv.sref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
 		call->abort = handleCallWzskClaimChg(dbswzsk, call->jref);
 	};
+};
+
+bool PnlWzskLlvLaser::handleCallWzskShrdatChg(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+			, const uint ixInv
+			, const string& srefInv
+		) {
+	bool retval = false;
+	// IP handleCallWzskShrdatChg --- IBEGIN
+	set<uint> moditems;
+
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+	// IP handleCallWzskShrdatChg --- IEND
+	return retval;
 };
 
 bool PnlWzskLlvLaser::handleCallWzskClaimChg(
@@ -270,10 +304,8 @@ bool PnlWzskLlvLaser::handleCallWzskClaimChg(
 	// IP handleCallWzskClaimChg --- IBEGIN
 	set<uint> moditems;
 
-	if (!muteRefresh) {
-		refresh(dbswzsk, moditems);
-		if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	};
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
 	// IP handleCallWzskClaimChg --- IEND
 	return retval;
 };

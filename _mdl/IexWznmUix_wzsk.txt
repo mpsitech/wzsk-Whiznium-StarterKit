@@ -37,6 +37,8 @@
 	- ins	form	1	PnlWzskLiv2DView	false														
 		- ImeICControl2.iref																	
 		- 1																	
+		- 2																	
+		- 3																	
 		- ImeICControl2.end																	
 		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
 		- ins	1	cpt	0	hdr	void		0	app	Cpt	void							
@@ -60,125 +62,141 @@
 			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
 			- ins	height		384													
 			- ImeIAMControlPar2.end																
-		- ins	8	sld	0	cont	void		0	shr	SldFcs	void					custom()	custom()	
-		- ins	9	cpt	0	cont	void		8	app	CptFcs	void							
+		- ins	8	but	1	cont	void		0	shr	ButPlay	void						custom()	icon
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	icon		play													
+			- ImeIAMControlPar2.end																
+		- ins	9	but	1	cont	void		0	shr	ButStop	void						custom()	icon
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	icon		stop													
+			- ImeIAMControlPar2.end																
+		- ins	10	sep	0	cont	void		0	shr	Sep1	void							
+		- ins	11	chk	0	cont	void		0	shr	ChkAex	void						custom()	
+		- ins	12	cpt	0	cont	void		11	app	CptAex	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
-			- ins	enus	focus (near -\u003e far)														
-			- ins	dech	Fokus (nah -\u003e fern)														
+			- ins	enus	auto-exposure														
+			- ins	dech	automatische Belichtung														
 			- ImeIJMControlTitle2.end																
-		- ins	10	sld	0	cont	void		0	shr	SldExt	void					custom()	custom()	log;rast
-		- ins	11	cpt	0	cont	void		10	app	CptExt	void							
+		- ins	13	sld	0	cont	void		0	shr	SldExt	void					custom()	custom()	log;rast
+		- ins	14	cpt	0	cont	void		13	app	CptExt	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	exposure time [ms]														
 			- ins	dech	Belichtungszeit [ms]														
 			- ImeIJMControlTitle2.end																
-		- ins	12	but	1	cont	void		0	shr	ButPlay	void						custom()	icon
-			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
-			- ins	icon		play													
-			- ImeIAMControlPar2.end																
-		- ins	13	but	1	cont	void		0	shr	ButStop	void						custom()	icon
-			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
-			- ins	icon		stop													
-			- ImeIAMControlPar2.end																
-		- ins	14	txt	0	cont	void		0	shr	TxtOaf	void					custom()		
-		- ins	15	cpt	0	cont	void		14	app	CptOaf	void							
+		- ins	15	sld	0	cont	void		0	shr	SldFcs	void						custom()	
+		- ins	16	cpt	0	cont	void		15	app	CptFcs	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	focus (near -\u003e far)														
+			- ins	dech	Fokus (nah -\u003e fern)														
+			- ImeIJMControlTitle2.end																
+		- ins	17	sep	0	cont	void		0	shr	Sep2	void							
+		- ins	18	txt	0	cont	void		0	shr	TxtOaf	void					custom()		
+		- ins	19	cpt	0	cont	void		18	app	CptOaf	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	object affiliation														
 			- ins	dech	Objekt-Zuordnung														
 			- ImeIJMControlTitle2.end																
-		- ins	16	but	0	cont	void		0	shr	ButSts	void						custom()	
+		- ins	20	but	0	cont	void		0	shr	ButSts	void						custom()	
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	Store snapshot														
 			- ins	dech	Schnappschuss machen														
 			- ImeIJMControlTitle2.end																
-		- ins	17	sep	0	cont	void		0	shr	Sep1	void							
-		- ins	18	but	0	cont	void		0	shr	ButTtb	void						custom()	onoff
+		- ins	21	sep	0	cont	void		0	shr	Sep3	void							
+		- ins	22	hdg	0	cont	void		0	app	HdgTtb	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
-			- ins	enus	Turn turntable														
-			- ins	dech	Drehteller drehen														
+			- ins	enus	Turntable														
+			- ins	dech	Drehteller														
 			- ImeIJMControlTitle2.end																
-		- ins	19	sep	0	cont	void		0	shr	Sep2	void							
-		- ins	20	hdg	0	cont	void		0	app	HdgLor	void							
+		- ins	23	but	2	cont	void		0	shr	ButTcc	void							onoff
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Turn counter-clockwise														
+			- ins	dech	Gegen Uhrzeigersinn drehen														
+			- ImeIJMControlTitle2.end																
+		- ins	24	but	2	cont	void		0	shr	ButTcw	void							onoff
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Turn clockwise														
+			- ins	dech	Im Uhrzeigersinn drehen														
+			- ImeIJMControlTitle2.end																
+		- ins	25	sep	0	cont	void		0	shr	Sep4	void							
+		- ins	26	hdg	0	cont	void		0	app	HdgLor	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	Laser orientation														
 			- ins	dech	Laser-Orientierung														
 			- ImeIJMControlTitle2.end																
-		- ins	21	chk	0	cont	void		0	app	ChkLgl	void							
-		- ins	22	cpt	0	cont	void		21	app	CptLgl	void							
+		- ins	27	but	3	cont	void		0	shr	ButLle	void							onoff
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
-			- ins	enus	show guidelines														
-			- ins	dech	Hilfslinien anzeigen														
+			- ins	enus	Left on														
+			- ins	dech	Links ein														
 			- ImeIJMControlTitle2.end																
-		- ins	23	sld	0	cont	void		0	shr	SldLle	void							
-		- ins	24	cpt	0	cont	void		23	app	CptLle	void							
+		- ins	28	but	3	cont	void		0	shr	ButLri	void							onoff
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
-			- ins	enus	left 'on' intensity [\u0025]														
-			- ins	dech	'ein'-Intensit\u00e4t links [\u0025]														
+			- ins	enus	Right on														
+			- ins	dech	Rechts ein														
 			- ImeIJMControlTitle2.end																
-		- ins	25	sld	0	cont	void		0	shr	SldLri	void							
-		- ins	26	cpt	0	cont	void		25	app	CptLri	void							
-			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
-			- ins	enus	right 'on' intensity [\u0025]														
-			- ins	dech	'ein'-Intensit\u00e4t rechts [\u0025]														
-			- ImeIJMControlTitle2.end																
-		- ins	27	upd	0	cont	void		0	shr	UpdLlo	void					custom()		
-		- ins	28	cpt	0	cont	void		27	app	CptLlo	void							
+		- ins	29	upd	0	cont	void		0	shr	UpdLlo	void					custom()		
+		- ins	30	cpt	0	cont	void		29	app	CptLlo	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	lower 'on' threshold level														
 			- ins	dech	unterer 'ein'-Schwellwert														
 			- ImeIJMControlTitle2.end																
-		- ins	29	upd	0	cont	void		0	shr	UpdLuo	void					custom()		
-		- ins	30	cpt	0	cont	void		29	app	CptLuo	void							
+		- ins	31	upd	0	cont	void		0	shr	UpdLuo	void					custom()		
+		- ins	32	cpt	0	cont	void		31	app	CptLuo	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	upper 'off' threshold level														
 			- ins	dech	oberer 'aus'-Schwellwert														
 			- ImeIJMControlTitle2.end																
-		- ins	31	upd	0	cont	void		0	shr	UpdLmd	void					custom()		
-		- ins	32	cpt	0	cont	void		31	app	CptLmd	void							
+		- ins	33	upd	0	cont	void		0	shr	UpdLmd	void					custom()		
+		- ins	34	cpt	0	cont	void		33	app	CptLmd	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	minimum 'on'-'off' difference														
 			- ins	dech	minimale 'ein'-'aus' Differenz														
 			- ImeIJMControlTitle2.end																
-		- ins	33	chk	0	cont	void		0	shr	ChkLro	void							
-		- ins	34	cpt	0	cont	void		33	app	CptLro	void							
+		- ins	35	chk	0	cont	void		0	app	ChkLgl	void							
+		- ins	36	cpt	0	cont	void		35	app	CptLgl	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	show guidelines														
+			- ins	dech	Hilfslinien anzeigen														
+			- ImeIJMControlTitle2.end																
+		- ins	37	chk	0	cont	void		0	shr	ChkLro	void							
+		- ins	38	cpt	0	cont	void		37	app	CptLro	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	ROI trapezoid														
 			- ins	dech	ROI-Trapez														
 			- ImeIJMControlTitle2.end																
-		- ins	35	but	0	cont	void		0	shr	ButLtr	void							onoff
+		- ins	39	but	0	cont	void		0	shr	ButLtr	void							onoff
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	Trace														
 			- ins	dech	Spur nachzeichnen														
 			- ImeIJMControlTitle2.end																
-		- ins	36	but	0	cont	void		0	app	ButLcl	void							
+		- ins	40	but	0	cont	void		0	app	ButLcl	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	Clear														
 			- ins	dech	Zur\u00fccksetzen														
 			- ImeIJMControlTitle2.end																
-		- ins	37	sep	0	cont	void		0	shr	Sep3	void							
-		- ins	38	hdg	0	cont	void		0	app	HdgPos	void							
+		- ins	41	sep	0	cont	void		0	shr	Sep5	void							
+		- ins	42	hdg	0	cont	void		0	app	HdgPos	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	Pose estimation														
 			- ins	dech	Lagebestimmung														
 			- ImeIJMControlTitle2.end																
-		- ins	39	upd	0	cont	void		0	shr	UpdPnt	void							
-		- ins	40	cpt	0	cont	void		39	app	CptPnt	void							
+		- ins	43	upd	0	cont	void		0	shr	UpdPnt	void							
+		- ins	44	cpt	0	cont	void		43	app	CptPnt	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	target count														
 			- ins	dech	Anzahl-Vorgabe														
 			- ImeIJMControlTitle2.end																
-		- ins	41	chk	0	cont	void		0	shr	ChkPro	void							
-		- ins	42	cpt	0	cont	void		41	app	CptPro	void							
+		- ins	45	chk	0	cont	void		0	shr	ChkPro	void							
+		- ins	46	cpt	0	cont	void		45	app	CptPro	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	ROI trapezoid														
 			- ins	dech	ROI-Trapez														
 			- ImeIJMControlTitle2.end																
-		- ins	43	but	0	cont	void		0	shr	ButPic	void							onoff
+		- ins	47	but	0	cont	void		0	shr	ButPic	void							onoff
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	Identify corners														
 			- ins	dech	Ecken identifizieren														
 			- ImeIJMControlTitle2.end																
-		- ins	44	but	0	cont	void		0	app	ButPcl	void							
+		- ins	48	but	0	cont	void		0	app	ButPcl	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	Clear														
 			- ins	dech	Zur\u00fccksetzen														
@@ -187,6 +205,7 @@
 	- ins	form	2	PnlWzskLiv3DView	false														
 		- ImeICControl2.iref																	
 		- 1																	
+		- 2																	
 		- ImeICControl2.end																	
 		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
 		- ins	1	cpt	0	hdr	void		0	app	Cpt	void							
@@ -203,11 +222,11 @@
 			- ImeIAMControlPar2.end																
 		- ins	6	sld	0	cont	void		5	app	SldTreH	void							
 		- ins	7	sld	0	cont	void		5	app	SldTreV	void							
-		- ins	8	but	1	cont	void		0	shr	ButPlay	void						custom()	icon
+		- ins	8	but	1	cont	void		0	app	ButPlay	void						custom()	icon
 			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
 			- ins	icon		play													
 			- ImeIAMControlPar2.end																
-		- ins	9	but	1	cont	void		0	shr	ButStop	void						custom()	icon
+		- ins	9	but	1	cont	void		0	app	ButStop	void						custom()	icon
 			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
 			- ins	icon		stop													
 			- ImeIAMControlPar2.end																
@@ -217,22 +236,74 @@
 			- ins	enus	Shot acquisition														
 			- ins	dech	Aufnahme														
 			- ImeIJMControlTitle2.end																
-		- ins	12	txt	0	cont	void		0	shr	TxtAst	void							
-		- ins	13	cpt	0	cont	void		12	app	CptAst	void							
+		- ins	12	sld	0	cont	void		0	shr	SldAin	void						custom()	rast
+		- ins	13	cpt	0	cont	void		12	app	CptAin	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	angle increment [\u00b0]														
+			- ins	dech	Winkel-Schrittweite [\u00b0]														
+			- ImeIJMControlTitle2.end																
+		- ins	14	txt	0	cont	void		0	shr	TxtAst	void							
+		- ins	15	cpt	0	cont	void		14	app	CptAst	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	state														
 			- ins	dech	Status														
 			- ImeIJMControlTitle2.end																
-		- ins	14	txt	0	cont	void		0	shr	TxtAoa	void					custom()		
-		- ins	15	cpt	0	cont	void		14	app	CptAoa	void							
+		- ins	16	txt	0	cont	void		0	shr	TxtAoa	void					custom()		
+		- ins	17	cpt	0	cont	void		16	app	CptAoa	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	object affiliation														
 			- ins	dech	Objekt-Zuordnung														
 			- ImeIJMControlTitle2.end																
-		- ins	16	but	0	cont	void		0	shr	ButAst	void						custom()	
+		- ins	18	but	2	cont	void		0	shr	ButAsr	void						custom()	
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	Start														
 			- ins	dech	Start														
+			- ImeIJMControlTitle2.end																
+		- ins	19	but	2	cont	void		0	shr	ButAir	void						custom()	
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Interrupt														
+			- ins	dech	Unterbrechen														
+			- ImeIJMControlTitle2.end																
+		- ImeIMControl2.end																	
+	- ins	form	3	PnlWzskLivSysmon	false														
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- ins	1	cpt	0	hdr	void		0	app	Cpt	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	System monitor														
+			- ins	dech	System\u00fcberwachung														
+			- ImeIJMControlTitle2.end																
+		- ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
+		- ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
+		- ins	4	txt	0	cont	void		0	shr	TxtCtp	void							xs
+		- ins	5	cpt	0	cont	void		4	app	CptCtp	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	CPU temperature [\u00b0C]														
+			- ins	dech	CPU-Temperatur [\u00b0C]														
+			- ImeIJMControlTitle2.end																
+		- ins	6	sep	0	cont	void		0	shr	Sep1	void							
+		- ins	7	cus	0	cont	void		0	app	CusPlt	void							iframe;flexh
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	height		250													
+			- ImeIAMControlPar2.end																
+		- ins	8	cpt	0	cont	void		7	app	CptPltTme	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	time [s]														
+			- ins	dech	Zeit [s]														
+			- ImeIJMControlTitle2.end																
+		- ins	9	cpt	0	cont	void		7	app	CptPltCld	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	CPU load [\u0025]														
+			- ins	dech	CPU-Last [\u0025]														
+			- ImeIJMControlTitle2.end																
+		- ins	10	cpt	0	cont	void		7	app	CptPltTot	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	total														
+			- ins	dech	gesamt														
+			- ImeIJMControlTitle2.end																
+		- ins	11	cpt	0	cont	void		7	app	CptPltCor	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	core														
+			- ins	dech	Kern														
 			- ImeIJMControlTitle2.end																
 		- ImeIMControl2.end																	
 	- ImeIMPanel.end																		
@@ -344,17 +415,24 @@
 			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
 			- ins	icon		stop													
 			- ImeIAMControlPar2.end																
-		- ins	10	sld	0	cont	void		0	shr	SldFcs	void					custom()	custom()	
-		- ins	11	cpt	0	cont	void		10	app	CptFcs	void							
+		- ins	10	sep	0	cont	void		0	app	Sep1	void							
+		- ins	11	chk	0	cont	void		0	shr	ChkAex	void						custom()	
+		- ins	12	cpt	0	cont	void		11	app	CptAex	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
-			- ins	enus	focus (near -\u003e far)														
-			- ins	dech	Fokus (nah -\u003e fern)														
+			- ins	enus	auto-exposure														
+			- ins	dech	automatische Belichtung														
 			- ImeIJMControlTitle2.end																
-		- ins	12	sld	0	cont	void		0	shr	SldExt	void					custom()	custom()	log;rast
-		- ins	13	cpt	0	cont	void		12	app	CptExt	void							
+		- ins	13	sld	0	cont	void		0	shr	SldExt	void					custom()	custom()	log;rast
+		- ins	14	cpt	0	cont	void		13	app	CptExt	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
 			- ins	enus	exposure time [ms]														
 			- ins	dech	Belichtungszeit [ms]														
+			- ImeIJMControlTitle2.end																
+		- ins	15	sld	0	cont	void		0	shr	SldFcs	void						custom()	
+		- ins	16	cpt	0	cont	void		15	app	CptFcs	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	focus (near -\u003e far)														
+			- ins	dech	Fokus (nah -\u003e fern)														
 			- ImeIJMControlTitle2.end																
 		- ImeIMControl2.end																	
 	- ins	form	3	PnlWzskLlvTtable	false														
@@ -367,22 +445,11 @@
 		- ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
 		- ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
 		- ins	4	but	0	hdr	void		0	shr	ButClaim	void						custom()	icon;onoff
-		- ins	5	sld	0	cont	void		0	shr	SldTrg	void							
+		- ins	5	sld	0	cont	void		0	shr	SldTrg	void						custom()	
 		- ins	6	cpt	0	cont	void		5	app	CptTrg	void							
 			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
-			- ins	enus	target angle [\u00b0]														
-			- ins	dech	Zielwinkel [\u00b0]														
-			- ImeIJMControlTitle2.end																
-		- ins	7	txt	0	cont	void		0	shr	TxtSte	void							
-		- ins	8	cpt	0	cont	void		7	app	CptSte	void							
-			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
-			- ins	enus	state														
-			- ins	dech	Status														
-			- ImeIJMControlTitle2.end																
-		- ins	9	but	0	cont	void		0	shr	ButMve	void						custom()	
-			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
-			- ins	enus	Move														
-			- ins	dech	Bewegen														
+			- ins	enus	angle [\u00b0]														
+			- ins	dech	Winkel [\u00b0]														
 			- ImeIJMControlTitle2.end																
 		- ImeIMControl2.end																	
 	- ins	form	4	PnlWzskLlvLaser	false														

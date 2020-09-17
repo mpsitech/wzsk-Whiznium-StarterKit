@@ -2,8 +2,8 @@
 	* \file WzskMShot.cpp
 	* database access for table TblWzskMShot (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "WzskMShot.h"
@@ -223,6 +223,14 @@ bool TblWzskMShot::loadRecByRef(
 			, WzskMShot** rec
 		) {
 	return false;
+};
+
+ubigint TblWzskMShot::loadRstByObj(
+			ubigint refWzskMObject
+			, const bool append
+			, ListWzskMShot& rst
+		) {
+	return 0;
 };
 
 ubigint TblWzskMShot::loadRstBySes(
@@ -465,6 +473,14 @@ bool MyTblWzskMShot::loadRecByRef(
 	return loadRecBySQL("SELECT * FROM TblWzskMShot WHERE ref = " + to_string(ref), rec);
 };
 
+ubigint MyTblWzskMShot::loadRstByObj(
+			ubigint refWzskMObject
+			, const bool append
+			, ListWzskMShot& rst
+		) {
+	return loadRstBySQL("SELECT ref, refWzskMSession, refWzskMObject, start, Comment FROM TblWzskMShot WHERE refWzskMObject = " + to_string(refWzskMObject) + "", append, rst);
+};
+
 ubigint MyTblWzskMShot::loadRstBySes(
 			ubigint refWzskMSession
 			, const bool append
@@ -488,6 +504,7 @@ LiteTblWzskMShot::LiteTblWzskMShot() :
 	stmtUpdateRec = NULL;
 	stmtRemoveRecByRef = NULL;
 
+	stmtLoadRstByObj = NULL;
 	stmtLoadRstBySes = NULL;
 };
 
@@ -496,6 +513,7 @@ LiteTblWzskMShot::~LiteTblWzskMShot() {
 	if (stmtUpdateRec) sqlite3_finalize(stmtUpdateRec);
 	if (stmtRemoveRecByRef) sqlite3_finalize(stmtRemoveRecByRef);
 
+	if (stmtLoadRstByObj) sqlite3_finalize(stmtLoadRstByObj);
 	if (stmtLoadRstBySes) sqlite3_finalize(stmtLoadRstBySes);
 };
 
@@ -505,6 +523,7 @@ void LiteTblWzskMShot::initStatements() {
 	stmtRemoveRecByRef = createStatement("DELETE FROM TblWzskMShot WHERE ref = ?1");
 
 	stmtLoadRecByRef = createStatement("SELECT ref, refWzskMSession, refWzskMObject, start, Comment FROM TblWzskMShot WHERE ref = ?1");
+	stmtLoadRstByObj = createStatement("SELECT ref, refWzskMSession, refWzskMObject, start, Comment FROM TblWzskMShot WHERE refWzskMObject = ?1");
 	stmtLoadRstBySes = createStatement("SELECT ref, refWzskMSession, refWzskMObject, start, Comment FROM TblWzskMShot WHERE refWzskMSession = ?1");
 };
 
@@ -717,6 +736,16 @@ bool LiteTblWzskMShot::loadRecByRef(
 	sqlite3_bind_int64(stmtLoadRecByRef, 1, ref);
 
 	return loadRecByStmt(stmtLoadRecByRef, rec);
+};
+
+ubigint LiteTblWzskMShot::loadRstByObj(
+			ubigint refWzskMObject
+			, const bool append
+			, ListWzskMShot& rst
+		) {
+	sqlite3_bind_int64(stmtLoadRstByObj, 1, refWzskMObject);
+
+	return loadRstByStmt(stmtLoadRstByObj, append, rst);
 };
 
 ubigint LiteTblWzskMShot::loadRstBySes(

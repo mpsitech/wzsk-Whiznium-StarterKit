@@ -2,25 +2,25 @@
 	* \file ApiWzsk.h
 	* Wzsk API library global functionality (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef APIWZSK_H
 #define APIWZSK_H
 
-#define WZSK_VERSION "0.1.26"
+#define WZSK_VERSION "0.1.33"
 #define WZSK_VERSION_MAJOR 0
 #define WZSK_VERSION_MINOR 1
-#define WZSK_VERSION_SUB 26
+#define WZSK_VERSION_SUB 33
 
 #include "ApiWzsk_blks.h"
 
 #include "WzskQFilList.h"
+#include "WzskQObj1NShot.h"
 #include "WzskQObjList.h"
 #include "WzskQObjRef1NFile.h"
 #include "WzskQOgr1NObject.h"
-#include "WzskQOgr1NShot.h"
 #include "WzskQOgrList.h"
 #include "WzskQOgrSup1NObjgroup.h"
 #include "WzskQPrsADetail.h"
@@ -65,6 +65,7 @@
 #include "PnlWzskLiv2DView.h"
 #include "PnlWzskLiv3DView.h"
 #include "PnlWzskLivHeadbar.h"
+#include "PnlWzskLivSysmon.h"
 #include "PnlWzskLlvCamera.h"
 #include "PnlWzskLlvHeadbar.h"
 #include "PnlWzskLlvLaser.h"
@@ -75,13 +76,13 @@
 #include "PnlWzskNavHeadbar.h"
 #include "PnlWzskNavOp.h"
 #include "PnlWzskNavPre.h"
+#include "PnlWzskObj1NShot.h"
 #include "PnlWzskObjDetail.h"
 #include "PnlWzskObjHeadbar.h"
 #include "PnlWzskObjList.h"
 #include "PnlWzskObjRec.h"
 #include "PnlWzskObjRef1NFile.h"
 #include "PnlWzskOgr1NObject.h"
-#include "PnlWzskOgr1NShot.h"
 #include "PnlWzskOgrDetail.h"
 #include "PnlWzskOgrHeadbar.h"
 #include "PnlWzskOgrList.h"
@@ -120,10 +121,10 @@
 #include "PnlWzskUsrMNUsergroup.h"
 #include "PnlWzskUsrRec.h"
 #include "QryWzskFilList.h"
+#include "QryWzskObj1NShot.h"
 #include "QryWzskObjList.h"
 #include "QryWzskObjRef1NFile.h"
 #include "QryWzskOgr1NObject.h"
-#include "QryWzskOgr1NShot.h"
 #include "QryWzskOgrList.h"
 #include "QryWzskOgrSup1NObjgroup.h"
 #include "QryWzskPrsADetail.h"

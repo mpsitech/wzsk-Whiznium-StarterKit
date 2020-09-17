@@ -5,7 +5,48 @@
 		<title>CusImg</title>
 		<script>
 			function handleCusImgLoad() {parent.parent.parent.window.handleCusImgLoad(document)};
-			<!-- IP evthdls - INSERT -->
+			<!-- IP evthdls - IBEGIN -->
+			function handleRoiCornerAMov() {parent.parent.parent.window.handleRoiMov(document,false,"A");};
+			function handleRoiCornerAMou() {parent.parent.parent.window.handleRoiMou(document,false,"A");};
+			function handleRoiCornerAMdn() {parent.parent.parent.window.handleRoiMdn(document,false,"A");};
+			function handleRoiCornerAMove(evt) {parent.parent.parent.window.handleRoiMove(document,false,"A",evt);};
+			function handleRoiCornerAMup() {parent.parent.parent.window.handleRoiMup(document,false,"A");};
+			function handleRoiCornerBMov() {parent.parent.parent.window.handleRoiMov(document,false,"B");};
+			function handleRoiCornerBMou() {parent.parent.parent.window.handleRoiMou(document,false,"B");};
+			function handleRoiCornerBMdn() {parent.parent.parent.window.handleRoiMdn(document,false,"B");};
+			function handleRoiCornerBMove(evt) {parent.parent.parent.window.handleRoiMove(document,false,"B",evt);};
+			function handleRoiCornerBMup() {parent.parent.parent.window.handleRoiMup(document,false,"B");};
+			function handleRoiCornerCMov() {parent.parent.parent.window.handleRoiMov(document,false,"C");};
+			function handleRoiCornerCMou() {parent.parent.parent.window.handleRoiMou(document,false,"C");};
+			function handleRoiCornerCMdn() {parent.parent.parent.window.handleRoiMdn(document,false,"C");};
+			function handleRoiCornerCMove(evt) {parent.parent.parent.window.handleRoiMove(document,false,"C",evt);};
+			function handleRoiCornerCMup() {parent.parent.parent.window.handleRoiMup(document,false,"C");};
+			function handleRoiCornerDMov() {parent.parent.parent.window.handleRoiMov(document,false,"D");};
+			function handleRoiCornerDMou() {parent.parent.parent.window.handleRoiMou(document,false,"D");};
+			function handleRoiCornerDMdn() {parent.parent.parent.window.handleRoiMdn(document,false,"D");};
+			function handleRoiCornerDMove(evt) {parent.parent.parent.window.handleRoiMove(document,false,"D",evt);};
+			function handleRoiCornerDMup() {parent.parent.parent.window.handleRoiMup(document,false,"D");};
+			function handleRoiTraceAMov() {parent.parent.parent.window.handleRoiMov(document,true,"A");};
+			function handleRoiTraceAMou() {parent.parent.parent.window.handleRoiMou(document,true,"A");};
+			function handleRoiTraceAMdn() {parent.parent.parent.window.handleRoiMdn(document,true,"A");};
+			function handleRoiTraceAMove(evt) {parent.parent.parent.window.handleRoiMove(document,true,"A",evt);};
+			function handleRoiTraceAMup() {parent.parent.parent.window.handleRoiMup(document,true,"A");};
+			function handleRoiTraceBMov() {parent.parent.parent.window.handleRoiMov(document,true,"B");};
+			function handleRoiTraceBMou() {parent.parent.parent.window.handleRoiMou(document,true,"B");};
+			function handleRoiTraceBMdn() {parent.parent.parent.window.handleRoiMdn(document,true,"B");};
+			function handleRoiTraceBMove(evt) {parent.parent.parent.window.handleRoiMove(document,true,"B",evt);};
+			function handleRoiTraceBMup() {parent.parent.parent.window.handleRoiMup(document,true,"B");};
+			function handleRoiTraceCMov() {parent.parent.parent.window.handleRoiMov(document,true,"C");};
+			function handleRoiTraceCMou() {parent.parent.parent.window.handleRoiMou(document,true,"C");};
+			function handleRoiTraceCMdn() {parent.parent.parent.window.handleRoiMdn(document,true,"C");};
+			function handleRoiTraceCMove(evt) {parent.parent.parent.window.handleRoiMove(document,true,"C",evt);};
+			function handleRoiTraceCMup() {parent.parent.parent.window.handleRoiMup(document,true,"C");};
+			function handleRoiTraceDMov() {parent.parent.parent.window.handleRoiMov(document,true,"D");};
+			function handleRoiTraceDMou() {parent.parent.parent.window.handleRoiMou(document,true,"D");};
+			function handleRoiTraceDMdn() {parent.parent.parent.window.handleRoiMdn(document,true,"D");};
+			function handleRoiTraceDMove(evt) {parent.parent.parent.window.handleRoiMove(document,true,"D",evt);};
+			function handleRoiTraceDMup() {parent.parent.parent.window.handleRoiMup(document,true,"D");};
+			<!-- IP evthdls - IEND -->
 		</script>
 		<!-- IP style - INSERT -->
 	</head>
@@ -15,11 +56,23 @@
 			<svg width="690" height="384px" version="1.1" xmlns="http://www.w3.org/2000/svg">
 				<g transform="translate(345.5 192.5)">
 					<g id="scaler" transform="scale(0.5 0.5)">
-						<path id="guide" style="" stroke="none" fill="none" d="M -640,0 L 640,0 M 0,-480 L 0,480"/>
-						<path id="roiCorner" style="" stroke="none" fill="none" d="M -150,-150 L 150,-150 L 150,150 L -150,150 L -150,-150"/>
+						<path id="guide" stroke="none" fill="none" d="M -640,0 L 640,0 M 0,-480 L 0,480"/>
+						<g id="roiCorner" display="none">
+							<path id="roiCornerLine" stroke="none" fill="none" d="M -1000,-1000 L 1000,-1000 L 1000,1000 L -1000,1000 L -1000,-1000"/>
+							<circle id="roiCornerA" style="cursor:pointer" stroke="blue" fill="blue" cx="-1000" cy="-1000" r="6" onmouseover="handleRoiCornerAMov()" onmouseout="handleRoiCornerAMou()" onmousedown="handleRoiCornerAMdn()"/>
+							<circle id="roiCornerB" style="cursor:pointer" stroke="blue" fill="blue" cx="1000" cy="-1000" r="6" onmouseover="handleRoiCornerBMov()" onmouseout="handleRoiCornerBMou()" onmousedown="handleRoiCornerBMdn()"/>
+							<circle id="roiCornerC" style="cursor:pointer" stroke="blue" fill="blue" cx="1000" cy="1000" r="6" onmouseover="handleRoiCornerCMov()" onmouseout="handleRoiCornerCMou()" onmousedown="handleRoiCornerCMdn()"/>
+							<circle id="roiCornerD" style="cursor:pointer" stroke="blue" fill="blue" cx="-1000" cy="1000" r="6" onmouseover="handleRoiCornerDMov()" onmouseout="handleRoiCornerDMou()" onmousedown="handleRoiCornerDMdn()"/>
+						</g>
 						<g id="corner" style="" stroke="blue"/>
-						<path id="roiTraceL" style="" stroke="none" fill="none" d="M -100,-100 L 100,-100 L 100,100 L -100,100 L -100,-100"/>
-						<path id="roiTraceR" style="stroke-dasharray: 5,5" stroke="none" fill="none" d="M -100,-100 L 100,-100 L 100,100 L -100,100 L -100,-100"/>
+						<g id="roiTrace" display="none">
+							<path id="roiTraceLineL" stroke="red" fill="none" d="M -1000,-1000 L 1000,-1000 L 1000,1000 L -1000,1000 L -1000,-1000"/>
+							<path id="roiTraceLineR" style="stroke-dasharray: 5,5" stroke="green" fill="none" d="M -1000,-1000 L 1000,-1000 L 1000,1000 L -1000,1000 L -1000,-1000"/>
+							<circle id="roiTraceA" style="cursor:pointer" stroke="red" fill="red" cx="-1000" cy="-1000" r="6" onmouseover="handleRoiTraceAMov()" onmouseout="handleRoiTraceAMou()" onmousedown="handleRoiTraceAMdn()"/>
+							<circle id="roiTraceB" style="cursor:pointer" stroke="red" fill="red" cx="1000" cy="-1000" r="6" onmouseover="handleRoiTraceBMov()" onmouseout="handleRoiTraceBMou()" onmousedown="handleRoiTraceBMdn()"/>
+							<circle id="roiTraceC" style="cursor:pointer" stroke="red" fill="red" cx="1000" cy="1000" r="6" onmouseover="handleRoiTraceCMov()" onmouseout="handleRoiTraceCMou()" onmousedown="handleRoiTraceCMdn()"/>
+							<circle id="roiTraceD" style="cursor:pointer" stroke="red" fill="red" cx="-1000" cy="1000" r="6" onmouseover="handleRoiTraceDMov()" onmouseout="handleRoiTraceDMou()" onmousedown="handleRoiTraceDMdn()"/>
+						</g>
 						<g id="traceL" style="" stroke="red"/>
 						<g id="traceR" style="" stroke="green"/>
 					</g>

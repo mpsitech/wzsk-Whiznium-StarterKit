@@ -2,8 +2,8 @@
 	* \file WzskQSes1NShot.h
 	* API code for table TblWzskQSes1NShot (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef WZSKQSES1NSHOT_H

@@ -1,0 +1,102 @@
+/* IP file --- KEEP */
+.super {
+	color:#000000;
+	font-size:20px;
+	font-family:Verdana,sans-serif;
+	font-weight:normal;
+	text-decoration:none;
+	cursor:pointer;
+	background-color:#ffffff;
+	border:none;
+}
+
+.large {
+	color:#000000;
+	font-size:16px;
+	font-family:Verdana,sans-serif;
+	font-weight:normal;
+	text-decoration:none;
+	cursor:pointer;
+	background-color:#ffffff;
+	border:none;
+}
+
+.unit {
+	color:#000000;
+	font-size:16px;
+	font-family:Verdana,sans-serif;
+	font-weight:normal;
+	text-decoration:none;
+	cursor:pointer;
+	background-color:#ffffff;
+	border:none;
+}
+
+.annot {
+	color:#000000;
+	font-size:12px;
+	font-family:Verdana,sans-serif;
+	font-weight:normal;
+	text-decoration:none;
+	cursor:pointer;
+	background-color:#ffffff;
+	border:none;
+}
+
+.l {
+	stroke-width:1.0px;
+	fill:none;
+	cursor:pointer;
+}
+
+.axis {
+	stroke-width:1.0px;
+	fill:none;
+	cursor:pointer;
+}
+
+.zero {
+	stroke:rgb(191,191,191);
+	stroke-width:1.0px;
+	stroke-dasharray:2;
+	fill:none;
+	cursor:pointer;
+}
+
+.zeroy1 {
+	stroke:rgb(191,191,255);
+	stroke-width:1.0px;
+	stroke-dasharray:2;
+	fill:none;
+	cursor:pointer;
+}
+
+.zeroy2 {
+	stroke:rgb(255,191,191);
+	stroke-width:1.0px;
+	stroke-dasharray:3;
+	fill:none;
+	cursor:pointer;
+}
+
+.tick {
+	stroke:rgb(127,127,127);
+	stroke-width:1.0px;
+	fill:none;
+	cursor:pointer;
+}
+
+.ticky1 {
+	stroke:rgb(127,127,255);
+	stroke-width:1.0px;
+	fill:none;
+	cursor:pointer;
+}
+
+.ticky2 {
+	stroke:rgb(255,127,127);
+	stroke-width:1.0px;
+	fill:none;
+	cursor:pointer;
+}
+

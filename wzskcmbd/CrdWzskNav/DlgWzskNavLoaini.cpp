@@ -2,8 +2,8 @@
 	* \file DlgWzskNavLoaini.cpp
 	* job handler for job DlgWzskNavLoaini (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -124,8 +124,8 @@ void DlgWzskNavLoaini::refreshLfi(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
-	StatShrLfi oldStatshrlfi(statshrlfi);
 	ContInfLfi oldContinflfi(continflfi);
+	StatShrLfi oldStatshrlfi(statshrlfi);
 
 	// IP refreshLfi --- RBEGIN
 	// statshrlfi
@@ -135,14 +135,18 @@ void DlgWzskNavLoaini::refreshLfi(
 	continflfi.Dld = "log.txt";
 
 	// IP refreshLfi --- REND
-	if (statshrlfi.diff(&oldStatshrlfi).size() != 0) insert(moditems, DpchEngData::STATSHRLFI);
 	if (continflfi.diff(&oldContinflfi).size() != 0) insert(moditems, DpchEngData::CONTINFLFI);
+	if (statshrlfi.diff(&oldStatshrlfi).size() != 0) insert(moditems, DpchEngData::STATSHRLFI);
 };
 
 void DlgWzskNavLoaini::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	StatShr oldStatshr(statshr);
 	ContIac oldContiac(contiac);
 	ContInf oldContinf(continf);
@@ -165,6 +169,8 @@ void DlgWzskNavLoaini::refresh(
 	refreshIfi(dbswzsk, moditems);
 	refreshImp(dbswzsk, moditems);
 	refreshLfi(dbswzsk, moditems);
+
+	muteRefresh = false;
 };
 
 void DlgWzskNavLoaini::handleRequest(
@@ -223,8 +229,8 @@ void DlgWzskNavLoaini::handleRequest(
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
 		if (ixVSge == VecVSge::PRSIDLE) handleTimerInSgePrsidle(dbswzsk, req->sref);
-		else if ((req->sref == "mon") && (ixVSge == VecVSge::IMPORT)) handleTimerWithSrefMonInSgeImport(dbswzsk);
 		else if (ixVSge == VecVSge::IMPIDLE) handleTimerInSgeImpidle(dbswzsk, req->sref);
+		else if ((req->sref == "mon") && (ixVSge == VecVSge::IMPORT)) handleTimerWithSrefMonInSgeImport(dbswzsk);
 	};
 };
 
@@ -321,18 +327,18 @@ void DlgWzskNavLoaini::handleTimerInSgePrsidle(
 	changeStage(dbswzsk, nextIxVSgeSuccess);
 };
 
-void DlgWzskNavLoaini::handleTimerWithSrefMonInSgeImport(
-			DbsWzsk* dbswzsk
-		) {
-	wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
-	refreshWithDpchEng(dbswzsk); // IP handleTimerWithSrefMonInSgeImport --- ILINE
-};
-
 void DlgWzskNavLoaini::handleTimerInSgeImpidle(
 			DbsWzsk* dbswzsk
 			, const string& sref
 		) {
 	changeStage(dbswzsk, nextIxVSgeSuccess);
+};
+
+void DlgWzskNavLoaini::handleTimerWithSrefMonInSgeImport(
+			DbsWzsk* dbswzsk
+		) {
+	wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
+	refreshWithDpchEng(dbswzsk); // IP handleTimerWithSrefMonInSgeImport --- ILINE
 };
 
 void DlgWzskNavLoaini::changeStage(
@@ -358,7 +364,7 @@ void DlgWzskNavLoaini::changeStage(
 
 			setStage(dbswzsk, _ixVSge);
 			reenter = false;
-			if (!muteRefresh) refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
+			refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
 		};
 
 		switch (_ixVSge) {

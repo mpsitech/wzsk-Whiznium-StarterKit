@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvTtable.h
 	* API code for job PnlWzskLlvTtable (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKLLVTTABLE_H
@@ -35,7 +35,6 @@ namespace PnlWzskLlvTtable {
 		static const Sbecore::uint BUTREGULARIZECLICK = 1;
 		static const Sbecore::uint BUTMINIMIZECLICK = 2;
 		static const Sbecore::uint BUTCLAIMCLICK = 3;
-		static const Sbecore::uint BUTMVECLICK = 4;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -69,14 +68,12 @@ namespace PnlWzskLlvTtable {
 
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
-		static const Sbecore::uint TXTSTE = 2;
 
 	public:
-		ContInf(const bool ButClaimOn = false, const std::string& TxtSte = "");
+		ContInf(const bool ButClaimOn = false);
 
 	public:
 		bool ButClaimOn;
-		std::string TxtSte;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -92,19 +89,19 @@ namespace PnlWzskLlvTtable {
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
 		static const Sbecore::uint BUTCLAIMACTIVE = 2;
-		static const Sbecore::uint SLDTRGMIN = 3;
-		static const Sbecore::uint SLDTRGMAX = 4;
-		static const Sbecore::uint BUTMVEACTIVE = 5;
+		static const Sbecore::uint SLDTRGACTIVE = 3;
+		static const Sbecore::uint SLDTRGMIN = 4;
+		static const Sbecore::uint SLDTRGMAX = 5;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const double SldTrgMin = 0, const double SldTrgMax = 360, const bool ButMveActive = true);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool SldTrgActive = true, const double SldTrgMin = 0, const double SldTrgMax = 360);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		bool ButClaimActive;
+		bool SldTrgActive;
 		double SldTrgMin;
 		double SldTrgMax;
-		bool ButMveActive;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -120,17 +117,13 @@ namespace PnlWzskLlvTtable {
 	public:
 		static const Sbecore::uint CPT = 1;
 		static const Sbecore::uint CPTTRG = 2;
-		static const Sbecore::uint CPTSTE = 3;
-		static const Sbecore::uint BUTMVE = 4;
 
 	public:
-		Tag(const std::string& Cpt = "", const std::string& CptTrg = "", const std::string& CptSte = "", const std::string& ButMve = "");
+		Tag(const std::string& Cpt = "", const std::string& CptTrg = "");
 
 	public:
 		std::string Cpt;
 		std::string CptTrg;
-		std::string CptSte;
-		std::string ButMve;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);

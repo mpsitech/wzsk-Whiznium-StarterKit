@@ -2,8 +2,8 @@
 	* \file QryWzskOgrSup1NObjgroup.cpp
 	* API code for job QryWzskOgrSup1NObjgroup (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "QryWzskOgrSup1NObjgroup.h"

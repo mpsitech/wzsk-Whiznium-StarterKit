@@ -2,8 +2,8 @@
 	* \file JobWzskActServo.cpp
 	* job handler for job JobWzskActServo (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -144,6 +144,38 @@ JobWzskActServo::~JobWzskActServo() {
 };
 
 // IP cust --- IBEGIN
+void JobWzskActServo::updateAngle(
+			DbsWzsk* dbswzsk
+		) {
+	double t;
+
+	float angle_old;
+
+	shrdat.wlockAccess(jref, "updateAngle");
+
+	angle_old = shrdat.angle;
+
+	if (!srcfpga) {
+		t = Wzsk::getNow();
+
+		if (t >= shrdat.t1) {
+			shrdat.angle = shrdat.target;
+
+		} else {
+			if (!shrdat.ccwNotCw) shrdat.angle = shrdat.start + 360.0 * (Wzsk::getNow() - shrdat.t0) * stg.omega;
+			else shrdat.angle = shrdat.start - 360.0 * (Wzsk::getNow() - shrdat.t0) * stg.omega;
+
+			while (shrdat.angle < 0.0) shrdat.angle += 360.0;
+			while (shrdat.angle >= 360.0) shrdat.angle -= 360.0;
+		};
+
+	} else srcfpga->getAngle(shrdat.angle);
+
+	shrdat.wunlockAccess(jref, "updateAngle");
+
+	if (shrdat.angle != angle_old) xchg->triggerSrefCall(dbswzsk, VecWzskVCall::CALLWZSKSHRDATCHG, jref, "angleTarget");
+};
+
 void JobWzskActServo::stopGpio() {
 	string root, path;
 
@@ -163,7 +195,6 @@ void JobWzskActServo::stopGpio() {
 		close(fd);
 	};
 };
-
 // IP cust --- IEND
 
 // IP spec --- INSERT
@@ -186,24 +217,83 @@ bool JobWzskActServo::moveto(
 	lockAccess("moveto");
 
 	// IP moveto --- IBEGIN
-	if (ixVSge == VecVSge::IDLE) {
-		shrdat.wlockAccess(jref, "moveto");
+	if (ixVSge != VecVSge::IDLE) changeStage(dbswzsk, VecVSge::IDLE);
 
-		shrdat.target = target;
-		while (shrdat.target < 0.0) shrdat.target += 360.0;
-		while (shrdat.target >= 360.0) shrdat.target -= 360.0;
+	shrdat.wlockAccess(jref, "moveto");
 
-		shrdat.wunlockAccess(jref, "moveto");
+	shrdat.target = target;
+	while (shrdat.target < 0.0) shrdat.target += 360.0;
+	while (shrdat.target >= 360.0) shrdat.target -= 360.0;
 
-		if (shrdat.target != shrdat.angle) {
-			xchg->triggerSrefCall(dbswzsk, VecWzskVCall::CALLWZSKSHRDATCHG, jref, "angleTarget");
-			changeStage(dbswzsk, VecVSge::MOVE);
-		};
+	shrdat.wunlockAccess(jref, "moveto");
 
-	} else retval = false;
+	if (shrdat.target != shrdat.angle) {
+		xchg->triggerSrefCall(dbswzsk, VecWzskVCall::CALLWZSKSHRDATCHG, jref, "angleTarget");
+		changeStage(dbswzsk, VecVSge::MOVE);
+	};
 	// IP moveto --- IEND
 
 	unlockAccess("moveto");
+
+	return retval;
+};
+
+bool JobWzskActServo::stop(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = true;
+
+	if (!srvNotCli) {
+		if (srv) {
+			retval = ((JobWzskActServo*) srv)->stop(dbswzsk);
+
+		} else retval = false;
+
+		return retval;
+	};
+
+	lockAccess("stop");
+
+	// IP stop --- IBEGIN
+	if (ixVSge != VecVSge::IDLE) changeStage(dbswzsk, VecVSge::IDLE);
+	// IP stop --- IEND
+
+	unlockAccess("stop");
+
+	return retval;
+};
+
+bool JobWzskActServo::turn(
+			DbsWzsk* dbswzsk
+			, const bool ccwNotCw
+		) {
+	bool retval = true;
+
+	if (!srvNotCli) {
+		if (srv) {
+			retval = ((JobWzskActServo*) srv)->turn(dbswzsk, ccwNotCw);
+
+		} else retval = false;
+
+		return retval;
+	};
+
+	lockAccess("turn");
+
+	// IP turn --- IBEGIN
+	if (ixVSge != VecVSge::IDLE) changeStage(dbswzsk, VecVSge::IDLE);
+
+	shrdat.wlockAccess(jref, "turn");
+
+	shrdat.target = ((ccwNotCw) ? -360.0 : 360.0);
+
+	shrdat.wunlockAccess(jref, "turn");
+
+	xchg->triggerSrefCall(dbswzsk, VecWzskVCall::CALLWZSKSHRDATCHG, jref, "angleTarget");
+	changeStage(dbswzsk, VecVSge::MOVE);
+	// IP turn --- IEND
+
+	unlockAccess("turn");
 
 	return retval;
 };
@@ -268,13 +358,17 @@ void JobWzskActServo::handleRequest(
 
 		if ((ixVMethod == VecVMethod::MOVETO) && (req->method->parsInv.size() == 1) && (req->method->parsRet.size() == 1)) {
 			*((bool*) (req->method->parsRet[0])) = moveto(dbswzsk, *((const float*) (req->method->parsInv[0])));
+		} else if ((ixVMethod == VecVMethod::STOP) && (req->method->parsInv.size() == 0) && (req->method->parsRet.size() == 1)) {
+			*((bool*) (req->method->parsRet[0])) = stop(dbswzsk);
+		} else if ((ixVMethod == VecVMethod::TURN) && (req->method->parsInv.size() == 1) && (req->method->parsRet.size() == 1)) {
+			*((bool*) (req->method->parsRet[0])) = turn(dbswzsk, *((const bool*) (req->method->parsInv[0])));
 		} else if ((ixVMethod == VecVMethod::ZERO) && (req->method->parsInv.size() == 0) && (req->method->parsRet.size() == 1)) {
 			*((bool*) (req->method->parsRet[0])) = zero(dbswzsk);
 		};
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
-		if ((req->sref == "mon") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefMonInSgeMove(dbswzsk);
-		else if ((req->sref == "callback") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefCallbackInSgeMove(dbswzsk);
+		if ((req->sref == "callback") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefCallbackInSgeMove(dbswzsk);
+		else if ((req->sref == "mon") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefMonInSgeMove(dbswzsk);
 	};
 };
 
@@ -286,17 +380,17 @@ bool JobWzskActServo::handleTest(
 	return retval;
 };
 
+void JobWzskActServo::handleTimerWithSrefCallbackInSgeMove(
+			DbsWzsk* dbswzsk
+		) {
+	changeStage(dbswzsk, ixVSge);
+};
+
 void JobWzskActServo::handleTimerWithSrefMonInSgeMove(
 			DbsWzsk* dbswzsk
 		) {
 	wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
 	// IP handleTimerWithSrefMonInSgeMove --- INSERT
-	changeStage(dbswzsk, ixVSge);
-};
-
-void JobWzskActServo::handleTimerWithSrefCallbackInSgeMove(
-			DbsWzsk* dbswzsk
-		) {
 	changeStage(dbswzsk, ixVSge);
 };
 
@@ -335,10 +429,20 @@ string JobWzskActServo::getSquawk(
 	if ( (ixVSge == VecVSge::IDLE) || (ixVSge == VecVSge::MOVE) ) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			if (ixVSge == VecVSge::IDLE) retval = "idle";
-			else if (ixVSge == VecVSge::MOVE) retval = "moving (current angle: " + to_string(shrdat.angle) + "\\u00b0)";
+			else if (ixVSge == VecVSge::MOVE) {
+				retval = "moving";
+				if (shrdat.target == -360.0) retval += " counter-clockwise";
+				else if (shrdat.target == 360.0) retval += " clockwise";
+				else retval += " towards angle " + to_string(shrdat.target) + "\\u00b0";
+			};
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			if (ixVSge == VecVSge::IDLE) retval = "inaktiv";
-			else if (ixVSge == VecVSge::MOVE) retval = "Bewegung (aktueller Winkel: " + to_string(shrdat.angle) + "\\u00b0)";
+			else if (ixVSge == VecVSge::MOVE) {
+				retval = "Bewegung";
+				if (shrdat.target == -360.0) retval += " gegen den Uhrzeigersinn";
+				else if (shrdat.target == 360.0) retval += " im Uhrzeigersinn";
+				else retval += " zu Winkel " + to_string(shrdat.target) + "\\u00b0";
+			};
 		};
 
 	} else {
@@ -374,8 +478,6 @@ uint JobWzskActServo::enterSgeMove(
 	if (!reenter) wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
 
 	// IP enterSgeMove --- IBEGIN
-	double t;
-
 	float delta;
 	unsigned int dt;
 
@@ -389,33 +491,45 @@ uint JobWzskActServo::enterSgeMove(
 	string s;
 
 	if (!reenter) {
-		if (!srcfpga) {
-			// omega in 1/s, 4x 512 pulses per revolution, period in ns
-			period = lround(1e9 / 512.0 / stg.omega);
-			deltat.tv_nsec = period / 4; // delay between four phases
+		shrdat.start = shrdat.angle;
 
-			shrdat.start = shrdat.angle;
+		delta = shrdat.target;
+		if ((delta != -360.0) && (delta != 360.0)) delta -= shrdat.angle;
 
-			delta = shrdat.target - shrdat.angle;
+		if (delta != 0.0) {
+			// determine in which direction to turn, and for how long
+			if (delta == -360.0) {
+				shrdat.ccwNotCw = true;
 
-			if (delta != 0.0) {
-				// determine in which direction to turn, and for how long
-				if ((delta > -360.0) && (delta <= -180.0)) {
-					shrdat.ccwNotCw = false;
-					delta += 360.0; // 0 .. 180.0, e.g. -330 becomes +60
+			} else if ((delta > -360.0) && (delta <= -180.0)) {
+				shrdat.ccwNotCw = false;
+				delta += 360.0; // 0 .. 180.0, e.g. -330 becomes +60
 
-				} else if ((delta > -180.0) && (delta <= 0.0)) {
-					shrdat.ccwNotCw = true;
+			} else if ((delta > -180.0) && (delta <= 0.0)) {
+				shrdat.ccwNotCw = true;
 
-				} else if ((delta > 0.0) && (delta <= 180.0)) {
-					shrdat.ccwNotCw = false;
+			} else if ((delta > 0.0) && (delta <= 180.0)) {
+				shrdat.ccwNotCw = false;
 
-				} else if ((delta > 180.0) && (delta <= 360.0)) {
-					shrdat.ccwNotCw = true;
-					delta -= 360.0; // -180 .. 0.0, e.g. 330 becomes -60
-				};
+			} else if ((delta > 180.0) && (delta < 360.0)) {
+				shrdat.ccwNotCw = true;
+				delta -= 360.0; // -180 .. 0.0, e.g. 330 becomes -60
 
-				dt = fabs(1e6 * delta / 360.0 / stg.omega); // in microseconds
+			} else if (delta == 360.0) {
+				shrdat.ccwNotCw = false;
+			};
+
+			dt = fabs(1e6 * delta / 360.0 / stg.omega); // in microseconds
+
+			shrdat.t0 = Wzsk::getNow();
+
+			if ((delta == -360.0) || (delta == 360.0)) shrdat.t1 = 1e99; // no time limit
+			else shrdat.t1 = shrdat.t0 + 1.0e-6 * dt;
+
+			if (!srcfpga) {
+				// omega in 1/s, 4x 512 pulses per revolution, period in ns
+				period = lround(1e9 / 512.0 / stg.omega);
+				deltat.tv_nsec = period / 4; // delay between four phases
 
 				// set parameters
 				for (int i = 0; i < Npwm; i++) {
@@ -448,12 +562,9 @@ uint JobWzskActServo::enterSgeMove(
 					close(fd);
 				};
 
+				if ((delta != -360.0) && (delta != 360.0)) wrefLast = xchg->addWakeup(jref, "mon", dt);
+
 				// switch on in synchronized fashion
-				shrdat.t0 = Wzsk::getNow();
-				shrdat.t1 = shrdat.t0 + 1.0e-6 * dt;
-
-				wrefLast = xchg->addWakeup(jref, "mon", dt);
-
 				for (int i = 0; i < Npwm; i++) {
 					if (shrdat.ccwNotCw) root = stg.pathroot + to_string(Npwm - i - 1);
 					else root = stg.pathroot + to_string(i);
@@ -470,36 +581,16 @@ uint JobWzskActServo::enterSgeMove(
 
 					if ((i + 1) < Npwm) nanosleep(&deltat, NULL);
 				};
-			};
 
-		} else {
-			srcfpga->setOmega(stg.omega); // omega in 1/s
-			srcfpga->step_moveto(shrdat.target);
+			} else {
+				if ((delta == -360.0) || (delta == 360.0)) srcfpga->setStep(true, (delta == -360.0), stg.omega);
+				else srcfpga->step_moveto(shrdat.target);
+			};
 		};
 
 	} else {
 		// update angle and/or stop movement
-		shrdat.wlockAccess(jref, "enterSgeMove");
-
-		if (!srcfpga) {
-			t = Wzsk::getNow();
-
-			if (t >= shrdat.t1) {
-				shrdat.angle = shrdat.target;
-
-			} else {
-				if (!shrdat.ccwNotCw) shrdat.angle = shrdat.start + 360.0 * (Wzsk::getNow() - shrdat.t0) * stg.omega;
-				else shrdat.angle = shrdat.start - 360.0 * (Wzsk::getNow() - shrdat.t0) * stg.omega;
-
-				while (shrdat.angle < 0.0) shrdat.angle += 360.0;
-				while (shrdat.angle >= 360.0) shrdat.angle -= 360.0;
-			};
-
-		} else srcfpga->getAngle(shrdat.angle);
-
-		shrdat.wunlockAccess(jref, "enterSgeMove");
-
-		xchg->triggerSrefCall(dbswzsk, VecWzskVCall::CALLWZSKSHRDATCHG, jref, "angleTarget");
+		updateAngle(dbswzsk);
 
 		if (shrdat.angle == shrdat.target) retval = VecVSge::IDLE;
 	};
@@ -512,7 +603,12 @@ void JobWzskActServo::leaveSgeMove(
 			DbsWzsk* dbswzsk
 		) {
 	invalidateWakeups();
-	if (!srcfpga) stopGpio(); // IP leaveSgeMove --- ILINE
+	// IP leaveSgeMove --- IBEGIN
+	updateAngle(dbswzsk);
+
+	if (!srcfpga) stopGpio();
+	else srcfpga->setStep(false, false, 0.0);
+	// IP leaveSgeMove --- IEND
 };
 
 bool JobWzskActServo::handleClaim(

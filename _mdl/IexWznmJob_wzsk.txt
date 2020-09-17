@@ -14,9 +14,9 @@
 		- 1	var	dLeft	float		0.2					
 		- 1	var	dRight	float		0.2					
 		- 0	var	dWork	float		0.2					
-		- 0	var	deltaTheta	float		5		[\u00b0]			
 		- ImeIAMBlockItem.end										
 	- ImeIMBlock.end											
+- JobWzskActExposure	true	true	controls camera exposure time and focus									
 - JobWzskActLaser	true	true	controls the lhs/rhs line laser strobes									
 	- ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment								
 	- cmbeng;eng	cmbeng;eng	StgJobWzskActLaser									
@@ -30,9 +30,9 @@
 		- 1	var	lineoffsetLeft	utinyint		10		GPIO6_IO10			
 		- 1	var	lineoffsetRight	utinyint		9		GPIO6_IO9			
 		- 0	var	pathSpi	string		/dev/spidev0.0					
-		- 2	var	leftMin	usmallint		174		experimentally, full range corresponds to 17% .. 24%			
+		- 2	var	leftMin	usmallint		164		experimentally, full range corresponds to 16% .. 24%			
 		- 2	var	leftMax	usmallint		245					
-		- 3	var	rightMin	usmallint		174					
+		- 3	var	rightMin	usmallint		164					
 		- 3	var	rightMax	usmallint		245					
 		- ImeIAMBlockItem.end										
 	- ImeIMBlock.end											
@@ -58,15 +58,13 @@
 	- cmbeng;eng	cmbeng;eng	StgJobWzskIprTrace									
 		- ImeICAMBlockItem.iref										
 		- 1										
-		- 2										
 		- ImeICAMBlockItem.end										
 		- ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment			
 		- 0	var	v4l2RdNotDelta	boolean		false					
 		- 0	var	roiNotFull	boolean		false					
-		- 1	var	lvlFirst	utinyint		10					
-		- 1	var	lvlSecond	utinyint		5					
-		- 2	var	leftOnNotOff	boolean		true					
-		- 2	var	rightOnNotOff	boolean		true					
+		- 0	var	flgPerRowMax	utinyint		10					
+		- 1	var	leftOnNotOff	boolean		true					
+		- 1	var	rightOnNotOff	boolean		true					
 		- ImeIAMBlockItem.end										
 	- ImeIMBlock.end											
 - JobWzskSrcFpga	true	true	handles the FPGA-based sub-system									
@@ -74,6 +72,18 @@
 	- cmbeng;eng	cmbeng;eng	StgJobWzskSrcFpga									
 		- ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment			
 		- 0	var	path	string		/dev/arty					
+		- ImeIAMBlockItem.end										
+	- ImeIMBlock.end											
+- JobWzskSrcSysinfo	true	true	queries system files for load and temperature									
+	- ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment								
+	- cmbeng;eng	cmbeng;eng	StgJobWzskSrcSysinfo									
+		- ImeICAMBlockItem.iref										
+		- 1										
+		- ImeICAMBlockItem.end										
+		- ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment			
+		- 0	var	pathStat	string		/proc/stat					
+		- 1	var	pathThermal	string		/sys/class/thermal/thermal_zone0/temp					
+		- 1	var	pathrootXadc	string		/sys/bus/platform/drivers/xadc/f8007100.adc/iio:device0/in_temp0					
 		- ImeIAMBlockItem.end										
 	- ImeIMBlock.end											
 - JobWzskSrcV4l2	true	true	delivers v4l2 camera frames									

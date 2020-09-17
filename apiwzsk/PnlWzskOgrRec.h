@@ -2,8 +2,8 @@
 	* \file PnlWzskOgrRec.h
 	* API code for job PnlWzskOgrRec (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKOGRREC_H
@@ -65,16 +65,14 @@ namespace PnlWzskOgrRec {
 
 	public:
 		static const Sbecore::uint INITDONEDETAIL = 1;
-		static const Sbecore::uint INITDONE1NSHOT = 2;
-		static const Sbecore::uint INITDONE1NOBJECT = 3;
-		static const Sbecore::uint INITDONESUP1NOBJGROUP = 4;
+		static const Sbecore::uint INITDONE1NOBJECT = 2;
+		static const Sbecore::uint INITDONESUP1NOBJGROUP = 3;
 
 	public:
-		StatApp(const bool initdoneDetail = false, const bool initdone1NShot = false, const bool initdone1NObject = false, const bool initdoneSup1NObjgroup = false);
+		StatApp(const bool initdoneDetail = false, const bool initdone1NObject = false, const bool initdoneSup1NObjgroup = false);
 
 	public:
 		bool initdoneDetail;
-		bool initdone1NShot;
 		bool initdone1NObject;
 		bool initdoneSup1NObjgroup;
 
@@ -92,18 +90,16 @@ namespace PnlWzskOgrRec {
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
 		static const Sbecore::uint SCRJREFDETAIL = 2;
-		static const Sbecore::uint SCRJREF1NSHOT = 3;
-		static const Sbecore::uint SCRJREF1NOBJECT = 4;
-		static const Sbecore::uint SCRJREFSUP1NOBJGROUP = 5;
-		static const Sbecore::uint BUTREGULARIZEACTIVE = 6;
+		static const Sbecore::uint SCRJREF1NOBJECT = 3;
+		static const Sbecore::uint SCRJREFSUP1NOBJGROUP = 4;
+		static const Sbecore::uint BUTREGULARIZEACTIVE = 5;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::REGD, const std::string& scrJrefDetail = "", const std::string& scrJref1NShot = "", const std::string& scrJref1NObject = "", const std::string& scrJrefSup1NObjgroup = "", const bool ButRegularizeActive = true);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::REGD, const std::string& scrJrefDetail = "", const std::string& scrJref1NObject = "", const std::string& scrJrefSup1NObjgroup = "", const bool ButRegularizeActive = true);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		std::string scrJrefDetail;
-		std::string scrJref1NShot;
 		std::string scrJref1NObject;
 		std::string scrJrefSup1NObjgroup;
 		bool ButRegularizeActive;

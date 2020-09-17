@@ -2,8 +2,8 @@
 	* \file PnlWzskShtDetail_blks.cpp
 	* job handler for job PnlWzskShtDetail (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -306,12 +306,12 @@ void PnlWzskShtDetail::Tag::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "CptSes", "session");
-			writeStringAttr(wr, itemtag, "sref", "CptObj", "object group");
+			writeStringAttr(wr, itemtag, "sref", "CptObj", "object");
 			writeStringAttr(wr, itemtag, "sref", "CptSta", "start");
 			writeStringAttr(wr, itemtag, "sref", "CptCmt", "comment");
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			writeStringAttr(wr, itemtag, "sref", "CptSes", "Sitzung");
-			writeStringAttr(wr, itemtag, "sref", "CptObj", "Objektgruppe");
+			writeStringAttr(wr, itemtag, "sref", "CptObj", "Objekt");
 			writeStringAttr(wr, itemtag, "sref", "CptSta", "Start");
 			writeStringAttr(wr, itemtag, "sref", "CptCmt", "Notiz");
 		};

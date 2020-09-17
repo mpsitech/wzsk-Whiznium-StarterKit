@@ -2,8 +2,8 @@
 	* \file SessWzsk.h
 	* job handler for job SessWzsk (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef SESSWZSK_H
@@ -20,11 +20,11 @@
 #include "CrdWzskOgr.h"
 #include "CrdWzskLiv.h"
 #include "CrdWzskLlv.h"
+#include "CrdWzskNav.h"
 #include "CrdWzskScf.h"
 #include "CrdWzskPrs.h"
 #include "CrdWzskUsr.h"
 #include "CrdWzskUsg.h"
-#include "CrdWzskNav.h"
 
 #define StatShrSessWzsk SessWzsk::StatShr
 
@@ -95,11 +95,11 @@ public:
 	std::list<CrdWzskOgr*> crdogrs;
 	std::list<CrdWzskLiv*> crdlivs;
 	std::list<CrdWzskLlv*> crdllvs;
+	CrdWzskNav* crdnav;
 	std::list<CrdWzskScf*> crdscfs;
 	std::list<CrdWzskPrs*> crdprss;
 	std::list<CrdWzskUsr*> crdusrs;
 	std::list<CrdWzskUsg*> crdusgs;
-	CrdWzskNav* crdnav;
 
 	std::map<Sbecore::ubigint,Sbecore::uint> usgaccs;
 
@@ -165,11 +165,11 @@ public:
 
 private:
 	bool handleCallWzskRefPreSet(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv);
-	bool handleCallWzskCrdClose(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv);
-	bool handleCallWzskCrdOpen(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv, const int intvalInv, Sbecore::ubigint& refRet);
-	bool handleCallWzskLog(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv, const int intvalInv);
 	bool handleCallWzskRecaccess(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, Sbecore::uint& ixRet);
+	bool handleCallWzskLog(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv, const int intvalInv);
+	bool handleCallWzskCrdOpen(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv, const int intvalInv, Sbecore::ubigint& refRet);
 	bool handleCallWzskCrdActive(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, Sbecore::uint& ixRet);
+	bool handleCallWzskCrdClose(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv);
 
 };
 

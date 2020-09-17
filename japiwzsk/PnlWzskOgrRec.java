@@ -2,8 +2,8 @@
   * \file PnlWzskOgrRec.java
   * Java API code for job PnlWzskOgrRec
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 package apiwzsk;
@@ -113,26 +113,22 @@ public class PnlWzskOgrRec {
 	public class StatApp extends Block {
 
 		public static final int INITDONEDETAIL = 1;
-		public static final int INITDONE1NSHOT = 2;
-		public static final int INITDONE1NOBJECT = 3;
-		public static final int INITDONESUP1NOBJGROUP = 4;
+		public static final int INITDONE1NOBJECT = 2;
+		public static final int INITDONESUP1NOBJGROUP = 3;
 
 		public StatApp(
 					boolean initdoneDetail
-					, boolean initdone1NShot
 					, boolean initdone1NObject
 					, boolean initdoneSup1NObjgroup
 				) {
 			this.initdoneDetail = initdoneDetail;
-			this.initdone1NShot = initdone1NShot;
 			this.initdone1NObject = initdone1NObject;
 			this.initdoneSup1NObjgroup = initdoneSup1NObjgroup;
 
-			mask = new HashSet<Integer>(Arrays.asList(INITDONEDETAIL, INITDONE1NSHOT, INITDONE1NOBJECT, INITDONESUP1NOBJGROUP));
+			mask = new HashSet<Integer>(Arrays.asList(INITDONEDETAIL, INITDONE1NOBJECT, INITDONESUP1NOBJGROUP));
 		};
 
 		public boolean initdoneDetail;
-		public boolean initdone1NShot;
 		public boolean initdone1NObject;
 		public boolean initdoneSup1NObjgroup;
 
@@ -150,7 +146,6 @@ public class PnlWzskOgrRec {
 
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				initdoneDetail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneDetail", mask, INITDONEDETAIL);
-				initdone1NShot = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdone1NShot", mask, INITDONE1NSHOT);
 				initdone1NObject = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdone1NObject", mask, INITDONE1NOBJECT);
 				initdoneSup1NObjgroup = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneSup1NObjgroup", mask, INITDONESUP1NOBJGROUP);
 
@@ -166,7 +161,6 @@ public class PnlWzskOgrRec {
 			HashSet<Integer> items = new HashSet<Integer>();
 
 			if (initdoneDetail == comp.initdoneDetail) items.add(INITDONEDETAIL);
-			if (initdone1NShot == comp.initdone1NShot) items.add(INITDONE1NSHOT);
 			if (initdone1NObject == comp.initdone1NObject) items.add(INITDONE1NOBJECT);
 			if (initdoneSup1NObjgroup == comp.initdoneSup1NObjgroup) items.add(INITDONESUP1NOBJGROUP);
 
@@ -181,7 +175,7 @@ public class PnlWzskOgrRec {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(INITDONEDETAIL, INITDONE1NSHOT, INITDONE1NOBJECT, INITDONESUP1NOBJGROUP));
+			diffitems = new HashSet<Integer>(Arrays.asList(INITDONEDETAIL, INITDONE1NOBJECT, INITDONESUP1NOBJGROUP));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -196,32 +190,28 @@ public class PnlWzskOgrRec {
 
 		public static final int IXWZSKVEXPSTATE = 1;
 		public static final int SCRJREFDETAIL = 2;
-		public static final int SCRJREF1NSHOT = 3;
-		public static final int SCRJREF1NOBJECT = 4;
-		public static final int SCRJREFSUP1NOBJGROUP = 5;
-		public static final int BUTREGULARIZEACTIVE = 6;
+		public static final int SCRJREF1NOBJECT = 3;
+		public static final int SCRJREFSUP1NOBJGROUP = 4;
+		public static final int BUTREGULARIZEACTIVE = 5;
 
 		public StatShr(
 					int ixWzskVExpstate
 					, String scrJrefDetail
-					, String scrJref1NShot
 					, String scrJref1NObject
 					, String scrJrefSup1NObjgroup
 					, boolean ButRegularizeActive
 				) {
 			this.ixWzskVExpstate = ixWzskVExpstate;
 			this.scrJrefDetail = scrJrefDetail;
-			this.scrJref1NShot = scrJref1NShot;
 			this.scrJref1NObject = scrJref1NObject;
 			this.scrJrefSup1NObjgroup = scrJrefSup1NObjgroup;
 			this.ButRegularizeActive = ButRegularizeActive;
 
-			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREF1NSHOT, SCRJREF1NOBJECT, SCRJREFSUP1NOBJGROUP, BUTREGULARIZEACTIVE));
+			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREF1NOBJECT, SCRJREFSUP1NOBJGROUP, BUTREGULARIZEACTIVE));
 		};
 
 		public int ixWzskVExpstate;
 		public String scrJrefDetail;
-		public String scrJref1NShot;
 		public String scrJref1NObject;
 		public String scrJrefSup1NObjgroup;
 		public boolean ButRegularizeActive;
@@ -243,7 +233,6 @@ public class PnlWzskOgrRec {
 				srefIxWzskVExpstate = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "srefIxWzskVExpstate", mask, IXWZSKVEXPSTATE);
 				ixWzskVExpstate = VecWzskVExpstate.getIx(srefIxWzskVExpstate);
 				scrJrefDetail = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefDetail", mask, SCRJREFDETAIL);
-				scrJref1NShot = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJref1NShot", mask, SCRJREF1NSHOT);
 				scrJref1NObject = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJref1NObject", mask, SCRJREF1NOBJECT);
 				scrJrefSup1NObjgroup = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefSup1NObjgroup", mask, SCRJREFSUP1NOBJGROUP);
 				ButRegularizeActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButRegularizeActive", mask, BUTREGULARIZEACTIVE);
@@ -261,7 +250,6 @@ public class PnlWzskOgrRec {
 
 			if (ixWzskVExpstate == comp.ixWzskVExpstate) items.add(IXWZSKVEXPSTATE);
 			if (scrJrefDetail.equals(comp.scrJrefDetail)) items.add(SCRJREFDETAIL);
-			if (scrJref1NShot.equals(comp.scrJref1NShot)) items.add(SCRJREF1NSHOT);
 			if (scrJref1NObject.equals(comp.scrJref1NObject)) items.add(SCRJREF1NOBJECT);
 			if (scrJrefSup1NObjgroup.equals(comp.scrJrefSup1NObjgroup)) items.add(SCRJREFSUP1NOBJGROUP);
 			if (ButRegularizeActive == comp.ButRegularizeActive) items.add(BUTREGULARIZEACTIVE);
@@ -277,7 +265,7 @@ public class PnlWzskOgrRec {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREF1NSHOT, SCRJREF1NOBJECT, SCRJREFSUP1NOBJGROUP, BUTREGULARIZEACTIVE));
+			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREF1NOBJECT, SCRJREFSUP1NOBJGROUP, BUTREGULARIZEACTIVE));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -419,8 +407,8 @@ public class PnlWzskOgrRec {
 			super(VecWzskVDpch.DPCHENGWZSKOGRRECDATA);
 
 			continf = new ContInf("");
-			statapp = new StatApp(false, false, false, false);
-			statshr = new StatShr(0, "", "", "", "", false);
+			statapp = new StatApp(false, false, false);
+			statshr = new StatShr(0, "", "", "", false);
 			tag = new Tag("");
 		};
 
@@ -460,8 +448,8 @@ public class PnlWzskOgrRec {
 			} else {
 				scrJref = "";
 				continf = new ContInf("");
-				statapp = new StatApp(false, false, false, false);
-				statshr = new StatShr(0, "", "", "", "", false);
+				statapp = new StatApp(false, false, false);
+				statshr = new StatShr(0, "", "", "", false);
 				tag = new Tag("");
 			};
 		};

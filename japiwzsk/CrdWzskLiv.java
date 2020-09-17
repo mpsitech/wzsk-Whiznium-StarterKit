@@ -2,8 +2,8 @@
   * \file CrdWzskLiv.java
   * Java API code for job CrdWzskLiv
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 package apiwzsk;
@@ -154,7 +154,8 @@ public class CrdWzskLiv {
 		public static final int WIDTHMENU = 4;
 		public static final int INITDONE2DVIEW = 5;
 		public static final int INITDONE3DVIEW = 6;
-		public static final int INITDONEHEADBAR = 7;
+		public static final int INITDONESYSMON = 7;
+		public static final int INITDONEHEADBAR = 8;
 
 		public StatApp(
 					int ixWzskVReqitmode
@@ -163,6 +164,7 @@ public class CrdWzskLiv {
 					, int widthMenu
 					, boolean initdone2DView
 					, boolean initdone3DView
+					, boolean initdoneSysmon
 					, boolean initdoneHeadbar
 				) {
 			this.ixWzskVReqitmode = ixWzskVReqitmode;
@@ -171,9 +173,10 @@ public class CrdWzskLiv {
 			this.widthMenu = widthMenu;
 			this.initdone2DView = initdone2DView;
 			this.initdone3DView = initdone3DView;
+			this.initdoneSysmon = initdoneSysmon;
 			this.initdoneHeadbar = initdoneHeadbar;
 
-			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONE2DVIEW, INITDONE3DVIEW, INITDONEHEADBAR));
+			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONE2DVIEW, INITDONE3DVIEW, INITDONESYSMON, INITDONEHEADBAR));
 		};
 
 		public int ixWzskVReqitmode;
@@ -182,6 +185,7 @@ public class CrdWzskLiv {
 		public int widthMenu;
 		public boolean initdone2DView;
 		public boolean initdone3DView;
+		public boolean initdoneSysmon;
 		public boolean initdoneHeadbar;
 
 		public boolean readXML(
@@ -205,6 +209,7 @@ public class CrdWzskLiv {
 				widthMenu = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Si", "sref", "widthMenu", mask, WIDTHMENU);
 				initdone2DView = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdone2DView", mask, INITDONE2DVIEW);
 				initdone3DView = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdone3DView", mask, INITDONE3DVIEW);
+				initdoneSysmon = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneSysmon", mask, INITDONESYSMON);
 				initdoneHeadbar = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneHeadbar", mask, INITDONEHEADBAR);
 
 				return true;
@@ -224,6 +229,7 @@ public class CrdWzskLiv {
 			if (widthMenu == comp.widthMenu) items.add(WIDTHMENU);
 			if (initdone2DView == comp.initdone2DView) items.add(INITDONE2DVIEW);
 			if (initdone3DView == comp.initdone3DView) items.add(INITDONE3DVIEW);
+			if (initdoneSysmon == comp.initdoneSysmon) items.add(INITDONESYSMON);
 			if (initdoneHeadbar == comp.initdoneHeadbar) items.add(INITDONEHEADBAR);
 
 			return(items);
@@ -237,7 +243,7 @@ public class CrdWzskLiv {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONE2DVIEW, INITDONE3DVIEW, INITDONEHEADBAR));
+			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONE2DVIEW, INITDONE3DVIEW, INITDONESYSMON, INITDONEHEADBAR));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -252,22 +258,26 @@ public class CrdWzskLiv {
 
 		public static final int SCRJREF2DVIEW = 1;
 		public static final int SCRJREF3DVIEW = 2;
-		public static final int SCRJREFHEADBAR = 3;
+		public static final int SCRJREFSYSMON = 3;
+		public static final int SCRJREFHEADBAR = 4;
 
 		public StatShr(
 					String scrJref2DView
 					, String scrJref3DView
+					, String scrJrefSysmon
 					, String scrJrefHeadbar
 				) {
 			this.scrJref2DView = scrJref2DView;
 			this.scrJref3DView = scrJref3DView;
+			this.scrJrefSysmon = scrJrefSysmon;
 			this.scrJrefHeadbar = scrJrefHeadbar;
 
-			mask = new HashSet<Integer>(Arrays.asList(SCRJREF2DVIEW, SCRJREF3DVIEW, SCRJREFHEADBAR));
+			mask = new HashSet<Integer>(Arrays.asList(SCRJREF2DVIEW, SCRJREF3DVIEW, SCRJREFSYSMON, SCRJREFHEADBAR));
 		};
 
 		public String scrJref2DView;
 		public String scrJref3DView;
+		public String scrJrefSysmon;
 		public String scrJrefHeadbar;
 
 		public boolean readXML(
@@ -285,6 +295,7 @@ public class CrdWzskLiv {
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				scrJref2DView = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJref2DView", mask, SCRJREF2DVIEW);
 				scrJref3DView = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJref3DView", mask, SCRJREF3DVIEW);
+				scrJrefSysmon = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefSysmon", mask, SCRJREFSYSMON);
 				scrJrefHeadbar = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefHeadbar", mask, SCRJREFHEADBAR);
 
 				return true;
@@ -300,6 +311,7 @@ public class CrdWzskLiv {
 
 			if (scrJref2DView.equals(comp.scrJref2DView)) items.add(SCRJREF2DVIEW);
 			if (scrJref3DView.equals(comp.scrJref3DView)) items.add(SCRJREF3DVIEW);
+			if (scrJrefSysmon.equals(comp.scrJrefSysmon)) items.add(SCRJREFSYSMON);
 			if (scrJrefHeadbar.equals(comp.scrJrefHeadbar)) items.add(SCRJREFHEADBAR);
 
 			return(items);
@@ -313,7 +325,7 @@ public class CrdWzskLiv {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(SCRJREF2DVIEW, SCRJREF3DVIEW, SCRJREFHEADBAR));
+			diffitems = new HashSet<Integer>(Arrays.asList(SCRJREF2DVIEW, SCRJREF3DVIEW, SCRJREFSYSMON, SCRJREFHEADBAR));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -463,8 +475,8 @@ public class CrdWzskLiv {
 
 			continf = new ContInf(0, "");
 			feedFSge = new Feed("FeedFSge");
-			statapp = new StatApp(0, 0, "", 0, false, false, false);
-			statshr = new StatShr("", "", "");
+			statapp = new StatApp(0, 0, "", 0, false, false, false, false);
+			statshr = new StatShr("", "", "", "");
 			tag = new Tag("", "");
 		};
 
@@ -508,8 +520,8 @@ public class CrdWzskLiv {
 				scrJref = "";
 				continf = new ContInf(0, "");
 				feedFSge = new Feed("FeedFSge");
-				statapp = new StatApp(0, 0, "", 0, false, false, false);
-				statshr = new StatShr("", "", "");
+				statapp = new StatApp(0, 0, "", 0, false, false, false, false);
+				statshr = new StatShr("", "", "", "");
 				tag = new Tag("", "");
 			};
 		};

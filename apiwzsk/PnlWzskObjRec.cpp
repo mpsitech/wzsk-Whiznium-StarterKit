@@ -2,8 +2,8 @@
 	* \file PnlWzskObjRec.cpp
 	* API code for job PnlWzskObjRec (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "PnlWzskObjRec.h"
@@ -103,14 +103,16 @@ set<uint> PnlWzskObjRec::ContInf::diff(
 
 PnlWzskObjRec::StatApp::StatApp(
 			const bool initdoneDetail
+			, const bool initdone1NShot
 			, const bool initdoneRef1NFile
 		) :
 			Block()
 		{
 	this->initdoneDetail = initdoneDetail;
+	this->initdone1NShot = initdone1NShot;
 	this->initdoneRef1NFile = initdoneRef1NFile;
 
-	mask = {INITDONEDETAIL, INITDONEREF1NFILE};
+	mask = {INITDONEDETAIL, INITDONE1NSHOT, INITDONEREF1NFILE};
 };
 
 bool PnlWzskObjRec::StatApp::readXML(
@@ -131,6 +133,7 @@ bool PnlWzskObjRec::StatApp::readXML(
 
 	if (basefound) {
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneDetail", initdoneDetail)) add(INITDONEDETAIL);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdone1NShot", initdone1NShot)) add(INITDONE1NSHOT);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneRef1NFile", initdoneRef1NFile)) add(INITDONEREF1NFILE);
 	};
 
@@ -143,6 +146,7 @@ set<uint> PnlWzskObjRec::StatApp::comm(
 	set<uint> items;
 
 	if (initdoneDetail == comp->initdoneDetail) insert(items, INITDONEDETAIL);
+	if (initdone1NShot == comp->initdone1NShot) insert(items, INITDONE1NSHOT);
 	if (initdoneRef1NFile == comp->initdoneRef1NFile) insert(items, INITDONEREF1NFILE);
 
 	return(items);
@@ -156,7 +160,7 @@ set<uint> PnlWzskObjRec::StatApp::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {INITDONEDETAIL, INITDONEREF1NFILE};
+	diffitems = {INITDONEDETAIL, INITDONE1NSHOT, INITDONEREF1NFILE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -169,6 +173,7 @@ set<uint> PnlWzskObjRec::StatApp::diff(
 PnlWzskObjRec::StatShr::StatShr(
 			const uint ixWzskVExpstate
 			, const string& scrJrefDetail
+			, const string& scrJref1NShot
 			, const string& scrJrefRef1NFile
 			, const bool ButRegularizeActive
 		) :
@@ -176,10 +181,11 @@ PnlWzskObjRec::StatShr::StatShr(
 		{
 	this->ixWzskVExpstate = ixWzskVExpstate;
 	this->scrJrefDetail = scrJrefDetail;
+	this->scrJref1NShot = scrJref1NShot;
 	this->scrJrefRef1NFile = scrJrefRef1NFile;
 	this->ButRegularizeActive = ButRegularizeActive;
 
-	mask = {IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREFREF1NFILE, BUTREGULARIZEACTIVE};
+	mask = {IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREF1NSHOT, SCRJREFREF1NFILE, BUTREGULARIZEACTIVE};
 };
 
 bool PnlWzskObjRec::StatShr::readXML(
@@ -206,6 +212,7 @@ bool PnlWzskObjRec::StatShr::readXML(
 			add(IXWZSKVEXPSTATE);
 		};
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefDetail", scrJrefDetail)) add(SCRJREFDETAIL);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJref1NShot", scrJref1NShot)) add(SCRJREF1NSHOT);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefRef1NFile", scrJrefRef1NFile)) add(SCRJREFREF1NFILE);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButRegularizeActive", ButRegularizeActive)) add(BUTREGULARIZEACTIVE);
 	};
@@ -220,6 +227,7 @@ set<uint> PnlWzskObjRec::StatShr::comm(
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
 	if (scrJrefDetail == comp->scrJrefDetail) insert(items, SCRJREFDETAIL);
+	if (scrJref1NShot == comp->scrJref1NShot) insert(items, SCRJREF1NSHOT);
 	if (scrJrefRef1NFile == comp->scrJrefRef1NFile) insert(items, SCRJREFREF1NFILE);
 	if (ButRegularizeActive == comp->ButRegularizeActive) insert(items, BUTREGULARIZEACTIVE);
 
@@ -234,7 +242,7 @@ set<uint> PnlWzskObjRec::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREFREF1NFILE, BUTREGULARIZEACTIVE};
+	diffitems = {IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREF1NSHOT, SCRJREFREF1NFILE, BUTREGULARIZEACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

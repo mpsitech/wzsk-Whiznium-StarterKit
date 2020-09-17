@@ -2,8 +2,8 @@
 	* \file DbsWzsk.cpp
 	* C++ wrapper for database DbsWzsk (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "DbsWzsk.h"
@@ -142,14 +142,14 @@ void DbsWzsk::initMy() {
 
 	tblwzskqfillist = new MyTblWzskQFilList();
 	((MyTblWzskQFilList*) tblwzskqfillist)->init(dbsMy);
+	tblwzskqobj1nshot = new MyTblWzskQObj1NShot();
+	((MyTblWzskQObj1NShot*) tblwzskqobj1nshot)->init(dbsMy);
 	tblwzskqobjlist = new MyTblWzskQObjList();
 	((MyTblWzskQObjList*) tblwzskqobjlist)->init(dbsMy);
 	tblwzskqobjref1nfile = new MyTblWzskQObjRef1NFile();
 	((MyTblWzskQObjRef1NFile*) tblwzskqobjref1nfile)->init(dbsMy);
 	tblwzskqogr1nobject = new MyTblWzskQOgr1NObject();
 	((MyTblWzskQOgr1NObject*) tblwzskqogr1nobject)->init(dbsMy);
-	tblwzskqogr1nshot = new MyTblWzskQOgr1NShot();
-	((MyTblWzskQOgr1NShot*) tblwzskqogr1nshot)->init(dbsMy);
 	tblwzskqogrlist = new MyTblWzskQOgrList();
 	((MyTblWzskQOgrList*) tblwzskqogrlist)->init(dbsMy);
 	tblwzskqogrsup1nobjgroup = new MyTblWzskQOgrSup1NObjgroup();
@@ -205,6 +205,7 @@ void DbsWzsk::initLite() {
 	};
 
 	sqlite3_extended_result_codes(dbsLite, 1);
+	sqlite3_busy_timeout(dbsLite, 5000);
 
 	tblwzskaccrmuseruniversal = new LiteTblWzskAccRMUserUniversal();
 	((LiteTblWzskAccRMUserUniversal*) tblwzskaccrmuseruniversal)->init(dbsLite);
@@ -257,14 +258,14 @@ void DbsWzsk::initLite() {
 
 	tblwzskqfillist = new LiteTblWzskQFilList();
 	((LiteTblWzskQFilList*) tblwzskqfillist)->init(dbsLite);
+	tblwzskqobj1nshot = new LiteTblWzskQObj1NShot();
+	((LiteTblWzskQObj1NShot*) tblwzskqobj1nshot)->init(dbsLite);
 	tblwzskqobjlist = new LiteTblWzskQObjList();
 	((LiteTblWzskQObjList*) tblwzskqobjlist)->init(dbsLite);
 	tblwzskqobjref1nfile = new LiteTblWzskQObjRef1NFile();
 	((LiteTblWzskQObjRef1NFile*) tblwzskqobjref1nfile)->init(dbsLite);
 	tblwzskqogr1nobject = new LiteTblWzskQOgr1NObject();
 	((LiteTblWzskQOgr1NObject*) tblwzskqogr1nobject)->init(dbsLite);
-	tblwzskqogr1nshot = new LiteTblWzskQOgr1NShot();
-	((LiteTblWzskQOgr1NShot*) tblwzskqogr1nshot)->init(dbsLite);
 	tblwzskqogrlist = new LiteTblWzskQOgrList();
 	((LiteTblWzskQOgrList*) tblwzskqogrlist)->init(dbsLite);
 	tblwzskqogrsup1nobjgroup = new LiteTblWzskQOgrSup1NObjgroup();

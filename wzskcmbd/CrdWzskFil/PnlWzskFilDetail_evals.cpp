@@ -2,8 +2,8 @@
 	* \file PnlWzskFilDetail_evals.cpp
 	* job handler for job PnlWzskFilDetail (implementation of availability/activation evaluation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -137,20 +137,13 @@ bool PnlWzskFilDetail::evalTxtReuActive(
 bool PnlWzskFilDetail::evalButReuViewAvail(
 			DbsWzsk* dbswzsk
 		) {
-	// fil.reuEq(0)|((pre.ixCrdaccObj()&fil.retEq(obj))|(pre.ixCrdaccSht()&fil.retEq(sht)&pre.refObj())|(pre.ixCrdaccSht()&fil.retEq(sht)))
+	// fil.reuEq(0)|((pre.ixCrdaccSht()&fil.retEq(sht)&pre.refObj())|(pre.ixCrdaccSht()&fil.retEq(sht))|(pre.ixCrdaccObj()&fil.retEq(obj)))
 
 	vector<bool> args;
 	bool a, b;
 
 	a = false; a = (recFil.refUref == 0);
 	args.push_back(a);
-	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCOBJ, jref) != 0);
-	args.push_back(a);
-	a = false; a = (recFil.refIxVTbl == VecWzskVMFileRefTbl::OBJ);
-	args.push_back(a);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a && b);
 	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCSHT, jref) != 0);
 	args.push_back(a);
 	a = false; a = (recFil.refIxVTbl == VecWzskVMFileRefTbl::SHT);
@@ -166,6 +159,13 @@ bool PnlWzskFilDetail::evalButReuViewAvail(
 	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCSHT, jref) != 0);
 	args.push_back(a);
 	a = false; a = (recFil.refIxVTbl == VecWzskVMFileRefTbl::SHT);
+	args.push_back(a);
+	b = args.back(); args.pop_back();
+	a = args.back(); args.pop_back();
+	args.push_back(a && b);
+	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCOBJ, jref) != 0);
+	args.push_back(a);
+	a = false; a = (recFil.refIxVTbl == VecWzskVMFileRefTbl::OBJ);
 	args.push_back(a);
 	b = args.back(); args.pop_back();
 	a = args.back(); args.pop_back();

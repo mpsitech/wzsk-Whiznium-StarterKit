@@ -2,8 +2,8 @@
 	* \file PnlWzskLiv3DView.h
 	* job handler for job PnlWzskLiv3DView (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKLIV3DVIEW_H
@@ -17,10 +17,13 @@
 
 #define VecVWzskLiv3DViewDo PnlWzskLiv3DView::VecVDo
 
+#define ContIacWzskLiv3DView PnlWzskLiv3DView::ContIac
 #define ContInfWzskLiv3DView PnlWzskLiv3DView::ContInf
+#define StatAppWzskLiv3DView PnlWzskLiv3DView::StatApp
 #define StatShrWzskLiv3DView PnlWzskLiv3DView::StatShr
 #define TagWzskLiv3DView PnlWzskLiv3DView::Tag
 
+#define DpchAppWzskLiv3DViewData PnlWzskLiv3DView::DpchAppData
 #define DpchAppWzskLiv3DViewDo PnlWzskLiv3DView::DpchAppDo
 #define DpchEngWzskLiv3DViewData PnlWzskLiv3DView::DpchEngData
 #define DpchEngWzskLiv3DViewLive PnlWzskLiv3DView::DpchEngLive
@@ -40,12 +43,32 @@ public:
 		static const Sbecore::uint BUTREGULARIZECLICK = 1;
 		static const Sbecore::uint BUTMINIMIZECLICK = 2;
 		static const Sbecore::uint BUTCLAIMCLICK = 3;
-		static const Sbecore::uint BUTPLAYCLICK = 4;
-		static const Sbecore::uint BUTSTOPCLICK = 5;
-		static const Sbecore::uint BUTASTCLICK = 6;
+		static const Sbecore::uint BUTASRCLICK = 4;
+		static const Sbecore::uint BUTAIRCLICK = 5;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
+	};
+
+	/**
+	  * ContIac (full: ContIacWzskLiv3DView)
+	  */
+	class ContIac : public Sbecore::Xmlio::Block {
+
+	public:
+		static const Sbecore::uint SLDAIN = 1;
+
+	public:
+		ContIac(const double SldAin = 0.0);
+
+	public:
+		double SldAin;
+
+	public:
+		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
+		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
+		std::set<Sbecore::uint> comm(const ContIac* comp);
+		std::set<Sbecore::uint> diff(const ContIac* comp);
 	};
 
 	/**
@@ -73,6 +96,15 @@ public:
 	};
 
 	/**
+		* StatApp (full: StatAppWzskLiv3DView)
+		*/
+	class StatApp {
+
+	public:
+		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const bool ButPlayActive = true, const bool ButStopActive = true);
+	};
+
+	/**
 		* StatShr (full: StatShrWzskLiv3DView)
 		*/
 	class StatShr : public Sbecore::Xmlio::Block {
@@ -84,13 +116,16 @@ public:
 		static const Sbecore::uint SLDTREHMAX = 4;
 		static const Sbecore::uint SLDTREVMIN = 5;
 		static const Sbecore::uint SLDTREVMAX = 6;
-		static const Sbecore::uint BUTPLAYACTIVE = 7;
-		static const Sbecore::uint BUTSTOPACTIVE = 8;
-		static const Sbecore::uint TXTAOAAVAIL = 9;
-		static const Sbecore::uint BUTASTACTIVE = 10;
+		static const Sbecore::uint SLDAINACTIVE = 7;
+		static const Sbecore::uint SLDAINMIN = 8;
+		static const Sbecore::uint SLDAINMAX = 9;
+		static const Sbecore::uint SLDAINRAST = 10;
+		static const Sbecore::uint TXTAOAAVAIL = 11;
+		static const Sbecore::uint BUTASRACTIVE = 12;
+		static const Sbecore::uint BUTAIRACTIVE = 13;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const double SldTreHMin = 0.0, const double SldTreHMax = 1.0, const double SldTreVMin = 0.0, const double SldTreVMax = 1.0, const bool ButPlayActive = true, const bool ButStopActive = true, const bool TxtAoaAvail = true, const bool ButAstActive = true);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const double SldTreHMin = 0.0, const double SldTreHMax = 1.0, const double SldTreVMin = 0.0, const double SldTreVMax = 1.0, const bool SldAinActive = true, const double SldAinMin = 3.0, const double SldAinMax = 60.0, const double SldAinRast = 0.5, const bool TxtAoaAvail = true, const bool ButAsrActive = true, const bool ButAirActive = true);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
@@ -99,10 +134,13 @@ public:
 		double SldTreHMax;
 		double SldTreVMin;
 		double SldTreVMax;
-		bool ButPlayActive;
-		bool ButStopActive;
+		bool SldAinActive;
+		double SldAinMin;
+		double SldAinMax;
+		double SldAinRast;
 		bool TxtAoaAvail;
-		bool ButAstActive;
+		bool ButAsrActive;
+		bool ButAirActive;
 
 	public:
 		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
@@ -117,6 +155,27 @@ public:
 
 	public:
 		static void writeXML(const Sbecore::uint ixWzskVLocale, xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
+	};
+
+	/**
+		* DpchAppData (full: DpchAppWzskLiv3DViewData)
+		*/
+	class DpchAppData : public DpchAppWzsk {
+
+	public:
+		static const Sbecore::uint JREF = 1;
+		static const Sbecore::uint CONTIAC = 2;
+
+	public:
+		DpchAppData();
+
+	public:
+		ContIac contiac;
+
+	public:
+		std::string getSrefsMask();
+
+		void readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
 	};
 
 	/**
@@ -147,15 +206,18 @@ public:
 
 	public:
 		static const Sbecore::uint JREF = 1;
-		static const Sbecore::uint CONTINF = 2;
-		static const Sbecore::uint STATSHR = 3;
-		static const Sbecore::uint TAG = 4;
-		static const Sbecore::uint ALL = 5;
+		static const Sbecore::uint CONTIAC = 2;
+		static const Sbecore::uint CONTINF = 3;
+		static const Sbecore::uint STATAPP = 4;
+		static const Sbecore::uint STATSHR = 5;
+		static const Sbecore::uint TAG = 6;
+		static const Sbecore::uint ALL = 7;
 
 	public:
-		DpchEngData(const Sbecore::ubigint jref = 0, ContInf* continf = NULL, StatShr* statshr = NULL, const std::set<Sbecore::uint>& mask = {NONE});
+		DpchEngData(const Sbecore::ubigint jref = 0, ContIac* contiac = NULL, ContInf* continf = NULL, StatShr* statshr = NULL, const std::set<Sbecore::uint>& mask = {NONE});
 
 	public:
+		ContIac contiac;
 		ContInf continf;
 		StatShr statshr;
 
@@ -196,16 +258,17 @@ public:
 	};
 
 	bool evalButClaimActive(DbsWzsk* dbswzsk);
-	bool evalButPlayActive(DbsWzsk* dbswzsk);
-	bool evalButStopActive(DbsWzsk* dbswzsk);
+	bool evalSldAinActive(DbsWzsk* dbswzsk);
 	bool evalTxtAoaAvail(DbsWzsk* dbswzsk);
-	bool evalButAstActive(DbsWzsk* dbswzsk);
+	bool evalButAsrActive(DbsWzsk* dbswzsk);
+	bool evalButAirActive(DbsWzsk* dbswzsk);
 
 public:
 	PnlWzskLiv3DView(XchgWzsk* xchg, DbsWzsk* dbswzsk, const Sbecore::ubigint jrefSup, const Sbecore::uint ixWzskVLocale);
 	~PnlWzskLiv3DView();
 
 public:
+	ContIac contiac;
 	ContInf continf;
 	StatShr statshr;
 
@@ -219,7 +282,7 @@ public:
 public:
 	DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
 
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 
 public:
 
@@ -229,21 +292,22 @@ public:
 private:
 
 	void handleDpchAppWzskInit(DbsWzsk* dbswzsk, DpchAppWzskInit* dpchappwzskinit, DpchEngWzsk** dpcheng);
+	void handleDpchAppDataContiac(DbsWzsk* dbswzsk, ContIac* _contiac, DpchEngWzsk** dpcheng);
 
 	void handleDpchAppDoButRegularizeClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButMinimizeClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButClaimClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
-	void handleDpchAppDoButPlayClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
-	void handleDpchAppDoButStopClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
-	void handleDpchAppDoButAstClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoButAsrClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoButAirClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 
 public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
 	bool handleCallWzskSgeChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskShrdatChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskResultNew(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskClaimChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
-	bool handleCallWzskResultNewFromAcqptcloud(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 
 };
 

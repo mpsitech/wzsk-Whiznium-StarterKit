@@ -2,8 +2,8 @@
 	* \file PnlWzskNavGalery_evals.cpp
 	* job handler for job PnlWzskNavGalery (implementation of availability/activation evaluation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -122,20 +122,6 @@ bool PnlWzskNavGalery::evalButShtViewActive(
 	return(args.back());
 };
 
-bool PnlWzskNavGalery::evalButShtNewcrdActive(
-			DbsWzsk* dbswzsk
-		) {
-	// pre.refObj()
-
-	vector<bool> args;
-	bool a;
-
-	a = false; a = (xchg->getRefPreset(VecWzskVPreset::PREWZSKREFOBJ, jref) != 0);
-	args.push_back(a);
-
-	return(args.back());
-};
-
 bool PnlWzskNavGalery::evalLstFilAvail(
 			DbsWzsk* dbswzsk
 		) {
@@ -159,20 +145,6 @@ bool PnlWzskNavGalery::evalButFilViewActive(
 	bool a;
 
 	a = false; a = (contiac.numFLstFil != 0);
-	args.push_back(a);
-
-	return(args.back());
-};
-
-bool PnlWzskNavGalery::evalButFilNewcrdActive(
-			DbsWzsk* dbswzsk
-		) {
-	// pre.refObj()
-
-	vector<bool> args;
-	bool a;
-
-	a = false; a = (xchg->getRefPreset(VecWzskVPreset::PREWZSKREFOBJ, jref) != 0);
 	args.push_back(a);
 
 	return(args.back());

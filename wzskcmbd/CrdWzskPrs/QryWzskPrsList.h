@@ -2,8 +2,8 @@
 	* \file QryWzskPrsList.h
 	* job handler for job QryWzskPrsList (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef QRYWZSKPRSLIST_H
@@ -31,8 +31,8 @@ public:
 	class VecVOrd {
 
 	public:
-		static const Sbecore::uint OWN = 1;
-		static const Sbecore::uint LNM = 2;
+		static const Sbecore::uint LNM = 1;
+		static const Sbecore::uint OWN = 2;
 		static const Sbecore::uint GRP = 3;
 
 		static Sbecore::uint getIx(const std::string& sref);

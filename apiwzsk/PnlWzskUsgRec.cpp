@@ -2,8 +2,8 @@
 	* \file PnlWzskUsgRec.cpp
 	* API code for job PnlWzskUsgRec (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "PnlWzskUsgRec.h"

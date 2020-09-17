@@ -2,8 +2,8 @@
 	* \file CrdWzskLiv.h
 	* job handler for job CrdWzskLiv (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef CRDWZSKLIV_H
@@ -14,6 +14,7 @@
 // IP include.cust --- INSERT
 
 #include "PnlWzskLivHeadbar.h"
+#include "PnlWzskLivSysmon.h"
 #include "PnlWzskLiv3DView.h"
 #include "PnlWzskLiv2DView.h"
 
@@ -90,7 +91,7 @@ public:
 	class StatApp {
 
 	public:
-		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdone2DView = false, const bool initdone3DView = false, const bool initdoneHeadbar = false);
+		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdone2DView = false, const bool initdone3DView = false, const bool initdoneSysmon = false, const bool initdoneHeadbar = false);
 	};
 
 	/**
@@ -101,14 +102,16 @@ public:
 	public:
 		static const Sbecore::uint JREF2DVIEW = 1;
 		static const Sbecore::uint JREF3DVIEW = 2;
-		static const Sbecore::uint JREFHEADBAR = 3;
+		static const Sbecore::uint JREFSYSMON = 3;
+		static const Sbecore::uint JREFHEADBAR = 4;
 
 	public:
-		StatShr(const Sbecore::ubigint jref2DView = 0, const Sbecore::ubigint jref3DView = 0, const Sbecore::ubigint jrefHeadbar = 0);
+		StatShr(const Sbecore::ubigint jref2DView = 0, const Sbecore::ubigint jref3DView = 0, const Sbecore::ubigint jrefSysmon = 0, const Sbecore::ubigint jrefHeadbar = 0);
 
 	public:
 		Sbecore::ubigint jref2DView;
 		Sbecore::ubigint jref3DView;
+		Sbecore::ubigint jrefSysmon;
 		Sbecore::ubigint jrefHeadbar;
 
 	public:
@@ -188,6 +191,7 @@ public:
 	Sbecore::Xmlio::Feed feedFSge;
 
 	PnlWzskLivHeadbar* pnlheadbar;
+	PnlWzskLivSysmon* pnlsysmon;
 	PnlWzskLiv3DView* pnl3dview;
 	PnlWzskLiv2DView* pnl2dview;
 
@@ -198,7 +202,7 @@ public:
 
 public:
 	DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 	void updatePreset(DbsWzsk* dbswzsk, const Sbecore::uint ixWzskVPreset, const Sbecore::ubigint jrefTrig, const bool notif = false);
 
 public:

@@ -723,7 +723,7 @@
 	- ImeIAMRelationTitle.end											
 - 53	_1n	0	0	void	TblWzskMObjgroup		TblWzskMObject				affil	
 - 54	_1n	0	0	void	TblWzskMSession		TblWzskMShot				affil	
-- 55	_1n	0	0	void	TblWzskMObjgroup		TblWzskMShot				affil	
+- 55	_1n	0	0	void	TblWzskMObject		TblWzskMShot				affil	
 - 56	aux	0	0	void	TblWzskMShot		TblWzskAMShotPar					
 - 57	j	0	0	void	TblWzskMObjgroup		TblWzskJMObjgroupTitle				pref	
 - 58	jpref	0	57	pref	TblWzskJMObjgroupTitle		TblWzskMObjgroup					

@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvTtable.cpp
 	* API code for job PnlWzskLlvTtable (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "PnlWzskLlvTtable.h"
@@ -24,7 +24,6 @@ uint PnlWzskLlvTtable::VecVDo::getIx(
 	if (s == "butregularizeclick") return BUTREGULARIZECLICK;
 	if (s == "butminimizeclick") return BUTMINIMIZECLICK;
 	if (s == "butclaimclick") return BUTCLAIMCLICK;
-	if (s == "butmveclick") return BUTMVECLICK;
 
 	return(0);
 };
@@ -35,7 +34,6 @@ string PnlWzskLlvTtable::VecVDo::getSref(
 	if (ix == BUTREGULARIZECLICK) return("ButRegularizeClick");
 	if (ix == BUTMINIMIZECLICK) return("ButMinimizeClick");
 	if (ix == BUTCLAIMCLICK) return("ButClaimClick");
-	if (ix == BUTMVECLICK) return("ButMveClick");
 
 	return("");
 };
@@ -123,14 +121,12 @@ set<uint> PnlWzskLlvTtable::ContIac::diff(
 
 PnlWzskLlvTtable::ContInf::ContInf(
 			const bool ButClaimOn
-			, const string& TxtSte
 		) :
 			Block()
 		{
 	this->ButClaimOn = ButClaimOn;
-	this->TxtSte = TxtSte;
 
-	mask = {BUTCLAIMON, TXTSTE};
+	mask = {BUTCLAIMON};
 };
 
 bool PnlWzskLlvTtable::ContInf::readXML(
@@ -151,7 +147,6 @@ bool PnlWzskLlvTtable::ContInf::readXML(
 
 	if (basefound) {
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "ButClaimOn", ButClaimOn)) add(BUTCLAIMON);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "TxtSte", TxtSte)) add(TXTSTE);
 	};
 
 	return basefound;
@@ -163,7 +158,6 @@ set<uint> PnlWzskLlvTtable::ContInf::comm(
 	set<uint> items;
 
 	if (ButClaimOn == comp->ButClaimOn) insert(items, BUTCLAIMON);
-	if (TxtSte == comp->TxtSte) insert(items, TXTSTE);
 
 	return(items);
 };
@@ -176,7 +170,7 @@ set<uint> PnlWzskLlvTtable::ContInf::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {BUTCLAIMON, TXTSTE};
+	diffitems = {BUTCLAIMON};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -189,19 +183,19 @@ set<uint> PnlWzskLlvTtable::ContInf::diff(
 PnlWzskLlvTtable::StatShr::StatShr(
 			const uint ixWzskVExpstate
 			, const bool ButClaimActive
+			, const bool SldTrgActive
 			, const double SldTrgMin
 			, const double SldTrgMax
-			, const bool ButMveActive
 		) :
 			Block()
 		{
 	this->ixWzskVExpstate = ixWzskVExpstate;
 	this->ButClaimActive = ButClaimActive;
+	this->SldTrgActive = SldTrgActive;
 	this->SldTrgMin = SldTrgMin;
 	this->SldTrgMax = SldTrgMax;
-	this->ButMveActive = ButMveActive;
 
-	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGMIN, SLDTRGMAX, BUTMVEACTIVE};
+	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGACTIVE, SLDTRGMIN, SLDTRGMAX};
 };
 
 bool PnlWzskLlvTtable::StatShr::readXML(
@@ -228,9 +222,9 @@ bool PnlWzskLlvTtable::StatShr::readXML(
 			add(IXWZSKVEXPSTATE);
 		};
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButClaimActive", ButClaimActive)) add(BUTCLAIMACTIVE);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "SldTrgActive", SldTrgActive)) add(SLDTRGACTIVE);
 		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "SldTrgMin", SldTrgMin)) add(SLDTRGMIN);
 		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "SldTrgMax", SldTrgMax)) add(SLDTRGMAX);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButMveActive", ButMveActive)) add(BUTMVEACTIVE);
 	};
 
 	return basefound;
@@ -243,9 +237,9 @@ set<uint> PnlWzskLlvTtable::StatShr::comm(
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
 	if (ButClaimActive == comp->ButClaimActive) insert(items, BUTCLAIMACTIVE);
+	if (SldTrgActive == comp->SldTrgActive) insert(items, SLDTRGACTIVE);
 	if (compareDouble(SldTrgMin, comp->SldTrgMin) < 1.0e-4) insert(items, SLDTRGMIN);
 	if (compareDouble(SldTrgMax, comp->SldTrgMax) < 1.0e-4) insert(items, SLDTRGMAX);
-	if (ButMveActive == comp->ButMveActive) insert(items, BUTMVEACTIVE);
 
 	return(items);
 };
@@ -258,7 +252,7 @@ set<uint> PnlWzskLlvTtable::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGMIN, SLDTRGMAX, BUTMVEACTIVE};
+	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGACTIVE, SLDTRGMIN, SLDTRGMAX};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -271,17 +265,13 @@ set<uint> PnlWzskLlvTtable::StatShr::diff(
 PnlWzskLlvTtable::Tag::Tag(
 			const string& Cpt
 			, const string& CptTrg
-			, const string& CptSte
-			, const string& ButMve
 		) :
 			Block()
 		{
 	this->Cpt = Cpt;
 	this->CptTrg = CptTrg;
-	this->CptSte = CptSte;
-	this->ButMve = ButMve;
 
-	mask = {CPT, CPTTRG, CPTSTE, BUTMVE};
+	mask = {CPT, CPTTRG};
 };
 
 bool PnlWzskLlvTtable::Tag::readXML(
@@ -303,8 +293,6 @@ bool PnlWzskLlvTtable::Tag::readXML(
 	if (basefound) {
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "Cpt", Cpt)) add(CPT);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptTrg", CptTrg)) add(CPTTRG);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptSte", CptSte)) add(CPTSTE);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "ButMve", ButMve)) add(BUTMVE);
 	};
 
 	return basefound;

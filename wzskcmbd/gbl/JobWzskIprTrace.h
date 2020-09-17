@@ -2,8 +2,8 @@
 	* \file JobWzskIprTrace.h
 	* job handler for job JobWzskIprTrace (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef JOBWZSKIPRTRACE_H
@@ -38,9 +38,8 @@ public:
 
 	public:
 		static const Sbecore::uint SETLEVEL = 1;
-		static const Sbecore::uint SETPON = 2;
-		static const Sbecore::uint SETROI = 3;
-		static const Sbecore::uint SETROINOTFULL = 4;
+		static const Sbecore::uint SETROI = 2;
+		static const Sbecore::uint SETROINOTFULL = 3;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -95,20 +94,17 @@ public:
 	public:
 		static const Sbecore::uint V4L2RDNOTDELTA = 1;
 		static const Sbecore::uint ROINOTFULL = 2;
-		static const Sbecore::uint LVLFIRST = 3;
-		static const Sbecore::uint LVLSECOND = 4;
-		static const Sbecore::uint LEFTONNOTOFF = 5;
-		static const Sbecore::uint RIGHTONNOTOFF = 6;
+		static const Sbecore::uint FLGPERROWMAX = 3;
+		static const Sbecore::uint LEFTONNOTOFF = 4;
+		static const Sbecore::uint RIGHTONNOTOFF = 5;
 
 	public:
-		Stg(const bool v4l2RdNotDelta = false, const bool roiNotFull = false, const Sbecore::utinyint lvlFirst = 10, const Sbecore::utinyint lvlSecond = 5, const bool leftOnNotOff = true, const bool rightOnNotOff = true);
+		Stg(const bool v4l2RdNotDelta = false, const bool roiNotFull = false, const Sbecore::utinyint flgPerRowMax = 10, const bool leftOnNotOff = true, const bool rightOnNotOff = true);
 
 	public:
 		bool v4l2RdNotDelta;
 		bool roiNotFull;
-
-		Sbecore::utinyint lvlFirst;
-		Sbecore::utinyint lvlSecond;
+		Sbecore::utinyint flgPerRowMax;
 
 		bool leftOnNotOff;
 		bool rightOnNotOff;
@@ -171,6 +167,8 @@ public:
 		std::vector<bool> right;
 
 		// IP Shrdat.vars.cust --- IBEGIN
+		bool loopNotSngshot;
+
 		Sbecore::Result result;
 		// IP Shrdat.vars.cust --- IEND
 
@@ -210,6 +208,18 @@ public:
 
 public:
 	// IP cust --- IBEGIN
+	/**
+		* Claim (full: ClaimJobWzskIprTrace)
+		*/
+	class Claim : public Sbecore::Claim {
+
+	public:
+		Claim(const bool retractable = true, const bool run = false, const bool loopNotSngshot = false);
+
+	public:
+		bool loopNotSngshot;
+	};
+
 	void flagV4l2(uint16_t* rd16, uint16_t* flg16, const uint16_t thd16, const bool deltaNotAbs);
 	void deltaV4l2(uint16_t* on16, uint16_t* off16, uint16_t* flg16, const uint16_t thd16);
 	// IP cust --- IEND
@@ -219,7 +229,6 @@ public:
 
 public:
 	bool setLevel(DbsWzsk* dbswzsk, const Sbecore::utinyint levelOn, const Sbecore::utinyint levelOff);
-	bool setPOn(DbsWzsk* dbswzsk, const float pOnLeft, const float pOnRight);
 	bool setRoi(DbsWzsk* dbswzsk, const int roiAx, const int roiAy, const int roiBx, const int roiBy, const int roiCx, const int roiCy, const int roiDx, const int roiDy);
 	bool setRoiNotFull(DbsWzsk* dbswzsk, const bool roiNotFull);
 
@@ -237,9 +246,9 @@ public:
 
 private:
 	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(DbsWzsk* dbswzsk);
-	bool handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta(DbsWzsk* dbswzsk, const Sbecore::uint ixInv);
 	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(DbsWzsk* dbswzsk);
 	bool handleCallWzskResultNewFromSrcv4l2(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta(DbsWzsk* dbswzsk, const Sbecore::uint ixInv);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

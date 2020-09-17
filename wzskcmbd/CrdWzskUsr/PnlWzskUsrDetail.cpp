@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrDetail.cpp
 	* job handler for job PnlWzskUsrDetail (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -195,7 +195,11 @@ void PnlWzskUsrDetail::refreshRecUsrJste(
 void PnlWzskUsrDetail::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	StatShr oldStatshr(statshr);
 
 	// IP refresh --- BEGIN
@@ -205,6 +209,8 @@ void PnlWzskUsrDetail::refresh(
 	// IP refresh --- END
 
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+
+	muteRefresh = false;
 };
 
 void PnlWzskUsrDetail::updatePreset(
@@ -361,24 +367,15 @@ void PnlWzskUsrDetail::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKUSRUPD_REFEQ) {
-		call->abort = handleCallWzskUsrUpd_refEq(dbswzsk, call->jref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSRJSTEMOD_USREQ) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKUSRJSTEMOD_USREQ) {
 		call->abort = handleCallWzskUsrJsteMod_usrEq(dbswzsk, call->jref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSRUPD_REFEQ) {
+		call->abort = handleCallWzskUsrUpd_refEq(dbswzsk, call->jref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSR_USGEQ) {
 		call->abort = handleCallWzskUsr_usgEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSR_PRSEQ) {
 		call->abort = handleCallWzskUsr_prsEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
 	};
-};
-
-bool PnlWzskUsrDetail::handleCallWzskUsrUpd_refEq(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-	// IP handleCallWzskUsrUpd_refEq --- INSERT
-	return retval;
 };
 
 bool PnlWzskUsrDetail::handleCallWzskUsrJsteMod_usrEq(
@@ -391,6 +388,15 @@ bool PnlWzskUsrDetail::handleCallWzskUsrJsteMod_usrEq(
 	refreshJ(dbswzsk, moditems);
 
 	xchg->submitDpch(getNewDpchEng(moditems));
+	return retval;
+};
+
+bool PnlWzskUsrDetail::handleCallWzskUsrUpd_refEq(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+	// IP handleCallWzskUsrUpd_refEq --- INSERT
 	return retval;
 };
 

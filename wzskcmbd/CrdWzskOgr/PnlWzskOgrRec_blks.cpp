@@ -2,8 +2,8 @@
 	* \file PnlWzskOgrRec_blks.cpp
 	* job handler for job PnlWzskOgrRec (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -97,7 +97,6 @@ void PnlWzskOgrRec::StatApp::writeXML(
 			, string difftag
 			, bool shorttags
 			, const bool initdoneDetail
-			, const bool initdone1NShot
 			, const bool initdone1NObject
 			, const bool initdoneSup1NObjgroup
 		) {
@@ -109,7 +108,6 @@ void PnlWzskOgrRec::StatApp::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeBoolAttr(wr, itemtag, "sref", "initdoneDetail", initdoneDetail);
-		writeBoolAttr(wr, itemtag, "sref", "initdone1NShot", initdone1NShot);
 		writeBoolAttr(wr, itemtag, "sref", "initdone1NObject", initdone1NObject);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneSup1NObjgroup", initdoneSup1NObjgroup);
 	xmlTextWriterEndElement(wr);
@@ -122,7 +120,6 @@ void PnlWzskOgrRec::StatApp::writeXML(
 PnlWzskOgrRec::StatShr::StatShr(
 			const uint ixWzskVExpstate
 			, const ubigint jrefDetail
-			, const ubigint jref1NShot
 			, const ubigint jref1NObject
 			, const ubigint jrefSup1NObjgroup
 			, const bool ButRegularizeActive
@@ -131,12 +128,11 @@ PnlWzskOgrRec::StatShr::StatShr(
 		{
 	this->ixWzskVExpstate = ixWzskVExpstate;
 	this->jrefDetail = jrefDetail;
-	this->jref1NShot = jref1NShot;
 	this->jref1NObject = jref1NObject;
 	this->jrefSup1NObjgroup = jrefSup1NObjgroup;
 	this->ButRegularizeActive = ButRegularizeActive;
 
-	mask = {IXWZSKVEXPSTATE, JREFDETAIL, JREF1NSHOT, JREF1NOBJECT, JREFSUP1NOBJGROUP, BUTREGULARIZEACTIVE};
+	mask = {IXWZSKVEXPSTATE, JREFDETAIL, JREF1NOBJECT, JREFSUP1NOBJGROUP, BUTREGULARIZEACTIVE};
 };
 
 void PnlWzskOgrRec::StatShr::writeXML(
@@ -153,7 +149,6 @@ void PnlWzskOgrRec::StatShr::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeStringAttr(wr, itemtag, "sref", "srefIxWzskVExpstate", VecWzskVExpstate::getSref(ixWzskVExpstate));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefDetail", Scr::scramble(jrefDetail));
-		writeStringAttr(wr, itemtag, "sref", "scrJref1NShot", Scr::scramble(jref1NShot));
 		writeStringAttr(wr, itemtag, "sref", "scrJref1NObject", Scr::scramble(jref1NObject));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefSup1NObjgroup", Scr::scramble(jrefSup1NObjgroup));
 		writeBoolAttr(wr, itemtag, "sref", "ButRegularizeActive", ButRegularizeActive);
@@ -167,7 +162,6 @@ set<uint> PnlWzskOgrRec::StatShr::comm(
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
 	if (jrefDetail == comp->jrefDetail) insert(items, JREFDETAIL);
-	if (jref1NShot == comp->jref1NShot) insert(items, JREF1NSHOT);
 	if (jref1NObject == comp->jref1NObject) insert(items, JREF1NOBJECT);
 	if (jrefSup1NObjgroup == comp->jrefSup1NObjgroup) insert(items, JREFSUP1NOBJGROUP);
 	if (ButRegularizeActive == comp->ButRegularizeActive) insert(items, BUTREGULARIZEACTIVE);
@@ -183,7 +177,7 @@ set<uint> PnlWzskOgrRec::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, JREFDETAIL, JREF1NSHOT, JREF1NOBJECT, JREFSUP1NOBJGROUP, BUTREGULARIZEACTIVE};
+	diffitems = {IXWZSKVEXPSTATE, JREFDETAIL, JREF1NOBJECT, JREFSUP1NOBJGROUP, BUTREGULARIZEACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

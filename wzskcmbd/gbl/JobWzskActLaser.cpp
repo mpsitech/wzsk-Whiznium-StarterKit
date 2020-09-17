@@ -2,8 +2,8 @@
 	* \file JobWzskActLaser.cpp
 	* job handler for job JobWzskActLaser (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -159,6 +159,9 @@ void JobWzskActLaser::Shrdat::init(
 		data.values[0] = 1;
 		data.values[1] = 1;
 		
+		res = ioctl(reqGpio.fd, GPIOHANDLE_SET_LINE_VALUES_IOCTL, &data);
+		if (res < 0) throw WzskException(WzskException::GPIO, {{"msg","error setting lines state"}});
+
 		// wait for 8µs
 		timespec deltat;
 		deltat.tv_sec = 0;

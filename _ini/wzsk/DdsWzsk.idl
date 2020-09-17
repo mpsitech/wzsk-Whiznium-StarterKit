@@ -2,8 +2,8 @@
   * \file Wzsk.idl
   * Wzsk DDS publisher interface description for RTI Code Generator
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 typedef char tinyint;
@@ -30,6 +30,20 @@ struct DdsDoublemat {
 typedef string<65536> stringvec;
 typedef string<50> vecsref;
 
+module DdsJobWzskSrcSysinfo {
+	struct loadAllLoadCore0LoadCore1LoadCore2LoadCore3 {
+		sequence<float, 60> loadAll;
+		sequence<float, 60> loadCore0;
+		sequence<float, 60> loadCore1;
+		sequence<float, 60> loadCore2;
+		sequence<float, 60> loadCore3;
+	};
+
+	struct temp {
+		sequence<float, 60> _temp;
+	};
+};
+
 module DdsJobWzskIprTrace {
 	struct setLevel_req {
 		utinyint levelOn;
@@ -37,15 +51,6 @@ module DdsJobWzskIprTrace {
 	};
 
 	struct setLevel_reply {
-		boolean success;
-	};
-
-	struct setPOn_req {
-		float pOnLeft;
-		float pOnRight;
-	};
-
-	struct setPOn_reply {
 		boolean success;
 	};
 
@@ -160,6 +165,22 @@ module DdsJobWzskActServo {
 		boolean success;
 	};
 
+	struct stop_req {
+		boolean dummy;
+	};
+
+	struct stop_reply {
+		boolean success;
+	};
+
+	struct turn_req {
+		boolean ccwNotCw;
+	};
+
+	struct turn_reply {
+		boolean success;
+	};
+
 	struct zero_req {
 		boolean dummy;
 	};
@@ -197,7 +218,47 @@ module DdsJobWzskActLaser {
 	};
 };
 
+module DdsJobWzskActExposure {
+	struct setExposure_req {
+		boolean autoNotManual;
+		float Texp;
+	};
+
+	struct setExposure_reply {
+		boolean success;
+	};
+
+	struct setFocus_req {
+		float focus;
+	};
+
+	struct setFocus_reply {
+		boolean success;
+	};
+
+	struct autoNotManualTexp {
+		boolean autoNotManual;
+		float Texp;
+	};
+
+	struct focus {
+		float _focus;
+	};
+};
+
 module DdsJobWzskAcqPtcloud {
+	struct setDeltaTheta_req {
+		float deltaTheta;
+	};
+
+	struct setDeltaTheta_reply {
+		boolean success;
+	};
+
+	struct deltaTheta {
+		float _deltaTheta;
+	};
+
 	struct xYZ {
 		sequence<float, 72000> x;
 		sequence<float, 72000> y;

@@ -2,8 +2,8 @@
 	* \file JobWzskActServo_blks.cpp
 	* job handler for job JobWzskActServo (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -20,6 +20,8 @@ uint JobWzskActServo::VecVMethod::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "moveto") return MOVETO;
+	if (s == "stop") return STOP;
+	if (s == "turn") return TURN;
 	if (s == "zero") return ZERO;
 
 	return(0);
@@ -29,6 +31,8 @@ string JobWzskActServo::VecVMethod::getSref(
 			const uint ix
 		) {
 	if (ix == MOVETO) return("moveto");
+	if (ix == STOP) return("stop");
+	if (ix == TURN) return("turn");
 	if (ix == ZERO) return("zero");
 
 	return("");
@@ -39,7 +43,7 @@ void JobWzskActServo::VecVMethod::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 2; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
+	for (unsigned int i = 1; i <= 4; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
 };
 
 /******************************************************************************

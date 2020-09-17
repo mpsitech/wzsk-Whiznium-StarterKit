@@ -2,8 +2,8 @@
 	* \file QryWzskPrsList.cpp
 	* job handler for job QryWzskPrsList (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -169,8 +169,8 @@ void QryWzskPrsList::rerun_orderSQL(
 			string& sqlstr
 			, const uint preIxOrd
 		) {
-	if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMPerson.own ASC";
-	else if (preIxOrd == VecVOrd::LNM) sqlstr += " ORDER BY TblWzskMPerson.Lastname ASC";
+	if (preIxOrd == VecVOrd::LNM) sqlstr += " ORDER BY TblWzskMPerson.Lastname ASC";
+	else if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMPerson.own ASC";
 	else if (preIxOrd == VecVOrd::GRP) sqlstr += " ORDER BY TblWzskMPerson.grp ASC";
 };
 

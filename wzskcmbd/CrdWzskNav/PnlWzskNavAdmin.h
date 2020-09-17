@@ -2,8 +2,8 @@
 	* \file PnlWzskNavAdmin.h
 	* job handler for job PnlWzskNavAdmin (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKNAVADMIN_H
@@ -232,7 +232,7 @@ public:
 	void refreshUsr(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
 	void refreshLstPrs(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
 	void refreshPrs(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 
 	void updatePreset(DbsWzsk* dbswzsk, const Sbecore::uint ixWzskVPreset, const Sbecore::ubigint jrefTrig, const bool notif = false);
 

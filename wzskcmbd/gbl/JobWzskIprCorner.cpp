@@ -2,8 +2,8 @@
 	* \file JobWzskIprCorner.cpp
 	* job handler for job JobWzskIprCorner (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -70,6 +70,8 @@ void JobWzskIprCorner::Shrdat::init(
 	roiDx = -512;
 	roiDy = 150;
 
+	loopNotSngshot = false;
+
 	for (unsigned int i = 0; i < 2; i++) result.append(new ResultitemCorner());
 
 	thd = 255;
@@ -99,7 +101,10 @@ JobWzskIprCorner::JobWzskIprCorner(
 	srcv4l2 = NULL;
 	acqfpgaflg = NULL;
 
-	// IP constructor.cust1 --- INSERT
+	// IP constructor.cust1 --- IBEGIN
+	ixRiSrc = 0; ixRiSrc--;
+	ixRi = shrdat.result.size();
+	// IP constructor.cust1 --- IEND
 
 	// IP constructor.spec1 --- INSERT
 
@@ -129,6 +134,16 @@ JobWzskIprCorner::~JobWzskIprCorner() {
 };
 
 // IP cust --- IBEGIN
+JobWzskIprCorner::Claim::Claim(
+			const bool retractable
+			, const bool run
+			, const bool loopNotSngshot
+		) :
+			Sbecore::Claim(retractable, run)
+		{
+	this->loopNotSngshot = loopNotSngshot;
+};
+
 void JobWzskIprCorner::scoreV4l2(
 			uint16_t* gr16
 			, uint16_t* score16
@@ -788,6 +803,18 @@ uint JobWzskIprCorner::enterSgeIdle(
 		xchg->getCsjobClaim(acqfpgaflg, srcTakenNotAvailable, srcFulfilled);
 		if (srcFulfilled) xchg->addCsjobClaim(dbswzsk, acqfpgaflg, new JobWzskAcqFpgaflg::Claim(false, false, false, false));
 	};
+
+	if ((ixRiSrc + 1) != 0) {
+		if (srcv4l2) srcv4l2->shrdat.resultAcq.unlock(jref, ixRiSrc);
+		else if (acqfpgaflg) acqfpgaflg->shrdat.resultFlg.unlock(jref, ixRiSrc);
+
+		ixRiSrc = 0; ixRiSrc--;
+	};
+
+	if (ixRi != shrdat.result.size()) {
+		shrdat.result.unlock(0, ixRi);
+		ixRi = shrdat.result.size();
+	};
 	// IP enterSgeIdle --- IEND
 
 	return retval;
@@ -808,25 +835,28 @@ uint JobWzskIprCorner::enterSgeReady(
 	// IP enterSgeReady --- IBEGIN
 	Shrdat::ResultitemCorner* ri = NULL;
 
-	if (shrdat.result.dequeue(ixRi)) {
-		ri = (Shrdat::ResultitemCorner*) shrdat.result[ixRi];
+	if (nextIxVSgeFailure == VecVSge::IDLE) retval = nextIxVSgeFailure; // claim run attribute has been retracted
+	else if (!reenter) {
+		if (shrdat.result.dequeue(ixRi)) {
+			ri = (Shrdat::ResultitemCorner*) shrdat.result[ixRi];
 
-		ri->scoreMin = 0;
-		ri->scoreMax = 0;
-		ri->NCorner = 0;
-		ri->thd = 0;
+			ri->scoreMin = 0;
+			ri->scoreMax = 0;
+			ri->NCorner = 0;
+			ri->thd = 0;
 
-		ri->tIn = 0.0;
-		ri->tOut = 0.0;
+			ri->tIn = 0.0;
+			ri->tOut = 0.0;
 
-		ri->x.clear();
-		ri->y.clear();
+			ri->x.clear();
+			ri->y.clear();
 
-		// set source claim to run
-		if (srcv4l2) xchg->addCsjobClaim(dbswzsk, srcv4l2, new Claim(false, true));
-		else if (acqfpgaflg) xchg->addCsjobClaim(dbswzsk, acqfpgaflg, new JobWzskAcqFpgaflg::Claim(false, true, false, false));
+			// set source claim to run
+			if (srcv4l2) xchg->addCsjobClaim(dbswzsk, srcv4l2, new Claim(false, true));
+			else if (acqfpgaflg) xchg->addCsjobClaim(dbswzsk, acqfpgaflg, new JobWzskAcqFpgaflg::Claim(false, true, false, false));
 
-	} else retval = VecVSge::IDLE;
+		} else retval = VecVSge::IDLE;
+	};
 	// IP enterSgeReady --- IEND
 
 	return retval;
@@ -894,6 +924,7 @@ uint JobWzskIprCorner::enterSgeProcess(
 		scoreV4l2Fp(riSrcv4l2->gr16, score16, ri->scoreMin, ri->scoreMax);
 
 		srcv4l2->shrdat.resultAcq.unlock(jref, ixRiSrc);
+		ixRiSrc = 0; ixRiSrc--;
 
 		if (shrdat.thd == 255) {
 			// adapt initial threshold
@@ -906,7 +937,7 @@ uint JobWzskIprCorner::enterSgeProcess(
 
 		maxselV4l2(score16, corner16, ri->NCorner);
 
-		Wzsk::bitmapToXy((unsigned char*) corner16, true, wGrrd, hGrrd, ri->x, ri->y, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, false);
+		Wzsk::bitmapToXy((unsigned char*) corner16, true, wGrrd, hGrrd, ri->x, ri->y, wGrrd + 1, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, false);
 
 		delete[] score16;
 
@@ -917,9 +948,10 @@ uint JobWzskIprCorner::enterSgeProcess(
 
 		ri->tIn = riSrcfpga->t;
 
-		Wzsk::bitmapToXy(riSrcfpga->buf, false, wGrrd, hGrrd, ri->x, ri->y, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, false);
+		Wzsk::bitmapToXy(riSrcfpga->buf, false, wGrrd, hGrrd, ri->x, ri->y, wGrrd + 1, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, false);
 
 		acqfpgaflg->shrdat.resultFlg.unlock(jref, ixRiSrc);
+		ixRiSrc = 0; ixRiSrc--;
 	};
 
 	ri->NCorner = ri->x.size();
@@ -948,8 +980,10 @@ uint JobWzskIprCorner::enterSgeProcess(
 	xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixRi, "corner");
 
 	shrdat.result.unlock(0, ixRi); // hadn't been locked within this class
+	ixRi = shrdat.result.size();
 
-	retval = VecVSge::DONE;
+	if (!shrdat.loopNotSngshot) retval = VecVSge::DONE;
+	else retval = VecVSge::READY;
 	// IP enterSgeProcess --- IEND
 
 	return retval;
@@ -1000,6 +1034,7 @@ bool JobWzskIprCorner::handleClaim(
 
 	bool retractable = true;
 	bool run = false;
+	bool loopNotSngshot = false;
 
 	bool available;
 	bool reattributed;
@@ -1015,6 +1050,7 @@ bool JobWzskIprCorner::handleClaim(
 			jrefFulfilled = it->first;
 			retractable = claim->retractable;
 			run = claim->run;
+			loopNotSngshot = claim->loopNotSngshot;
 		};
 	};
 
@@ -1051,6 +1087,7 @@ bool JobWzskIprCorner::handleClaim(
 					claim->fulfilled = true;
 					retractable = claim->retractable;
 					run = claim->run;
+					loopNotSngshot = claim->loopNotSngshot;
 
 					reattributed = true;
 				};
@@ -1072,8 +1109,17 @@ bool JobWzskIprCorner::handleClaim(
 		claim->takenNotAvailable = !available;
 	};
 
-	// initiate stage change (source claim is removed / updated in stage ready)
-	if (run && srcFulfilled && ((ixVSge == VecVSge::IDLE) || (ixVSge == VecVSge::DONE))) changeStage(dbswzsk, VecVSge::READY);
+	shrdat.loopNotSngshot = loopNotSngshot;
+
+	// initiate stage change
+	if (!run) {
+		nextIxVSgeFailure = VecVSge::IDLE;
+		if (ixVSge == VecVSge::READY) changeStage(dbswzsk, ixVSge); // re-enter
+
+	} else if (run && srcFulfilled && ((ixVSge == VecVSge::IDLE) || (ixVSge == VecVSge::DONE))) {
+		nextIxVSgeFailure = VecVSge::READY;
+		changeStage(dbswzsk, VecVSge::READY); // source claim is removed / updated in stage ready
+	};
 
 	mod = true; // for simplicity
 	// IP handleClaim --- IEND

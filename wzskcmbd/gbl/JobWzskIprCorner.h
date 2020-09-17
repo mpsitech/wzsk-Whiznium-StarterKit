@@ -2,8 +2,8 @@
 	* \file JobWzskIprCorner.h
 	* job handler for job JobWzskIprCorner (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef JOBWZSKIPRCORNER_H
@@ -150,6 +150,8 @@ public:
 		std::vector<bool> flg;
 
 		// IP Shrdat.vars.cust --- IBEGIN
+		bool loopNotSngshot;
+
 		Sbecore::Result result;
 
 		Sbecore::utinyint thd; // constantly adapted, enforced using srcfpga->featdet_setThd();
@@ -181,6 +183,18 @@ public:
 
 public:
 	// IP cust --- IBEGIN
+	/**
+		* Claim (full: ClaimJobWzskIprCorner)
+		*/
+	class Claim : public Sbecore::Claim {
+
+	public:
+		Claim(const bool retractable = true, const bool run = false, const bool loopNotSngshot = false);
+
+	public:
+		bool loopNotSngshot;
+	};
+
 	void scoreV4l2(uint16_t* gr16, uint16_t* score16, Sbecore::ubigint& scoreMin, Sbecore::ubigint& scoreMax);
 	void scoreV4l2Fp(uint16_t* gr16, uint16_t* score16, Sbecore::ubigint& scoreMin, Sbecore::ubigint& scoreMax);
 

@@ -2,8 +2,8 @@
 	* \file PnlWzskLiv2DView.h
 	* job handler for job PnlWzskLiv2DView (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKLIV2DVIEW_H
@@ -11,11 +11,15 @@
 
 // IP include.spec --- INSERT
 
-// IP include.cust --- INSERT
+// IP include.cust --- IBEGIN
+#include <png.h>
+// IP include.cust --- IEND
 
 #include "JobWzskIprTrace.h"
 #include "JobWzskIprCorner.h"
 #include "JobWzskActServo.h"
+#include "JobWzskActLaser.h"
+#include "JobWzskActExposure.h"
 #include "JobWzskAcqPreview.h"
 
 #define VecVWzskLiv2DViewDo PnlWzskLiv2DView::VecVDo
@@ -52,9 +56,12 @@ public:
 		static const Sbecore::uint BUTPLAYCLICK = 4;
 		static const Sbecore::uint BUTSTOPCLICK = 5;
 		static const Sbecore::uint BUTSTSCLICK = 6;
-		static const Sbecore::uint BUTTTBCLICK = 7;
-		static const Sbecore::uint BUTLTRCLICK = 8;
-		static const Sbecore::uint BUTPICCLICK = 9;
+		static const Sbecore::uint BUTTCCCLICK = 7;
+		static const Sbecore::uint BUTTCWCLICK = 8;
+		static const Sbecore::uint BUTLLECLICK = 9;
+		static const Sbecore::uint BUTLRICLICK = 10;
+		static const Sbecore::uint BUTLTRCLICK = 11;
+		static const Sbecore::uint BUTPICCLICK = 12;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -67,26 +74,24 @@ public:
 
 	public:
 		static const Sbecore::uint NUMFPUPPVM = 1;
-		static const Sbecore::uint SLDFCS = 2;
+		static const Sbecore::uint CHKAEX = 2;
 		static const Sbecore::uint SLDEXT = 3;
-		static const Sbecore::uint SLDLLE = 4;
-		static const Sbecore::uint SLDLRI = 5;
-		static const Sbecore::uint UPDLLO = 6;
-		static const Sbecore::uint UPDLUO = 7;
-		static const Sbecore::uint UPDLMD = 8;
-		static const Sbecore::uint CHKLRO = 9;
-		static const Sbecore::uint UPDPNT = 10;
-		static const Sbecore::uint CHKPRO = 11;
+		static const Sbecore::uint SLDFCS = 4;
+		static const Sbecore::uint UPDLLO = 5;
+		static const Sbecore::uint UPDLUO = 6;
+		static const Sbecore::uint UPDLMD = 7;
+		static const Sbecore::uint CHKLRO = 8;
+		static const Sbecore::uint UPDPNT = 9;
+		static const Sbecore::uint CHKPRO = 10;
 
 	public:
-		ContIac(const Sbecore::uint numFPupPvm = 1, const double SldFcs = 0.0, const double SldExt = 0.0, const double SldLle = 0.0, const double SldLri = 0.0, const int UpdLlo = 0, const int UpdLuo = 0, const int UpdLmd = 0, const bool ChkLro = false, const int UpdPnt = 0, const bool ChkPro = false);
+		ContIac(const Sbecore::uint numFPupPvm = 1, const bool ChkAex = false, const double SldExt = 0.0, const double SldFcs = 0.0, const int UpdLlo = 0, const int UpdLuo = 0, const int UpdLmd = 0, const bool ChkLro = false, const int UpdPnt = 0, const bool ChkPro = false);
 
 	public:
 		Sbecore::uint numFPupPvm;
-		double SldFcs;
+		bool ChkAex;
 		double SldExt;
-		double SldLle;
-		double SldLri;
+		double SldFcs;
 		int UpdLlo;
 		int UpdLuo;
 		int UpdLmd;
@@ -179,17 +184,23 @@ public:
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
 		static const Sbecore::uint TXTOAF = 2;
-		static const Sbecore::uint BUTTTBON = 3;
-		static const Sbecore::uint BUTLTRON = 4;
-		static const Sbecore::uint BUTPICON = 5;
+		static const Sbecore::uint BUTTCCON = 3;
+		static const Sbecore::uint BUTTCWON = 4;
+		static const Sbecore::uint BUTLLEON = 5;
+		static const Sbecore::uint BUTLRION = 6;
+		static const Sbecore::uint BUTLTRON = 7;
+		static const Sbecore::uint BUTPICON = 8;
 
 	public:
-		ContInf(const bool ButClaimOn = false, const std::string& TxtOaf = "", const bool ButTtbOn = false, const bool ButLtrOn = false, const bool ButPicOn = false);
+		ContInf(const bool ButClaimOn = false, const std::string& TxtOaf = "", const bool ButTccOn = false, const bool ButTcwOn = false, const bool ButLleOn = false, const bool ButLriOn = false, const bool ButLtrOn = false, const bool ButPicOn = false);
 
 	public:
 		bool ButClaimOn;
 		std::string TxtOaf;
-		bool ButTtbOn;
+		bool ButTccOn;
+		bool ButTcwOn;
+		bool ButLleOn;
+		bool ButLriOn;
 		bool ButLtrOn;
 		bool ButPicOn;
 
@@ -207,60 +218,50 @@ public:
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
 		static const Sbecore::uint BUTCLAIMACTIVE = 2;
-		static const Sbecore::uint SLDFCSAVAIL = 3;
-		static const Sbecore::uint SLDFCSACTIVE = 4;
-		static const Sbecore::uint SLDFCSMIN = 5;
-		static const Sbecore::uint SLDFCSMAX = 6;
-		static const Sbecore::uint SLDEXTAVAIL = 7;
-		static const Sbecore::uint SLDEXTACTIVE = 8;
-		static const Sbecore::uint SLDEXTMIN = 9;
-		static const Sbecore::uint SLDEXTMAX = 10;
-		static const Sbecore::uint SLDEXTRAST = 11;
-		static const Sbecore::uint BUTPLAYACTIVE = 12;
-		static const Sbecore::uint BUTSTOPACTIVE = 13;
+		static const Sbecore::uint BUTPLAYACTIVE = 3;
+		static const Sbecore::uint BUTSTOPACTIVE = 4;
+		static const Sbecore::uint CHKAEXACTIVE = 5;
+		static const Sbecore::uint SLDEXTAVAIL = 6;
+		static const Sbecore::uint SLDEXTACTIVE = 7;
+		static const Sbecore::uint SLDEXTMIN = 8;
+		static const Sbecore::uint SLDEXTMAX = 9;
+		static const Sbecore::uint SLDEXTRAST = 10;
+		static const Sbecore::uint SLDFCSACTIVE = 11;
+		static const Sbecore::uint SLDFCSMIN = 12;
+		static const Sbecore::uint SLDFCSMAX = 13;
 		static const Sbecore::uint TXTOAFAVAIL = 14;
 		static const Sbecore::uint BUTSTSACTIVE = 15;
-		static const Sbecore::uint BUTTTBACTIVE = 16;
-		static const Sbecore::uint SLDLLEMIN = 17;
-		static const Sbecore::uint SLDLLEMAX = 18;
-		static const Sbecore::uint SLDLRIMIN = 19;
-		static const Sbecore::uint SLDLRIMAX = 20;
-		static const Sbecore::uint UPDLLOAVAIL = 21;
-		static const Sbecore::uint UPDLLOMIN = 22;
-		static const Sbecore::uint UPDLLOMAX = 23;
-		static const Sbecore::uint UPDLUOAVAIL = 24;
-		static const Sbecore::uint UPDLUOMIN = 25;
-		static const Sbecore::uint UPDLUOMAX = 26;
-		static const Sbecore::uint UPDLMDAVAIL = 27;
-		static const Sbecore::uint UPDLMDMIN = 28;
-		static const Sbecore::uint UPDLMDMAX = 29;
-		static const Sbecore::uint UPDPNTMIN = 30;
-		static const Sbecore::uint UPDPNTMAX = 31;
+		static const Sbecore::uint UPDLLOAVAIL = 16;
+		static const Sbecore::uint UPDLLOMIN = 17;
+		static const Sbecore::uint UPDLLOMAX = 18;
+		static const Sbecore::uint UPDLUOAVAIL = 19;
+		static const Sbecore::uint UPDLUOMIN = 20;
+		static const Sbecore::uint UPDLUOMAX = 21;
+		static const Sbecore::uint UPDLMDAVAIL = 22;
+		static const Sbecore::uint UPDLMDMIN = 23;
+		static const Sbecore::uint UPDLMDMAX = 24;
+		static const Sbecore::uint UPDPNTMIN = 25;
+		static const Sbecore::uint UPDPNTMAX = 26;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool SldFcsAvail = true, const bool SldFcsActive = true, const double SldFcsMin = 0.0, const double SldFcsMax = 1.0, const bool SldExtAvail = true, const bool SldExtActive = true, const double SldExtMin = 0.001, const double SldExtMax = 100.0, const double SldExtRast = 3.16228, const bool ButPlayActive = true, const bool ButStopActive = true, const bool TxtOafAvail = true, const bool ButStsActive = true, const bool ButTtbActive = true, const double SldLleMin = 0, const double SldLleMax = 100, const double SldLriMin = 0, const double SldLriMax = 100, const bool UpdLloAvail = true, const int UpdLloMin = 0, const int UpdLloMax = 255, const bool UpdLuoAvail = true, const int UpdLuoMin = 0, const int UpdLuoMax = 255, const bool UpdLmdAvail = true, const int UpdLmdMin = 0, const int UpdLmdMax = 255, const int UpdPntMin = 0, const int UpdPntMax = 1024);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool ButPlayActive = true, const bool ButStopActive = true, const bool ChkAexActive = true, const bool SldExtAvail = true, const bool SldExtActive = true, const double SldExtMin = 0.001, const double SldExtMax = 100.0, const double SldExtRast = 1.77828, const bool SldFcsActive = true, const double SldFcsMin = 0.0, const double SldFcsMax = 1.0, const bool TxtOafAvail = true, const bool ButStsActive = true, const bool UpdLloAvail = true, const int UpdLloMin = 0, const int UpdLloMax = 255, const bool UpdLuoAvail = true, const int UpdLuoMin = 0, const int UpdLuoMax = 255, const bool UpdLmdAvail = true, const int UpdLmdMin = 0, const int UpdLmdMax = 255, const int UpdPntMin = 0, const int UpdPntMax = 1024);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		bool ButClaimActive;
-		bool SldFcsAvail;
-		bool SldFcsActive;
-		double SldFcsMin;
-		double SldFcsMax;
+		bool ButPlayActive;
+		bool ButStopActive;
+		bool ChkAexActive;
 		bool SldExtAvail;
 		bool SldExtActive;
 		double SldExtMin;
 		double SldExtMax;
 		double SldExtRast;
-		bool ButPlayActive;
-		bool ButStopActive;
+		bool SldFcsActive;
+		double SldFcsMin;
+		double SldFcsMax;
 		bool TxtOafAvail;
 		bool ButStsActive;
-		bool ButTtbActive;
-		double SldLleMin;
-		double SldLleMax;
-		double SldLriMin;
-		double SldLriMax;
 		bool UpdLloAvail;
 		int UpdLloMin;
 		int UpdLloMax;
@@ -454,15 +455,14 @@ public:
 	};
 
 	bool evalButClaimActive(DbsWzsk* dbswzsk);
-	bool evalSldFcsAvail(DbsWzsk* dbswzsk);
-	bool evalSldFcsActive(DbsWzsk* dbswzsk);
-	bool evalSldExtAvail(DbsWzsk* dbswzsk);
-	bool evalSldExtActive(DbsWzsk* dbswzsk);
 	bool evalButPlayActive(DbsWzsk* dbswzsk);
 	bool evalButStopActive(DbsWzsk* dbswzsk);
+	bool evalChkAexActive(DbsWzsk* dbswzsk);
+	bool evalSldExtAvail(DbsWzsk* dbswzsk);
+	bool evalSldExtActive(DbsWzsk* dbswzsk);
+	bool evalSldFcsActive(DbsWzsk* dbswzsk);
 	bool evalTxtOafAvail(DbsWzsk* dbswzsk);
 	bool evalButStsActive(DbsWzsk* dbswzsk);
-	bool evalButTtbActive(DbsWzsk* dbswzsk);
 	bool evalUpdLloAvail(DbsWzsk* dbswzsk);
 	bool evalUpdLuoAvail(DbsWzsk* dbswzsk);
 	bool evalUpdLmdAvail(DbsWzsk* dbswzsk);
@@ -483,19 +483,28 @@ public:
 	JobWzskIprTrace* iprtrace;
 	JobWzskIprCorner* iprcorner;
 	JobWzskActServo* actservo;
+	JobWzskActLaser* actlaser;
+	JobWzskActExposure* actexposure;
 	JobWzskAcqPreview* acqpreview;
 
-	// IP vars.cust --- INSERT
+	// IP vars.cust --- IBEGIN
+	bool initdoneAlign;
+
+	bool snapshotArmed;
+	// IP vars.cust --- IEND
 
 public:
 	// IP cust --- IBEGIN
 	void refreshAlign(std::set<Sbecore::uint>& moditems);
+
+	void takeSnapshot(DbsWzsk* dbswzsk, const Sbecore::uint ixWzskVPvwmode, uint8_t* gr8, uint8_t* r8, uint8_t* g8, uint8_t* b8);
+	void takeSnapshot_writePng(const std::string& path, unsigned char* imgdat, const unsigned int width, const unsigned int height);
 	// IP cust --- IEND
 
 public:
 	DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
 
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 
 public:
 
@@ -514,7 +523,10 @@ private:
 	void handleDpchAppDoButPlayClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButStopClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButStsClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
-	void handleDpchAppDoButTtbClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoButTccClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoButTcwClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoButLleClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoButLriClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButLtrClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButPicClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 
@@ -522,12 +534,14 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskSgeChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskStgChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskSgeChgFromActservo(DbsWzsk* dbswzsk);
 	bool handleCallWzskShrdatChgFromIprtrace(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskShrdatChgFromIprcorner(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromActlaser(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromActexposure(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskResultNew(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const std::string& srefInv);
-	bool handleCallWzskClaimChgFromAcqpreview(DbsWzsk* dbswzsk);
+	bool handleCallWzskClaimChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 };
 

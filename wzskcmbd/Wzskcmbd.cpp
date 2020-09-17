@@ -2,8 +2,8 @@
 	* \file Wzskcmbd.cpp
 	* inter-thread exchange object for Wzsk combined daemon (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "Wzskcmbd.h"
@@ -1290,13 +1290,13 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrAbt(
 	continf.TxtCpt = StrMod::cap(continf.TxtCpt);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		continf.TxtMsg1 = "Whiznium StarterKit version 0.1.26 released on 23-7-2020";
+		continf.TxtMsg1 = "Whiznium StarterKit version v0.1.33 released on 16-9-2020";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "contributors: Catherine Johnson";
 		continf.TxtMsg6 = "libraries: png 1.6.36 and ezdevwskd 1.0";
 		continf.TxtMsg8 = "Whiznium StarterKit is computer vision software which powers MPSI's tabletop 3D laser scanner that represents the primary on-boarding vehicle for Whiznium.";
 	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		continf.TxtMsg1 = "Whiznium StarterKit Version 0.1.26 ver\\u00f6ffentlicht am 23-7-2020";
+		continf.TxtMsg1 = "Whiznium StarterKit Version v0.1.33 ver\\u00f6ffentlicht am 16-9-2020";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "Mitwirkende: Catherine Johnson";
 		continf.TxtMsg6 = "Programmbibliotheken: png 1.6.36 und ezdevwskd 1.0";
@@ -1562,18 +1562,21 @@ DpchEngWzsk* JobWzsk::getNewDpchEng(
 void JobWzsk::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
 };
 
 void JobWzsk::refreshWithDpchEng(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
+			, const bool unmute
 		) {
 	set<uint> moditems;
 
 	DpchEngWzsk* _dpcheng = NULL;
 
-	refresh(dbswzsk, moditems);
+	refresh(dbswzsk, moditems, unmute);
+	if (muteRefresh) return;
 
 	if (dpcheng) {
 		_dpcheng = getNewDpchEng(moditems);
@@ -1921,8 +1924,8 @@ void StmgrWzsk::handleCall(
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOBJUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOBJSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOGRUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRHSREF);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRSTD);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRHSREF);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKPRSUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKPRSSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSESUPD_REFEQ) {
@@ -2134,12 +2137,14 @@ XchgWzskcmbd::XchgWzskcmbd() :
 	csjobinfos[VecWzskVJob::JOBWZSKACQFPGAPVW] = new Csjobinfo(VecWzskVJob::JOBWZSKACQFPGAPVW);
 	csjobinfos[VecWzskVJob::JOBWZSKACQPREVIEW] = new Csjobinfo(VecWzskVJob::JOBWZSKACQPREVIEW);
 	csjobinfos[VecWzskVJob::JOBWZSKACQPTCLOUD] = new Csjobinfo(VecWzskVJob::JOBWZSKACQPTCLOUD);
+	csjobinfos[VecWzskVJob::JOBWZSKACTEXPOSURE] = new Csjobinfo(VecWzskVJob::JOBWZSKACTEXPOSURE);
 	csjobinfos[VecWzskVJob::JOBWZSKACTLASER] = new Csjobinfo(VecWzskVJob::JOBWZSKACTLASER);
 	csjobinfos[VecWzskVJob::JOBWZSKACTSERVO] = new Csjobinfo(VecWzskVJob::JOBWZSKACTSERVO);
 	csjobinfos[VecWzskVJob::JOBWZSKIPRANGLE] = new Csjobinfo(VecWzskVJob::JOBWZSKIPRANGLE);
 	csjobinfos[VecWzskVJob::JOBWZSKIPRCORNER] = new Csjobinfo(VecWzskVJob::JOBWZSKIPRCORNER);
 	csjobinfos[VecWzskVJob::JOBWZSKIPRTRACE] = new Csjobinfo(VecWzskVJob::JOBWZSKIPRTRACE);
 	csjobinfos[VecWzskVJob::JOBWZSKSRCFPGA] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCFPGA);
+	csjobinfos[VecWzskVJob::JOBWZSKSRCSYSINFO] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCSYSINFO);
 	csjobinfos[VecWzskVJob::JOBWZSKSRCV4L2] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCV4L2);
 
 	// DDS publisher call
@@ -2177,7 +2182,7 @@ void XchgWzskcmbd::startMon() {
 	Clstn* clstn = NULL;
 	Preset* preset = NULL;
 
-	mon.start("Whiznium StarterKit 0.1.26", stgwzskpath.monpath);
+	mon.start("Whiznium StarterKit v0.1.33", stgwzskpath.monpath);
 
 	rwmJobs.rlock("XchgWzskcmbd", "startMon");
 	for (auto it = jobs.begin(); it != jobs.end(); it++) {
@@ -2244,6 +2249,8 @@ void XchgWzskcmbd::appendToLogfile(
 void XchgWzskcmbd::addReq(
 			ReqWzsk* req
 		) {
+	if (jrefRoot == 0) return;
+
 	mReqs.lock("XchgWzskcmbd", "addReq", "jref=" + to_string(req->jref));
 
 	req->ixVState = ReqWzsk::VecVState::WAITPRC;
@@ -4048,7 +4055,7 @@ void XchgWzskcmbd::addCsjobClaim(
 
 		csjob->srv->lockAccess("XchgWzskcmbd", "addCsjobClaim");
 
-		csjobinfo->mClaims.lock("XchgWzskcmbd", "addCsjobClaim", "jref=" + to_string(csjob->jref));
+		csjobinfo->mClaims.wlock("XchgWzskcmbd", "addCsjobClaim", "jref=" + to_string(csjob->jref));
 
 		auto it = csjobinfo->claims.find(csjob->jref);
 		if (it != csjobinfo->claims.end()) delete it->second;
@@ -4057,7 +4064,7 @@ void XchgWzskcmbd::addCsjobClaim(
 
 		mod = csjob->srv->handleClaim(dbswzsk, csjobinfo->claims, csjob->jref);
 
-		csjobinfo->mClaims.unlock("XchgWzskcmbd", "addCsjobClaim", "jref=" + to_string(csjob->jref));
+		csjobinfo->mClaims.wunlock("XchgWzskcmbd", "addCsjobClaim", "jref=" + to_string(csjob->jref));
 
 		csjob->srv->unlockAccess("XchgWzskcmbd", "addCsjobClaim");
 
@@ -4065,12 +4072,14 @@ void XchgWzskcmbd::addCsjobClaim(
 	};
 };
 
-void XchgWzskcmbd::getCsjobClaim(
+bool XchgWzskcmbd::getCsjobClaim(
 			CsjobWzsk* csjob
 			, bool& takenNotAvailable
 			, bool& fulfilled
 			, bool& run
 		) {
+	bool retval = false;
+
 	Csjobinfo* csjobinfo = NULL;;
 
 	takenNotAvailable = false;
@@ -4082,29 +4091,33 @@ void XchgWzskcmbd::getCsjobClaim(
 
 		csjobinfo = csjobinfos[csjob->ixWzskVJob];
 
-		csjobinfo->mClaims.lock("XchgWzskcmbd", "getCsjobClaim", "jref=" + to_string(csjob->jref));
+		csjobinfo->mClaims.rlock("XchgWzskcmbd", "getCsjobClaim", "jref=" + to_string(csjob->jref));
 
 		auto it = csjobinfo->claims.find(csjob->jref);
-		if (it != csjobinfo->claims.end()) {
+		retval = (it != csjobinfo->claims.end());
+
+		if (retval) {
 			takenNotAvailable = it->second->takenNotAvailable;
 			fulfilled = it->second->fulfilled;
 			run = it->second->run;
 		};
 
-		csjobinfo->mClaims.unlock("XchgWzskcmbd", "getCsjobClaim", "jref=" + to_string(csjob->jref));
+		csjobinfo->mClaims.runlock("XchgWzskcmbd", "getCsjobClaim", "jref=" + to_string(csjob->jref));
 
 		rwmCsjobinfos.runlock("XchgWzskcmbd", "getCsjobClaim", "jref=" + to_string(csjob->jref));
 	};
+
+	return retval;
 };
 
-void XchgWzskcmbd::getCsjobClaim(
+bool XchgWzskcmbd::getCsjobClaim(
 			CsjobWzsk* csjob
 			, bool& takenNotAvailable
 			, bool& fulfilled
 		) {
 	bool run;
 
-	getCsjobClaim(csjob, takenNotAvailable, fulfilled, run);
+	return getCsjobClaim(csjob, takenNotAvailable, fulfilled, run);
 };
 
 void XchgWzskcmbd::clearCsjobRun(
@@ -4124,7 +4137,7 @@ void XchgWzskcmbd::clearCsjobRun(
 	rwmCsjobinfos.runlock("XchgWzskcmbd", "clearCsjobRun", "srefIxWzskVJob=" + VecWzskVJob::getSref(ixWzskVJob));
 
 	if (csjobinfo) {
-		csjobinfo->mClaims.lock("XchgWzskcmbd", "clearCsjobRun", "srefIxWzskVJob=" + VecWzskVJob::getSref(ixWzskVJob));
+		csjobinfo->mClaims.wlock("XchgWzskcmbd", "clearCsjobRun", "srefIxWzskVJob=" + VecWzskVJob::getSref(ixWzskVJob));
 
 		for (auto it2 = csjobinfo->claims.begin(); it2 != csjobinfo->claims.end(); it2++) {
 			claim = it2->second;
@@ -4135,7 +4148,7 @@ void XchgWzskcmbd::clearCsjobRun(
 			};
 		};
 
-		csjobinfo->mClaims.unlock("XchgWzskcmbd", "clearCsjobRun", "srefIxWzskVJob=" + VecWzskVJob::getSref(ixWzskVJob));
+		csjobinfo->mClaims.wunlock("XchgWzskcmbd", "clearCsjobRun", "srefIxWzskVJob=" + VecWzskVJob::getSref(ixWzskVJob));
 
 		if (mod) triggerCall(dbswzsk, VecWzskVCall::CALLWZSKCLAIMCHG, csjobinfo->jrefSrv);
 	};
@@ -4147,7 +4160,7 @@ void XchgWzskcmbd::removeCsjobClaim(
 		) {
 	Csjobinfo* csjobinfo = NULL;;
 
-	bool mod;
+	bool mod = false;
 
 	if (!csjob->srvNotCli && csjob->srv) {
 		rwmCsjobinfos.rlock("XchgWzskcmbd", "removeCsjobClaim", "jref=" + to_string(csjob->jref));
@@ -4158,17 +4171,17 @@ void XchgWzskcmbd::removeCsjobClaim(
 
 		csjob->srv->lockAccess("XchgWzskcmbd", "removeCsjobClaim");
 
-		csjobinfo->mClaims.lock("XchgWzskcmbd", "removeCsjobClaim", "jref=" + to_string(csjob->jref));
+		csjobinfo->mClaims.wlock("XchgWzskcmbd", "removeCsjobClaim", "jref=" + to_string(csjob->jref));
 
 		auto it = csjobinfo->claims.find(csjob->jref);
 		if (it != csjobinfo->claims.end()) {
 			delete it->second;
 			csjobinfo->claims.erase(it);
+
+			mod = csjob->srv->handleClaim(dbswzsk, csjobinfo->claims, 0);
 		};
 
-		mod = csjob->srv->handleClaim(dbswzsk, csjobinfo->claims, 0);
-
-		csjobinfo->mClaims.unlock("XchgWzskcmbd", "removeCsjobClaim", "jref=" + to_string(csjob->jref));
+		csjobinfo->mClaims.wunlock("XchgWzskcmbd", "removeCsjobClaim", "jref=" + to_string(csjob->jref));
 
 		csjob->srv->unlockAccess("XchgWzskcmbd", "removeCsjobClaim");
 

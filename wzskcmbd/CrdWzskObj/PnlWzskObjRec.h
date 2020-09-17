@@ -2,8 +2,8 @@
 	* \file PnlWzskObjRec.h
 	* job handler for job PnlWzskObjRec (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKOBJREC_H
@@ -14,6 +14,7 @@
 // IP include.cust --- INSERT
 
 #include "PnlWzskObjRef1NFile.h"
+#include "PnlWzskObj1NShot.h"
 #include "PnlWzskObjDetail.h"
 
 #define VecVWzskObjRecDo PnlWzskObjRec::VecVDo
@@ -71,7 +72,7 @@ public:
 	class StatApp {
 
 	public:
-		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const bool initdoneDetail = false, const bool initdoneRef1NFile = false);
+		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const bool initdoneDetail = false, const bool initdone1NShot = false, const bool initdoneRef1NFile = false);
 	};
 
 	/**
@@ -82,15 +83,17 @@ public:
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
 		static const Sbecore::uint JREFDETAIL = 2;
-		static const Sbecore::uint JREFREF1NFILE = 3;
-		static const Sbecore::uint BUTREGULARIZEACTIVE = 4;
+		static const Sbecore::uint JREF1NSHOT = 3;
+		static const Sbecore::uint JREFREF1NFILE = 4;
+		static const Sbecore::uint BUTREGULARIZEACTIVE = 5;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::REGD, const Sbecore::ubigint jrefDetail = 0, const Sbecore::ubigint jrefRef1NFile = 0, const bool ButRegularizeActive = true);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::REGD, const Sbecore::ubigint jrefDetail = 0, const Sbecore::ubigint jref1NShot = 0, const Sbecore::ubigint jrefRef1NFile = 0, const bool ButRegularizeActive = true);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		Sbecore::ubigint jrefDetail;
+		Sbecore::ubigint jref1NShot;
 		Sbecore::ubigint jrefRef1NFile;
 		bool ButRegularizeActive;
 
@@ -168,6 +171,7 @@ public:
 	StatShr statshr;
 
 	PnlWzskObjRef1NFile* pnlref1nfile;
+	PnlWzskObj1NShot* pnl1nshot;
 	PnlWzskObjDetail* pnldetail;
 
 	WzskMObject recObj;
@@ -180,7 +184,7 @@ public:
 public:
 	DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
 
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 
 	void updatePreset(DbsWzsk* dbswzsk, const Sbecore::uint ixWzskVPreset, const Sbecore::ubigint jrefTrig, const bool notif = false);
 	void minimize(DbsWzsk* dbswzsk, const bool notif = false, DpchEngWzsk** dpcheng = NULL);

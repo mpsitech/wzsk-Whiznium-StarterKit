@@ -2,8 +2,8 @@
 	* \file IexWzskIni.cpp
 	* data blocks and readers/writers for import/export complex IexWzskIni (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "IexWzskIni.h"

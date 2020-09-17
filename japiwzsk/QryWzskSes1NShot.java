@@ -2,8 +2,8 @@
   * \file QryWzskSes1NShot.java
   * Java API code for job QryWzskSes1NShot
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 package apiwzsk;

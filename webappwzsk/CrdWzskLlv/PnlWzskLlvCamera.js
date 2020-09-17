@@ -2,8 +2,8 @@
   * \file PnlWzskLlvCamera.js
   * web client functionality for panel PnlWzskLlvCamera
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 // IP cust --- IBEGIN
@@ -143,6 +143,7 @@ function initBD(bNotD) {
 	initCpt(hdrdoc, "Cpt", retrieveTi(srcdoc, "TagWzskLlvCamera", "Cpt"));
 	initCpt(contcontdoc, "CptMde", retrieveTi(srcdoc, "TagWzskLlvCamera", "CptMde"));
 	refreshPup(contcontdoc, srcdoc, "PupMde", "", "FeedFPupMde", retrieveCi(srcdoc, "ContIacWzskLlvCamera", "numFPupMde"), true, false);
+	initCpt(contcontdoc, "CptAex", retrieveTi(srcdoc, "TagWzskLlvCamera", "CptAex"));
 	initCpt(contcontdoc, "CptFcs", retrieveTi(srcdoc, "TagWzskLlvCamera", "CptFcs"));
 	initCpt(contcontdoc, "CptExt", retrieveTi(srcdoc, "TagWzskLlvCamera", "CptExt"));
 
@@ -174,7 +175,7 @@ function refreshA() {
 function refreshBD(bNotD) {
 	if (!contcontdoc) return;
 
-	var height = 590; // full cont height
+	var height = 622; // full cont height
 
 	// IP refreshBD.vars --- BEGIN
 	var ButClaimActive = (retrieveSi(srcdoc, "StatShrWzskLlvCamera", "ButClaimActive") == "true");
@@ -182,11 +183,12 @@ function refreshBD(bNotD) {
 	var ButPlayActive = (retrieveSi(srcdoc, "StatShrWzskLlvCamera", "ButPlayActive") == "true");
 	var ButStopActive = (retrieveSi(srcdoc, "StatShrWzskLlvCamera", "ButStopActive") == "true");
 
-	var SldFcsAvail = (retrieveSi(srcdoc, "StatShrWzskLlvCamera", "SldFcsAvail") == "true");
-	var SldFcsActive = (retrieveSi(srcdoc, "StatShrWzskLlvCamera", "SldFcsActive") == "true");
+	var ChkAexActive = (retrieveSi(srcdoc, "StatShrWzskLlvCamera", "ChkAexActive") == "true");
 
 	var SldExtAvail = (retrieveSi(srcdoc, "StatShrWzskLlvCamera", "SldExtAvail") == "true");
 	var SldExtActive = (retrieveSi(srcdoc, "StatShrWzskLlvCamera", "SldExtActive") == "true");
+
+	var SldFcsActive = (retrieveSi(srcdoc, "StatShrWzskLlvCamera", "SldFcsActive") == "true");
 
 	// IP refreshBD.vars --- END
 
@@ -197,17 +199,15 @@ function refreshBD(bNotD) {
 	refreshButicon(contcontdoc, "ButPlay", "iconwzsk/play", ButPlayActive, false);
 	refreshButicon(contcontdoc, "ButStop", "iconwzsk/stop", ButStopActive, false);
 
-	height -= setCtlAvail(contcontdoc, "Fcs", SldFcsAvail, 25);
-	if (SldFcsAvail) {
-		refreshSld(contcontdoc, "SldFcs", true, false, parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvCamera", "SldFcsMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvCamera", "SldFcsMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskLlvCamera", "SldFcs")), SldFcsActive, false);
-
-	};
+	refreshChk(contcontdoc, "ChkAex", (retrieveCi(srcdoc, "ContIacWzskLlvCamera", "ChkAex") == "true"), ChkAexActive);
 
 	height -= setCtlAvail(contcontdoc, "Ext", SldExtAvail, 25);
 	if (SldExtAvail) {
 		refreshSld(contcontdoc, "SldExt", true, true, parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvCamera", "SldExtMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvCamera", "SldExtMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskLlvCamera", "SldExt")), SldExtActive, false);
 
 	};
+
+	refreshSld(contcontdoc, "SldFcs", true, false, parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvCamera", "SldFcsMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvCamera", "SldFcsMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskLlvCamera", "SldFcs")), SldFcsActive, false);
 
 	// IP refreshBD --- END
 
@@ -251,6 +251,19 @@ function handleLoad() {
 
 function handleButClick(ctlsref) {
 	var str = serializeDpchAppDo(srcdoc, "DpchAppWzskLlvCameraDo", scrJref, ctlsref + "Click");
+	sendReq(str, doc, handleDpchAppDataDoReply);
+};
+
+function handleChkChange(_doc, ctlsref) {
+	var elem = _doc.getElementById(ctlsref);
+	var checked;
+
+	elem.setAttribute("class", "chkmod");
+
+	if (elem.checked == true) checked = "true"; else checked = "false";
+	setCi(srcdoc, "ContIacWzskLlvCamera", ctlsref, checked);
+
+	var str = serializeDpchAppData(srcdoc, "DpchAppWzskLlvCameraData", scrJref, "ContIacWzskLlvCamera");
 	sendReq(str, doc, handleDpchAppDataDoReply);
 };
 

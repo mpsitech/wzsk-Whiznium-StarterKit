@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvCamera.h
 	* job handler for job PnlWzskLlvCamera (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKLLVCAMERA_H
@@ -13,6 +13,7 @@
 
 // IP include.cust --- INSERT
 
+#include "JobWzskActExposure.h"
 #include "JobWzskAcqPreview.h"
 
 #define VecVWzskLlvCameraDo PnlWzskLlvCamera::VecVDo
@@ -56,16 +57,18 @@ public:
 
 	public:
 		static const Sbecore::uint NUMFPUPMDE = 1;
-		static const Sbecore::uint SLDFCS = 2;
+		static const Sbecore::uint CHKAEX = 2;
 		static const Sbecore::uint SLDEXT = 3;
+		static const Sbecore::uint SLDFCS = 4;
 
 	public:
-		ContIac(const Sbecore::uint numFPupMde = 1, const double SldFcs = 0.0, const double SldExt = 0.0);
+		ContIac(const Sbecore::uint numFPupMde = 1, const bool ChkAex = false, const double SldExt = 0.0, const double SldFcs = 0.0);
 
 	public:
 		Sbecore::uint numFPupMde;
-		double SldFcs;
+		bool ChkAex;
 		double SldExt;
+		double SldFcs;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -104,33 +107,33 @@ public:
 		static const Sbecore::uint BUTCLAIMACTIVE = 2;
 		static const Sbecore::uint BUTPLAYACTIVE = 3;
 		static const Sbecore::uint BUTSTOPACTIVE = 4;
-		static const Sbecore::uint SLDFCSAVAIL = 5;
-		static const Sbecore::uint SLDFCSACTIVE = 6;
-		static const Sbecore::uint SLDFCSMIN = 7;
-		static const Sbecore::uint SLDFCSMAX = 8;
-		static const Sbecore::uint SLDEXTAVAIL = 9;
-		static const Sbecore::uint SLDEXTACTIVE = 10;
-		static const Sbecore::uint SLDEXTMIN = 11;
-		static const Sbecore::uint SLDEXTMAX = 12;
-		static const Sbecore::uint SLDEXTRAST = 13;
+		static const Sbecore::uint CHKAEXACTIVE = 5;
+		static const Sbecore::uint SLDEXTAVAIL = 6;
+		static const Sbecore::uint SLDEXTACTIVE = 7;
+		static const Sbecore::uint SLDEXTMIN = 8;
+		static const Sbecore::uint SLDEXTMAX = 9;
+		static const Sbecore::uint SLDEXTRAST = 10;
+		static const Sbecore::uint SLDFCSACTIVE = 11;
+		static const Sbecore::uint SLDFCSMIN = 12;
+		static const Sbecore::uint SLDFCSMAX = 13;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool ButPlayActive = true, const bool ButStopActive = true, const bool SldFcsAvail = true, const bool SldFcsActive = true, const double SldFcsMin = 0.0, const double SldFcsMax = 1.0, const bool SldExtAvail = true, const bool SldExtActive = true, const double SldExtMin = 0.001, const double SldExtMax = 100.0, const double SldExtRast = 3.16228);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool ButPlayActive = true, const bool ButStopActive = true, const bool ChkAexActive = true, const bool SldExtAvail = true, const bool SldExtActive = true, const double SldExtMin = 0.001, const double SldExtMax = 100.0, const double SldExtRast = 1.77828, const bool SldFcsActive = true, const double SldFcsMin = 0.0, const double SldFcsMax = 1.0);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		bool ButClaimActive;
 		bool ButPlayActive;
 		bool ButStopActive;
-		bool SldFcsAvail;
-		bool SldFcsActive;
-		double SldFcsMin;
-		double SldFcsMax;
+		bool ChkAexActive;
 		bool SldExtAvail;
 		bool SldExtActive;
 		double SldExtMin;
 		double SldExtMax;
 		double SldExtRast;
+		bool SldFcsActive;
+		double SldFcsMin;
+		double SldFcsMax;
 
 	public:
 		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
@@ -252,10 +255,10 @@ public:
 	bool evalButClaimActive(DbsWzsk* dbswzsk);
 	bool evalButPlayActive(DbsWzsk* dbswzsk);
 	bool evalButStopActive(DbsWzsk* dbswzsk);
-	bool evalSldFcsAvail(DbsWzsk* dbswzsk);
-	bool evalSldFcsActive(DbsWzsk* dbswzsk);
+	bool evalChkAexActive(DbsWzsk* dbswzsk);
 	bool evalSldExtAvail(DbsWzsk* dbswzsk);
 	bool evalSldExtActive(DbsWzsk* dbswzsk);
+	bool evalSldFcsActive(DbsWzsk* dbswzsk);
 
 public:
 	PnlWzskLlvCamera(XchgWzsk* xchg, DbsWzsk* dbswzsk, const Sbecore::ubigint jrefSup, const Sbecore::uint ixWzskVLocale);
@@ -268,6 +271,7 @@ public:
 
 	Sbecore::Xmlio::Feed feedFPupMde;
 
+	JobWzskActExposure* actexposure;
 	JobWzskAcqPreview* acqpreview;
 
 	// IP vars.cust --- INSERT
@@ -278,7 +282,7 @@ public:
 public:
 	DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
 
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 
 public:
 
@@ -300,9 +304,9 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskSgeChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskShrdatChgFromActexposure(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskResultNewFromAcqpreview(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskClaimChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
-	bool handleCallWzskResultNew(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const std::string& srefInv);
 
 };
 

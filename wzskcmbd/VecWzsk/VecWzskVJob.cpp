@@ -2,8 +2,8 @@
 	* \file VecWzskVJob.cpp
 	* vector VecWzskVJob (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "VecWzskVJob.h"
@@ -44,6 +44,7 @@ uint VecWzskVJob::getIx(
 	if (s == "jobwzskacqfpgapvw") return JOBWZSKACQFPGAPVW;
 	if (s == "jobwzskacqpreview") return JOBWZSKACQPREVIEW;
 	if (s == "jobwzskacqptcloud") return JOBWZSKACQPTCLOUD;
+	if (s == "jobwzskactexposure") return JOBWZSKACTEXPOSURE;
 	if (s == "jobwzskactlaser") return JOBWZSKACTLASER;
 	if (s == "jobwzskactservo") return JOBWZSKACTSERVO;
 	if (s == "jobwzskiexini") return JOBWZSKIEXINI;
@@ -51,6 +52,7 @@ uint VecWzskVJob::getIx(
 	if (s == "jobwzskiprcorner") return JOBWZSKIPRCORNER;
 	if (s == "jobwzskiprtrace") return JOBWZSKIPRTRACE;
 	if (s == "jobwzsksrcfpga") return JOBWZSKSRCFPGA;
+	if (s == "jobwzsksrcsysinfo") return JOBWZSKSRCSYSINFO;
 	if (s == "jobwzsksrcv4l2") return JOBWZSKSRCV4L2;
 	if (s == "m2msesswzsk") return M2MSESSWZSK;
 	if (s == "pnlwzskfildetail") return PNLWZSKFILDETAIL;
@@ -60,6 +62,7 @@ uint VecWzskVJob::getIx(
 	if (s == "pnlwzskliv2dview") return PNLWZSKLIV2DVIEW;
 	if (s == "pnlwzskliv3dview") return PNLWZSKLIV3DVIEW;
 	if (s == "pnlwzsklivheadbar") return PNLWZSKLIVHEADBAR;
+	if (s == "pnlwzsklivsysmon") return PNLWZSKLIVSYSMON;
 	if (s == "pnlwzskllvcamera") return PNLWZSKLLVCAMERA;
 	if (s == "pnlwzskllvheadbar") return PNLWZSKLLVHEADBAR;
 	if (s == "pnlwzskllvlaser") return PNLWZSKLLVLASER;
@@ -70,13 +73,13 @@ uint VecWzskVJob::getIx(
 	if (s == "pnlwzsknavheadbar") return PNLWZSKNAVHEADBAR;
 	if (s == "pnlwzsknavop") return PNLWZSKNAVOP;
 	if (s == "pnlwzsknavpre") return PNLWZSKNAVPRE;
+	if (s == "pnlwzskobj1nshot") return PNLWZSKOBJ1NSHOT;
 	if (s == "pnlwzskobjdetail") return PNLWZSKOBJDETAIL;
 	if (s == "pnlwzskobjheadbar") return PNLWZSKOBJHEADBAR;
 	if (s == "pnlwzskobjlist") return PNLWZSKOBJLIST;
 	if (s == "pnlwzskobjrec") return PNLWZSKOBJREC;
 	if (s == "pnlwzskobjref1nfile") return PNLWZSKOBJREF1NFILE;
 	if (s == "pnlwzskogr1nobject") return PNLWZSKOGR1NOBJECT;
-	if (s == "pnlwzskogr1nshot") return PNLWZSKOGR1NSHOT;
 	if (s == "pnlwzskogrdetail") return PNLWZSKOGRDETAIL;
 	if (s == "pnlwzskogrheadbar") return PNLWZSKOGRHEADBAR;
 	if (s == "pnlwzskogrlist") return PNLWZSKOGRLIST;
@@ -115,10 +118,10 @@ uint VecWzskVJob::getIx(
 	if (s == "pnlwzskusrmnusergroup") return PNLWZSKUSRMNUSERGROUP;
 	if (s == "pnlwzskusrrec") return PNLWZSKUSRREC;
 	if (s == "qrywzskfillist") return QRYWZSKFILLIST;
+	if (s == "qrywzskobj1nshot") return QRYWZSKOBJ1NSHOT;
 	if (s == "qrywzskobjlist") return QRYWZSKOBJLIST;
 	if (s == "qrywzskobjref1nfile") return QRYWZSKOBJREF1NFILE;
 	if (s == "qrywzskogr1nobject") return QRYWZSKOGR1NOBJECT;
-	if (s == "qrywzskogr1nshot") return QRYWZSKOGR1NSHOT;
 	if (s == "qrywzskogrlist") return QRYWZSKOGRLIST;
 	if (s == "qrywzskogrsup1nobjgroup") return QRYWZSKOGRSUP1NOBJGROUP;
 	if (s == "qrywzskprsadetail") return QRYWZSKPRSADETAIL;
@@ -167,6 +170,7 @@ string VecWzskVJob::getSref(
 	if (ix == JOBWZSKACQFPGAPVW) return("JobWzskAcqFpgapvw");
 	if (ix == JOBWZSKACQPREVIEW) return("JobWzskAcqPreview");
 	if (ix == JOBWZSKACQPTCLOUD) return("JobWzskAcqPtcloud");
+	if (ix == JOBWZSKACTEXPOSURE) return("JobWzskActExposure");
 	if (ix == JOBWZSKACTLASER) return("JobWzskActLaser");
 	if (ix == JOBWZSKACTSERVO) return("JobWzskActServo");
 	if (ix == JOBWZSKIEXINI) return("JobWzskIexIni");
@@ -174,6 +178,7 @@ string VecWzskVJob::getSref(
 	if (ix == JOBWZSKIPRCORNER) return("JobWzskIprCorner");
 	if (ix == JOBWZSKIPRTRACE) return("JobWzskIprTrace");
 	if (ix == JOBWZSKSRCFPGA) return("JobWzskSrcFpga");
+	if (ix == JOBWZSKSRCSYSINFO) return("JobWzskSrcSysinfo");
 	if (ix == JOBWZSKSRCV4L2) return("JobWzskSrcV4l2");
 	if (ix == M2MSESSWZSK) return("M2msessWzsk");
 	if (ix == PNLWZSKFILDETAIL) return("PnlWzskFilDetail");
@@ -183,6 +188,7 @@ string VecWzskVJob::getSref(
 	if (ix == PNLWZSKLIV2DVIEW) return("PnlWzskLiv2DView");
 	if (ix == PNLWZSKLIV3DVIEW) return("PnlWzskLiv3DView");
 	if (ix == PNLWZSKLIVHEADBAR) return("PnlWzskLivHeadbar");
+	if (ix == PNLWZSKLIVSYSMON) return("PnlWzskLivSysmon");
 	if (ix == PNLWZSKLLVCAMERA) return("PnlWzskLlvCamera");
 	if (ix == PNLWZSKLLVHEADBAR) return("PnlWzskLlvHeadbar");
 	if (ix == PNLWZSKLLVLASER) return("PnlWzskLlvLaser");
@@ -193,13 +199,13 @@ string VecWzskVJob::getSref(
 	if (ix == PNLWZSKNAVHEADBAR) return("PnlWzskNavHeadbar");
 	if (ix == PNLWZSKNAVOP) return("PnlWzskNavOp");
 	if (ix == PNLWZSKNAVPRE) return("PnlWzskNavPre");
+	if (ix == PNLWZSKOBJ1NSHOT) return("PnlWzskObj1NShot");
 	if (ix == PNLWZSKOBJDETAIL) return("PnlWzskObjDetail");
 	if (ix == PNLWZSKOBJHEADBAR) return("PnlWzskObjHeadbar");
 	if (ix == PNLWZSKOBJLIST) return("PnlWzskObjList");
 	if (ix == PNLWZSKOBJREC) return("PnlWzskObjRec");
 	if (ix == PNLWZSKOBJREF1NFILE) return("PnlWzskObjRef1NFile");
 	if (ix == PNLWZSKOGR1NOBJECT) return("PnlWzskOgr1NObject");
-	if (ix == PNLWZSKOGR1NSHOT) return("PnlWzskOgr1NShot");
 	if (ix == PNLWZSKOGRDETAIL) return("PnlWzskOgrDetail");
 	if (ix == PNLWZSKOGRHEADBAR) return("PnlWzskOgrHeadbar");
 	if (ix == PNLWZSKOGRLIST) return("PnlWzskOgrList");
@@ -238,10 +244,10 @@ string VecWzskVJob::getSref(
 	if (ix == PNLWZSKUSRMNUSERGROUP) return("PnlWzskUsrMNUsergroup");
 	if (ix == PNLWZSKUSRREC) return("PnlWzskUsrRec");
 	if (ix == QRYWZSKFILLIST) return("QryWzskFilList");
+	if (ix == QRYWZSKOBJ1NSHOT) return("QryWzskObj1NShot");
 	if (ix == QRYWZSKOBJLIST) return("QryWzskObjList");
 	if (ix == QRYWZSKOBJREF1NFILE) return("QryWzskObjRef1NFile");
 	if (ix == QRYWZSKOGR1NOBJECT) return("QryWzskOgr1NObject");
-	if (ix == QRYWZSKOGR1NSHOT) return("QryWzskOgr1NShot");
 	if (ix == QRYWZSKOGRLIST) return("QryWzskOgrList");
 	if (ix == QRYWZSKOGRSUP1NOBJGROUP) return("QryWzskOgrSup1NObjgroup");
 	if (ix == QRYWZSKPRSADETAIL) return("QryWzskPrsADetail");

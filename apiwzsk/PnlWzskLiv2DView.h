@@ -2,8 +2,8 @@
 	* \file PnlWzskLiv2DView.h
 	* API code for job PnlWzskLiv2DView (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKLIV2DVIEW_H
@@ -11,11 +11,11 @@
 
 #include "ApiWzsk_blks.h"
 
-#include "PnlWzskLiv2DView.h"
-
 #define VecVWzskLiv2DViewDo PnlWzskLiv2DView::VecVDo
 
 #define ContIacWzskLiv2DView PnlWzskLiv2DView::ContIac
+#define ContIacWzskLiv2DViewCorner PnlWzskLiv2DView::ContIacCorner
+#define ContIacWzskLiv2DViewTrace PnlWzskLiv2DView::ContIacTrace
 #define ContInfWzskLiv2DView PnlWzskLiv2DView::ContInf
 #define StatShrWzskLiv2DView PnlWzskLiv2DView::StatShr
 #define TagWzskLiv2DView PnlWzskLiv2DView::Tag
@@ -43,9 +43,12 @@ namespace PnlWzskLiv2DView {
 		static const Sbecore::uint BUTPLAYCLICK = 4;
 		static const Sbecore::uint BUTSTOPCLICK = 5;
 		static const Sbecore::uint BUTSTSCLICK = 6;
-		static const Sbecore::uint BUTTTBCLICK = 7;
-		static const Sbecore::uint BUTLTRCLICK = 8;
-		static const Sbecore::uint BUTPICCLICK = 9;
+		static const Sbecore::uint BUTTCCCLICK = 7;
+		static const Sbecore::uint BUTTCWCLICK = 8;
+		static const Sbecore::uint BUTLLECLICK = 9;
+		static const Sbecore::uint BUTLRICLICK = 10;
+		static const Sbecore::uint BUTLTRCLICK = 11;
+		static const Sbecore::uint BUTPICCLICK = 12;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -58,26 +61,24 @@ namespace PnlWzskLiv2DView {
 
 	public:
 		static const Sbecore::uint NUMFPUPPVM = 1;
-		static const Sbecore::uint SLDFCS = 2;
+		static const Sbecore::uint CHKAEX = 2;
 		static const Sbecore::uint SLDEXT = 3;
-		static const Sbecore::uint SLDLLE = 4;
-		static const Sbecore::uint SLDLRI = 5;
-		static const Sbecore::uint UPDLLO = 6;
-		static const Sbecore::uint UPDLUO = 7;
-		static const Sbecore::uint UPDLMD = 8;
-		static const Sbecore::uint CHKLRO = 9;
-		static const Sbecore::uint UPDPNT = 10;
-		static const Sbecore::uint CHKPRO = 11;
+		static const Sbecore::uint SLDFCS = 4;
+		static const Sbecore::uint UPDLLO = 5;
+		static const Sbecore::uint UPDLUO = 6;
+		static const Sbecore::uint UPDLMD = 7;
+		static const Sbecore::uint CHKLRO = 8;
+		static const Sbecore::uint UPDPNT = 9;
+		static const Sbecore::uint CHKPRO = 10;
 
 	public:
-		ContIac(const Sbecore::uint numFPupPvm = 1, const double SldFcs = 0.0, const double SldExt = 0.0, const double SldLle = 0.0, const double SldLri = 0.0, const int UpdLlo = 0, const int UpdLuo = 0, const int UpdLmd = 0, const bool ChkLro = false, const int UpdPnt = 0, const bool ChkPro = false);
+		ContIac(const Sbecore::uint numFPupPvm = 1, const bool ChkAex = false, const double SldExt = 0.0, const double SldFcs = 0.0, const int UpdLlo = 0, const int UpdLuo = 0, const int UpdLmd = 0, const bool ChkLro = false, const int UpdPnt = 0, const bool ChkPro = false);
 
 	public:
 		Sbecore::uint numFPupPvm;
-		double SldFcs;
+		bool ChkAex;
 		double SldExt;
-		double SldLle;
-		double SldLri;
+		double SldFcs;
 		int UpdLlo;
 		int UpdLuo;
 		int UpdLmd;
@@ -93,6 +94,76 @@ namespace PnlWzskLiv2DView {
 	};
 
 	/**
+	  * ContIacCorner (full: ContIacWzskLiv2DViewCorner)
+	  */
+	class ContIacCorner : public Sbecore::Xmlio::Block {
+
+	public:
+		static const Sbecore::uint ROIAX = 1;
+		static const Sbecore::uint ROIAY = 2;
+		static const Sbecore::uint ROIBX = 3;
+		static const Sbecore::uint ROIBY = 4;
+		static const Sbecore::uint ROICX = 5;
+		static const Sbecore::uint ROICY = 6;
+		static const Sbecore::uint ROIDX = 7;
+		static const Sbecore::uint ROIDY = 8;
+
+	public:
+		ContIacCorner(const int roiAx = 0, const int roiAy = -200, const int roiBx = 300, const int roiBy = 0, const int roiCx = 0, const int roiCy = 200, const int roiDx = -300, const int roiDy = 0);
+
+	public:
+		int roiAx;
+		int roiAy;
+		int roiBx;
+		int roiBy;
+		int roiCx;
+		int roiCy;
+		int roiDx;
+		int roiDy;
+
+	public:
+		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
+		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
+		std::set<Sbecore::uint> comm(const ContIacCorner* comp);
+		std::set<Sbecore::uint> diff(const ContIacCorner* comp);
+	};
+
+	/**
+	  * ContIacTrace (full: ContIacWzskLiv2DViewTrace)
+	  */
+	class ContIacTrace : public Sbecore::Xmlio::Block {
+
+	public:
+		static const Sbecore::uint ROIAX = 1;
+		static const Sbecore::uint ROIAY = 2;
+		static const Sbecore::uint ROIBX = 3;
+		static const Sbecore::uint ROIBY = 4;
+		static const Sbecore::uint ROICX = 5;
+		static const Sbecore::uint ROICY = 6;
+		static const Sbecore::uint ROIDX = 7;
+		static const Sbecore::uint ROIDY = 8;
+
+	public:
+		ContIacTrace(const int roiAx = -300, const int roiAy = -200, const int roiBx = 300, const int roiBy = -200, const int roiCx = 300, const int roiCy = 400, const int roiDx = -300, const int roiDy = 400);
+
+	public:
+		int roiAx;
+		int roiAy;
+		int roiBx;
+		int roiBy;
+		int roiCx;
+		int roiCy;
+		int roiDx;
+		int roiDy;
+
+	public:
+		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
+		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
+		std::set<Sbecore::uint> comm(const ContIacTrace* comp);
+		std::set<Sbecore::uint> diff(const ContIacTrace* comp);
+	};
+
+	/**
 	  * ContInf (full: ContInfWzskLiv2DView)
 	  */
 	class ContInf : public Sbecore::Xmlio::Block {
@@ -100,17 +171,23 @@ namespace PnlWzskLiv2DView {
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
 		static const Sbecore::uint TXTOAF = 2;
-		static const Sbecore::uint BUTTTBON = 3;
-		static const Sbecore::uint BUTLTRON = 4;
-		static const Sbecore::uint BUTPICON = 5;
+		static const Sbecore::uint BUTTCCON = 3;
+		static const Sbecore::uint BUTTCWON = 4;
+		static const Sbecore::uint BUTLLEON = 5;
+		static const Sbecore::uint BUTLRION = 6;
+		static const Sbecore::uint BUTLTRON = 7;
+		static const Sbecore::uint BUTPICON = 8;
 
 	public:
-		ContInf(const bool ButClaimOn = false, const std::string& TxtOaf = "", const bool ButTtbOn = false, const bool ButLtrOn = false, const bool ButPicOn = false);
+		ContInf(const bool ButClaimOn = false, const std::string& TxtOaf = "", const bool ButTccOn = false, const bool ButTcwOn = false, const bool ButLleOn = false, const bool ButLriOn = false, const bool ButLtrOn = false, const bool ButPicOn = false);
 
 	public:
 		bool ButClaimOn;
 		std::string TxtOaf;
-		bool ButTtbOn;
+		bool ButTccOn;
+		bool ButTcwOn;
+		bool ButLleOn;
+		bool ButLriOn;
 		bool ButLtrOn;
 		bool ButPicOn;
 
@@ -128,60 +205,50 @@ namespace PnlWzskLiv2DView {
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
 		static const Sbecore::uint BUTCLAIMACTIVE = 2;
-		static const Sbecore::uint SLDFCSAVAIL = 3;
-		static const Sbecore::uint SLDFCSACTIVE = 4;
-		static const Sbecore::uint SLDFCSMIN = 5;
-		static const Sbecore::uint SLDFCSMAX = 6;
-		static const Sbecore::uint SLDEXTAVAIL = 7;
-		static const Sbecore::uint SLDEXTACTIVE = 8;
-		static const Sbecore::uint SLDEXTMIN = 9;
-		static const Sbecore::uint SLDEXTMAX = 10;
-		static const Sbecore::uint SLDEXTRAST = 11;
-		static const Sbecore::uint BUTPLAYACTIVE = 12;
-		static const Sbecore::uint BUTSTOPACTIVE = 13;
+		static const Sbecore::uint BUTPLAYACTIVE = 3;
+		static const Sbecore::uint BUTSTOPACTIVE = 4;
+		static const Sbecore::uint CHKAEXACTIVE = 5;
+		static const Sbecore::uint SLDEXTAVAIL = 6;
+		static const Sbecore::uint SLDEXTACTIVE = 7;
+		static const Sbecore::uint SLDEXTMIN = 8;
+		static const Sbecore::uint SLDEXTMAX = 9;
+		static const Sbecore::uint SLDEXTRAST = 10;
+		static const Sbecore::uint SLDFCSACTIVE = 11;
+		static const Sbecore::uint SLDFCSMIN = 12;
+		static const Sbecore::uint SLDFCSMAX = 13;
 		static const Sbecore::uint TXTOAFAVAIL = 14;
 		static const Sbecore::uint BUTSTSACTIVE = 15;
-		static const Sbecore::uint BUTTTBACTIVE = 16;
-		static const Sbecore::uint SLDLLEMIN = 17;
-		static const Sbecore::uint SLDLLEMAX = 18;
-		static const Sbecore::uint SLDLRIMIN = 19;
-		static const Sbecore::uint SLDLRIMAX = 20;
-		static const Sbecore::uint UPDLLOAVAIL = 21;
-		static const Sbecore::uint UPDLLOMIN = 22;
-		static const Sbecore::uint UPDLLOMAX = 23;
-		static const Sbecore::uint UPDLUOAVAIL = 24;
-		static const Sbecore::uint UPDLUOMIN = 25;
-		static const Sbecore::uint UPDLUOMAX = 26;
-		static const Sbecore::uint UPDLMDAVAIL = 27;
-		static const Sbecore::uint UPDLMDMIN = 28;
-		static const Sbecore::uint UPDLMDMAX = 29;
-		static const Sbecore::uint UPDPNTMIN = 30;
-		static const Sbecore::uint UPDPNTMAX = 31;
+		static const Sbecore::uint UPDLLOAVAIL = 16;
+		static const Sbecore::uint UPDLLOMIN = 17;
+		static const Sbecore::uint UPDLLOMAX = 18;
+		static const Sbecore::uint UPDLUOAVAIL = 19;
+		static const Sbecore::uint UPDLUOMIN = 20;
+		static const Sbecore::uint UPDLUOMAX = 21;
+		static const Sbecore::uint UPDLMDAVAIL = 22;
+		static const Sbecore::uint UPDLMDMIN = 23;
+		static const Sbecore::uint UPDLMDMAX = 24;
+		static const Sbecore::uint UPDPNTMIN = 25;
+		static const Sbecore::uint UPDPNTMAX = 26;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool SldFcsAvail = true, const bool SldFcsActive = true, const double SldFcsMin = 0.0, const double SldFcsMax = 1.0, const bool SldExtAvail = true, const bool SldExtActive = true, const double SldExtMin = 0.001, const double SldExtMax = 100.0, const double SldExtRast = 3.16228, const bool ButPlayActive = true, const bool ButStopActive = true, const bool TxtOafAvail = true, const bool ButStsActive = true, const bool ButTtbActive = true, const double SldLleMin = 0, const double SldLleMax = 100, const double SldLriMin = 0, const double SldLriMax = 100, const bool UpdLloAvail = true, const int UpdLloMin = 0, const int UpdLloMax = 255, const bool UpdLuoAvail = true, const int UpdLuoMin = 0, const int UpdLuoMax = 255, const bool UpdLmdAvail = true, const int UpdLmdMin = 0, const int UpdLmdMax = 255, const int UpdPntMin = 0, const int UpdPntMax = 100);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool ButPlayActive = true, const bool ButStopActive = true, const bool ChkAexActive = true, const bool SldExtAvail = true, const bool SldExtActive = true, const double SldExtMin = 0.001, const double SldExtMax = 100.0, const double SldExtRast = 1.77828, const bool SldFcsActive = true, const double SldFcsMin = 0.0, const double SldFcsMax = 1.0, const bool TxtOafAvail = true, const bool ButStsActive = true, const bool UpdLloAvail = true, const int UpdLloMin = 0, const int UpdLloMax = 255, const bool UpdLuoAvail = true, const int UpdLuoMin = 0, const int UpdLuoMax = 255, const bool UpdLmdAvail = true, const int UpdLmdMin = 0, const int UpdLmdMax = 255, const int UpdPntMin = 0, const int UpdPntMax = 1024);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		bool ButClaimActive;
-		bool SldFcsAvail;
-		bool SldFcsActive;
-		double SldFcsMin;
-		double SldFcsMax;
+		bool ButPlayActive;
+		bool ButStopActive;
+		bool ChkAexActive;
 		bool SldExtAvail;
 		bool SldExtActive;
 		double SldExtMin;
 		double SldExtMax;
 		double SldExtRast;
-		bool ButPlayActive;
-		bool ButStopActive;
+		bool SldFcsActive;
+		double SldFcsMin;
+		double SldFcsMax;
 		bool TxtOafAvail;
 		bool ButStsActive;
-		bool ButTtbActive;
-		double SldLleMin;
-		double SldLleMax;
-		double SldLriMin;
-		double SldLriMax;
 		bool UpdLloAvail;
 		int UpdLloMin;
 		int UpdLloMax;
@@ -208,45 +275,51 @@ namespace PnlWzskLiv2DView {
 	public:
 		static const Sbecore::uint CPT = 1;
 		static const Sbecore::uint CPTPVM = 2;
-		static const Sbecore::uint CPTFCS = 3;
+		static const Sbecore::uint CPTAEX = 3;
 		static const Sbecore::uint CPTEXT = 4;
-		static const Sbecore::uint CPTOAF = 5;
-		static const Sbecore::uint BUTSTS = 6;
-		static const Sbecore::uint BUTTTB = 7;
-		static const Sbecore::uint HDGLOR = 8;
-		static const Sbecore::uint CPTLGL = 9;
-		static const Sbecore::uint CPTLLE = 10;
-		static const Sbecore::uint CPTLRI = 11;
-		static const Sbecore::uint CPTLLO = 12;
-		static const Sbecore::uint CPTLUO = 13;
-		static const Sbecore::uint CPTLMD = 14;
-		static const Sbecore::uint CPTLRO = 15;
-		static const Sbecore::uint BUTLTR = 16;
-		static const Sbecore::uint BUTLCL = 17;
-		static const Sbecore::uint HDGPOS = 18;
-		static const Sbecore::uint CPTPNT = 19;
-		static const Sbecore::uint CPTPRO = 20;
-		static const Sbecore::uint BUTPIC = 21;
-		static const Sbecore::uint BUTPCL = 22;
+		static const Sbecore::uint CPTFCS = 5;
+		static const Sbecore::uint CPTOAF = 6;
+		static const Sbecore::uint BUTSTS = 7;
+		static const Sbecore::uint HDGTTB = 8;
+		static const Sbecore::uint BUTTCC = 9;
+		static const Sbecore::uint BUTTCW = 10;
+		static const Sbecore::uint HDGLOR = 11;
+		static const Sbecore::uint BUTLLE = 12;
+		static const Sbecore::uint BUTLRI = 13;
+		static const Sbecore::uint CPTLLO = 14;
+		static const Sbecore::uint CPTLUO = 15;
+		static const Sbecore::uint CPTLMD = 16;
+		static const Sbecore::uint CPTLGL = 17;
+		static const Sbecore::uint CPTLRO = 18;
+		static const Sbecore::uint BUTLTR = 19;
+		static const Sbecore::uint BUTLCL = 20;
+		static const Sbecore::uint HDGPOS = 21;
+		static const Sbecore::uint CPTPNT = 22;
+		static const Sbecore::uint CPTPRO = 23;
+		static const Sbecore::uint BUTPIC = 24;
+		static const Sbecore::uint BUTPCL = 25;
 
 	public:
-		Tag(const std::string& Cpt = "", const std::string& CptPvm = "", const std::string& CptFcs = "", const std::string& CptExt = "", const std::string& CptOaf = "", const std::string& ButSts = "", const std::string& ButTtb = "", const std::string& HdgLor = "", const std::string& CptLgl = "", const std::string& CptLle = "", const std::string& CptLri = "", const std::string& CptLlo = "", const std::string& CptLuo = "", const std::string& CptLmd = "", const std::string& CptLro = "", const std::string& ButLtr = "", const std::string& ButLcl = "", const std::string& HdgPos = "", const std::string& CptPnt = "", const std::string& CptPro = "", const std::string& ButPic = "", const std::string& ButPcl = "");
+		Tag(const std::string& Cpt = "", const std::string& CptPvm = "", const std::string& CptAex = "", const std::string& CptExt = "", const std::string& CptFcs = "", const std::string& CptOaf = "", const std::string& ButSts = "", const std::string& HdgTtb = "", const std::string& ButTcc = "", const std::string& ButTcw = "", const std::string& HdgLor = "", const std::string& ButLle = "", const std::string& ButLri = "", const std::string& CptLlo = "", const std::string& CptLuo = "", const std::string& CptLmd = "", const std::string& CptLgl = "", const std::string& CptLro = "", const std::string& ButLtr = "", const std::string& ButLcl = "", const std::string& HdgPos = "", const std::string& CptPnt = "", const std::string& CptPro = "", const std::string& ButPic = "", const std::string& ButPcl = "");
 
 	public:
 		std::string Cpt;
 		std::string CptPvm;
-		std::string CptFcs;
+		std::string CptAex;
 		std::string CptExt;
+		std::string CptFcs;
 		std::string CptOaf;
 		std::string ButSts;
-		std::string ButTtb;
+		std::string HdgTtb;
+		std::string ButTcc;
+		std::string ButTcw;
 		std::string HdgLor;
-		std::string CptLgl;
-		std::string CptLle;
-		std::string CptLri;
+		std::string ButLle;
+		std::string ButLri;
 		std::string CptLlo;
 		std::string CptLuo;
 		std::string CptLmd;
+		std::string CptLgl;
 		std::string CptLro;
 		std::string ButLtr;
 		std::string ButLcl;

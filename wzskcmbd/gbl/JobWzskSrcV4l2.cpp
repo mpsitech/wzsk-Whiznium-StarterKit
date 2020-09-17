@@ -2,8 +2,8 @@
 	* \file JobWzskSrcV4l2.cpp
 	* job handler for job JobWzskSrcV4l2 (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -216,7 +216,7 @@ void JobWzskSrcV4l2::Shrdat::init(
 	v4l2_frmsizeenum fszenum;
 	v4l2_requestbuffers req;
 
-	const unsigned int N = 8; // eight buffers and result items prove to worke nicely
+	const unsigned int N = 8; // eight buffers and result items prove to work nicely
 
 	// open camera
 	fd = open(stg.path.c_str(), O_RDWR);
@@ -497,17 +497,19 @@ bool JobWzskSrcV4l2::setCtrl(
 			, const int intval
 			, const bool boolval
 		) {
-	// according to mxc_v4l2_capture.c, V4L2_CID... controls are recognized
+	// according to drivers/media/platform/mxc/capture/mxc_v4l2_capture.c, V4L2_CID... controls are recognized
 	// _HFLIP, _VFLIP, _MXC_ROT, _MXC_VF_ROT, _HUE, _CONTRAST, _BRIGHTNESS, _SATURATION,
 	// _RED_BALANCE, _BLUE_BALANCE, _EXPOSURE
 	// ... probably, they are handled by the iMX6's IPU
 
-	// according to ov5640_mipi.c, V4L2_CID... controls are recognized
+	// according to drivers/media/platform/mxc/capture/ov5640_mipi.c, V4L2_CID... controls are recognized
 	// _BRIGHTNESS, _CONTRAST, _SATURATION, _HUE, _AUTO_WHITE_BALANCE, _DO_WHITE_BALANCE,
 	// _RED_BALANCE, _BLUE_BALANCE, _GAMMA, _EXPOSURE, _AUTOGAIN, _GAIN, _HFLIP, _VFLIP
 	// ... but for now, don't do anything: this is different in ov5640.c
 
 	// plus, the VIDIOC_S_PARM V4L2_BUF_TYPE_VIDEO_CAPTURE (set streaming parameter) ioctl works
+
+	// after patching mxc_v4l2_capture.c and ov5640_mipi.c, V4L2_CID_EXPOSURE_AUTO, V4L2_CID_EXPOSURE_ABSOLUTE and V4L2_CID_FOCUS_ABSOLUTE should work
 
 	bool success;
 
@@ -527,7 +529,7 @@ bool JobWzskSrcV4l2::setCtrl(
 	};
 
 /*
-	/// VIDIOC_S_EXT_CTRLS not supported
+	// VIDIOC_S_EXT_CTRLS not supported
 	bool success;
 
 	v4l2_ext_controls ctrls = {};
@@ -1376,6 +1378,45 @@ void JobWzskSrcV4l2::convertYUV422toRGBGrrdInt16(
 		};
 	};
 };
+
+bool JobWzskSrcV4l2::setExposure(
+			const bool autoNotManual
+			, const float _Texp // in s
+		) {
+	bool success;
+
+	// conversion to OV5640 scale same as in JobWzskSrcFpga::camif_setExp()
+	usmallint Texp;
+	
+	float Texp_imd = 16.0 * _Texp / (2844.0/25e6); // units of line*16, one line takes (2844/25e6)s = 113.76µs at pclk = 25MHz
+
+	if (Texp_imd < 1.0) Texp = 1;
+	else if (Texp_imd > 65535.0) Texp = 65535;
+	else Texp = lround(Texp_imd);
+
+	if (!autoNotManual) {
+		success = setCtrl(V4L2_CID_EXPOSURE_AUTO, "auto exposure type", false, V4L2_EXPOSURE_MANUAL, false);
+		if (success) success = setCtrl(V4L2_CID_EXPOSURE_ABSOLUTE, "exposure time absolute", false, Texp, false);
+
+	} else {
+		success = setCtrl(V4L2_CID_EXPOSURE_AUTO, "auto exposure type", false, V4L2_EXPOSURE_AUTO, false);
+	};
+
+	return success;
+};
+
+bool JobWzskSrcV4l2::setFocus(
+			const float _focus // 0 .. 1
+		) {
+	// conversion to OV5640 scale same as in JobWzskSrcFpga::camif_setFocus()
+	usmallint focus;
+	
+	if (_focus < 0.0) focus = 0;
+	else if (_focus > 1.0) focus = 1023;
+	else focus = lround(1023.0 * _focus);
+
+	return setCtrl(V4L2_CID_FOCUS_ABSOLUTE, "focus absolute", false, focus, false);
+};
 // IP cust --- IEND
 
 // IP spec --- INSERT
@@ -1407,7 +1448,42 @@ bool JobWzskSrcV4l2::handleTest(
 			DbsWzsk* dbswzsk
 		) {
 	bool retval = false;
-	// IP handleTest --- INSERT
+	// IP handleTest --- IBEGIN
+	timespec deltat;
+
+	cout << "\ttesting manual exposure ..." << endl;
+
+	deltat = {.tv_sec = 0, .tv_nsec = 500000000}; // 500ms
+
+	setCtrl(V4L2_CID_EXPOSURE_AUTO, "auto exposure type", false, V4L2_EXPOSURE_MANUAL, false);
+
+	for (int val = 1; val < 65535; val *= 2) {
+		setCtrl(V4L2_CID_EXPOSURE_ABSOLUTE, "exposure time absolute (1 .. 65535)", false, val, false);
+		nanosleep(&deltat, NULL);
+	};
+
+	setCtrl(V4L2_CID_EXPOSURE_AUTO, "auto exposure type", false, V4L2_EXPOSURE_AUTO, false);
+
+	deltat = {.tv_sec = 3, .tv_nsec = 0};
+	nanosleep(&deltat, NULL);
+
+	cout << "\ttesting manual focus ..." << endl;
+
+	deltat = {.tv_sec = 0, .tv_nsec = 100000000}; // 100ms
+
+	for (int val = 0; val < 1023; val += 10) {
+		setCtrl(V4L2_CID_FOCUS_ABSOLUTE, "focus absolute (0 .. 1023)", false, val, false);
+		nanosleep(&deltat, NULL);
+	};
+
+	for (int val = 1020; val > 0; val -= 10) {
+		setCtrl(V4L2_CID_FOCUS_ABSOLUTE, "focus absolute (0 .. 1023)", false, val, false);
+		nanosleep(&deltat, NULL);
+	};
+
+	cout << "\texposure / focus test completed." << endl;
+
+	// IP handleTest --- IEND
 	return retval;
 };
 
@@ -1668,13 +1744,12 @@ bool JobWzskSrcV4l2::handleClaim(
 	};
 
 	// initiate stage change
-	if (!run && (ixVSge != VecVSge::IDLE)) {
-		// changeStage() not used, rather nextIxVSgeFailure will be detected at a point when it is safe to change to idle
+	if (!run) {
 		nextIxVSgeFailure = VecVSge::IDLE;
 
-	} else if (run && (ixVSge == VecVSge::IDLE)) {
+	} else {
 		nextIxVSgeFailure = VecVSge::READY;
-		changeStage(dbswzsk, VecVSge::READY);
+		if (ixVSge == VecVSge::IDLE) changeStage(dbswzsk, VecVSge::READY);
 	};
 
 	mod = true; // for simplicity

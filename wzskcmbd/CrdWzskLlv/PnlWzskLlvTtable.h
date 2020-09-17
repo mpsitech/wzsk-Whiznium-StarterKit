@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvTtable.h
 	* job handler for job PnlWzskLlvTtable (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKLLVTTABLE_H
@@ -41,7 +41,6 @@ public:
 		static const Sbecore::uint BUTREGULARIZECLICK = 1;
 		static const Sbecore::uint BUTMINIMIZECLICK = 2;
 		static const Sbecore::uint BUTCLAIMCLICK = 3;
-		static const Sbecore::uint BUTMVECLICK = 4;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -75,14 +74,12 @@ public:
 
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
-		static const Sbecore::uint TXTSTE = 2;
 
 	public:
-		ContInf(const bool ButClaimOn = false, const std::string& TxtSte = "");
+		ContInf(const bool ButClaimOn = false);
 
 	public:
 		bool ButClaimOn;
-		std::string TxtSte;
 
 	public:
 		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
@@ -98,19 +95,19 @@ public:
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
 		static const Sbecore::uint BUTCLAIMACTIVE = 2;
-		static const Sbecore::uint SLDTRGMIN = 3;
-		static const Sbecore::uint SLDTRGMAX = 4;
-		static const Sbecore::uint BUTMVEACTIVE = 5;
+		static const Sbecore::uint SLDTRGACTIVE = 3;
+		static const Sbecore::uint SLDTRGMIN = 4;
+		static const Sbecore::uint SLDTRGMAX = 5;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const double SldTrgMin = 0, const double SldTrgMax = 360, const bool ButMveActive = true);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool SldTrgActive = true, const double SldTrgMin = 0, const double SldTrgMax = 360);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		bool ButClaimActive;
+		bool SldTrgActive;
 		double SldTrgMin;
 		double SldTrgMax;
-		bool ButMveActive;
 
 	public:
 		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
@@ -198,7 +195,7 @@ public:
 	};
 
 	bool evalButClaimActive(DbsWzsk* dbswzsk);
-	bool evalButMveActive(DbsWzsk* dbswzsk);
+	bool evalSldTrgActive(DbsWzsk* dbswzsk);
 
 public:
 	PnlWzskLlvTtable(XchgWzsk* xchg, DbsWzsk* dbswzsk, const Sbecore::ubigint jrefSup, const Sbecore::uint ixWzskVLocale);
@@ -219,7 +216,7 @@ public:
 public:
 	DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
 
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 
 public:
 
@@ -234,13 +231,11 @@ private:
 	void handleDpchAppDoButRegularizeClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButMinimizeClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButClaimClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
-	void handleDpchAppDoButMveClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 
 public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskSgeChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskShrdatChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskClaimChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 

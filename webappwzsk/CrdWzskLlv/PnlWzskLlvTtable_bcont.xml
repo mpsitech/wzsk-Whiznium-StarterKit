@@ -17,7 +17,6 @@
 			function handleSldTrgMup() {parent.parent.window.handleSldMup(document,"SldTrg",true);};
 			function handleSldTrgValKey(evt) {return parent.parent.window.handleSldValKey(document,"SldTrg",true,false,false,evt);};
 			function handleSldTrgValChange() {parent.parent.window.handleSldValChange(document,"SldTrg",true,false,false);};
-			function handleButMveClick() {parent.parent.window.handleButClick("ButMve");};
 			<!-- IP custScript - INSERT -->
 		</script>
 		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
@@ -70,25 +69,6 @@
 					<td></td>
 					<td colspan="2" align="left">
 						<input id="SldTrgVal" class="txfxs" type="text" value="SldTrgVal" onchange="handleSldTrgValChange()" onkeypress="return handleSldTrgValKey(event)"/>
-					</td>
-				</tr>
-				<tr id="trSte" class="show">
-					<td height="25"></td>
-					<td align="right">
-						<span id="CptSte" class="cpt">CptSte</span>
-					</td>
-					<td></td>
-					<td colspan="5" align="left">
-						<input id="TxtSte" class="txfnoed" type="text" readonly="readonly" value="TxtSte"/>
-					</td>
-					<td></td>
-					<td colspan="2"></td>
-				</tr>
-				<tr id="trMve" class="show">
-					<td height="25"></td>
-					<td colspan="2"></td>
-					<td colspan="8" align="left">
-						<span id="ButMve" class="but" onclick="handleButMveClick()">ButMve</span>
 					</td>
 				</tr>
 				<tr><td colspan="11" height="4"></td></tr>

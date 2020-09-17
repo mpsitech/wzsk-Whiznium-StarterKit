@@ -2,8 +2,8 @@
 	* \file CrdWzskScf.cpp
 	* job handler for job CrdWzskScf (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -43,8 +43,8 @@ CrdWzskScf::CrdWzskScf(
 	pnlheadbar = NULL;
 	pnlgeom = NULL;
 	pnlconn = NULL;
-	dlgttablecoord = NULL;
 	dlgcameramat = NULL;
+	dlgttablecoord = NULL;
 	dlglaserpos = NULL;
 
 	// IP constructor.cust1 --- INSERT
@@ -99,7 +99,11 @@ DpchEngWzsk* CrdWzskScf::getNewDpchEng(
 void CrdWzskScf::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	ContInf oldContinf(continf);
 
 	// IP refresh --- BEGIN
@@ -108,6 +112,8 @@ void CrdWzskScf::refresh(
 
 	// IP refresh --- END
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
+
+	muteRefresh = false;
 };
 
 void CrdWzskScf::updatePreset(
@@ -294,7 +300,7 @@ void CrdWzskScf::changeStage(
 
 			setStage(dbswzsk, _ixVSge);
 			reenter = false;
-			if (!muteRefresh) refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
+			refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
 		};
 
 		switch (_ixVSge) {

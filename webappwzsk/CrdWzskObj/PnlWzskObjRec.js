@@ -2,22 +2,25 @@
   * \file PnlWzskObjRec.js
   * web client functionality for panel PnlWzskObjRec
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 function updateScrJrefs() {
 	scrJrefDetail = retrieveSi(srcdoc, "StatShrWzskObjRec", "scrJrefDetail");
+	scrJref1NShot = retrieveSi(srcdoc, "StatShrWzskObjRec", "scrJref1NShot");
 	scrJrefRef1NFile = retrieveSi(srcdoc, "StatShrWzskObjRec", "scrJrefRef1NFile");
 };
 
 function resetInitdones() {
 	setSi(srcdoc, "StatAppWzskObjRec", "initdoneDetail", "false");
+	setSi(srcdoc, "StatAppWzskObjRec", "initdone1NShot", "false");
 	setSi(srcdoc, "StatAppWzskObjRec", "initdoneRef1NFile", "false");
 };
 
 function resetHeights() {
 	heightDetail = 30;
+	height1NShot = 30;
 	heightRef1NFile = 30;
 };
 
@@ -37,10 +40,13 @@ function checkInitdone() {
 	var initdone1NRelease = (retrieveSi(srcdoc, "StatAppWzskObjRec", "initdone1NRelease") == "true");
 
 	var initdoneDetail = (retrieveSi(srcdoc, "StatAppWzskObjRec", "initdoneDetail") == "true");
+	var initdone1NShot = (retrieveSi(srcdoc, "StatAppWzskObjRec", "initdone1NShot") == "true");
 	var initdoneRef1NFile = (retrieveSi(srcdoc, "StatAppWzskObjRec", "initdoneRef1NFile") == "true");
 
 	if (!initdoneDetail) {
 		lhsdoc.getElementById("Detail").src = "./PnlWzskObjDetail.html?scrJref=" + scrJrefDetail;
+	} else if (!initdone1NShot) {
+		rhsdoc.getElementById("1NShot").src = "./PnlWzskObj1NShot.html?scrJref=" + scrJref1NShot;
 	} else if (!initdoneRef1NFile) {
 		rhsdoc.getElementById("Ref1NFile").src = "./PnlWzskObjRef1NFile.html?scrJref=" + scrJrefRef1NFile;
 
@@ -82,6 +88,7 @@ function setPnlAvail(short, avail) {
 		else if (short == "List") heightList = height;
 		else if (short == "Rec") heightRec = height;
 		else if (short == "Detail") heightDetail = height;
+		else if (short == "1NShot") height1NShot = height;
 		else if (short == "Ref1NFile") heightRef1NFile = height;
 	};
 
@@ -104,10 +111,10 @@ function minimize() {
 function regularize() {
 	resetHeights();
 
-	getCrdwnd().changeHeight("Rec", 94);
-	doc.getElementById("tdSide").setAttribute("height", "94");
-	doc.getElementById("Rec_side").setAttribute("height", "94");
-	doc.getElementById("Rec_cont").setAttribute("height", "94");
+	getCrdwnd().changeHeight("Rec", 137);
+	doc.getElementById("tdSide").setAttribute("height", "137");
+	doc.getElementById("Rec_side").setAttribute("height", "137");
+	doc.getElementById("Rec_cont").setAttribute("height", "137");
 
 	doc.getElementById("Rec_side").src = "./PnlWzskObjRec_bside.html";
 	doc.getElementById("Rec_cont").src = "./PnlWzskObjRec_b.html";
@@ -126,6 +133,7 @@ function changeHeight(pnlshort, height, update) {
 	else if (pnlshort == "List") heightList = height;
 	else if (pnlshort == "Rec") heightRec = height;
 	else if (pnlshort == "Detail") heightDetail = height;
+	else if (pnlshort == "1NShot") height1NShot = height;
 	else if (pnlshort == "Ref1NFile") heightRef1NFile = height;
 
 	if (update) updateHeight();
@@ -135,7 +143,7 @@ function updateHeight() {
 	var heightLhs, heightRhs, heightGt;
 
 	heightLhs = heightDetail+13 + 5;
-	heightRhs = heightRef1NFile+13 + 5;
+	heightRhs = height1NShot+13 + heightRef1NFile+13 + 5;
 
 	if (heightLhs > heightRhs) {
 		lhsdoc.getElementById("tdFill").setAttribute("height", "5");
@@ -326,6 +334,8 @@ function handleDpchEng(dom, dpch) {
 
 			if (_scrJref == scrJrefDetail) {
 				if (getInitdone("Detail")) lhsdoc.getElementById("Detail").contentWindow.handleDpchEng(dom, dpch);
+			} else if (_scrJref == scrJref1NShot) {
+				if (getInitdone("1NShot")) rhsdoc.getElementById("1NShot").contentWindow.handleDpchEng(dom, dpch);
 			} else if (_scrJref == scrJrefRef1NFile) {
 				if (getInitdone("Ref1NFile")) rhsdoc.getElementById("Ref1NFile").contentWindow.handleDpchEng(dom, dpch);
 			} else {

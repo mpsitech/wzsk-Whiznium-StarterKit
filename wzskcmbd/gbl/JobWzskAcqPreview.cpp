@@ -2,8 +2,8 @@
 	* \file JobWzskAcqPreview.cpp
 	* job handler for job JobWzskAcqPreview (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -131,7 +131,15 @@ JobWzskAcqPreview::JobWzskAcqPreview(
 	srcv4l2 = NULL;
 	acqfpgapvw = NULL;
 
-	// IP constructor.cust1 --- INSERT
+	// IP constructor.cust1 --- IBEGIN
+	ixRiSrc = 0; ixRiSrc--;
+
+	ixRiBingray = shrdat.resultBingray.size();
+	ixRiBinreddom = shrdat.resultBinreddom.size();
+	ixRiBinrgb = shrdat.resultBinrgb.size();
+	ixRiRawgray = shrdat.resultRawgray.size();
+	ixRiRawrgb = shrdat.resultRawrgb.size();
+	// IP constructor.cust1 --- IEND
 
 	// IP constructor.spec1 --- INSERT
 
@@ -169,6 +177,50 @@ JobWzskAcqPreview::Claim::Claim(
 			Sbecore::Claim(retractable, run)
 		{
 	this->ixWzskVPvwmode = ixWzskVPvwmode;
+};
+
+void JobWzskAcqPreview::binGrrd(
+			uint16_t* grrd16
+			, uint16_t* pvwgrrd16
+		) {
+	const uint64_t zero64 = 0;
+
+	uint16x8_t data;
+	uint32x4_t dataAcc2;
+	uint64x2_t dataAcc4;
+
+	uint64x2_t acc;
+	uint16_t acc16;
+
+	unsigned int ldix, stix;
+
+	for (unsigned int i = 0; i < xchg->stgwzskframegeo.hGrrd; i += 4) {
+		for (unsigned int j = 0; j < xchg->stgwzskframegeo.wGrrd; j += 8) {
+			ldix = i * xchg->stgwzskframegeo.wGrrd + j;
+			
+			acc = vld1q_dup_u64(&zero64);
+
+			for (unsigned int k = 0; k < 4; k++) {
+				data = vld1q_u16(&(grrd16[ldix]));
+				dataAcc2 = vpaddlq_u16(data);
+				dataAcc4 = vpaddlq_u32(dataAcc2);
+
+				acc = vaddq_u64(acc, dataAcc4);
+				
+				ldix += xchg->stgwzskframegeo.wGrrd;
+			};
+
+			stix = i/4 * xchg->stgwzskframegeo.wGrrd/4 + j/4;
+
+			acc16 = vgetq_lane_u16(vreinterpretq_u16_u64(acc), 0);
+			pvwgrrd16[stix] = acc16 >> 4;
+
+			stix++;
+
+			acc16 = vgetq_lane_u16(vreinterpretq_u16_u64(acc), 4);
+			pvwgrrd16[stix] = acc16 >> 4;
+		};
+	};
 };
 
 void JobWzskAcqPreview::binRgb(
@@ -223,47 +275,43 @@ void JobWzskAcqPreview::binRgb_component(
 	};
 };
 
-void JobWzskAcqPreview::binGrrd(
+void JobWzskAcqPreview::rawGr(
 			uint16_t* grrd16
 			, uint16_t* pvwgrrd16
 		) {
-	const uint64_t zero64 = 0;
-
-	uint16x8_t data;
-	uint32x4_t dataAcc2;
-	uint64x2_t dataAcc4;
-
-	uint64x2_t acc;
-	uint16_t acc16;
+	const unsigned int x0 = (xchg->stgwzskframegeo.wGrrd - xchg->stgwzskframegeo.wGrrd/4) / 2;
+	const unsigned int y0 = (xchg->stgwzskframegeo.hGrrd - xchg->stgwzskframegeo.hGrrd/4) / 2;
 
 	unsigned int ldix, stix;
 
-	for (unsigned int i = 0; i < xchg->stgwzskframegeo.hGrrd; i += 4) {
-		for (unsigned int j = 0; j < xchg->stgwzskframegeo.wGrrd; j += 8) {
-			ldix = i * xchg->stgwzskframegeo.wGrrd + j;
-			
-			acc = vld1q_dup_u64(&zero64);
+	for (unsigned int i = 0; i < xchg->stgwzskframegeo.hGrrd/4; i++) {
+		ldix = (y0 + i) * xchg->stgwzskframegeo.wGrrd + x0;
+		stix = i * xchg->stgwzskframegeo.wGrrd/4;
 
-			for (unsigned int k = 0; k < 4; k++) {
-				data = vld1q_u16(&(grrd16[ldix]));
-				dataAcc2 = vpaddlq_u16(data);
-				dataAcc4 = vpaddlq_u32(dataAcc2);
+		memcpy(&(pvwgrrd16[stix]), &(grrd16[ldix]), 2 * xchg->stgwzskframegeo.wGrrd/4);
+	};
+};
 
-				acc = vaddq_u64(acc, dataAcc4);
-				
-				ldix += xchg->stgwzskframegeo.wGrrd;
-			};
+void JobWzskAcqPreview::rawRgb(
+			uint16_t* r16
+			, uint16_t* g16
+			, uint16_t* b16
+			, uint16_t* pvwr16
+			, uint16_t* pvwg16
+			, uint16_t* pvwb16
+		) {
+	const unsigned int x0 = (xchg->stgwzskframegeo.wRgb - xchg->stgwzskframegeo.wRgb/8) / 2;
+	const unsigned int y0 = (xchg->stgwzskframegeo.hRgb - xchg->stgwzskframegeo.hRgb/8) / 2;
 
-			stix = i/4 * xchg->stgwzskframegeo.wGrrd/4 + j/4;
+	unsigned int ldix, stix;
 
-			acc16 = vgetq_lane_u16(vreinterpretq_u16_u64(acc), 0);
-			pvwgrrd16[stix] = acc16 >> 4;
+	for (unsigned int i = 0; i < xchg->stgwzskframegeo.hRgb/8; i++) {
+		ldix = (y0 + i) * xchg->stgwzskframegeo.wRgb + x0;
+		stix = i * xchg->stgwzskframegeo.wRgb/8;
 
-			stix++;
-
-			acc16 = vgetq_lane_u16(vreinterpretq_u16_u64(acc), 4);
-			pvwgrrd16[stix] = acc16 >> 4;
-		};
+		memcpy(&(pvwr16[stix]), &(r16[ldix]), 2 * xchg->stgwzskframegeo.wRgb/8);
+		memcpy(&(pvwg16[stix]), &(g16[ldix]), 2 * xchg->stgwzskframegeo.wRgb/8);
+		memcpy(&(pvwb16[stix]), &(b16[ldix]), 2 * xchg->stgwzskframegeo.wRgb/8);
 	};
 };
 
@@ -335,21 +383,18 @@ bool JobWzskAcqPreview::handleCallWzskResultNewFromSrcv4l2InSgeReady(
 		) {
 	bool retval = false;
 	// IP handleCallWzskResultNewFromSrcv4l2InSgeReady --- IBEGIN
-	ixRiSrc = ixInv;
-
-	ixRiBingray = shrdat.resultBingray.size();
-	ixRiBinreddom = shrdat.resultBinreddom.size();
-	ixRiBinrgb = shrdat.resultBinrgb.size();
 
 	// prepare for all currently claimed preview modes
 	if (shrdat.bingray) shrdat.resultBingray.dequeue(ixRiBingray);
 	if (shrdat.binreddom) shrdat.resultBinreddom.dequeue(ixRiBinreddom);
 	if (shrdat.binrgb) shrdat.resultBinrgb.dequeue(ixRiBinrgb);
+	if (shrdat.rawgray) shrdat.resultRawgray.dequeue(ixRiRawgray);
+	if (shrdat.rawrgb) shrdat.resultRawrgb.dequeue(ixRiRawrgb);
 
-	// raw modes are not available for v4l2 at this time
-
-	if ( (ixRiBingray != shrdat.resultBingray.size()) || (ixRiBinreddom != shrdat.resultBinreddom.size()) || (ixRiBinrgb != shrdat.resultBinrgb.size()) ) {
+	if ( (ixRiBingray != shrdat.resultBingray.size()) || (ixRiBinreddom != shrdat.resultBinreddom.size()) || (ixRiBinrgb != shrdat.resultBinrgb.size()) || (ixRiRawgray != shrdat.resultRawgray.size()) || (ixRiRawrgb != shrdat.resultRawrgb.size()) ) {
 		srcv4l2->shrdat.resultAcq.lock(jref, ixInv);
+		ixRiSrc = ixInv;
+
 		changeStage(dbswzsk, VecVSge::PRCIDLE);
 	};
 	// IP handleCallWzskResultNewFromSrcv4l2InSgeReady --- IEND
@@ -363,12 +408,6 @@ bool JobWzskAcqPreview::handleCallWzskResultNewFromAcqfpgapvwInSgeReady(
 		) {
 	bool retval = false;
 	// IP handleCallWzskResultNewFromAcqfpgapvwInSgeReady --- IBEGIN
-	ixRiSrc = ixInv;
-
-	ixRiBingray = shrdat.resultBingray.size();
-	ixRiBinrgb = shrdat.resultBinrgb.size();
-	ixRiRawgray = shrdat.resultRawgray.size();
-	ixRiRawrgb = shrdat.resultRawrgb.size();
 
 	// binreddom is not available for fpga at this time
 
@@ -379,6 +418,8 @@ bool JobWzskAcqPreview::handleCallWzskResultNewFromAcqfpgapvwInSgeReady(
 
 	if ( (ixRiBingray != shrdat.resultBingray.size()) || (ixRiBinrgb != shrdat.resultBinrgb.size()) || (ixRiRawgray != shrdat.resultRawgray.size()) || (ixRiRawrgb != shrdat.resultRawrgb.size()) ) {
 		acqfpgapvw->shrdat.resultPvw.lock(jref, ixInv);
+		ixRiSrc = ixInv;
+
 		changeStage(dbswzsk, VecVSge::PRCIDLE);
 	};
 	// IP handleCallWzskResultNewFromAcqfpgapvwInSgeReady --- IEND
@@ -446,6 +487,39 @@ uint JobWzskAcqPreview::enterSgeIdle(
 	uint retval = VecVSge::IDLE;
 
 	// IP enterSgeIdle --- IBEGIN
+	xchg->clearCsjobRun(dbswzsk, ixWzskVJob);
+
+	if ((ixRiSrc + 1) != 0) {
+		if (srcv4l2) srcv4l2->shrdat.resultAcq.unlock(jref, ixRiSrc);
+		else if (acqfpgapvw) acqfpgapvw->shrdat.resultPvw.unlock(jref, ixRiSrc);
+
+		ixRiSrc = 0; ixRiSrc--;
+	};
+
+	if (ixRiBingray != shrdat.resultBingray.size()) {
+		shrdat.resultBingray.unlock(0, ixRiBingray);
+		ixRiBingray = shrdat.resultBingray.size();
+	};
+
+	if (ixRiBinreddom != shrdat.resultBinreddom.size()) {
+		shrdat.resultBinreddom.unlock(0, ixRiBinreddom);
+		ixRiBinreddom = shrdat.resultBinreddom.size();
+	};
+
+	if (ixRiBinrgb != shrdat.resultBinrgb.size()) {
+		shrdat.resultBinrgb.unlock(0, ixRiBinrgb);
+		ixRiBinrgb = shrdat.resultBinrgb.size();
+	};
+
+	if (ixRiRawgray != shrdat.resultRawgray.size()) {
+		shrdat.resultRawgray.unlock(0, ixRiRawgray);
+		ixRiRawgray = shrdat.resultRawgray.size();
+	};
+
+	if (ixRiRawrgb != shrdat.resultRawrgb.size()) {
+		shrdat.resultRawrgb.unlock(0, ixRiRawrgb);
+		ixRiRawrgb = shrdat.resultRawrgb.size();
+	};
 	// IP enterSgeIdle --- IEND
 
 	return retval;
@@ -464,10 +538,7 @@ uint JobWzskAcqPreview::enterSgeReady(
 	uint retval = VecVSge::READY;
 
 	// IP enterSgeReady --- IBEGIN
-	if (nextIxVSgeFailure != VecVSge::READY) {
-		// claim run attribute has been retracted
-		retval = nextIxVSgeFailure;
-	};
+	if (nextIxVSgeFailure == VecVSge::IDLE) retval = nextIxVSgeFailure; // claim run attribute has been retracted
 	// IP enterSgeReady --- IEND
 
 	return retval;
@@ -528,6 +599,7 @@ uint JobWzskAcqPreview::enterSgeProcess(
 			xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixRiBingray, "bingray");
 
 			shrdat.resultBingray.unlock(0, ixRiBingray); // hadn't been locked within this class
+			ixRiBingray = shrdat.resultBingray.size();
 		};
 
 		if (ixRiBinreddom < shrdat.resultBinreddom.size()) {
@@ -543,6 +615,7 @@ uint JobWzskAcqPreview::enterSgeProcess(
 			xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixRiBinreddom, "binreddom");
 
 			shrdat.resultBinreddom.unlock(0, ixRiBinreddom); // hadn't been locked within this class
+			ixRiBinreddom = shrdat.resultBinreddom.size();
 		};
 
 		if (ixRiBinrgb < shrdat.resultBinrgb.size()) {
@@ -560,11 +633,45 @@ uint JobWzskAcqPreview::enterSgeProcess(
 			xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixRiBinrgb, "binrgb");
 
 			shrdat.resultBinrgb.unlock(0, ixRiBinrgb); // hadn't been locked within this class
+			ixRiBinrgb = shrdat.resultBinrgb.size();
 		};
 
-		// raw modes are not available for v4l2 at this time
+		if (ixRiRawgray < shrdat.resultRawgray.size()) {
+			riGray = (Shrdat::ResultitemGray*) shrdat.resultRawgray[ixRiRawgray];
+
+			riGray->tIn = riSrcv4l2->t;
+
+			rawGr(riSrcv4l2->rd16, riGray->gr16);
+			uint16ToUint8(riGray->gr16, riGray->gr8, riGray->sizeBuf);
+
+			riGray->tOut = Wzsk::getNow();
+
+			xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixRiRawgray, "rawgray");
+
+			shrdat.resultRawgray.unlock(0, ixRiRawgray); // hadn't been locked within this class
+			ixRiRawgray = shrdat.resultRawgray.size();
+		};
+
+		if (ixRiRawrgb < shrdat.resultRawrgb.size()) {
+			riRgb = (Shrdat::ResultitemRgb*) shrdat.resultRawrgb[ixRiRawrgb];
+
+			riRgb->tIn = riSrcv4l2->t;
+
+			rawRgb(riSrcv4l2->r16, riSrcv4l2->g16, riSrcv4l2->b16, riRgb->r16, riRgb->g16, riRgb->b16);
+			uint16ToUint8(riRgb->r16, riRgb->r8, riRgb->sizeBuf);
+			uint16ToUint8(riRgb->g16, riRgb->g8, riRgb->sizeBuf);
+			uint16ToUint8(riRgb->b16, riRgb->b8, riRgb->sizeBuf);
+
+			riRgb->tOut = Wzsk::getNow();
+
+			xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixRiRawrgb, "rawrgb");
+
+			shrdat.resultRawrgb.unlock(0, ixRiRawrgb); // hadn't been locked within this class
+			ixRiRawrgb = shrdat.resultRawrgb.size();
+		};
 
 		srcv4l2->shrdat.resultAcq.unlock(jref, ixRiSrc);
+		ixRiSrc = 0; ixRiSrc--;
 
 	} else if (acqfpgapvw) {
 		riSrcfpga = (JobWzskAcqFpgapvw::Shrdat::ResultitemPvw*) acqfpgapvw->shrdat.resultPvw[ixRiSrc];
@@ -581,6 +688,7 @@ uint JobWzskAcqPreview::enterSgeProcess(
 			xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixRiBingray, "bingray");
 
 			shrdat.resultBingray.unlock(0, ixRiBingray); // hadn't been locked within this class
+			ixRiBingray = shrdat.resultBingray.size();
 
 		} else if (ixRiBinrgb < shrdat.resultBinrgb.size()) {
 			riRgb = (Shrdat::ResultitemRgb*) shrdat.resultBinrgb[ixRiBinrgb];
@@ -596,6 +704,7 @@ uint JobWzskAcqPreview::enterSgeProcess(
 			xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixRiBinrgb, "binrgb");
 
 			shrdat.resultBinrgb.unlock(0, ixRiBinrgb); // hadn't been locked within this class
+			ixRiBinrgb = shrdat.resultBinrgb.size();
 
 		} else if (ixRiRawgray < shrdat.resultRawgray.size()) {
 			riGray = (Shrdat::ResultitemGray*) shrdat.resultRawgray[ixRiRawgray];
@@ -609,6 +718,7 @@ uint JobWzskAcqPreview::enterSgeProcess(
 			xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixRiRawgray, "rawgray");
 
 			shrdat.resultRawgray.unlock(0, ixRiRawgray); // hadn't been locked within this class
+			ixRiRawgray = shrdat.resultRawgray.size();
 
 		} else if (ixRiRawrgb < shrdat.resultRawrgb.size()) {
 			riRgb = (Shrdat::ResultitemRgb*) shrdat.resultRawrgb[ixRiRawrgb];
@@ -624,9 +734,11 @@ uint JobWzskAcqPreview::enterSgeProcess(
 			xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixRiRawrgb, "rawrgb");
 
 			shrdat.resultRawrgb.unlock(0, ixRiRawrgb); // hadn't been locked within this class
+			ixRiRawrgb = shrdat.resultRawrgb.size();
 		};
 
 		acqfpgapvw->shrdat.resultPvw.unlock(jref, ixRiSrc);
+		ixRiSrc = 0; ixRiSrc--;
 	};
 
 	if (riGray || riRgb) {
@@ -682,7 +794,7 @@ bool JobWzskAcqPreview::handleClaim(
 	// IP handleClaim --- IBEGIN
 
 	// claim policy:
-	// - fulfill any bingray/binrgb claim for srcv4l2
+	// - fulfill any claim for srcv4l2
 	// - fulfill all claims of one mode for acqfpgapvw
 	// - only possible if srcv4l2/acqfpgapvw claim can be fulfilled
 	// - change stage to ready if fulfilled claim is run (run is continuous)
@@ -778,7 +890,7 @@ bool JobWzskAcqPreview::handleClaim(
 			for (auto it = claims.begin(); it != claims.end(); it++) {
 				claim = (Claim*) it->second;
 
-				claim->fulfilled = ((claim->ixWzskVPvwmode == VecWzskVPvwmode::BINGRAY) || (claim->ixWzskVPvwmode == VecWzskVPvwmode::BINREDDOM) || (claim->ixWzskVPvwmode == VecWzskVPvwmode::BINRGB));
+				claim->fulfilled = true;
 
 				if (claim->fulfilled) {
 					if (claim->run) run = true;
@@ -845,33 +957,24 @@ bool JobWzskAcqPreview::handleClaim(
 		claim->takenNotAvailable = !available;
 	};
 
-	// initiate source claim / stage change
+	// change source claim
 	if (reattributed) {
 		if (srcv4l2) {
 			if ((!run || !srcFulfilled) && (ixVSge != VecVSge::IDLE)) {
-				// changeStage() not used, rather nextIxVSgeFailure will be detected at a point when it is safe to change to idle
 				xchg->addCsjobClaim(dbswzsk, srcv4l2, new Claim(false, false));
-
-				nextIxVSgeFailure = VecVSge::IDLE;
 
 			} else if (run && srcFulfilled) {
 				shrdat.bingray = has(icsWzskVPvwmode, VecWzskVPvwmode::BINGRAY);
 				shrdat.binreddom = has(icsWzskVPvwmode, VecWzskVPvwmode::BINREDDOM);
 				shrdat.binrgb = has(icsWzskVPvwmode, VecWzskVPvwmode::BINRGB);
+				shrdat.rawgray = has(icsWzskVPvwmode, VecWzskVPvwmode::RAWGRAY);
+				shrdat.rawrgb = has(icsWzskVPvwmode, VecWzskVPvwmode::RAWRGB);
 
 				xchg->addCsjobClaim(dbswzsk, srcv4l2, new Claim(false, true));
-
-				if (ixVSge == VecVSge::IDLE) {
-					nextIxVSgeFailure = VecVSge::READY;
-					changeStage(dbswzsk, VecVSge::READY);
-				};
 			};
 
 		} else if (acqfpgapvw) {
-			if ((!run || !srcFulfilled) && (ixVSge != VecVSge::IDLE)) {
-				changeStage(dbswzsk, VecVSge::IDLE);
-
-			} else if (run && srcFulfilled) {
+			if (run && srcFulfilled) {
 				xchg->addCsjobClaim(dbswzsk, acqfpgapvw, new JobWzskAcqFpgapvw::Claim(false, true, ixWzskVPvwmode));
 
 				if (ixVSge == VecVSge::IDLE) {
@@ -880,6 +983,16 @@ bool JobWzskAcqPreview::handleClaim(
 				};
 			};
 		};
+	};
+
+	// initiate stage change
+	if (!run) {
+		nextIxVSgeFailure = VecVSge::IDLE;
+		if (ixVSge == VecVSge::READY) changeStage(dbswzsk, ixVSge); // re-enter
+
+	} else {
+		nextIxVSgeFailure = VecVSge::READY;
+		if (ixVSge == VecVSge::IDLE) changeStage(dbswzsk, VecVSge::READY);
 	};
 
 	mod = true; // for simplicity

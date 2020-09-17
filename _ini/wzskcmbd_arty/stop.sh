@@ -2,8 +2,8 @@
 # file stop.sh
 # stop script for Wzsk combined daemon, release wzskcmbd_arty
 # author Catherine Johnson
-# date created: 23 Jul 2020
-# modified: 23 Jul 2020
+# date created: 16 Sep 2020
+# modified: 16 Sep 2020
 
 pid=$(pgrep Wzskcmbd)
 kill -15 $pid

@@ -2,17 +2,17 @@
 	* \file DbsWzsk.h
 	* C++ wrapper for database DbsWzsk (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef DBSWZSK_H
 #define DBSWZSK_H
 
-#define WZSK_VERSION "0.1.26"
+#define WZSK_VERSION "0.1.33"
 #define WZSK_VERSION_MAJOR 0
 #define WZSK_VERSION_MINOR 1
-#define WZSK_VERSION_SUB 26
+#define WZSK_VERSION_SUB 33
 
 #include <sbecore/Types.h>
 
@@ -49,10 +49,10 @@
 #include "WzskRMUserMUsergroup.h"
 
 #include "WzskQFilList.h"
+#include "WzskQObj1NShot.h"
 #include "WzskQObjList.h"
 #include "WzskQObjRef1NFile.h"
 #include "WzskQOgr1NObject.h"
-#include "WzskQOgr1NShot.h"
 #include "WzskQOgrList.h"
 #include "WzskQOgrSup1NObjgroup.h"
 #include "WzskQPreselect.h"
@@ -99,11 +99,11 @@ public:
 	class VecVCard {
 
 	public:
-		static const Sbecore::uint CRDWZSKNAV = 1;
-		static const Sbecore::uint CRDWZSKUSG = 2;
-		static const Sbecore::uint CRDWZSKUSR = 3;
-		static const Sbecore::uint CRDWZSKPRS = 4;
-		static const Sbecore::uint CRDWZSKSCF = 5;
+		static const Sbecore::uint CRDWZSKUSG = 1;
+		static const Sbecore::uint CRDWZSKUSR = 2;
+		static const Sbecore::uint CRDWZSKPRS = 3;
+		static const Sbecore::uint CRDWZSKSCF = 4;
+		static const Sbecore::uint CRDWZSKNAV = 5;
 		static const Sbecore::uint CRDWZSKLLV = 6;
 		static const Sbecore::uint CRDWZSKLIV = 7;
 		static const Sbecore::uint CRDWZSKOGR = 8;
@@ -161,11 +161,11 @@ public:
 		static const Sbecore::uint PNLWZSKOGRLIST_TCOSRF = 33;
 		static const Sbecore::uint PNLWZSKOGRLIST_TCOTIT = 34;
 		static const Sbecore::uint PNLWZSKOGRLIST_TCOSUP = 35;
-		static const Sbecore::uint PNLWZSKOGR1NSHOT_TCOREF = 36;
-		static const Sbecore::uint PNLWZSKOGR1NOBJECT_TCOREF = 37;
-		static const Sbecore::uint PNLWZSKOGRSUP1NOBJGROUP_TCOREF = 38;
-		static const Sbecore::uint PNLWZSKOBJLIST_TCOTIT = 39;
-		static const Sbecore::uint PNLWZSKOBJLIST_TCOOGR = 40;
+		static const Sbecore::uint PNLWZSKOGR1NOBJECT_TCOREF = 36;
+		static const Sbecore::uint PNLWZSKOGRSUP1NOBJGROUP_TCOREF = 37;
+		static const Sbecore::uint PNLWZSKOBJLIST_TCOTIT = 38;
+		static const Sbecore::uint PNLWZSKOBJLIST_TCOOGR = 39;
+		static const Sbecore::uint PNLWZSKOBJ1NSHOT_TCOREF = 40;
 		static const Sbecore::uint PNLWZSKOBJREF1NFILE_TCOREF = 41;
 		static const Sbecore::uint PNLWZSKSESLIST_TCOUSR = 42;
 		static const Sbecore::uint PNLWZSKSESLIST_TCOSTA = 43;
@@ -199,15 +199,19 @@ public:
 	public:
 		static const Sbecore::uint VECWZSKVCARD = 1;
 		static const Sbecore::uint VECVJOBWZSKACQPREVIEWVAR = 2;
-		static const Sbecore::uint VECVJOBWZSKACQPTCLOUDVAR = 3;
-		static const Sbecore::uint VECVJOBWZSKACTLASERMETHOD = 4;
-		static const Sbecore::uint VECVJOBWZSKACTLASERVAR = 5;
-		static const Sbecore::uint VECVJOBWZSKACTSERVOMETHOD = 6;
-		static const Sbecore::uint VECVJOBWZSKACTSERVOVAR = 7;
-		static const Sbecore::uint VECVJOBWZSKIPRCORNERMETHOD = 8;
-		static const Sbecore::uint VECVJOBWZSKIPRCORNERVAR = 9;
-		static const Sbecore::uint VECVJOBWZSKIPRTRACEMETHOD = 10;
-		static const Sbecore::uint VECVJOBWZSKIPRTRACEVAR = 11;
+		static const Sbecore::uint VECVJOBWZSKACQPTCLOUDMETHOD = 3;
+		static const Sbecore::uint VECVJOBWZSKACQPTCLOUDVAR = 4;
+		static const Sbecore::uint VECVJOBWZSKACTEXPOSUREMETHOD = 5;
+		static const Sbecore::uint VECVJOBWZSKACTEXPOSUREVAR = 6;
+		static const Sbecore::uint VECVJOBWZSKACTLASERMETHOD = 7;
+		static const Sbecore::uint VECVJOBWZSKACTLASERVAR = 8;
+		static const Sbecore::uint VECVJOBWZSKACTSERVOMETHOD = 9;
+		static const Sbecore::uint VECVJOBWZSKACTSERVOVAR = 10;
+		static const Sbecore::uint VECVJOBWZSKIPRCORNERMETHOD = 11;
+		static const Sbecore::uint VECVJOBWZSKIPRCORNERVAR = 12;
+		static const Sbecore::uint VECVJOBWZSKIPRTRACEMETHOD = 13;
+		static const Sbecore::uint VECVJOBWZSKIPRTRACEVAR = 14;
+		static const Sbecore::uint VECVJOBWZSKSRCSYSINFOVAR = 15;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -585,10 +589,10 @@ public:
 	TblWzskRMUserMUsergroup* tblwzskrmusermusergroup;
 
 	TblWzskQFilList* tblwzskqfillist;
+	TblWzskQObj1NShot* tblwzskqobj1nshot;
 	TblWzskQObjList* tblwzskqobjlist;
 	TblWzskQObjRef1NFile* tblwzskqobjref1nfile;
 	TblWzskQOgr1NObject* tblwzskqogr1nobject;
-	TblWzskQOgr1NShot* tblwzskqogr1nshot;
 	TblWzskQOgrList* tblwzskqogrlist;
 	TblWzskQOgrSup1NObjgroup* tblwzskqogrsup1nobjgroup;
 	TblWzskQPreselect* tblwzskqpreselect;

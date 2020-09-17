@@ -2,8 +2,8 @@
 	* \file WzskMShot.h
 	* database access for table TblWzskMShot (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef WZSKMSHOT_H
@@ -85,6 +85,7 @@ public:
 	virtual void removeRecByRef(Sbecore::ubigint ref);
 
 	virtual bool loadRecByRef(Sbecore::ubigint ref, WzskMShot** rec);
+	virtual Sbecore::ubigint loadRstByObj(Sbecore::ubigint refWzskMObject, const bool append, ListWzskMShot& rst);
 	virtual Sbecore::ubigint loadRstBySes(Sbecore::ubigint refWzskMSession, const bool append, ListWzskMShot& rst);
 	Sbecore::ubigint loadRstByRefs(std::vector<Sbecore::ubigint>& refs, const bool append, ListWzskMShot& rst);
 };
@@ -118,6 +119,7 @@ public:
 	void removeRecByRef(Sbecore::ubigint ref);
 
 	bool loadRecByRef(Sbecore::ubigint ref, WzskMShot** rec);
+	Sbecore::ubigint loadRstByObj(Sbecore::ubigint refWzskMObject, const bool append, ListWzskMShot& rst);
 	Sbecore::ubigint loadRstBySes(Sbecore::ubigint refWzskMSession, const bool append, ListWzskMShot& rst);
 };
 #endif
@@ -141,6 +143,7 @@ public:
 	sqlite3_stmt* stmtRemoveRecByRef;
 
 	sqlite3_stmt* stmtLoadRecByRef;
+	sqlite3_stmt* stmtLoadRstByObj;
 	sqlite3_stmt* stmtLoadRstBySes;
 
 private:
@@ -160,6 +163,7 @@ public:
 	void removeRecByRef(Sbecore::ubigint ref);
 
 	bool loadRecByRef(Sbecore::ubigint ref, WzskMShot** rec);
+	Sbecore::ubigint loadRstByObj(Sbecore::ubigint refWzskMObject, const bool append, ListWzskMShot& rst);
 	Sbecore::ubigint loadRstBySes(Sbecore::ubigint refWzskMSession, const bool append, ListWzskMShot& rst);
 };
 #endif

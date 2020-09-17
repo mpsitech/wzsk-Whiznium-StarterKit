@@ -2,8 +2,8 @@
 	* \file DlgWzskScfLaserpos.h
 	* job handler for job DlgWzskScfLaserpos (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef DLGWZSKSCFLASERPOS_H
@@ -13,8 +13,8 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskActLaser.h"
 #include "JobWzskIprTrace.h"
+#include "JobWzskActLaser.h"
 
 #define VecVDlgWzskScfLaserposDit DlgWzskScfLaserpos::VecVDit
 #define VecVDlgWzskScfLaserposDo DlgWzskScfLaserpos::VecVDo
@@ -247,8 +247,8 @@ public:
 	Sbecore::Xmlio::Feed feedFDse;
 	Sbecore::Xmlio::Feed feedFSge;
 
-	JobWzskActLaser* actlaser;
 	JobWzskIprTrace* iprtrace;
+	JobWzskActLaser* actlaser;
 
 	Sbecore::uint ixVDit;
 
@@ -262,7 +262,7 @@ public:
 
 	void refreshPlh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
 
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 
 public:
 

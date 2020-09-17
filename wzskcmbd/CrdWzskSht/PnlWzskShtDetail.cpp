@@ -2,8 +2,8 @@
 	* \file PnlWzskShtDetail.cpp
 	* job handler for job PnlWzskShtDetail (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -94,7 +94,7 @@ void PnlWzskShtDetail::refreshRecSht(
 	dirty = false;
 
 	continf.TxtSes = StubWzsk::getStubSesStd(dbswzsk, recSht.refWzskMSession, ixWzskVLocale, Stub::VecVNonetype::FULL);
-	continf.TxtObj = StubWzsk::getStubOgrStd(dbswzsk, recSht.refWzskMObject, ixWzskVLocale, Stub::VecVNonetype::FULL);
+	continf.TxtObj = StubWzsk::getStubObjStd(dbswzsk, recSht.refWzskMObject, ixWzskVLocale, Stub::VecVNonetype::FULL);
 	contiac.TxfSta = Ftm::stamp(recSht.start);
 	contiac.TxfCmt = recSht.Comment;
 
@@ -115,7 +115,11 @@ void PnlWzskShtDetail::refreshRecSht(
 void PnlWzskShtDetail::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	StatShr oldStatshr(statshr);
 
 	// IP refresh --- BEGIN
@@ -125,6 +129,8 @@ void PnlWzskShtDetail::refresh(
 	// IP refresh --- END
 
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+
+	muteRefresh = false;
 };
 
 void PnlWzskShtDetail::updatePreset(
@@ -249,8 +255,8 @@ void PnlWzskShtDetail::handleDpchAppDoButObjViewClick(
 	string sref;
 
 	if (statshr.ButObjViewAvail && statshr.ButObjViewActive) {
-		if (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCOGR, jref)) {
-			sref = "CrdWzskOgr";
+		if (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCOBJ, jref)) {
+			sref = "CrdWzskObj";
 			xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, sref, recSht.refWzskMObject, jrefNew);
 		};
 

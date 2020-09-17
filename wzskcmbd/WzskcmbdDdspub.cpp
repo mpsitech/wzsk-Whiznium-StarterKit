@@ -2,8 +2,8 @@
 	* \file WzskcmbdDdspub.cpp
 	* DDS publisher based on rti DDS Connext for Wzsk combined daemon (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "Wzskcmbd.h"
@@ -31,23 +31,6 @@ namespace rti {
 
 				WzskcmbdDdspub::runMethod(WzskcmbdDdspub::statshr.jrefIprtrace, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setLevel",
 							{&request.data().levelOn(), &request.data().levelOff()},
-							{&reply.success()});
-
-				replier.send_reply(reply, request.info());
-			};
-		};
-
-		template<> void ReplierListener<DdsJobWzskIprTrace::setPOn_req,DdsJobWzskIprTrace::setPOn_reply>::on_request_available(
-					Replier<DdsJobWzskIprTrace::setPOn_req,DdsJobWzskIprTrace::setPOn_reply>& replier
-				) {
-			auto requests = replier.receive_requests(dds::core::Duration());
-			DdsJobWzskIprTrace::setPOn_reply reply;
-
-			for (const auto& request: requests) {
-				if (!request.info().valid()) continue;
-
-				WzskcmbdDdspub::runMethod(WzskcmbdDdspub::statshr.jrefIprtrace, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setPOn",
-							{&request.data().pOnLeft(), &request.data().pOnRight()},
 							{&reply.success()});
 
 				replier.send_reply(reply, request.info());
@@ -156,6 +139,40 @@ namespace rti {
 			};
 		};
 
+		template<> void ReplierListener<DdsJobWzskActServo::stop_req,DdsJobWzskActServo::stop_reply>::on_request_available(
+					Replier<DdsJobWzskActServo::stop_req,DdsJobWzskActServo::stop_reply>& replier
+				) {
+			auto requests = replier.receive_requests(dds::core::Duration());
+			DdsJobWzskActServo::stop_reply reply;
+
+			for (const auto& request: requests) {
+				if (!request.info().valid()) continue;
+
+				WzskcmbdDdspub::runMethod(WzskcmbdDdspub::statshr.jrefActservo, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "stop",
+							{&request.data().dummy()},
+							{&reply.success()});
+
+				replier.send_reply(reply, request.info());
+			};
+		};
+
+		template<> void ReplierListener<DdsJobWzskActServo::turn_req,DdsJobWzskActServo::turn_reply>::on_request_available(
+					Replier<DdsJobWzskActServo::turn_req,DdsJobWzskActServo::turn_reply>& replier
+				) {
+			auto requests = replier.receive_requests(dds::core::Duration());
+			DdsJobWzskActServo::turn_reply reply;
+
+			for (const auto& request: requests) {
+				if (!request.info().valid()) continue;
+
+				WzskcmbdDdspub::runMethod(WzskcmbdDdspub::statshr.jrefActservo, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "turn",
+							{&request.data().ccwNotCw()},
+							{&reply.success()});
+
+				replier.send_reply(reply, request.info());
+			};
+		};
+
 		template<> void ReplierListener<DdsJobWzskActServo::zero_req,DdsJobWzskActServo::zero_reply>::on_request_available(
 					Replier<DdsJobWzskActServo::zero_req,DdsJobWzskActServo::zero_reply>& replier
 				) {
@@ -207,6 +224,57 @@ namespace rti {
 			};
 		};
 
+		template<> void ReplierListener<DdsJobWzskActExposure::setExposure_req,DdsJobWzskActExposure::setExposure_reply>::on_request_available(
+					Replier<DdsJobWzskActExposure::setExposure_req,DdsJobWzskActExposure::setExposure_reply>& replier
+				) {
+			auto requests = replier.receive_requests(dds::core::Duration());
+			DdsJobWzskActExposure::setExposure_reply reply;
+
+			for (const auto& request: requests) {
+				if (!request.info().valid()) continue;
+
+				WzskcmbdDdspub::runMethod(WzskcmbdDdspub::statshr.jrefActexposure, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setExposure",
+							{&request.data().autoNotManual(), &request.data().Texp()},
+							{&reply.success()});
+
+				replier.send_reply(reply, request.info());
+			};
+		};
+
+		template<> void ReplierListener<DdsJobWzskActExposure::setFocus_req,DdsJobWzskActExposure::setFocus_reply>::on_request_available(
+					Replier<DdsJobWzskActExposure::setFocus_req,DdsJobWzskActExposure::setFocus_reply>& replier
+				) {
+			auto requests = replier.receive_requests(dds::core::Duration());
+			DdsJobWzskActExposure::setFocus_reply reply;
+
+			for (const auto& request: requests) {
+				if (!request.info().valid()) continue;
+
+				WzskcmbdDdspub::runMethod(WzskcmbdDdspub::statshr.jrefActexposure, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setFocus",
+							{&request.data().focus()},
+							{&reply.success()});
+
+				replier.send_reply(reply, request.info());
+			};
+		};
+
+		template<> void ReplierListener<DdsJobWzskAcqPtcloud::setDeltaTheta_req,DdsJobWzskAcqPtcloud::setDeltaTheta_reply>::on_request_available(
+					Replier<DdsJobWzskAcqPtcloud::setDeltaTheta_req,DdsJobWzskAcqPtcloud::setDeltaTheta_reply>& replier
+				) {
+			auto requests = replier.receive_requests(dds::core::Duration());
+			DdsJobWzskAcqPtcloud::setDeltaTheta_reply reply;
+
+			for (const auto& request: requests) {
+				if (!request.info().valid()) continue;
+
+				WzskcmbdDdspub::runMethod(WzskcmbdDdspub::statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDeltaTheta",
+							{&request.data().deltaTheta()},
+							{&reply.success()});
+
+				replier.send_reply(reply, request.info());
+			};
+		};
+
 	};
 };
 
@@ -216,7 +284,6 @@ namespace rti {
 
 WzskcmbdDdspub::Repliers::Repliers() {
 	replierJobWzskIprTrace_setLevel = NULL;
-	replierJobWzskIprTrace_setPOn = NULL;
 	replierJobWzskIprTrace_setRoi = NULL;
 	replierJobWzskIprTrace_setRoiNotFull = NULL;
 
@@ -225,15 +292,21 @@ WzskcmbdDdspub::Repliers::Repliers() {
 	replierJobWzskIprCorner_setRoiNotFull = NULL;
 
 	replierJobWzskActServo_moveto = NULL;
+	replierJobWzskActServo_stop = NULL;
+	replierJobWzskActServo_turn = NULL;
 	replierJobWzskActServo_zero = NULL;
 
 	replierJobWzskActLaser_setLeft = NULL;
 	replierJobWzskActLaser_setRight = NULL;
+
+	replierJobWzskActExposure_setExposure = NULL;
+	replierJobWzskActExposure_setFocus = NULL;
+
+	replierJobWzskAcqPtcloud_setDeltaTheta = NULL;
 };
 
 WzskcmbdDdspub::Repliers::~Repliers() {
 	if (replierJobWzskIprTrace_setLevel) delete replierJobWzskIprTrace_setLevel;
-	if (replierJobWzskIprTrace_setPOn) delete replierJobWzskIprTrace_setPOn;
 	if (replierJobWzskIprTrace_setRoi) delete replierJobWzskIprTrace_setRoi;
 	if (replierJobWzskIprTrace_setRoiNotFull) delete replierJobWzskIprTrace_setRoiNotFull;
 
@@ -242,10 +315,17 @@ WzskcmbdDdspub::Repliers::~Repliers() {
 	if (replierJobWzskIprCorner_setRoiNotFull) delete replierJobWzskIprCorner_setRoiNotFull;
 
 	if (replierJobWzskActServo_moveto) delete replierJobWzskActServo_moveto;
+	if (replierJobWzskActServo_stop) delete replierJobWzskActServo_stop;
+	if (replierJobWzskActServo_turn) delete replierJobWzskActServo_turn;
 	if (replierJobWzskActServo_zero) delete replierJobWzskActServo_zero;
 
 	if (replierJobWzskActLaser_setLeft) delete replierJobWzskActLaser_setLeft;
 	if (replierJobWzskActLaser_setRight) delete replierJobWzskActLaser_setRight;
+
+	if (replierJobWzskActExposure_setExposure) delete replierJobWzskActExposure_setExposure;
+	if (replierJobWzskActExposure_setFocus) delete replierJobWzskActExposure_setFocus;
+
+	if (replierJobWzskAcqPtcloud_setDeltaTheta) delete replierJobWzskAcqPtcloud_setDeltaTheta;
 };
 
 /******************************************************************************
@@ -253,6 +333,14 @@ WzskcmbdDdspub::Repliers::~Repliers() {
  ******************************************************************************/
 
 WzskcmbdDdspub::DataWriters::DataWriters() {
+	topicJobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3 = NULL;
+	writerJobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3 = NULL;
+	JobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3 = NULL;
+
+	topicJobWzskSrcSysinfo_temp = NULL;
+	writerJobWzskSrcSysinfo_temp = NULL;
+	JobWzskSrcSysinfo_temp = NULL;
+
 	topicJobWzskIprTrace_pOnLeftPOnRight = NULL;
 	writerJobWzskIprTrace_pOnLeftPOnRight = NULL;
 	JobWzskIprTrace_pOnLeftPOnRight = NULL;
@@ -289,6 +377,18 @@ WzskcmbdDdspub::DataWriters::DataWriters() {
 	writerJobWzskActLaser_leftRight = NULL;
 	JobWzskActLaser_leftRight = NULL;
 
+	topicJobWzskActExposure_autoNotManualTexp = NULL;
+	writerJobWzskActExposure_autoNotManualTexp = NULL;
+	JobWzskActExposure_autoNotManualTexp = NULL;
+
+	topicJobWzskActExposure_focus = NULL;
+	writerJobWzskActExposure_focus = NULL;
+	JobWzskActExposure_focus = NULL;
+
+	topicJobWzskAcqPtcloud_deltaTheta = NULL;
+	writerJobWzskAcqPtcloud_deltaTheta = NULL;
+	JobWzskAcqPtcloud_deltaTheta = NULL;
+
 	topicJobWzskAcqPtcloud_xYZ = NULL;
 	writerJobWzskAcqPtcloud_xYZ = NULL;
 	JobWzskAcqPtcloud_xYZ = NULL;
@@ -303,6 +403,16 @@ WzskcmbdDdspub::DataWriters::DataWriters() {
 };
 
 WzskcmbdDdspub::DataWriters::~DataWriters() {
+	if (topicJobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3) {
+		delete topicJobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3;
+		delete writerJobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3;
+		delete JobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3;
+	};
+	if (topicJobWzskSrcSysinfo_temp) {
+		delete topicJobWzskSrcSysinfo_temp;
+		delete writerJobWzskSrcSysinfo_temp;
+		delete JobWzskSrcSysinfo_temp;
+	};
 	if (topicJobWzskIprTrace_pOnLeftPOnRight) {
 		delete topicJobWzskIprTrace_pOnLeftPOnRight;
 		delete writerJobWzskIprTrace_pOnLeftPOnRight;
@@ -347,6 +457,21 @@ WzskcmbdDdspub::DataWriters::~DataWriters() {
 		delete topicJobWzskActLaser_leftRight;
 		delete writerJobWzskActLaser_leftRight;
 		delete JobWzskActLaser_leftRight;
+	};
+	if (topicJobWzskActExposure_autoNotManualTexp) {
+		delete topicJobWzskActExposure_autoNotManualTexp;
+		delete writerJobWzskActExposure_autoNotManualTexp;
+		delete JobWzskActExposure_autoNotManualTexp;
+	};
+	if (topicJobWzskActExposure_focus) {
+		delete topicJobWzskActExposure_focus;
+		delete writerJobWzskActExposure_focus;
+		delete JobWzskActExposure_focus;
+	};
+	if (topicJobWzskAcqPtcloud_deltaTheta) {
+		delete topicJobWzskAcqPtcloud_deltaTheta;
+		delete writerJobWzskAcqPtcloud_deltaTheta;
+		delete JobWzskAcqPtcloud_deltaTheta;
 	};
 	if (topicJobWzskAcqPtcloud_xYZ) {
 		delete topicJobWzskAcqPtcloud_xYZ;
@@ -440,11 +565,6 @@ void* WzskcmbdDdspub::run(
 			params.service_name("JobWzskIprTrace.setLevel");
 			repliers.replierJobWzskIprTrace_setLevel = new rti::request::Replier<DdsJobWzskIprTrace::setLevel_req,DdsJobWzskIprTrace::setLevel_reply>(params);
 		};
-		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprtrace, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setPOn", ixAcc);
-		if ((ixAcc & VecWzskWAccess::EXEC) == VecWzskWAccess::EXEC) {
-			params.service_name("JobWzskIprTrace.setPOn");
-			repliers.replierJobWzskIprTrace_setPOn = new rti::request::Replier<DdsJobWzskIprTrace::setPOn_req,DdsJobWzskIprTrace::setPOn_reply>(params);
-		};
 		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprtrace, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD, "setRoi", ixAcc);
 		if ((ixAcc & VecWzskWAccess::EXEC) == VecWzskWAccess::EXEC) {
 			params.service_name("JobWzskIprTrace.setRoi");
@@ -479,6 +599,16 @@ void* WzskcmbdDdspub::run(
 			params.service_name("JobWzskActServo.moveto");
 			repliers.replierJobWzskActServo_moveto = new rti::request::Replier<DdsJobWzskActServo::moveto_req,DdsJobWzskActServo::moveto_reply>(params);
 		};
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActservo, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "stop", ixAcc);
+		if ((ixAcc & VecWzskWAccess::EXEC) == VecWzskWAccess::EXEC) {
+			params.service_name("JobWzskActServo.stop");
+			repliers.replierJobWzskActServo_stop = new rti::request::Replier<DdsJobWzskActServo::stop_req,DdsJobWzskActServo::stop_reply>(params);
+		};
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActservo, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "turn", ixAcc);
+		if ((ixAcc & VecWzskWAccess::EXEC) == VecWzskWAccess::EXEC) {
+			params.service_name("JobWzskActServo.turn");
+			repliers.replierJobWzskActServo_turn = new rti::request::Replier<DdsJobWzskActServo::turn_req,DdsJobWzskActServo::turn_reply>(params);
+		};
 		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActservo, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, "zero", ixAcc);
 		if ((ixAcc & VecWzskWAccess::EXEC) == VecWzskWAccess::EXEC) {
 			params.service_name("JobWzskActServo.zero");
@@ -497,8 +627,45 @@ void* WzskcmbdDdspub::run(
 			repliers.replierJobWzskActLaser_setRight = new rti::request::Replier<DdsJobWzskActLaser::setRight_req,DdsJobWzskActLaser::setRight_reply>(params);
 		};
 	};
+	if (statshr.jrefActexposure != 0) {
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActexposure, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setExposure", ixAcc);
+		if ((ixAcc & VecWzskWAccess::EXEC) == VecWzskWAccess::EXEC) {
+			params.service_name("JobWzskActExposure.setExposure");
+			repliers.replierJobWzskActExposure_setExposure = new rti::request::Replier<DdsJobWzskActExposure::setExposure_req,DdsJobWzskActExposure::setExposure_reply>(params);
+		};
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActexposure, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setFocus", ixAcc);
+		if ((ixAcc & VecWzskWAccess::EXEC) == VecWzskWAccess::EXEC) {
+			params.service_name("JobWzskActExposure.setFocus");
+			repliers.replierJobWzskActExposure_setFocus = new rti::request::Replier<DdsJobWzskActExposure::setFocus_req,DdsJobWzskActExposure::setFocus_reply>(params);
+		};
+	};
+	if (statshr.jrefAcqptcloud != 0) {
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDeltaTheta", ixAcc);
+		if ((ixAcc & VecWzskWAccess::EXEC) == VecWzskWAccess::EXEC) {
+			params.service_name("JobWzskAcqPtcloud.setDeltaTheta");
+			repliers.replierJobWzskAcqPtcloud_setDeltaTheta = new rti::request::Replier<DdsJobWzskAcqPtcloud::setDeltaTheta_req,DdsJobWzskAcqPtcloud::setDeltaTheta_reply>(params);
+		};
+	};
 
 	// - register call listeners for each variable with view (read) access
+	if (statshr.jrefSrcsysinfo != 0) {
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefSrcsysinfo, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "loadAllLoadCore0LoadCore1LoadCore2LoadCore3", ixAcc);
+		if ((ixAcc & VecWzskWAccess::VIEW) == VecWzskWAccess::VIEW) {
+			dataWriters.JobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3 = new DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3();
+			dataWriters.topicJobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3 = new dds::topic::Topic<DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3>(participant, "JobWzskSrcSysinfo.loadAllLoadCore0LoadCore1LoadCore2LoadCore3");
+			dataWriters.writerJobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3 = new dds::pub::DataWriter<DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3>(dds::pub::Publisher(participant), *dataWriters.topicJobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3);
+
+			xchg->addClstnDdspub(statshr.jrefSrcsysinfo, "loadAllLoadCore0LoadCore1LoadCore2LoadCore3", true);
+		};
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefSrcsysinfo, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "temp", ixAcc);
+		if ((ixAcc & VecWzskWAccess::VIEW) == VecWzskWAccess::VIEW) {
+			dataWriters.JobWzskSrcSysinfo_temp = new DdsJobWzskSrcSysinfo::temp();
+			dataWriters.topicJobWzskSrcSysinfo_temp = new dds::topic::Topic<DdsJobWzskSrcSysinfo::temp>(participant, "JobWzskSrcSysinfo.temp");
+			dataWriters.writerJobWzskSrcSysinfo_temp = new dds::pub::DataWriter<DdsJobWzskSrcSysinfo::temp>(dds::pub::Publisher(participant), *dataWriters.topicJobWzskSrcSysinfo_temp);
+
+			xchg->addClstnDdspub(statshr.jrefSrcsysinfo, "temp", true);
+		};
+	};
 	if (statshr.jrefIprtrace != 0) {
 		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprtrace, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEVAR, "pOnLeftPOnRight", ixAcc);
 		if ((ixAcc & VecWzskWAccess::VIEW) == VecWzskWAccess::VIEW) {
@@ -579,7 +746,33 @@ void* WzskcmbdDdspub::run(
 			xchg->addClstnDdspub(statshr.jrefActlaser, "leftRight", true);
 		};
 	};
+	if (statshr.jrefActexposure != 0) {
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActexposure, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "autoNotManualTexp", ixAcc);
+		if ((ixAcc & VecWzskWAccess::VIEW) == VecWzskWAccess::VIEW) {
+			dataWriters.JobWzskActExposure_autoNotManualTexp = new DdsJobWzskActExposure::autoNotManualTexp();
+			dataWriters.topicJobWzskActExposure_autoNotManualTexp = new dds::topic::Topic<DdsJobWzskActExposure::autoNotManualTexp>(participant, "JobWzskActExposure.autoNotManualTexp");
+			dataWriters.writerJobWzskActExposure_autoNotManualTexp = new dds::pub::DataWriter<DdsJobWzskActExposure::autoNotManualTexp>(dds::pub::Publisher(participant), *dataWriters.topicJobWzskActExposure_autoNotManualTexp);
+
+			xchg->addClstnDdspub(statshr.jrefActexposure, "autoNotManualTexp", true);
+		};
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActexposure, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "focus", ixAcc);
+		if ((ixAcc & VecWzskWAccess::VIEW) == VecWzskWAccess::VIEW) {
+			dataWriters.JobWzskActExposure_focus = new DdsJobWzskActExposure::focus();
+			dataWriters.topicJobWzskActExposure_focus = new dds::topic::Topic<DdsJobWzskActExposure::focus>(participant, "JobWzskActExposure.focus");
+			dataWriters.writerJobWzskActExposure_focus = new dds::pub::DataWriter<DdsJobWzskActExposure::focus>(dds::pub::Publisher(participant), *dataWriters.topicJobWzskActExposure_focus);
+
+			xchg->addClstnDdspub(statshr.jrefActexposure, "focus", true);
+		};
+	};
 	if (statshr.jrefAcqptcloud != 0) {
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "deltaTheta", ixAcc);
+		if ((ixAcc & VecWzskWAccess::VIEW) == VecWzskWAccess::VIEW) {
+			dataWriters.JobWzskAcqPtcloud_deltaTheta = new DdsJobWzskAcqPtcloud::deltaTheta();
+			dataWriters.topicJobWzskAcqPtcloud_deltaTheta = new dds::topic::Topic<DdsJobWzskAcqPtcloud::deltaTheta>(participant, "JobWzskAcqPtcloud.deltaTheta");
+			dataWriters.writerJobWzskAcqPtcloud_deltaTheta = new dds::pub::DataWriter<DdsJobWzskAcqPtcloud::deltaTheta>(dds::pub::Publisher(participant), *dataWriters.topicJobWzskAcqPtcloud_deltaTheta);
+
+			xchg->addClstnDdspub(statshr.jrefAcqptcloud, "deltaTheta", true);
+		};
 		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "xYZ", ixAcc);
 		if ((ixAcc & VecWzskWAccess::VIEW) == VecWzskWAccess::VIEW) {
 			dataWriters.JobWzskAcqPtcloud_xYZ = new DdsJobWzskAcqPtcloud::xYZ();
@@ -614,7 +807,23 @@ void* WzskcmbdDdspub::run(
 		xchg->cDdspub.lockMutex("WzskcmbdDdspub", "run");
 		while (!(xchg->ddspubcall)) xchg->cDdspub.wait("WzskcmbdDdspub", "run");
 
-		if ((xchg->ddspubcall->jref == statshr.jrefIprtrace) && (xchg->ddspubcall->argInv.sref == "pOnLeftPOnRight")) {
+		if ((xchg->ddspubcall->jref == statshr.jrefSrcsysinfo) && (xchg->ddspubcall->argInv.sref == "loadAllLoadCore0LoadCore1LoadCore2LoadCore3")) {
+			JobWzskSrcSysinfo::shrdat.rlockAccess("WzskcmbdDdspub", "run");
+			dataWriters.JobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3->loadAll(JobWzskSrcSysinfo::shrdat.loadAll);
+			dataWriters.JobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3->loadCore0(JobWzskSrcSysinfo::shrdat.loadCore0);
+			dataWriters.JobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3->loadCore1(JobWzskSrcSysinfo::shrdat.loadCore1);
+			dataWriters.JobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3->loadCore2(JobWzskSrcSysinfo::shrdat.loadCore2);
+			dataWriters.JobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3->loadCore3(JobWzskSrcSysinfo::shrdat.loadCore3);
+			JobWzskSrcSysinfo::shrdat.runlockAccess("WzskcmbdDdspub", "run");
+
+			dataWriters.writerJobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3->write(*(dataWriters.JobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3));
+		} else if ((xchg->ddspubcall->jref == statshr.jrefSrcsysinfo) && (xchg->ddspubcall->argInv.sref == "temp")) {
+			JobWzskSrcSysinfo::shrdat.rlockAccess("WzskcmbdDdspub", "run");
+			dataWriters.JobWzskSrcSysinfo_temp->_temp(JobWzskSrcSysinfo::shrdat.temp);
+			JobWzskSrcSysinfo::shrdat.runlockAccess("WzskcmbdDdspub", "run");
+
+			dataWriters.writerJobWzskSrcSysinfo_temp->write(*(dataWriters.JobWzskSrcSysinfo_temp));
+		} else if ((xchg->ddspubcall->jref == statshr.jrefIprtrace) && (xchg->ddspubcall->argInv.sref == "pOnLeftPOnRight")) {
 			JobWzskIprTrace::shrdat.rlockAccess("WzskcmbdDdspub", "run");
 			dataWriters.JobWzskIprTrace_pOnLeftPOnRight->pOnLeft(JobWzskIprTrace::shrdat.pOnLeft);
 			dataWriters.JobWzskIprTrace_pOnLeftPOnRight->pOnRight(JobWzskIprTrace::shrdat.pOnRight);
@@ -687,6 +896,25 @@ void* WzskcmbdDdspub::run(
 			JobWzskActLaser::shrdat.runlockAccess("WzskcmbdDdspub", "run");
 
 			dataWriters.writerJobWzskActLaser_leftRight->write(*(dataWriters.JobWzskActLaser_leftRight));
+		} else if ((xchg->ddspubcall->jref == statshr.jrefActexposure) && (xchg->ddspubcall->argInv.sref == "autoNotManualTexp")) {
+			JobWzskActExposure::shrdat.rlockAccess("WzskcmbdDdspub", "run");
+			dataWriters.JobWzskActExposure_autoNotManualTexp->autoNotManual(JobWzskActExposure::shrdat.autoNotManual);
+			dataWriters.JobWzskActExposure_autoNotManualTexp->Texp(JobWzskActExposure::shrdat.Texp);
+			JobWzskActExposure::shrdat.runlockAccess("WzskcmbdDdspub", "run");
+
+			dataWriters.writerJobWzskActExposure_autoNotManualTexp->write(*(dataWriters.JobWzskActExposure_autoNotManualTexp));
+		} else if ((xchg->ddspubcall->jref == statshr.jrefActexposure) && (xchg->ddspubcall->argInv.sref == "focus")) {
+			JobWzskActExposure::shrdat.rlockAccess("WzskcmbdDdspub", "run");
+			dataWriters.JobWzskActExposure_focus->_focus(JobWzskActExposure::shrdat.focus);
+			JobWzskActExposure::shrdat.runlockAccess("WzskcmbdDdspub", "run");
+
+			dataWriters.writerJobWzskActExposure_focus->write(*(dataWriters.JobWzskActExposure_focus));
+		} else if ((xchg->ddspubcall->jref == statshr.jrefAcqptcloud) && (xchg->ddspubcall->argInv.sref == "deltaTheta")) {
+			JobWzskAcqPtcloud::shrdat.rlockAccess("WzskcmbdDdspub", "run");
+			dataWriters.JobWzskAcqPtcloud_deltaTheta->_deltaTheta(JobWzskAcqPtcloud::shrdat.deltaTheta);
+			JobWzskAcqPtcloud::shrdat.runlockAccess("WzskcmbdDdspub", "run");
+
+			dataWriters.writerJobWzskAcqPtcloud_deltaTheta->write(*(dataWriters.JobWzskAcqPtcloud_deltaTheta));
 		} else if ((xchg->ddspubcall->jref == statshr.jrefAcqptcloud) && (xchg->ddspubcall->argInv.sref == "xYZ")) {
 			JobWzskAcqPtcloud::shrdat.rlockAccess("WzskcmbdDdspub", "run");
 			dataWriters.JobWzskAcqPtcloud_xYZ->x(JobWzskAcqPtcloud::shrdat.x);

@@ -2,8 +2,8 @@
 	* \file PnlWzskLiv3DView_blks.cpp
 	* job handler for job PnlWzskLiv3DView (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -22,9 +22,8 @@ uint PnlWzskLiv3DView::VecVDo::getIx(
 	if (s == "butregularizeclick") return BUTREGULARIZECLICK;
 	if (s == "butminimizeclick") return BUTMINIMIZECLICK;
 	if (s == "butclaimclick") return BUTCLAIMCLICK;
-	if (s == "butplayclick") return BUTPLAYCLICK;
-	if (s == "butstopclick") return BUTSTOPCLICK;
-	if (s == "butastclick") return BUTASTCLICK;
+	if (s == "butasrclick") return BUTASRCLICK;
+	if (s == "butairclick") return BUTAIRCLICK;
 
 	return(0);
 };
@@ -35,11 +34,87 @@ string PnlWzskLiv3DView::VecVDo::getSref(
 	if (ix == BUTREGULARIZECLICK) return("ButRegularizeClick");
 	if (ix == BUTMINIMIZECLICK) return("ButMinimizeClick");
 	if (ix == BUTCLAIMCLICK) return("ButClaimClick");
-	if (ix == BUTPLAYCLICK) return("ButPlayClick");
-	if (ix == BUTSTOPCLICK) return("ButStopClick");
-	if (ix == BUTASTCLICK) return("ButAstClick");
+	if (ix == BUTASRCLICK) return("ButAsrClick");
+	if (ix == BUTAIRCLICK) return("ButAirClick");
 
 	return("");
+};
+
+/******************************************************************************
+ class PnlWzskLiv3DView::ContIac
+ ******************************************************************************/
+
+PnlWzskLiv3DView::ContIac::ContIac(
+			const double SldAin
+		) :
+			Block()
+		{
+	this->SldAin = SldAin;
+
+	mask = {SLDAIN};
+};
+
+bool PnlWzskLiv3DView::ContIac::readXML(
+			xmlXPathContext* docctx
+			, string basexpath
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	if (addbasetag)
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "ContIacWzskLiv3DView");
+	else
+		basefound = checkXPath(docctx, basexpath);
+
+	string itemtag = "ContitemIacWzskLiv3DView";
+
+	if (basefound) {
+		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "SldAin", SldAin)) add(SLDAIN);
+	};
+
+	return basefound;
+};
+
+void PnlWzskLiv3DView::ContIac::writeXML(
+			xmlTextWriter* wr
+			, string difftag
+			, bool shorttags
+		) {
+	if (difftag.length() == 0) difftag = "ContIacWzskLiv3DView";
+
+	string itemtag;
+	if (shorttags) itemtag = "Ci";
+	else itemtag = "ContitemIacWzskLiv3DView";
+
+	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
+		writeDoubleAttr(wr, itemtag, "sref", "SldAin", SldAin);
+	xmlTextWriterEndElement(wr);
+};
+
+set<uint> PnlWzskLiv3DView::ContIac::comm(
+			const ContIac* comp
+		) {
+	set<uint> items;
+
+	if (compareDouble(SldAin, comp->SldAin) < 1.0e-4) insert(items, SLDAIN);
+
+	return(items);
+};
+
+set<uint> PnlWzskLiv3DView::ContIac::diff(
+			const ContIac* comp
+		) {
+	set<uint> commitems;
+	set<uint> diffitems;
+
+	commitems = comm(comp);
+
+	diffitems = {SLDAIN};
+	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
+
+	return(diffitems);
 };
 
 /******************************************************************************
@@ -105,6 +180,29 @@ set<uint> PnlWzskLiv3DView::ContInf::diff(
 };
 
 /******************************************************************************
+ class PnlWzskLiv3DView::StatApp
+ ******************************************************************************/
+
+void PnlWzskLiv3DView::StatApp::writeXML(
+			xmlTextWriter* wr
+			, string difftag
+			, bool shorttags
+			, const bool ButPlayActive
+			, const bool ButStopActive
+		) {
+	if (difftag.length() == 0) difftag = "StatAppWzskLiv3DView";
+
+	string itemtag;
+	if (shorttags) itemtag = "Si";
+	else itemtag = "StatitemAppWzskLiv3DView";
+
+	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
+		writeBoolAttr(wr, itemtag, "sref", "ButPlayActive", ButPlayActive);
+		writeBoolAttr(wr, itemtag, "sref", "ButStopActive", ButStopActive);
+	xmlTextWriterEndElement(wr);
+};
+
+/******************************************************************************
  class PnlWzskLiv3DView::StatShr
  ******************************************************************************/
 
@@ -115,10 +213,13 @@ PnlWzskLiv3DView::StatShr::StatShr(
 			, const double SldTreHMax
 			, const double SldTreVMin
 			, const double SldTreVMax
-			, const bool ButPlayActive
-			, const bool ButStopActive
+			, const bool SldAinActive
+			, const double SldAinMin
+			, const double SldAinMax
+			, const double SldAinRast
 			, const bool TxtAoaAvail
-			, const bool ButAstActive
+			, const bool ButAsrActive
+			, const bool ButAirActive
 		) :
 			Block()
 		{
@@ -128,12 +229,15 @@ PnlWzskLiv3DView::StatShr::StatShr(
 	this->SldTreHMax = SldTreHMax;
 	this->SldTreVMin = SldTreVMin;
 	this->SldTreVMax = SldTreVMax;
-	this->ButPlayActive = ButPlayActive;
-	this->ButStopActive = ButStopActive;
+	this->SldAinActive = SldAinActive;
+	this->SldAinMin = SldAinMin;
+	this->SldAinMax = SldAinMax;
+	this->SldAinRast = SldAinRast;
 	this->TxtAoaAvail = TxtAoaAvail;
-	this->ButAstActive = ButAstActive;
+	this->ButAsrActive = ButAsrActive;
+	this->ButAirActive = ButAirActive;
 
-	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTREHMIN, SLDTREHMAX, SLDTREVMIN, SLDTREVMAX, BUTPLAYACTIVE, BUTSTOPACTIVE, TXTAOAAVAIL, BUTASTACTIVE};
+	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTREHMIN, SLDTREHMAX, SLDTREVMIN, SLDTREVMAX, SLDAINACTIVE, SLDAINMIN, SLDAINMAX, SLDAINRAST, TXTAOAAVAIL, BUTASRACTIVE, BUTAIRACTIVE};
 };
 
 void PnlWzskLiv3DView::StatShr::writeXML(
@@ -154,10 +258,13 @@ void PnlWzskLiv3DView::StatShr::writeXML(
 		writeDoubleAttr(wr, itemtag, "sref", "SldTreHMax", SldTreHMax);
 		writeDoubleAttr(wr, itemtag, "sref", "SldTreVMin", SldTreVMin);
 		writeDoubleAttr(wr, itemtag, "sref", "SldTreVMax", SldTreVMax);
-		writeBoolAttr(wr, itemtag, "sref", "ButPlayActive", ButPlayActive);
-		writeBoolAttr(wr, itemtag, "sref", "ButStopActive", ButStopActive);
+		writeBoolAttr(wr, itemtag, "sref", "SldAinActive", SldAinActive);
+		writeDoubleAttr(wr, itemtag, "sref", "SldAinMin", SldAinMin);
+		writeDoubleAttr(wr, itemtag, "sref", "SldAinMax", SldAinMax);
+		writeDoubleAttr(wr, itemtag, "sref", "SldAinRast", SldAinRast);
 		writeBoolAttr(wr, itemtag, "sref", "TxtAoaAvail", TxtAoaAvail);
-		writeBoolAttr(wr, itemtag, "sref", "ButAstActive", ButAstActive);
+		writeBoolAttr(wr, itemtag, "sref", "ButAsrActive", ButAsrActive);
+		writeBoolAttr(wr, itemtag, "sref", "ButAirActive", ButAirActive);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -172,10 +279,13 @@ set<uint> PnlWzskLiv3DView::StatShr::comm(
 	if (compareDouble(SldTreHMax, comp->SldTreHMax) < 1.0e-4) insert(items, SLDTREHMAX);
 	if (compareDouble(SldTreVMin, comp->SldTreVMin) < 1.0e-4) insert(items, SLDTREVMIN);
 	if (compareDouble(SldTreVMax, comp->SldTreVMax) < 1.0e-4) insert(items, SLDTREVMAX);
-	if (ButPlayActive == comp->ButPlayActive) insert(items, BUTPLAYACTIVE);
-	if (ButStopActive == comp->ButStopActive) insert(items, BUTSTOPACTIVE);
+	if (SldAinActive == comp->SldAinActive) insert(items, SLDAINACTIVE);
+	if (compareDouble(SldAinMin, comp->SldAinMin) < 1.0e-4) insert(items, SLDAINMIN);
+	if (compareDouble(SldAinMax, comp->SldAinMax) < 1.0e-4) insert(items, SLDAINMAX);
+	if (compareDouble(SldAinRast, comp->SldAinRast) < 1.0e-4) insert(items, SLDAINRAST);
 	if (TxtAoaAvail == comp->TxtAoaAvail) insert(items, TXTAOAAVAIL);
-	if (ButAstActive == comp->ButAstActive) insert(items, BUTASTACTIVE);
+	if (ButAsrActive == comp->ButAsrActive) insert(items, BUTASRACTIVE);
+	if (ButAirActive == comp->ButAirActive) insert(items, BUTAIRACTIVE);
 
 	return(items);
 };
@@ -188,7 +298,7 @@ set<uint> PnlWzskLiv3DView::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTREHMIN, SLDTREHMAX, SLDTREVMIN, SLDTREVMAX, BUTPLAYACTIVE, BUTSTOPACTIVE, TXTAOAAVAIL, BUTASTACTIVE};
+	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTREHMIN, SLDTREHMAX, SLDTREVMIN, SLDTREVMAX, SLDAINACTIVE, SLDAINMIN, SLDAINMAX, SLDAINRAST, TXTAOAAVAIL, BUTASRACTIVE, BUTAIRACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -214,17 +324,69 @@ void PnlWzskLiv3DView::Tag::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "3D Reconstruction");
 			writeStringAttr(wr, itemtag, "sref", "HdgAcq", "Shot acquisition");
+			writeStringAttr(wr, itemtag, "sref", "CptAin", "angle increment [\\u00b0]");
 			writeStringAttr(wr, itemtag, "sref", "CptAst", "state");
 			writeStringAttr(wr, itemtag, "sref", "CptAoa", "object affiliation");
-			writeStringAttr(wr, itemtag, "sref", "ButAst", "Start");
+			writeStringAttr(wr, itemtag, "sref", "ButAsr", "Start");
+			writeStringAttr(wr, itemtag, "sref", "ButAir", "Interrupt");
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "3D-Rekonstruktion");
 			writeStringAttr(wr, itemtag, "sref", "HdgAcq", "Aufnahme");
+			writeStringAttr(wr, itemtag, "sref", "CptAin", "Winkel-Schrittweite [\\u00b0]");
 			writeStringAttr(wr, itemtag, "sref", "CptAst", "Status");
 			writeStringAttr(wr, itemtag, "sref", "CptAoa", "Objekt-Zuordnung");
-			writeStringAttr(wr, itemtag, "sref", "ButAst", "Start");
+			writeStringAttr(wr, itemtag, "sref", "ButAsr", "Start");
+			writeStringAttr(wr, itemtag, "sref", "ButAir", "Unterbrechen");
 		};
 	xmlTextWriterEndElement(wr);
+};
+
+/******************************************************************************
+ class PnlWzskLiv3DView::DpchAppData
+ ******************************************************************************/
+
+PnlWzskLiv3DView::DpchAppData::DpchAppData() :
+			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKLIV3DVIEWDATA)
+		{
+};
+
+string PnlWzskLiv3DView::DpchAppData::getSrefsMask() {
+	vector<string> ss;
+	string srefs;
+
+	if (has(JREF)) ss.push_back("jref");
+	if (has(CONTIAC)) ss.push_back("contiac");
+
+	StrMod::vectorToString(ss, srefs);
+
+	return(srefs);
+};
+
+void PnlWzskLiv3DView::DpchAppData::readXML(
+			xmlXPathContext* docctx
+			, string basexpath
+			, bool addbasetag
+		) {
+	clear();
+
+	string scrJref;
+
+	bool basefound;
+
+	if (addbasetag)
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "DpchAppWzskLiv3DViewData");
+	else
+		basefound = checkXPath(docctx, basexpath);
+
+	if (basefound) {
+		if (extractStringUclc(docctx, basexpath, "scrJref", "", scrJref)) {
+			jref = Scr::descramble(scrJref);
+			add(JREF);
+		};
+		if (contiac.readXML(docctx, basexpath, true)) add(CONTIAC);
+	} else {
+		contiac = ContIac();
+	};
 };
 
 /******************************************************************************
@@ -285,15 +447,17 @@ void PnlWzskLiv3DView::DpchAppDo::readXML(
 
 PnlWzskLiv3DView::DpchEngData::DpchEngData(
 			const ubigint jref
+			, ContIac* contiac
 			, ContInf* continf
 			, StatShr* statshr
 			, const set<uint>& mask
 		) :
 			DpchEngWzsk(VecWzskVDpch::DPCHENGWZSKLIV3DVIEWDATA, jref)
 		{
-	if (find(mask, ALL)) this->mask = {JREF, CONTINF, STATSHR, TAG};
+	if (find(mask, ALL)) this->mask = {JREF, CONTIAC, CONTINF, STATAPP, STATSHR, TAG};
 	else this->mask = mask;
 
+	if (find(this->mask, CONTIAC) && contiac) this->contiac = *contiac;
 	if (find(this->mask, CONTINF) && continf) this->continf = *continf;
 	if (find(this->mask, STATSHR) && statshr) this->statshr = *statshr;
 };
@@ -303,7 +467,9 @@ string PnlWzskLiv3DView::DpchEngData::getSrefsMask() {
 	string srefs;
 
 	if (has(JREF)) ss.push_back("jref");
+	if (has(CONTIAC)) ss.push_back("contiac");
 	if (has(CONTINF)) ss.push_back("continf");
+	if (has(STATAPP)) ss.push_back("statapp");
 	if (has(STATSHR)) ss.push_back("statshr");
 	if (has(TAG)) ss.push_back("tag");
 
@@ -318,7 +484,9 @@ void PnlWzskLiv3DView::DpchEngData::merge(
 	DpchEngData* src = (DpchEngData*) dpcheng;
 
 	if (src->has(JREF)) {jref = src->jref; add(JREF);};
+	if (src->has(CONTIAC)) {contiac = src->contiac; add(CONTIAC);};
 	if (src->has(CONTINF)) {continf = src->continf; add(CONTINF);};
+	if (src->has(STATAPP)) add(STATAPP);
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
 };
@@ -330,7 +498,9 @@ void PnlWzskLiv3DView::DpchEngData::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST "DpchEngWzskLiv3DViewData");
 	xmlTextWriterWriteAttribute(wr, BAD_CAST "xmlns", BAD_CAST "http://www.mpsitech.com/wzsk");
 		if (has(JREF)) writeString(wr, "scrJref", Scr::scramble(jref));
+		if (has(CONTIAC)) contiac.writeXML(wr);
 		if (has(CONTINF)) continf.writeXML(wr);
+		if (has(STATAPP)) StatApp::writeXML(wr);
 		if (has(STATSHR)) statshr.writeXML(wr);
 		if (has(TAG)) Tag::writeXML(ixWzskVLocale, wr);
 	xmlTextWriterEndElement(wr);

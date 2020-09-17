@@ -2,8 +2,8 @@
 	* \file CrdWzskNav.cpp
 	* job handler for job CrdWzskNav (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -43,8 +43,8 @@ CrdWzskNav::CrdWzskNav(
 
 	pnlgalery = NULL;
 	pnlop = NULL;
-	pnlpre = NULL;
 	pnladmin = NULL;
+	pnlpre = NULL;
 	pnlheadbar = NULL;
 	dlgloaini = NULL;
 
@@ -55,8 +55,8 @@ CrdWzskNav::CrdWzskNav(
 
 	pnlgalery = new PnlWzskNavGalery(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlop = new PnlWzskNavOp(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlpre = new PnlWzskNavPre(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnladmin = new PnlWzskNavAdmin(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlpre = new PnlWzskNavPre(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlheadbar = new PnlWzskNavHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
@@ -104,7 +104,11 @@ DpchEngWzsk* CrdWzskNav::getNewDpchEng(
 void CrdWzskNav::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	ContInf oldContinf(continf);
 	StatShr oldStatshr(statshr);
 
@@ -150,6 +154,8 @@ void CrdWzskNav::refresh(
 	// IP refresh --- END
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+
+	muteRefresh = false;
 };
 
 void CrdWzskNav::updatePreset(
@@ -488,7 +494,7 @@ void CrdWzskNav::changeStage(
 
 			setStage(dbswzsk, _ixVSge);
 			reenter = false;
-			if (!muteRefresh) refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
+			refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
 		};
 
 		switch (_ixVSge) {

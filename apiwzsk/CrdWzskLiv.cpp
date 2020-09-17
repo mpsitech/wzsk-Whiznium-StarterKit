@@ -2,8 +2,8 @@
 	* \file CrdWzskLiv.cpp
 	* API code for job CrdWzskLiv (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "CrdWzskLiv.h"
@@ -136,6 +136,7 @@ CrdWzskLiv::StatApp::StatApp(
 			, const uint widthMenu
 			, const bool initdone2DView
 			, const bool initdone3DView
+			, const bool initdoneSysmon
 			, const bool initdoneHeadbar
 		) :
 			Block()
@@ -146,9 +147,10 @@ CrdWzskLiv::StatApp::StatApp(
 	this->widthMenu = widthMenu;
 	this->initdone2DView = initdone2DView;
 	this->initdone3DView = initdone3DView;
+	this->initdoneSysmon = initdoneSysmon;
 	this->initdoneHeadbar = initdoneHeadbar;
 
-	mask = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONE2DVIEW, INITDONE3DVIEW, INITDONEHEADBAR};
+	mask = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONE2DVIEW, INITDONE3DVIEW, INITDONESYSMON, INITDONEHEADBAR};
 };
 
 bool CrdWzskLiv::StatApp::readXML(
@@ -179,6 +181,7 @@ bool CrdWzskLiv::StatApp::readXML(
 		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "widthMenu", widthMenu)) add(WIDTHMENU);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdone2DView", initdone2DView)) add(INITDONE2DVIEW);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdone3DView", initdone3DView)) add(INITDONE3DVIEW);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneSysmon", initdoneSysmon)) add(INITDONESYSMON);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneHeadbar", initdoneHeadbar)) add(INITDONEHEADBAR);
 	};
 
@@ -196,6 +199,7 @@ set<uint> CrdWzskLiv::StatApp::comm(
 	if (widthMenu == comp->widthMenu) insert(items, WIDTHMENU);
 	if (initdone2DView == comp->initdone2DView) insert(items, INITDONE2DVIEW);
 	if (initdone3DView == comp->initdone3DView) insert(items, INITDONE3DVIEW);
+	if (initdoneSysmon == comp->initdoneSysmon) insert(items, INITDONESYSMON);
 	if (initdoneHeadbar == comp->initdoneHeadbar) insert(items, INITDONEHEADBAR);
 
 	return(items);
@@ -209,7 +213,7 @@ set<uint> CrdWzskLiv::StatApp::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONE2DVIEW, INITDONE3DVIEW, INITDONEHEADBAR};
+	diffitems = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONE2DVIEW, INITDONE3DVIEW, INITDONESYSMON, INITDONEHEADBAR};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -222,15 +226,17 @@ set<uint> CrdWzskLiv::StatApp::diff(
 CrdWzskLiv::StatShr::StatShr(
 			const string& scrJref2DView
 			, const string& scrJref3DView
+			, const string& scrJrefSysmon
 			, const string& scrJrefHeadbar
 		) :
 			Block()
 		{
 	this->scrJref2DView = scrJref2DView;
 	this->scrJref3DView = scrJref3DView;
+	this->scrJrefSysmon = scrJrefSysmon;
 	this->scrJrefHeadbar = scrJrefHeadbar;
 
-	mask = {SCRJREF2DVIEW, SCRJREF3DVIEW, SCRJREFHEADBAR};
+	mask = {SCRJREF2DVIEW, SCRJREF3DVIEW, SCRJREFSYSMON, SCRJREFHEADBAR};
 };
 
 bool CrdWzskLiv::StatShr::readXML(
@@ -252,6 +258,7 @@ bool CrdWzskLiv::StatShr::readXML(
 	if (basefound) {
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJref2DView", scrJref2DView)) add(SCRJREF2DVIEW);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJref3DView", scrJref3DView)) add(SCRJREF3DVIEW);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefSysmon", scrJrefSysmon)) add(SCRJREFSYSMON);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefHeadbar", scrJrefHeadbar)) add(SCRJREFHEADBAR);
 	};
 
@@ -265,6 +272,7 @@ set<uint> CrdWzskLiv::StatShr::comm(
 
 	if (scrJref2DView == comp->scrJref2DView) insert(items, SCRJREF2DVIEW);
 	if (scrJref3DView == comp->scrJref3DView) insert(items, SCRJREF3DVIEW);
+	if (scrJrefSysmon == comp->scrJrefSysmon) insert(items, SCRJREFSYSMON);
 	if (scrJrefHeadbar == comp->scrJrefHeadbar) insert(items, SCRJREFHEADBAR);
 
 	return(items);
@@ -278,7 +286,7 @@ set<uint> CrdWzskLiv::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {SCRJREF2DVIEW, SCRJREF3DVIEW, SCRJREFHEADBAR};
+	diffitems = {SCRJREF2DVIEW, SCRJREF3DVIEW, SCRJREFSYSMON, SCRJREFHEADBAR};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

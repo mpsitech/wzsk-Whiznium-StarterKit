@@ -2,8 +2,8 @@
 # file checkout.sh
 # checkout script for Wzsk combined daemon, release wzskcmbd_mac
 # author Catherine Johnson
-# date created: 23 Jul 2020
-# modified: 23 Jul 2020
+# date created: 16 Sep 2020
+# modified: 16 Sep 2020
 
 export set SRCROOT=${WHIZROOT}/src
 export set LIBROOT=${WHIZROOT}/lib
@@ -12,11 +12,11 @@ export set BINROOT=${WHIZROOT}/bin
 mkdir $SRCROOT/wzskcmbd
 mkdir $SRCROOT/wzskcmbd/IexWzsk
 mkdir $SRCROOT/wzskcmbd/VecWzsk
-mkdir $SRCROOT/wzskcmbd/CrdWzskNav
 mkdir $SRCROOT/wzskcmbd/CrdWzskUsg
 mkdir $SRCROOT/wzskcmbd/CrdWzskUsr
 mkdir $SRCROOT/wzskcmbd/CrdWzskPrs
 mkdir $SRCROOT/wzskcmbd/CrdWzskScf
+mkdir $SRCROOT/wzskcmbd/CrdWzskNav
 mkdir $SRCROOT/wzskcmbd/CrdWzskLlv
 mkdir $SRCROOT/wzskcmbd/CrdWzskLiv
 mkdir $SRCROOT/wzskcmbd/CrdWzskOgr
@@ -89,11 +89,6 @@ cp Makefile_VecWzsk $SRCROOT/wzskcmbd/VecWzsk/Makefile
 cp ../../wzskcmbd/VecWzsk/Vec*.h $SRCROOT/wzskcmbd/VecWzsk/
 cp ../../wzskcmbd/VecWzsk/Vec*.cpp $SRCROOT/wzskcmbd/VecWzsk/
 
-cp Makefile_CrdWzskNav $SRCROOT/wzskcmbd/CrdWzskNav/Makefile
-
-cp ../../wzskcmbd/CrdWzskNav/*.h $SRCROOT/wzskcmbd/CrdWzskNav/
-cp ../../wzskcmbd/CrdWzskNav/*.cpp $SRCROOT/wzskcmbd/CrdWzskNav/
-
 cp Makefile_CrdWzskUsg $SRCROOT/wzskcmbd/CrdWzskUsg/Makefile
 
 cp ../../wzskcmbd/CrdWzskUsg/*.h $SRCROOT/wzskcmbd/CrdWzskUsg/
@@ -113,6 +108,11 @@ cp Makefile_CrdWzskScf $SRCROOT/wzskcmbd/CrdWzskScf/Makefile
 
 cp ../../wzskcmbd/CrdWzskScf/*.h $SRCROOT/wzskcmbd/CrdWzskScf/
 cp ../../wzskcmbd/CrdWzskScf/*.cpp $SRCROOT/wzskcmbd/CrdWzskScf/
+
+cp Makefile_CrdWzskNav $SRCROOT/wzskcmbd/CrdWzskNav/Makefile
+
+cp ../../wzskcmbd/CrdWzskNav/*.h $SRCROOT/wzskcmbd/CrdWzskNav/
+cp ../../wzskcmbd/CrdWzskNav/*.cpp $SRCROOT/wzskcmbd/CrdWzskNav/
 
 cp Makefile_CrdWzskLlv $SRCROOT/wzskcmbd/CrdWzskLlv/Makefile
 

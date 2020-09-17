@@ -2,8 +2,8 @@
   * \file PnlWzskLlvCamera.java
   * Java API code for job PnlWzskLlvCamera
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 package apiwzsk;
@@ -58,24 +58,28 @@ public class PnlWzskLlvCamera {
 	public class ContIac extends Block {
 
 		public static final int NUMFPUPMDE = 1;
-		public static final int SLDFCS = 2;
+		public static final int CHKAEX = 2;
 		public static final int SLDEXT = 3;
+		public static final int SLDFCS = 4;
 
 		public ContIac(
 					int numFPupMde
-					, double SldFcs
+					, boolean ChkAex
 					, double SldExt
+					, double SldFcs
 				) {
 			this.numFPupMde = numFPupMde;
-			this.SldFcs = SldFcs;
+			this.ChkAex = ChkAex;
 			this.SldExt = SldExt;
+			this.SldFcs = SldFcs;
 
-			mask = new HashSet<Integer>(Arrays.asList(NUMFPUPMDE, SLDFCS, SLDEXT));
+			mask = new HashSet<Integer>(Arrays.asList(NUMFPUPMDE, CHKAEX, SLDEXT, SLDFCS));
 		};
 
 		public int numFPupMde;
-		public double SldFcs;
+		public boolean ChkAex;
 		public double SldExt;
+		public double SldFcs;
 
 		public boolean readXML(
 					Document doc
@@ -91,8 +95,9 @@ public class PnlWzskLlvCamera {
 
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				numFPupMde = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "numFPupMde", mask, NUMFPUPMDE);
-				SldFcs = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "SldFcs", mask, SLDFCS);
+				ChkAex = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ChkAex", mask, CHKAEX);
 				SldExt = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "SldExt", mask, SLDEXT);
+				SldFcs = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "SldFcs", mask, SLDFCS);
 
 				return true;
 			};
@@ -119,8 +124,9 @@ public class PnlWzskLlvCamera {
 			else sup.appendChild(el);
 
 			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "numFPupMde", numFPupMde);
-			Xmlio.writeDoubleAttr(doc, el, itemtag, "sref", "SldFcs", SldFcs);
+			Xmlio.writeBooleanAttr(doc, el, itemtag, "sref", "ChkAex", ChkAex);
 			Xmlio.writeDoubleAttr(doc, el, itemtag, "sref", "SldExt", SldExt);
+			Xmlio.writeDoubleAttr(doc, el, itemtag, "sref", "SldFcs", SldFcs);
 		};
 
 		public HashSet<Integer> comm(
@@ -129,8 +135,9 @@ public class PnlWzskLlvCamera {
 			HashSet<Integer> items = new HashSet<Integer>();
 
 			if (numFPupMde == comp.numFPupMde) items.add(NUMFPUPMDE);
-			if (Xmlio.compareDouble(SldFcs, comp.SldFcs) < 1.0e-4) items.add(SLDFCS);
+			if (ChkAex == comp.ChkAex) items.add(CHKAEX);
 			if (Xmlio.compareDouble(SldExt, comp.SldExt) < 1.0e-4) items.add(SLDEXT);
+			if (Xmlio.compareDouble(SldFcs, comp.SldFcs) < 1.0e-4) items.add(SLDFCS);
 
 			return(items);
 		};
@@ -143,7 +150,7 @@ public class PnlWzskLlvCamera {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(NUMFPUPMDE, SLDFCS, SLDEXT));
+			diffitems = new HashSet<Integer>(Arrays.asList(NUMFPUPMDE, CHKAEX, SLDEXT, SLDFCS));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -224,61 +231,61 @@ public class PnlWzskLlvCamera {
 		public static final int BUTCLAIMACTIVE = 2;
 		public static final int BUTPLAYACTIVE = 3;
 		public static final int BUTSTOPACTIVE = 4;
-		public static final int SLDFCSAVAIL = 5;
-		public static final int SLDFCSACTIVE = 6;
-		public static final int SLDFCSMIN = 7;
-		public static final int SLDFCSMAX = 8;
-		public static final int SLDEXTAVAIL = 9;
-		public static final int SLDEXTACTIVE = 10;
-		public static final int SLDEXTMIN = 11;
-		public static final int SLDEXTMAX = 12;
-		public static final int SLDEXTRAST = 13;
+		public static final int CHKAEXACTIVE = 5;
+		public static final int SLDEXTAVAIL = 6;
+		public static final int SLDEXTACTIVE = 7;
+		public static final int SLDEXTMIN = 8;
+		public static final int SLDEXTMAX = 9;
+		public static final int SLDEXTRAST = 10;
+		public static final int SLDFCSACTIVE = 11;
+		public static final int SLDFCSMIN = 12;
+		public static final int SLDFCSMAX = 13;
 
 		public StatShr(
 					int ixWzskVExpstate
 					, boolean ButClaimActive
 					, boolean ButPlayActive
 					, boolean ButStopActive
-					, boolean SldFcsAvail
-					, boolean SldFcsActive
-					, double SldFcsMin
-					, double SldFcsMax
+					, boolean ChkAexActive
 					, boolean SldExtAvail
 					, boolean SldExtActive
 					, double SldExtMin
 					, double SldExtMax
 					, double SldExtRast
+					, boolean SldFcsActive
+					, double SldFcsMin
+					, double SldFcsMax
 				) {
 			this.ixWzskVExpstate = ixWzskVExpstate;
 			this.ButClaimActive = ButClaimActive;
 			this.ButPlayActive = ButPlayActive;
 			this.ButStopActive = ButStopActive;
-			this.SldFcsAvail = SldFcsAvail;
-			this.SldFcsActive = SldFcsActive;
-			this.SldFcsMin = SldFcsMin;
-			this.SldFcsMax = SldFcsMax;
+			this.ChkAexActive = ChkAexActive;
 			this.SldExtAvail = SldExtAvail;
 			this.SldExtActive = SldExtActive;
 			this.SldExtMin = SldExtMin;
 			this.SldExtMax = SldExtMax;
 			this.SldExtRast = SldExtRast;
+			this.SldFcsActive = SldFcsActive;
+			this.SldFcsMin = SldFcsMin;
+			this.SldFcsMax = SldFcsMax;
 
-			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, SLDFCSAVAIL, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST));
+			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX));
 		};
 
 		public int ixWzskVExpstate;
 		public boolean ButClaimActive;
 		public boolean ButPlayActive;
 		public boolean ButStopActive;
-		public boolean SldFcsAvail;
-		public boolean SldFcsActive;
-		public double SldFcsMin;
-		public double SldFcsMax;
+		public boolean ChkAexActive;
 		public boolean SldExtAvail;
 		public boolean SldExtActive;
 		public double SldExtMin;
 		public double SldExtMax;
 		public double SldExtRast;
+		public boolean SldFcsActive;
+		public double SldFcsMin;
+		public double SldFcsMax;
 
 		public boolean readXML(
 					Document doc
@@ -299,15 +306,15 @@ public class PnlWzskLlvCamera {
 				ButClaimActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButClaimActive", mask, BUTCLAIMACTIVE);
 				ButPlayActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButPlayActive", mask, BUTPLAYACTIVE);
 				ButStopActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButStopActive", mask, BUTSTOPACTIVE);
-				SldFcsAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsAvail", mask, SLDFCSAVAIL);
-				SldFcsActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsActive", mask, SLDFCSACTIVE);
-				SldFcsMin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsMin", mask, SLDFCSMIN);
-				SldFcsMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsMax", mask, SLDFCSMAX);
+				ChkAexActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ChkAexActive", mask, CHKAEXACTIVE);
 				SldExtAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldExtAvail", mask, SLDEXTAVAIL);
 				SldExtActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldExtActive", mask, SLDEXTACTIVE);
 				SldExtMin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldExtMin", mask, SLDEXTMIN);
 				SldExtMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldExtMax", mask, SLDEXTMAX);
 				SldExtRast = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldExtRast", mask, SLDEXTRAST);
+				SldFcsActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsActive", mask, SLDFCSACTIVE);
+				SldFcsMin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsMin", mask, SLDFCSMIN);
+				SldFcsMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsMax", mask, SLDFCSMAX);
 
 				return true;
 			};
@@ -324,15 +331,15 @@ public class PnlWzskLlvCamera {
 			if (ButClaimActive == comp.ButClaimActive) items.add(BUTCLAIMACTIVE);
 			if (ButPlayActive == comp.ButPlayActive) items.add(BUTPLAYACTIVE);
 			if (ButStopActive == comp.ButStopActive) items.add(BUTSTOPACTIVE);
-			if (SldFcsAvail == comp.SldFcsAvail) items.add(SLDFCSAVAIL);
-			if (SldFcsActive == comp.SldFcsActive) items.add(SLDFCSACTIVE);
-			if (Xmlio.compareDouble(SldFcsMin, comp.SldFcsMin) < 1.0e-4) items.add(SLDFCSMIN);
-			if (Xmlio.compareDouble(SldFcsMax, comp.SldFcsMax) < 1.0e-4) items.add(SLDFCSMAX);
+			if (ChkAexActive == comp.ChkAexActive) items.add(CHKAEXACTIVE);
 			if (SldExtAvail == comp.SldExtAvail) items.add(SLDEXTAVAIL);
 			if (SldExtActive == comp.SldExtActive) items.add(SLDEXTACTIVE);
 			if (Xmlio.compareDouble(SldExtMin, comp.SldExtMin) < 1.0e-4) items.add(SLDEXTMIN);
 			if (Xmlio.compareDouble(SldExtMax, comp.SldExtMax) < 1.0e-4) items.add(SLDEXTMAX);
 			if (Xmlio.compareDouble(SldExtRast, comp.SldExtRast) < 1.0e-4) items.add(SLDEXTRAST);
+			if (SldFcsActive == comp.SldFcsActive) items.add(SLDFCSACTIVE);
+			if (Xmlio.compareDouble(SldFcsMin, comp.SldFcsMin) < 1.0e-4) items.add(SLDFCSMIN);
+			if (Xmlio.compareDouble(SldFcsMax, comp.SldFcsMax) < 1.0e-4) items.add(SLDFCSMAX);
 
 			return(items);
 		};
@@ -345,7 +352,7 @@ public class PnlWzskLlvCamera {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, SLDFCSAVAIL, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST));
+			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -360,27 +367,31 @@ public class PnlWzskLlvCamera {
 
 		public static final int CPT = 1;
 		public static final int CPTMDE = 2;
-		public static final int CPTFCS = 3;
+		public static final int CPTAEX = 3;
 		public static final int CPTEXT = 4;
+		public static final int CPTFCS = 5;
 
 		public Tag(
 					String Cpt
 					, String CptMde
-					, String CptFcs
+					, String CptAex
 					, String CptExt
+					, String CptFcs
 				) {
 			this.Cpt = Cpt;
 			this.CptMde = CptMde;
-			this.CptFcs = CptFcs;
+			this.CptAex = CptAex;
 			this.CptExt = CptExt;
+			this.CptFcs = CptFcs;
 
-			mask = new HashSet<Integer>(Arrays.asList(CPT, CPTMDE, CPTFCS, CPTEXT));
+			mask = new HashSet<Integer>(Arrays.asList(CPT, CPTMDE, CPTAEX, CPTEXT, CPTFCS));
 		};
 
 		public String Cpt;
 		public String CptMde;
-		public String CptFcs;
+		public String CptAex;
 		public String CptExt;
+		public String CptFcs;
 
 		public boolean readXML(
 					Document doc
@@ -397,8 +408,9 @@ public class PnlWzskLlvCamera {
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				Cpt = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "Cpt", mask, CPT);
 				CptMde = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptMde", mask, CPTMDE);
-				CptFcs = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptFcs", mask, CPTFCS);
+				CptAex = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptAex", mask, CPTAEX);
 				CptExt = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptExt", mask, CPTEXT);
+				CptFcs = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptFcs", mask, CPTFCS);
 
 				return true;
 			};
@@ -413,8 +425,9 @@ public class PnlWzskLlvCamera {
 
 			if (Cpt.equals(comp.Cpt)) items.add(CPT);
 			if (CptMde.equals(comp.CptMde)) items.add(CPTMDE);
-			if (CptFcs.equals(comp.CptFcs)) items.add(CPTFCS);
+			if (CptAex.equals(comp.CptAex)) items.add(CPTAEX);
 			if (CptExt.equals(comp.CptExt)) items.add(CPTEXT);
+			if (CptFcs.equals(comp.CptFcs)) items.add(CPTFCS);
 
 			return(items);
 		};
@@ -427,7 +440,7 @@ public class PnlWzskLlvCamera {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(CPT, CPTMDE, CPTFCS, CPTEXT));
+			diffitems = new HashSet<Integer>(Arrays.asList(CPT, CPTMDE, CPTAEX, CPTEXT, CPTFCS));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -560,11 +573,11 @@ public class PnlWzskLlvCamera {
 		public DpchEngData() {
 			super(VecWzskVDpch.DPCHENGWZSKLLVCAMERADATA);
 
-			contiac = new ContIac(0, 0.0, 0.0);
+			contiac = new ContIac(0, false, 0.0, 0.0);
 			continf = new ContInf(false);
 			feedFPupMde = new Feed("FeedFPupMde");
-			statshr = new StatShr(0, false, false, false, false, false, 0.0, 0.0, false, false, 0.0, 0.0, 0.0);
-			tag = new Tag("", "", "", "");
+			statshr = new StatShr(0, false, false, false, false, false, false, 0.0, 0.0, 0.0, false, 0.0, 0.0);
+			tag = new Tag("", "", "", "", "");
 		};
 
 		public ContIac contiac;
@@ -605,11 +618,11 @@ public class PnlWzskLlvCamera {
 				if (tag.readXML(doc, basexpath, true)) add(TAG);
 			} else {
 				scrJref = "";
-				contiac = new ContIac(0, 0.0, 0.0);
+				contiac = new ContIac(0, false, 0.0, 0.0);
 				continf = new ContInf(false);
 				feedFPupMde = new Feed("FeedFPupMde");
-				statshr = new StatShr(0, false, false, false, false, false, 0.0, 0.0, false, false, 0.0, 0.0, 0.0);
-				tag = new Tag("", "", "", "");
+				statshr = new StatShr(0, false, false, false, false, false, false, 0.0, 0.0, 0.0, false, 0.0, 0.0);
+				tag = new Tag("", "", "", "", "");
 			};
 		};
 

@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvTtable_blks.cpp
 	* job handler for job PnlWzskLlvTtable (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -22,7 +22,6 @@ uint PnlWzskLlvTtable::VecVDo::getIx(
 	if (s == "butregularizeclick") return BUTREGULARIZECLICK;
 	if (s == "butminimizeclick") return BUTMINIMIZECLICK;
 	if (s == "butclaimclick") return BUTCLAIMCLICK;
-	if (s == "butmveclick") return BUTMVECLICK;
 
 	return(0);
 };
@@ -33,7 +32,6 @@ string PnlWzskLlvTtable::VecVDo::getSref(
 	if (ix == BUTREGULARIZECLICK) return("ButRegularizeClick");
 	if (ix == BUTMINIMIZECLICK) return("ButMinimizeClick");
 	if (ix == BUTCLAIMCLICK) return("ButClaimClick");
-	if (ix == BUTMVECLICK) return("ButMveClick");
 
 	return("");
 };
@@ -121,14 +119,12 @@ set<uint> PnlWzskLlvTtable::ContIac::diff(
 
 PnlWzskLlvTtable::ContInf::ContInf(
 			const bool ButClaimOn
-			, const string& TxtSte
 		) :
 			Block()
 		{
 	this->ButClaimOn = ButClaimOn;
-	this->TxtSte = TxtSte;
 
-	mask = {BUTCLAIMON, TXTSTE};
+	mask = {BUTCLAIMON};
 };
 
 void PnlWzskLlvTtable::ContInf::writeXML(
@@ -144,7 +140,6 @@ void PnlWzskLlvTtable::ContInf::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeBoolAttr(wr, itemtag, "sref", "ButClaimOn", ButClaimOn);
-		writeStringAttr(wr, itemtag, "sref", "TxtSte", TxtSte);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -154,7 +149,6 @@ set<uint> PnlWzskLlvTtable::ContInf::comm(
 	set<uint> items;
 
 	if (ButClaimOn == comp->ButClaimOn) insert(items, BUTCLAIMON);
-	if (TxtSte == comp->TxtSte) insert(items, TXTSTE);
 
 	return(items);
 };
@@ -167,7 +161,7 @@ set<uint> PnlWzskLlvTtable::ContInf::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {BUTCLAIMON, TXTSTE};
+	diffitems = {BUTCLAIMON};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -180,19 +174,19 @@ set<uint> PnlWzskLlvTtable::ContInf::diff(
 PnlWzskLlvTtable::StatShr::StatShr(
 			const uint ixWzskVExpstate
 			, const bool ButClaimActive
+			, const bool SldTrgActive
 			, const double SldTrgMin
 			, const double SldTrgMax
-			, const bool ButMveActive
 		) :
 			Block()
 		{
 	this->ixWzskVExpstate = ixWzskVExpstate;
 	this->ButClaimActive = ButClaimActive;
+	this->SldTrgActive = SldTrgActive;
 	this->SldTrgMin = SldTrgMin;
 	this->SldTrgMax = SldTrgMax;
-	this->ButMveActive = ButMveActive;
 
-	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGMIN, SLDTRGMAX, BUTMVEACTIVE};
+	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGACTIVE, SLDTRGMIN, SLDTRGMAX};
 };
 
 void PnlWzskLlvTtable::StatShr::writeXML(
@@ -209,9 +203,9 @@ void PnlWzskLlvTtable::StatShr::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeStringAttr(wr, itemtag, "sref", "srefIxWzskVExpstate", VecWzskVExpstate::getSref(ixWzskVExpstate));
 		writeBoolAttr(wr, itemtag, "sref", "ButClaimActive", ButClaimActive);
+		writeBoolAttr(wr, itemtag, "sref", "SldTrgActive", SldTrgActive);
 		writeDoubleAttr(wr, itemtag, "sref", "SldTrgMin", SldTrgMin);
 		writeDoubleAttr(wr, itemtag, "sref", "SldTrgMax", SldTrgMax);
-		writeBoolAttr(wr, itemtag, "sref", "ButMveActive", ButMveActive);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -222,9 +216,9 @@ set<uint> PnlWzskLlvTtable::StatShr::comm(
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
 	if (ButClaimActive == comp->ButClaimActive) insert(items, BUTCLAIMACTIVE);
+	if (SldTrgActive == comp->SldTrgActive) insert(items, SLDTRGACTIVE);
 	if (compareDouble(SldTrgMin, comp->SldTrgMin) < 1.0e-4) insert(items, SLDTRGMIN);
 	if (compareDouble(SldTrgMax, comp->SldTrgMax) < 1.0e-4) insert(items, SLDTRGMAX);
-	if (ButMveActive == comp->ButMveActive) insert(items, BUTMVEACTIVE);
 
 	return(items);
 };
@@ -237,7 +231,7 @@ set<uint> PnlWzskLlvTtable::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGMIN, SLDTRGMAX, BUTMVEACTIVE};
+	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGACTIVE, SLDTRGMIN, SLDTRGMAX};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -262,14 +256,10 @@ void PnlWzskLlvTtable::Tag::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Turntable");
-			writeStringAttr(wr, itemtag, "sref", "CptTrg", "target angle [\\u00b0]");
-			writeStringAttr(wr, itemtag, "sref", "CptSte", "state");
-			writeStringAttr(wr, itemtag, "sref", "ButMve", "Move");
+			writeStringAttr(wr, itemtag, "sref", "CptTrg", "angle [\\u00b0]");
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Drehteller");
-			writeStringAttr(wr, itemtag, "sref", "CptTrg", "Zielwinkel [\\u00b0]");
-			writeStringAttr(wr, itemtag, "sref", "CptSte", "Status");
-			writeStringAttr(wr, itemtag, "sref", "ButMve", "Bewegen");
+			writeStringAttr(wr, itemtag, "sref", "CptTrg", "Winkel [\\u00b0]");
 		};
 	xmlTextWriterEndElement(wr);
 };

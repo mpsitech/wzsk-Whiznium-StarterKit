@@ -2,8 +2,8 @@
 	* \file PnlWzskOgrRec.cpp
 	* API code for job PnlWzskOgrRec (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "PnlWzskOgrRec.h"
@@ -103,18 +103,16 @@ set<uint> PnlWzskOgrRec::ContInf::diff(
 
 PnlWzskOgrRec::StatApp::StatApp(
 			const bool initdoneDetail
-			, const bool initdone1NShot
 			, const bool initdone1NObject
 			, const bool initdoneSup1NObjgroup
 		) :
 			Block()
 		{
 	this->initdoneDetail = initdoneDetail;
-	this->initdone1NShot = initdone1NShot;
 	this->initdone1NObject = initdone1NObject;
 	this->initdoneSup1NObjgroup = initdoneSup1NObjgroup;
 
-	mask = {INITDONEDETAIL, INITDONE1NSHOT, INITDONE1NOBJECT, INITDONESUP1NOBJGROUP};
+	mask = {INITDONEDETAIL, INITDONE1NOBJECT, INITDONESUP1NOBJGROUP};
 };
 
 bool PnlWzskOgrRec::StatApp::readXML(
@@ -135,7 +133,6 @@ bool PnlWzskOgrRec::StatApp::readXML(
 
 	if (basefound) {
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneDetail", initdoneDetail)) add(INITDONEDETAIL);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdone1NShot", initdone1NShot)) add(INITDONE1NSHOT);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdone1NObject", initdone1NObject)) add(INITDONE1NOBJECT);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneSup1NObjgroup", initdoneSup1NObjgroup)) add(INITDONESUP1NOBJGROUP);
 	};
@@ -149,7 +146,6 @@ set<uint> PnlWzskOgrRec::StatApp::comm(
 	set<uint> items;
 
 	if (initdoneDetail == comp->initdoneDetail) insert(items, INITDONEDETAIL);
-	if (initdone1NShot == comp->initdone1NShot) insert(items, INITDONE1NSHOT);
 	if (initdone1NObject == comp->initdone1NObject) insert(items, INITDONE1NOBJECT);
 	if (initdoneSup1NObjgroup == comp->initdoneSup1NObjgroup) insert(items, INITDONESUP1NOBJGROUP);
 
@@ -164,7 +160,7 @@ set<uint> PnlWzskOgrRec::StatApp::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {INITDONEDETAIL, INITDONE1NSHOT, INITDONE1NOBJECT, INITDONESUP1NOBJGROUP};
+	diffitems = {INITDONEDETAIL, INITDONE1NOBJECT, INITDONESUP1NOBJGROUP};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -177,7 +173,6 @@ set<uint> PnlWzskOgrRec::StatApp::diff(
 PnlWzskOgrRec::StatShr::StatShr(
 			const uint ixWzskVExpstate
 			, const string& scrJrefDetail
-			, const string& scrJref1NShot
 			, const string& scrJref1NObject
 			, const string& scrJrefSup1NObjgroup
 			, const bool ButRegularizeActive
@@ -186,12 +181,11 @@ PnlWzskOgrRec::StatShr::StatShr(
 		{
 	this->ixWzskVExpstate = ixWzskVExpstate;
 	this->scrJrefDetail = scrJrefDetail;
-	this->scrJref1NShot = scrJref1NShot;
 	this->scrJref1NObject = scrJref1NObject;
 	this->scrJrefSup1NObjgroup = scrJrefSup1NObjgroup;
 	this->ButRegularizeActive = ButRegularizeActive;
 
-	mask = {IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREF1NSHOT, SCRJREF1NOBJECT, SCRJREFSUP1NOBJGROUP, BUTREGULARIZEACTIVE};
+	mask = {IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREF1NOBJECT, SCRJREFSUP1NOBJGROUP, BUTREGULARIZEACTIVE};
 };
 
 bool PnlWzskOgrRec::StatShr::readXML(
@@ -218,7 +212,6 @@ bool PnlWzskOgrRec::StatShr::readXML(
 			add(IXWZSKVEXPSTATE);
 		};
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefDetail", scrJrefDetail)) add(SCRJREFDETAIL);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJref1NShot", scrJref1NShot)) add(SCRJREF1NSHOT);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJref1NObject", scrJref1NObject)) add(SCRJREF1NOBJECT);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefSup1NObjgroup", scrJrefSup1NObjgroup)) add(SCRJREFSUP1NOBJGROUP);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButRegularizeActive", ButRegularizeActive)) add(BUTREGULARIZEACTIVE);
@@ -234,7 +227,6 @@ set<uint> PnlWzskOgrRec::StatShr::comm(
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
 	if (scrJrefDetail == comp->scrJrefDetail) insert(items, SCRJREFDETAIL);
-	if (scrJref1NShot == comp->scrJref1NShot) insert(items, SCRJREF1NSHOT);
 	if (scrJref1NObject == comp->scrJref1NObject) insert(items, SCRJREF1NOBJECT);
 	if (scrJrefSup1NObjgroup == comp->scrJrefSup1NObjgroup) insert(items, SCRJREFSUP1NOBJGROUP);
 	if (ButRegularizeActive == comp->ButRegularizeActive) insert(items, BUTREGULARIZEACTIVE);
@@ -250,7 +242,7 @@ set<uint> PnlWzskOgrRec::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREF1NSHOT, SCRJREF1NOBJECT, SCRJREFSUP1NOBJGROUP, BUTREGULARIZEACTIVE};
+	diffitems = {IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREF1NOBJECT, SCRJREFSUP1NOBJGROUP, BUTREGULARIZEACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

@@ -2,8 +2,8 @@
 	* \file ApiWzsk.cpp
 	* Wzsk API library global functionality (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "ApiWzsk.h"
@@ -198,6 +198,12 @@ uint ApiWzsk::readDpchEng(
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLIVHEADBARDATA) {
 			*dpcheng = new PnlWzskLivHeadbar::DpchEngData();
 			((PnlWzskLivHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLIVSYSMONDATA) {
+			*dpcheng = new PnlWzskLivSysmon::DpchEngData();
+			((PnlWzskLivSysmon::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLIVSYSMONLIVE) {
+			*dpcheng = new PnlWzskLivSysmon::DpchEngLive();
+			((PnlWzskLivSysmon::DpchEngLive*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVCAMERADATA) {
 			*dpcheng = new PnlWzskLlvCamera::DpchEngData();
 			((PnlWzskLlvCamera::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
@@ -237,6 +243,9 @@ uint ApiWzsk::readDpchEng(
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKNAVPREDATA) {
 			*dpcheng = new PnlWzskNavPre::DpchEngData();
 			((PnlWzskNavPre::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOBJ1NSHOTDATA) {
+			*dpcheng = new PnlWzskObj1NShot::DpchEngData();
+			((PnlWzskObj1NShot::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOBJDATA) {
 			*dpcheng = new CrdWzskObj::DpchEngData();
 			((CrdWzskObj::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
@@ -258,9 +267,6 @@ uint ApiWzsk::readDpchEng(
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOGR1NOBJECTDATA) {
 			*dpcheng = new PnlWzskOgr1NObject::DpchEngData();
 			((PnlWzskOgr1NObject::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOGR1NSHOTDATA) {
-			*dpcheng = new PnlWzskOgr1NShot::DpchEngData();
-			((PnlWzskOgr1NShot::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOGRDATA) {
 			*dpcheng = new CrdWzskOgr::DpchEngData();
 			((CrdWzskOgr::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);

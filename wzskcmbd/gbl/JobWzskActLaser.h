@@ -2,8 +2,8 @@
 	* \file JobWzskActLaser.h
 	* job handler for job JobWzskActLaser (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef JOBWZSKACTLASER_H
@@ -77,7 +77,7 @@ public:
 		static const Sbecore::uint RIGHTMAX = 8;
 
 	public:
-		Stg(const std::string& pathGpio = "/dev/gpiochip5", const Sbecore::utinyint lineoffsetLeft = 10, const Sbecore::utinyint lineoffsetRight = 9, const std::string& pathSpi = "/dev/spidev0.0", const Sbecore::usmallint leftMin = 174, const Sbecore::usmallint leftMax = 245, const Sbecore::usmallint rightMin = 174, const Sbecore::usmallint rightMax = 245);
+		Stg(const std::string& pathGpio = "/dev/gpiochip5", const Sbecore::utinyint lineoffsetLeft = 10, const Sbecore::utinyint lineoffsetRight = 9, const std::string& pathSpi = "/dev/spidev0.0", const Sbecore::usmallint leftMin = 164, const Sbecore::usmallint leftMax = 245, const Sbecore::usmallint rightMin = 164, const Sbecore::usmallint rightMax = 245);
 
 	public:
 		std::string pathGpio;

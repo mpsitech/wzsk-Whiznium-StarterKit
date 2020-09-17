@@ -2,8 +2,8 @@
 	* \file Wzskcmbd_exe.cpp
 	* Wzsk combined daemon main (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "Wzskcmbd.h"
@@ -55,12 +55,14 @@ Wzskcmbd::Wzskcmbd(
 	JobWzskAcqFpgapvw::shrdat.init(xchg, &dbswzsk);
 	JobWzskAcqPreview::shrdat.init(xchg, &dbswzsk);
 	JobWzskAcqPtcloud::shrdat.init(xchg, &dbswzsk);
+	JobWzskActExposure::shrdat.init(xchg, &dbswzsk);
 	JobWzskActLaser::shrdat.init(xchg, &dbswzsk);
 	JobWzskActServo::shrdat.init(xchg, &dbswzsk);
 	JobWzskIprAngle::shrdat.init(xchg, &dbswzsk);
 	JobWzskIprCorner::shrdat.init(xchg, &dbswzsk);
 	JobWzskIprTrace::shrdat.init(xchg, &dbswzsk);
 	JobWzskSrcFpga::shrdat.init(xchg, &dbswzsk);
+	JobWzskSrcSysinfo::shrdat.init(xchg, &dbswzsk);
 	JobWzskSrcV4l2::shrdat.init(xchg, &dbswzsk);
 
 	xchg->shrdatOpprc.init(xchg, &dbswzsk);
@@ -189,12 +191,14 @@ Wzskcmbd::~Wzskcmbd() {
 	JobWzskAcqFpgapvw::shrdat.term(xchg);
 	JobWzskAcqPreview::shrdat.term(xchg);
 	JobWzskAcqPtcloud::shrdat.term(xchg);
+	JobWzskActExposure::shrdat.term(xchg);
 	JobWzskActLaser::shrdat.term(xchg);
 	JobWzskActServo::shrdat.term(xchg);
 	JobWzskIprAngle::shrdat.term(xchg);
 	JobWzskIprCorner::shrdat.term(xchg);
 	JobWzskIprTrace::shrdat.term(xchg);
 	JobWzskSrcFpga::shrdat.term(xchg);
+	JobWzskSrcSysinfo::shrdat.term(xchg);
 	JobWzskSrcV4l2::shrdat.term(xchg);
 
 	xchg->shrdatJobprc.term(xchg);
@@ -231,6 +235,7 @@ void Wzskcmbd::loadPref() {
 		JobWzskIprCorner::stg.readXML(docctx, basexpath, true);
 		JobWzskIprTrace::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcFpga::stg.readXML(docctx, basexpath, true);
+		JobWzskSrcSysinfo::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcV4l2::stg.readXML(docctx, basexpath, true);
 	};
 
@@ -274,6 +279,7 @@ void Wzskcmbd::storePref() {
 		JobWzskIprCorner::stg.writeXML(wr);
 		JobWzskIprTrace::stg.writeXML(wr);
 		JobWzskSrcFpga::stg.writeXML(wr);
+		JobWzskSrcSysinfo::stg.writeXML(wr);
 		JobWzskSrcV4l2::stg.writeXML(wr);
 	xmlTextWriterEndElement(wr);
 	closewriteFile(wr);
@@ -322,6 +328,7 @@ StgJobWzskActServo JobWzskActServo::stg;
 StgJobWzskIprCorner JobWzskIprCorner::stg;
 StgJobWzskIprTrace JobWzskIprTrace::stg;
 StgJobWzskSrcFpga JobWzskSrcFpga::stg;
+StgJobWzskSrcSysinfo JobWzskSrcSysinfo::stg;
 StgJobWzskSrcV4l2 JobWzskSrcV4l2::stg;
 
 /******************************************************************************
@@ -332,12 +339,14 @@ ShrdatJobWzskAcqFpgaflg JobWzskAcqFpgaflg::shrdat;
 ShrdatJobWzskAcqFpgapvw JobWzskAcqFpgapvw::shrdat;
 ShrdatJobWzskAcqPreview JobWzskAcqPreview::shrdat;
 ShrdatJobWzskAcqPtcloud JobWzskAcqPtcloud::shrdat;
+ShrdatJobWzskActExposure JobWzskActExposure::shrdat;
 ShrdatJobWzskActLaser JobWzskActLaser::shrdat;
 ShrdatJobWzskActServo JobWzskActServo::shrdat;
 ShrdatJobWzskIprAngle JobWzskIprAngle::shrdat;
 ShrdatJobWzskIprCorner JobWzskIprCorner::shrdat;
 ShrdatJobWzskIprTrace JobWzskIprTrace::shrdat;
 ShrdatJobWzskSrcFpga JobWzskSrcFpga::shrdat;
+ShrdatJobWzskSrcSysinfo JobWzskSrcSysinfo::shrdat;
 ShrdatJobWzskSrcV4l2 JobWzskSrcV4l2::shrdat;
 
 /******************************************************************************
@@ -589,7 +598,7 @@ int main(
 
 	try {
 		// welcome message
-		cout << "Welcome to Whiznium StarterKit 0.1.26!" << endl;
+		cout << "Welcome to Whiznium StarterKit v0.1.33!" << endl;
 
 		// calls wzskcmbd.init()
 		wzskcmbd = new Wzskcmbd(exedir, clearAll, startMon);

@@ -2,8 +2,8 @@
 	* \file QryWzskShtList.h
 	* job handler for job QryWzskShtList (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef QRYWZSKSHTLIST_H
@@ -120,6 +120,7 @@ public:
 	void refreshJnum();
 
 	void rerun(DbsWzsk* dbswzsk, const bool call = false);
+	void rerun_baseSQL(std::string& sqlstr);
 	void rerun_filtSQL(std::string& sqlstr, const Sbecore::ubigint preSes, const Sbecore::ubigint preObj, const int preSta, const bool addwhere);
 	void rerun_filtSQL_append(std::string& sqlstr, bool& first);
 	void rerun_orderSQL(std::string& sqlstr, const Sbecore::uint preIxOrd);
@@ -143,8 +144,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskShtMod(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskShtUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskShtMod(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskStubChgFromSelf(DbsWzsk* dbswzsk);
 
 };

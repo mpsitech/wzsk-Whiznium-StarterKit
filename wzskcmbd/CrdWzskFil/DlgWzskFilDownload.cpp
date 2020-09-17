@@ -2,8 +2,8 @@
 	* \file DlgWzskFilDownload.cpp
 	* job handler for job DlgWzskFilDownload (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -76,7 +76,11 @@ DpchEngWzsk* DlgWzskFilDownload::getNewDpchEng(
 void DlgWzskFilDownload::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	ContInf oldContinf(continf);
 
 	// IP refresh --- RBEGIN
@@ -85,6 +89,8 @@ void DlgWzskFilDownload::refresh(
 
 	// IP refresh --- REND
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
+
+	muteRefresh = false;
 };
 
 void DlgWzskFilDownload::handleRequest(
@@ -135,7 +141,10 @@ void DlgWzskFilDownload::handleDpchAppDoButDneClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
-	// IP handleDpchAppDoButDneClick --- INSERT
+	// IP handleDpchAppDoButDneClick --- IBEGIN
+	*dpcheng = new DpchEngWzskConfirm(true, jref, "");
+	xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKDLGCLOSE, jref);
+	// IP handleDpchAppDoButDneClick --- IEND
 };
 
 string DlgWzskFilDownload::handleDownload(

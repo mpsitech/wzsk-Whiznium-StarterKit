@@ -2,8 +2,8 @@
 	* \file WzskMPerson.h
 	* database access for table TblWzskMPerson (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef WZSKMPERSON_H

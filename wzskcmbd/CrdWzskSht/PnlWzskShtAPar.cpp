@@ -2,8 +2,8 @@
 	* \file PnlWzskShtAPar.cpp
 	* job handler for job PnlWzskShtAPar (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -90,7 +90,11 @@ DpchEngWzsk* PnlWzskShtAPar::getNewDpchEng(
 void PnlWzskShtAPar::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	ContInf oldContinf(continf);
 	StatShr oldStatshr(statshr);
 
@@ -108,6 +112,8 @@ void PnlWzskShtAPar::refresh(
 	// IP refresh --- END
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+
+	muteRefresh = false;
 };
 
 void PnlWzskShtAPar::updatePreset(
@@ -221,9 +227,9 @@ void PnlWzskShtAPar::handleDpchAppDataStgiacqry(
 
 	WzskAMShotPar* _recShtApar = NULL;
 
-	muteRefresh = true;
-
 	if (!diffitems.empty()) {
+		muteRefresh = true;
+
 		qry->stgiac = *_stgiacqry;
 
 		if (has(diffitems, QryWzskShtAPar::StgIac::JNUM)) recSelNew = qry->getRecByJnum(_stgiacqry->jnum);
@@ -249,10 +255,8 @@ void PnlWzskShtAPar::handleDpchAppDataStgiacqry(
 			qry->refreshJnum();
 		};
 
-		refresh(dbswzsk, moditems);
+		refresh(dbswzsk, moditems, true);
 	};
-
-	muteRefresh = false;
 
 	insert(moditems, DpchEngData::STGIACQRY);
 	*dpcheng = getNewDpchEng(moditems);
@@ -288,9 +292,8 @@ void PnlWzskShtAPar::handleDpchAppDoButRefreshClick(
 	muteRefresh = true;
 
 	qry->rerun(dbswzsk, false);
-	refresh(dbswzsk, moditems);
 
-	muteRefresh = false;
+	refresh(dbswzsk, moditems, true);
 
 	insert(moditems, {DpchEngData::STATSHRQRY, DpchEngData::STGIACQRY, DpchEngData::RST});
 	*dpcheng = getNewDpchEng(moditems);

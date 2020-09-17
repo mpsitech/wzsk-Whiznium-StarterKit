@@ -2,8 +2,8 @@
 	* \file VecWzskVDpch.cpp
 	* vector VecWzskVDpch (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "VecWzskVDpch.h"
@@ -46,8 +46,10 @@ uint VecWzskVDpch::getIx(
 	if (s == "dpchappwzskliv2dviewalign") return DPCHAPPWZSKLIV2DVIEWALIGN;
 	if (s == "dpchappwzskliv2dviewdata") return DPCHAPPWZSKLIV2DVIEWDATA;
 	if (s == "dpchappwzskliv2dviewdo") return DPCHAPPWZSKLIV2DVIEWDO;
+	if (s == "dpchappwzskliv3dviewdata") return DPCHAPPWZSKLIV3DVIEWDATA;
 	if (s == "dpchappwzskliv3dviewdo") return DPCHAPPWZSKLIV3DVIEWDO;
 	if (s == "dpchappwzsklivdo") return DPCHAPPWZSKLIVDO;
+	if (s == "dpchappwzsklivsysmondo") return DPCHAPPWZSKLIVSYSMONDO;
 	if (s == "dpchappwzskllvcameradata") return DPCHAPPWZSKLLVCAMERADATA;
 	if (s == "dpchappwzskllvcamerado") return DPCHAPPWZSKLLVCAMERADO;
 	if (s == "dpchappwzskllvdo") return DPCHAPPWZSKLLVDO;
@@ -64,6 +66,8 @@ uint VecWzskVDpch::getIx(
 	if (s == "dpchappwzsknavgalerydo") return DPCHAPPWZSKNAVGALERYDO;
 	if (s == "dpchappwzsknavopdo") return DPCHAPPWZSKNAVOPDO;
 	if (s == "dpchappwzsknavpredo") return DPCHAPPWZSKNAVPREDO;
+	if (s == "dpchappwzskobj1nshotdata") return DPCHAPPWZSKOBJ1NSHOTDATA;
+	if (s == "dpchappwzskobj1nshotdo") return DPCHAPPWZSKOBJ1NSHOTDO;
 	if (s == "dpchappwzskobjdetaildata") return DPCHAPPWZSKOBJDETAILDATA;
 	if (s == "dpchappwzskobjdetaildo") return DPCHAPPWZSKOBJDETAILDO;
 	if (s == "dpchappwzskobjdo") return DPCHAPPWZSKOBJDO;
@@ -74,8 +78,6 @@ uint VecWzskVDpch::getIx(
 	if (s == "dpchappwzskobjref1nfiledo") return DPCHAPPWZSKOBJREF1NFILEDO;
 	if (s == "dpchappwzskogr1nobjectdata") return DPCHAPPWZSKOGR1NOBJECTDATA;
 	if (s == "dpchappwzskogr1nobjectdo") return DPCHAPPWZSKOGR1NOBJECTDO;
-	if (s == "dpchappwzskogr1nshotdata") return DPCHAPPWZSKOGR1NSHOTDATA;
-	if (s == "dpchappwzskogr1nshotdo") return DPCHAPPWZSKOGR1NSHOTDO;
 	if (s == "dpchappwzskogrdetaildata") return DPCHAPPWZSKOGRDETAILDATA;
 	if (s == "dpchappwzskogrdetaildo") return DPCHAPPWZSKOGRDETAILDO;
 	if (s == "dpchappwzskogrdo") return DPCHAPPWZSKOGRDO;
@@ -161,6 +163,8 @@ uint VecWzskVDpch::getIx(
 	if (s == "dpchengwzskliv3dviewlive") return DPCHENGWZSKLIV3DVIEWLIVE;
 	if (s == "dpchengwzsklivdata") return DPCHENGWZSKLIVDATA;
 	if (s == "dpchengwzsklivheadbardata") return DPCHENGWZSKLIVHEADBARDATA;
+	if (s == "dpchengwzsklivsysmondata") return DPCHENGWZSKLIVSYSMONDATA;
+	if (s == "dpchengwzsklivsysmonlive") return DPCHENGWZSKLIVSYSMONLIVE;
 	if (s == "dpchengwzskllvcameradata") return DPCHENGWZSKLLVCAMERADATA;
 	if (s == "dpchengwzskllvcameralive") return DPCHENGWZSKLLVCAMERALIVE;
 	if (s == "dpchengwzskllvdata") return DPCHENGWZSKLLVDATA;
@@ -174,6 +178,7 @@ uint VecWzskVDpch::getIx(
 	if (s == "dpchengwzsknavheadbardata") return DPCHENGWZSKNAVHEADBARDATA;
 	if (s == "dpchengwzsknavopdata") return DPCHENGWZSKNAVOPDATA;
 	if (s == "dpchengwzsknavpredata") return DPCHENGWZSKNAVPREDATA;
+	if (s == "dpchengwzskobj1nshotdata") return DPCHENGWZSKOBJ1NSHOTDATA;
 	if (s == "dpchengwzskobjdata") return DPCHENGWZSKOBJDATA;
 	if (s == "dpchengwzskobjdetaildata") return DPCHENGWZSKOBJDETAILDATA;
 	if (s == "dpchengwzskobjheadbardata") return DPCHENGWZSKOBJHEADBARDATA;
@@ -181,7 +186,6 @@ uint VecWzskVDpch::getIx(
 	if (s == "dpchengwzskobjrecdata") return DPCHENGWZSKOBJRECDATA;
 	if (s == "dpchengwzskobjref1nfiledata") return DPCHENGWZSKOBJREF1NFILEDATA;
 	if (s == "dpchengwzskogr1nobjectdata") return DPCHENGWZSKOGR1NOBJECTDATA;
-	if (s == "dpchengwzskogr1nshotdata") return DPCHENGWZSKOGR1NSHOTDATA;
 	if (s == "dpchengwzskogrdata") return DPCHENGWZSKOGRDATA;
 	if (s == "dpchengwzskogrdetaildata") return DPCHENGWZSKOGRDETAILDATA;
 	if (s == "dpchengwzskogrheadbardata") return DPCHENGWZSKOGRHEADBARDATA;
@@ -266,8 +270,10 @@ string VecWzskVDpch::getSref(
 	if (ix == DPCHAPPWZSKLIV2DVIEWALIGN) return("DpchAppWzskLiv2DViewAlign");
 	if (ix == DPCHAPPWZSKLIV2DVIEWDATA) return("DpchAppWzskLiv2DViewData");
 	if (ix == DPCHAPPWZSKLIV2DVIEWDO) return("DpchAppWzskLiv2DViewDo");
+	if (ix == DPCHAPPWZSKLIV3DVIEWDATA) return("DpchAppWzskLiv3DViewData");
 	if (ix == DPCHAPPWZSKLIV3DVIEWDO) return("DpchAppWzskLiv3DViewDo");
 	if (ix == DPCHAPPWZSKLIVDO) return("DpchAppWzskLivDo");
+	if (ix == DPCHAPPWZSKLIVSYSMONDO) return("DpchAppWzskLivSysmonDo");
 	if (ix == DPCHAPPWZSKLLVCAMERADATA) return("DpchAppWzskLlvCameraData");
 	if (ix == DPCHAPPWZSKLLVCAMERADO) return("DpchAppWzskLlvCameraDo");
 	if (ix == DPCHAPPWZSKLLVDO) return("DpchAppWzskLlvDo");
@@ -284,6 +290,8 @@ string VecWzskVDpch::getSref(
 	if (ix == DPCHAPPWZSKNAVGALERYDO) return("DpchAppWzskNavGaleryDo");
 	if (ix == DPCHAPPWZSKNAVOPDO) return("DpchAppWzskNavOpDo");
 	if (ix == DPCHAPPWZSKNAVPREDO) return("DpchAppWzskNavPreDo");
+	if (ix == DPCHAPPWZSKOBJ1NSHOTDATA) return("DpchAppWzskObj1NShotData");
+	if (ix == DPCHAPPWZSKOBJ1NSHOTDO) return("DpchAppWzskObj1NShotDo");
 	if (ix == DPCHAPPWZSKOBJDETAILDATA) return("DpchAppWzskObjDetailData");
 	if (ix == DPCHAPPWZSKOBJDETAILDO) return("DpchAppWzskObjDetailDo");
 	if (ix == DPCHAPPWZSKOBJDO) return("DpchAppWzskObjDo");
@@ -294,8 +302,6 @@ string VecWzskVDpch::getSref(
 	if (ix == DPCHAPPWZSKOBJREF1NFILEDO) return("DpchAppWzskObjRef1NFileDo");
 	if (ix == DPCHAPPWZSKOGR1NOBJECTDATA) return("DpchAppWzskOgr1NObjectData");
 	if (ix == DPCHAPPWZSKOGR1NOBJECTDO) return("DpchAppWzskOgr1NObjectDo");
-	if (ix == DPCHAPPWZSKOGR1NSHOTDATA) return("DpchAppWzskOgr1NShotData");
-	if (ix == DPCHAPPWZSKOGR1NSHOTDO) return("DpchAppWzskOgr1NShotDo");
 	if (ix == DPCHAPPWZSKOGRDETAILDATA) return("DpchAppWzskOgrDetailData");
 	if (ix == DPCHAPPWZSKOGRDETAILDO) return("DpchAppWzskOgrDetailDo");
 	if (ix == DPCHAPPWZSKOGRDO) return("DpchAppWzskOgrDo");
@@ -381,6 +387,8 @@ string VecWzskVDpch::getSref(
 	if (ix == DPCHENGWZSKLIV3DVIEWLIVE) return("DpchEngWzskLiv3DViewLive");
 	if (ix == DPCHENGWZSKLIVDATA) return("DpchEngWzskLivData");
 	if (ix == DPCHENGWZSKLIVHEADBARDATA) return("DpchEngWzskLivHeadbarData");
+	if (ix == DPCHENGWZSKLIVSYSMONDATA) return("DpchEngWzskLivSysmonData");
+	if (ix == DPCHENGWZSKLIVSYSMONLIVE) return("DpchEngWzskLivSysmonLive");
 	if (ix == DPCHENGWZSKLLVCAMERADATA) return("DpchEngWzskLlvCameraData");
 	if (ix == DPCHENGWZSKLLVCAMERALIVE) return("DpchEngWzskLlvCameraLive");
 	if (ix == DPCHENGWZSKLLVDATA) return("DpchEngWzskLlvData");
@@ -394,6 +402,7 @@ string VecWzskVDpch::getSref(
 	if (ix == DPCHENGWZSKNAVHEADBARDATA) return("DpchEngWzskNavHeadbarData");
 	if (ix == DPCHENGWZSKNAVOPDATA) return("DpchEngWzskNavOpData");
 	if (ix == DPCHENGWZSKNAVPREDATA) return("DpchEngWzskNavPreData");
+	if (ix == DPCHENGWZSKOBJ1NSHOTDATA) return("DpchEngWzskObj1NShotData");
 	if (ix == DPCHENGWZSKOBJDATA) return("DpchEngWzskObjData");
 	if (ix == DPCHENGWZSKOBJDETAILDATA) return("DpchEngWzskObjDetailData");
 	if (ix == DPCHENGWZSKOBJHEADBARDATA) return("DpchEngWzskObjHeadbarData");
@@ -401,7 +410,6 @@ string VecWzskVDpch::getSref(
 	if (ix == DPCHENGWZSKOBJRECDATA) return("DpchEngWzskObjRecData");
 	if (ix == DPCHENGWZSKOBJREF1NFILEDATA) return("DpchEngWzskObjRef1NFileData");
 	if (ix == DPCHENGWZSKOGR1NOBJECTDATA) return("DpchEngWzskOgr1NObjectData");
-	if (ix == DPCHENGWZSKOGR1NSHOTDATA) return("DpchEngWzskOgr1NShotData");
 	if (ix == DPCHENGWZSKOGRDATA) return("DpchEngWzskOgrData");
 	if (ix == DPCHENGWZSKOGRDETAILDATA) return("DpchEngWzskOgrDetailData");
 	if (ix == DPCHENGWZSKOGRHEADBARDATA) return("DpchEngWzskOgrHeadbarData");

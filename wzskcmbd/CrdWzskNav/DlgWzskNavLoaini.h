@@ -2,8 +2,8 @@
 	* \file DlgWzskNavLoaini.h
 	* job handler for job DlgWzskNavLoaini (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef DLGWZSKNAVLOAINI_H
@@ -450,7 +450,7 @@ public:
 	void refreshImp(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
 	void refreshLfi(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
 
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 
 public:
 
@@ -473,8 +473,8 @@ private:
 	std::string handleDownload(DbsWzsk* dbswzsk);
 
 	void handleTimerInSgePrsidle(DbsWzsk* dbswzsk, const std::string& sref);
-	void handleTimerWithSrefMonInSgeImport(DbsWzsk* dbswzsk);
 	void handleTimerInSgeImpidle(DbsWzsk* dbswzsk, const std::string& sref);
+	void handleTimerWithSrefMonInSgeImport(DbsWzsk* dbswzsk);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge, DpchEngWzsk** dpcheng = NULL);

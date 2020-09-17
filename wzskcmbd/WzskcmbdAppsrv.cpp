@@ -2,8 +2,8 @@
 	* \file WzskcmbdAppsrv.cpp
 	* application server for Wzsk combined daemon (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "Wzskcmbd.h"
@@ -748,12 +748,18 @@ uint WzskcmbdAppsrv::readDpchApp(
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLIV2DVIEWDO) {
 			req->dpchapp = new PnlWzskLiv2DView::DpchAppDo();
 			((PnlWzskLiv2DView::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLIV3DVIEWDATA) {
+			req->dpchapp = new PnlWzskLiv3DView::DpchAppData();
+			((PnlWzskLiv3DView::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLIV3DVIEWDO) {
 			req->dpchapp = new PnlWzskLiv3DView::DpchAppDo();
 			((PnlWzskLiv3DView::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLIVDO) {
 			req->dpchapp = new CrdWzskLiv::DpchAppDo();
 			((CrdWzskLiv::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLIVSYSMONDO) {
+			req->dpchapp = new PnlWzskLivSysmon::DpchAppDo();
+			((PnlWzskLivSysmon::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVCAMERADATA) {
 			req->dpchapp = new PnlWzskLlvCamera::DpchAppData();
 			((PnlWzskLlvCamera::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);
@@ -802,6 +808,12 @@ uint WzskcmbdAppsrv::readDpchApp(
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKNAVPREDO) {
 			req->dpchapp = new PnlWzskNavPre::DpchAppDo();
 			((PnlWzskNavPre::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKOBJ1NSHOTDATA) {
+			req->dpchapp = new PnlWzskObj1NShot::DpchAppData();
+			((PnlWzskObj1NShot::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKOBJ1NSHOTDO) {
+			req->dpchapp = new PnlWzskObj1NShot::DpchAppDo();
+			((PnlWzskObj1NShot::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKOBJDETAILDATA) {
 			req->dpchapp = new PnlWzskObjDetail::DpchAppData();
 			((PnlWzskObjDetail::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);
@@ -832,12 +844,6 @@ uint WzskcmbdAppsrv::readDpchApp(
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKOGR1NOBJECTDO) {
 			req->dpchapp = new PnlWzskOgr1NObject::DpchAppDo();
 			((PnlWzskOgr1NObject::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKOGR1NSHOTDATA) {
-			req->dpchapp = new PnlWzskOgr1NShot::DpchAppData();
-			((PnlWzskOgr1NShot::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKOGR1NSHOTDO) {
-			req->dpchapp = new PnlWzskOgr1NShot::DpchAppDo();
-			((PnlWzskOgr1NShot::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKOGRDETAILDATA) {
 			req->dpchapp = new PnlWzskOgrDetail::DpchAppData();
 			((PnlWzskOgrDetail::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);

@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvTerm.cpp
 	* job handler for job PnlWzskLlvTerm (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -171,7 +171,11 @@ DpchEngWzsk* PnlWzskLlvTerm::getNewDpchEng(
 void PnlWzskLlvTerm::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	StatShr oldStatshr(statshr);
 
 	// IP refresh --- RBEGIN
@@ -197,6 +201,8 @@ void PnlWzskLlvTerm::refresh(
 	// IP refresh --- REND
 
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+
+	muteRefresh = false;
 };
 
 void PnlWzskLlvTerm::handleRequest(
@@ -311,9 +317,7 @@ void PnlWzskLlvTerm::handleDpchAppDoButClaimClick(
 		if (!continf.ButClaimOn) xchg->addCsjobClaim(dbswzsk, srcfpga, new JobWzskSrcFpga::Claim(true, true, false, false, false, false));
 		else xchg->removeCsjobClaim(dbswzsk, srcfpga);
 
-		muteRefresh = false;
-
-		refreshWithDpchEng(dbswzsk, dpcheng);
+		refreshWithDpchEng(dbswzsk, dpcheng, true);
 	};
 	// IP handleDpchAppDoButClaimClick --- IEND
 };
@@ -404,10 +408,8 @@ bool PnlWzskLlvTerm::handleCallWzskClaimChgFromSrcfpga(
 	// IP handleCallWzskClaimChgFromSrcfpga --- IBEGIN
 	set<uint> moditems;
 
-	if (!muteRefresh) {
-		refresh(dbswzsk, moditems);
-		if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	};
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
 	// IP handleCallWzskClaimChgFromSrcfpga --- IEND
 	return retval;
 };

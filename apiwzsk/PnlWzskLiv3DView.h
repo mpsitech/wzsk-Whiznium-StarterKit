@@ -2,8 +2,8 @@
 	* \file PnlWzskLiv3DView.h
 	* API code for job PnlWzskLiv3DView (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKLIV3DVIEW_H
@@ -13,10 +13,13 @@
 
 #define VecVWzskLiv3DViewDo PnlWzskLiv3DView::VecVDo
 
+#define ContIacWzskLiv3DView PnlWzskLiv3DView::ContIac
 #define ContInfWzskLiv3DView PnlWzskLiv3DView::ContInf
+#define StatAppWzskLiv3DView PnlWzskLiv3DView::StatApp
 #define StatShrWzskLiv3DView PnlWzskLiv3DView::StatShr
 #define TagWzskLiv3DView PnlWzskLiv3DView::Tag
 
+#define DpchAppWzskLiv3DViewData PnlWzskLiv3DView::DpchAppData
 #define DpchAppWzskLiv3DViewDo PnlWzskLiv3DView::DpchAppDo
 #define DpchEngWzskLiv3DViewData PnlWzskLiv3DView::DpchEngData
 #define DpchEngWzskLiv3DViewLive PnlWzskLiv3DView::DpchEngLive
@@ -34,12 +37,32 @@ namespace PnlWzskLiv3DView {
 		static const Sbecore::uint BUTREGULARIZECLICK = 1;
 		static const Sbecore::uint BUTMINIMIZECLICK = 2;
 		static const Sbecore::uint BUTCLAIMCLICK = 3;
-		static const Sbecore::uint BUTPLAYCLICK = 4;
-		static const Sbecore::uint BUTSTOPCLICK = 5;
-		static const Sbecore::uint BUTASTCLICK = 6;
+		static const Sbecore::uint BUTASRCLICK = 4;
+		static const Sbecore::uint BUTAIRCLICK = 5;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
+	};
+
+	/**
+	  * ContIac (full: ContIacWzskLiv3DView)
+	  */
+	class ContIac : public Sbecore::Xmlio::Block {
+
+	public:
+		static const Sbecore::uint SLDAIN = 1;
+
+	public:
+		ContIac(const double SldAin = 0.0);
+
+	public:
+		double SldAin;
+
+	public:
+		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
+		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
+		std::set<Sbecore::uint> comm(const ContIac* comp);
+		std::set<Sbecore::uint> diff(const ContIac* comp);
 	};
 
 	/**
@@ -67,6 +90,28 @@ namespace PnlWzskLiv3DView {
 	};
 
 	/**
+	  * StatApp (full: StatAppWzskLiv3DView)
+	  */
+	class StatApp : public Sbecore::Xmlio::Block {
+
+	public:
+		static const Sbecore::uint BUTPLAYACTIVE = 1;
+		static const Sbecore::uint BUTSTOPACTIVE = 2;
+
+	public:
+		StatApp(const bool ButPlayActive = true, const bool ButStopActive = true);
+
+	public:
+		bool ButPlayActive;
+		bool ButStopActive;
+
+	public:
+		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
+		std::set<Sbecore::uint> comm(const StatApp* comp);
+		std::set<Sbecore::uint> diff(const StatApp* comp);
+	};
+
+	/**
 	  * StatShr (full: StatShrWzskLiv3DView)
 	  */
 	class StatShr : public Sbecore::Xmlio::Block {
@@ -78,13 +123,16 @@ namespace PnlWzskLiv3DView {
 		static const Sbecore::uint SLDTREHMAX = 4;
 		static const Sbecore::uint SLDTREVMIN = 5;
 		static const Sbecore::uint SLDTREVMAX = 6;
-		static const Sbecore::uint BUTPLAYACTIVE = 7;
-		static const Sbecore::uint BUTSTOPACTIVE = 8;
-		static const Sbecore::uint TXTAOAAVAIL = 9;
-		static const Sbecore::uint BUTASTACTIVE = 10;
+		static const Sbecore::uint SLDAINACTIVE = 7;
+		static const Sbecore::uint SLDAINMIN = 8;
+		static const Sbecore::uint SLDAINMAX = 9;
+		static const Sbecore::uint SLDAINRAST = 10;
+		static const Sbecore::uint TXTAOAAVAIL = 11;
+		static const Sbecore::uint BUTASRACTIVE = 12;
+		static const Sbecore::uint BUTAIRACTIVE = 13;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const double SldTreHMin = 0.0, const double SldTreHMax = 1.0, const double SldTreVMin = 0.0, const double SldTreVMax = 1.0, const bool ButPlayActive = true, const bool ButStopActive = true, const bool TxtAoaAvail = true, const bool ButAstActive = true);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const double SldTreHMin = 0.0, const double SldTreHMax = 1.0, const double SldTreVMin = 0.0, const double SldTreVMax = 1.0, const bool SldAinActive = true, const double SldAinMin = 3.0, const double SldAinMax = 60.0, const double SldAinRast = 0.5, const bool TxtAoaAvail = true, const bool ButAsrActive = true, const bool ButAirActive = true);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
@@ -93,10 +141,13 @@ namespace PnlWzskLiv3DView {
 		double SldTreHMax;
 		double SldTreVMin;
 		double SldTreVMax;
-		bool ButPlayActive;
-		bool ButStopActive;
+		bool SldAinActive;
+		double SldAinMin;
+		double SldAinMax;
+		double SldAinRast;
 		bool TxtAoaAvail;
-		bool ButAstActive;
+		bool ButAsrActive;
+		bool ButAirActive;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -112,22 +163,48 @@ namespace PnlWzskLiv3DView {
 	public:
 		static const Sbecore::uint CPT = 1;
 		static const Sbecore::uint HDGACQ = 2;
-		static const Sbecore::uint CPTAST = 3;
-		static const Sbecore::uint CPTAOA = 4;
-		static const Sbecore::uint BUTAST = 5;
+		static const Sbecore::uint CPTAIN = 3;
+		static const Sbecore::uint CPTAST = 4;
+		static const Sbecore::uint CPTAOA = 5;
+		static const Sbecore::uint BUTASR = 6;
+		static const Sbecore::uint BUTAIR = 7;
 
 	public:
-		Tag(const std::string& Cpt = "", const std::string& HdgAcq = "", const std::string& CptAst = "", const std::string& CptAoa = "", const std::string& ButAst = "");
+		Tag(const std::string& Cpt = "", const std::string& HdgAcq = "", const std::string& CptAin = "", const std::string& CptAst = "", const std::string& CptAoa = "", const std::string& ButAsr = "", const std::string& ButAir = "");
 
 	public:
 		std::string Cpt;
 		std::string HdgAcq;
+		std::string CptAin;
 		std::string CptAst;
 		std::string CptAoa;
-		std::string ButAst;
+		std::string ButAsr;
+		std::string ButAir;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
+	};
+
+	/**
+		* DpchAppData (full: DpchAppWzskLiv3DViewData)
+		*/
+	class DpchAppData : public DpchAppWzsk {
+
+	public:
+		static const Sbecore::uint SCRJREF = 1;
+		static const Sbecore::uint CONTIAC = 2;
+		static const Sbecore::uint ALL = 3;
+
+	public:
+		DpchAppData(const std::string& scrJref = "", ContIac* contiac = NULL, const std::set<Sbecore::uint>& mask = {NONE});
+
+	public:
+		ContIac contiac;
+
+	public:
+		std::string getSrefsMask();
+
+		void writeXML(xmlTextWriter* wr);
 	};
 
 	/**
@@ -159,15 +236,19 @@ namespace PnlWzskLiv3DView {
 
 	public:
 		static const Sbecore::uint SCRJREF = 1;
-		static const Sbecore::uint CONTINF = 2;
-		static const Sbecore::uint STATSHR = 3;
-		static const Sbecore::uint TAG = 4;
+		static const Sbecore::uint CONTIAC = 2;
+		static const Sbecore::uint CONTINF = 3;
+		static const Sbecore::uint STATAPP = 4;
+		static const Sbecore::uint STATSHR = 5;
+		static const Sbecore::uint TAG = 6;
 
 	public:
 		DpchEngData();
 
 	public:
+		ContIac contiac;
 		ContInf continf;
+		StatApp statapp;
 		StatShr statshr;
 		Tag tag;
 

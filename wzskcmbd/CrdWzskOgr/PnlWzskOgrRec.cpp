@@ -2,8 +2,8 @@
 	* \file PnlWzskOgrRec.cpp
 	* job handler for job PnlWzskOgrRec (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -37,9 +37,8 @@ PnlWzskOgrRec::PnlWzskOgrRec(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	pnl1nshot = NULL;
-	pnl1nobject = NULL;
 	pnlsup1nobjgroup = NULL;
+	pnl1nobject = NULL;
 	pnldetail = NULL;
 
 	// IP constructor.cust1 --- INSERT
@@ -81,7 +80,11 @@ DpchEngWzsk* PnlWzskOgrRec::getNewDpchEng(
 void PnlWzskOgrRec::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	ContInf oldContinf(continf);
 	StatShr oldStatshr(statshr);
 
@@ -96,18 +99,15 @@ void PnlWzskOgrRec::refresh(
 
 	if (statshr.ixWzskVExpstate == VecWzskVExpstate::MIND) {
 		if (pnldetail) {delete pnldetail; pnldetail = NULL;};
-		if (pnl1nshot) {delete pnl1nshot; pnl1nshot = NULL;};
 		if (pnl1nobject) {delete pnl1nobject; pnl1nobject = NULL;};
 		if (pnlsup1nobjgroup) {delete pnlsup1nobjgroup; pnlsup1nobjgroup = NULL;};
 	} else {
 		if (!pnldetail) pnldetail = new PnlWzskOgrDetail(xchg, dbswzsk, jref, ixWzskVLocale);
-		if (!pnl1nshot) pnl1nshot = new PnlWzskOgr1NShot(xchg, dbswzsk, jref, ixWzskVLocale);
 		if (!pnl1nobject) pnl1nobject = new PnlWzskOgr1NObject(xchg, dbswzsk, jref, ixWzskVLocale);
 		if (!pnlsup1nobjgroup) pnlsup1nobjgroup = new PnlWzskOgrSup1NObjgroup(xchg, dbswzsk, jref, ixWzskVLocale);
 	};
 
 	statshr.jrefDetail = ((pnldetail) ? pnldetail->jref : 0);
-	statshr.jref1NShot = ((pnl1nshot) ? pnl1nshot->jref : 0);
 	statshr.jref1NObject = ((pnl1nobject) ? pnl1nobject->jref : 0);
 	statshr.jrefSup1NObjgroup = ((pnlsup1nobjgroup) ? pnlsup1nobjgroup->jref : 0);
 
@@ -115,6 +115,7 @@ void PnlWzskOgrRec::refresh(
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 
+	muteRefresh = false;
 };
 
 void PnlWzskOgrRec::updatePreset(
@@ -136,7 +137,6 @@ void PnlWzskOgrRec::updatePreset(
 
 		if (recOgr.ref != 0) {
 			if (pnldetail) pnldetail->updatePreset(dbswzsk, ixWzskVPreset, jrefTrig, notif);
-			if (pnl1nshot) pnl1nshot->updatePreset(dbswzsk, ixWzskVPreset, jrefTrig, notif);
 			if (pnl1nobject) pnl1nobject->updatePreset(dbswzsk, ixWzskVPreset, jrefTrig, notif);
 			if (pnlsup1nobjgroup) pnlsup1nobjgroup->updatePreset(dbswzsk, ixWzskVPreset, jrefTrig, notif);
 		};

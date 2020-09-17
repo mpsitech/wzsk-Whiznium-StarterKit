@@ -2,8 +2,8 @@
 	* \file VecWzskVStub.cpp
 	* vector VecWzskVStub (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "VecWzskVStub.h"
@@ -25,14 +25,14 @@ uint VecWzskVStub::getIx(
 	if (s == "stubwzskogrhsref") return STUBWZSKOGRHSREF;
 	if (s == "stubwzskogrstd") return STUBWZSKOGRSTD;
 	if (s == "stubwzskobjstd") return STUBWZSKOBJSTD;
-	if (s == "stubwzskfilstd") return STUBWZSKFILSTD;
+	if (s == "stubwzskgroup") return STUBWZSKGROUP;
+	if (s == "stubwzskusgstd") return STUBWZSKUSGSTD;
+	if (s == "stubwzskowner") return STUBWZSKOWNER;
+	if (s == "stubwzskusrstd") return STUBWZSKUSRSTD;
 	if (s == "stubwzskprsstd") return STUBWZSKPRSSTD;
 	if (s == "stubwzsksesmenu") return STUBWZSKSESMENU;
 	if (s == "stubwzsksesstd") return STUBWZSKSESSTD;
-	if (s == "stubwzskowner") return STUBWZSKOWNER;
-	if (s == "stubwzskusrstd") return STUBWZSKUSRSTD;
-	if (s == "stubwzskgroup") return STUBWZSKGROUP;
-	if (s == "stubwzskusgstd") return STUBWZSKUSGSTD;
+	if (s == "stubwzskfilstd") return STUBWZSKFILSTD;
 
 	return(0);
 };
@@ -44,14 +44,14 @@ string VecWzskVStub::getSref(
 	if (ix == STUBWZSKOGRHSREF) return("StubWzskOgrHsref");
 	if (ix == STUBWZSKOGRSTD) return("StubWzskOgrStd");
 	if (ix == STUBWZSKOBJSTD) return("StubWzskObjStd");
-	if (ix == STUBWZSKFILSTD) return("StubWzskFilStd");
+	if (ix == STUBWZSKGROUP) return("StubWzskGroup");
+	if (ix == STUBWZSKUSGSTD) return("StubWzskUsgStd");
+	if (ix == STUBWZSKOWNER) return("StubWzskOwner");
+	if (ix == STUBWZSKUSRSTD) return("StubWzskUsrStd");
 	if (ix == STUBWZSKPRSSTD) return("StubWzskPrsStd");
 	if (ix == STUBWZSKSESMENU) return("StubWzskSesMenu");
 	if (ix == STUBWZSKSESSTD) return("StubWzskSesStd");
-	if (ix == STUBWZSKOWNER) return("StubWzskOwner");
-	if (ix == STUBWZSKUSRSTD) return("StubWzskUsrStd");
-	if (ix == STUBWZSKGROUP) return("StubWzskGroup");
-	if (ix == STUBWZSKUSGSTD) return("StubWzskUsgStd");
+	if (ix == STUBWZSKFILSTD) return("StubWzskFilStd");
 
 	return("");
 };

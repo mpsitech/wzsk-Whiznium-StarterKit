@@ -1,8 +1,8 @@
 # file Makefile
 # make file for CrdWzskLiv card job handler, release wzskcmbd_linux
 # author Catherine Johnson
-# date created: 23 Jul 2020
-# modified: 23 Jul 2020
+# date created: 16 Sep 2020
+# modified: 16 Sep 2020
 
 include ../Makefile.inc
 
@@ -15,7 +15,7 @@ STATLIBFLAGS = rcs
 INCPATH = -I$(SRCROOT)/dbswzsk -I$(SRCROOT)/wzskcmbd/VecWzsk -I$(SRCROOT)/wzskcmbd/IexWzsk -I$(SRCROOT)/wzskcmbd
 INCPATH += -I${NDDSHOME}/include -I${NDDSHOME}/include/ndds -I${NDDSHOME}/include/ndds/hpp -I${UASDKROOT}/SDK_Source/interface/common/platform_specific/atomic/any_platform_st -I${UASDKROOT}/SDK_Source/interface/common/platform_specific/file/linux_windows -I${UASDKROOT}/SDK_Source/interface/common/platform_specific/library/linux_windows -I${UASDKROOT}/SDK_Source/interface/common/platform_specific/locks/any_platform_st -I${UASDKROOT}/SDK_Source/interface/common/platform_specific/ref_count/any_platform_st -I${UASDKROOT}/SDK_Source/interface/common/platform_specific/tcpip/windows_linux_sockets_select_st -I${UASDKROOT}/SDK_Source/interface/common/platform_specific/thread_pool/any_platform_st -I${UASDKROOT}/SDK_Source/interface/common/platform_specific/timers/any_platform_polled -I${UASDKROOT}/SDK_Source/interface/common/portable/address_space -I${UASDKROOT}/SDK_Source/interface/common/portable/address_space/helpers -I${UASDKROOT}/SDK_Source/interface/common/portable/data_types -I${UASDKROOT}/SDK_Source/interface/common/portable/data_types/helper -I${UASDKROOT}/SDK_Source/interface/common/portable/miscellaneous -I${UASDKROOT}/SDK_Source/interface/common/portable/smart_pointers -I${UASDKROOT}/SDK_Source/interface/common/portable/ua_messages -I${UASDKROOT}/SDK_Source/interface/server/platform_specific/server_class/windows_linux_st -I${UASDKROOT}/SDK_Source/interface/server/portable -I${UASDKROOT}/SDK_Source/internals -I${WHIZROOT}/src -I${WHIZROOT}/src/ezdevwskd -I/usr/include -I/usr/include/libxml2 -I/usr/include/mysql
 
-OBJS = CrdWzskLiv.o PnlWzskLivHeadbar.o PnlWzskLiv3DView.o JobWzskAcqPtcloud.o PnlWzskLiv2DView.o
+OBJS = CrdWzskLiv.o PnlWzskLivHeadbar.o PnlWzskLivSysmon.o PnlWzskLiv3DView.o PnlWzskLiv2DView.o
 
 LIB = libcrdwzskliv
 

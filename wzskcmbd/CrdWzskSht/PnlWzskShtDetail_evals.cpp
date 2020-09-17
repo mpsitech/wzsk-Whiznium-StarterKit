@@ -2,8 +2,8 @@
 	* \file PnlWzskShtDetail_evals.cpp
 	* job handler for job PnlWzskShtDetail (implementation of availability/activation evaluation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -104,14 +104,14 @@ bool PnlWzskShtDetail::evalTxtObjActive(
 bool PnlWzskShtDetail::evalButObjViewAvail(
 			DbsWzsk* dbswzsk
 		) {
-	// sht.objEq(0)|(pre.ixCrdaccOgr())
+	// sht.objEq(0)|(pre.ixCrdaccObj())
 
 	vector<bool> args;
 	bool a, b;
 
 	a = false; a = (recSht.refWzskMObject == 0);
 	args.push_back(a);
-	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCOGR, jref) != 0);
+	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCOBJ, jref) != 0);
 	args.push_back(a);
 	b = args.back(); args.pop_back();
 	a = args.back(); args.pop_back();

@@ -2,8 +2,8 @@
 # file make.sh
 # make script for Wzsk combined daemon, release wzskcmbd_apalis(linux (ubt_x86_64) cross-compilation)
 # author Catherine Johnson
-# date created: 23 Jul 2020
-# modified: 23 Jul 2020
+# date created: 16 Sep 2020
+# modified: 16 Sep 2020
 
 make Wzskcmbd.h.gch
 if [ $? -ne 0 ]; then
@@ -11,7 +11,7 @@ if [ $? -ne 0 ]; then
 fi
 
 if [ "$1" = "all" ]; then
-	subs=("IexWzsk" "VecWzsk" "CrdWzskNav" "CrdWzskUsg" "CrdWzskUsr" "CrdWzskPrs" "CrdWzskScf" "CrdWzskLlv" "CrdWzskLiv" "CrdWzskOgr" "CrdWzskObj" "CrdWzskSes" "CrdWzskSht" "CrdWzskFil")
+	subs=("IexWzsk" "VecWzsk" "CrdWzskUsg" "CrdWzskUsr" "CrdWzskPrs" "CrdWzskScf" "CrdWzskNav" "CrdWzskLlv" "CrdWzskLiv" "CrdWzskOgr" "CrdWzskObj" "CrdWzskSes" "CrdWzskSht" "CrdWzskFil")
 else
 	subs=("$@")
 fi

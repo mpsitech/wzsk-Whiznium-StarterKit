@@ -2,8 +2,8 @@
 	* \file DbsWzsk_vecs.cpp
 	* C++ wrapper for database DbsWzsk (implementation of vectors)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -19,11 +19,11 @@ uint DbsWzsk::VecVCard::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "crdwzsknav") return CRDWZSKNAV;
 	if (s == "crdwzskusg") return CRDWZSKUSG;
 	if (s == "crdwzskusr") return CRDWZSKUSR;
 	if (s == "crdwzskprs") return CRDWZSKPRS;
 	if (s == "crdwzskscf") return CRDWZSKSCF;
+	if (s == "crdwzsknav") return CRDWZSKNAV;
 	if (s == "crdwzskllv") return CRDWZSKLLV;
 	if (s == "crdwzskliv") return CRDWZSKLIV;
 	if (s == "crdwzskogr") return CRDWZSKOGR;
@@ -38,11 +38,11 @@ uint DbsWzsk::VecVCard::getIx(
 string DbsWzsk::VecVCard::getSref(
 			const uint ix
 		) {
-	if (ix == CRDWZSKNAV) return("CrdWzskNav");
 	if (ix == CRDWZSKUSG) return("CrdWzskUsg");
 	if (ix == CRDWZSKUSR) return("CrdWzskUsr");
 	if (ix == CRDWZSKPRS) return("CrdWzskPrs");
 	if (ix == CRDWZSKSCF) return("CrdWzskScf");
+	if (ix == CRDWZSKNAV) return("CrdWzskNav");
 	if (ix == CRDWZSKLLV) return("CrdWzskLlv");
 	if (ix == CRDWZSKLIV) return("CrdWzskLiv");
 	if (ix == CRDWZSKOGR) return("CrdWzskOgr");
@@ -142,11 +142,11 @@ uint DbsWzsk::VecVControl::getIx(
 	if (s == "pnlwzskogrlist.tcosrf") return PNLWZSKOGRLIST_TCOSRF;
 	if (s == "pnlwzskogrlist.tcotit") return PNLWZSKOGRLIST_TCOTIT;
 	if (s == "pnlwzskogrlist.tcosup") return PNLWZSKOGRLIST_TCOSUP;
-	if (s == "pnlwzskogr1nshot.tcoref") return PNLWZSKOGR1NSHOT_TCOREF;
 	if (s == "pnlwzskogr1nobject.tcoref") return PNLWZSKOGR1NOBJECT_TCOREF;
 	if (s == "pnlwzskogrsup1nobjgroup.tcoref") return PNLWZSKOGRSUP1NOBJGROUP_TCOREF;
 	if (s == "pnlwzskobjlist.tcotit") return PNLWZSKOBJLIST_TCOTIT;
 	if (s == "pnlwzskobjlist.tcoogr") return PNLWZSKOBJLIST_TCOOGR;
+	if (s == "pnlwzskobj1nshot.tcoref") return PNLWZSKOBJ1NSHOT_TCOREF;
 	if (s == "pnlwzskobjref1nfile.tcoref") return PNLWZSKOBJREF1NFILE_TCOREF;
 	if (s == "pnlwzskseslist.tcousr") return PNLWZSKSESLIST_TCOUSR;
 	if (s == "pnlwzskseslist.tcosta") return PNLWZSKSESLIST_TCOSTA;
@@ -209,11 +209,11 @@ string DbsWzsk::VecVControl::getSref(
 	if (ix == PNLWZSKOGRLIST_TCOSRF) return("PnlWzskOgrList.TcoSrf");
 	if (ix == PNLWZSKOGRLIST_TCOTIT) return("PnlWzskOgrList.TcoTit");
 	if (ix == PNLWZSKOGRLIST_TCOSUP) return("PnlWzskOgrList.TcoSup");
-	if (ix == PNLWZSKOGR1NSHOT_TCOREF) return("PnlWzskOgr1NShot.TcoRef");
 	if (ix == PNLWZSKOGR1NOBJECT_TCOREF) return("PnlWzskOgr1NObject.TcoRef");
 	if (ix == PNLWZSKOGRSUP1NOBJGROUP_TCOREF) return("PnlWzskOgrSup1NObjgroup.TcoRef");
 	if (ix == PNLWZSKOBJLIST_TCOTIT) return("PnlWzskObjList.TcoTit");
 	if (ix == PNLWZSKOBJLIST_TCOOGR) return("PnlWzskObjList.TcoOgr");
+	if (ix == PNLWZSKOBJ1NSHOT_TCOREF) return("PnlWzskObj1NShot.TcoRef");
 	if (ix == PNLWZSKOBJREF1NFILE_TCOREF) return("PnlWzskObjRef1NFile.TcoRef");
 	if (ix == PNLWZSKSESLIST_TCOUSR) return("PnlWzskSesList.TcoUsr");
 	if (ix == PNLWZSKSESLIST_TCOSTA) return("PnlWzskSesList.TcoSta");
@@ -249,7 +249,10 @@ uint DbsWzsk::VecVFeatgroup::getIx(
 
 	if (s == "vecwzskvcard") return VECWZSKVCARD;
 	if (s == "vecvjobwzskacqpreviewvar") return VECVJOBWZSKACQPREVIEWVAR;
+	if (s == "vecvjobwzskacqptcloudmethod") return VECVJOBWZSKACQPTCLOUDMETHOD;
 	if (s == "vecvjobwzskacqptcloudvar") return VECVJOBWZSKACQPTCLOUDVAR;
+	if (s == "vecvjobwzskactexposuremethod") return VECVJOBWZSKACTEXPOSUREMETHOD;
+	if (s == "vecvjobwzskactexposurevar") return VECVJOBWZSKACTEXPOSUREVAR;
 	if (s == "vecvjobwzskactlasermethod") return VECVJOBWZSKACTLASERMETHOD;
 	if (s == "vecvjobwzskactlaservar") return VECVJOBWZSKACTLASERVAR;
 	if (s == "vecvjobwzskactservomethod") return VECVJOBWZSKACTSERVOMETHOD;
@@ -258,6 +261,7 @@ uint DbsWzsk::VecVFeatgroup::getIx(
 	if (s == "vecvjobwzskiprcornervar") return VECVJOBWZSKIPRCORNERVAR;
 	if (s == "vecvjobwzskiprtracemethod") return VECVJOBWZSKIPRTRACEMETHOD;
 	if (s == "vecvjobwzskiprtracevar") return VECVJOBWZSKIPRTRACEVAR;
+	if (s == "vecvjobwzsksrcsysinfovar") return VECVJOBWZSKSRCSYSINFOVAR;
 
 	return(0);
 };
@@ -267,7 +271,10 @@ string DbsWzsk::VecVFeatgroup::getSref(
 		) {
 	if (ix == VECWZSKVCARD) return("VecWzskVCard");
 	if (ix == VECVJOBWZSKACQPREVIEWVAR) return("VecVJobWzskAcqPreviewVar");
+	if (ix == VECVJOBWZSKACQPTCLOUDMETHOD) return("VecVJobWzskAcqPtcloudMethod");
 	if (ix == VECVJOBWZSKACQPTCLOUDVAR) return("VecVJobWzskAcqPtcloudVar");
+	if (ix == VECVJOBWZSKACTEXPOSUREMETHOD) return("VecVJobWzskActExposureMethod");
+	if (ix == VECVJOBWZSKACTEXPOSUREVAR) return("VecVJobWzskActExposureVar");
 	if (ix == VECVJOBWZSKACTLASERMETHOD) return("VecVJobWzskActLaserMethod");
 	if (ix == VECVJOBWZSKACTLASERVAR) return("VecVJobWzskActLaserVar");
 	if (ix == VECVJOBWZSKACTSERVOMETHOD) return("VecVJobWzskActServoMethod");
@@ -276,6 +283,7 @@ string DbsWzsk::VecVFeatgroup::getSref(
 	if (ix == VECVJOBWZSKIPRCORNERVAR) return("VecVJobWzskIprCornerVar");
 	if (ix == VECVJOBWZSKIPRTRACEMETHOD) return("VecVJobWzskIprTraceMethod");
 	if (ix == VECVJOBWZSKIPRTRACEVAR) return("VecVJobWzskIprTraceVar");
+	if (ix == VECVJOBWZSKSRCSYSINFOVAR) return("VecVJobWzskSrcSysinfoVar");
 
 	return("");
 };
@@ -287,7 +295,10 @@ string DbsWzsk::VecVFeatgroup::getTitle(
 	if (ixWzskVLocale == 1) {
 		if (ix == VECWZSKVCARD) return("card");
 		if (ix == VECVJOBWZSKACQPREVIEWVAR) return("JobWzskAcqPreview variable");
+		if (ix == VECVJOBWZSKACQPTCLOUDMETHOD) return("JobWzskAcqPtcloud method");
 		if (ix == VECVJOBWZSKACQPTCLOUDVAR) return("JobWzskAcqPtcloud variable");
+		if (ix == VECVJOBWZSKACTEXPOSUREMETHOD) return("JobWzskActExposure method");
+		if (ix == VECVJOBWZSKACTEXPOSUREVAR) return("JobWzskActExposure variable");
 		if (ix == VECVJOBWZSKACTLASERMETHOD) return("JobWzskActLaser method");
 		if (ix == VECVJOBWZSKACTLASERVAR) return("JobWzskActLaser variable");
 		if (ix == VECVJOBWZSKACTSERVOMETHOD) return("JobWzskActServo method");
@@ -296,11 +307,15 @@ string DbsWzsk::VecVFeatgroup::getTitle(
 		if (ix == VECVJOBWZSKIPRCORNERVAR) return("JobWzskIprCorner variable");
 		if (ix == VECVJOBWZSKIPRTRACEMETHOD) return("JobWzskIprTrace method");
 		if (ix == VECVJOBWZSKIPRTRACEVAR) return("JobWzskIprTrace variable");
+		if (ix == VECVJOBWZSKSRCSYSINFOVAR) return("JobWzskSrcSysinfo variable");
 		return(getSref(ix));
 	} else if (ixWzskVLocale == 2) {
 		if (ix == VECWZSKVCARD) return("Karte");
 		if (ix == VECVJOBWZSKACQPREVIEWVAR) return("JobWzskAcqPreview Variable");
+		if (ix == VECVJOBWZSKACQPTCLOUDMETHOD) return("JobWzskAcqPtcloud Methode");
 		if (ix == VECVJOBWZSKACQPTCLOUDVAR) return("JobWzskAcqPtcloud Variable");
+		if (ix == VECVJOBWZSKACTEXPOSUREMETHOD) return("JobWzskActExposure Methode");
+		if (ix == VECVJOBWZSKACTEXPOSUREVAR) return("JobWzskActExposure Variable");
 		if (ix == VECVJOBWZSKACTLASERMETHOD) return("JobWzskActLaser Methode");
 		if (ix == VECVJOBWZSKACTLASERVAR) return("JobWzskActLaser Variable");
 		if (ix == VECVJOBWZSKACTSERVOMETHOD) return("JobWzskActServo Methode");
@@ -309,6 +324,7 @@ string DbsWzsk::VecVFeatgroup::getTitle(
 		if (ix == VECVJOBWZSKIPRCORNERVAR) return("JobWzskIprCorner Variable");
 		if (ix == VECVJOBWZSKIPRTRACEMETHOD) return("JobWzskIprTrace Methode");
 		if (ix == VECVJOBWZSKIPRTRACEVAR) return("JobWzskIprTrace Variable");
+		if (ix == VECVJOBWZSKSRCSYSINFOVAR) return("JobWzskSrcSysinfo Variable");
 		return(getTitle(ix, 1));
 	};
 
@@ -321,7 +337,7 @@ void DbsWzsk::VecVFeatgroup::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 11; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
+	for (unsigned int i = 1; i <= 15; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
 };
 
 /******************************************************************************

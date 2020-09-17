@@ -2,8 +2,8 @@
 	* \file M2msessWzsk.h
 	* job handler for job M2msessWzsk (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef M2MSESSWZSK_H
@@ -13,10 +13,12 @@
 
 // IP include.cust --- INSERT
 
+#include "JobWzskSrcSysinfo.h"
 #include "JobWzskIprTrace.h"
 #include "JobWzskIprCorner.h"
 #include "JobWzskActServo.h"
 #include "JobWzskActLaser.h"
+#include "JobWzskActExposure.h"
 #include "JobWzskAcqPtcloud.h"
 #include "JobWzskAcqPreview.h"
 
@@ -38,21 +40,25 @@ public:
 	public:
 		static const Sbecore::uint JREFACQPREVIEW = 1;
 		static const Sbecore::uint JREFACQPTCLOUD = 2;
-		static const Sbecore::uint JREFACTLASER = 3;
-		static const Sbecore::uint JREFACTSERVO = 4;
-		static const Sbecore::uint JREFIPRCORNER = 5;
-		static const Sbecore::uint JREFIPRTRACE = 6;
+		static const Sbecore::uint JREFACTEXPOSURE = 3;
+		static const Sbecore::uint JREFACTLASER = 4;
+		static const Sbecore::uint JREFACTSERVO = 5;
+		static const Sbecore::uint JREFIPRCORNER = 6;
+		static const Sbecore::uint JREFIPRTRACE = 7;
+		static const Sbecore::uint JREFSRCSYSINFO = 8;
 
 	public:
-		StatShr(const Sbecore::ubigint jrefAcqpreview = 0, const Sbecore::ubigint jrefAcqptcloud = 0, const Sbecore::ubigint jrefActlaser = 0, const Sbecore::ubigint jrefActservo = 0, const Sbecore::ubigint jrefIprcorner = 0, const Sbecore::ubigint jrefIprtrace = 0);
+		StatShr(const Sbecore::ubigint jrefAcqpreview = 0, const Sbecore::ubigint jrefAcqptcloud = 0, const Sbecore::ubigint jrefActexposure = 0, const Sbecore::ubigint jrefActlaser = 0, const Sbecore::ubigint jrefActservo = 0, const Sbecore::ubigint jrefIprcorner = 0, const Sbecore::ubigint jrefIprtrace = 0, const Sbecore::ubigint jrefSrcsysinfo = 0);
 
 	public:
 		Sbecore::ubigint jrefAcqpreview;
 		Sbecore::ubigint jrefAcqptcloud;
+		Sbecore::ubigint jrefActexposure;
 		Sbecore::ubigint jrefActlaser;
 		Sbecore::ubigint jrefActservo;
 		Sbecore::ubigint jrefIprcorner;
 		Sbecore::ubigint jrefIprtrace;
+		Sbecore::ubigint jrefSrcsysinfo;
 
 	public:
 		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
@@ -90,10 +96,12 @@ public:
 public:
 	StatShr statshr;
 
+	JobWzskSrcSysinfo* srcsysinfo;
 	JobWzskIprTrace* iprtrace;
 	JobWzskIprCorner* iprcorner;
 	JobWzskActServo* actservo;
 	JobWzskActLaser* actlaser;
+	JobWzskActExposure* actexposure;
 	JobWzskAcqPtcloud* acqptcloud;
 	JobWzskAcqPreview* acqpreview;
 

@@ -2,8 +2,8 @@
 	* \file CrdWzskFil.cpp
 	* job handler for job CrdWzskFil (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -54,8 +54,10 @@ CrdWzskFil::CrdWzskFil(
 	xchg->addIxPreset(VecWzskVPreset::PREWZSKIXPRE, jref, ixWzskVPreset);
 	if (ixWzskVPreset != VecWzskVPreset::VOID) xchg->addRefPreset(ixWzskVPreset, jref, preUref);
 
+	if ((ref + 1) != 0) xchg->triggerIxRefCall(dbswzsk, VecWzskVCall::CALLWZSKREFPRESET, jref, VecWzskVPreset::PREWZSKREFFIL, ref);
+
 	// initialize according to ref
-	changeRef(dbswzsk, jref, ((ref+1) == 0) ? 0 : ref, false);
+	changeRef(dbswzsk, jref, ((ref + 1) == 0) ? 0 : ref, false);
 
 	pnllist = new PnlWzskFilList(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlheadbar = new PnlWzskFilHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
@@ -73,8 +75,8 @@ CrdWzskFil::CrdWzskFil(
 	changeStage(dbswzsk, VecVSge::IDLE);
 
 	xchg->addClstn(VecWzskVCall::CALLWZSKREFPRESET, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKDLGCLOSE, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSTATCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKDLGCLOSE, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -109,7 +111,11 @@ DpchEngWzsk* CrdWzskFil::getNewDpchEng(
 void CrdWzskFil::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	ContInf oldContinf(continf);
 	StatShr oldStatshr(statshr);
 
@@ -125,6 +131,8 @@ void CrdWzskFil::refresh(
 	// IP refresh --- END
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+
+	muteRefresh = false;
 };
 
 void CrdWzskFil::changeRef(
@@ -262,10 +270,10 @@ void CrdWzskFil::handleCall(
 		) {
 	if (call->ixVCall == VecWzskVCall::CALLWZSKREFPRESET) {
 		call->abort = handleCallWzskRefPreSet(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKDLGCLOSE) {
-		call->abort = handleCallWzskDlgClose(dbswzsk, call->jref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSTATCHG) {
 		call->abort = handleCallWzskStatChg(dbswzsk, call->jref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKDLGCLOSE) {
+		call->abort = handleCallWzskDlgClose(dbswzsk, call->jref);
 	};
 };
 
@@ -286,6 +294,15 @@ bool CrdWzskFil::handleCallWzskRefPreSet(
 	return retval;
 };
 
+bool CrdWzskFil::handleCallWzskStatChg(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+	if (jrefTrig == pnlrec->jref) if ((pnllist->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD) && (pnlrec->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD)) pnllist->minimize(dbswzsk, true);
+	return retval;
+};
+
 bool CrdWzskFil::handleCallWzskDlgClose(
 			DbsWzsk* dbswzsk
 			, const ubigint jrefTrig
@@ -300,15 +317,6 @@ bool CrdWzskFil::handleCallWzskDlgClose(
 		xchg->submitDpch(getNewDpchEng({DpchEngData::STATSHR}));
 	};
 
-	return retval;
-};
-
-bool CrdWzskFil::handleCallWzskStatChg(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-	if (jrefTrig == pnlrec->jref) if ((pnllist->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD) && (pnlrec->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD)) pnllist->minimize(dbswzsk, true);
 	return retval;
 };
 
@@ -328,7 +336,7 @@ void CrdWzskFil::changeStage(
 
 			setStage(dbswzsk, _ixVSge);
 			reenter = false;
-			if (!muteRefresh) refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
+			refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
 		};
 
 		switch (_ixVSge) {

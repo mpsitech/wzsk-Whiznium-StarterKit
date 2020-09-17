@@ -2,8 +2,8 @@
 	* \file RootWzsk.cpp
 	* job handler for job RootWzsk (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -39,12 +39,14 @@ RootWzsk::RootWzsk(
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
 	srcv4l2 = NULL;
+	srcsysinfo = NULL;
 	srcfpga = NULL;
 	iprtrace = NULL;
 	iprcorner = NULL;
 	iprangle = NULL;
 	actservo = NULL;
 	actlaser = NULL;
+	actexposure = NULL;
 	acqptcloud = NULL;
 	acqpreview = NULL;
 	acqfpgapvw = NULL;
@@ -59,12 +61,14 @@ RootWzsk::RootWzsk(
 	else clearQtb(dbswzsk);
 
 	srcv4l2 = new JobWzskSrcV4l2(xchg, dbswzsk, jref, ixWzskVLocale);
+	srcsysinfo = new JobWzskSrcSysinfo(xchg, dbswzsk, jref, ixWzskVLocale);
 	srcfpga = new JobWzskSrcFpga(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprcorner = new JobWzskIprCorner(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprangle = new JobWzskIprAngle(xchg, dbswzsk, jref, ixWzskVLocale);
 	actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
 	actlaser = new JobWzskActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
+	actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqptcloud = new JobWzskAcqPtcloud(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqpreview = new JobWzskAcqPreview(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqfpgapvw = new JobWzskAcqFpgapvw(xchg, dbswzsk, jref, ixWzskVLocale);
@@ -172,10 +176,10 @@ void RootWzsk::clearQtb(
 			DbsWzsk* dbswzsk
 		) {
 	dbswzsk->executeQuery("DELETE FROM TblWzskQFilList");
+	dbswzsk->executeQuery("DELETE FROM TblWzskQObj1NShot");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQObjList");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQObjRef1NFile");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQOgr1NObject");
-	dbswzsk->executeQuery("DELETE FROM TblWzskQOgr1NShot");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQOgrList");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQOgrSup1NObjgroup");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQPreselect");

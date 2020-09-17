@@ -2,8 +2,8 @@
 	* \file PnlWzskNavGalery.cpp
 	* job handler for job PnlWzskNavGalery (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -219,7 +219,6 @@ void PnlWzskNavGalery::refreshLstSht(
 
 	statshr.LstShtAvail = evalLstShtAvail(dbswzsk);
 	statshr.ButShtViewActive = evalButShtViewActive(dbswzsk);
-	statshr.ButShtNewcrdActive = evalButShtNewcrdActive(dbswzsk);
 
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 };
@@ -260,7 +259,6 @@ void PnlWzskNavGalery::refreshLstFil(
 
 	statshr.LstFilAvail = evalLstFilAvail(dbswzsk);
 	statshr.ButFilViewActive = evalButFilViewActive(dbswzsk);
-	statshr.ButFilNewcrdActive = evalButFilNewcrdActive(dbswzsk);
 
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 };
@@ -296,8 +294,14 @@ void PnlWzskNavGalery::refreshFil(
 void PnlWzskNavGalery::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	// IP refresh --- INSERT
+
+	muteRefresh = false;
 };
 
 void PnlWzskNavGalery::updatePreset(
@@ -542,12 +546,10 @@ void PnlWzskNavGalery::handleDpchAppDoButShtNewcrdClick(
 		) {
 	ubigint jrefNew = 0;
 
-	if (statshr.ButShtNewcrdActive) {
-		xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, "CrdWzskSht", 0, jrefNew);
+	xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, "CrdWzskSht", 0, jrefNew);
 
-		if (jrefNew == 0) *dpcheng = new DpchEngWzskConfirm(false, 0, "");
-		else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskSht");
-	};
+	if (jrefNew == 0) *dpcheng = new DpchEngWzskConfirm(false, 0, "");
+	else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskSht");
 };
 
 void PnlWzskNavGalery::handleDpchAppDoButFilViewClick(
@@ -574,12 +576,10 @@ void PnlWzskNavGalery::handleDpchAppDoButFilNewcrdClick(
 		) {
 	ubigint jrefNew = 0;
 
-	if (statshr.ButFilNewcrdActive) {
-		xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, "CrdWzskFil", 0, jrefNew);
+	xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, "CrdWzskFil", 0, jrefNew);
 
-		if (jrefNew == 0) *dpcheng = new DpchEngWzskConfirm(false, 0, "");
-		else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskFil");
-	};
+	if (jrefNew == 0) *dpcheng = new DpchEngWzskConfirm(false, 0, "");
+	else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskFil");
 };
 
 void PnlWzskNavGalery::handleCall(

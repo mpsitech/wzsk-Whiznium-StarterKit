@@ -2,8 +2,8 @@
 	* \file CrdWzskNav.h
 	* job handler for job CrdWzskNav (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef CRDWZSKNAV_H
@@ -15,8 +15,8 @@
 
 #include "PnlWzskNavGalery.h"
 #include "PnlWzskNavOp.h"
-#include "PnlWzskNavPre.h"
 #include "PnlWzskNavAdmin.h"
+#include "PnlWzskNavPre.h"
 #include "PnlWzskNavHeadbar.h"
 #include "DlgWzskNavLoaini.h"
 
@@ -282,8 +282,8 @@ public:
 
 	PnlWzskNavGalery* pnlgalery;
 	PnlWzskNavOp* pnlop;
-	PnlWzskNavPre* pnlpre;
 	PnlWzskNavAdmin* pnladmin;
+	PnlWzskNavPre* pnlpre;
 	PnlWzskNavHeadbar* pnlheadbar;
 	DlgWzskNavLoaini* dlgloaini;
 
@@ -294,7 +294,7 @@ public:
 
 public:
 	DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 	void updatePreset(DbsWzsk* dbswzsk, const Sbecore::uint ixWzskVPreset, const Sbecore::ubigint jrefTrig, const bool notif = false);
 
 public:

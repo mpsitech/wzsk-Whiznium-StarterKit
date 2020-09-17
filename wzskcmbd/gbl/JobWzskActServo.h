@@ -2,8 +2,8 @@
 	* \file JobWzskActServo.h
 	* job handler for job JobWzskActServo (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef JOBWZSKACTSERVO_H
@@ -36,7 +36,9 @@ public:
 
 	public:
 		static const Sbecore::uint MOVETO = 1;
-		static const Sbecore::uint ZERO = 2;
+		static const Sbecore::uint STOP = 2;
+		static const Sbecore::uint TURN = 3;
+		static const Sbecore::uint ZERO = 4;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -144,6 +146,7 @@ public:
 
 public:
 	// IP cust --- IBEGIN
+	void updateAngle(DbsWzsk* dbswzsk);
 	static void stopGpio();
 	// IP cust --- IEND
 
@@ -152,6 +155,8 @@ public:
 
 public:
 	bool moveto(DbsWzsk* dbswzsk, const float target);
+	bool stop(DbsWzsk* dbswzsk);
+	bool turn(DbsWzsk* dbswzsk, const bool ccwNotCw);
 	bool zero(DbsWzsk* dbswzsk);
 
 public:
@@ -160,8 +165,8 @@ public:
 private:
 	bool handleTest(DbsWzsk* dbswzsk);
 
-	void handleTimerWithSrefMonInSgeMove(DbsWzsk* dbswzsk);
 	void handleTimerWithSrefCallbackInSgeMove(DbsWzsk* dbswzsk);
+	void handleTimerWithSrefMonInSgeMove(DbsWzsk* dbswzsk);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

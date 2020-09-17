@@ -2,8 +2,8 @@
   * \file PnlWzskLiv2DView.java
   * Java API code for job PnlWzskLiv2DView
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 package apiwzsk;
@@ -24,9 +24,12 @@ public class PnlWzskLiv2DView {
 		public static final int BUTPLAYCLICK = 4;
 		public static final int BUTSTOPCLICK = 5;
 		public static final int BUTSTSCLICK = 6;
-		public static final int BUTTTBCLICK = 7;
-		public static final int BUTLTRCLICK = 8;
-		public static final int BUTPICCLICK = 9;
+		public static final int BUTTCCCLICK = 7;
+		public static final int BUTTCWCLICK = 8;
+		public static final int BUTLLECLICK = 9;
+		public static final int BUTLRICLICK = 10;
+		public static final int BUTLTRCLICK = 11;
+		public static final int BUTPICCLICK = 12;
 
 		public static int getIx(
 					String sref
@@ -39,7 +42,10 @@ public class PnlWzskLiv2DView {
 			if (s.equals("butplayclick")) return BUTPLAYCLICK;
 			if (s.equals("butstopclick")) return BUTSTOPCLICK;
 			if (s.equals("butstsclick")) return BUTSTSCLICK;
-			if (s.equals("butttbclick")) return BUTTTBCLICK;
+			if (s.equals("buttccclick")) return BUTTCCCLICK;
+			if (s.equals("buttcwclick")) return BUTTCWCLICK;
+			if (s.equals("butlleclick")) return BUTLLECLICK;
+			if (s.equals("butlriclick")) return BUTLRICLICK;
 			if (s.equals("butltrclick")) return BUTLTRCLICK;
 			if (s.equals("butpicclick")) return BUTPICCLICK;
 
@@ -55,7 +61,10 @@ public class PnlWzskLiv2DView {
 			if (ix == BUTPLAYCLICK) return("ButPlayClick");
 			if (ix == BUTSTOPCLICK) return("ButStopClick");
 			if (ix == BUTSTSCLICK) return("ButStsClick");
-			if (ix == BUTTTBCLICK) return("ButTtbClick");
+			if (ix == BUTTCCCLICK) return("ButTccClick");
+			if (ix == BUTTCWCLICK) return("ButTcwClick");
+			if (ix == BUTLLECLICK) return("ButLleClick");
+			if (ix == BUTLRICLICK) return("ButLriClick");
 			if (ix == BUTLTRCLICK) return("ButLtrClick");
 			if (ix == BUTPICCLICK) return("ButPicClick");
 
@@ -70,23 +79,21 @@ public class PnlWzskLiv2DView {
 	public class ContIac extends Block {
 
 		public static final int NUMFPUPPVM = 1;
-		public static final int SLDFCS = 2;
+		public static final int CHKAEX = 2;
 		public static final int SLDEXT = 3;
-		public static final int SLDLLE = 4;
-		public static final int SLDLRI = 5;
-		public static final int UPDLLO = 6;
-		public static final int UPDLUO = 7;
-		public static final int UPDLMD = 8;
-		public static final int CHKLRO = 9;
-		public static final int UPDPNT = 10;
-		public static final int CHKPRO = 11;
+		public static final int SLDFCS = 4;
+		public static final int UPDLLO = 5;
+		public static final int UPDLUO = 6;
+		public static final int UPDLMD = 7;
+		public static final int CHKLRO = 8;
+		public static final int UPDPNT = 9;
+		public static final int CHKPRO = 10;
 
 		public ContIac(
 					int numFPupPvm
-					, double SldFcs
+					, boolean ChkAex
 					, double SldExt
-					, double SldLle
-					, double SldLri
+					, double SldFcs
 					, int UpdLlo
 					, int UpdLuo
 					, int UpdLmd
@@ -95,10 +102,9 @@ public class PnlWzskLiv2DView {
 					, boolean ChkPro
 				) {
 			this.numFPupPvm = numFPupPvm;
-			this.SldFcs = SldFcs;
+			this.ChkAex = ChkAex;
 			this.SldExt = SldExt;
-			this.SldLle = SldLle;
-			this.SldLri = SldLri;
+			this.SldFcs = SldFcs;
 			this.UpdLlo = UpdLlo;
 			this.UpdLuo = UpdLuo;
 			this.UpdLmd = UpdLmd;
@@ -106,14 +112,13 @@ public class PnlWzskLiv2DView {
 			this.UpdPnt = UpdPnt;
 			this.ChkPro = ChkPro;
 
-			mask = new HashSet<Integer>(Arrays.asList(NUMFPUPPVM, SLDFCS, SLDEXT, SLDLLE, SLDLRI, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO));
+			mask = new HashSet<Integer>(Arrays.asList(NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO));
 		};
 
 		public int numFPupPvm;
-		public double SldFcs;
+		public boolean ChkAex;
 		public double SldExt;
-		public double SldLle;
-		public double SldLri;
+		public double SldFcs;
 		public int UpdLlo;
 		public int UpdLuo;
 		public int UpdLmd;
@@ -135,10 +140,9 @@ public class PnlWzskLiv2DView {
 
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				numFPupPvm = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "numFPupPvm", mask, NUMFPUPPVM);
-				SldFcs = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "SldFcs", mask, SLDFCS);
+				ChkAex = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ChkAex", mask, CHKAEX);
 				SldExt = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "SldExt", mask, SLDEXT);
-				SldLle = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "SldLle", mask, SLDLLE);
-				SldLri = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "SldLri", mask, SLDLRI);
+				SldFcs = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "SldFcs", mask, SLDFCS);
 				UpdLlo = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "UpdLlo", mask, UPDLLO);
 				UpdLuo = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "UpdLuo", mask, UPDLUO);
 				UpdLmd = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "UpdLmd", mask, UPDLMD);
@@ -171,10 +175,9 @@ public class PnlWzskLiv2DView {
 			else sup.appendChild(el);
 
 			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "numFPupPvm", numFPupPvm);
-			Xmlio.writeDoubleAttr(doc, el, itemtag, "sref", "SldFcs", SldFcs);
+			Xmlio.writeBooleanAttr(doc, el, itemtag, "sref", "ChkAex", ChkAex);
 			Xmlio.writeDoubleAttr(doc, el, itemtag, "sref", "SldExt", SldExt);
-			Xmlio.writeDoubleAttr(doc, el, itemtag, "sref", "SldLle", SldLle);
-			Xmlio.writeDoubleAttr(doc, el, itemtag, "sref", "SldLri", SldLri);
+			Xmlio.writeDoubleAttr(doc, el, itemtag, "sref", "SldFcs", SldFcs);
 			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "UpdLlo", UpdLlo);
 			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "UpdLuo", UpdLuo);
 			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "UpdLmd", UpdLmd);
@@ -189,10 +192,9 @@ public class PnlWzskLiv2DView {
 			HashSet<Integer> items = new HashSet<Integer>();
 
 			if (numFPupPvm == comp.numFPupPvm) items.add(NUMFPUPPVM);
-			if (Xmlio.compareDouble(SldFcs, comp.SldFcs) < 1.0e-4) items.add(SLDFCS);
+			if (ChkAex == comp.ChkAex) items.add(CHKAEX);
 			if (Xmlio.compareDouble(SldExt, comp.SldExt) < 1.0e-4) items.add(SLDEXT);
-			if (Xmlio.compareDouble(SldLle, comp.SldLle) < 1.0e-4) items.add(SLDLLE);
-			if (Xmlio.compareDouble(SldLri, comp.SldLri) < 1.0e-4) items.add(SLDLRI);
+			if (Xmlio.compareDouble(SldFcs, comp.SldFcs) < 1.0e-4) items.add(SLDFCS);
 			if (UpdLlo == comp.UpdLlo) items.add(UPDLLO);
 			if (UpdLuo == comp.UpdLuo) items.add(UPDLUO);
 			if (UpdLmd == comp.UpdLmd) items.add(UPDLMD);
@@ -211,7 +213,275 @@ public class PnlWzskLiv2DView {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(NUMFPUPPVM, SLDFCS, SLDEXT, SLDLLE, SLDLRI, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO));
+			diffitems = new HashSet<Integer>(Arrays.asList(NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO));
+			for (Integer ci: commitems) diffitems.remove(ci);
+
+			return(diffitems);
+		};
+
+	};
+
+	/**
+	  * ContIacCorner (full: ContIacWzskLiv2DViewCorner)
+	  */
+	public class ContIacCorner extends Block {
+
+		public static final int ROIAX = 1;
+		public static final int ROIAY = 2;
+		public static final int ROIBX = 3;
+		public static final int ROIBY = 4;
+		public static final int ROICX = 5;
+		public static final int ROICY = 6;
+		public static final int ROIDX = 7;
+		public static final int ROIDY = 8;
+
+		public ContIacCorner(
+					int roiAx
+					, int roiAy
+					, int roiBx
+					, int roiBy
+					, int roiCx
+					, int roiCy
+					, int roiDx
+					, int roiDy
+				) {
+			this.roiAx = roiAx;
+			this.roiAy = roiAy;
+			this.roiBx = roiBx;
+			this.roiBy = roiBy;
+			this.roiCx = roiCx;
+			this.roiCy = roiCy;
+			this.roiDx = roiDx;
+			this.roiDy = roiDy;
+
+			mask = new HashSet<Integer>(Arrays.asList(ROIAX, ROIAY, ROIBX, ROIBY, ROICX, ROICY, ROIDX, ROIDY));
+		};
+
+		public int roiAx;
+		public int roiAy;
+		public int roiBx;
+		public int roiBy;
+		public int roiCx;
+		public int roiCy;
+		public int roiDx;
+		public int roiDy;
+
+		public boolean readXML(
+					Document doc
+					, String basexpath
+					, boolean addbasetag
+				) {
+
+			clear();
+
+			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "ContIacWzskLiv2DViewCorner");
+
+			String itemtag = "ContitemIacWzskLiv2DViewCorner";
+
+			if (Xmlio.checkXPath(doc, basexpath)) {
+				roiAx = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiAx", mask, ROIAX);
+				roiAy = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiAy", mask, ROIAY);
+				roiBx = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiBx", mask, ROIBX);
+				roiBy = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiBy", mask, ROIBY);
+				roiCx = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiCx", mask, ROICX);
+				roiCy = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiCy", mask, ROICY);
+				roiDx = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiDx", mask, ROIDX);
+				roiDy = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiDy", mask, ROIDY);
+
+				return true;
+			};
+
+			return false;
+		};
+
+		public void writeXML(
+					Document doc
+					, Element sup
+					, String difftag
+					, boolean shorttags
+				) {
+			if (difftag.isEmpty()) difftag = "ContIacWzskLiv2DViewCorner";
+
+			String itemtag;
+
+			if (shorttags) itemtag = "Ci";
+			else itemtag = "ContitemIacWzskLiv2DViewCorner";
+
+			Element el = doc.createElement(difftag);
+
+			if (sup == null) doc.appendChild(el);
+			else sup.appendChild(el);
+
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiAx", roiAx);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiAy", roiAy);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiBx", roiBx);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiBy", roiBy);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiCx", roiCx);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiCy", roiCy);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiDx", roiDx);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiDy", roiDy);
+		};
+
+		public HashSet<Integer> comm(
+					ContIacCorner comp
+				) {
+			HashSet<Integer> items = new HashSet<Integer>();
+
+			if (roiAx == comp.roiAx) items.add(ROIAX);
+			if (roiAy == comp.roiAy) items.add(ROIAY);
+			if (roiBx == comp.roiBx) items.add(ROIBX);
+			if (roiBy == comp.roiBy) items.add(ROIBY);
+			if (roiCx == comp.roiCx) items.add(ROICX);
+			if (roiCy == comp.roiCy) items.add(ROICY);
+			if (roiDx == comp.roiDx) items.add(ROIDX);
+			if (roiDy == comp.roiDy) items.add(ROIDY);
+
+			return(items);
+		};
+
+		public HashSet<Integer> diff(
+					ContIacCorner comp
+				) {
+			HashSet<Integer> commitems;
+			HashSet<Integer> diffitems;
+
+			commitems = comm(comp);
+
+			diffitems = new HashSet<Integer>(Arrays.asList(ROIAX, ROIAY, ROIBX, ROIBY, ROICX, ROICY, ROIDX, ROIDY));
+			for (Integer ci: commitems) diffitems.remove(ci);
+
+			return(diffitems);
+		};
+
+	};
+
+	/**
+	  * ContIacTrace (full: ContIacWzskLiv2DViewTrace)
+	  */
+	public class ContIacTrace extends Block {
+
+		public static final int ROIAX = 1;
+		public static final int ROIAY = 2;
+		public static final int ROIBX = 3;
+		public static final int ROIBY = 4;
+		public static final int ROICX = 5;
+		public static final int ROICY = 6;
+		public static final int ROIDX = 7;
+		public static final int ROIDY = 8;
+
+		public ContIacTrace(
+					int roiAx
+					, int roiAy
+					, int roiBx
+					, int roiBy
+					, int roiCx
+					, int roiCy
+					, int roiDx
+					, int roiDy
+				) {
+			this.roiAx = roiAx;
+			this.roiAy = roiAy;
+			this.roiBx = roiBx;
+			this.roiBy = roiBy;
+			this.roiCx = roiCx;
+			this.roiCy = roiCy;
+			this.roiDx = roiDx;
+			this.roiDy = roiDy;
+
+			mask = new HashSet<Integer>(Arrays.asList(ROIAX, ROIAY, ROIBX, ROIBY, ROICX, ROICY, ROIDX, ROIDY));
+		};
+
+		public int roiAx;
+		public int roiAy;
+		public int roiBx;
+		public int roiBy;
+		public int roiCx;
+		public int roiCy;
+		public int roiDx;
+		public int roiDy;
+
+		public boolean readXML(
+					Document doc
+					, String basexpath
+					, boolean addbasetag
+				) {
+
+			clear();
+
+			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "ContIacWzskLiv2DViewTrace");
+
+			String itemtag = "ContitemIacWzskLiv2DViewTrace";
+
+			if (Xmlio.checkXPath(doc, basexpath)) {
+				roiAx = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiAx", mask, ROIAX);
+				roiAy = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiAy", mask, ROIAY);
+				roiBx = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiBx", mask, ROIBX);
+				roiBy = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiBy", mask, ROIBY);
+				roiCx = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiCx", mask, ROICX);
+				roiCy = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiCy", mask, ROICY);
+				roiDx = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiDx", mask, ROIDX);
+				roiDy = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "roiDy", mask, ROIDY);
+
+				return true;
+			};
+
+			return false;
+		};
+
+		public void writeXML(
+					Document doc
+					, Element sup
+					, String difftag
+					, boolean shorttags
+				) {
+			if (difftag.isEmpty()) difftag = "ContIacWzskLiv2DViewTrace";
+
+			String itemtag;
+
+			if (shorttags) itemtag = "Ci";
+			else itemtag = "ContitemIacWzskLiv2DViewTrace";
+
+			Element el = doc.createElement(difftag);
+
+			if (sup == null) doc.appendChild(el);
+			else sup.appendChild(el);
+
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiAx", roiAx);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiAy", roiAy);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiBx", roiBx);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiBy", roiBy);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiCx", roiCx);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiCy", roiCy);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiDx", roiDx);
+			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "roiDy", roiDy);
+		};
+
+		public HashSet<Integer> comm(
+					ContIacTrace comp
+				) {
+			HashSet<Integer> items = new HashSet<Integer>();
+
+			if (roiAx == comp.roiAx) items.add(ROIAX);
+			if (roiAy == comp.roiAy) items.add(ROIAY);
+			if (roiBx == comp.roiBx) items.add(ROIBX);
+			if (roiBy == comp.roiBy) items.add(ROIBY);
+			if (roiCx == comp.roiCx) items.add(ROICX);
+			if (roiCy == comp.roiCy) items.add(ROICY);
+			if (roiDx == comp.roiDx) items.add(ROIDX);
+			if (roiDy == comp.roiDy) items.add(ROIDY);
+
+			return(items);
+		};
+
+		public HashSet<Integer> diff(
+					ContIacTrace comp
+				) {
+			HashSet<Integer> commitems;
+			HashSet<Integer> diffitems;
+
+			commitems = comm(comp);
+
+			diffitems = new HashSet<Integer>(Arrays.asList(ROIAX, ROIAY, ROIBX, ROIBY, ROICX, ROICY, ROIDX, ROIDY));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -226,29 +496,41 @@ public class PnlWzskLiv2DView {
 
 		public static final int BUTCLAIMON = 1;
 		public static final int TXTOAF = 2;
-		public static final int BUTTTBON = 3;
-		public static final int BUTLTRON = 4;
-		public static final int BUTPICON = 5;
+		public static final int BUTTCCON = 3;
+		public static final int BUTTCWON = 4;
+		public static final int BUTLLEON = 5;
+		public static final int BUTLRION = 6;
+		public static final int BUTLTRON = 7;
+		public static final int BUTPICON = 8;
 
 		public ContInf(
 					boolean ButClaimOn
 					, String TxtOaf
-					, boolean ButTtbOn
+					, boolean ButTccOn
+					, boolean ButTcwOn
+					, boolean ButLleOn
+					, boolean ButLriOn
 					, boolean ButLtrOn
 					, boolean ButPicOn
 				) {
 			this.ButClaimOn = ButClaimOn;
 			this.TxtOaf = TxtOaf;
-			this.ButTtbOn = ButTtbOn;
+			this.ButTccOn = ButTccOn;
+			this.ButTcwOn = ButTcwOn;
+			this.ButLleOn = ButLleOn;
+			this.ButLriOn = ButLriOn;
 			this.ButLtrOn = ButLtrOn;
 			this.ButPicOn = ButPicOn;
 
-			mask = new HashSet<Integer>(Arrays.asList(BUTCLAIMON, TXTOAF, BUTTTBON, BUTLTRON, BUTPICON));
+			mask = new HashSet<Integer>(Arrays.asList(BUTCLAIMON, TXTOAF, BUTTCCON, BUTTCWON, BUTLLEON, BUTLRION, BUTLTRON, BUTPICON));
 		};
 
 		public boolean ButClaimOn;
 		public String TxtOaf;
-		public boolean ButTtbOn;
+		public boolean ButTccOn;
+		public boolean ButTcwOn;
+		public boolean ButLleOn;
+		public boolean ButLriOn;
 		public boolean ButLtrOn;
 		public boolean ButPicOn;
 
@@ -267,7 +549,10 @@ public class PnlWzskLiv2DView {
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				ButClaimOn = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ButClaimOn", mask, BUTCLAIMON);
 				TxtOaf = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "TxtOaf", mask, TXTOAF);
-				ButTtbOn = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ButTtbOn", mask, BUTTTBON);
+				ButTccOn = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ButTccOn", mask, BUTTCCON);
+				ButTcwOn = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ButTcwOn", mask, BUTTCWON);
+				ButLleOn = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ButLleOn", mask, BUTLLEON);
+				ButLriOn = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ButLriOn", mask, BUTLRION);
 				ButLtrOn = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ButLtrOn", mask, BUTLTRON);
 				ButPicOn = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ButPicOn", mask, BUTPICON);
 
@@ -284,7 +569,10 @@ public class PnlWzskLiv2DView {
 
 			if (ButClaimOn == comp.ButClaimOn) items.add(BUTCLAIMON);
 			if (TxtOaf.equals(comp.TxtOaf)) items.add(TXTOAF);
-			if (ButTtbOn == comp.ButTtbOn) items.add(BUTTTBON);
+			if (ButTccOn == comp.ButTccOn) items.add(BUTTCCON);
+			if (ButTcwOn == comp.ButTcwOn) items.add(BUTTCWON);
+			if (ButLleOn == comp.ButLleOn) items.add(BUTLLEON);
+			if (ButLriOn == comp.ButLriOn) items.add(BUTLRION);
 			if (ButLtrOn == comp.ButLtrOn) items.add(BUTLTRON);
 			if (ButPicOn == comp.ButPicOn) items.add(BUTPICON);
 
@@ -299,7 +587,7 @@ public class PnlWzskLiv2DView {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(BUTCLAIMON, TXTOAF, BUTTTBON, BUTLTRON, BUTPICON));
+			diffitems = new HashSet<Integer>(Arrays.asList(BUTCLAIMON, TXTOAF, BUTTCCON, BUTTCWON, BUTLLEON, BUTLRION, BUTLTRON, BUTPICON));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -314,57 +602,47 @@ public class PnlWzskLiv2DView {
 
 		public static final int IXWZSKVEXPSTATE = 1;
 		public static final int BUTCLAIMACTIVE = 2;
-		public static final int SLDFCSAVAIL = 3;
-		public static final int SLDFCSACTIVE = 4;
-		public static final int SLDFCSMIN = 5;
-		public static final int SLDFCSMAX = 6;
-		public static final int SLDEXTAVAIL = 7;
-		public static final int SLDEXTACTIVE = 8;
-		public static final int SLDEXTMIN = 9;
-		public static final int SLDEXTMAX = 10;
-		public static final int SLDEXTRAST = 11;
-		public static final int BUTPLAYACTIVE = 12;
-		public static final int BUTSTOPACTIVE = 13;
+		public static final int BUTPLAYACTIVE = 3;
+		public static final int BUTSTOPACTIVE = 4;
+		public static final int CHKAEXACTIVE = 5;
+		public static final int SLDEXTAVAIL = 6;
+		public static final int SLDEXTACTIVE = 7;
+		public static final int SLDEXTMIN = 8;
+		public static final int SLDEXTMAX = 9;
+		public static final int SLDEXTRAST = 10;
+		public static final int SLDFCSACTIVE = 11;
+		public static final int SLDFCSMIN = 12;
+		public static final int SLDFCSMAX = 13;
 		public static final int TXTOAFAVAIL = 14;
 		public static final int BUTSTSACTIVE = 15;
-		public static final int BUTTTBACTIVE = 16;
-		public static final int SLDLLEMIN = 17;
-		public static final int SLDLLEMAX = 18;
-		public static final int SLDLRIMIN = 19;
-		public static final int SLDLRIMAX = 20;
-		public static final int UPDLLOAVAIL = 21;
-		public static final int UPDLLOMIN = 22;
-		public static final int UPDLLOMAX = 23;
-		public static final int UPDLUOAVAIL = 24;
-		public static final int UPDLUOMIN = 25;
-		public static final int UPDLUOMAX = 26;
-		public static final int UPDLMDAVAIL = 27;
-		public static final int UPDLMDMIN = 28;
-		public static final int UPDLMDMAX = 29;
-		public static final int UPDPNTMIN = 30;
-		public static final int UPDPNTMAX = 31;
+		public static final int UPDLLOAVAIL = 16;
+		public static final int UPDLLOMIN = 17;
+		public static final int UPDLLOMAX = 18;
+		public static final int UPDLUOAVAIL = 19;
+		public static final int UPDLUOMIN = 20;
+		public static final int UPDLUOMAX = 21;
+		public static final int UPDLMDAVAIL = 22;
+		public static final int UPDLMDMIN = 23;
+		public static final int UPDLMDMAX = 24;
+		public static final int UPDPNTMIN = 25;
+		public static final int UPDPNTMAX = 26;
 
 		public StatShr(
 					int ixWzskVExpstate
 					, boolean ButClaimActive
-					, boolean SldFcsAvail
-					, boolean SldFcsActive
-					, double SldFcsMin
-					, double SldFcsMax
+					, boolean ButPlayActive
+					, boolean ButStopActive
+					, boolean ChkAexActive
 					, boolean SldExtAvail
 					, boolean SldExtActive
 					, double SldExtMin
 					, double SldExtMax
 					, double SldExtRast
-					, boolean ButPlayActive
-					, boolean ButStopActive
+					, boolean SldFcsActive
+					, double SldFcsMin
+					, double SldFcsMax
 					, boolean TxtOafAvail
 					, boolean ButStsActive
-					, boolean ButTtbActive
-					, double SldLleMin
-					, double SldLleMax
-					, double SldLriMin
-					, double SldLriMax
 					, boolean UpdLloAvail
 					, int UpdLloMin
 					, int UpdLloMax
@@ -379,24 +657,19 @@ public class PnlWzskLiv2DView {
 				) {
 			this.ixWzskVExpstate = ixWzskVExpstate;
 			this.ButClaimActive = ButClaimActive;
-			this.SldFcsAvail = SldFcsAvail;
-			this.SldFcsActive = SldFcsActive;
-			this.SldFcsMin = SldFcsMin;
-			this.SldFcsMax = SldFcsMax;
+			this.ButPlayActive = ButPlayActive;
+			this.ButStopActive = ButStopActive;
+			this.ChkAexActive = ChkAexActive;
 			this.SldExtAvail = SldExtAvail;
 			this.SldExtActive = SldExtActive;
 			this.SldExtMin = SldExtMin;
 			this.SldExtMax = SldExtMax;
 			this.SldExtRast = SldExtRast;
-			this.ButPlayActive = ButPlayActive;
-			this.ButStopActive = ButStopActive;
+			this.SldFcsActive = SldFcsActive;
+			this.SldFcsMin = SldFcsMin;
+			this.SldFcsMax = SldFcsMax;
 			this.TxtOafAvail = TxtOafAvail;
 			this.ButStsActive = ButStsActive;
-			this.ButTtbActive = ButTtbActive;
-			this.SldLleMin = SldLleMin;
-			this.SldLleMax = SldLleMax;
-			this.SldLriMin = SldLriMin;
-			this.SldLriMax = SldLriMax;
 			this.UpdLloAvail = UpdLloAvail;
 			this.UpdLloMin = UpdLloMin;
 			this.UpdLloMax = UpdLloMax;
@@ -409,29 +682,24 @@ public class PnlWzskLiv2DView {
 			this.UpdPntMin = UpdPntMin;
 			this.UpdPntMax = UpdPntMax;
 
-			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDFCSAVAIL, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, BUTPLAYACTIVE, BUTSTOPACTIVE, TXTOAFAVAIL, BUTSTSACTIVE, BUTTTBACTIVE, SLDLLEMIN, SLDLLEMAX, SLDLRIMIN, SLDLRIMAX, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX));
+			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX));
 		};
 
 		public int ixWzskVExpstate;
 		public boolean ButClaimActive;
-		public boolean SldFcsAvail;
-		public boolean SldFcsActive;
-		public double SldFcsMin;
-		public double SldFcsMax;
+		public boolean ButPlayActive;
+		public boolean ButStopActive;
+		public boolean ChkAexActive;
 		public boolean SldExtAvail;
 		public boolean SldExtActive;
 		public double SldExtMin;
 		public double SldExtMax;
 		public double SldExtRast;
-		public boolean ButPlayActive;
-		public boolean ButStopActive;
+		public boolean SldFcsActive;
+		public double SldFcsMin;
+		public double SldFcsMax;
 		public boolean TxtOafAvail;
 		public boolean ButStsActive;
-		public boolean ButTtbActive;
-		public double SldLleMin;
-		public double SldLleMax;
-		public double SldLriMin;
-		public double SldLriMax;
 		public boolean UpdLloAvail;
 		public int UpdLloMin;
 		public int UpdLloMax;
@@ -461,24 +729,19 @@ public class PnlWzskLiv2DView {
 				srefIxWzskVExpstate = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "srefIxWzskVExpstate", mask, IXWZSKVEXPSTATE);
 				ixWzskVExpstate = VecWzskVExpstate.getIx(srefIxWzskVExpstate);
 				ButClaimActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButClaimActive", mask, BUTCLAIMACTIVE);
-				SldFcsAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsAvail", mask, SLDFCSAVAIL);
-				SldFcsActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsActive", mask, SLDFCSACTIVE);
-				SldFcsMin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsMin", mask, SLDFCSMIN);
-				SldFcsMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsMax", mask, SLDFCSMAX);
+				ButPlayActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButPlayActive", mask, BUTPLAYACTIVE);
+				ButStopActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButStopActive", mask, BUTSTOPACTIVE);
+				ChkAexActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ChkAexActive", mask, CHKAEXACTIVE);
 				SldExtAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldExtAvail", mask, SLDEXTAVAIL);
 				SldExtActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldExtActive", mask, SLDEXTACTIVE);
 				SldExtMin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldExtMin", mask, SLDEXTMIN);
 				SldExtMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldExtMax", mask, SLDEXTMAX);
 				SldExtRast = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldExtRast", mask, SLDEXTRAST);
-				ButPlayActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButPlayActive", mask, BUTPLAYACTIVE);
-				ButStopActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButStopActive", mask, BUTSTOPACTIVE);
+				SldFcsActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsActive", mask, SLDFCSACTIVE);
+				SldFcsMin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsMin", mask, SLDFCSMIN);
+				SldFcsMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldFcsMax", mask, SLDFCSMAX);
 				TxtOafAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "TxtOafAvail", mask, TXTOAFAVAIL);
 				ButStsActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButStsActive", mask, BUTSTSACTIVE);
-				ButTtbActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButTtbActive", mask, BUTTTBACTIVE);
-				SldLleMin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldLleMin", mask, SLDLLEMIN);
-				SldLleMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldLleMax", mask, SLDLLEMAX);
-				SldLriMin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldLriMin", mask, SLDLRIMIN);
-				SldLriMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldLriMax", mask, SLDLRIMAX);
 				UpdLloAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "UpdLloAvail", mask, UPDLLOAVAIL);
 				UpdLloMin = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Si", "sref", "UpdLloMin", mask, UPDLLOMIN);
 				UpdLloMax = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Si", "sref", "UpdLloMax", mask, UPDLLOMAX);
@@ -504,24 +767,19 @@ public class PnlWzskLiv2DView {
 
 			if (ixWzskVExpstate == comp.ixWzskVExpstate) items.add(IXWZSKVEXPSTATE);
 			if (ButClaimActive == comp.ButClaimActive) items.add(BUTCLAIMACTIVE);
-			if (SldFcsAvail == comp.SldFcsAvail) items.add(SLDFCSAVAIL);
-			if (SldFcsActive == comp.SldFcsActive) items.add(SLDFCSACTIVE);
-			if (Xmlio.compareDouble(SldFcsMin, comp.SldFcsMin) < 1.0e-4) items.add(SLDFCSMIN);
-			if (Xmlio.compareDouble(SldFcsMax, comp.SldFcsMax) < 1.0e-4) items.add(SLDFCSMAX);
+			if (ButPlayActive == comp.ButPlayActive) items.add(BUTPLAYACTIVE);
+			if (ButStopActive == comp.ButStopActive) items.add(BUTSTOPACTIVE);
+			if (ChkAexActive == comp.ChkAexActive) items.add(CHKAEXACTIVE);
 			if (SldExtAvail == comp.SldExtAvail) items.add(SLDEXTAVAIL);
 			if (SldExtActive == comp.SldExtActive) items.add(SLDEXTACTIVE);
 			if (Xmlio.compareDouble(SldExtMin, comp.SldExtMin) < 1.0e-4) items.add(SLDEXTMIN);
 			if (Xmlio.compareDouble(SldExtMax, comp.SldExtMax) < 1.0e-4) items.add(SLDEXTMAX);
 			if (Xmlio.compareDouble(SldExtRast, comp.SldExtRast) < 1.0e-4) items.add(SLDEXTRAST);
-			if (ButPlayActive == comp.ButPlayActive) items.add(BUTPLAYACTIVE);
-			if (ButStopActive == comp.ButStopActive) items.add(BUTSTOPACTIVE);
+			if (SldFcsActive == comp.SldFcsActive) items.add(SLDFCSACTIVE);
+			if (Xmlio.compareDouble(SldFcsMin, comp.SldFcsMin) < 1.0e-4) items.add(SLDFCSMIN);
+			if (Xmlio.compareDouble(SldFcsMax, comp.SldFcsMax) < 1.0e-4) items.add(SLDFCSMAX);
 			if (TxtOafAvail == comp.TxtOafAvail) items.add(TXTOAFAVAIL);
 			if (ButStsActive == comp.ButStsActive) items.add(BUTSTSACTIVE);
-			if (ButTtbActive == comp.ButTtbActive) items.add(BUTTTBACTIVE);
-			if (Xmlio.compareDouble(SldLleMin, comp.SldLleMin) < 1.0e-4) items.add(SLDLLEMIN);
-			if (Xmlio.compareDouble(SldLleMax, comp.SldLleMax) < 1.0e-4) items.add(SLDLLEMAX);
-			if (Xmlio.compareDouble(SldLriMin, comp.SldLriMin) < 1.0e-4) items.add(SLDLRIMIN);
-			if (Xmlio.compareDouble(SldLriMax, comp.SldLriMax) < 1.0e-4) items.add(SLDLRIMAX);
 			if (UpdLloAvail == comp.UpdLloAvail) items.add(UPDLLOAVAIL);
 			if (UpdLloMin == comp.UpdLloMin) items.add(UPDLLOMIN);
 			if (UpdLloMax == comp.UpdLloMax) items.add(UPDLLOMAX);
@@ -545,7 +803,7 @@ public class PnlWzskLiv2DView {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDFCSAVAIL, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, BUTPLAYACTIVE, BUTSTOPACTIVE, TXTOAFAVAIL, BUTSTSACTIVE, BUTTTBACTIVE, SLDLLEMIN, SLDLLEMAX, SLDLRIMIN, SLDLRIMAX, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX));
+			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -560,42 +818,48 @@ public class PnlWzskLiv2DView {
 
 		public static final int CPT = 1;
 		public static final int CPTPVM = 2;
-		public static final int CPTFCS = 3;
+		public static final int CPTAEX = 3;
 		public static final int CPTEXT = 4;
-		public static final int CPTOAF = 5;
-		public static final int BUTSTS = 6;
-		public static final int BUTTTB = 7;
-		public static final int HDGLOR = 8;
-		public static final int CPTLGL = 9;
-		public static final int CPTLLE = 10;
-		public static final int CPTLRI = 11;
-		public static final int CPTLLO = 12;
-		public static final int CPTLUO = 13;
-		public static final int CPTLMD = 14;
-		public static final int CPTLRO = 15;
-		public static final int BUTLTR = 16;
-		public static final int BUTLCL = 17;
-		public static final int HDGPOS = 18;
-		public static final int CPTPNT = 19;
-		public static final int CPTPRO = 20;
-		public static final int BUTPIC = 21;
-		public static final int BUTPCL = 22;
+		public static final int CPTFCS = 5;
+		public static final int CPTOAF = 6;
+		public static final int BUTSTS = 7;
+		public static final int HDGTTB = 8;
+		public static final int BUTTCC = 9;
+		public static final int BUTTCW = 10;
+		public static final int HDGLOR = 11;
+		public static final int BUTLLE = 12;
+		public static final int BUTLRI = 13;
+		public static final int CPTLLO = 14;
+		public static final int CPTLUO = 15;
+		public static final int CPTLMD = 16;
+		public static final int CPTLGL = 17;
+		public static final int CPTLRO = 18;
+		public static final int BUTLTR = 19;
+		public static final int BUTLCL = 20;
+		public static final int HDGPOS = 21;
+		public static final int CPTPNT = 22;
+		public static final int CPTPRO = 23;
+		public static final int BUTPIC = 24;
+		public static final int BUTPCL = 25;
 
 		public Tag(
 					String Cpt
 					, String CptPvm
-					, String CptFcs
+					, String CptAex
 					, String CptExt
+					, String CptFcs
 					, String CptOaf
 					, String ButSts
-					, String ButTtb
+					, String HdgTtb
+					, String ButTcc
+					, String ButTcw
 					, String HdgLor
-					, String CptLgl
-					, String CptLle
-					, String CptLri
+					, String ButLle
+					, String ButLri
 					, String CptLlo
 					, String CptLuo
 					, String CptLmd
+					, String CptLgl
 					, String CptLro
 					, String ButLtr
 					, String ButLcl
@@ -607,18 +871,21 @@ public class PnlWzskLiv2DView {
 				) {
 			this.Cpt = Cpt;
 			this.CptPvm = CptPvm;
-			this.CptFcs = CptFcs;
+			this.CptAex = CptAex;
 			this.CptExt = CptExt;
+			this.CptFcs = CptFcs;
 			this.CptOaf = CptOaf;
 			this.ButSts = ButSts;
-			this.ButTtb = ButTtb;
+			this.HdgTtb = HdgTtb;
+			this.ButTcc = ButTcc;
+			this.ButTcw = ButTcw;
 			this.HdgLor = HdgLor;
-			this.CptLgl = CptLgl;
-			this.CptLle = CptLle;
-			this.CptLri = CptLri;
+			this.ButLle = ButLle;
+			this.ButLri = ButLri;
 			this.CptLlo = CptLlo;
 			this.CptLuo = CptLuo;
 			this.CptLmd = CptLmd;
+			this.CptLgl = CptLgl;
 			this.CptLro = CptLro;
 			this.ButLtr = ButLtr;
 			this.ButLcl = ButLcl;
@@ -628,23 +895,26 @@ public class PnlWzskLiv2DView {
 			this.ButPic = ButPic;
 			this.ButPcl = ButPcl;
 
-			mask = new HashSet<Integer>(Arrays.asList(CPT, CPTPVM, CPTFCS, CPTEXT, CPTOAF, BUTSTS, BUTTTB, HDGLOR, CPTLGL, CPTLLE, CPTLRI, CPTLLO, CPTLUO, CPTLMD, CPTLRO, BUTLTR, BUTLCL, HDGPOS, CPTPNT, CPTPRO, BUTPIC, BUTPCL));
+			mask = new HashSet<Integer>(Arrays.asList(CPT, CPTPVM, CPTAEX, CPTEXT, CPTFCS, CPTOAF, BUTSTS, HDGTTB, BUTTCC, BUTTCW, HDGLOR, BUTLLE, BUTLRI, CPTLLO, CPTLUO, CPTLMD, CPTLGL, CPTLRO, BUTLTR, BUTLCL, HDGPOS, CPTPNT, CPTPRO, BUTPIC, BUTPCL));
 		};
 
 		public String Cpt;
 		public String CptPvm;
-		public String CptFcs;
+		public String CptAex;
 		public String CptExt;
+		public String CptFcs;
 		public String CptOaf;
 		public String ButSts;
-		public String ButTtb;
+		public String HdgTtb;
+		public String ButTcc;
+		public String ButTcw;
 		public String HdgLor;
-		public String CptLgl;
-		public String CptLle;
-		public String CptLri;
+		public String ButLle;
+		public String ButLri;
 		public String CptLlo;
 		public String CptLuo;
 		public String CptLmd;
+		public String CptLgl;
 		public String CptLro;
 		public String ButLtr;
 		public String ButLcl;
@@ -669,18 +939,21 @@ public class PnlWzskLiv2DView {
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				Cpt = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "Cpt", mask, CPT);
 				CptPvm = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptPvm", mask, CPTPVM);
-				CptFcs = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptFcs", mask, CPTFCS);
+				CptAex = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptAex", mask, CPTAEX);
 				CptExt = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptExt", mask, CPTEXT);
+				CptFcs = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptFcs", mask, CPTFCS);
 				CptOaf = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptOaf", mask, CPTOAF);
 				ButSts = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButSts", mask, BUTSTS);
-				ButTtb = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButTtb", mask, BUTTTB);
+				HdgTtb = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "HdgTtb", mask, HDGTTB);
+				ButTcc = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButTcc", mask, BUTTCC);
+				ButTcw = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButTcw", mask, BUTTCW);
 				HdgLor = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "HdgLor", mask, HDGLOR);
-				CptLgl = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptLgl", mask, CPTLGL);
-				CptLle = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptLle", mask, CPTLLE);
-				CptLri = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptLri", mask, CPTLRI);
+				ButLle = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButLle", mask, BUTLLE);
+				ButLri = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButLri", mask, BUTLRI);
 				CptLlo = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptLlo", mask, CPTLLO);
 				CptLuo = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptLuo", mask, CPTLUO);
 				CptLmd = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptLmd", mask, CPTLMD);
+				CptLgl = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptLgl", mask, CPTLGL);
 				CptLro = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptLro", mask, CPTLRO);
 				ButLtr = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButLtr", mask, BUTLTR);
 				ButLcl = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButLcl", mask, BUTLCL);
@@ -703,18 +976,21 @@ public class PnlWzskLiv2DView {
 
 			if (Cpt.equals(comp.Cpt)) items.add(CPT);
 			if (CptPvm.equals(comp.CptPvm)) items.add(CPTPVM);
-			if (CptFcs.equals(comp.CptFcs)) items.add(CPTFCS);
+			if (CptAex.equals(comp.CptAex)) items.add(CPTAEX);
 			if (CptExt.equals(comp.CptExt)) items.add(CPTEXT);
+			if (CptFcs.equals(comp.CptFcs)) items.add(CPTFCS);
 			if (CptOaf.equals(comp.CptOaf)) items.add(CPTOAF);
 			if (ButSts.equals(comp.ButSts)) items.add(BUTSTS);
-			if (ButTtb.equals(comp.ButTtb)) items.add(BUTTTB);
+			if (HdgTtb.equals(comp.HdgTtb)) items.add(HDGTTB);
+			if (ButTcc.equals(comp.ButTcc)) items.add(BUTTCC);
+			if (ButTcw.equals(comp.ButTcw)) items.add(BUTTCW);
 			if (HdgLor.equals(comp.HdgLor)) items.add(HDGLOR);
-			if (CptLgl.equals(comp.CptLgl)) items.add(CPTLGL);
-			if (CptLle.equals(comp.CptLle)) items.add(CPTLLE);
-			if (CptLri.equals(comp.CptLri)) items.add(CPTLRI);
+			if (ButLle.equals(comp.ButLle)) items.add(BUTLLE);
+			if (ButLri.equals(comp.ButLri)) items.add(BUTLRI);
 			if (CptLlo.equals(comp.CptLlo)) items.add(CPTLLO);
 			if (CptLuo.equals(comp.CptLuo)) items.add(CPTLUO);
 			if (CptLmd.equals(comp.CptLmd)) items.add(CPTLMD);
+			if (CptLgl.equals(comp.CptLgl)) items.add(CPTLGL);
 			if (CptLro.equals(comp.CptLro)) items.add(CPTLRO);
 			if (ButLtr.equals(comp.ButLtr)) items.add(BUTLTR);
 			if (ButLcl.equals(comp.ButLcl)) items.add(BUTLCL);
@@ -735,7 +1011,7 @@ public class PnlWzskLiv2DView {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(CPT, CPTPVM, CPTFCS, CPTEXT, CPTOAF, BUTSTS, BUTTTB, HDGLOR, CPTLGL, CPTLLE, CPTLRI, CPTLLO, CPTLUO, CPTLMD, CPTLRO, BUTLTR, BUTLCL, HDGPOS, CPTPNT, CPTPRO, BUTPIC, BUTPCL));
+			diffitems = new HashSet<Integer>(Arrays.asList(CPT, CPTPVM, CPTAEX, CPTEXT, CPTFCS, CPTOAF, BUTSTS, HDGTTB, BUTTCC, BUTTCW, HDGLOR, BUTLLE, BUTLRI, CPTLLO, CPTLUO, CPTLMD, CPTLGL, CPTLRO, BUTLTR, BUTLCL, HDGPOS, CPTPNT, CPTPRO, BUTPIC, BUTPCL));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -981,11 +1257,11 @@ public class PnlWzskLiv2DView {
 		public DpchEngData() {
 			super(VecWzskVDpch.DPCHENGWZSKLIV2DVIEWDATA);
 
-			contiac = new ContIac(0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, false, 0, false);
-			continf = new ContInf(false, "", false, false, false);
+			contiac = new ContIac(0, false, 0.0, 0.0, 0, 0, 0, false, 0, false);
+			continf = new ContInf(false, "", false, false, false, false, false, false);
 			feedFPupPvm = new Feed("FeedFPupPvm");
-			statshr = new StatShr(0, false, false, false, 0.0, 0.0, false, false, 0.0, 0.0, 0.0, false, false, false, false, false, 0.0, 0.0, 0.0, 0.0, false, 0, 0, false, 0, 0, false, 0, 0, 0, 0);
-			tag = new Tag("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+			statshr = new StatShr(0, false, false, false, false, false, false, 0.0, 0.0, 0.0, false, 0.0, 0.0, false, false, false, 0, 0, false, 0, 0, false, 0, 0, 0, 0);
+			tag = new Tag("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
 		};
 
 		public ContIac contiac;
@@ -1026,11 +1302,11 @@ public class PnlWzskLiv2DView {
 				if (tag.readXML(doc, basexpath, true)) add(TAG);
 			} else {
 				scrJref = "";
-				contiac = new ContIac(0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0, false, 0, false);
-				continf = new ContInf(false, "", false, false, false);
+				contiac = new ContIac(0, false, 0.0, 0.0, 0, 0, 0, false, 0, false);
+				continf = new ContInf(false, "", false, false, false, false, false, false);
 				feedFPupPvm = new Feed("FeedFPupPvm");
-				statshr = new StatShr(0, false, false, false, 0.0, 0.0, false, false, 0.0, 0.0, 0.0, false, false, false, false, false, 0.0, 0.0, 0.0, 0.0, false, 0, 0, false, 0, 0, false, 0, 0, 0, 0);
-				tag = new Tag("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+				statshr = new StatShr(0, false, false, false, false, false, false, 0.0, 0.0, 0.0, false, 0.0, 0.0, false, false, false, 0, 0, false, 0, 0, false, 0, 0, 0, 0);
+				tag = new Tag("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
 			};
 		};
 

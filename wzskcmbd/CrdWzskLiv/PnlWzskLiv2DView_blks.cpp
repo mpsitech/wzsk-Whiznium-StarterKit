@@ -2,8 +2,8 @@
 	* \file PnlWzskLiv2DView_blks.cpp
 	* job handler for job PnlWzskLiv2DView (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -25,7 +25,10 @@ uint PnlWzskLiv2DView::VecVDo::getIx(
 	if (s == "butplayclick") return BUTPLAYCLICK;
 	if (s == "butstopclick") return BUTSTOPCLICK;
 	if (s == "butstsclick") return BUTSTSCLICK;
-	if (s == "butttbclick") return BUTTTBCLICK;
+	if (s == "buttccclick") return BUTTCCCLICK;
+	if (s == "buttcwclick") return BUTTCWCLICK;
+	if (s == "butlleclick") return BUTLLECLICK;
+	if (s == "butlriclick") return BUTLRICLICK;
 	if (s == "butltrclick") return BUTLTRCLICK;
 	if (s == "butpicclick") return BUTPICCLICK;
 
@@ -41,7 +44,10 @@ string PnlWzskLiv2DView::VecVDo::getSref(
 	if (ix == BUTPLAYCLICK) return("ButPlayClick");
 	if (ix == BUTSTOPCLICK) return("ButStopClick");
 	if (ix == BUTSTSCLICK) return("ButStsClick");
-	if (ix == BUTTTBCLICK) return("ButTtbClick");
+	if (ix == BUTTCCCLICK) return("ButTccClick");
+	if (ix == BUTTCWCLICK) return("ButTcwClick");
+	if (ix == BUTLLECLICK) return("ButLleClick");
+	if (ix == BUTLRICLICK) return("ButLriClick");
 	if (ix == BUTLTRCLICK) return("ButLtrClick");
 	if (ix == BUTPICCLICK) return("ButPicClick");
 
@@ -54,10 +60,9 @@ string PnlWzskLiv2DView::VecVDo::getSref(
 
 PnlWzskLiv2DView::ContIac::ContIac(
 			const uint numFPupPvm
-			, const double SldFcs
+			, const bool ChkAex
 			, const double SldExt
-			, const double SldLle
-			, const double SldLri
+			, const double SldFcs
 			, const int UpdLlo
 			, const int UpdLuo
 			, const int UpdLmd
@@ -68,10 +73,9 @@ PnlWzskLiv2DView::ContIac::ContIac(
 			Block()
 		{
 	this->numFPupPvm = numFPupPvm;
-	this->SldFcs = SldFcs;
+	this->ChkAex = ChkAex;
 	this->SldExt = SldExt;
-	this->SldLle = SldLle;
-	this->SldLri = SldLri;
+	this->SldFcs = SldFcs;
 	this->UpdLlo = UpdLlo;
 	this->UpdLuo = UpdLuo;
 	this->UpdLmd = UpdLmd;
@@ -79,7 +83,7 @@ PnlWzskLiv2DView::ContIac::ContIac(
 	this->UpdPnt = UpdPnt;
 	this->ChkPro = ChkPro;
 
-	mask = {NUMFPUPPVM, SLDFCS, SLDEXT, SLDLLE, SLDLRI, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO};
+	mask = {NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO};
 };
 
 bool PnlWzskLiv2DView::ContIac::readXML(
@@ -100,10 +104,9 @@ bool PnlWzskLiv2DView::ContIac::readXML(
 
 	if (basefound) {
 		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "numFPupPvm", numFPupPvm)) add(NUMFPUPPVM);
-		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "SldFcs", SldFcs)) add(SLDFCS);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "ChkAex", ChkAex)) add(CHKAEX);
 		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "SldExt", SldExt)) add(SLDEXT);
-		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "SldLle", SldLle)) add(SLDLLE);
-		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "SldLri", SldLri)) add(SLDLRI);
+		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "SldFcs", SldFcs)) add(SLDFCS);
 		if (extractIntAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "UpdLlo", UpdLlo)) add(UPDLLO);
 		if (extractIntAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "UpdLuo", UpdLuo)) add(UPDLUO);
 		if (extractIntAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "UpdLmd", UpdLmd)) add(UPDLMD);
@@ -128,10 +131,9 @@ void PnlWzskLiv2DView::ContIac::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeUintAttr(wr, itemtag, "sref", "numFPupPvm", numFPupPvm);
-		writeDoubleAttr(wr, itemtag, "sref", "SldFcs", SldFcs);
+		writeBoolAttr(wr, itemtag, "sref", "ChkAex", ChkAex);
 		writeDoubleAttr(wr, itemtag, "sref", "SldExt", SldExt);
-		writeDoubleAttr(wr, itemtag, "sref", "SldLle", SldLle);
-		writeDoubleAttr(wr, itemtag, "sref", "SldLri", SldLri);
+		writeDoubleAttr(wr, itemtag, "sref", "SldFcs", SldFcs);
 		writeIntAttr(wr, itemtag, "sref", "UpdLlo", UpdLlo);
 		writeIntAttr(wr, itemtag, "sref", "UpdLuo", UpdLuo);
 		writeIntAttr(wr, itemtag, "sref", "UpdLmd", UpdLmd);
@@ -147,10 +149,9 @@ set<uint> PnlWzskLiv2DView::ContIac::comm(
 	set<uint> items;
 
 	if (numFPupPvm == comp->numFPupPvm) insert(items, NUMFPUPPVM);
-	if (compareDouble(SldFcs, comp->SldFcs) < 1.0e-4) insert(items, SLDFCS);
+	if (ChkAex == comp->ChkAex) insert(items, CHKAEX);
 	if (compareDouble(SldExt, comp->SldExt) < 1.0e-4) insert(items, SLDEXT);
-	if (compareDouble(SldLle, comp->SldLle) < 1.0e-4) insert(items, SLDLLE);
-	if (compareDouble(SldLri, comp->SldLri) < 1.0e-4) insert(items, SLDLRI);
+	if (compareDouble(SldFcs, comp->SldFcs) < 1.0e-4) insert(items, SLDFCS);
 	if (UpdLlo == comp->UpdLlo) insert(items, UPDLLO);
 	if (UpdLuo == comp->UpdLuo) insert(items, UPDLUO);
 	if (UpdLmd == comp->UpdLmd) insert(items, UPDLMD);
@@ -169,7 +170,7 @@ set<uint> PnlWzskLiv2DView::ContIac::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {NUMFPUPPVM, SLDFCS, SLDEXT, SLDLLE, SLDLRI, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO};
+	diffitems = {NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -406,7 +407,10 @@ set<uint> PnlWzskLiv2DView::ContIacTrace::diff(
 PnlWzskLiv2DView::ContInf::ContInf(
 			const bool ButClaimOn
 			, const string& TxtOaf
-			, const bool ButTtbOn
+			, const bool ButTccOn
+			, const bool ButTcwOn
+			, const bool ButLleOn
+			, const bool ButLriOn
 			, const bool ButLtrOn
 			, const bool ButPicOn
 		) :
@@ -414,11 +418,14 @@ PnlWzskLiv2DView::ContInf::ContInf(
 		{
 	this->ButClaimOn = ButClaimOn;
 	this->TxtOaf = TxtOaf;
-	this->ButTtbOn = ButTtbOn;
+	this->ButTccOn = ButTccOn;
+	this->ButTcwOn = ButTcwOn;
+	this->ButLleOn = ButLleOn;
+	this->ButLriOn = ButLriOn;
 	this->ButLtrOn = ButLtrOn;
 	this->ButPicOn = ButPicOn;
 
-	mask = {BUTCLAIMON, TXTOAF, BUTTTBON, BUTLTRON, BUTPICON};
+	mask = {BUTCLAIMON, TXTOAF, BUTTCCON, BUTTCWON, BUTLLEON, BUTLRION, BUTLTRON, BUTPICON};
 };
 
 void PnlWzskLiv2DView::ContInf::writeXML(
@@ -435,7 +442,10 @@ void PnlWzskLiv2DView::ContInf::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeBoolAttr(wr, itemtag, "sref", "ButClaimOn", ButClaimOn);
 		writeStringAttr(wr, itemtag, "sref", "TxtOaf", TxtOaf);
-		writeBoolAttr(wr, itemtag, "sref", "ButTtbOn", ButTtbOn);
+		writeBoolAttr(wr, itemtag, "sref", "ButTccOn", ButTccOn);
+		writeBoolAttr(wr, itemtag, "sref", "ButTcwOn", ButTcwOn);
+		writeBoolAttr(wr, itemtag, "sref", "ButLleOn", ButLleOn);
+		writeBoolAttr(wr, itemtag, "sref", "ButLriOn", ButLriOn);
 		writeBoolAttr(wr, itemtag, "sref", "ButLtrOn", ButLtrOn);
 		writeBoolAttr(wr, itemtag, "sref", "ButPicOn", ButPicOn);
 	xmlTextWriterEndElement(wr);
@@ -448,7 +458,10 @@ set<uint> PnlWzskLiv2DView::ContInf::comm(
 
 	if (ButClaimOn == comp->ButClaimOn) insert(items, BUTCLAIMON);
 	if (TxtOaf == comp->TxtOaf) insert(items, TXTOAF);
-	if (ButTtbOn == comp->ButTtbOn) insert(items, BUTTTBON);
+	if (ButTccOn == comp->ButTccOn) insert(items, BUTTCCON);
+	if (ButTcwOn == comp->ButTcwOn) insert(items, BUTTCWON);
+	if (ButLleOn == comp->ButLleOn) insert(items, BUTLLEON);
+	if (ButLriOn == comp->ButLriOn) insert(items, BUTLRION);
 	if (ButLtrOn == comp->ButLtrOn) insert(items, BUTLTRON);
 	if (ButPicOn == comp->ButPicOn) insert(items, BUTPICON);
 
@@ -463,7 +476,7 @@ set<uint> PnlWzskLiv2DView::ContInf::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {BUTCLAIMON, TXTOAF, BUTTTBON, BUTLTRON, BUTPICON};
+	diffitems = {BUTCLAIMON, TXTOAF, BUTTCCON, BUTTCWON, BUTLLEON, BUTLRION, BUTLTRON, BUTPICON};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -476,24 +489,19 @@ set<uint> PnlWzskLiv2DView::ContInf::diff(
 PnlWzskLiv2DView::StatShr::StatShr(
 			const uint ixWzskVExpstate
 			, const bool ButClaimActive
-			, const bool SldFcsAvail
-			, const bool SldFcsActive
-			, const double SldFcsMin
-			, const double SldFcsMax
+			, const bool ButPlayActive
+			, const bool ButStopActive
+			, const bool ChkAexActive
 			, const bool SldExtAvail
 			, const bool SldExtActive
 			, const double SldExtMin
 			, const double SldExtMax
 			, const double SldExtRast
-			, const bool ButPlayActive
-			, const bool ButStopActive
+			, const bool SldFcsActive
+			, const double SldFcsMin
+			, const double SldFcsMax
 			, const bool TxtOafAvail
 			, const bool ButStsActive
-			, const bool ButTtbActive
-			, const double SldLleMin
-			, const double SldLleMax
-			, const double SldLriMin
-			, const double SldLriMax
 			, const bool UpdLloAvail
 			, const int UpdLloMin
 			, const int UpdLloMax
@@ -510,24 +518,19 @@ PnlWzskLiv2DView::StatShr::StatShr(
 		{
 	this->ixWzskVExpstate = ixWzskVExpstate;
 	this->ButClaimActive = ButClaimActive;
-	this->SldFcsAvail = SldFcsAvail;
-	this->SldFcsActive = SldFcsActive;
-	this->SldFcsMin = SldFcsMin;
-	this->SldFcsMax = SldFcsMax;
+	this->ButPlayActive = ButPlayActive;
+	this->ButStopActive = ButStopActive;
+	this->ChkAexActive = ChkAexActive;
 	this->SldExtAvail = SldExtAvail;
 	this->SldExtActive = SldExtActive;
 	this->SldExtMin = SldExtMin;
 	this->SldExtMax = SldExtMax;
 	this->SldExtRast = SldExtRast;
-	this->ButPlayActive = ButPlayActive;
-	this->ButStopActive = ButStopActive;
+	this->SldFcsActive = SldFcsActive;
+	this->SldFcsMin = SldFcsMin;
+	this->SldFcsMax = SldFcsMax;
 	this->TxtOafAvail = TxtOafAvail;
 	this->ButStsActive = ButStsActive;
-	this->ButTtbActive = ButTtbActive;
-	this->SldLleMin = SldLleMin;
-	this->SldLleMax = SldLleMax;
-	this->SldLriMin = SldLriMin;
-	this->SldLriMax = SldLriMax;
 	this->UpdLloAvail = UpdLloAvail;
 	this->UpdLloMin = UpdLloMin;
 	this->UpdLloMax = UpdLloMax;
@@ -540,7 +543,7 @@ PnlWzskLiv2DView::StatShr::StatShr(
 	this->UpdPntMin = UpdPntMin;
 	this->UpdPntMax = UpdPntMax;
 
-	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDFCSAVAIL, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, BUTPLAYACTIVE, BUTSTOPACTIVE, TXTOAFAVAIL, BUTSTSACTIVE, BUTTTBACTIVE, SLDLLEMIN, SLDLLEMAX, SLDLRIMIN, SLDLRIMAX, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX};
+	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX};
 };
 
 void PnlWzskLiv2DView::StatShr::writeXML(
@@ -557,24 +560,19 @@ void PnlWzskLiv2DView::StatShr::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeStringAttr(wr, itemtag, "sref", "srefIxWzskVExpstate", VecWzskVExpstate::getSref(ixWzskVExpstate));
 		writeBoolAttr(wr, itemtag, "sref", "ButClaimActive", ButClaimActive);
-		writeBoolAttr(wr, itemtag, "sref", "SldFcsAvail", SldFcsAvail);
-		writeBoolAttr(wr, itemtag, "sref", "SldFcsActive", SldFcsActive);
-		writeDoubleAttr(wr, itemtag, "sref", "SldFcsMin", SldFcsMin);
-		writeDoubleAttr(wr, itemtag, "sref", "SldFcsMax", SldFcsMax);
+		writeBoolAttr(wr, itemtag, "sref", "ButPlayActive", ButPlayActive);
+		writeBoolAttr(wr, itemtag, "sref", "ButStopActive", ButStopActive);
+		writeBoolAttr(wr, itemtag, "sref", "ChkAexActive", ChkAexActive);
 		writeBoolAttr(wr, itemtag, "sref", "SldExtAvail", SldExtAvail);
 		writeBoolAttr(wr, itemtag, "sref", "SldExtActive", SldExtActive);
 		writeDoubleAttr(wr, itemtag, "sref", "SldExtMin", SldExtMin);
 		writeDoubleAttr(wr, itemtag, "sref", "SldExtMax", SldExtMax);
 		writeDoubleAttr(wr, itemtag, "sref", "SldExtRast", SldExtRast);
-		writeBoolAttr(wr, itemtag, "sref", "ButPlayActive", ButPlayActive);
-		writeBoolAttr(wr, itemtag, "sref", "ButStopActive", ButStopActive);
+		writeBoolAttr(wr, itemtag, "sref", "SldFcsActive", SldFcsActive);
+		writeDoubleAttr(wr, itemtag, "sref", "SldFcsMin", SldFcsMin);
+		writeDoubleAttr(wr, itemtag, "sref", "SldFcsMax", SldFcsMax);
 		writeBoolAttr(wr, itemtag, "sref", "TxtOafAvail", TxtOafAvail);
 		writeBoolAttr(wr, itemtag, "sref", "ButStsActive", ButStsActive);
-		writeBoolAttr(wr, itemtag, "sref", "ButTtbActive", ButTtbActive);
-		writeDoubleAttr(wr, itemtag, "sref", "SldLleMin", SldLleMin);
-		writeDoubleAttr(wr, itemtag, "sref", "SldLleMax", SldLleMax);
-		writeDoubleAttr(wr, itemtag, "sref", "SldLriMin", SldLriMin);
-		writeDoubleAttr(wr, itemtag, "sref", "SldLriMax", SldLriMax);
 		writeBoolAttr(wr, itemtag, "sref", "UpdLloAvail", UpdLloAvail);
 		writeIntAttr(wr, itemtag, "sref", "UpdLloMin", UpdLloMin);
 		writeIntAttr(wr, itemtag, "sref", "UpdLloMax", UpdLloMax);
@@ -596,24 +594,19 @@ set<uint> PnlWzskLiv2DView::StatShr::comm(
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
 	if (ButClaimActive == comp->ButClaimActive) insert(items, BUTCLAIMACTIVE);
-	if (SldFcsAvail == comp->SldFcsAvail) insert(items, SLDFCSAVAIL);
-	if (SldFcsActive == comp->SldFcsActive) insert(items, SLDFCSACTIVE);
-	if (compareDouble(SldFcsMin, comp->SldFcsMin) < 1.0e-4) insert(items, SLDFCSMIN);
-	if (compareDouble(SldFcsMax, comp->SldFcsMax) < 1.0e-4) insert(items, SLDFCSMAX);
+	if (ButPlayActive == comp->ButPlayActive) insert(items, BUTPLAYACTIVE);
+	if (ButStopActive == comp->ButStopActive) insert(items, BUTSTOPACTIVE);
+	if (ChkAexActive == comp->ChkAexActive) insert(items, CHKAEXACTIVE);
 	if (SldExtAvail == comp->SldExtAvail) insert(items, SLDEXTAVAIL);
 	if (SldExtActive == comp->SldExtActive) insert(items, SLDEXTACTIVE);
 	if (compareDouble(SldExtMin, comp->SldExtMin) < 1.0e-4) insert(items, SLDEXTMIN);
 	if (compareDouble(SldExtMax, comp->SldExtMax) < 1.0e-4) insert(items, SLDEXTMAX);
 	if (compareDouble(SldExtRast, comp->SldExtRast) < 1.0e-4) insert(items, SLDEXTRAST);
-	if (ButPlayActive == comp->ButPlayActive) insert(items, BUTPLAYACTIVE);
-	if (ButStopActive == comp->ButStopActive) insert(items, BUTSTOPACTIVE);
+	if (SldFcsActive == comp->SldFcsActive) insert(items, SLDFCSACTIVE);
+	if (compareDouble(SldFcsMin, comp->SldFcsMin) < 1.0e-4) insert(items, SLDFCSMIN);
+	if (compareDouble(SldFcsMax, comp->SldFcsMax) < 1.0e-4) insert(items, SLDFCSMAX);
 	if (TxtOafAvail == comp->TxtOafAvail) insert(items, TXTOAFAVAIL);
 	if (ButStsActive == comp->ButStsActive) insert(items, BUTSTSACTIVE);
-	if (ButTtbActive == comp->ButTtbActive) insert(items, BUTTTBACTIVE);
-	if (compareDouble(SldLleMin, comp->SldLleMin) < 1.0e-4) insert(items, SLDLLEMIN);
-	if (compareDouble(SldLleMax, comp->SldLleMax) < 1.0e-4) insert(items, SLDLLEMAX);
-	if (compareDouble(SldLriMin, comp->SldLriMin) < 1.0e-4) insert(items, SLDLRIMIN);
-	if (compareDouble(SldLriMax, comp->SldLriMax) < 1.0e-4) insert(items, SLDLRIMAX);
 	if (UpdLloAvail == comp->UpdLloAvail) insert(items, UPDLLOAVAIL);
 	if (UpdLloMin == comp->UpdLloMin) insert(items, UPDLLOMIN);
 	if (UpdLloMax == comp->UpdLloMax) insert(items, UPDLLOMAX);
@@ -637,7 +630,7 @@ set<uint> PnlWzskLiv2DView::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDFCSAVAIL, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, BUTPLAYACTIVE, BUTSTOPACTIVE, TXTOAFAVAIL, BUTSTSACTIVE, BUTTTBACTIVE, SLDLLEMIN, SLDLLEMAX, SLDLRIMIN, SLDLRIMAX, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX};
+	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -663,18 +656,21 @@ void PnlWzskLiv2DView::Tag::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Calibration");
 			writeStringAttr(wr, itemtag, "sref", "CptPvm", "preview mode");
-			writeStringAttr(wr, itemtag, "sref", "CptFcs", "focus (near -\\u003e far)");
+			writeStringAttr(wr, itemtag, "sref", "CptAex", "auto-exposure");
 			writeStringAttr(wr, itemtag, "sref", "CptExt", "exposure time [ms]");
+			writeStringAttr(wr, itemtag, "sref", "CptFcs", "focus (near -\\u003e far)");
 			writeStringAttr(wr, itemtag, "sref", "CptOaf", "object affiliation");
 			writeStringAttr(wr, itemtag, "sref", "ButSts", "Store snapshot");
-			writeStringAttr(wr, itemtag, "sref", "ButTtb", "Turn turntable");
+			writeStringAttr(wr, itemtag, "sref", "HdgTtb", "Turntable");
+			writeStringAttr(wr, itemtag, "sref", "ButTcc", "Turn counter-clockwise");
+			writeStringAttr(wr, itemtag, "sref", "ButTcw", "Turn clockwise");
 			writeStringAttr(wr, itemtag, "sref", "HdgLor", "Laser orientation");
-			writeStringAttr(wr, itemtag, "sref", "CptLgl", "show guidelines");
-			writeStringAttr(wr, itemtag, "sref", "CptLle", "left 'on' intensity [\\u0025]");
-			writeStringAttr(wr, itemtag, "sref", "CptLri", "right 'on' intensity [\\u0025]");
+			writeStringAttr(wr, itemtag, "sref", "ButLle", "Left on");
+			writeStringAttr(wr, itemtag, "sref", "ButLri", "Right on");
 			writeStringAttr(wr, itemtag, "sref", "CptLlo", "lower 'on' threshold level");
 			writeStringAttr(wr, itemtag, "sref", "CptLuo", "upper 'off' threshold level");
 			writeStringAttr(wr, itemtag, "sref", "CptLmd", "minimum 'on'-'off' difference");
+			writeStringAttr(wr, itemtag, "sref", "CptLgl", "show guidelines");
 			writeStringAttr(wr, itemtag, "sref", "CptLro", "ROI trapezoid");
 			writeStringAttr(wr, itemtag, "sref", "ButLtr", "Trace");
 			writeStringAttr(wr, itemtag, "sref", "ButLcl", "Clear");
@@ -686,18 +682,21 @@ void PnlWzskLiv2DView::Tag::writeXML(
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Kalibrierung");
 			writeStringAttr(wr, itemtag, "sref", "CptPvm", "Vorschaumodus");
-			writeStringAttr(wr, itemtag, "sref", "CptFcs", "Fokus (nah -\\u003e fern)");
+			writeStringAttr(wr, itemtag, "sref", "CptAex", "automatische Belichtung");
 			writeStringAttr(wr, itemtag, "sref", "CptExt", "Belichtungszeit [ms]");
+			writeStringAttr(wr, itemtag, "sref", "CptFcs", "Fokus (nah -\\u003e fern)");
 			writeStringAttr(wr, itemtag, "sref", "CptOaf", "Objekt-Zuordnung");
 			writeStringAttr(wr, itemtag, "sref", "ButSts", "Schnappschuss machen");
-			writeStringAttr(wr, itemtag, "sref", "ButTtb", "Drehteller drehen");
+			writeStringAttr(wr, itemtag, "sref", "HdgTtb", "Drehteller");
+			writeStringAttr(wr, itemtag, "sref", "ButTcc", "Gegen Uhrzeigersinn drehen");
+			writeStringAttr(wr, itemtag, "sref", "ButTcw", "Im Uhrzeigersinn drehen");
 			writeStringAttr(wr, itemtag, "sref", "HdgLor", "Laser-Orientierung");
-			writeStringAttr(wr, itemtag, "sref", "CptLgl", "Hilfslinien anzeigen");
-			writeStringAttr(wr, itemtag, "sref", "CptLle", "'ein'-Intensit\\u00e4t links [\\u0025]");
-			writeStringAttr(wr, itemtag, "sref", "CptLri", "'ein'-Intensit\\u00e4t rechts [\\u0025]");
+			writeStringAttr(wr, itemtag, "sref", "ButLle", "Links ein");
+			writeStringAttr(wr, itemtag, "sref", "ButLri", "Rechts ein");
 			writeStringAttr(wr, itemtag, "sref", "CptLlo", "unterer 'ein'-Schwellwert");
 			writeStringAttr(wr, itemtag, "sref", "CptLuo", "oberer 'aus'-Schwellwert");
 			writeStringAttr(wr, itemtag, "sref", "CptLmd", "minimale 'ein'-'aus' Differenz");
+			writeStringAttr(wr, itemtag, "sref", "CptLgl", "Hilfslinien anzeigen");
 			writeStringAttr(wr, itemtag, "sref", "CptLro", "ROI-Trapez");
 			writeStringAttr(wr, itemtag, "sref", "ButLtr", "Spur nachzeichnen");
 			writeStringAttr(wr, itemtag, "sref", "ButLcl", "Zur\\u00fccksetzen");

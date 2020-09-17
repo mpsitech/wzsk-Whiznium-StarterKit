@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrRec.h
 	* API code for job PnlWzskUsrRec (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKUSRREC_H

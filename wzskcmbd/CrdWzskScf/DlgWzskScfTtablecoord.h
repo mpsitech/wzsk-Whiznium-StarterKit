@@ -2,8 +2,8 @@
 	* \file DlgWzskScfTtablecoord.h
 	* job handler for job DlgWzskScfTtablecoord (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef DLGWZSKSCFTTABLECOORD_H
@@ -14,8 +14,8 @@
 // IP include.cust --- INSERT
 
 #include "JobWzskIprCorner.h"
-#include "JobWzskActServo.h"
 #include "JobWzskIprAngle.h"
+#include "JobWzskActServo.h"
 
 #define VecVDlgWzskScfTtablecoordDit DlgWzskScfTtablecoord::VecVDit
 #define VecVDlgWzskScfTtablecoordDo DlgWzskScfTtablecoord::VecVDo
@@ -249,8 +249,8 @@ public:
 	Sbecore::Xmlio::Feed feedFSge;
 
 	JobWzskIprCorner* iprcorner;
-	JobWzskActServo* actservo;
 	JobWzskIprAngle* iprangle;
+	JobWzskActServo* actservo;
 
 	Sbecore::uint ixVDit;
 
@@ -264,7 +264,7 @@ public:
 
 	void refreshPlh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
 
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 
 public:
 

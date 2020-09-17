@@ -2,8 +2,8 @@
 	* \file JobWzskSrcV4l2.h
 	* job handler for job JobWzskSrcV4l2 (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef JOBWZSKSRCV4L2_H
@@ -176,6 +176,9 @@ public:
 
 	void convertYUV422toRGBGrrdInt8(unsigned char* src, uint8_t* r8, uint8_t* g8, uint8_t* b8, uint8_t* gr8, uint8_t* rd8);
 	void convertYUV422toRGBGrrdInt16(unsigned char* src, uint16_t* r16, uint16_t* g16, uint16_t* b16, uint16_t* gr16, uint16_t* rd16);
+
+	bool setExposure(const bool autoNotManual, const float _Texp);
+	bool setFocus(const float _focus);
 	// IP cust --- IEND
 
 public:

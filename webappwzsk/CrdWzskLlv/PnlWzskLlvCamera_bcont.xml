@@ -7,19 +7,7 @@
 			function handlePupMdeChange() {parent.parent.window.handlePupChange(document,"PupMde","");};
 			function handleButPlayClick() {parent.parent.window.handleButClick("ButPlay");};
 			function handleButStopClick() {parent.parent.window.handleButClick("ButStop");};
-			function handleSldFcsJpleftMov() {parent.parent.window.handleSldJpleftMov(document,"SldFcs");};
-			function handleSldFcsJpleftMou() {parent.parent.window.handleSldJpleftMou(document,"SldFcs");};
-			function handleSldFcsJpleftClick(evt) {parent.parent.window.handleSldJpleftClick(document,"SldFcs",true,false,false,evt);};
-			function handleSldFcsJprightMov() {parent.parent.window.handleSldJprightMov(document,"SldFcs");};
-			function handleSldFcsJprightMou() {parent.parent.window.handleSldJprightMou(document,"SldFcs");};
-			function handleSldFcsJprightClick(evt) {parent.parent.window.handleSldJprightClick(document,"SldFcs",true,false,false,evt);};
-			function handleSldFcsMov() {parent.parent.window.handleSldMov(document,"SldFcs");};
-			function handleSldFcsMou() {parent.parent.window.handleSldMou(document,"SldFcs");};
-			function handleSldFcsMdn() {parent.parent.window.handleSldMdn(document,"SldFcs");};
-			function handleSldFcsMove(evt) {parent.parent.window.handleSldMove(document,"SldFcs",true,false,false,evt);};
-			function handleSldFcsMup() {parent.parent.window.handleSldMup(document,"SldFcs",true);};
-			function handleSldFcsValKey(evt) {return parent.parent.window.handleSldValKey(document,"SldFcs",true,false,false,evt);};
-			function handleSldFcsValChange() {parent.parent.window.handleSldValChange(document,"SldFcs",true,false,false);};
+			function handleChkAexChange() {parent.parent.window.handleChkChange(document,"ChkAex");};
 			function handleSldExtJpleftMov() {parent.parent.window.handleSldJpleftMov(document,"SldExt");};
 			function handleSldExtJpleftMou() {parent.parent.window.handleSldJpleftMou(document,"SldExt");};
 			function handleSldExtJpleftClick(evt) {parent.parent.window.handleSldJpleftClick(document,"SldExt",true,true,true,evt);};
@@ -33,6 +21,19 @@
 			function handleSldExtMup() {parent.parent.window.handleSldMup(document,"SldExt",true);};
 			function handleSldExtValKey(evt) {return parent.parent.window.handleSldValKey(document,"SldExt",true,true,true,evt);};
 			function handleSldExtValChange() {parent.parent.window.handleSldValChange(document,"SldExt",true,true,true);};
+			function handleSldFcsJpleftMov() {parent.parent.window.handleSldJpleftMov(document,"SldFcs");};
+			function handleSldFcsJpleftMou() {parent.parent.window.handleSldJpleftMou(document,"SldFcs");};
+			function handleSldFcsJpleftClick(evt) {parent.parent.window.handleSldJpleftClick(document,"SldFcs",true,false,false,evt);};
+			function handleSldFcsJprightMov() {parent.parent.window.handleSldJprightMov(document,"SldFcs");};
+			function handleSldFcsJprightMou() {parent.parent.window.handleSldJprightMou(document,"SldFcs");};
+			function handleSldFcsJprightClick(evt) {parent.parent.window.handleSldJprightClick(document,"SldFcs",true,false,false,evt);};
+			function handleSldFcsMov() {parent.parent.window.handleSldMov(document,"SldFcs");};
+			function handleSldFcsMou() {parent.parent.window.handleSldMou(document,"SldFcs");};
+			function handleSldFcsMdn() {parent.parent.window.handleSldMdn(document,"SldFcs");};
+			function handleSldFcsMove(evt) {parent.parent.window.handleSldMove(document,"SldFcs",true,false,false,evt);};
+			function handleSldFcsMup() {parent.parent.window.handleSldMup(document,"SldFcs",true);};
+			function handleSldFcsValKey(evt) {return parent.parent.window.handleSldValKey(document,"SldFcs",true,false,false,evt);};
+			function handleSldFcsValChange() {parent.parent.window.handleSldValChange(document,"SldFcs",true,false,false);};
 			<!-- IP custScript - INSERT -->
 		</script>
 		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
@@ -82,37 +83,22 @@
 						&#160;<img id="ButStop" class="but" src="../iconwzsk/stop.png" width="16" height="16" alt="ButStop" onmouseover="src='../iconwzsk/stop_hlt.png'" onmouseout="src='../iconwzsk/stop.png'" onclick="handleButStopClick()"/>
 					</td>
 				</tr>
-				<tr id="trFcs" class="show">
+				<tr id="tr11" class="show"><td colspan="11" height="3"></td></tr>
+				<tr id="tr12" class="show">
+					<td height="1"></td>
+					<td colspan="10" bgcolor="#7f7f7f"></td>
+				</tr>
+				<tr id="tr13" class="show"><td colspan="11" height="3"></td></tr>
+				<tr id="trAex" class="show">
 					<td height="25"></td>
 					<td align="right">
-						<span id="CptFcs" class="cpt">CptFcs</span>
+						<span id="CptAex" class="cpt">CptAex</span>
 					</td>
 					<td></td>
-					<td id="tdSldFcs" colspan="5">
-						<svg class="svg" width="340" height="25" version="1.1" xmlns="http://www.w3.org/2000/svg">
-							<line class="sldlinact" x1="0" y1="12.5" x2="5" y2="12.5"/>
-							<line class="sldlinact" x1="335" y1="12.5" x2="340" y2="12.5"/>
-							<g id="SldFcsJpleft" class="sld" onmouseover="handleSldFcsJpleftMov()" onmouseout="handleSldFcsJpleftMou()" onclick="handleSldFcsJpleftClick(event)">
-								<rect id="SldFcsJpleftr" class="sldr" x="5" y="2" width="165" height="18"/>
-								<line id="SldFcsJpleftl" class="sldl" x1="5" y1="12.5" x2="167.5" y2="12.5"/>
-							</g>
-							<g id="SldFcsJpright" class="sld" onmouseover="handleSldFcsJprightMov()" onmouseout="handleSldFcsJprightMou()" onclick="handleSldFcsJprightClick(event)">
-								<rect id="SldFcsJprightr" class="sldr" x="170" y="2" width="165" height="18"/>
-								<line id="SldFcsJprightl" class="sldl" x1="172.5" y1="12.5" x2="335" y2="12.5"/>
-							</g>
-							<g id="SldFcs" class="sld" transform="translate(170 0)" onmouseover="handleSldFcsMov()" onmouseout="handleSldFcsMou()" onmousedown="handleSldFcsMdn()">
-								<rect id="SldFcsR" class="sldr" x="-3" y="2" width="6" height="21"/>
-								<g id="SldFcsBar" class="sldl">
-									<line x1="-2" y1="2" x2="-2" y2="23"/>
-									<line x1="2" y1="2" x2="2" y2="23"/>
-								</g>
-							</g>
-						</svg>
+					<td align="left">
+						<input id="ChkAex" class="chk" name="ChkAex" type="checkbox" checked="checked" onchange="handleChkAexChange()"/>
 					</td>
-					<td></td>
-					<td colspan="2" align="left">
-						<input id="SldFcsVal" class="txfxs" type="text" value="SldFcsVal" onchange="handleSldFcsValChange()" onkeypress="return handleSldFcsValKey(event)"/>
-					</td>
+					<td colspan="7"></td>
 				</tr>
 				<tr id="trExt" class="show">
 					<td height="25"></td>
@@ -144,6 +130,38 @@
 					<td></td>
 					<td colspan="2" align="left">
 						<input id="SldExtVal" class="txfxs" type="text" value="SldExtVal" onchange="handleSldExtValChange()" onkeypress="return handleSldExtValKey(event)"/>
+					</td>
+				</tr>
+				<tr id="trFcs" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptFcs" class="cpt">CptFcs</span>
+					</td>
+					<td></td>
+					<td id="tdSldFcs" colspan="5">
+						<svg class="svg" width="340" height="25" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<line class="sldlinact" x1="0" y1="12.5" x2="5" y2="12.5"/>
+							<line class="sldlinact" x1="335" y1="12.5" x2="340" y2="12.5"/>
+							<g id="SldFcsJpleft" class="sld" onmouseover="handleSldFcsJpleftMov()" onmouseout="handleSldFcsJpleftMou()" onclick="handleSldFcsJpleftClick(event)">
+								<rect id="SldFcsJpleftr" class="sldr" x="5" y="2" width="165" height="18"/>
+								<line id="SldFcsJpleftl" class="sldl" x1="5" y1="12.5" x2="167.5" y2="12.5"/>
+							</g>
+							<g id="SldFcsJpright" class="sld" onmouseover="handleSldFcsJprightMov()" onmouseout="handleSldFcsJprightMou()" onclick="handleSldFcsJprightClick(event)">
+								<rect id="SldFcsJprightr" class="sldr" x="170" y="2" width="165" height="18"/>
+								<line id="SldFcsJprightl" class="sldl" x1="172.5" y1="12.5" x2="335" y2="12.5"/>
+							</g>
+							<g id="SldFcs" class="sld" transform="translate(170 0)" onmouseover="handleSldFcsMov()" onmouseout="handleSldFcsMou()" onmousedown="handleSldFcsMdn()">
+								<rect id="SldFcsR" class="sldr" x="-3" y="2" width="6" height="21"/>
+								<g id="SldFcsBar" class="sldl">
+									<line x1="-2" y1="2" x2="-2" y2="23"/>
+									<line x1="2" y1="2" x2="2" y2="23"/>
+								</g>
+							</g>
+						</svg>
+					</td>
+					<td></td>
+					<td colspan="2" align="left">
+						<input id="SldFcsVal" class="txfxs" type="text" value="SldFcsVal" onchange="handleSldFcsValChange()" onkeypress="return handleSldFcsValKey(event)"/>
 					</td>
 				</tr>
 				<tr><td colspan="11" height="4"></td></tr>

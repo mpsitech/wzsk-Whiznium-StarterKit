@@ -2,27 +2,24 @@
   * \file PnlWzskOgrRec.js
   * web client functionality for panel PnlWzskOgrRec
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 function updateScrJrefs() {
 	scrJrefDetail = retrieveSi(srcdoc, "StatShrWzskOgrRec", "scrJrefDetail");
-	scrJref1NShot = retrieveSi(srcdoc, "StatShrWzskOgrRec", "scrJref1NShot");
 	scrJref1NObject = retrieveSi(srcdoc, "StatShrWzskOgrRec", "scrJref1NObject");
 	scrJrefSup1NObjgroup = retrieveSi(srcdoc, "StatShrWzskOgrRec", "scrJrefSup1NObjgroup");
 };
 
 function resetInitdones() {
 	setSi(srcdoc, "StatAppWzskOgrRec", "initdoneDetail", "false");
-	setSi(srcdoc, "StatAppWzskOgrRec", "initdone1NShot", "false");
 	setSi(srcdoc, "StatAppWzskOgrRec", "initdone1NObject", "false");
 	setSi(srcdoc, "StatAppWzskOgrRec", "initdoneSup1NObjgroup", "false");
 };
 
 function resetHeights() {
 	heightDetail = 30;
-	height1NShot = 30;
 	height1NObject = 30;
 	heightSup1NObjgroup = 30;
 };
@@ -43,14 +40,11 @@ function checkInitdone() {
 	var initdone1NRelease = (retrieveSi(srcdoc, "StatAppWzskOgrRec", "initdone1NRelease") == "true");
 
 	var initdoneDetail = (retrieveSi(srcdoc, "StatAppWzskOgrRec", "initdoneDetail") == "true");
-	var initdone1NShot = (retrieveSi(srcdoc, "StatAppWzskOgrRec", "initdone1NShot") == "true");
 	var initdone1NObject = (retrieveSi(srcdoc, "StatAppWzskOgrRec", "initdone1NObject") == "true");
 	var initdoneSup1NObjgroup = (retrieveSi(srcdoc, "StatAppWzskOgrRec", "initdoneSup1NObjgroup") == "true");
 
 	if (!initdoneDetail) {
 		lhsdoc.getElementById("Detail").src = "./PnlWzskOgrDetail.html?scrJref=" + scrJrefDetail;
-	} else if (!initdone1NShot) {
-		rhsdoc.getElementById("1NShot").src = "./PnlWzskOgr1NShot.html?scrJref=" + scrJref1NShot;
 	} else if (!initdone1NObject) {
 		rhsdoc.getElementById("1NObject").src = "./PnlWzskOgr1NObject.html?scrJref=" + scrJref1NObject;
 	} else if (!initdoneSup1NObjgroup) {
@@ -94,7 +88,6 @@ function setPnlAvail(short, avail) {
 		else if (short == "List") heightList = height;
 		else if (short == "Rec") heightRec = height;
 		else if (short == "Detail") heightDetail = height;
-		else if (short == "1NShot") height1NShot = height;
 		else if (short == "1NObject") height1NObject = height;
 		else if (short == "Sup1NObjgroup") heightSup1NObjgroup = height;
 	};
@@ -118,10 +111,10 @@ function minimize() {
 function regularize() {
 	resetHeights();
 
-	getCrdwnd().changeHeight("Rec", 180);
-	doc.getElementById("tdSide").setAttribute("height", "180");
-	doc.getElementById("Rec_side").setAttribute("height", "180");
-	doc.getElementById("Rec_cont").setAttribute("height", "180");
+	getCrdwnd().changeHeight("Rec", 137);
+	doc.getElementById("tdSide").setAttribute("height", "137");
+	doc.getElementById("Rec_side").setAttribute("height", "137");
+	doc.getElementById("Rec_cont").setAttribute("height", "137");
 
 	doc.getElementById("Rec_side").src = "./PnlWzskOgrRec_bside.html";
 	doc.getElementById("Rec_cont").src = "./PnlWzskOgrRec_b.html";
@@ -140,7 +133,6 @@ function changeHeight(pnlshort, height, update) {
 	else if (pnlshort == "List") heightList = height;
 	else if (pnlshort == "Rec") heightRec = height;
 	else if (pnlshort == "Detail") heightDetail = height;
-	else if (pnlshort == "1NShot") height1NShot = height;
 	else if (pnlshort == "1NObject") height1NObject = height;
 	else if (pnlshort == "Sup1NObjgroup") heightSup1NObjgroup = height;
 
@@ -151,7 +143,7 @@ function updateHeight() {
 	var heightLhs, heightRhs, heightGt;
 
 	heightLhs = heightDetail+13 + 5;
-	heightRhs = height1NShot+13 + height1NObject+13 + heightSup1NObjgroup+13 + 5;
+	heightRhs = height1NObject+13 + heightSup1NObjgroup+13 + 5;
 
 	if (heightLhs > heightRhs) {
 		lhsdoc.getElementById("tdFill").setAttribute("height", "5");
@@ -342,8 +334,6 @@ function handleDpchEng(dom, dpch) {
 
 			if (_scrJref == scrJrefDetail) {
 				if (getInitdone("Detail")) lhsdoc.getElementById("Detail").contentWindow.handleDpchEng(dom, dpch);
-			} else if (_scrJref == scrJref1NShot) {
-				if (getInitdone("1NShot")) rhsdoc.getElementById("1NShot").contentWindow.handleDpchEng(dom, dpch);
 			} else if (_scrJref == scrJref1NObject) {
 				if (getInitdone("1NObject")) rhsdoc.getElementById("1NObject").contentWindow.handleDpchEng(dom, dpch);
 			} else if (_scrJref == scrJrefSup1NObjgroup) {

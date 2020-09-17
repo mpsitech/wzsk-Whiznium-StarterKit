@@ -24,10 +24,10 @@ DROP TABLE IF EXISTS TblWzskRMUsergroupUniversal;
 DROP TABLE IF EXISTS TblWzskRMUserMUsergroup;
 
 DROP TABLE IF EXISTS TblWzskQFilList;
+DROP TABLE IF EXISTS TblWzskQObj1NShot;
 DROP TABLE IF EXISTS TblWzskQObjList;
 DROP TABLE IF EXISTS TblWzskQObjRef1NFile;
 DROP TABLE IF EXISTS TblWzskQOgr1NObject;
-DROP TABLE IF EXISTS TblWzskQOgr1NShot;
 DROP TABLE IF EXISTS TblWzskQOgrList;
 DROP TABLE IF EXISTS TblWzskQOgrSup1NObjgroup;
 DROP TABLE IF EXISTS TblWzskQPreselect;
@@ -361,6 +361,15 @@ CREATE TABLE TblWzskQFilList(
 CREATE INDEX TblWzskQFilList_jref ON TblWzskQFilList (jref);
 CREATE INDEX TblWzskQFilList_jnum ON TblWzskQFilList (jnum);
 
+CREATE TABLE TblWzskQObj1NShot(
+	qref INTEGER PRIMARY KEY AUTOINCREMENT,
+	jref BIGINT,
+	jnum INT,
+	ref BIGINT
+);
+CREATE INDEX TblWzskQObj1NShot_jref ON TblWzskQObj1NShot (jref);
+CREATE INDEX TblWzskQObj1NShot_jnum ON TblWzskQObj1NShot (jnum);
+
 CREATE TABLE TblWzskQObjList(
 	qref INTEGER PRIMARY KEY AUTOINCREMENT,
 	jref BIGINT,
@@ -389,15 +398,6 @@ CREATE TABLE TblWzskQOgr1NObject(
 );
 CREATE INDEX TblWzskQOgr1NObject_jref ON TblWzskQOgr1NObject (jref);
 CREATE INDEX TblWzskQOgr1NObject_jnum ON TblWzskQOgr1NObject (jnum);
-
-CREATE TABLE TblWzskQOgr1NShot(
-	qref INTEGER PRIMARY KEY AUTOINCREMENT,
-	jref BIGINT,
-	jnum INT,
-	ref BIGINT
-);
-CREATE INDEX TblWzskQOgr1NShot_jref ON TblWzskQOgr1NShot (jref);
-CREATE INDEX TblWzskQOgr1NShot_jnum ON TblWzskQOgr1NShot (jnum);
 
 CREATE TABLE TblWzskQOgrList(
 	qref INTEGER PRIMARY KEY AUTOINCREMENT,

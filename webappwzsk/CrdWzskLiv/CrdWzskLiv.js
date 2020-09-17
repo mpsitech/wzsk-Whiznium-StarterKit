@@ -2,8 +2,8 @@
   * \file CrdWzskLiv.js
   * web client functionality for card CrdWzskLiv
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 function getInitdone(pnlshort) {
@@ -19,12 +19,15 @@ function setInitdone(pnlshort) {
 function checkInitdone() {
 	var initdone2DView = (retrieveSi(srcdoc, "StatAppWzskLiv", "initdone2DView") == "true");
 	var initdone3DView = (retrieveSi(srcdoc, "StatAppWzskLiv", "initdone3DView") == "true");
+	var initdoneSysmon = (retrieveSi(srcdoc, "StatAppWzskLiv", "initdoneSysmon") == "true");
 	var initdoneHeadbar = (retrieveSi(srcdoc, "StatAppWzskLiv", "initdoneHeadbar") == "true");
 
 	if (!initdone2DView) {
 		doc.getElementById("2DView").src = "./PnlWzskLiv2DView.html?scrJref=" + scrJref2DView;
 	} else if (!initdone3DView) {
 		doc.getElementById("3DView").src = "./PnlWzskLiv3DView.html?scrJref=" + scrJref3DView;
+	} else if (!initdoneSysmon) {
+		doc.getElementById("Sysmon").src = "./PnlWzskLivSysmon.html?scrJref=" + scrJrefSysmon;
 	} else if (!initdoneHeadbar) {
 		doc.getElementById("Headbar").src = "./PnlWzskLivHeadbar.html?scrJref=" + scrJrefHeadbar;
 	} else {
@@ -57,6 +60,7 @@ function getHeight() {
 
 	height += 10 + parseInt(doc.getElementById("td2DView").getAttribute("height")) + 8;
 	height += 10 + parseInt(doc.getElementById("td3DView").getAttribute("height")) + 8;
+	height += 10 + parseInt(doc.getElementById("tdSysmon").getAttribute("height")) + 8;
 
 	height += 5;
 
@@ -319,6 +323,9 @@ function changeHeight(pnlshort, height) {
 	} else if (pnlshort == "3DView") {
 		doc.getElementById("td3DView").setAttribute("height", "" + height);
 		doc.getElementById("3DView").setAttribute("height", "" + height);
+	} else if (pnlshort == "Sysmon") {
+		doc.getElementById("tdSysmon").setAttribute("height", "" + height);
+		doc.getElementById("Sysmon").setAttribute("height", "" + height);
 	};
 
 	if (divPnldshld) divPnldshld.setAttribute("style", "height:" + getHeight() + "px;");
@@ -383,6 +390,8 @@ function handleDpchEngSub(_scrJref, dom, dpch) {
 		doc.getElementById("2DView").contentWindow.handleDpchEng(dom, dpch);
 	} else if (_scrJref == scrJref3DView) {
 		doc.getElementById("3DView").contentWindow.handleDpchEng(dom, dpch);
+	} else if (_scrJref == scrJrefSysmon) {
+		doc.getElementById("Sysmon").contentWindow.handleDpchEng(dom, dpch);
 
 	} else {
 		// alert("got a '" + dpch + "' from job with scrJref " + _scrJref);
@@ -403,6 +412,7 @@ function handleDpchAppInitReply() {
 				// establish sub-panel scrJref's as global variables, and start sub-panel load sequence
 				scrJref2DView = retrieveSi(srcdoc, "StatShrWzskLiv", "scrJref2DView");
 				scrJref3DView = retrieveSi(srcdoc, "StatShrWzskLiv", "scrJref3DView");
+				scrJrefSysmon = retrieveSi(srcdoc, "StatShrWzskLiv", "scrJrefSysmon");
 				scrJrefHeadbar = retrieveSi(srcdoc, "StatShrWzskLiv", "scrJrefHeadbar");
 
 				scrJrefPnld = "";

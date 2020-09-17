@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<head>
+		<title>CusPlt</title>
+		<script>
+			function handleCusPltLoad() {parent.parent.parent.window.handleCusPltLoad(document)};
+			<!-- IP evthdls - INSERT -->
+		</script>
+		<link href="../style/view.css" rel="styleSheet" type="text/css"/> <!-- IP style - ILINE -->
+	</head>
+	<body marginwidth="0" marginheight="0" onload="handleCusPltLoad()">
+		<!-- IP pre - INSERT -->
+		<table cellspacing="0" border="0" cellpadding="0">
+			<colgroup>
+				<!-- IP colgrp - INSERT -->
+			</colgroup>
+			<tbody id="tbl">
+				<!-- IP tbody - IBEGIN -->
+				<tr id="trPlt" class="show">
+					<td id="tdPlt" height="250">
+						<svg width="690" height="250px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<g id="xydata">
+							</g>
+							<g id="axes">
+							</g>
+							<g id="latest" transform="translate(500,70)">
+								<text id="latestCldtot" class="annot" style="fill:blue" x="0" y="0"/>
+								<text id="latestCld1" class="annot" style="fill:red" x="0" y="20"/>
+								<text id="latestCld2" class="annot" style="fill:limegreen" x="0" y="40"/>
+								<text id="latestCld3" class="annot" style="fill:orange" x="0" y="60"/>
+								<text id="latestCld4" class="annot" style="fill:cyan" x="0" y="80"/>
+							</g>
+						</svg>
+					</td>
+				</tr>
+				<!-- IP tbody - IEND -->
+			</tbody>
+		</table>
+	</body>
+</html>
+
+
+

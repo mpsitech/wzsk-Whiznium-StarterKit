@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvTtable.cpp
 	* job handler for job PnlWzskLlvTtable (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -47,7 +47,6 @@ PnlWzskLlvTtable::PnlWzskLlvTtable(
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
-	xchg->addClstn(VecWzskVCall::CALLWZSKSGECHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::TRY);
 	xchg->addClstn(VecWzskVCall::CALLWZSKCLAIMCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 
@@ -83,7 +82,11 @@ DpchEngWzsk* PnlWzskLlvTtable::getNewDpchEng(
 void PnlWzskLlvTtable::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	StatShr oldStatshr(statshr);
 
 	// IP refresh --- RBEGIN
@@ -91,22 +94,30 @@ void PnlWzskLlvTtable::refresh(
 
 	xchg->getCsjobClaim(actservo, takenNotAvailable, fulfilled);
 
+	// contiac
+	ContIac oldContiac(contiac);
+
+	contiac.SldTrg = actservo->shrdat.angle; // not target, target only used for input
+
+	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
+
 	// continf
 	ContInf oldContinf(continf);
 
 	continf.ButClaimOn = fulfilled;
-	continf.TxtSte = actservo->getSquawk(dbswzsk);
 
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 
 	// statshr
 	statshr.ButClaimActive = !takenNotAvailable || fulfilled;
 
-	statshr.ButMveActive = fulfilled && (actservo->ixVSge == JobWzskActServo::VecVSge::IDLE);
+	statshr.SldTrgActive = fulfilled;
 
 	// IP refresh --- REND
 
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+
+	muteRefresh = false;
 };
 
 void PnlWzskLlvTtable::handleRequest(
@@ -145,8 +156,6 @@ void PnlWzskLlvTtable::handleRequest(
 					handleDpchAppDoButMinimizeClick(dbswzsk, &(req->dpcheng));
 				} else if (dpchappdo->ixVDo == VecVDo::BUTCLAIMCLICK) {
 					handleDpchAppDoButClaimClick(dbswzsk, &(req->dpcheng));
-				} else if (dpchappdo->ixVDo == VecVDo::BUTMVECLICK) {
-					handleDpchAppDoButMveClick(dbswzsk, &(req->dpcheng));
 				};
 
 			};
@@ -174,7 +183,11 @@ void PnlWzskLlvTtable::handleDpchAppDataContiac(
 	diffitems = _contiac->diff(&contiac);
 	// IP handleDpchAppDataContiac --- IBEGIN
 
-	if (has(diffitems, ContIac::SLDTRG)) contiac.SldTrg = _contiac->SldTrg;
+	muteRefresh = true;
+
+	if (has(diffitems, ContIac::SLDTRG) && statshr.SldTrgActive) actservo->moveto(dbswzsk, _contiac->SldTrg);
+
+	refresh(dbswzsk, moditems, true);
 
 	// IP handleDpchAppDataContiac --- IEND
 	insert(moditems, DpchEngData::CONTIAC);
@@ -212,57 +225,20 @@ void PnlWzskLlvTtable::handleDpchAppDoButClaimClick(
 		if (!continf.ButClaimOn) xchg->addCsjobClaim(dbswzsk, actservo, new Claim(true));
 		else xchg->removeCsjobClaim(dbswzsk, actservo);
 
-		muteRefresh = false;
-
-		refreshWithDpchEng(dbswzsk, dpcheng);
+		refreshWithDpchEng(dbswzsk, dpcheng, true);
 	};
 	// IP handleDpchAppDoButClaimClick --- IEND
-};
-
-void PnlWzskLlvTtable::handleDpchAppDoButMveClick(
-			DbsWzsk* dbswzsk
-			, DpchEngWzsk** dpcheng
-		) {
-	// IP handleDpchAppDoButMveClick --- IBEGIN
-	if (statshr.ButMveActive) {
-		muteRefresh = true;
-
-		actservo->moveto(dbswzsk, contiac.SldTrg);
-
-		muteRefresh = false;
-
-		refreshWithDpchEng(dbswzsk, dpcheng);
-	};
-	// IP handleDpchAppDoButMveClick --- IEND
 };
 
 void PnlWzskLlvTtable::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKSGECHG) {
-		call->abort = handleCallWzskSgeChg(dbswzsk, call->jref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) {
 		call->abort = handleCallWzskShrdatChg(dbswzsk, call->jref, call->argInv.ix, call->argInv.sref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
 		call->abort = handleCallWzskClaimChg(dbswzsk, call->jref);
 	};
-};
-
-bool PnlWzskLlvTtable::handleCallWzskSgeChg(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-	// IP handleCallWzskSgeChg --- IBEGIN
-	set<uint> moditems;
-
-	if (!muteRefresh) {
-		refresh(dbswzsk, moditems);
-		if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	};
-	// IP handleCallWzskSgeChg --- IEND
-	return retval;
 };
 
 bool PnlWzskLlvTtable::handleCallWzskShrdatChg(
@@ -275,10 +251,8 @@ bool PnlWzskLlvTtable::handleCallWzskShrdatChg(
 	// IP handleCallWzskShrdatChg --- IBEGIN
 	set<uint> moditems;
 
-	if (!muteRefresh) {
-		refresh(dbswzsk, moditems);
-		if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	};
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
 	// IP handleCallWzskShrdatChg --- IEND
 	return retval;
 };
@@ -291,10 +265,8 @@ bool PnlWzskLlvTtable::handleCallWzskClaimChg(
 	// IP handleCallWzskClaimChg --- IBEGIN
 	set<uint> moditems;
 
-	if (!muteRefresh) {
-		refresh(dbswzsk, moditems);
-		if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	};
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
 	// IP handleCallWzskClaimChg --- IEND
 	return retval;
 };

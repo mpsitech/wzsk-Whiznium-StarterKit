@@ -2,8 +2,8 @@
 	* \file CrdWzskSht.cpp
 	* job handler for job CrdWzskSht (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -43,8 +43,8 @@ CrdWzskSht::CrdWzskSht(
 	feedFSge.tag = "FeedFSge";
 	VecVSge::fillFeed(feedFSge);
 
-	pnlheadbar = NULL;
 	pnllist = NULL;
+	pnlheadbar = NULL;
 	pnlrec = NULL;
 
 	// IP constructor.cust1 --- INSERT
@@ -52,11 +52,13 @@ CrdWzskSht::CrdWzskSht(
 	xchg->addIxPreset(VecWzskVPreset::PREWZSKIXPRE, jref, ixWzskVPreset);
 	if (ixWzskVPreset != VecWzskVPreset::VOID) xchg->addRefPreset(ixWzskVPreset, jref, preUref);
 
-	// initialize according to ref
-	changeRef(dbswzsk, jref, ((ref+1) == 0) ? 0 : ref, false);
+	if ((ref + 1) != 0) xchg->triggerIxRefCall(dbswzsk, VecWzskVCall::CALLWZSKREFPRESET, jref, VecWzskVPreset::PREWZSKREFSHT, ref);
 
-	pnlheadbar = new PnlWzskShtHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
+	// initialize according to ref
+	changeRef(dbswzsk, jref, ((ref + 1) == 0) ? 0 : ref, false);
+
 	pnllist = new PnlWzskShtList(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlheadbar = new PnlWzskShtHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlrec = new PnlWzskShtRec(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
@@ -71,8 +73,8 @@ CrdWzskSht::CrdWzskSht(
 	changeStage(dbswzsk, VecVSge::IDLE);
 
 	xchg->addClstn(VecWzskVCall::CALLWZSKREFPRESET, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKDLGCLOSE, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSTATCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKDLGCLOSE, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -107,7 +109,11 @@ DpchEngWzsk* CrdWzskSht::getNewDpchEng(
 void CrdWzskSht::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	ContInf oldContinf(continf);
 
 	// IP refresh --- BEGIN
@@ -117,6 +123,8 @@ void CrdWzskSht::refresh(
 
 	// IP refresh --- END
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
+
+	muteRefresh = false;
 };
 
 void CrdWzskSht::changeRef(
@@ -233,10 +241,10 @@ void CrdWzskSht::handleCall(
 		) {
 	if (call->ixVCall == VecWzskVCall::CALLWZSKREFPRESET) {
 		call->abort = handleCallWzskRefPreSet(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKDLGCLOSE) {
-		call->abort = handleCallWzskDlgClose(dbswzsk, call->jref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSTATCHG) {
 		call->abort = handleCallWzskStatChg(dbswzsk, call->jref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKDLGCLOSE) {
+		call->abort = handleCallWzskDlgClose(dbswzsk, call->jref);
 	};
 };
 
@@ -257,21 +265,21 @@ bool CrdWzskSht::handleCallWzskRefPreSet(
 	return retval;
 };
 
-bool CrdWzskSht::handleCallWzskDlgClose(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-	// IP handleCallWzskDlgClose --- INSERT
-	return retval;
-};
-
 bool CrdWzskSht::handleCallWzskStatChg(
 			DbsWzsk* dbswzsk
 			, const ubigint jrefTrig
 		) {
 	bool retval = false;
 	if (jrefTrig == pnlrec->jref) if ((pnllist->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD) && (pnlrec->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD)) pnllist->minimize(dbswzsk, true);
+	return retval;
+};
+
+bool CrdWzskSht::handleCallWzskDlgClose(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+	// IP handleCallWzskDlgClose --- INSERT
 	return retval;
 };
 
@@ -291,7 +299,7 @@ void CrdWzskSht::changeStage(
 
 			setStage(dbswzsk, _ixVSge);
 			reenter = false;
-			if (!muteRefresh) refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
+			refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
 		};
 
 		switch (_ixVSge) {

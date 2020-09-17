@@ -2,8 +2,8 @@
 	* \file WzskcmbdDdspub.h
 	* DDS publisher based on rti DDS Connext for Wzsk combined daemon (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef WZSKCMBDDDSPUB_H
@@ -31,7 +31,6 @@ namespace WzskcmbdDdspub {
 
 	public:
 		rti::request::Replier<DdsJobWzskIprTrace::setLevel_req,DdsJobWzskIprTrace::setLevel_reply>* replierJobWzskIprTrace_setLevel;
-		rti::request::Replier<DdsJobWzskIprTrace::setPOn_req,DdsJobWzskIprTrace::setPOn_reply>* replierJobWzskIprTrace_setPOn;
 		rti::request::Replier<DdsJobWzskIprTrace::setRoi_req,DdsJobWzskIprTrace::setRoi_reply>* replierJobWzskIprTrace_setRoi;
 		rti::request::Replier<DdsJobWzskIprTrace::setRoiNotFull_req,DdsJobWzskIprTrace::setRoiNotFull_reply>* replierJobWzskIprTrace_setRoiNotFull;
 
@@ -40,10 +39,17 @@ namespace WzskcmbdDdspub {
 		rti::request::Replier<DdsJobWzskIprCorner::setRoiNotFull_req,DdsJobWzskIprCorner::setRoiNotFull_reply>* replierJobWzskIprCorner_setRoiNotFull;
 
 		rti::request::Replier<DdsJobWzskActServo::moveto_req,DdsJobWzskActServo::moveto_reply>* replierJobWzskActServo_moveto;
+		rti::request::Replier<DdsJobWzskActServo::stop_req,DdsJobWzskActServo::stop_reply>* replierJobWzskActServo_stop;
+		rti::request::Replier<DdsJobWzskActServo::turn_req,DdsJobWzskActServo::turn_reply>* replierJobWzskActServo_turn;
 		rti::request::Replier<DdsJobWzskActServo::zero_req,DdsJobWzskActServo::zero_reply>* replierJobWzskActServo_zero;
 
 		rti::request::Replier<DdsJobWzskActLaser::setLeft_req,DdsJobWzskActLaser::setLeft_reply>* replierJobWzskActLaser_setLeft;
 		rti::request::Replier<DdsJobWzskActLaser::setRight_req,DdsJobWzskActLaser::setRight_reply>* replierJobWzskActLaser_setRight;
+
+		rti::request::Replier<DdsJobWzskActExposure::setExposure_req,DdsJobWzskActExposure::setExposure_reply>* replierJobWzskActExposure_setExposure;
+		rti::request::Replier<DdsJobWzskActExposure::setFocus_req,DdsJobWzskActExposure::setFocus_reply>* replierJobWzskActExposure_setFocus;
+
+		rti::request::Replier<DdsJobWzskAcqPtcloud::setDeltaTheta_req,DdsJobWzskAcqPtcloud::setDeltaTheta_reply>* replierJobWzskAcqPtcloud_setDeltaTheta;
 	};
 
 	/**
@@ -56,6 +62,14 @@ namespace WzskcmbdDdspub {
 		~DataWriters();
 
 	public:
+		dds::topic::Topic<DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3>* topicJobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3;
+		dds::pub::DataWriter<DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3>* writerJobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3;
+		DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3* JobWzskSrcSysinfo_loadAllLoadCore0LoadCore1LoadCore2LoadCore3;
+
+		dds::topic::Topic<DdsJobWzskSrcSysinfo::temp>* topicJobWzskSrcSysinfo_temp;
+		dds::pub::DataWriter<DdsJobWzskSrcSysinfo::temp>* writerJobWzskSrcSysinfo_temp;
+		DdsJobWzskSrcSysinfo::temp* JobWzskSrcSysinfo_temp;
+
 		dds::topic::Topic<DdsJobWzskIprTrace::pOnLeftPOnRight>* topicJobWzskIprTrace_pOnLeftPOnRight;
 		dds::pub::DataWriter<DdsJobWzskIprTrace::pOnLeftPOnRight>* writerJobWzskIprTrace_pOnLeftPOnRight;
 		DdsJobWzskIprTrace::pOnLeftPOnRight* JobWzskIprTrace_pOnLeftPOnRight;
@@ -91,6 +105,18 @@ namespace WzskcmbdDdspub {
 		dds::topic::Topic<DdsJobWzskActLaser::leftRight>* topicJobWzskActLaser_leftRight;
 		dds::pub::DataWriter<DdsJobWzskActLaser::leftRight>* writerJobWzskActLaser_leftRight;
 		DdsJobWzskActLaser::leftRight* JobWzskActLaser_leftRight;
+
+		dds::topic::Topic<DdsJobWzskActExposure::autoNotManualTexp>* topicJobWzskActExposure_autoNotManualTexp;
+		dds::pub::DataWriter<DdsJobWzskActExposure::autoNotManualTexp>* writerJobWzskActExposure_autoNotManualTexp;
+		DdsJobWzskActExposure::autoNotManualTexp* JobWzskActExposure_autoNotManualTexp;
+
+		dds::topic::Topic<DdsJobWzskActExposure::focus>* topicJobWzskActExposure_focus;
+		dds::pub::DataWriter<DdsJobWzskActExposure::focus>* writerJobWzskActExposure_focus;
+		DdsJobWzskActExposure::focus* JobWzskActExposure_focus;
+
+		dds::topic::Topic<DdsJobWzskAcqPtcloud::deltaTheta>* topicJobWzskAcqPtcloud_deltaTheta;
+		dds::pub::DataWriter<DdsJobWzskAcqPtcloud::deltaTheta>* writerJobWzskAcqPtcloud_deltaTheta;
+		DdsJobWzskAcqPtcloud::deltaTheta* JobWzskAcqPtcloud_deltaTheta;
 
 		dds::topic::Topic<DdsJobWzskAcqPtcloud::xYZ>* topicJobWzskAcqPtcloud_xYZ;
 		dds::pub::DataWriter<DdsJobWzskAcqPtcloud::xYZ>* writerJobWzskAcqPtcloud_xYZ;

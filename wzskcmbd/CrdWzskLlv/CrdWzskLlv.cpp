@@ -2,8 +2,8 @@
 	* \file CrdWzskLlv.cpp
 	* job handler for job CrdWzskLlv (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -42,9 +42,9 @@ CrdWzskLlv::CrdWzskLlv(
 
 	pnlheadbar = NULL;
 	pnllaser = NULL;
-	pnlterm = NULL;
-	pnlcamera = NULL;
 	pnlttable = NULL;
+	pnlcamera = NULL;
+	pnlterm = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -53,9 +53,9 @@ CrdWzskLlv::CrdWzskLlv(
 
 	pnlheadbar = new PnlWzskLlvHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnllaser = new PnlWzskLlvLaser(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlterm = new PnlWzskLlvTerm(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlcamera = new PnlWzskLlvCamera(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlttable = new PnlWzskLlvTtable(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlcamera = new PnlWzskLlvCamera(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlterm = new PnlWzskLlvTerm(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 
@@ -102,7 +102,11 @@ DpchEngWzsk* CrdWzskLlv::getNewDpchEng(
 void CrdWzskLlv::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	ContInf oldContinf(continf);
 	StatShr oldStatshr(statshr);
 
@@ -116,6 +120,8 @@ void CrdWzskLlv::refresh(
 	// IP refresh --- REND
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+
+	muteRefresh = false;
 };
 
 void CrdWzskLlv::updatePreset(
@@ -240,7 +246,7 @@ void CrdWzskLlv::changeStage(
 
 			setStage(dbswzsk, _ixVSge);
 			reenter = false;
-			if (!muteRefresh) refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
+			refreshWithDpchEng(dbswzsk, dpcheng); // IP changeStage.refresh1 --- LINE
 		};
 
 		switch (_ixVSge) {

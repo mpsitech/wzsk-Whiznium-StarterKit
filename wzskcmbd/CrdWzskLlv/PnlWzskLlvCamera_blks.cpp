@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvCamera_blks.cpp
 	* job handler for job PnlWzskLlvCamera (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -46,16 +46,18 @@ string PnlWzskLlvCamera::VecVDo::getSref(
 
 PnlWzskLlvCamera::ContIac::ContIac(
 			const uint numFPupMde
-			, const double SldFcs
+			, const bool ChkAex
 			, const double SldExt
+			, const double SldFcs
 		) :
 			Block()
 		{
 	this->numFPupMde = numFPupMde;
-	this->SldFcs = SldFcs;
+	this->ChkAex = ChkAex;
 	this->SldExt = SldExt;
+	this->SldFcs = SldFcs;
 
-	mask = {NUMFPUPMDE, SLDFCS, SLDEXT};
+	mask = {NUMFPUPMDE, CHKAEX, SLDEXT, SLDFCS};
 };
 
 bool PnlWzskLlvCamera::ContIac::readXML(
@@ -76,8 +78,9 @@ bool PnlWzskLlvCamera::ContIac::readXML(
 
 	if (basefound) {
 		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "numFPupMde", numFPupMde)) add(NUMFPUPMDE);
-		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "SldFcs", SldFcs)) add(SLDFCS);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "ChkAex", ChkAex)) add(CHKAEX);
 		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "SldExt", SldExt)) add(SLDEXT);
+		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "SldFcs", SldFcs)) add(SLDFCS);
 	};
 
 	return basefound;
@@ -96,8 +99,9 @@ void PnlWzskLlvCamera::ContIac::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeUintAttr(wr, itemtag, "sref", "numFPupMde", numFPupMde);
-		writeDoubleAttr(wr, itemtag, "sref", "SldFcs", SldFcs);
+		writeBoolAttr(wr, itemtag, "sref", "ChkAex", ChkAex);
 		writeDoubleAttr(wr, itemtag, "sref", "SldExt", SldExt);
+		writeDoubleAttr(wr, itemtag, "sref", "SldFcs", SldFcs);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -107,8 +111,9 @@ set<uint> PnlWzskLlvCamera::ContIac::comm(
 	set<uint> items;
 
 	if (numFPupMde == comp->numFPupMde) insert(items, NUMFPUPMDE);
-	if (compareDouble(SldFcs, comp->SldFcs) < 1.0e-4) insert(items, SLDFCS);
+	if (ChkAex == comp->ChkAex) insert(items, CHKAEX);
 	if (compareDouble(SldExt, comp->SldExt) < 1.0e-4) insert(items, SLDEXT);
+	if (compareDouble(SldFcs, comp->SldFcs) < 1.0e-4) insert(items, SLDFCS);
 
 	return(items);
 };
@@ -121,7 +126,7 @@ set<uint> PnlWzskLlvCamera::ContIac::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {NUMFPUPMDE, SLDFCS, SLDEXT};
+	diffitems = {NUMFPUPMDE, CHKAEX, SLDEXT, SLDFCS};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -190,15 +195,15 @@ PnlWzskLlvCamera::StatShr::StatShr(
 			, const bool ButClaimActive
 			, const bool ButPlayActive
 			, const bool ButStopActive
-			, const bool SldFcsAvail
-			, const bool SldFcsActive
-			, const double SldFcsMin
-			, const double SldFcsMax
+			, const bool ChkAexActive
 			, const bool SldExtAvail
 			, const bool SldExtActive
 			, const double SldExtMin
 			, const double SldExtMax
 			, const double SldExtRast
+			, const bool SldFcsActive
+			, const double SldFcsMin
+			, const double SldFcsMax
 		) :
 			Block()
 		{
@@ -206,17 +211,17 @@ PnlWzskLlvCamera::StatShr::StatShr(
 	this->ButClaimActive = ButClaimActive;
 	this->ButPlayActive = ButPlayActive;
 	this->ButStopActive = ButStopActive;
-	this->SldFcsAvail = SldFcsAvail;
-	this->SldFcsActive = SldFcsActive;
-	this->SldFcsMin = SldFcsMin;
-	this->SldFcsMax = SldFcsMax;
+	this->ChkAexActive = ChkAexActive;
 	this->SldExtAvail = SldExtAvail;
 	this->SldExtActive = SldExtActive;
 	this->SldExtMin = SldExtMin;
 	this->SldExtMax = SldExtMax;
 	this->SldExtRast = SldExtRast;
+	this->SldFcsActive = SldFcsActive;
+	this->SldFcsMin = SldFcsMin;
+	this->SldFcsMax = SldFcsMax;
 
-	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, SLDFCSAVAIL, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST};
+	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX};
 };
 
 void PnlWzskLlvCamera::StatShr::writeXML(
@@ -235,15 +240,15 @@ void PnlWzskLlvCamera::StatShr::writeXML(
 		writeBoolAttr(wr, itemtag, "sref", "ButClaimActive", ButClaimActive);
 		writeBoolAttr(wr, itemtag, "sref", "ButPlayActive", ButPlayActive);
 		writeBoolAttr(wr, itemtag, "sref", "ButStopActive", ButStopActive);
-		writeBoolAttr(wr, itemtag, "sref", "SldFcsAvail", SldFcsAvail);
-		writeBoolAttr(wr, itemtag, "sref", "SldFcsActive", SldFcsActive);
-		writeDoubleAttr(wr, itemtag, "sref", "SldFcsMin", SldFcsMin);
-		writeDoubleAttr(wr, itemtag, "sref", "SldFcsMax", SldFcsMax);
+		writeBoolAttr(wr, itemtag, "sref", "ChkAexActive", ChkAexActive);
 		writeBoolAttr(wr, itemtag, "sref", "SldExtAvail", SldExtAvail);
 		writeBoolAttr(wr, itemtag, "sref", "SldExtActive", SldExtActive);
 		writeDoubleAttr(wr, itemtag, "sref", "SldExtMin", SldExtMin);
 		writeDoubleAttr(wr, itemtag, "sref", "SldExtMax", SldExtMax);
 		writeDoubleAttr(wr, itemtag, "sref", "SldExtRast", SldExtRast);
+		writeBoolAttr(wr, itemtag, "sref", "SldFcsActive", SldFcsActive);
+		writeDoubleAttr(wr, itemtag, "sref", "SldFcsMin", SldFcsMin);
+		writeDoubleAttr(wr, itemtag, "sref", "SldFcsMax", SldFcsMax);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -256,15 +261,15 @@ set<uint> PnlWzskLlvCamera::StatShr::comm(
 	if (ButClaimActive == comp->ButClaimActive) insert(items, BUTCLAIMACTIVE);
 	if (ButPlayActive == comp->ButPlayActive) insert(items, BUTPLAYACTIVE);
 	if (ButStopActive == comp->ButStopActive) insert(items, BUTSTOPACTIVE);
-	if (SldFcsAvail == comp->SldFcsAvail) insert(items, SLDFCSAVAIL);
-	if (SldFcsActive == comp->SldFcsActive) insert(items, SLDFCSACTIVE);
-	if (compareDouble(SldFcsMin, comp->SldFcsMin) < 1.0e-4) insert(items, SLDFCSMIN);
-	if (compareDouble(SldFcsMax, comp->SldFcsMax) < 1.0e-4) insert(items, SLDFCSMAX);
+	if (ChkAexActive == comp->ChkAexActive) insert(items, CHKAEXACTIVE);
 	if (SldExtAvail == comp->SldExtAvail) insert(items, SLDEXTAVAIL);
 	if (SldExtActive == comp->SldExtActive) insert(items, SLDEXTACTIVE);
 	if (compareDouble(SldExtMin, comp->SldExtMin) < 1.0e-4) insert(items, SLDEXTMIN);
 	if (compareDouble(SldExtMax, comp->SldExtMax) < 1.0e-4) insert(items, SLDEXTMAX);
 	if (compareDouble(SldExtRast, comp->SldExtRast) < 1.0e-4) insert(items, SLDEXTRAST);
+	if (SldFcsActive == comp->SldFcsActive) insert(items, SLDFCSACTIVE);
+	if (compareDouble(SldFcsMin, comp->SldFcsMin) < 1.0e-4) insert(items, SLDFCSMIN);
+	if (compareDouble(SldFcsMax, comp->SldFcsMax) < 1.0e-4) insert(items, SLDFCSMAX);
 
 	return(items);
 };
@@ -277,7 +282,7 @@ set<uint> PnlWzskLlvCamera::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, SLDFCSAVAIL, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST};
+	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -303,13 +308,15 @@ void PnlWzskLlvCamera::Tag::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Camera");
 			writeStringAttr(wr, itemtag, "sref", "CptMde", "mode");
-			writeStringAttr(wr, itemtag, "sref", "CptFcs", "focus (near -\\u003e far)");
+			writeStringAttr(wr, itemtag, "sref", "CptAex", "auto-exposure");
 			writeStringAttr(wr, itemtag, "sref", "CptExt", "exposure time [ms]");
+			writeStringAttr(wr, itemtag, "sref", "CptFcs", "focus (near -\\u003e far)");
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Kamera");
 			writeStringAttr(wr, itemtag, "sref", "CptMde", "Modus");
-			writeStringAttr(wr, itemtag, "sref", "CptFcs", "Fokus (nah -\\u003e fern)");
+			writeStringAttr(wr, itemtag, "sref", "CptAex", "automatische Belichtung");
 			writeStringAttr(wr, itemtag, "sref", "CptExt", "Belichtungszeit [ms]");
+			writeStringAttr(wr, itemtag, "sref", "CptFcs", "Fokus (nah -\\u003e fern)");
 		};
 	xmlTextWriterEndElement(wr);
 };

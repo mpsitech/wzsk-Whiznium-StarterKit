@@ -2,8 +2,8 @@
   * \file M2msessWzsk.java
   * Java API code for job M2msessWzsk
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 package apiwzsk;
@@ -20,35 +20,43 @@ public class M2msessWzsk {
 
 		public static final int SCRJREFACQPREVIEW = 1;
 		public static final int SCRJREFACQPTCLOUD = 2;
-		public static final int SCRJREFACTLASER = 3;
-		public static final int SCRJREFACTSERVO = 4;
-		public static final int SCRJREFIPRCORNER = 5;
-		public static final int SCRJREFIPRTRACE = 6;
+		public static final int SCRJREFACTEXPOSURE = 3;
+		public static final int SCRJREFACTLASER = 4;
+		public static final int SCRJREFACTSERVO = 5;
+		public static final int SCRJREFIPRCORNER = 6;
+		public static final int SCRJREFIPRTRACE = 7;
+		public static final int SCRJREFSRCSYSINFO = 8;
 
 		public StatShr(
 					String scrJrefAcqpreview
 					, String scrJrefAcqptcloud
+					, String scrJrefActexposure
 					, String scrJrefActlaser
 					, String scrJrefActservo
 					, String scrJrefIprcorner
 					, String scrJrefIprtrace
+					, String scrJrefSrcsysinfo
 				) {
 			this.scrJrefAcqpreview = scrJrefAcqpreview;
 			this.scrJrefAcqptcloud = scrJrefAcqptcloud;
+			this.scrJrefActexposure = scrJrefActexposure;
 			this.scrJrefActlaser = scrJrefActlaser;
 			this.scrJrefActservo = scrJrefActservo;
 			this.scrJrefIprcorner = scrJrefIprcorner;
 			this.scrJrefIprtrace = scrJrefIprtrace;
+			this.scrJrefSrcsysinfo = scrJrefSrcsysinfo;
 
-			mask = new HashSet<Integer>(Arrays.asList(SCRJREFACQPREVIEW, SCRJREFACQPTCLOUD, SCRJREFACTLASER, SCRJREFACTSERVO, SCRJREFIPRCORNER, SCRJREFIPRTRACE));
+			mask = new HashSet<Integer>(Arrays.asList(SCRJREFACQPREVIEW, SCRJREFACQPTCLOUD, SCRJREFACTEXPOSURE, SCRJREFACTLASER, SCRJREFACTSERVO, SCRJREFIPRCORNER, SCRJREFIPRTRACE, SCRJREFSRCSYSINFO));
 		};
 
 		public String scrJrefAcqpreview;
 		public String scrJrefAcqptcloud;
+		public String scrJrefActexposure;
 		public String scrJrefActlaser;
 		public String scrJrefActservo;
 		public String scrJrefIprcorner;
 		public String scrJrefIprtrace;
+		public String scrJrefSrcsysinfo;
 
 		public boolean readXML(
 					Document doc
@@ -65,10 +73,12 @@ public class M2msessWzsk {
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				scrJrefAcqpreview = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefAcqpreview", mask, SCRJREFACQPREVIEW);
 				scrJrefAcqptcloud = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefAcqptcloud", mask, SCRJREFACQPTCLOUD);
+				scrJrefActexposure = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefActexposure", mask, SCRJREFACTEXPOSURE);
 				scrJrefActlaser = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefActlaser", mask, SCRJREFACTLASER);
 				scrJrefActservo = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefActservo", mask, SCRJREFACTSERVO);
 				scrJrefIprcorner = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefIprcorner", mask, SCRJREFIPRCORNER);
 				scrJrefIprtrace = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefIprtrace", mask, SCRJREFIPRTRACE);
+				scrJrefSrcsysinfo = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefSrcsysinfo", mask, SCRJREFSRCSYSINFO);
 
 				return true;
 			};
@@ -83,10 +93,12 @@ public class M2msessWzsk {
 
 			if (scrJrefAcqpreview.equals(comp.scrJrefAcqpreview)) items.add(SCRJREFACQPREVIEW);
 			if (scrJrefAcqptcloud.equals(comp.scrJrefAcqptcloud)) items.add(SCRJREFACQPTCLOUD);
+			if (scrJrefActexposure.equals(comp.scrJrefActexposure)) items.add(SCRJREFACTEXPOSURE);
 			if (scrJrefActlaser.equals(comp.scrJrefActlaser)) items.add(SCRJREFACTLASER);
 			if (scrJrefActservo.equals(comp.scrJrefActservo)) items.add(SCRJREFACTSERVO);
 			if (scrJrefIprcorner.equals(comp.scrJrefIprcorner)) items.add(SCRJREFIPRCORNER);
 			if (scrJrefIprtrace.equals(comp.scrJrefIprtrace)) items.add(SCRJREFIPRTRACE);
+			if (scrJrefSrcsysinfo.equals(comp.scrJrefSrcsysinfo)) items.add(SCRJREFSRCSYSINFO);
 
 			return(items);
 		};
@@ -99,7 +111,7 @@ public class M2msessWzsk {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(SCRJREFACQPREVIEW, SCRJREFACQPTCLOUD, SCRJREFACTLASER, SCRJREFACTSERVO, SCRJREFIPRCORNER, SCRJREFIPRTRACE));
+			diffitems = new HashSet<Integer>(Arrays.asList(SCRJREFACQPREVIEW, SCRJREFACQPTCLOUD, SCRJREFACTEXPOSURE, SCRJREFACTLASER, SCRJREFACTSERVO, SCRJREFIPRCORNER, SCRJREFIPRTRACE, SCRJREFSRCSYSINFO));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -118,7 +130,7 @@ public class M2msessWzsk {
 		public DpchEngData() {
 			super(VecWzskVDpch.DPCHENGM2MSESSWZSKDATA);
 
-			statshr = new StatShr("", "", "", "", "", "");
+			statshr = new StatShr("", "", "", "", "", "", "", "");
 		};
 
 		public StatShr statshr;
@@ -147,7 +159,7 @@ public class M2msessWzsk {
 				if (statshr.readXML(doc, basexpath, true)) add(STATSHR);
 			} else {
 				scrJref = "";
-				statshr = new StatShr("", "", "", "", "", "");
+				statshr = new StatShr("", "", "", "", "", "", "", "");
 			};
 		};
 

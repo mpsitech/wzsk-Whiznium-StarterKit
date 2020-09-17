@@ -2,8 +2,8 @@
   * \file CrdWzskNav.java
   * Java API code for job CrdWzskNav
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 package apiwzsk;

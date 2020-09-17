@@ -2,8 +2,8 @@
   * \file PnlWzskLlvTtable.js
   * web client functionality for panel PnlWzskLlvTtable
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 // IP cust --- INSERT
@@ -53,8 +53,6 @@ function initBD(bNotD) {
 	// IP initBD --- BEGIN
 	initCpt(hdrdoc, "Cpt", retrieveTi(srcdoc, "TagWzskLlvTtable", "Cpt"));
 	initCpt(contcontdoc, "CptTrg", retrieveTi(srcdoc, "TagWzskLlvTtable", "CptTrg"));
-	initCpt(contcontdoc, "CptSte", retrieveTi(srcdoc, "TagWzskLlvTtable", "CptSte"));
-	initBut(contcontdoc, "ButMve", retrieveTi(srcdoc, "TagWzskLlvTtable", "ButMve"));
 	// IP initBD --- END
 
 	refreshBD(bNotD);
@@ -78,22 +76,17 @@ function refreshA() {
 function refreshBD(bNotD) {
 	if (!contcontdoc) return;
 
-	var height = 85; // full cont height
+	var height = 35; // full cont height
 
 	// IP refreshBD.vars --- BEGIN
 	var ButClaimActive = (retrieveSi(srcdoc, "StatShrWzskLlvTtable", "ButClaimActive") == "true");
-
-	var ButMveActive = (retrieveSi(srcdoc, "StatShrWzskLlvTtable", "ButMveActive") == "true");
+	var SldTrgActive = (retrieveSi(srcdoc, "StatShrWzskLlvTtable", "SldTrgActive") == "true");
 
 	// IP refreshBD.vars --- END
 
 	// IP refreshBD --- BEGIN
 	refreshButicon(hdrdoc, "ButClaim", "icon/claim", ButClaimActive, retrieveCi(srcdoc, "ContInfWzskLlvTtable", "ButClaimOn") == "true");
-	refreshSld(contcontdoc, "SldTrg", true, false, parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvTtable", "SldTrgMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvTtable", "SldTrgMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskLlvTtable", "SldTrg")), true, false);
-
-	refreshTxt(contcontdoc, "TxtSte", retrieveCi(srcdoc, "ContInfWzskLlvTtable", "TxtSte"));
-
-	refreshBut(contcontdoc, "ButMve", ButMveActive, false);
+	refreshSld(contcontdoc, "SldTrg", true, false, parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvTtable", "SldTrgMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvTtable", "SldTrgMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskLlvTtable", "SldTrg")), SldTrgActive, false);
 
 	// IP refreshBD --- END
 

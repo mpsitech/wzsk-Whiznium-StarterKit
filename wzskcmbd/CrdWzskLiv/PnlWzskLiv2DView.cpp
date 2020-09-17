@@ -2,8 +2,8 @@
 	* \file PnlWzskLiv2DView.cpp
 	* job handler for job PnlWzskLiv2DView (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -42,31 +42,40 @@ PnlWzskLiv2DView::PnlWzskLiv2DView(
 	iprtrace = NULL;
 	iprcorner = NULL;
 	actservo = NULL;
+	actlaser = NULL;
+	actexposure = NULL;
 	acqpreview = NULL;
 
-	// IP constructor.cust1 --- INSERT
+	// IP constructor.cust1 --- IBEGIN
+	initdoneAlign = false;
+
+	snapshotArmed = false;
+	// IP constructor.cust1 --- IEND
 
 	iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprcorner = new JobWzskIprCorner(xchg, dbswzsk, jref, ixWzskVLocale);
 	actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
+	actlaser = new JobWzskActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
+	actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqpreview = new JobWzskAcqPreview(xchg, dbswzsk, jref, ixWzskVLocale);
 
-	// IP constructor.cust2 --- IBEGIN
-	// preliminary
-	contiac.SldExt = statshr.SldExtMin;
-	// IP constructor.cust2 --- IEND
+	// IP constructor.cust2 --- INSERT
 
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
-	xchg->addClstn(VecWzskVCall::CALLWZSKSGECHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSTGCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKSGECHG, jref, Clstn::VecVJobmask::SPEC, actservo->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, iprtrace->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, iprcorner->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, actlaser->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, actexposure->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::TRY);
-	xchg->addClstn(VecWzskVCall::CALLWZSKCLAIMCHG, jref, Clstn::VecVJobmask::SPEC, acqpreview->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKCLAIMCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 
-	// IP constructor.cust3 --- INSERT
+	// IP constructor.cust3 --- IBEGIN
+	refreshAlign(moditems);
+	// IP constructor.cust3 --- IEND
 
 };
 
@@ -82,6 +91,9 @@ PnlWzskLiv2DView::~PnlWzskLiv2DView() {
 void PnlWzskLiv2DView::refreshAlign(
 			set<uint>& moditems
 		) {
+	if (muteRefresh) return;
+	muteRefresh = true;
+
 	ContIacCorner oldContiaccorner(contiaccorner);
 
 	iprcorner->shrdat.rlockAccess("PnlWzskLiv2DView", "refreshAlign", "jref=" + to_string(jref));
@@ -115,6 +127,132 @@ void PnlWzskLiv2DView::refreshAlign(
 	iprtrace->shrdat.runlockAccess("PnlWzskLiv2DView", "refreshAlign", "jref=" + to_string(jref));
 
 	if (contiactrace.diff(&oldContiactrace).size() != 0) insert(moditems, DpchEngAlign::CONTIACTRACE);
+
+	muteRefresh = false;
+};
+
+void PnlWzskLiv2DView::takeSnapshot(
+			DbsWzsk* dbswzsk
+			, const uint ixWzskVPvwmode
+			, uint8_t* gr8
+			, uint8_t* r8
+			, uint8_t* g8
+			, uint8_t* b8
+		) {
+	if (!(gr8 || (r8 && g8 && b8))) return;
+
+	unsigned char* pngbuf = NULL;
+
+	time_t now;
+	time(&now);
+
+	unsigned int w, h;
+
+	string pngfile;
+
+	uint refIxVTbl;
+	ubigint refUref;
+
+	string Filename;
+
+	Wzsk::getPvwWh(ixWzskVPvwmode, w, h);
+
+	pngbuf = new unsigned char[4 * w * h];
+	memset(pngbuf, 0, 4 * w * h);
+
+	if (gr8) {
+		for (unsigned int i = 0; i < w*h; i++) {
+			pngbuf[4 * i + 1] = gr8[i];
+			pngbuf[4 * i + 2] = gr8[i];
+			pngbuf[4 * i + 3] = gr8[i];
+		};
+
+	} else {
+		for (unsigned int i = 0; i < w*h; i++) {
+			pngbuf[4 * i + 1] = r8[i]; // red
+			pngbuf[4 * i + 2] = g8[i]; // green
+			pngbuf[4 * i + 3] = b8[i]; // blue
+		};
+	};
+
+	refUref = xchg->getRefPreset(VecWzskVPreset::PREWZSKREFSHT, jref);
+	if (refUref != 0) refIxVTbl = VecWzskVMFileRefTbl::SHT;
+	else {
+		refIxVTbl = VecWzskVMFileRefTbl::OBJ;
+		refUref = xchg->getRefPreset(VecWzskVPreset::PREWZSKREFOBJ, jref);
+	};
+	
+	if (refUref != 0) {
+		pngfile = Tmp::newfile(xchg->tmppath, "png");
+		takeSnapshot_writePng(xchg->tmppath + "/" + pngfile, pngbuf, w, h);
+
+		Filename = VecWzskVPvwmode::getSref(ixWzskVPvwmode) + "1.png";
+		if (dbswzsk->loadStringBySQL("SELECT Filename FROM TblWzskMFile WHERE refIxVTbl = " + to_string(refIxVTbl) + " AND refUref = " + to_string(refUref) + " AND Filename LIKE '" + VecWzskVPvwmode::getSref(ixWzskVPvwmode) + "%.png' ORDER BY ref DESC LIMIT 1", Filename)) {
+			Filename = Filename.substr(0, Filename.rfind(".png"));
+			Filename = VecWzskVPvwmode::getSref(ixWzskVPvwmode) + to_string(atoi(Filename.substr(VecWzskVPvwmode::getSref(ixWzskVPvwmode).length()).c_str()) + 1) + ".png";
+		};
+
+		Acv::addfile(dbswzsk, xchg->acvpath, xchg->tmppath + "/" + pngfile, xchg->getRefPreset(VecWzskVPreset::PREWZSKGROUP, jref), xchg->getRefPreset(VecWzskVPreset::PREWZSKOWNER, jref), refIxVTbl, refUref, "pvwsnap", Filename, "png", "");
+		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKFILMOD, jref);
+		xchg->triggerIxRefCall(dbswzsk, VecWzskVCall::CALLWZSKFILMOD_RETREUEQ, jref, refIxVTbl, refUref);
+	};
+
+	delete[] pngbuf;
+};
+
+void PnlWzskLiv2DView::takeSnapshot_writePng(
+			const string& path
+			, unsigned char* imgdat
+			, const unsigned int width
+			, const unsigned int height
+		) {
+	string outfile;
+	FILE* fp;
+
+	unsigned char** rowptr;
+
+	png_structp png_ptr;
+	png_infop info_ptr;
+
+	// create and open file
+	fp = fopen(path.c_str(), "wb");
+
+	// set row pointers
+	rowptr = new unsigned char*[height];
+	for (unsigned int k = 0; k < height; k++) rowptr[k] = &(imgdat[4*width*(height-k-1)]);
+
+	// allocate structures
+	png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+	info_ptr = png_create_info_struct(png_ptr);
+
+	// set error handling
+	setjmp(png_jmpbuf(png_ptr));
+
+	// set up output control
+	png_init_io(png_ptr, fp);
+
+	// set file information
+	png_set_IHDR(png_ptr, info_ptr, width, height, 8, PNG_COLOR_TYPE_RGB, PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
+
+	// write file information
+	png_write_info(png_ptr, info_ptr);
+
+	// pack RGB into 3 bytes
+	png_set_filler(png_ptr, 0, PNG_FILLER_BEFORE);
+
+	// write image
+	png_write_image(png_ptr, rowptr);
+
+	// write rest of file
+	png_write_end(png_ptr, info_ptr);
+
+	// clean up
+	png_free_data(png_ptr, info_ptr, PNG_FREE_ALL, -1);
+
+	delete[] rowptr;
+
+	// close file
+	fclose(fp);
 };
 // IP cust --- IEND
 
@@ -136,11 +274,17 @@ DpchEngWzsk* PnlWzskLiv2DView::getNewDpchEng(
 void PnlWzskLiv2DView::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	StatShr oldStatshr(statshr);
 
 	// IP refresh --- RBEGIN
 	bool takenNotAvailable, fulfilled, run;
+	bool has2, takenNotAvailable2, fulfilled2, run2;
+
 	xchg->getCsjobClaim(acqpreview, takenNotAvailable, fulfilled, run);
 
 	ubigint refWzskMObject;
@@ -149,11 +293,9 @@ void PnlWzskLiv2DView::refresh(
 	// contiac
 	ContIac oldContiac(contiac);
 
-	//contiac.SldFcs; // future: srcfgpa shrdat
-	//contiac.SldExt;
-
-	contiac.SldLle = lround(100.0 * iprtrace->shrdat.pOnLeft);
-	contiac.SldLri = lround(100.0 * iprtrace->shrdat.pOnRight);
+	contiac.ChkAex = actexposure->shrdat.autoNotManual;
+	contiac.SldExt = 1e3 * actexposure->shrdat.Texp;
+	contiac.SldFcs = actexposure->shrdat.focus;
 
 	contiac.UpdLlo = iprtrace->shrdat.levelOn;
 	contiac.UpdLuo = iprtrace->shrdat.levelOff;
@@ -172,21 +314,36 @@ void PnlWzskLiv2DView::refresh(
 	ContInf oldContinf(continf);
 
 	continf.ButClaimOn = fulfilled;
-	continf.TxtOaf = StubWzsk::getStubObjStd(dbswzsk, refWzskMObject, ixWzskVLocale);
+	if (dbswzsk) continf.TxtOaf = StubWzsk::getStubObjStd(dbswzsk, refWzskMObject, ixWzskVLocale);
+
+	continf.ButTccOn = ((actservo->shrdat.target == -360.0) && (actservo->ixVSge == JobWzskActServo::VecVSge::MOVE));
+	continf.ButTcwOn = ((actservo->shrdat.target == 360.0) && (actservo->ixVSge == JobWzskActServo::VecVSge::MOVE));
+
+	continf.ButLleOn = (actlaser->shrdat.left != 0.0);
+	continf.ButLriOn = (actlaser->shrdat.right != 0.0);
+
+	has2 = xchg->getCsjobClaim(iprtrace, takenNotAvailable2, fulfilled2, run2);
+	continf.ButLtrOn = run2;
+	if (has2 && !fulfilled2) xchg->removeCsjobClaim(dbswzsk, iprtrace);
+
+	has2 = xchg->getCsjobClaim(iprcorner, takenNotAvailable2, fulfilled2, run2);
+	continf.ButPicOn = run2;
+	if (has2 && !fulfilled2) xchg->removeCsjobClaim(dbswzsk, iprcorner);
 
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 
 	// statshr
 	statshr.ButClaimActive = !takenNotAvailable || fulfilled;
 
-	statshr.SldFcsAvail = xchg->stgwzskglobal.fpgaNotV4l2gpio;
-	statshr.SldFcsActive = fulfilled;
-
-	statshr.SldExtAvail = xchg->stgwzskglobal.fpgaNotV4l2gpio;
-	statshr.SldExtActive = fulfilled;
-
 	statshr.ButPlayActive = fulfilled && !run;
 	statshr.ButStopActive = fulfilled && run;
+
+	statshr.ChkAexActive = fulfilled;
+
+	statshr.SldExtAvail = !contiac.ChkAex;
+	statshr.SldExtActive = fulfilled;
+
+	statshr.SldFcsActive = fulfilled;
 
 	statshr.TxtOafAvail = (refWzskMObject != 0);
 	statshr.ButStsActive = (refWzskMObject != 0) && run;
@@ -198,6 +355,8 @@ void PnlWzskLiv2DView::refresh(
 	// IP refresh --- REND
 
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+
+	muteRefresh = false;
 };
 
 void PnlWzskLiv2DView::handleRequest(
@@ -245,8 +404,14 @@ void PnlWzskLiv2DView::handleRequest(
 					handleDpchAppDoButStopClick(dbswzsk, &(req->dpcheng));
 				} else if (dpchappdo->ixVDo == VecVDo::BUTSTSCLICK) {
 					handleDpchAppDoButStsClick(dbswzsk, &(req->dpcheng));
-				} else if (dpchappdo->ixVDo == VecVDo::BUTTTBCLICK) {
-					handleDpchAppDoButTtbClick(dbswzsk, &(req->dpcheng));
+				} else if (dpchappdo->ixVDo == VecVDo::BUTTCCCLICK) {
+					handleDpchAppDoButTccClick(dbswzsk, &(req->dpcheng));
+				} else if (dpchappdo->ixVDo == VecVDo::BUTTCWCLICK) {
+					handleDpchAppDoButTcwClick(dbswzsk, &(req->dpcheng));
+				} else if (dpchappdo->ixVDo == VecVDo::BUTLLECLICK) {
+					handleDpchAppDoButLleClick(dbswzsk, &(req->dpcheng));
+				} else if (dpchappdo->ixVDo == VecVDo::BUTLRICLICK) {
+					handleDpchAppDoButLriClick(dbswzsk, &(req->dpcheng));
 				} else if (dpchappdo->ixVDo == VecVDo::BUTLTRCLICK) {
 					handleDpchAppDoButLtrClick(dbswzsk, &(req->dpcheng));
 				} else if (dpchappdo->ixVDo == VecVDo::BUTPICCLICK) {
@@ -298,9 +463,13 @@ void PnlWzskLiv2DView::handleDpchAppAlign(
 		add(moditems, DpchEngAlign::CONTIACTRACE);
 	};
 
-	if (hasAny(dpchappalign->mask, {DpchAppAlign::CONTIACCORNER,DpchAppAlign::CONTIACTRACE})) refreshAlign(moditems);
-
 	muteRefresh = false;
+	if (hasAny(dpchappalign->mask, {DpchAppAlign::CONTIACCORNER,DpchAppAlign::CONTIACTRACE})) refreshAlign(moditems);
+	else {
+		// initialization
+		add(moditems, DpchAppAlign::CONTIACCORNER);
+		add(moditems, DpchAppAlign::CONTIACTRACE);
+	};
 
 	add(moditems, DpchAppAlign::JREF);
 	*dpcheng = new DpchEngAlign(jref, &contiaccorner, &contiactrace, moditems);
@@ -323,28 +492,29 @@ void PnlWzskLiv2DView::handleDpchAppDataContiac(
 	if (has(diffitems, ContIac::NUMFPUPPVM)) {
 		if (feedFPupPvm.getIxByNum(_contiac->numFPupPvm) != 0) contiac.numFPupPvm = _contiac->numFPupPvm;
 		else contiac.numFPupPvm = 1;
+
+		if (statshr.ButStopActive) {
+			// allow live mode changes
+			xchg->addCsjobClaim(dbswzsk, acqpreview, new JobWzskAcqPreview::Claim(true, true, feedFPupPvm.getIxByNum(contiac.numFPupPvm)));
+		};
 	};
 
-	if (has(diffitems, ContIac::SLDFCS) && statshr.SldFcsActive) contiac.SldFcs = _contiac->SldFcs;
-	if (has(diffitems, ContIac::SLDEXT) && statshr.SldExtActive) contiac.SldExt = _contiac->SldExt;
+	if (hasAny(diffitems, {ContIac::CHKAEX,ContIac::SLDEXT}) && statshr.ChkAexActive) actexposure->setExposure(dbswzsk, _contiac->ChkAex, 1e-3 * _contiac->SldExt);
 
-	if (has(diffitems, ContIac::SLDLLE)) iprtrace->setPOn(dbswzsk, 0.01 * _contiac->SldLle, iprtrace->shrdat.pOnRight);
-	if (has(diffitems, ContIac::SLDLRI)) iprtrace->setPOn(dbswzsk, iprtrace->shrdat.pOnLeft, 0.01 * _contiac->SldLri);
-
-	if (has(diffitems, ContIac::CHKLRO)) iprtrace->setRoiNotFull(dbswzsk, _contiac->ChkLro);
+	if (has(diffitems, ContIac::SLDFCS) && statshr.SldFcsActive) actexposure->setFocus(dbswzsk, _contiac->SldFcs);
 
 	if (has(diffitems, ContIac::UPDLLO)) iprtrace->setLevel(dbswzsk, _contiac->UpdLlo, iprtrace->shrdat.levelOff);
 	if (has(diffitems, ContIac::UPDLUO)) iprtrace->setLevel(dbswzsk, iprtrace->shrdat.levelOn, _contiac->UpdLuo);
 
 	if (has(diffitems, ContIac::UPDLMD)) iprtrace->setLevel(dbswzsk, 255, 255 - _contiac->UpdLmd);
 
+	if (has(diffitems, ContIac::CHKLRO)) iprtrace->setRoiNotFull(dbswzsk, _contiac->ChkLro);
+
 	if (has(diffitems, ContIac::UPDPNT)) iprcorner->setNTarget(dbswzsk, _contiac->UpdPnt);
 
-	if (has(diffitems, ContIac::CHKPRO)) iprtrace->setRoiNotFull(dbswzsk, _contiac->ChkPro);
+	if (has(diffitems, ContIac::CHKPRO)) iprcorner->setRoiNotFull(dbswzsk, _contiac->ChkPro);
 
-	muteRefresh = false;
-
-	refresh(dbswzsk, moditems);
+	refresh(dbswzsk, moditems, true);
 
 	// IP handleDpchAppDataContiac --- IEND
 	insert(moditems, DpchEngData::CONTIAC);
@@ -355,10 +525,15 @@ void PnlWzskLiv2DView::handleDpchAppDoButRegularizeClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
-	// IP handleDpchAppDoButRegularizeClick --- BEGIN
+	// IP handleDpchAppDoButRegularizeClick --- RBEGIN
 	statshr.ixWzskVExpstate = VecWzskVExpstate::REGD;
 	*dpcheng = getNewDpchEng({DpchEngData::STATSHR});
-	// IP handleDpchAppDoButRegularizeClick --- END
+
+	if (!initdoneAlign) {
+		xchg->submitDpch(new DpchEngAlign(jref, &contiaccorner, &contiactrace, {DpchEngAlign::ALL}));
+		initdoneAlign = true;
+	};
+	// IP handleDpchAppDoButRegularizeClick --- REND
 };
 
 void PnlWzskLiv2DView::handleDpchAppDoButMinimizeClick(
@@ -382,9 +557,7 @@ void PnlWzskLiv2DView::handleDpchAppDoButClaimClick(
 		if (!continf.ButClaimOn) xchg->addCsjobClaim(dbswzsk, acqpreview, new JobWzskAcqPreview::Claim(true, false, feedFPupPvm.getIxByNum(contiac.numFPupPvm)));
 		else xchg->removeCsjobClaim(dbswzsk, acqpreview);
 
-		muteRefresh = false;
-
-		refreshWithDpchEng(dbswzsk, dpcheng);
+		refreshWithDpchEng(dbswzsk, dpcheng, true);
 	};
 	// IP handleDpchAppDoButClaimClick --- IEND
 };
@@ -399,9 +572,7 @@ void PnlWzskLiv2DView::handleDpchAppDoButPlayClick(
 
 		xchg->addCsjobClaim(dbswzsk, acqpreview, new JobWzskAcqPreview::Claim(true, true, feedFPupPvm.getIxByNum(contiac.numFPupPvm)));
 
-		muteRefresh = false;
-
-		refreshWithDpchEng(dbswzsk, dpcheng);
+		refreshWithDpchEng(dbswzsk, dpcheng, true);
 	};
 	// IP handleDpchAppDoButPlayClick --- IEND
 };
@@ -416,9 +587,7 @@ void PnlWzskLiv2DView::handleDpchAppDoButStopClick(
 
 		xchg->addCsjobClaim(dbswzsk, acqpreview, new JobWzskAcqPreview::Claim(true, false, feedFPupPvm.getIxByNum(contiac.numFPupPvm)));
 
-		muteRefresh = false;
-
-		refreshWithDpchEng(dbswzsk, dpcheng);
+		refreshWithDpchEng(dbswzsk, dpcheng, true);
 	};
 	// IP handleDpchAppDoButStopClick --- IEND
 };
@@ -427,18 +596,103 @@ void PnlWzskLiv2DView::handleDpchAppDoButStsClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
-	// IP handleDpchAppDoButStsClick --- IBEGIN
-	if (statshr.ButStsActive) {
-		// ...
-	};
-	// IP handleDpchAppDoButStsClick --- IEND
+	if (statshr.ButStsActive) snapshotArmed = true; // IP handleDpchAppDoButStsClick --- ILINE
 };
 
-void PnlWzskLiv2DView::handleDpchAppDoButTtbClick(
+void PnlWzskLiv2DView::handleDpchAppDoButTccClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
-	// IP handleDpchAppDoButTtbClick --- INSERT
+	// IP handleDpchAppDoButTccClick --- IBEGIN
+	bool takenNotAvailable, fulfilled;
+
+	muteRefresh = true;
+
+	// try ad-hoc claim
+	xchg->addCsjobClaim(dbswzsk, actservo, new Claim(true));
+	xchg->getCsjobClaim(actservo, takenNotAvailable, fulfilled);
+
+	if (fulfilled) {
+		if (!continf.ButTccOn) actservo->turn(dbswzsk, true);
+		else actservo->stop(dbswzsk);
+	};
+
+	xchg->removeCsjobClaim(dbswzsk, actservo);
+
+	refreshWithDpchEng(dbswzsk, dpcheng, true);
+	// IP handleDpchAppDoButTccClick --- IEND
+};
+
+void PnlWzskLiv2DView::handleDpchAppDoButTcwClick(
+			DbsWzsk* dbswzsk
+			, DpchEngWzsk** dpcheng
+		) {
+	// IP handleDpchAppDoButTcwClick --- IBEGIN
+	bool takenNotAvailable, fulfilled;
+
+	muteRefresh = true;
+
+	// try ad-hoc claim
+	xchg->addCsjobClaim(dbswzsk, actservo, new Claim(true));
+	xchg->getCsjobClaim(actservo, takenNotAvailable, fulfilled);
+
+	if (fulfilled) {
+		if (!continf.ButTcwOn) actservo->turn(dbswzsk, false);
+		else actservo->stop(dbswzsk);
+	};
+	
+	xchg->removeCsjobClaim(dbswzsk, actservo);
+
+	refreshWithDpchEng(dbswzsk, dpcheng, true);
+	// IP handleDpchAppDoButTcwClick --- IEND
+};
+
+void PnlWzskLiv2DView::handleDpchAppDoButLleClick(
+			DbsWzsk* dbswzsk
+			, DpchEngWzsk** dpcheng
+		) {
+	// IP handleDpchAppDoButLleClick --- IBEGIN
+	bool takenNotAvailable, fulfilled;
+
+	muteRefresh = true;
+
+	// try ad-hoc claim
+	xchg->addCsjobClaim(dbswzsk, actlaser, new Claim(true));
+	xchg->getCsjobClaim(actlaser, takenNotAvailable, fulfilled);
+
+	if (fulfilled) {
+		if (!continf.ButLleOn) actlaser->setLeft(dbswzsk, 1.0);
+		else actlaser->setLeft(dbswzsk, 0.0);
+	};
+	
+	xchg->removeCsjobClaim(dbswzsk, actlaser);
+
+	refreshWithDpchEng(dbswzsk, dpcheng, true);
+	// IP handleDpchAppDoButLleClick --- IEND
+};
+
+void PnlWzskLiv2DView::handleDpchAppDoButLriClick(
+			DbsWzsk* dbswzsk
+			, DpchEngWzsk** dpcheng
+		) {
+	// IP handleDpchAppDoButLriClick --- IBEGIN
+	bool takenNotAvailable, fulfilled;
+
+	muteRefresh = true;
+
+	// try ad-hoc claim
+	xchg->addCsjobClaim(dbswzsk, actlaser, new Claim(true));
+	xchg->getCsjobClaim(actlaser, takenNotAvailable, fulfilled);
+
+	if (fulfilled) {
+		if (!continf.ButLriOn) actlaser->setRight(dbswzsk, 1.0);
+		else actlaser->setRight(dbswzsk, 0.0);
+	};
+
+	xchg->removeCsjobClaim(dbswzsk, actlaser);
+
+	refreshWithDpchEng(dbswzsk, dpcheng, true);
+	// IP handleDpchAppDoButLriClick --- IEND
 };
 
 void PnlWzskLiv2DView::handleDpchAppDoButLtrClick(
@@ -448,9 +702,11 @@ void PnlWzskLiv2DView::handleDpchAppDoButLtrClick(
 	// IP handleDpchAppDoButLtrClick --- IBEGIN
 	muteRefresh = true;
 
-	xchg->addCsjobClaim(dbswzsk, iprtrace, new Claim(true, true));
+	// try ad-hoc claim
+	if (!continf.ButLtrOn) xchg->addCsjobClaim(dbswzsk, iprtrace, new JobWzskIprTrace::Claim(true, true, true));
+	else xchg->removeCsjobClaim(dbswzsk, iprtrace);
 
-	muteRefresh = false;
+	refreshWithDpchEng(dbswzsk, dpcheng, true);
 	// IP handleDpchAppDoButLtrClick --- IEND
 };
 
@@ -461,9 +717,11 @@ void PnlWzskLiv2DView::handleDpchAppDoButPicClick(
 	// IP handleDpchAppDoButPicClick --- IBEGIN
 	muteRefresh = true;
 
-	xchg->addCsjobClaim(dbswzsk, iprcorner, new Claim(true, true));
+	// try ad-hoc claim
+	if (!continf.ButPicOn) xchg->addCsjobClaim(dbswzsk, iprcorner, new JobWzskIprCorner::Claim(true, true, true));
+	else xchg->removeCsjobClaim(dbswzsk, iprcorner);
 
-	muteRefresh = false;
+	refreshWithDpchEng(dbswzsk, dpcheng, true);
 	// IP handleDpchAppDoButPicClick --- IEND
 };
 
@@ -471,35 +729,23 @@ void PnlWzskLiv2DView::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKSGECHG) {
-		call->abort = handleCallWzskSgeChg(dbswzsk, call->jref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSTGCHG) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKSTGCHG) {
 		call->abort = handleCallWzskStgChg(dbswzsk, call->jref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSGECHG) && (call->jref == actservo->jref)) {
+		call->abort = handleCallWzskSgeChgFromActservo(dbswzsk);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == iprtrace->jref)) {
 		call->abort = handleCallWzskShrdatChgFromIprtrace(dbswzsk, call->argInv.ix, call->argInv.sref);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == iprcorner->jref)) {
 		call->abort = handleCallWzskShrdatChgFromIprcorner(dbswzsk, call->argInv.ix, call->argInv.sref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == actlaser->jref)) {
+		call->abort = handleCallWzskShrdatChgFromActlaser(dbswzsk, call->argInv.ix, call->argInv.sref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == actexposure->jref)) {
+		call->abort = handleCallWzskShrdatChgFromActexposure(dbswzsk, call->argInv.ix, call->argInv.sref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) {
 		call->abort = handleCallWzskResultNew(dbswzsk, call->jref, call->argInv.ix, call->argInv.sref);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) && (call->jref == acqpreview->jref)) {
-		call->abort = handleCallWzskClaimChgFromAcqpreview(dbswzsk);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
+		call->abort = handleCallWzskClaimChg(dbswzsk, call->jref);
 	};
-};
-
-bool PnlWzskLiv2DView::handleCallWzskSgeChg(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-	// IP handleCallWzskSgeChg --- IBEGIN
-	set<uint> moditems;
-
-	if (!muteRefresh) {
-		refresh(dbswzsk, moditems);
-		if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	};
-	// IP handleCallWzskSgeChg --- IEND
-	return retval;
 };
 
 bool PnlWzskLiv2DView::handleCallWzskStgChg(
@@ -510,15 +756,26 @@ bool PnlWzskLiv2DView::handleCallWzskStgChg(
 	// IP handleCallWzskStgChg --- IBEGIN
 	set<uint> moditems;
 
-	if (!muteRefresh) {
-		refreshAlign(moditems);
+	refreshAlign(moditems);
 
-		if (!moditems.empty()) {
-			add(moditems, DpchEngAlign::JREF);
-			xchg->submitDpch(new DpchEngAlign(jref, &contiaccorner, &contiactrace, moditems));
-		};
+	if (!moditems.empty()) {
+		add(moditems, DpchEngAlign::JREF);
+		xchg->submitDpch(new DpchEngAlign(jref, &contiaccorner, &contiactrace, moditems));
 	};
 	// IP handleCallWzskStgChg --- IEND
+	return retval;
+};
+
+bool PnlWzskLiv2DView::handleCallWzskSgeChgFromActservo(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = false;
+	// IP handleCallWzskSgeChgFromActservo --- IBEGIN
+	set<uint> moditems;
+
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+	// IP handleCallWzskSgeChgFromActservo --- IEND
 	return retval;
 };
 
@@ -531,13 +788,11 @@ bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromIprtrace(
 	// IP handleCallWzskShrdatChgFromIprtrace --- IBEGIN
 	set<uint> moditems;
 
-	if (!muteRefresh) {
-		refreshAlign(moditems);
+	refreshAlign(moditems);
 
-		if (!moditems.empty()) {
-			add(moditems, DpchEngAlign::JREF);
-			xchg->submitDpch(new DpchEngAlign(jref, &contiaccorner, &contiactrace, moditems));
-		};
+	if (!moditems.empty()) {
+		add(moditems, DpchEngAlign::JREF);
+		xchg->submitDpch(new DpchEngAlign(jref, &contiaccorner, &contiactrace, moditems));
 	};
 	// IP handleCallWzskShrdatChgFromIprtrace --- IEND
 	return retval;
@@ -552,15 +807,43 @@ bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromIprcorner(
 	// IP handleCallWzskShrdatChgFromIprcorner --- IBEGIN
 	set<uint> moditems;
 
-	if (!muteRefresh) {
-		refreshAlign(moditems);
+	refreshAlign(moditems);
 
-		if (!moditems.empty()) {
-			add(moditems, DpchEngAlign::JREF);
-			xchg->submitDpch(new DpchEngAlign(jref, &contiaccorner, &contiactrace, moditems));
-		};
+	if (!moditems.empty()) {
+		add(moditems, DpchEngAlign::JREF);
+		xchg->submitDpch(new DpchEngAlign(jref, &contiaccorner, &contiactrace, moditems));
 	};
 	// IP handleCallWzskShrdatChgFromIprcorner --- IEND
+	return retval;
+};
+
+bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromActlaser(
+			DbsWzsk* dbswzsk
+			, const uint ixInv
+			, const string& srefInv
+		) {
+	bool retval = false;
+	// IP handleCallWzskShrdatChgFromActlaser --- IBEGIN
+	set<uint> moditems;
+
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+	// IP handleCallWzskShrdatChgFromActlaser --- IEND
+	return retval;
+};
+
+bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromActexposure(
+			DbsWzsk* dbswzsk
+			, const uint ixInv
+			, const string& srefInv
+		) {
+	bool retval = false;
+	// IP handleCallWzskShrdatChgFromActexposure --- IBEGIN
+	set<uint> moditems;
+
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+	// IP handleCallWzskShrdatChgFromActexposure --- IEND
 	return retval;
 };
 
@@ -619,6 +902,11 @@ bool PnlWzskLiv2DView::handleCallWzskResultNew(
 
 				insert(mask, DpchEngLive::GRAY);
 
+				if (snapshotArmed) {
+					takeSnapshot(dbswzsk, ixWzskVPvwmode, riGray->gr8, NULL, NULL, NULL);
+					snapshotArmed = false;
+				};
+
 			} else if (riRgb) {
 				red.resize(riRgb->sizeBuf);
 				green.resize(riRgb->sizeBuf);
@@ -631,6 +919,11 @@ bool PnlWzskLiv2DView::handleCallWzskResultNew(
 				insert(mask, DpchEngLive::RED);
 				insert(mask, DpchEngLive::GREEN);
 				insert(mask, DpchEngLive::BLUE);
+
+				if (snapshotArmed) {
+					takeSnapshot(dbswzsk, ixWzskVPvwmode, NULL, riRgb->r8, riRgb->g8, riRgb->b8);
+					snapshotArmed = false;
+				};
 			};
 		};
 
@@ -685,20 +978,16 @@ bool PnlWzskLiv2DView::handleCallWzskResultNew(
 	return retval;
 };
 
-bool PnlWzskLiv2DView::handleCallWzskClaimChgFromAcqpreview(
+bool PnlWzskLiv2DView::handleCallWzskClaimChg(
 			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
 		) {
 	bool retval = false;
-	// IP handleCallWzskClaimChgFromAcqpreview --- IBEGIN
+	// IP handleCallWzskClaimChg --- IBEGIN
 	set<uint> moditems;
 
-	if (!muteRefresh) {
-		refresh(dbswzsk, moditems);
-		if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	};
-	// IP handleCallWzskClaimChgFromAcqpreview --- IEND
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+	// IP handleCallWzskClaimChg --- IEND
 	return retval;
 };
-
-
-

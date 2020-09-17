@@ -2,8 +2,8 @@
 	* \file PnlWzskObjRec.h
 	* API code for job PnlWzskObjRec (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKOBJREC_H
@@ -65,13 +65,15 @@ namespace PnlWzskObjRec {
 
 	public:
 		static const Sbecore::uint INITDONEDETAIL = 1;
-		static const Sbecore::uint INITDONEREF1NFILE = 2;
+		static const Sbecore::uint INITDONE1NSHOT = 2;
+		static const Sbecore::uint INITDONEREF1NFILE = 3;
 
 	public:
-		StatApp(const bool initdoneDetail = false, const bool initdoneRef1NFile = false);
+		StatApp(const bool initdoneDetail = false, const bool initdone1NShot = false, const bool initdoneRef1NFile = false);
 
 	public:
 		bool initdoneDetail;
+		bool initdone1NShot;
 		bool initdoneRef1NFile;
 
 	public:
@@ -88,15 +90,17 @@ namespace PnlWzskObjRec {
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
 		static const Sbecore::uint SCRJREFDETAIL = 2;
-		static const Sbecore::uint SCRJREFREF1NFILE = 3;
-		static const Sbecore::uint BUTREGULARIZEACTIVE = 4;
+		static const Sbecore::uint SCRJREF1NSHOT = 3;
+		static const Sbecore::uint SCRJREFREF1NFILE = 4;
+		static const Sbecore::uint BUTREGULARIZEACTIVE = 5;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::REGD, const std::string& scrJrefDetail = "", const std::string& scrJrefRef1NFile = "", const bool ButRegularizeActive = true);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::REGD, const std::string& scrJrefDetail = "", const std::string& scrJref1NShot = "", const std::string& scrJrefRef1NFile = "", const bool ButRegularizeActive = true);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		std::string scrJrefDetail;
+		std::string scrJref1NShot;
 		std::string scrJrefRef1NFile;
 		bool ButRegularizeActive;
 

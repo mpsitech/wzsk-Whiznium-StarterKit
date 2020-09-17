@@ -2,8 +2,8 @@
 	* \file PnlWzskShtList_blks.cpp
 	* job handler for job PnlWzskShtList (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 using namespace std;
@@ -349,12 +349,12 @@ void PnlWzskShtList::Tag::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Shots");
 			writeStringAttr(wr, itemtag, "sref", "TcoSes", "Session");
-			writeStringAttr(wr, itemtag, "sref", "TcoObj", "Object group");
+			writeStringAttr(wr, itemtag, "sref", "TcoObj", "Object");
 			writeStringAttr(wr, itemtag, "sref", "TcoSta", "Start");
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Aufnahmen");
 			writeStringAttr(wr, itemtag, "sref", "TcoSes", "Sitzung");
-			writeStringAttr(wr, itemtag, "sref", "TcoObj", "Objektgruppe");
+			writeStringAttr(wr, itemtag, "sref", "TcoObj", "Objekt");
 			writeStringAttr(wr, itemtag, "sref", "TcoSta", "Start");
 		};
 		writeStringAttr(wr, itemtag, "sref", "TxtFor", VecWzskVTag::getTitle(VecWzskVTag::FOR, ixWzskVLocale));

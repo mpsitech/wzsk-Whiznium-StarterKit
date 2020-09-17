@@ -2,13 +2,59 @@
   * \file PnlWzskLiv2DView.js
   * web client functionality for panel PnlWzskLiv2DView
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 // IP cust --- IBEGIN
+function refreshRoi(traceNotCorner) {
+	if (!contcontdoc) return;
+
+	var blksref;
+
+	if (!traceNotCorner) blksref = "ContIacWzskLiv2DViewCorner";
+	else blksref = "ContIacWzskLiv2DViewTrace";
+
+	var Ax = retrieveCi(srcdoc, blksref, "roiAx");
+	var Ay = retrieveCi(srcdoc, blksref, "roiAy");
+	var Bx = retrieveCi(srcdoc, blksref, "roiBx");
+	var By = retrieveCi(srcdoc, blksref, "roiBy");
+	var Cx = retrieveCi(srcdoc, blksref, "roiCx");
+	var Cy = retrieveCi(srcdoc, blksref, "roiCy");
+	var Dx = retrieveCi(srcdoc, blksref, "roiDx");
+	var Dy = retrieveCi(srcdoc, blksref, "roiDy");
+
+	var d = "M " + Ax + "," + Ay + " L " + Bx + "," + By + " L " + Cx + "," + Cy + " L " + Dx + "," + Dy + " L " + Ax + "," + Ay;
+
+	if (!traceNotCorner) {
+		imgdoc.getElementById("roiCornerLine").setAttribute("d", d);
+
+		imgdoc.getElementById("roiCornerA").setAttribute("cx", Ax);
+		imgdoc.getElementById("roiCornerA").setAttribute("cy", Ay);
+		imgdoc.getElementById("roiCornerB").setAttribute("cx", Bx);
+		imgdoc.getElementById("roiCornerB").setAttribute("cy", By);
+		imgdoc.getElementById("roiCornerC").setAttribute("cx", Cx);
+		imgdoc.getElementById("roiCornerC").setAttribute("cy", Cy);
+		imgdoc.getElementById("roiCornerD").setAttribute("cx", Dx);
+		imgdoc.getElementById("roiCornerD").setAttribute("cy", Dy);
+
+	} else {
+		imgdoc.getElementById("roiTraceLineL").setAttribute("d", d);
+		imgdoc.getElementById("roiTraceLineR").setAttribute("d", d);
+
+		imgdoc.getElementById("roiTraceA").setAttribute("cx", Ax);
+		imgdoc.getElementById("roiTraceA").setAttribute("cy", Ay);
+		imgdoc.getElementById("roiTraceB").setAttribute("cx", Bx);
+		imgdoc.getElementById("roiTraceB").setAttribute("cy", By);
+		imgdoc.getElementById("roiTraceC").setAttribute("cx", Cx);
+		imgdoc.getElementById("roiTraceC").setAttribute("cy", Cy);
+		imgdoc.getElementById("roiTraceD").setAttribute("cx", Dx);
+		imgdoc.getElementById("roiTraceD").setAttribute("cy", Dy);
+	};
+};
+
 function refreshLive(mask) {
-	if (!imgdoc) return;
+	if (!contcontdoc) return;
 
 	var cvs = imgdoc.getElementById("cvs");
 	var cvsctx = cvs.getContext("2d");
@@ -22,7 +68,6 @@ function refreshLive(mask) {
 	var traceR = imgdoc.getElementById("traceR");
 
 	var scale_old = doc.scale;
-	var scale_svg;
 
 	var whbase = 0;
 
@@ -33,6 +78,14 @@ function refreshLive(mask) {
 
 	var circle;
 	var cx, cy;
+
+	// - ROI initialization
+	if (imgdoc.getElementById("roiCornerLine").getAttribute("stroke") == "none") {
+		imgdoc.getElementById("roiCornerLine").setAttribute("stroke", "blue");
+
+		refreshRoi(false);
+		refreshRoi(true);
+	};
 
 	// - scaling
 	var d = doc.imgdat.data;
@@ -57,10 +110,10 @@ function refreshLive(mask) {
 			for (var i = 0; i < 4*hCvs*wCvs; i++) d[i] = 255;
 
 			// re-scale SVG; flagging frame size is 1024x768
-			if ((1024%w) == 0) scale_svg = doc.scale / (1024/w);
-			else scale_svg = 1.0 * doc.scale / (Math.floor(1024.0/w) + 2);
+			if ((1024%w) == 0) doc.scale_svg = doc.scale / (1024/w);
+			else doc.scale_svg = 1.0 * doc.scale / (Math.floor(1024.0/w) + 2);
 
-			scaler.setAttribute("transform", "scale(" + scale_svg + " " + scale_svg + ")");
+			scaler.setAttribute("transform", "scale(" + doc.scale_svg + " " + doc.scale_svg + ")");
 		};
 
 		x0 = wCvs/2 - (doc.scale * w) / 2;
@@ -172,28 +225,53 @@ function refreshLive(mask) {
 	};
 };
 
-function refreshRoi(traceNotCorner) {
-	var blk;
+function handleRoiMov(_doc, traceNotCorner, abcd) {
+	var ctlsref = ((traceNotCorner) ? "roiTrace" : "roiCorner");
+	ctlsref += abcd;
 
-	if (!traceNotCorner) blk = "ContIacWzskLiv2DViewCorner";
-	else blk = "ContIacWzskLiv2DViewTrace";
+	_doc.getElementById(ctlsref).setAttribute("r", "10");
+};
 
-	var Ax = retrieveCi(srcdoc, blk, "roiAx");
-	var Ay = retrieveCi(srcdoc, blk, "roiAy");
-	var Bx = retrieveCi(srcdoc, blk, "roiBx");
-	var By = retrieveCi(srcdoc, blk, "roiBy");
-	var Cx = retrieveCi(srcdoc, blk, "roiCx");
-	var Cy = retrieveCi(srcdoc, blk, "roiCy");
-	var Dx = retrieveCi(srcdoc, blk, "roiDx");
-	var Dy = retrieveCi(srcdoc, blk, "roiDy");
+function handleRoiMou(_doc, traceNotCorner, abcd) {
+	var ctlsref = ((traceNotCorner) ? "roiTrace" : "roiCorner");
+	ctlsref += abcd;
 
-	var d = "M " + Ax + "," + Ay + " L " + Bx + "," + By + " L " + Cx + "," + Cy + " L " + Dx + "," + Dy + " L " + Ax + "," + Ay;
-
-	if (!traceNotCorner) imgdoc.getElementById("roiCorner").setAttribute("d", d);
-	else {
-		imgdoc.getElementById("roiTraceL").setAttribute("d", d);
-		imgdoc.getElementById("roiTraceR").setAttribute("d", d);
+	if (_doc.getElementById("divSvg").onmousemove == null) {
+		_doc.getElementById(ctlsref).setAttribute("r", "6");
 	};
+};
+
+function handleRoiMdn(_doc, traceNotCorner, abcd) {
+	var ctlsref = ((traceNotCorner) ? "RoiTrace" : "RoiCorner");
+	ctlsref += abcd;
+
+	_doc.getElementById("divSvg").setAttribute("onmousemove", "handle" + ctlsref + "Move(event)");
+	_doc.getElementById("divSvg").setAttribute("onmouseup", "handle" + ctlsref + "Mup(event)");
+};
+
+function handleRoiMove(_doc, traceNotCorner, abcd, evt) {
+	var blksref = ((traceNotCorner) ? "ContIacWzskLiv2DViewTrace" : "ContIacWzskLiv2DViewCorner");
+
+	var ctlsref = ((traceNotCorner) ? "roiTrace" : "roiCorner");
+	ctlsref += abcd;
+
+	var x = (evt.x - 345.5) / doc.scale_svg;
+	var y = (evt.y - 192.5) / doc.scale_svg;
+
+	setCi(srcdoc, blksref, "roi" + abcd + "x", "" + x);
+	setCi(srcdoc, blksref, "roi" + abcd + "y", "" + y);
+
+	refreshRoi(traceNotCorner);
+};
+
+function handleRoiMup(_doc, traceNotCorner, abcd) {
+	var blksref = ((traceNotCorner) ? "ContIacWzskLiv2DViewTrace" : "ContIacWzskLiv2DViewCorner");
+
+	_doc.getElementById("divSvg").onmousemove = null;
+	_doc.getElementById("divSvg").onmouseup = null;
+
+	var str = serializeDpchAppData(srcdoc, "DpchAppWzskLiv2DViewAlign", scrJref, blksref);
+	sendReq(str, doc, handleDpchAppDataDoReply);
 };
 // IP cust --- IEND
 
@@ -243,18 +321,21 @@ function initBD(bNotD) {
 	initCpt(hdrdoc, "Cpt", retrieveTi(srcdoc, "TagWzskLiv2DView", "Cpt"));
 	initCpt(contcontdoc, "CptPvm", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptPvm"));
 	refreshPup(contcontdoc, srcdoc, "PupPvm", "", "FeedFPupPvm", retrieveCi(srcdoc, "ContIacWzskLiv2DView", "numFPupPvm"), true, false);
-	initCpt(contcontdoc, "CptFcs", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptFcs"));
+	initCpt(contcontdoc, "CptAex", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptAex"));
 	initCpt(contcontdoc, "CptExt", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptExt"));
+	initCpt(contcontdoc, "CptFcs", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptFcs"));
 	initCpt(contcontdoc, "CptOaf", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptOaf"));
 	initBut(contcontdoc, "ButSts", retrieveTi(srcdoc, "TagWzskLiv2DView", "ButSts"));
-	initBut(contcontdoc, "ButTtb", retrieveTi(srcdoc, "TagWzskLiv2DView", "ButTtb"));
+	initCpt(contcontdoc, "HdgTtb", retrieveTi(srcdoc, "TagWzskLiv2DView", "HdgTtb"));
+	initBut(contcontdoc, "ButTcc", retrieveTi(srcdoc, "TagWzskLiv2DView", "ButTcc"));
+	initBut(contcontdoc, "ButTcw", retrieveTi(srcdoc, "TagWzskLiv2DView", "ButTcw"));
 	initCpt(contcontdoc, "HdgLor", retrieveTi(srcdoc, "TagWzskLiv2DView", "HdgLor"));
-	initCpt(contcontdoc, "CptLgl", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptLgl"));
-	initCpt(contcontdoc, "CptLle", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptLle"));
-	initCpt(contcontdoc, "CptLri", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptLri"));
+	initBut(contcontdoc, "ButLle", retrieveTi(srcdoc, "TagWzskLiv2DView", "ButLle"));
+	initBut(contcontdoc, "ButLri", retrieveTi(srcdoc, "TagWzskLiv2DView", "ButLri"));
 	initCpt(contcontdoc, "CptLlo", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptLlo"));
 	initCpt(contcontdoc, "CptLuo", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptLuo"));
 	initCpt(contcontdoc, "CptLmd", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptLmd"));
+	initCpt(contcontdoc, "CptLgl", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptLgl"));
 	initCpt(contcontdoc, "CptLro", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptLro"));
 	initBut(contcontdoc, "ButLtr", retrieveTi(srcdoc, "TagWzskLiv2DView", "ButLtr"));
 	initBut(contcontdoc, "ButLcl", retrieveTi(srcdoc, "TagWzskLiv2DView", "ButLcl"));
@@ -286,25 +367,24 @@ function refreshA() {
 function refreshBD(bNotD) {
 	if (!contcontdoc) return;
 
-	var height = 965; // full cont height
+	var height = 1004; // full cont height
 
 	// IP refreshBD.vars --- BEGIN
 	var ButClaimActive = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "ButClaimActive") == "true");
 
-	var SldFcsAvail = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldFcsAvail") == "true");
-	var SldFcsActive = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldFcsActive") == "true");
+	var ButPlayActive = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "ButPlayActive") == "true");
+	var ButStopActive = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "ButStopActive") == "true");
+
+	var ChkAexActive = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "ChkAexActive") == "true");
 
 	var SldExtAvail = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldExtAvail") == "true");
 	var SldExtActive = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldExtActive") == "true");
 
-	var ButPlayActive = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "ButPlayActive") == "true");
-	var ButStopActive = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "ButStopActive") == "true");
+	var SldFcsActive = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldFcsActive") == "true");
 
 	var TxtOafAvail = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "TxtOafAvail") == "true");
 
 	var ButStsActive = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "ButStsActive") == "true");
-
-	var ButTtbActive = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "ButTtbActive") == "true");
 
 	var UpdLloAvail = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "UpdLloAvail") == "true");
 
@@ -318,11 +398,10 @@ function refreshBD(bNotD) {
 	refreshButicon(hdrdoc, "ButClaim", "icon/claim", ButClaimActive, retrieveCi(srcdoc, "ContInfWzskLiv2DView", "ButClaimOn") == "true");
 	contcontdoc.getElementById("PupPvm").value = retrieveCi(srcdoc, "ContIacWzskLiv2DView", "numFPupPvm");
 
-	height -= setCtlAvail(contcontdoc, "Fcs", SldFcsAvail, 25);
-	if (SldFcsAvail) {
-		refreshSld(contcontdoc, "SldFcs", true, false, parseFloat(retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldFcsMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldFcsMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskLiv2DView", "SldFcs")), SldFcsActive, false);
+	refreshButicon(contcontdoc, "ButPlay", "iconwzsk/play", ButPlayActive, false);
+	refreshButicon(contcontdoc, "ButStop", "iconwzsk/stop", ButStopActive, false);
 
-	};
+	refreshChk(contcontdoc, "ChkAex", (retrieveCi(srcdoc, "ContIacWzskLiv2DView", "ChkAex") == "true"), ChkAexActive);
 
 	height -= setCtlAvail(contcontdoc, "Ext", SldExtAvail, 25);
 	if (SldExtAvail) {
@@ -330,8 +409,7 @@ function refreshBD(bNotD) {
 
 	};
 
-	refreshButicon(contcontdoc, "ButPlay", "iconwzsk/play", ButPlayActive, false);
-	refreshButicon(contcontdoc, "ButStop", "iconwzsk/stop", ButStopActive, false);
+	refreshSld(contcontdoc, "SldFcs", true, false, parseFloat(retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldFcsMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldFcsMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskLiv2DView", "SldFcs")), SldFcsActive, false);
 
 	height -= setCtlAvail(contcontdoc, "Oaf", TxtOafAvail, 25);
 	if (TxtOafAvail) {
@@ -341,13 +419,11 @@ function refreshBD(bNotD) {
 
 	refreshBut(contcontdoc, "ButSts", ButStsActive, false);
 
-	refreshBut(contcontdoc, "ButTtb", ButTtbActive, false);
+	refreshBut(contcontdoc, "ButTcc", true, retrieveCi(srcdoc, "ContInfWzskLiv2DView", "ButTccOn") == "true");
+	refreshBut(contcontdoc, "ButTcw", true, retrieveCi(srcdoc, "ContInfWzskLiv2DView", "ButTcwOn") == "true");
 
-	refreshChk(contcontdoc, "ChkLgl", (retrieveCi(srcdoc, "ContIacWzskLiv2DView", "ChkLgl") == "true"), true);
-
-	refreshSld(contcontdoc, "SldLle", true, false, parseFloat(retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldLleMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldLleMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskLiv2DView", "SldLle")), true, false);
-
-	refreshSld(contcontdoc, "SldLri", true, false, parseFloat(retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldLriMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldLriMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskLiv2DView", "SldLri")), true, false);
+	refreshBut(contcontdoc, "ButLle", true, retrieveCi(srcdoc, "ContInfWzskLiv2DView", "ButLleOn") == "true");
+	refreshBut(contcontdoc, "ButLri", true, retrieveCi(srcdoc, "ContInfWzskLiv2DView", "ButLriOn") == "true");
 
 	height -= setCtlAvail(contcontdoc, "Llo", UpdLloAvail, 25);
 	if (UpdLloAvail) {
@@ -367,23 +443,25 @@ function refreshBD(bNotD) {
 
 	};
 
+	refreshChk(contcontdoc, "ChkLgl", (retrieveCi(srcdoc, "ContIacWzskLiv2DView", "ChkLgl") == "true"), true);
+
+	//
 	var ChkLro = (retrieveCi(srcdoc, "ContIacWzskLiv2DView", "ChkLro") == "true");
 	refreshChk(contcontdoc, "ChkLro", ChkLro, true);
-	if (ChkLro) {
-		imgdoc.getElementById("roiTraceL").setAttribute("stroke", "red");
-		imgdoc.getElementById("roiTraceR").setAttribute("stroke", "green");
-	} else {
-		imgdoc.getElementById("roiTraceL").setAttribute("stroke", "none");
-		imgdoc.getElementById("roiTraceR").setAttribute("stroke", "none");
-	};
+	if (ChkLro) imgdoc.getElementById("roiTrace").setAttribute("display", "display");
+	else imgdoc.getElementById("roiTrace").setAttribute("display", "none");
+
+	refreshBut(contcontdoc, "ButLtr", true, retrieveCi(srcdoc, "ContInfWzskLiv2DView", "ButLtrOn") == "true");
 
 	refreshUpd(contcontdoc, "UpdPnt", parseInt(retrieveSi(srcdoc, "StatShrWzskLiv2DView", "UpdPntMin")), parseInt(retrieveSi(srcdoc, "StatShrWzskLiv2DView", "UpdPntMax")), parseInt(retrieveCi(srcdoc, "ContIacWzskLiv2DView", "UpdPnt")), true, false);
 
+	//
 	var ChkPro = (retrieveCi(srcdoc, "ContIacWzskLiv2DView", "ChkPro") == "true");
 	refreshChk(contcontdoc, "ChkPro", ChkPro, true);
-	if (ChkPro) imgdoc.getElementById("roiCorner").setAttribute("stroke", "blue");
-	else imgdoc.getElementById("roiCorner").setAttribute("stroke", "none");
+	if (ChkPro) imgdoc.getElementById("roiCorner").setAttribute("display", "display");
+	else imgdoc.getElementById("roiCorner").setAttribute("display", "none");
 
+	refreshBut(contcontdoc, "ButPic", true, retrieveCi(srcdoc, "ContInfWzskLiv2DView", "ButPicOn") == "true");
 	// IP refreshBD --- REND
 
 	getCrdwnd().changeHeight("2DView", height+31);
@@ -427,6 +505,7 @@ function handleCusImgLoad(cusdoc) {
 	var cvs = imgdoc.getElementById("cvs");
 	
 	doc.scale = 1.0;
+	doc.scale_svg = 1.0;
 
 	doc.imgdat = cvs.getContext("2d").createImageData(cvs.width, cvs.height);
 	// IP handleCusImgLoad --- IEND
@@ -871,26 +950,11 @@ function handleDpchEng(dom, dpch) {
 		} else {
 			refresh();
 		};
-	} else if (dpch == "DpchEngWzskLiv2DViewAlign") {
-		handleDpchEngWzskLiv2DViewAlign(dom);
 	} else if (dpch == "DpchEngWzskLiv2DViewLive") {
 		handleDpchEngWzskLiv2DViewLive(dom);
+	} else if (dpch == "DpchEngWzskLiv2DViewAlign") {
+		handleDpchEngWzskLiv2DViewAlign(dom);
 	};
-};
-
-function handleDpchEngWzskLiv2DViewAlign(dom) {
-	// IP handleDpchEngWzskLiv2DViewAlign --- IBEGIN
-	var mask = [];
-
-	if (updateSrcblock(dom, "DpchEngWzskLiv2DViewAlign", "ContIacWzskLiv2DViewCorner", srcdoc)) mask.push("contiaccorner");
-	if (updateSrcblock(dom, "DpchEngWzskLiv2DViewAlign", "ContIacWzskLiv2DViewTrace", srcdoc)) mask.push("contiactrace");
-
-	var srefIxWzskVExpstate = retrieveSi(srcdoc, "StatShrWzskLiv2DView", "srefIxWzskVExpstate");
-	if (srefIxWzskVExpstate == "regd") {
-		if (mask.indexOf("contiaccorner") != -1) refreshRoi(false);
-		if (mask.indexOf("contiactrace") != -1) refreshRoi(true);
-	};
-	// IP handleDpchEngWzskLiv2DViewAlign --- IEND
 };
 
 function handleDpchEngWzskLiv2DViewLive(dom) {
@@ -969,6 +1033,21 @@ function handleDpchEngWzskLiv2DViewLive(dom) {
 	// IP handleDpchEngWzskLiv2DViewLive --- IEND
 };
 
+function handleDpchEngWzskLiv2DViewAlign(dom) {
+	// IP handleDpchEngWzskLiv2DViewAlign --- IBEGIN
+	var mask = [];
+
+	if (updateSrcblock(dom, "DpchEngWzskLiv2DViewAlign", "ContIacWzskLiv2DViewCorner", srcdoc)) mask.push("contiaccorner");
+	if (updateSrcblock(dom, "DpchEngWzskLiv2DViewAlign", "ContIacWzskLiv2DViewTrace", srcdoc)) mask.push("contiactrace");
+
+	//var srefIxWzskVExpstate = retrieveSi(srcdoc, "StatShrWzskLiv2DView", "srefIxWzskVExpstate");
+	//if (srefIxWzskVExpstate == "regd") {
+		if (mask.indexOf("contiaccorner") != -1) refreshRoi(false);
+		if (mask.indexOf("contiactrace") != -1) refreshRoi(true);
+	//};
+	// IP handleDpchEngWzskLiv2DViewAlign --- IEND
+};
+
 function handleDpchAppInitReply() {
 	var dom, blk;
 
@@ -1018,6 +1097,9 @@ function handleDpchAppDataDoReply() {
 				} else {
 					refresh();
 				};
+
+			} else if (blk.nodeName == "DpchEngWzskLiv2DViewAlign") {
+				handleDpchEngWzskLiv2DViewAlign(dom);
 			};
 		};
 	};

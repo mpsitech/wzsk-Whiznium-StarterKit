@@ -2,8 +2,8 @@
 # file makeall.sh
 # make script for Wzsk database access library, release dbswzsk_arty(linux (ubt_x86_64) cross-compilation)
 # author Catherine Johnson
-# date created: 23 Jul 2020
-# modified: 23 Jul 2020
+# date created: 16 Sep 2020
+# modified: 16 Sep 2020
 
 make DbsWzsk.h.gch
 if [ $? -ne 0 ]; then

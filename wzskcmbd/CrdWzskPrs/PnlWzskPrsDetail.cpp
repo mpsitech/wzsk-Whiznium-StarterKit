@@ -2,8 +2,8 @@
 	* \file PnlWzskPrsDetail.cpp
 	* job handler for job PnlWzskPrsDetail (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -204,7 +204,11 @@ void PnlWzskPrsDetail::refreshRecPrsJlnm(
 void PnlWzskPrsDetail::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
+			, const bool unmute
 		) {
+	if (muteRefresh && !unmute) return;
+	muteRefresh = true;
+
 	StatShr oldStatshr(statshr);
 
 	// IP refresh --- BEGIN
@@ -214,6 +218,8 @@ void PnlWzskPrsDetail::refresh(
 	// IP refresh --- END
 
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+
+	muteRefresh = false;
 };
 
 void PnlWzskPrsDetail::updatePreset(

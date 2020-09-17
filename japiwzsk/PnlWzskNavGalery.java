@@ -2,8 +2,8 @@
   * \file PnlWzskNavGalery.java
   * Java API code for job PnlWzskNavGalery
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 package apiwzsk;
@@ -319,10 +319,8 @@ public class PnlWzskNavGalery {
 		public static final int BUTSESVIEWACTIVE = 6;
 		public static final int LSTSHTAVAIL = 7;
 		public static final int BUTSHTVIEWACTIVE = 8;
-		public static final int BUTSHTNEWCRDACTIVE = 9;
-		public static final int LSTFILAVAIL = 10;
-		public static final int BUTFILVIEWACTIVE = 11;
-		public static final int BUTFILNEWCRDACTIVE = 12;
+		public static final int LSTFILAVAIL = 9;
+		public static final int BUTFILVIEWACTIVE = 10;
 
 		public StatShr(
 					boolean LstOgrAvail
@@ -333,10 +331,8 @@ public class PnlWzskNavGalery {
 					, boolean ButSesViewActive
 					, boolean LstShtAvail
 					, boolean ButShtViewActive
-					, boolean ButShtNewcrdActive
 					, boolean LstFilAvail
 					, boolean ButFilViewActive
-					, boolean ButFilNewcrdActive
 				) {
 			this.LstOgrAvail = LstOgrAvail;
 			this.ButOgrViewActive = ButOgrViewActive;
@@ -346,12 +342,10 @@ public class PnlWzskNavGalery {
 			this.ButSesViewActive = ButSesViewActive;
 			this.LstShtAvail = LstShtAvail;
 			this.ButShtViewActive = ButShtViewActive;
-			this.ButShtNewcrdActive = ButShtNewcrdActive;
 			this.LstFilAvail = LstFilAvail;
 			this.ButFilViewActive = ButFilViewActive;
-			this.ButFilNewcrdActive = ButFilNewcrdActive;
 
-			mask = new HashSet<Integer>(Arrays.asList(LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, BUTSHTNEWCRDACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE, BUTFILNEWCRDACTIVE));
+			mask = new HashSet<Integer>(Arrays.asList(LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE));
 		};
 
 		public boolean LstOgrAvail;
@@ -362,10 +356,8 @@ public class PnlWzskNavGalery {
 		public boolean ButSesViewActive;
 		public boolean LstShtAvail;
 		public boolean ButShtViewActive;
-		public boolean ButShtNewcrdActive;
 		public boolean LstFilAvail;
 		public boolean ButFilViewActive;
-		public boolean ButFilNewcrdActive;
 
 		public boolean readXML(
 					Document doc
@@ -388,10 +380,8 @@ public class PnlWzskNavGalery {
 				ButSesViewActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButSesViewActive", mask, BUTSESVIEWACTIVE);
 				LstShtAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "LstShtAvail", mask, LSTSHTAVAIL);
 				ButShtViewActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButShtViewActive", mask, BUTSHTVIEWACTIVE);
-				ButShtNewcrdActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButShtNewcrdActive", mask, BUTSHTNEWCRDACTIVE);
 				LstFilAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "LstFilAvail", mask, LSTFILAVAIL);
 				ButFilViewActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButFilViewActive", mask, BUTFILVIEWACTIVE);
-				ButFilNewcrdActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButFilNewcrdActive", mask, BUTFILNEWCRDACTIVE);
 
 				return true;
 			};
@@ -412,10 +402,8 @@ public class PnlWzskNavGalery {
 			if (ButSesViewActive == comp.ButSesViewActive) items.add(BUTSESVIEWACTIVE);
 			if (LstShtAvail == comp.LstShtAvail) items.add(LSTSHTAVAIL);
 			if (ButShtViewActive == comp.ButShtViewActive) items.add(BUTSHTVIEWACTIVE);
-			if (ButShtNewcrdActive == comp.ButShtNewcrdActive) items.add(BUTSHTNEWCRDACTIVE);
 			if (LstFilAvail == comp.LstFilAvail) items.add(LSTFILAVAIL);
 			if (ButFilViewActive == comp.ButFilViewActive) items.add(BUTFILVIEWACTIVE);
-			if (ButFilNewcrdActive == comp.ButFilNewcrdActive) items.add(BUTFILNEWCRDACTIVE);
 
 			return(items);
 		};
@@ -428,7 +416,7 @@ public class PnlWzskNavGalery {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, BUTSHTNEWCRDACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE, BUTFILNEWCRDACTIVE));
+			diffitems = new HashSet<Integer>(Arrays.asList(LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -666,7 +654,7 @@ public class PnlWzskNavGalery {
 			feedFLstSes = new Feed("FeedFLstSes");
 			feedFLstSht = new Feed("FeedFLstSht");
 			statapp = new StatApp(0, false, false, false, false, false, 0, 0, 0, 0, 0);
-			statshr = new StatShr(false, false, false, false, false, false, false, false, false, false, false, false);
+			statshr = new StatShr(false, false, false, false, false, false, false, false, false, false);
 			tag = new Tag("", "", "", "", "", "");
 		};
 
@@ -727,7 +715,7 @@ public class PnlWzskNavGalery {
 				feedFLstSes = new Feed("FeedFLstSes");
 				feedFLstSht = new Feed("FeedFLstSht");
 				statapp = new StatApp(0, false, false, false, false, false, 0, 0, 0, 0, 0);
-				statshr = new StatShr(false, false, false, false, false, false, false, false, false, false, false, false);
+				statshr = new StatShr(false, false, false, false, false, false, false, false, false, false);
 				tag = new Tag("", "", "", "", "", "");
 			};
 		};

@@ -2,8 +2,8 @@
 	* \file M2msessWzsk.cpp
 	* API code for job M2msessWzsk (implementation)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #include "M2msessWzsk.h"
@@ -19,21 +19,25 @@ using namespace Xmlio;
 M2msessWzsk::StatShr::StatShr(
 			const string& scrJrefAcqpreview
 			, const string& scrJrefAcqptcloud
+			, const string& scrJrefActexposure
 			, const string& scrJrefActlaser
 			, const string& scrJrefActservo
 			, const string& scrJrefIprcorner
 			, const string& scrJrefIprtrace
+			, const string& scrJrefSrcsysinfo
 		) :
 			Block()
 		{
 	this->scrJrefAcqpreview = scrJrefAcqpreview;
 	this->scrJrefAcqptcloud = scrJrefAcqptcloud;
+	this->scrJrefActexposure = scrJrefActexposure;
 	this->scrJrefActlaser = scrJrefActlaser;
 	this->scrJrefActservo = scrJrefActservo;
 	this->scrJrefIprcorner = scrJrefIprcorner;
 	this->scrJrefIprtrace = scrJrefIprtrace;
+	this->scrJrefSrcsysinfo = scrJrefSrcsysinfo;
 
-	mask = {SCRJREFACQPREVIEW, SCRJREFACQPTCLOUD, SCRJREFACTLASER, SCRJREFACTSERVO, SCRJREFIPRCORNER, SCRJREFIPRTRACE};
+	mask = {SCRJREFACQPREVIEW, SCRJREFACQPTCLOUD, SCRJREFACTEXPOSURE, SCRJREFACTLASER, SCRJREFACTSERVO, SCRJREFIPRCORNER, SCRJREFIPRTRACE, SCRJREFSRCSYSINFO};
 };
 
 bool M2msessWzsk::StatShr::readXML(
@@ -55,10 +59,12 @@ bool M2msessWzsk::StatShr::readXML(
 	if (basefound) {
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefAcqpreview", scrJrefAcqpreview)) add(SCRJREFACQPREVIEW);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefAcqptcloud", scrJrefAcqptcloud)) add(SCRJREFACQPTCLOUD);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefActexposure", scrJrefActexposure)) add(SCRJREFACTEXPOSURE);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefActlaser", scrJrefActlaser)) add(SCRJREFACTLASER);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefActservo", scrJrefActservo)) add(SCRJREFACTSERVO);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefIprcorner", scrJrefIprcorner)) add(SCRJREFIPRCORNER);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefIprtrace", scrJrefIprtrace)) add(SCRJREFIPRTRACE);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefSrcsysinfo", scrJrefSrcsysinfo)) add(SCRJREFSRCSYSINFO);
 	};
 
 	return basefound;
@@ -71,10 +77,12 @@ set<uint> M2msessWzsk::StatShr::comm(
 
 	if (scrJrefAcqpreview == comp->scrJrefAcqpreview) insert(items, SCRJREFACQPREVIEW);
 	if (scrJrefAcqptcloud == comp->scrJrefAcqptcloud) insert(items, SCRJREFACQPTCLOUD);
+	if (scrJrefActexposure == comp->scrJrefActexposure) insert(items, SCRJREFACTEXPOSURE);
 	if (scrJrefActlaser == comp->scrJrefActlaser) insert(items, SCRJREFACTLASER);
 	if (scrJrefActservo == comp->scrJrefActservo) insert(items, SCRJREFACTSERVO);
 	if (scrJrefIprcorner == comp->scrJrefIprcorner) insert(items, SCRJREFIPRCORNER);
 	if (scrJrefIprtrace == comp->scrJrefIprtrace) insert(items, SCRJREFIPRTRACE);
+	if (scrJrefSrcsysinfo == comp->scrJrefSrcsysinfo) insert(items, SCRJREFSRCSYSINFO);
 
 	return(items);
 };
@@ -87,7 +95,7 @@ set<uint> M2msessWzsk::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {SCRJREFACQPREVIEW, SCRJREFACQPTCLOUD, SCRJREFACTLASER, SCRJREFACTSERVO, SCRJREFIPRCORNER, SCRJREFIPRTRACE};
+	diffitems = {SCRJREFACQPREVIEW, SCRJREFACQPTCLOUD, SCRJREFACTEXPOSURE, SCRJREFACTLASER, SCRJREFACTSERVO, SCRJREFIPRCORNER, SCRJREFIPRTRACE, SCRJREFSRCSYSINFO};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

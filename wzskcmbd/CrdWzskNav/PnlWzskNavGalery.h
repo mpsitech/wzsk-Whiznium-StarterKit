@@ -2,8 +2,8 @@
 	* \file PnlWzskNavGalery.h
 	* job handler for job PnlWzskNavGalery (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef PNLWZSKNAVGALERY_H
@@ -103,13 +103,11 @@ public:
 		static const Sbecore::uint BUTSESVIEWACTIVE = 6;
 		static const Sbecore::uint LSTSHTAVAIL = 7;
 		static const Sbecore::uint BUTSHTVIEWACTIVE = 8;
-		static const Sbecore::uint BUTSHTNEWCRDACTIVE = 9;
-		static const Sbecore::uint LSTFILAVAIL = 10;
-		static const Sbecore::uint BUTFILVIEWACTIVE = 11;
-		static const Sbecore::uint BUTFILNEWCRDACTIVE = 12;
+		static const Sbecore::uint LSTFILAVAIL = 9;
+		static const Sbecore::uint BUTFILVIEWACTIVE = 10;
 
 	public:
-		StatShr(const bool LstOgrAvail = true, const bool ButOgrViewActive = true, const bool LstObjAvail = true, const bool ButObjViewActive = true, const bool LstSesAvail = true, const bool ButSesViewActive = true, const bool LstShtAvail = true, const bool ButShtViewActive = true, const bool ButShtNewcrdActive = true, const bool LstFilAvail = true, const bool ButFilViewActive = true, const bool ButFilNewcrdActive = true);
+		StatShr(const bool LstOgrAvail = true, const bool ButOgrViewActive = true, const bool LstObjAvail = true, const bool ButObjViewActive = true, const bool LstSesAvail = true, const bool ButSesViewActive = true, const bool LstShtAvail = true, const bool ButShtViewActive = true, const bool LstFilAvail = true, const bool ButFilViewActive = true);
 
 	public:
 		bool LstOgrAvail;
@@ -120,10 +118,8 @@ public:
 		bool ButSesViewActive;
 		bool LstShtAvail;
 		bool ButShtViewActive;
-		bool ButShtNewcrdActive;
 		bool LstFilAvail;
 		bool ButFilViewActive;
-		bool ButFilNewcrdActive;
 
 	public:
 		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
@@ -227,10 +223,8 @@ public:
 	bool evalButSesViewActive(DbsWzsk* dbswzsk);
 	bool evalLstShtAvail(DbsWzsk* dbswzsk);
 	bool evalButShtViewActive(DbsWzsk* dbswzsk);
-	bool evalButShtNewcrdActive(DbsWzsk* dbswzsk);
 	bool evalLstFilAvail(DbsWzsk* dbswzsk);
 	bool evalButFilViewActive(DbsWzsk* dbswzsk);
-	bool evalButFilNewcrdActive(DbsWzsk* dbswzsk);
 
 public:
 	PnlWzskNavGalery(XchgWzsk* xchg, DbsWzsk* dbswzsk, const Sbecore::ubigint jrefSup, const Sbecore::uint ixWzskVLocale);
@@ -264,7 +258,7 @@ public:
 	void refreshSht(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
 	void refreshLstFil(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
 	void refreshFil(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 
 	void updatePreset(DbsWzsk* dbswzsk, const Sbecore::uint ixWzskVPreset, const Sbecore::ubigint jrefTrig, const bool notif = false);
 

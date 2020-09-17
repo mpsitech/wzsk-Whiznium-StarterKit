@@ -2,8 +2,8 @@
 	* \file Wzskcmbd.h
 	* inter-thread exchange object for Wzsk combined daemon (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef WZSKCMBD_H
@@ -661,8 +661,8 @@ public:
 public:
 	virtual DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
 
-	virtual void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
-	void refreshWithDpchEng(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng = NULL);
+	virtual void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
+	void refreshWithDpchEng(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng = NULL, const bool unmute = false);
 
 	virtual std::string getSquawk(DbsWzsk* dbswzsk);
 
@@ -1072,8 +1072,8 @@ public:
 	// client/server job methods
 	void addCsjobClaim(DbsWzsk* dbswzsk, CsjobWzsk* csjob, Sbecore::Claim* claim);
 
-	void getCsjobClaim(CsjobWzsk* csjob, bool& takenNotAvailable, bool& fulfilled, bool& run);
-	void getCsjobClaim(CsjobWzsk* csjob, bool& takenNotAvailable, bool& fulfilled);
+	bool getCsjobClaim(CsjobWzsk* csjob, bool& takenNotAvailable, bool& fulfilled, bool& run);
+	bool getCsjobClaim(CsjobWzsk* csjob, bool& takenNotAvailable, bool& fulfilled);
 
 	void clearCsjobRun(DbsWzsk* dbswzsk, const Sbecore::uint ixWzskVJob);
 

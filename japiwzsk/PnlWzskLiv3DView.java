@@ -2,8 +2,8 @@
   * \file PnlWzskLiv3DView.java
   * Java API code for job PnlWzskLiv3DView
   * \author Catherine Johnson
-  * \date created: 23 Jul 2020
-  * \date modified: 23 Jul 2020
+  * \date created: 16 Sep 2020
+  * \date modified: 16 Sep 2020
   */
 
 package apiwzsk;
@@ -21,9 +21,8 @@ public class PnlWzskLiv3DView {
 		public static final int BUTREGULARIZECLICK = 1;
 		public static final int BUTMINIMIZECLICK = 2;
 		public static final int BUTCLAIMCLICK = 3;
-		public static final int BUTPLAYCLICK = 4;
-		public static final int BUTSTOPCLICK = 5;
-		public static final int BUTASTCLICK = 6;
+		public static final int BUTASRCLICK = 4;
+		public static final int BUTAIRCLICK = 5;
 
 		public static int getIx(
 					String sref
@@ -33,9 +32,8 @@ public class PnlWzskLiv3DView {
 			if (s.equals("butregularizeclick")) return BUTREGULARIZECLICK;
 			if (s.equals("butminimizeclick")) return BUTMINIMIZECLICK;
 			if (s.equals("butclaimclick")) return BUTCLAIMCLICK;
-			if (s.equals("butplayclick")) return BUTPLAYCLICK;
-			if (s.equals("butstopclick")) return BUTSTOPCLICK;
-			if (s.equals("butastclick")) return BUTASTCLICK;
+			if (s.equals("butasrclick")) return BUTASRCLICK;
+			if (s.equals("butairclick")) return BUTAIRCLICK;
 
 			return 0;
 		};
@@ -46,11 +44,95 @@ public class PnlWzskLiv3DView {
 			if (ix == BUTREGULARIZECLICK) return("ButRegularizeClick");
 			if (ix == BUTMINIMIZECLICK) return("ButMinimizeClick");
 			if (ix == BUTCLAIMCLICK) return("ButClaimClick");
-			if (ix == BUTPLAYCLICK) return("ButPlayClick");
-			if (ix == BUTSTOPCLICK) return("ButStopClick");
-			if (ix == BUTASTCLICK) return("ButAstClick");
+			if (ix == BUTASRCLICK) return("ButAsrClick");
+			if (ix == BUTAIRCLICK) return("ButAirClick");
 
 			return "";
+		};
+
+	};
+
+	/**
+	  * ContIac (full: ContIacWzskLiv3DView)
+	  */
+	public class ContIac extends Block {
+
+		public static final int SLDAIN = 1;
+
+		public ContIac(
+					double SldAin
+				) {
+			this.SldAin = SldAin;
+
+			mask = new HashSet<Integer>(Arrays.asList(SLDAIN));
+		};
+
+		public double SldAin;
+
+		public boolean readXML(
+					Document doc
+					, String basexpath
+					, boolean addbasetag
+				) {
+
+			clear();
+
+			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "ContIacWzskLiv3DView");
+
+			String itemtag = "ContitemIacWzskLiv3DView";
+
+			if (Xmlio.checkXPath(doc, basexpath)) {
+				SldAin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "SldAin", mask, SLDAIN);
+
+				return true;
+			};
+
+			return false;
+		};
+
+		public void writeXML(
+					Document doc
+					, Element sup
+					, String difftag
+					, boolean shorttags
+				) {
+			if (difftag.isEmpty()) difftag = "ContIacWzskLiv3DView";
+
+			String itemtag;
+
+			if (shorttags) itemtag = "Ci";
+			else itemtag = "ContitemIacWzskLiv3DView";
+
+			Element el = doc.createElement(difftag);
+
+			if (sup == null) doc.appendChild(el);
+			else sup.appendChild(el);
+
+			Xmlio.writeDoubleAttr(doc, el, itemtag, "sref", "SldAin", SldAin);
+		};
+
+		public HashSet<Integer> comm(
+					ContIac comp
+				) {
+			HashSet<Integer> items = new HashSet<Integer>();
+
+			if (Xmlio.compareDouble(SldAin, comp.SldAin) < 1.0e-4) items.add(SLDAIN);
+
+			return(items);
+		};
+
+		public HashSet<Integer> diff(
+					ContIac comp
+				) {
+			HashSet<Integer> commitems;
+			HashSet<Integer> diffitems;
+
+			commitems = comm(comp);
+
+			diffitems = new HashSet<Integer>(Arrays.asList(SLDAIN));
+			for (Integer ci: commitems) diffitems.remove(ci);
+
+			return(diffitems);
 		};
 
 	};
@@ -132,6 +214,76 @@ public class PnlWzskLiv3DView {
 	};
 
 	/**
+	  * StatApp (full: StatAppWzskLiv3DView)
+	  */
+	public class StatApp extends Block {
+
+		public static final int BUTPLAYACTIVE = 1;
+		public static final int BUTSTOPACTIVE = 2;
+
+		public StatApp(
+					boolean ButPlayActive
+					, boolean ButStopActive
+				) {
+			this.ButPlayActive = ButPlayActive;
+			this.ButStopActive = ButStopActive;
+
+			mask = new HashSet<Integer>(Arrays.asList(BUTPLAYACTIVE, BUTSTOPACTIVE));
+		};
+
+		public boolean ButPlayActive;
+		public boolean ButStopActive;
+
+		public boolean readXML(
+					Document doc
+					, String basexpath
+					, boolean addbasetag
+				) {
+
+			clear();
+
+			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "StatAppWzskLiv3DView");
+
+			String itemtag = "StatitemAppWzskLiv3DView";
+
+			if (Xmlio.checkXPath(doc, basexpath)) {
+				ButPlayActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButPlayActive", mask, BUTPLAYACTIVE);
+				ButStopActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButStopActive", mask, BUTSTOPACTIVE);
+
+				return true;
+			};
+
+			return false;
+		};
+
+		public HashSet<Integer> comm(
+					StatApp comp
+				) {
+			HashSet<Integer> items = new HashSet<Integer>();
+
+			if (ButPlayActive == comp.ButPlayActive) items.add(BUTPLAYACTIVE);
+			if (ButStopActive == comp.ButStopActive) items.add(BUTSTOPACTIVE);
+
+			return(items);
+		};
+
+		public HashSet<Integer> diff(
+					StatApp comp
+				) {
+			HashSet<Integer> commitems;
+			HashSet<Integer> diffitems;
+
+			commitems = comm(comp);
+
+			diffitems = new HashSet<Integer>(Arrays.asList(BUTPLAYACTIVE, BUTSTOPACTIVE));
+			for (Integer ci: commitems) diffitems.remove(ci);
+
+			return(diffitems);
+		};
+
+	};
+
+	/**
 	  * StatShr (full: StatShrWzskLiv3DView)
 	  */
 	public class StatShr extends Block {
@@ -142,10 +294,13 @@ public class PnlWzskLiv3DView {
 		public static final int SLDTREHMAX = 4;
 		public static final int SLDTREVMIN = 5;
 		public static final int SLDTREVMAX = 6;
-		public static final int BUTPLAYACTIVE = 7;
-		public static final int BUTSTOPACTIVE = 8;
-		public static final int TXTAOAAVAIL = 9;
-		public static final int BUTASTACTIVE = 10;
+		public static final int SLDAINACTIVE = 7;
+		public static final int SLDAINMIN = 8;
+		public static final int SLDAINMAX = 9;
+		public static final int SLDAINRAST = 10;
+		public static final int TXTAOAAVAIL = 11;
+		public static final int BUTASRACTIVE = 12;
+		public static final int BUTAIRACTIVE = 13;
 
 		public StatShr(
 					int ixWzskVExpstate
@@ -154,10 +309,13 @@ public class PnlWzskLiv3DView {
 					, double SldTreHMax
 					, double SldTreVMin
 					, double SldTreVMax
-					, boolean ButPlayActive
-					, boolean ButStopActive
+					, boolean SldAinActive
+					, double SldAinMin
+					, double SldAinMax
+					, double SldAinRast
 					, boolean TxtAoaAvail
-					, boolean ButAstActive
+					, boolean ButAsrActive
+					, boolean ButAirActive
 				) {
 			this.ixWzskVExpstate = ixWzskVExpstate;
 			this.ButClaimActive = ButClaimActive;
@@ -165,12 +323,15 @@ public class PnlWzskLiv3DView {
 			this.SldTreHMax = SldTreHMax;
 			this.SldTreVMin = SldTreVMin;
 			this.SldTreVMax = SldTreVMax;
-			this.ButPlayActive = ButPlayActive;
-			this.ButStopActive = ButStopActive;
+			this.SldAinActive = SldAinActive;
+			this.SldAinMin = SldAinMin;
+			this.SldAinMax = SldAinMax;
+			this.SldAinRast = SldAinRast;
 			this.TxtAoaAvail = TxtAoaAvail;
-			this.ButAstActive = ButAstActive;
+			this.ButAsrActive = ButAsrActive;
+			this.ButAirActive = ButAirActive;
 
-			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTREHMIN, SLDTREHMAX, SLDTREVMIN, SLDTREVMAX, BUTPLAYACTIVE, BUTSTOPACTIVE, TXTAOAAVAIL, BUTASTACTIVE));
+			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTREHMIN, SLDTREHMAX, SLDTREVMIN, SLDTREVMAX, SLDAINACTIVE, SLDAINMIN, SLDAINMAX, SLDAINRAST, TXTAOAAVAIL, BUTASRACTIVE, BUTAIRACTIVE));
 		};
 
 		public int ixWzskVExpstate;
@@ -179,10 +340,13 @@ public class PnlWzskLiv3DView {
 		public double SldTreHMax;
 		public double SldTreVMin;
 		public double SldTreVMax;
-		public boolean ButPlayActive;
-		public boolean ButStopActive;
+		public boolean SldAinActive;
+		public double SldAinMin;
+		public double SldAinMax;
+		public double SldAinRast;
 		public boolean TxtAoaAvail;
-		public boolean ButAstActive;
+		public boolean ButAsrActive;
+		public boolean ButAirActive;
 
 		public boolean readXML(
 					Document doc
@@ -205,10 +369,13 @@ public class PnlWzskLiv3DView {
 				SldTreHMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldTreHMax", mask, SLDTREHMAX);
 				SldTreVMin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldTreVMin", mask, SLDTREVMIN);
 				SldTreVMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldTreVMax", mask, SLDTREVMAX);
-				ButPlayActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButPlayActive", mask, BUTPLAYACTIVE);
-				ButStopActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButStopActive", mask, BUTSTOPACTIVE);
+				SldAinActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldAinActive", mask, SLDAINACTIVE);
+				SldAinMin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldAinMin", mask, SLDAINMIN);
+				SldAinMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldAinMax", mask, SLDAINMAX);
+				SldAinRast = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldAinRast", mask, SLDAINRAST);
 				TxtAoaAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "TxtAoaAvail", mask, TXTAOAAVAIL);
-				ButAstActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButAstActive", mask, BUTASTACTIVE);
+				ButAsrActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButAsrActive", mask, BUTASRACTIVE);
+				ButAirActive = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "ButAirActive", mask, BUTAIRACTIVE);
 
 				return true;
 			};
@@ -227,10 +394,13 @@ public class PnlWzskLiv3DView {
 			if (Xmlio.compareDouble(SldTreHMax, comp.SldTreHMax) < 1.0e-4) items.add(SLDTREHMAX);
 			if (Xmlio.compareDouble(SldTreVMin, comp.SldTreVMin) < 1.0e-4) items.add(SLDTREVMIN);
 			if (Xmlio.compareDouble(SldTreVMax, comp.SldTreVMax) < 1.0e-4) items.add(SLDTREVMAX);
-			if (ButPlayActive == comp.ButPlayActive) items.add(BUTPLAYACTIVE);
-			if (ButStopActive == comp.ButStopActive) items.add(BUTSTOPACTIVE);
+			if (SldAinActive == comp.SldAinActive) items.add(SLDAINACTIVE);
+			if (Xmlio.compareDouble(SldAinMin, comp.SldAinMin) < 1.0e-4) items.add(SLDAINMIN);
+			if (Xmlio.compareDouble(SldAinMax, comp.SldAinMax) < 1.0e-4) items.add(SLDAINMAX);
+			if (Xmlio.compareDouble(SldAinRast, comp.SldAinRast) < 1.0e-4) items.add(SLDAINRAST);
 			if (TxtAoaAvail == comp.TxtAoaAvail) items.add(TXTAOAAVAIL);
-			if (ButAstActive == comp.ButAstActive) items.add(BUTASTACTIVE);
+			if (ButAsrActive == comp.ButAsrActive) items.add(BUTASRACTIVE);
+			if (ButAirActive == comp.ButAirActive) items.add(BUTAIRACTIVE);
 
 			return(items);
 		};
@@ -243,7 +413,7 @@ public class PnlWzskLiv3DView {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTREHMIN, SLDTREHMAX, SLDTREVMIN, SLDTREVMAX, BUTPLAYACTIVE, BUTSTOPACTIVE, TXTAOAAVAIL, BUTASTACTIVE));
+			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTREHMIN, SLDTREHMAX, SLDTREVMIN, SLDTREVMAX, SLDAINACTIVE, SLDAINMIN, SLDAINMAX, SLDAINRAST, TXTAOAAVAIL, BUTASRACTIVE, BUTAIRACTIVE));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -258,31 +428,39 @@ public class PnlWzskLiv3DView {
 
 		public static final int CPT = 1;
 		public static final int HDGACQ = 2;
-		public static final int CPTAST = 3;
-		public static final int CPTAOA = 4;
-		public static final int BUTAST = 5;
+		public static final int CPTAIN = 3;
+		public static final int CPTAST = 4;
+		public static final int CPTAOA = 5;
+		public static final int BUTASR = 6;
+		public static final int BUTAIR = 7;
 
 		public Tag(
 					String Cpt
 					, String HdgAcq
+					, String CptAin
 					, String CptAst
 					, String CptAoa
-					, String ButAst
+					, String ButAsr
+					, String ButAir
 				) {
 			this.Cpt = Cpt;
 			this.HdgAcq = HdgAcq;
+			this.CptAin = CptAin;
 			this.CptAst = CptAst;
 			this.CptAoa = CptAoa;
-			this.ButAst = ButAst;
+			this.ButAsr = ButAsr;
+			this.ButAir = ButAir;
 
-			mask = new HashSet<Integer>(Arrays.asList(CPT, HDGACQ, CPTAST, CPTAOA, BUTAST));
+			mask = new HashSet<Integer>(Arrays.asList(CPT, HDGACQ, CPTAIN, CPTAST, CPTAOA, BUTASR, BUTAIR));
 		};
 
 		public String Cpt;
 		public String HdgAcq;
+		public String CptAin;
 		public String CptAst;
 		public String CptAoa;
-		public String ButAst;
+		public String ButAsr;
+		public String ButAir;
 
 		public boolean readXML(
 					Document doc
@@ -299,9 +477,11 @@ public class PnlWzskLiv3DView {
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				Cpt = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "Cpt", mask, CPT);
 				HdgAcq = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "HdgAcq", mask, HDGACQ);
+				CptAin = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptAin", mask, CPTAIN);
 				CptAst = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptAst", mask, CPTAST);
 				CptAoa = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptAoa", mask, CPTAOA);
-				ButAst = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButAst", mask, BUTAST);
+				ButAsr = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButAsr", mask, BUTASR);
+				ButAir = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButAir", mask, BUTAIR);
 
 				return true;
 			};
@@ -316,9 +496,11 @@ public class PnlWzskLiv3DView {
 
 			if (Cpt.equals(comp.Cpt)) items.add(CPT);
 			if (HdgAcq.equals(comp.HdgAcq)) items.add(HDGACQ);
+			if (CptAin.equals(comp.CptAin)) items.add(CPTAIN);
 			if (CptAst.equals(comp.CptAst)) items.add(CPTAST);
 			if (CptAoa.equals(comp.CptAoa)) items.add(CPTAOA);
-			if (ButAst.equals(comp.ButAst)) items.add(BUTAST);
+			if (ButAsr.equals(comp.ButAsr)) items.add(BUTASR);
+			if (ButAir.equals(comp.ButAir)) items.add(BUTAIR);
 
 			return(items);
 		};
@@ -331,10 +513,65 @@ public class PnlWzskLiv3DView {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(CPT, HDGACQ, CPTAST, CPTAOA, BUTAST));
+			diffitems = new HashSet<Integer>(Arrays.asList(CPT, HDGACQ, CPTAIN, CPTAST, CPTAOA, BUTASR, BUTAIR));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
+		};
+
+	};
+
+	/**
+		* DpchAppData (full: DpchAppWzskLiv3DViewData)
+		*/
+	public class DpchAppData extends DpchAppWzsk {
+
+		public static final int SCRJREF = 1;
+		public static final int CONTIAC = 2;
+		public static final int ALL = 3;
+
+		public DpchAppData(
+					String scrJref
+					, ContIac contiac
+					, Integer[] mask
+				) {
+			super(VecWzskVDpch.DPCHAPPWZSKLIV3DVIEWDATA, scrJref);
+
+			this.mask = new HashSet<Integer>(Arrays.asList(mask));
+
+			for (Integer i: mask)
+				if (i == ALL) {
+					this.mask = new HashSet<Integer>(Arrays.asList(SCRJREF, CONTIAC));
+					break;
+				};
+
+			if (has(CONTIAC)) this.contiac = contiac;
+		};
+
+		public ContIac contiac;
+
+		public String getSrefsMask() {
+			ArrayList<String> ss = new ArrayList<String>();
+
+			if (has(SCRJREF)) ss.add("scrJref");
+			if (has(CONTIAC)) ss.add("contiac");
+
+			return StrMod.vectorToString(ss, ';');
+		};
+
+		public void writeXML(
+					Document doc
+					, Element sup
+				) {
+			Element el = doc.createElement("DpchAppWzskLiv3DViewData");
+
+			if (sup == null) doc.appendChild(el);
+			else sup.appendChild(el);
+
+			el.setAttribute("xmlns", "http://www.mpsitech.com");
+
+			if (has(SCRJREF)) Xmlio.writeString(doc, el, "scrJref", scrJref);
+			if (has(CONTIAC)) contiac.writeXML(doc, el, "", true);
 		};
 
 	};
@@ -400,19 +637,25 @@ public class PnlWzskLiv3DView {
 	public class DpchEngData extends DpchEngWzsk {
 
 		public static final int SCRJREF = 1;
-		public static final int CONTINF = 2;
-		public static final int STATSHR = 3;
-		public static final int TAG = 4;
+		public static final int CONTIAC = 2;
+		public static final int CONTINF = 3;
+		public static final int STATAPP = 4;
+		public static final int STATSHR = 5;
+		public static final int TAG = 6;
 
 		public DpchEngData() {
 			super(VecWzskVDpch.DPCHENGWZSKLIV3DVIEWDATA);
 
+			contiac = new ContIac(0.0);
 			continf = new ContInf(false, "", "");
-			statshr = new StatShr(0, false, 0.0, 0.0, 0.0, 0.0, false, false, false, false);
-			tag = new Tag("", "", "", "", "");
+			statapp = new StatApp(false, false);
+			statshr = new StatShr(0, false, 0.0, 0.0, 0.0, 0.0, false, 0.0, 0.0, 0.0, false, false, false);
+			tag = new Tag("", "", "", "", "", "", "");
 		};
 
+		public ContIac contiac;
 		public ContInf continf;
+		public StatApp statapp;
 		public StatShr statshr;
 		public Tag tag;
 
@@ -420,7 +663,9 @@ public class PnlWzskLiv3DView {
 			ArrayList<String> ss = new ArrayList<String>();
 
 			if (has(SCRJREF)) ss.add("scrJref");
+			if (has(CONTIAC)) ss.add("contiac");
 			if (has(CONTINF)) ss.add("continf");
+			if (has(STATAPP)) ss.add("statapp");
 			if (has(STATSHR)) ss.add("statshr");
 			if (has(TAG)) ss.add("tag");
 
@@ -439,14 +684,18 @@ public class PnlWzskLiv3DView {
 
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				scrJref = Xmlio.extractStringUclc(doc, basexpath, "scrJref", "", mask, SCRJREF);
+				if (contiac.readXML(doc, basexpath, true)) add(CONTIAC);
 				if (continf.readXML(doc, basexpath, true)) add(CONTINF);
+				if (statapp.readXML(doc, basexpath, true)) add(STATAPP);
 				if (statshr.readXML(doc, basexpath, true)) add(STATSHR);
 				if (tag.readXML(doc, basexpath, true)) add(TAG);
 			} else {
 				scrJref = "";
+				contiac = new ContIac(0.0);
 				continf = new ContInf(false, "", "");
-				statshr = new StatShr(0, false, 0.0, 0.0, 0.0, 0.0, false, false, false, false);
-				tag = new Tag("", "", "", "", "");
+				statapp = new StatApp(false, false);
+				statshr = new StatShr(0, false, 0.0, 0.0, 0.0, 0.0, false, 0.0, 0.0, 0.0, false, false, false);
+				tag = new Tag("", "", "", "", "", "", "");
 			};
 		};
 

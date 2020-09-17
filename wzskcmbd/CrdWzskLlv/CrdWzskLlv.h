@@ -2,8 +2,8 @@
 	* \file CrdWzskLlv.h
 	* job handler for job CrdWzskLlv (declarations)
 	* \author Catherine Johnson
-	* \date created: 23 Jul 2020
-	* \date modified: 23 Jul 2020
+	* \date created: 16 Sep 2020
+	* \date modified: 16 Sep 2020
 	*/
 
 #ifndef CRDWZSKLLV_H
@@ -15,9 +15,9 @@
 
 #include "PnlWzskLlvHeadbar.h"
 #include "PnlWzskLlvLaser.h"
-#include "PnlWzskLlvTerm.h"
-#include "PnlWzskLlvCamera.h"
 #include "PnlWzskLlvTtable.h"
+#include "PnlWzskLlvCamera.h"
+#include "PnlWzskLlvTerm.h"
 
 #define VecVWzskLlvDo CrdWzskLlv::VecVDo
 #define VecVWzskLlvSge CrdWzskLlv::VecVSge
@@ -199,9 +199,9 @@ public:
 
 	PnlWzskLlvHeadbar* pnlheadbar;
 	PnlWzskLlvLaser* pnllaser;
-	PnlWzskLlvTerm* pnlterm;
-	PnlWzskLlvCamera* pnlcamera;
 	PnlWzskLlvTtable* pnlttable;
+	PnlWzskLlvCamera* pnlcamera;
+	PnlWzskLlvTerm* pnlterm;
 
 	// IP vars.cust --- INSERT
 
@@ -210,7 +210,7 @@ public:
 
 public:
 	DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
-	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems);
+	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 	void updatePreset(DbsWzsk* dbswzsk, const Sbecore::uint ixWzskVPreset, const Sbecore::ubigint jrefTrig, const bool notif = false);
 
 public:
