@@ -2,8 +2,8 @@
 	* \file PnlWzskPrsHeadbar.h
 	* job handler for job PnlWzskPrsHeadbar (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef PNLWZSKPRSHEADBAR_H

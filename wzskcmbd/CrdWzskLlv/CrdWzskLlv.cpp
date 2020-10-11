@@ -2,8 +2,8 @@
 	* \file CrdWzskLlv.cpp
 	* job handler for job CrdWzskLlv (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -43,8 +43,8 @@ CrdWzskLlv::CrdWzskLlv(
 	pnlheadbar = NULL;
 	pnllaser = NULL;
 	pnlttable = NULL;
-	pnlcamera = NULL;
 	pnlterm = NULL;
+	pnlcamera = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -54,8 +54,8 @@ CrdWzskLlv::CrdWzskLlv(
 	pnlheadbar = new PnlWzskLlvHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnllaser = new PnlWzskLlvLaser(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlttable = new PnlWzskLlvTtable(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlcamera = new PnlWzskLlvCamera(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlterm = new PnlWzskLlvTerm(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlcamera = new PnlWzskLlvCamera(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 

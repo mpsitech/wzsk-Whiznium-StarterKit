@@ -2,8 +2,8 @@
 	* \file QryWzskUsrList.cpp
 	* job handler for job QryWzskUsrList (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -191,8 +191,8 @@ void QryWzskUsrList::rerun_orderSQL(
 			, const uint preIxOrd
 		) {
 	if (preIxOrd == VecVOrd::STE) sqlstr += " ORDER BY TblWzskMUser.ixVState ASC";
-	else if (preIxOrd == VecVOrd::USG) sqlstr += " ORDER BY TblWzskMUser.refWzskMUsergroup ASC";
 	else if (preIxOrd == VecVOrd::SRF) sqlstr += " ORDER BY TblWzskMUser.sref ASC";
+	else if (preIxOrd == VecVOrd::USG) sqlstr += " ORDER BY TblWzskMUser.refWzskMUsergroup ASC";
 	else if (preIxOrd == VecVOrd::PRS) sqlstr += " ORDER BY TblWzskMUser.refWzskMPerson ASC";
 	else if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMUser.own ASC";
 	else if (preIxOrd == VecVOrd::GRP) sqlstr += " ORDER BY TblWzskMUser.grp ASC";

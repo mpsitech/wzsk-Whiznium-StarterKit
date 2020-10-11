@@ -2,8 +2,8 @@
 	* \file JobWzskSrcFpga.h
 	* job handler for job JobWzskSrcFpga (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef JOBWZSKSRCFPGA_H
@@ -123,9 +123,14 @@ public:
 
 	// - high-level methods
 
+	// camera interface
+	bool setExposure(const bool autoNotManual, const float _Texp);
+	bool setFocus(const float _focus);
+
 	// stepper motor
-	bool setStep(const bool rng, const bool ccwNotCw, const float omega);
 	bool getAngle(float& angle);
+	bool moveto(float& _angle, const float omega);
+	bool setStep(const bool rng, const bool ccwNotCw, const float omega);
 
 	// 10kHz clock source
 	double tkstToT(const Sbecore::uint tkst);
@@ -139,23 +144,23 @@ public:
 
 	// camif
 	bool camif_setRng(const bool rng);
-	bool camif_setFocus(const float _focus);
-	bool camif_setTexp(const float _Texp);
+	bool camif_setReg(const Sbecore::usmallint regaddr, const Sbecore::utinyint val);
+	bool camif_getReg(const Sbecore::usmallint regaddr, Sbecore::utinyint& val); // includes setRegaddr
+	bool camif_modReg(const Sbecore::usmallint regaddr, const Sbecore::utinyint mask, const Sbecore::utinyint val);
 
 	// featdet
 	bool featdet_set(const bool rng, const bool thdNotCorner, const bool thdDeltaNotAbs);
 	bool featdet_getInfo(Sbecore::utinyint& tixVFlgbufstate, Sbecore::utinyint& tixVThdstate, Sbecore::uint& tkst);
-	bool featdet_getCornerinfo(Sbecore::usmallint& scoreMinMsb, Sbecore::uint& scoreMinLsb, Sbecore::usmallint& scoreMaxMsb, Sbecore::uint& scoreMaxLsb, Sbecore::utinyint& shift, Sbecore::uint& NCorner, Sbecore::utinyint& thd);
+	bool featdet_getCornerinfo(Sbecore::utinyint& shift, Sbecore::utinyint& scoreMin, Sbecore::utinyint& scoreMax);
 
-	bool featdet_setCorner(const Sbecore::uint Ntrg);
-	bool featdet_setThd(const unsigned char lvlFirst, const unsigned char lvlSecond);
+	bool featdet_setCorner(const bool linNotLog, const Sbecore::uint Ntrg);
+	bool featdet_setThd(const Sbecore::utinyint lvlFirst, const Sbecore::utinyint lvlSecond);
 	bool featdet_triggerThd();
 
 	// laser
-	bool laser_set(const float _l, const float _r);
+	bool laser_set(const Sbecore::usmallint l, const Sbecore::usmallint r);
 
 	// step
-	bool step_moveto(const float _angle);
 	bool step_zero();
 
 	// tkclksrc

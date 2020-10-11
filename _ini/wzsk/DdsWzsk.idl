@@ -2,8 +2,8 @@
   * \file Wzsk.idl
   * Wzsk DDS publisher interface description for RTI Code Generator
   * \author Catherine Johnson
-  * \date created: 16 Sep 2020
-  * \date modified: 16 Sep 2020
+  * \date created: 6 Oct 2020
+  * \date modified: 6 Oct 2020
   */
 
 typedef char tinyint;
@@ -106,7 +106,7 @@ module DdsJobWzskIprTrace {
 
 module DdsJobWzskIprCorner {
 	struct setNTarget_req {
-		uint NTarget;
+		usmallint NTarget;
 	};
 
 	struct setNTarget_reply {
@@ -137,7 +137,7 @@ module DdsJobWzskIprCorner {
 	};
 
 	struct NTarget {
-		uint _NTarget;
+		usmallint _NTarget;
 	};
 
 	struct roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy {
@@ -151,8 +151,11 @@ module DdsJobWzskIprCorner {
 		int roiDy;
 	};
 
-	struct flg {
-		sequence<boolean, 786432> _flg;
+	struct flgShiftScoreMinScoreMax {
+		sequence<boolean, 786432> flg;
+		utinyint shift;
+		utinyint scoreMin;
+		utinyint scoreMax;
 	};
 };
 

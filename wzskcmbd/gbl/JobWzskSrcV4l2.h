@@ -2,8 +2,8 @@
 	* \file JobWzskSrcV4l2.h
 	* job handler for job JobWzskSrcV4l2 (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef JOBWZSKSRCV4L2_H

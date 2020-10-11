@@ -9,8 +9,8 @@ For more information, type 'rtiddsgen -help' at a command shell
 or consult the RTI Connext manual.
 */
 
-#ifndef DdsWzskPlugin_509372353_h
-#define DdsWzskPlugin_509372353_h
+#ifndef DdsWzskPlugin_509372441_h
+#define DdsWzskPlugin_509372441_h
 
 #include "DdsWzsk.hpp"
 
@@ -4327,49 +4327,49 @@ namespace DdsJobWzskIprCorner {
     NDDSUSERDllExport extern void
     roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDyPlugin_delete(struct PRESTypePlugin *);
 
-    #define flgPlugin_get_sample PRESTypePluginDefaultEndpointData_getSample
+    #define flgShiftScoreMinScoreMaxPlugin_get_sample PRESTypePluginDefaultEndpointData_getSample
 
-    #define flgPlugin_get_buffer PRESTypePluginDefaultEndpointData_getBuffer 
-    #define flgPlugin_return_buffer PRESTypePluginDefaultEndpointData_returnBuffer
+    #define flgShiftScoreMinScoreMaxPlugin_get_buffer PRESTypePluginDefaultEndpointData_getBuffer 
+    #define flgShiftScoreMinScoreMaxPlugin_return_buffer PRESTypePluginDefaultEndpointData_returnBuffer
 
-    #define flgPlugin_create_sample PRESTypePluginDefaultEndpointData_createSample 
-    #define flgPlugin_destroy_sample PRESTypePluginDefaultEndpointData_deleteSample 
+    #define flgShiftScoreMinScoreMaxPlugin_create_sample PRESTypePluginDefaultEndpointData_createSample 
+    #define flgShiftScoreMinScoreMaxPlugin_destroy_sample PRESTypePluginDefaultEndpointData_deleteSample 
 
     /* --------------------------------------------------------------------------------------
     Support functions:
     * -------------------------------------------------------------------------------------- */
 
-    NDDSUSERDllExport extern flg*
-    flgPluginSupport_create_data_w_params(
+    NDDSUSERDllExport extern flgShiftScoreMinScoreMax*
+    flgShiftScoreMinScoreMaxPluginSupport_create_data_w_params(
         const struct DDS_TypeAllocationParams_t * alloc_params);
 
-    NDDSUSERDllExport extern flg*
-    flgPluginSupport_create_data_ex(RTIBool allocate_pointers);
+    NDDSUSERDllExport extern flgShiftScoreMinScoreMax*
+    flgShiftScoreMinScoreMaxPluginSupport_create_data_ex(RTIBool allocate_pointers);
 
-    NDDSUSERDllExport extern flg*
-    flgPluginSupport_create_data(void);
+    NDDSUSERDllExport extern flgShiftScoreMinScoreMax*
+    flgShiftScoreMinScoreMaxPluginSupport_create_data(void);
 
     NDDSUSERDllExport extern RTIBool 
-    flgPluginSupport_copy_data(
-        flg *out,
-        const flg *in);
+    flgShiftScoreMinScoreMaxPluginSupport_copy_data(
+        flgShiftScoreMinScoreMax *out,
+        const flgShiftScoreMinScoreMax *in);
 
     NDDSUSERDllExport extern void 
-    flgPluginSupport_destroy_data_w_params(
-        flg *sample,
+    flgShiftScoreMinScoreMaxPluginSupport_destroy_data_w_params(
+        flgShiftScoreMinScoreMax *sample,
         const struct DDS_TypeDeallocationParams_t * dealloc_params);
 
     NDDSUSERDllExport extern void 
-    flgPluginSupport_destroy_data_ex(
-        flg *sample,RTIBool deallocate_pointers);
+    flgShiftScoreMinScoreMaxPluginSupport_destroy_data_ex(
+        flgShiftScoreMinScoreMax *sample,RTIBool deallocate_pointers);
 
     NDDSUSERDllExport extern void 
-    flgPluginSupport_destroy_data(
-        flg *sample);
+    flgShiftScoreMinScoreMaxPluginSupport_destroy_data(
+        flgShiftScoreMinScoreMax *sample);
 
     NDDSUSERDllExport extern void 
-    flgPluginSupport_print_data(
-        const flg *sample,
+    flgShiftScoreMinScoreMaxPluginSupport_print_data(
+        const flgShiftScoreMinScoreMax *sample,
         const char *desc,
         unsigned int indent);
 
@@ -4378,7 +4378,7 @@ namespace DdsJobWzskIprCorner {
     * ---------------------------------------------------------------------------- */
 
     NDDSUSERDllExport extern PRESTypePluginParticipantData 
-    flgPlugin_on_participant_attached(
+    flgShiftScoreMinScoreMaxPlugin_on_participant_attached(
         void *registration_data, 
         const struct PRESTypePluginParticipantInfo *participant_info,
         RTIBool top_level_registration, 
@@ -4386,48 +4386,48 @@ namespace DdsJobWzskIprCorner {
         RTICdrTypeCode *typeCode);
 
     NDDSUSERDllExport extern void 
-    flgPlugin_on_participant_detached(
+    flgShiftScoreMinScoreMaxPlugin_on_participant_detached(
         PRESTypePluginParticipantData participant_data);
 
     NDDSUSERDllExport extern PRESTypePluginEndpointData 
-    flgPlugin_on_endpoint_attached(
+    flgShiftScoreMinScoreMaxPlugin_on_endpoint_attached(
         PRESTypePluginParticipantData participant_data,
         const struct PRESTypePluginEndpointInfo *endpoint_info,
         RTIBool top_level_registration, 
         void *container_plugin_context);
 
     NDDSUSERDllExport extern void 
-    flgPlugin_on_endpoint_detached(
+    flgShiftScoreMinScoreMaxPlugin_on_endpoint_detached(
         PRESTypePluginEndpointData endpoint_data);
 
     NDDSUSERDllExport extern void    
-    flgPlugin_return_sample(
+    flgShiftScoreMinScoreMaxPlugin_return_sample(
         PRESTypePluginEndpointData endpoint_data,
-        flg *sample,
+        flgShiftScoreMinScoreMax *sample,
         void *handle);    
 
     NDDSUSERDllExport extern RTIBool 
-    flgPlugin_copy_sample(
+    flgShiftScoreMinScoreMaxPlugin_copy_sample(
         PRESTypePluginEndpointData endpoint_data,
-        flg *out,
-        const flg *in);
+        flgShiftScoreMinScoreMax *out,
+        const flgShiftScoreMinScoreMax *in);
 
     /* ----------------------------------------------------------------------------
     (De)Serialize functions:
     * ------------------------------------------------------------------------- */
 
     NDDSUSERDllExport extern RTIBool
-    flgPlugin_serialize_to_cdr_buffer(
+    flgShiftScoreMinScoreMaxPlugin_serialize_to_cdr_buffer(
         char * buffer,
         unsigned int * length,
-        const flg *sample,
+        const flgShiftScoreMinScoreMax *sample,
         ::dds::core::policy::DataRepresentationId representation
         = ::dds::core::policy::DataRepresentation::xcdr()); 
 
     NDDSUSERDllExport extern RTIBool 
-    flgPlugin_deserialize(
+    flgShiftScoreMinScoreMaxPlugin_deserialize(
         PRESTypePluginEndpointData endpoint_data,
-        flg **sample, 
+        flgShiftScoreMinScoreMax **sample, 
         RTIBool * drop_sample,
         struct RTICdrStream *stream,
         RTIBool deserialize_encapsulation,
@@ -4435,13 +4435,13 @@ namespace DdsJobWzskIprCorner {
         void *endpoint_plugin_qos);
 
     NDDSUSERDllExport extern RTIBool
-    flgPlugin_deserialize_from_cdr_buffer(
-        flg *sample,
+    flgShiftScoreMinScoreMaxPlugin_deserialize_from_cdr_buffer(
+        flgShiftScoreMinScoreMax *sample,
         const char * buffer,
         unsigned int length);    
 
     NDDSUSERDllExport extern unsigned int 
-    flgPlugin_get_serialized_sample_max_size(
+    flgShiftScoreMinScoreMaxPlugin_get_serialized_sample_max_size(
         PRESTypePluginEndpointData endpoint_data,
         RTIBool include_encapsulation,
         RTIEncapsulationId encapsulation_id,
@@ -4451,25 +4451,25 @@ namespace DdsJobWzskIprCorner {
     Key Management functions:
     * -------------------------------------------------------------------------------------- */
     NDDSUSERDllExport extern PRESTypePluginKeyKind 
-    flgPlugin_get_key_kind(void);
+    flgShiftScoreMinScoreMaxPlugin_get_key_kind(void);
 
     NDDSUSERDllExport extern unsigned int 
-    flgPlugin_get_serialized_key_max_size(
+    flgShiftScoreMinScoreMaxPlugin_get_serialized_key_max_size(
         PRESTypePluginEndpointData endpoint_data,
         RTIBool include_encapsulation,
         RTIEncapsulationId encapsulation_id,
         unsigned int current_alignment);
 
     NDDSUSERDllExport extern unsigned int 
-    flgPlugin_get_serialized_key_max_size_for_keyhash(
+    flgShiftScoreMinScoreMaxPlugin_get_serialized_key_max_size_for_keyhash(
         PRESTypePluginEndpointData endpoint_data,
         RTIEncapsulationId encapsulation_id,
         unsigned int current_alignment);
 
     NDDSUSERDllExport extern RTIBool 
-    flgPlugin_deserialize_key(
+    flgShiftScoreMinScoreMaxPlugin_deserialize_key(
         PRESTypePluginEndpointData endpoint_data,
-        flg ** sample,
+        flgShiftScoreMinScoreMax ** sample,
         RTIBool * drop_sample,
         struct RTICdrStream *stream,
         RTIBool deserialize_encapsulation,
@@ -4478,10 +4478,10 @@ namespace DdsJobWzskIprCorner {
 
     /* Plugin Functions */
     NDDSUSERDllExport extern struct PRESTypePlugin*
-    flgPlugin_new(void);
+    flgShiftScoreMinScoreMaxPlugin_new(void);
 
     NDDSUSERDllExport extern void
-    flgPlugin_delete(struct PRESTypePlugin *);
+    flgShiftScoreMinScoreMaxPlugin_delete(struct PRESTypePlugin *);
 
 } /* namespace DdsJobWzskIprCorner  */
 namespace DdsJobWzskActServo {
@@ -8563,5 +8563,5 @@ namespace DdsJobWzskAcqPreview {
 #define NDDSUSERDllExport
 #endif
 
-#endif /* DdsWzskPlugin_509372353_h */
+#endif /* DdsWzskPlugin_509372441_h */
 

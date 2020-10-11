@@ -430,7 +430,7 @@
 	- ImeIMMethod.sref	Execsrv	Comment											
 	- setNTarget	true												
 		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- NTarget	uint											
+		- NTarget	usmallint											
 		- ImeIAMMethodInvpar.end												
 	- setRoi	true												
 		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
@@ -450,9 +450,10 @@
 	- ImeIMMethod.end													
 	- ImeICAMJobVar.iref													
 	- 1													
+	- 2													
 	- ImeICAMJobVar.end													
 	- ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment							
-	- 0	NTarget	uint			true								
+	- 0	NTarget	usmallint			true								
 	- 1	roiAx	int			true								
 	- 1	roiAy	int			true								
 	- 1	roiBx	int			true								
@@ -461,7 +462,10 @@
 	- 1	roiCy	int			true								
 	- 1	roiDx	int			true								
 	- 1	roiDy	int			true								
-	- 0	flg	booleanvec		786432	true	wGrrd * hGrrd							
+	- 2	flg	booleanvec		786432	true	wGrrd * hGrrd							
+	- 2	shift	utinyint			true								
+	- 2	scoreMin	utinyint			true								
+	- 2	scoreMax	utinyint			true								
 	- ImeIAMJobVar.end													
 	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
 	- JobWzskAcqFpgaflg	acqfpgaflg	false	cust										
@@ -757,7 +761,7 @@
 		- retrupd	0		UpdLmdMin							0		
 		- retrupd	0		UpdLmdMax							255		
 		- retrupd	0		UpdPntMin							0		
-		- retrupd	0		UpdPntMax							1024		
+		- retrupd	0		UpdPntMax							1000		
 		- ImeIAMBlockItem1.end												
 	- ImeIMBlock1.end													
 	- ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode			

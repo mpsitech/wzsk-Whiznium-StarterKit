@@ -2,8 +2,8 @@
 	* \file PnlWzskFilList_blks.cpp
 	* job handler for job PnlWzskFilList (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 using namespace std;
@@ -374,7 +374,7 @@ void PnlWzskFilList::Tag::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Files");
 			writeStringAttr(wr, itemtag, "sref", "TcoFnm", "File name");
-			writeStringAttr(wr, itemtag, "sref", "TcoRet", "Table of reference");
+			writeStringAttr(wr, itemtag, "sref", "TcoRet", "R. -\\u003e");
 			writeStringAttr(wr, itemtag, "sref", "TcoReu", "Reference");
 			writeStringAttr(wr, itemtag, "sref", "TcoCnt", "Content");
 			writeStringAttr(wr, itemtag, "sref", "TcoMim", "MIME type");

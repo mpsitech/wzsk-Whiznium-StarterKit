@@ -2,8 +2,8 @@
   * \file ApiWzsk.java
   * Wzsk Java API package global functionality
   * \author Catherine Johnson
-  * \date created: 16 Sep 2020
-  * \date modified: 16 Sep 2020
+  * \date created: 6 Oct 2020
+  * \date modified: 6 Oct 2020
   */
 
 package apiwzsk;
@@ -22,10 +22,10 @@ import sbecore.*;
 
 public class ApiWzsk {
 
-	public static final String WZSK_VERSION = "0.1.33";
+	public static final String WZSK_VERSION = "0.1.35";
 	public static final int WZSK_VERSION_MAJOR = 0;
 	public static final int WZSK_VERSION_MINOR = 1;
-	public static final int WZSK_VERSION_SUB = 33;
+	public static final int WZSK_VERSION_SUB = 35;
 
 	public static DpchEngWzsk readDpchEng(
 				String s

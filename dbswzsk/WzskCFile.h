@@ -2,8 +2,8 @@
 	* \file WzskCFile.h
 	* Dbs and XML wrapper for table TblWzskCFile (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef WZSKCFILE_H

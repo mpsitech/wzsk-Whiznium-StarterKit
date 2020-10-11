@@ -2,8 +2,8 @@
 	* \file JobWzskActLaser.cpp
 	* job handler for job JobWzskActLaser (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -233,6 +233,7 @@ usmallint JobWzskActLaser::pToAbs(
 			, const float p
 		) {
 	if (p == 0.0) return 0;
+	if (p >= 1.0) return 1023;
 
 	if (!rightNotLeft) return(stg.leftMin + lround(p * ((float) (stg.leftMax - stg.leftMin))));
 	else return(stg.rightMin + lround(p * ((float) (stg.rightMax - stg.rightMin))));

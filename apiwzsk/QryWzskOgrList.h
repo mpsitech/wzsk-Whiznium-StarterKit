@@ -2,8 +2,8 @@
 	* \file QryWzskOgrList.h
 	* API code for job QryWzskOgrList (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef QRYWZSKOGRLIST_H
@@ -27,8 +27,8 @@ namespace QryWzskOgrList {
 	class VecVOrd {
 
 	public:
-		static const Sbecore::uint SUP = 1;
-		static const Sbecore::uint TIT = 2;
+		static const Sbecore::uint TIT = 1;
+		static const Sbecore::uint SUP = 2;
 		static const Sbecore::uint SRF = 3;
 
 		static Sbecore::uint getIx(const std::string& sref);

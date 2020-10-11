@@ -2,8 +2,8 @@
 	* \file WzskcmbdDdspub.h
 	* DDS publisher based on rti DDS Connext for Wzsk combined daemon (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef WZSKCMBDDDSPUB_H
@@ -94,9 +94,9 @@ namespace WzskcmbdDdspub {
 		dds::pub::DataWriter<DdsJobWzskIprCorner::roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy>* writerJobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy;
 		DdsJobWzskIprCorner::roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy* JobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy;
 
-		dds::topic::Topic<DdsJobWzskIprCorner::flg>* topicJobWzskIprCorner_flg;
-		dds::pub::DataWriter<DdsJobWzskIprCorner::flg>* writerJobWzskIprCorner_flg;
-		DdsJobWzskIprCorner::flg* JobWzskIprCorner_flg;
+		dds::topic::Topic<DdsJobWzskIprCorner::flgShiftScoreMinScoreMax>* topicJobWzskIprCorner_flgShiftScoreMinScoreMax;
+		dds::pub::DataWriter<DdsJobWzskIprCorner::flgShiftScoreMinScoreMax>* writerJobWzskIprCorner_flgShiftScoreMinScoreMax;
+		DdsJobWzskIprCorner::flgShiftScoreMinScoreMax* JobWzskIprCorner_flgShiftScoreMinScoreMax;
 
 		dds::topic::Topic<DdsJobWzskActServo::angleTarget>* topicJobWzskActServo_angleTarget;
 		dds::pub::DataWriter<DdsJobWzskActServo::angleTarget>* writerJobWzskActServo_angleTarget;

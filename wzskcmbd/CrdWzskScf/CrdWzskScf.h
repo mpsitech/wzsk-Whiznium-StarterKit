@@ -2,8 +2,8 @@
 	* \file CrdWzskScf.h
 	* job handler for job CrdWzskScf (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef CRDWZSKSCF_H
@@ -16,8 +16,8 @@
 #include "PnlWzskScfHeadbar.h"
 #include "PnlWzskScfGeom.h"
 #include "PnlWzskScfConn.h"
-#include "DlgWzskScfCameramat.h"
 #include "DlgWzskScfTtablecoord.h"
+#include "DlgWzskScfCameramat.h"
 #include "DlgWzskScfLaserpos.h"
 
 #define VecVWzskScfDo CrdWzskScf::VecVDo
@@ -202,8 +202,8 @@ public:
 	PnlWzskScfHeadbar* pnlheadbar;
 	PnlWzskScfGeom* pnlgeom;
 	PnlWzskScfConn* pnlconn;
-	DlgWzskScfCameramat* dlgcameramat;
 	DlgWzskScfTtablecoord* dlgttablecoord;
+	DlgWzskScfCameramat* dlgcameramat;
 	DlgWzskScfLaserpos* dlglaserpos;
 
 	// IP vars.cust --- INSERT

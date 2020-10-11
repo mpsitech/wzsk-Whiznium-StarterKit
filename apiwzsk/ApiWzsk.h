@@ -2,17 +2,17 @@
 	* \file ApiWzsk.h
 	* Wzsk API library global functionality (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef APIWZSK_H
 #define APIWZSK_H
 
-#define WZSK_VERSION "0.1.33"
+#define WZSK_VERSION "0.1.35"
 #define WZSK_VERSION_MAJOR 0
 #define WZSK_VERSION_MINOR 1
-#define WZSK_VERSION_SUB 33
+#define WZSK_VERSION_SUB 35
 
 #include "ApiWzsk_blks.h"
 

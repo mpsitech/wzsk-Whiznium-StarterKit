@@ -2,8 +2,8 @@
 	* \file PnlWzskObjList.h
 	* API code for job PnlWzskObjList (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef PNLWZSKOBJLIST_H
@@ -123,7 +123,7 @@ namespace PnlWzskObjList {
 		static const Sbecore::uint TCOOGRWIDTH = 2;
 
 	public:
-		StgIac(const Sbecore::uint TcoTitWidth = 100, const Sbecore::uint TcoOgrWidth = 100);
+		StgIac(const Sbecore::uint TcoTitWidth = 200, const Sbecore::uint TcoOgrWidth = 250);
 
 	public:
 		Sbecore::uint TcoTitWidth;

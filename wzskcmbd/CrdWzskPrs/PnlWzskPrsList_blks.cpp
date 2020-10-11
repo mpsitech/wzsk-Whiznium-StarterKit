@@ -2,8 +2,8 @@
 	* \file PnlWzskPrsList_blks.cpp
 	* job handler for job PnlWzskPrsList (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 using namespace std;
@@ -369,8 +369,8 @@ void PnlWzskPrsList::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "TcoFnm", "First name");
 			writeStringAttr(wr, itemtag, "sref", "TcoLnm", "Last name");
 			writeStringAttr(wr, itemtag, "sref", "TcoSex", "Sex");
-			writeStringAttr(wr, itemtag, "sref", "TcoTel", "TelVal");
-			writeStringAttr(wr, itemtag, "sref", "TcoEml", "EmlVal");
+			writeStringAttr(wr, itemtag, "sref", "TcoTel", "Phone");
+			writeStringAttr(wr, itemtag, "sref", "TcoEml", "E-Mail");
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Personen");
 			writeStringAttr(wr, itemtag, "sref", "TcoTit", "Title");

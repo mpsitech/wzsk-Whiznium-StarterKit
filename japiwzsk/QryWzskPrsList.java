@@ -2,8 +2,8 @@
   * \file QryWzskPrsList.java
   * Java API code for job QryWzskPrsList
   * \author Catherine Johnson
-  * \date created: 16 Sep 2020
-  * \date modified: 16 Sep 2020
+  * \date created: 6 Oct 2020
+  * \date modified: 6 Oct 2020
   */
 
 package apiwzsk;

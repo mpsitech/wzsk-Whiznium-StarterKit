@@ -13782,18 +13782,18 @@ namespace DdsJobWzskIprCorner {
     } 
 
     /* ----------------------------------------------------------------------------
-    *  Type flg
+    *  Type flgShiftScoreMinScoreMax
     * -------------------------------------------------------------------------- */
 
     /* -----------------------------------------------------------------------------
     Support functions:
     * -------------------------------------------------------------------------- */
 
-    flg *
-    flgPluginSupport_create_data(void)
+    flgShiftScoreMinScoreMax *
+    flgShiftScoreMinScoreMaxPluginSupport_create_data(void)
     {
         try {
-            flg *sample = new flg;    
+            flgShiftScoreMinScoreMax *sample = new flgShiftScoreMinScoreMax;    
             ::rti::topic::allocate_sample(*sample);
             return sample;
         } catch (...) {
@@ -13802,16 +13802,16 @@ namespace DdsJobWzskIprCorner {
     }
 
     void 
-    flgPluginSupport_destroy_data(
-        flg *sample) 
+    flgShiftScoreMinScoreMaxPluginSupport_destroy_data(
+        flgShiftScoreMinScoreMax *sample) 
     {
         delete sample;
     }
 
     RTIBool 
-    flgPluginSupport_copy_data(
-        flg *dst,
-        const flg *src)
+    flgShiftScoreMinScoreMaxPluginSupport_copy_data(
+        flgShiftScoreMinScoreMax *dst,
+        const flgShiftScoreMinScoreMax *src)
     {
         try {
             *dst = *src;
@@ -13827,7 +13827,7 @@ namespace DdsJobWzskIprCorner {
     * ---------------------------------------------------------------------------- */
 
     PRESTypePluginParticipantData 
-    flgPlugin_on_participant_attached(
+    flgShiftScoreMinScoreMaxPlugin_on_participant_attached(
         void *registration_data,
         const struct PRESTypePluginParticipantInfo *participant_info,
         RTIBool top_level_registration,
@@ -13859,7 +13859,7 @@ namespace DdsJobWzskIprCorner {
 
         programs = DDS_TypeCodeFactory_assert_programs_in_global_list(
             DDS_TypeCodeFactory_get_instance(),
-            (DDS_TypeCode *) (RTIXCdrTypeCode *)&::rti::topic::dynamic_type< flg >::get().native()
+            (DDS_TypeCode *) (RTIXCdrTypeCode *)&::rti::topic::dynamic_type< flgShiftScoreMinScoreMax >::get().native()
             ,
             &programProperty,
             RTI_XCDR_PROGRAM_MASK_TYPEPLUGIN);
@@ -13875,7 +13875,7 @@ namespace DdsJobWzskIprCorner {
     }
 
     void 
-    flgPlugin_on_participant_detached(
+    flgShiftScoreMinScoreMaxPlugin_on_participant_detached(
         PRESTypePluginParticipantData participant_data)
     {
         if (participant_data != NULL) {
@@ -13893,7 +13893,7 @@ namespace DdsJobWzskIprCorner {
     }
 
     PRESTypePluginEndpointData
-    flgPlugin_on_endpoint_attached(
+    flgShiftScoreMinScoreMaxPlugin_on_endpoint_attached(
         PRESTypePluginParticipantData participant_data,
         const struct PRESTypePluginEndpointInfo *endpoint_info,
         RTIBool top_level_registration, 
@@ -13914,9 +13914,9 @@ namespace DdsJobWzskIprCorner {
                 participant_data,
                 endpoint_info,
                 (PRESTypePluginDefaultEndpointDataCreateSampleFunction)
-                flgPluginSupport_create_data,
+                flgShiftScoreMinScoreMaxPluginSupport_create_data,
                 (PRESTypePluginDefaultEndpointDataDestroySampleFunction)
-                flgPluginSupport_destroy_data,
+                flgShiftScoreMinScoreMaxPluginSupport_destroy_data,
                 NULL , NULL );
 
             if (epd == NULL) {
@@ -13924,7 +13924,7 @@ namespace DdsJobWzskIprCorner {
             } 
 
             if (endpoint_info->endpointKind == PRES_TYPEPLUGIN_ENDPOINT_WRITER) {
-                serializedSampleMaxSize = DdsJobWzskIprCorner::flgPlugin_get_serialized_sample_max_size(
+                serializedSampleMaxSize = DdsJobWzskIprCorner::flgShiftScoreMinScoreMaxPlugin_get_serialized_sample_max_size(
                     epd,RTI_FALSE,RTI_CDR_ENCAPSULATION_ID_CDR_BE,0);
                 PRESTypePluginDefaultEndpointData_setMaxSizeSerializedSample(epd, serializedSampleMaxSize);
 
@@ -13932,7 +13932,7 @@ namespace DdsJobWzskIprCorner {
                     epd,
                     endpoint_info,
                     (PRESTypePluginGetSerializedSampleMaxSizeFunction)
-                    DdsJobWzskIprCorner::flgPlugin_get_serialized_sample_max_size, epd,
+                    DdsJobWzskIprCorner::flgShiftScoreMinScoreMaxPlugin_get_serialized_sample_max_size, epd,
                     (PRESTypePluginGetSerializedSampleSizeFunction)
                     PRESTypePlugin_interpretedGetSerializedSampleSize,
                     epd) == RTI_FALSE) {
@@ -13948,16 +13948,16 @@ namespace DdsJobWzskIprCorner {
     }
 
     void 
-    flgPlugin_on_endpoint_detached(
+    flgShiftScoreMinScoreMaxPlugin_on_endpoint_detached(
         PRESTypePluginEndpointData endpoint_data)
     {  
         PRESTypePluginDefaultEndpointData_delete(endpoint_data);
     }
 
     void    
-    flgPlugin_return_sample(
+    flgShiftScoreMinScoreMaxPlugin_return_sample(
         PRESTypePluginEndpointData endpoint_data,
-        flg *sample,
+        flgShiftScoreMinScoreMax *sample,
         void *handle)
     {
         try {
@@ -13965,7 +13965,7 @@ namespace DdsJobWzskIprCorner {
         } catch(const std::exception& ex) {
             RTICdrLog_logWithFunctionName(
                 RTI_LOG_BIT_EXCEPTION,
-                "flgPlugin_return_sample",
+                "flgShiftScoreMinScoreMaxPlugin_return_sample",
                 &RTI_LOG_ANY_FAILURE_s,
                 "exception: ",
                 ex.what());           
@@ -13976,29 +13976,29 @@ namespace DdsJobWzskIprCorner {
     }
 
     RTIBool 
-    flgPlugin_copy_sample(
+    flgShiftScoreMinScoreMaxPlugin_copy_sample(
         PRESTypePluginEndpointData,
-        flg *dst,
-        const flg *src)
+        flgShiftScoreMinScoreMax *dst,
+        const flgShiftScoreMinScoreMax *src)
     {
-        return DdsJobWzskIprCorner::flgPluginSupport_copy_data(dst,src);
+        return DdsJobWzskIprCorner::flgShiftScoreMinScoreMaxPluginSupport_copy_data(dst,src);
     }
 
     /* ----------------------------------------------------------------------------
     (De)Serialize functions:
     * ------------------------------------------------------------------------- */
     unsigned int 
-    flgPlugin_get_serialized_sample_max_size(
+    flgShiftScoreMinScoreMaxPlugin_get_serialized_sample_max_size(
         PRESTypePluginEndpointData endpoint_data,
         RTIBool include_encapsulation,
         RTIEncapsulationId encapsulation_id,
         unsigned int current_alignment);
 
     RTIBool
-    flgPlugin_serialize_to_cdr_buffer(
+    flgShiftScoreMinScoreMaxPlugin_serialize_to_cdr_buffer(
         char * buffer,
         unsigned int * length,
-        const flg *sample,
+        const flgShiftScoreMinScoreMax *sample,
         ::dds::core::policy::DataRepresentationId representation)
     {
         using namespace ::dds::core::policy;
@@ -14023,10 +14023,10 @@ namespace DdsJobWzskIprCorner {
             epd.typePlugin = &plugin;
             epd.programContext.endpointPluginData = &epd;
             plugin.typeCode = (struct RTICdrTypeCode *)
-            (RTIXCdrTypeCode *)&::rti::topic::dynamic_type< flg >::get().native()
+            (RTIXCdrTypeCode *)&::rti::topic::dynamic_type< flgShiftScoreMinScoreMax >::get().native()
             ;
             pd.programs = ::rti::topic::interpreter::get_cdr_serialization_programs<
-            flg, 
+            flgShiftScoreMinScoreMax, 
             true, true, true>();
 
             encapsulationId = DDS_TypeCode_get_native_encapsulation(
@@ -14038,7 +14038,7 @@ namespace DdsJobWzskIprCorner {
             }
 
             epd._maxSizeSerializedSample =
-            flgPlugin_get_serialized_sample_max_size(
+            flgShiftScoreMinScoreMaxPlugin_get_serialized_sample_max_size(
                 (PRESTypePluginEndpointData)&epd, 
                 RTI_TRUE, 
                 encapsulationId,
@@ -14080,8 +14080,8 @@ namespace DdsJobWzskIprCorner {
     }
 
     RTIBool
-    flgPlugin_deserialize_from_cdr_buffer(
-        flg *sample,
+    flgShiftScoreMinScoreMaxPlugin_deserialize_from_cdr_buffer(
+        flgShiftScoreMinScoreMax *sample,
         const char * buffer,
         unsigned int length)
     {
@@ -14100,10 +14100,10 @@ namespace DdsJobWzskIprCorner {
         epd.typePlugin = &plugin;
         epd.programContext.endpointPluginData = &epd;
         plugin.typeCode = (struct RTICdrTypeCode *)
-        (struct RTICdrTypeCode *)(RTIXCdrTypeCode *)&::rti::topic::dynamic_type< flg >::get().native()
+        (struct RTICdrTypeCode *)(RTIXCdrTypeCode *)&::rti::topic::dynamic_type< flgShiftScoreMinScoreMax >::get().native()
         ;
         pd.programs = ::rti::topic::interpreter::get_cdr_serialization_programs<
-        flg, 
+        flgShiftScoreMinScoreMax, 
         true, true, true>();
 
         epd._assignabilityProperty.acceptUnknownEnumValue = RTI_XCDR_TRUE;
@@ -14120,7 +14120,7 @@ namespace DdsJobWzskIprCorner {
     }
 
     unsigned int 
-    flgPlugin_get_serialized_sample_max_size(
+    flgShiftScoreMinScoreMaxPlugin_get_serialized_sample_max_size(
         PRESTypePluginEndpointData endpoint_data,
         RTIBool include_encapsulation,
         RTIEncapsulationId encapsulation_id,
@@ -14148,14 +14148,14 @@ namespace DdsJobWzskIprCorner {
     * -------------------------------------------------------------------------------------- */
 
     PRESTypePluginKeyKind 
-    flgPlugin_get_key_kind(void)
+    flgShiftScoreMinScoreMaxPlugin_get_key_kind(void)
     {
         return PRES_TYPEPLUGIN_NO_KEY;
     }
 
-    RTIBool flgPlugin_deserialize_key(
+    RTIBool flgShiftScoreMinScoreMaxPlugin_deserialize_key(
         PRESTypePluginEndpointData endpoint_data,
-        flg **sample, 
+        flgShiftScoreMinScoreMax **sample, 
         RTIBool * drop_sample,
         struct RTICdrStream *stream,
         RTIBool deserialize_encapsulation,
@@ -14181,7 +14181,7 @@ namespace DdsJobWzskIprCorner {
     }
 
     unsigned int
-    flgPlugin_get_serialized_key_max_size(
+    flgShiftScoreMinScoreMaxPlugin_get_serialized_key_max_size(
         PRESTypePluginEndpointData endpoint_data,
         RTIBool include_encapsulation,
         RTIEncapsulationId encapsulation_id,
@@ -14204,7 +14204,7 @@ namespace DdsJobWzskIprCorner {
     }
 
     unsigned int
-    flgPlugin_get_serialized_key_max_size_for_keyhash(
+    flgShiftScoreMinScoreMaxPlugin_get_serialized_key_max_size_for_keyhash(
         PRESTypePluginEndpointData endpoint_data,
         RTIEncapsulationId encapsulation_id,
         unsigned int current_alignment)
@@ -14227,7 +14227,7 @@ namespace DdsJobWzskIprCorner {
     /* ------------------------------------------------------------------------
     * Plug-in Installation Methods
     * ------------------------------------------------------------------------ */
-    struct PRESTypePlugin *flgPlugin_new(void) 
+    struct PRESTypePlugin *flgShiftScoreMinScoreMaxPlugin_new(void) 
     { 
         struct PRESTypePlugin *plugin = NULL;
         const struct PRESTypePluginVersion PLUGIN_VERSION = 
@@ -14244,26 +14244,26 @@ namespace DdsJobWzskIprCorner {
         /* set up parent's function pointers */
         plugin->onParticipantAttached =
         (PRESTypePluginOnParticipantAttachedCallback)
-        DdsJobWzskIprCorner::flgPlugin_on_participant_attached;
+        DdsJobWzskIprCorner::flgShiftScoreMinScoreMaxPlugin_on_participant_attached;
         plugin->onParticipantDetached =
         (PRESTypePluginOnParticipantDetachedCallback)
-        DdsJobWzskIprCorner::flgPlugin_on_participant_detached;
+        DdsJobWzskIprCorner::flgShiftScoreMinScoreMaxPlugin_on_participant_detached;
         plugin->onEndpointAttached =
         (PRESTypePluginOnEndpointAttachedCallback)
-        DdsJobWzskIprCorner::flgPlugin_on_endpoint_attached;
+        DdsJobWzskIprCorner::flgShiftScoreMinScoreMaxPlugin_on_endpoint_attached;
         plugin->onEndpointDetached =
         (PRESTypePluginOnEndpointDetachedCallback)
-        DdsJobWzskIprCorner::flgPlugin_on_endpoint_detached;
+        DdsJobWzskIprCorner::flgShiftScoreMinScoreMaxPlugin_on_endpoint_detached;
 
         plugin->copySampleFnc =
         (PRESTypePluginCopySampleFunction)
-        DdsJobWzskIprCorner::flgPlugin_copy_sample;
+        DdsJobWzskIprCorner::flgShiftScoreMinScoreMaxPlugin_copy_sample;
         plugin->createSampleFnc =
         (PRESTypePluginCreateSampleFunction)
-        flgPlugin_create_sample;
+        flgShiftScoreMinScoreMaxPlugin_create_sample;
         plugin->destroySampleFnc =
         (PRESTypePluginDestroySampleFunction)
-        flgPlugin_destroy_sample;
+        flgShiftScoreMinScoreMaxPlugin_destroy_sample;
 
         plugin->serializeFnc = 
         (PRESTypePluginSerializeFunction) PRESTypePlugin_interpretedSerialize;
@@ -14271,20 +14271,20 @@ namespace DdsJobWzskIprCorner {
         (PRESTypePluginDeserializeFunction) PRESTypePlugin_interpretedDeserializeWithAlloc;
         plugin->getSerializedSampleMaxSizeFnc =
         (PRESTypePluginGetSerializedSampleMaxSizeFunction)
-        DdsJobWzskIprCorner::flgPlugin_get_serialized_sample_max_size;
+        DdsJobWzskIprCorner::flgShiftScoreMinScoreMaxPlugin_get_serialized_sample_max_size;
         plugin->getSerializedSampleMinSizeFnc =
         (PRESTypePluginGetSerializedSampleMinSizeFunction)
         PRESTypePlugin_interpretedGetSerializedSampleMinSize;
         plugin->getDeserializedSampleMaxSizeFnc = NULL; 
         plugin->getSampleFnc =
         (PRESTypePluginGetSampleFunction)
-        flgPlugin_get_sample;
+        flgShiftScoreMinScoreMaxPlugin_get_sample;
         plugin->returnSampleFnc =
         (PRESTypePluginReturnSampleFunction)
-        flgPlugin_return_sample;
+        flgShiftScoreMinScoreMaxPlugin_return_sample;
         plugin->getKeyKindFnc =
         (PRESTypePluginGetKeyKindFunction)
-        DdsJobWzskIprCorner::flgPlugin_get_key_kind;
+        DdsJobWzskIprCorner::flgShiftScoreMinScoreMaxPlugin_get_key_kind;
 
         /* These functions are only used for keyed types. As this is not a keyed
         type they are all set to NULL
@@ -14303,17 +14303,17 @@ namespace DdsJobWzskIprCorner {
         plugin->typeCode = NULL; 
         #else
         plugin->typeCode = (struct RTICdrTypeCode *) 
-        &::rti::topic::dynamic_type< DdsJobWzskIprCorner::flg >::get().native();
+        &::rti::topic::dynamic_type< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax >::get().native();
         #endif
         plugin->languageKind = PRES_TYPEPLUGIN_CPPSTL_LANG;
 
         /* Serialized buffer */
         plugin->getBuffer = 
         (PRESTypePluginGetBufferFunction)
-        flgPlugin_get_buffer;
+        flgShiftScoreMinScoreMaxPlugin_get_buffer;
         plugin->returnBuffer = 
         (PRESTypePluginReturnBufferFunction)
-        flgPlugin_return_buffer;
+        flgShiftScoreMinScoreMaxPlugin_return_buffer;
         plugin->getBufferWithParams = NULL;
         plugin->returnBufferWithParams = NULL;
         plugin->getSerializedSampleSizeFnc =
@@ -14326,14 +14326,14 @@ namespace DdsJobWzskIprCorner {
         plugin->validateWriterLoanedSampleFnc = NULL;
         plugin->setWriterLoanedSampleSerializedStateFnc = NULL;
 
-        static const char * TYPE_NAME = "DdsJobWzskIprCorner::flg";
+        static const char * TYPE_NAME = "DdsJobWzskIprCorner::flgShiftScoreMinScoreMax";
         plugin->endpointTypeName = TYPE_NAME;
         plugin->isMetpType = RTI_FALSE;
         return plugin;
     }
 
     void
-    flgPlugin_delete(struct PRESTypePlugin *plugin)
+    flgShiftScoreMinScoreMaxPlugin_delete(struct PRESTypePlugin *plugin)
     {
         RTIOsapiHeap_freeStructure(plugin);
     } 

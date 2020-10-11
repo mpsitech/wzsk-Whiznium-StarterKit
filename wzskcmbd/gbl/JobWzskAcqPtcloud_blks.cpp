@@ -2,8 +2,8 @@
 	* \file JobWzskAcqPtcloud_blks.cpp
 	* job handler for job JobWzskAcqPtcloud (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 using namespace std;
@@ -119,16 +119,18 @@ void JobWzskAcqPtcloud::VecVVar::fillFeed(
  ******************************************************************************/
 
 JobWzskAcqPtcloud::Stg::Stg(
-			const float dLeft
+			const float dLasback
+			, const float dLeft
 			, const float dRight
 			, const float dWork
 		) :
 			Block()
 		{
+	this->dLasback = dLasback;
 	this->dLeft = dLeft;
 	this->dRight = dRight;
 	this->dWork = dWork;
-	mask = {DLEFT, DRIGHT, DWORK};
+	mask = {DLASBACK, DLEFT, DRIGHT, DWORK};
 };
 
 bool JobWzskAcqPtcloud::Stg::readXML(
@@ -148,6 +150,7 @@ bool JobWzskAcqPtcloud::Stg::readXML(
 	string itemtag = "StgitemJobWzskAcqPtcloud";
 
 	if (basefound) {
+		if (extractFloatAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "dLasback", dLasback)) add(DLASBACK);
 		if (extractFloatAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "dLeft", dLeft)) add(DLEFT);
 		if (extractFloatAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "dRight", dRight)) add(DRIGHT);
 		if (extractFloatAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "dWork", dWork)) add(DWORK);
@@ -168,6 +171,7 @@ void JobWzskAcqPtcloud::Stg::writeXML(
 	else itemtag = "StgitemJobWzskAcqPtcloud";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
+		writeFloatAttr(wr, itemtag, "sref", "dLasback", dLasback);
 		writeFloatAttr(wr, itemtag, "sref", "dLeft", dLeft);
 		writeFloatAttr(wr, itemtag, "sref", "dRight", dRight);
 		writeFloatAttr(wr, itemtag, "sref", "dWork", dWork);
@@ -179,6 +183,7 @@ set<uint> JobWzskAcqPtcloud::Stg::comm(
 		) {
 	set<uint> items;
 
+	if (compareFloat(dLasback, comp->dLasback) < 1.0e-4) insert(items, DLASBACK);
 	if (compareFloat(dLeft, comp->dLeft) < 1.0e-4) insert(items, DLEFT);
 	if (compareFloat(dRight, comp->dRight) < 1.0e-4) insert(items, DRIGHT);
 	if (compareFloat(dWork, comp->dWork) < 1.0e-4) insert(items, DWORK);
@@ -194,7 +199,7 @@ set<uint> JobWzskAcqPtcloud::Stg::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {DLEFT, DRIGHT, DWORK};
+	diffitems = {DLASBACK, DLEFT, DRIGHT, DWORK};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

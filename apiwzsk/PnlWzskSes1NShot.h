@@ -2,8 +2,8 @@
 	* \file PnlWzskSes1NShot.h
 	* API code for job PnlWzskSes1NShot (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef PNLWZSKSES1NSHOT_H

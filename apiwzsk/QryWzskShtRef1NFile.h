@@ -2,8 +2,8 @@
 	* \file QryWzskShtRef1NFile.h
 	* API code for job QryWzskShtRef1NFile (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef QRYWZSKSHTREF1NFILE_H

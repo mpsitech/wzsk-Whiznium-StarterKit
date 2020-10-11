@@ -4,6 +4,42 @@
 	- ImeIMControl1.srefIxVBasetype	srefHkIxVSection	srefRefIxVTbl	srefRefUref	srefSupRefWznmMControl	supNum	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	Avail	Active	srefsKOption					
 	- mit	mbar	dlg	DlgWzskFilDownload	MenCrd	3	shr	MitCrdDld	void	download		pre.ixCrdaccFilIncl(exec)	pre.refFil()	cap;ddd					
 	- ImeIMControl1.end																		
+	- ImeIMPanel.srefIxVIop	srefIxVBasetype	carNum	sref	Detach	Avail	Comment												
+	- retr			PnlWzskFilList															
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- retr									TcoGrp								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		80													
+			- ImeIAMControlPar2.end																
+		- retr									TcoOwn								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		80													
+			- ImeIAMControlPar2.end																
+		- retr									TcoFnm								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		120													
+			- ImeIAMControlPar2.end																
+		- retr									TcoRet								
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- retrupd	enus	R. -\u003e														
+			- ImeIJMControlTitle2.end																
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		80													
+			- ImeIAMControlPar2.end																
+		- retr									TcoReu								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		250													
+			- ImeIAMControlPar2.end																
+		- retr									TcoCnt								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		150													
+			- ImeIAMControlPar2.end																
+		- retr									TcoSiz								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		80													
+			- ImeIAMControlPar2.end																
+		- ImeIMControl2.end																	
+	- ImeIMPanel.end																		
 	- ImeIMDialog.srefIxVBasetype	srefRefIxVTbl	srefRefUref	sref	Comment														
 	- cust	void		DlgWzskFilDownload															
 		- ImeIMControl3.iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption	
@@ -538,6 +574,19 @@
 	- msp	mbar	void		MenCrd	1	app	MspCrd1	void			MitCrdNewAvail()							
 	- mit	mbar	dlg	DlgWzskObjNew	MenCrd	2	shr	MitCrdNew	void	new		pre.ixCrdaccObjIncl(edit)		cap;ddd					
 	- ImeIMControl1.end																		
+	- ImeIMPanel.srefIxVIop	srefIxVBasetype	carNum	sref	Detach	Avail	Comment												
+	- retr			PnlWzskObjList															
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- retr									TcoTit								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		200													
+			- ImeIAMControlPar2.end																
+		- retr									TcoOgr								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		250													
+			- ImeIAMControlPar2.end																
+		- ImeIMControl2.end																	
+	- ImeIMPanel.end																		
 	- ImeIMDialog.srefIxVBasetype	srefRefIxVTbl	srefRefUref	sref	Comment														
 	- new	tbl	TblWzskMObject	DlgWzskObjNew															
 		- ImeIMControl3.iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption	
@@ -589,6 +638,19 @@
 	- msp	mbar	void		MenCrd	1	app	MspCrd1	void			MitCrdNewAvail()							
 	- mit	mbar	dlg	DlgWzskOgrNew	MenCrd	2	shr	MitCrdNew	void	new		pre.ixCrdaccOgrIncl(edit)		cap;ddd					
 	- ImeIMControl1.end																		
+	- ImeIMPanel.srefIxVIop	srefIxVBasetype	carNum	sref	Detach	Avail	Comment												
+	- retr			PnlWzskOgrList															
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- retr									TcoTit								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		200													
+			- ImeIAMControlPar2.end																
+		- retr									TcoSup								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		250													
+			- ImeIAMControlPar2.end																
+		- ImeIMControl2.end																	
+	- ImeIMPanel.end																		
 	- ImeIMDialog.srefIxVBasetype	srefRefIxVTbl	srefRefUref	sref	Comment														
 	- new	tbl	TblWzskMObjgroup	DlgWzskOgrNew															
 		- ImeIMControl3.iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption	
@@ -652,6 +714,40 @@
 			- ImeIAMControlPar3.end																
 		- ImeIMControl3.end																	
 	- ImeIMDialog.end																		
+- CrdWzskPrs																			
+	- ImeIMPanel.srefIxVIop	srefIxVBasetype	carNum	sref	Detach	Avail	Comment												
+	- retr			PnlWzskPrsList															
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- retr									TcoGrp								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		80													
+			- ImeIAMControlPar2.end																
+		- retr									TcoOwn								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		80													
+			- ImeIAMControlPar2.end																
+		- retr									TcoTit								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		60													
+			- ImeIAMControlPar2.end																
+		- retr									TcoLnm								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		120													
+			- ImeIAMControlPar2.end																
+		- retr									TcoSex								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		60													
+			- ImeIAMControlPar2.end																
+		- retr									TcoTel								
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- retrupd	enus	Phone														
+			- ImeIJMControlTitle2.end																
+		- retr									TcoEml								
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- retrupd	enus	E-Mail														
+			- ImeIJMControlTitle2.end																
+		- ImeIMControl2.end																	
+	- ImeIMPanel.end																		
 - CrdWzskScf																			
 	- ImeIMControl1.srefIxVBasetype	srefHkIxVSection	srefRefIxVTbl	srefRefUref	srefSupRefWznmMControl	supNum	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	Avail	Active	srefsKOption					
 	- men	mbar	void				app	MenCrd	void										
@@ -800,4 +896,92 @@
 			- ImeIAMControlPar3.end																
 		- ImeIMControl3.end																	
 	- ImeIMDialog.end																		
+- CrdWzskSes																			
+	- ImeIMPanel.srefIxVIop	srefIxVBasetype	carNum	sref	Detach	Avail	Comment												
+	- retr			PnlWzskSesList															
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- retr									TcoUsr								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		250													
+			- ImeIAMControlPar2.end																
+		- retr									TcoSta								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		200													
+			- ImeIAMControlPar2.end																
+		- retr									TcoSto								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		200													
+			- ImeIAMControlPar2.end																
+		- retr									TcoIp								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		150													
+			- ImeIAMControlPar2.end																
+		- ImeIMControl2.end																	
+	- ImeIMPanel.end																		
+- CrdWzskSht																			
+	- ImeIMPanel.srefIxVIop	srefIxVBasetype	carNum	sref	Detach	Avail	Comment												
+	- retr			PnlWzskShtList															
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- retr									TcoSes								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		300													
+			- ImeIAMControlPar2.end																
+		- retr									TcoObj								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		200													
+			- ImeIAMControlPar2.end																
+		- retr									TcoSta								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		200													
+			- ImeIAMControlPar2.end																
+		- ImeIMControl2.end																	
+	- ImeIMPanel.end																		
+- CrdWzskUsg																			
+	- ImeIMPanel.srefIxVIop	srefIxVBasetype	carNum	sref	Detach	Avail	Comment												
+	- retr			PnlWzskUsgList															
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- retr									TcoGrp								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		80													
+			- ImeIAMControlPar2.end																
+		- retr									TcoOwn								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		80													
+			- ImeIAMControlPar2.end																
+		- ImeIMControl2.end																	
+	- ImeIMPanel.end																		
+- CrdWzskUsr																			
+	- ImeIMPanel.srefIxVIop	srefIxVBasetype	carNum	sref	Detach	Avail	Comment												
+	- retr			PnlWzskUsrList															
+		- ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
+		- retr									TcoGrp								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		80													
+			- ImeIAMControlPar2.end																
+		- retr									TcoOwn								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		80													
+			- ImeIAMControlPar2.end																
+		- retr									TcoPrs								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		200													
+			- ImeIAMControlPar2.end																
+		- retr									TcoSrf								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		150													
+			- ImeIAMControlPar2.end																
+		- retr									TcoUsg								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		150													
+			- ImeIAMControlPar2.end																
+		- retr									TcoSte								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		120													
+			- ImeIAMControlPar2.end																
+		- retr									TcoLcl								
+			- ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal													
+			- ins	width		150													
+			- ImeIAMControlPar2.end																
+		- ImeIMControl2.end																	
+	- ImeIMPanel.end																		
 - ImeIMCard.end																			

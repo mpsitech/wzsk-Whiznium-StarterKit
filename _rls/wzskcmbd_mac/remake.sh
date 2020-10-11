@@ -2,8 +2,8 @@
 # file remake.sh
 # re-make script for Wzsk combined daemon, release wzskcmbd_mac
 # author Catherine Johnson
-# date created: 16 Sep 2020
-# modified: 16 Sep 2020
+# date created: 6 Oct 2020
+# modified: 6 Oct 2020
 
 export set SRCROOT=${WHIZROOT}/src
 export set REPROOT=${WHIZROOT}/srcrep

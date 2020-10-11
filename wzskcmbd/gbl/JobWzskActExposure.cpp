@@ -2,8 +2,8 @@
 	* \file JobWzskActExposure.cpp
 	* job handler for job JobWzskActExposure (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -120,7 +120,7 @@ bool JobWzskActExposure::setExposure(
 
 	// IP setExposure --- IBEGIN
 	if (srcv4l2) retval = srcv4l2->setExposure(autoNotManual, Texp);
-	else if (srcfpga) retval = srcfpga->camif_setTexp(Texp);
+	else if (srcfpga) retval = srcfpga->setExposure(autoNotManual, Texp);
 
 	if (retval) {
 		shrdat.wlockAccess(jref, "setExposure");
@@ -158,7 +158,7 @@ bool JobWzskActExposure::setFocus(
 
 	// IP setFocus --- IBEGIN
 	if (srcv4l2) retval = srcv4l2->setFocus(focus);
-	else if (srcfpga) retval = srcfpga->camif_setFocus(focus);
+	else if (srcfpga) retval = srcfpga->setFocus(focus);
 
 	if (retval) {
 		shrdat.wlockAccess(jref, "setFocus");

@@ -2,8 +2,8 @@
 	* \file JobWzskAcqFpgaflg.h
 	* job handler for job JobWzskAcqFpgaflg (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef JOBWZSKACQFPGAFLG_H
@@ -68,11 +68,9 @@ public:
 			double t;
 
 			// from featdet.getCornerinfo()
-			Sbecore::ubigint scoreMin;
-			Sbecore::ubigint scoreMax;
 			Sbecore::utinyint shift;
-			Sbecore::uint NCorner;
-			Sbecore::utinyint thd;
+			Sbecore::utinyint scoreMin;
+			Sbecore::utinyint scoreMax;
 		};
 		// IP Shrdat.subs --- IEND
 
@@ -90,6 +88,12 @@ public:
 		// info passed to flg sub-thread
 		bool thdNotCorner;
 		bool thdDeltaNotAbs;
+
+		bool cornerLinNotLog;
+		Sbecore::utinyint cornerThd;
+
+		Sbecore::utinyint thdLvlFirst;
+		Sbecore::utinyint thdLvlSecond;
 
 		bool cancelFlg;
 		//
@@ -123,11 +127,17 @@ public:
 	class Claim : public Sbecore::Claim {
 
 	public:
-		Claim(const bool retractable = true, const bool run = false, const bool thdNotCorner = false, const bool thdDeltaNotAbs = false);
+		Claim(const bool retractable = true, const bool run = false, const bool thdNotCorner = false, const bool thdDeltaNotAbs = false, const bool cornerLinNotLog = false, const Sbecore::utinyint cornerThd = 0, const Sbecore::utinyint thdLvlFirst = 0, const Sbecore::utinyint thdLvlSecond = 0);
 
 	public:
 		bool thdNotCorner;
 		bool thdDeltaNotAbs;
+
+		bool cornerLinNotLog;
+		Sbecore::utinyint cornerThd;
+
+		Sbecore::utinyint thdLvlFirst;
+		Sbecore::utinyint thdLvlSecond;
 	};
 
 	static void* runFlg(void* arg);

@@ -2,8 +2,8 @@
 	* \file JobWzskAcqPreview.cpp
 	* job handler for job JobWzskAcqPreview (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -411,10 +411,10 @@ bool JobWzskAcqPreview::handleCallWzskResultNewFromAcqfpgapvwInSgeReady(
 
 	// binreddom is not available for fpga at this time
 
-	if (shrdat.bingray && (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::BINGRAY)) shrdat.resultBingray.dequeue(ixRiBingray);
-	else if (shrdat.binrgb && (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::BINRGB)) shrdat.resultBinrgb.dequeue(ixRiBinrgb);
-	else if (shrdat.rawgray && (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::RAWGRAY)) shrdat.resultRawgray.dequeue(ixRiRawgray);
-	else if (shrdat.rawrgb && (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::RAWRGB)) shrdat.resultRawrgb.dequeue(ixRiRawrgb);
+	if (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::BINGRAY) shrdat.resultBingray.dequeue(ixRiBingray);
+	else if (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::BINRGB) shrdat.resultBinrgb.dequeue(ixRiBinrgb);
+	else if (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::RAWGRAY) shrdat.resultRawgray.dequeue(ixRiRawgray);
+	else if (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::RAWRGB) shrdat.resultRawrgb.dequeue(ixRiRawrgb);
 
 	if ( (ixRiBingray != shrdat.resultBingray.size()) || (ixRiBinrgb != shrdat.resultBinrgb.size()) || (ixRiRawgray != shrdat.resultRawgray.size()) || (ixRiRawrgb != shrdat.resultRawrgb.size()) ) {
 		acqfpgapvw->shrdat.resultPvw.lock(jref, ixInv);
@@ -443,7 +443,7 @@ void JobWzskAcqPreview::changeStage(
 
 			setStage(dbswzsk, _ixVSge);
 			reenter = false;
-			// IP changeStage.refresh1 --- INSERT
+			//cout << "JobWzskAcqPreview now entering stage " << VecVSge::getSref(_ixVSge) << endl; // IP changeStage.refresh1 --- ILINE
 		};
 
 		switch (_ixVSge) {
@@ -699,6 +699,12 @@ uint JobWzskAcqPreview::enterSgeProcess(
 			memcpy(riRgb->g8, &((riSrcfpga->buf)[riRgb->sizeBuf]), riRgb->sizeBuf);
 			memcpy(riRgb->b8, &((riSrcfpga->buf)[2 * riRgb->sizeBuf]), riRgb->sizeBuf);
 
+			//for (unsigned int i = 0, j = 0; i < riRgb->sizeBuf; i++) {
+			//	riRgb->r8[i] = riSrcfpga->buf[j++];
+			//	riRgb->g8[i] = riSrcfpga->buf[j++];
+			//	riRgb->b8[i] = riSrcfpga->buf[j++];
+			//};
+
 			riRgb->tOut = Wzsk::getNow();
 
 			xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixRiBinrgb, "binrgb");
@@ -728,6 +734,12 @@ uint JobWzskAcqPreview::enterSgeProcess(
 			memcpy(riRgb->r8, riSrcfpga->buf, riRgb->sizeBuf);
 			memcpy(riRgb->g8, &((riSrcfpga->buf)[riRgb->sizeBuf]), riRgb->sizeBuf);
 			memcpy(riRgb->b8, &((riSrcfpga->buf)[2 * riRgb->sizeBuf]), riRgb->sizeBuf);
+
+			//for (unsigned int i = 0, j = 0; i < riRgb->sizeBuf; i++) {
+			//	riRgb->r8[i] = riSrcfpga->buf[j++];
+			//	riRgb->g8[i] = riSrcfpga->buf[j++];
+			//	riRgb->b8[i] = riSrcfpga->buf[j++];
+			//};
 
 			riRgb->tOut = Wzsk::getNow();
 

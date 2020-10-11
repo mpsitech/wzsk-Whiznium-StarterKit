@@ -2,8 +2,8 @@
 	* \file JobWzskSrcV4l2.cpp
 	* job handler for job JobWzskSrcV4l2 (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -218,120 +218,127 @@ void JobWzskSrcV4l2::Shrdat::init(
 
 	const unsigned int N = 8; // eight buffers and result items prove to work nicely
 
-	// open camera
-	fd = open(stg.path.c_str(), O_RDWR);
+	fd = -1;
 
-	success = (fd != -1);
-	if (!success) throw WzskException(WzskException::V4L2, {{"msg","error connecting to camera"}});
+	try {
+		// open camera
+		fd = open(stg.path.c_str(), O_RDWR);
 
-	resultAcq.fd = fd;
+		success = (fd != -1);
+		if (!success) throw WzskException(WzskException::V4L2, {{"msg","error connecting to camera"}});
 
-	if (success) {
-		// limit to 15fps
-		memset(&parm, 0, sizeof(parm));
+		resultAcq.fd = fd;
 
-		parm.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+		if (success) {
+			// limit to 15fps
+			memset(&parm, 0, sizeof(parm));
 
-		parm.parm.capture.timeperframe.numerator = 1;
-		parm.parm.capture.timeperframe.denominator = 15; // actual frame rate always ends up being 7.5Hz
-		parm.parm.capture.capturemode = 6; // 2592 x 1944 works after gstreamer changes some settings
-		//parm.parm.capture.capturemode = 8; // 1024 x 768 works with YUYV
+			parm.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 
-		while (true) {
-			success = (ioctl(fd, VIDIOC_S_PARM, &parm) != -1);
-			if (success) break;
+			parm.parm.capture.timeperframe.numerator = 1;
+			parm.parm.capture.timeperframe.denominator = 15; // actual frame rate always ends up being 7.5Hz
+			parm.parm.capture.capturemode = 6; // 2592 x 1944 works after gstreamer changes some settings
+			//parm.parm.capture.capturemode = 8; // 1024 x 768 works with YUYV
 
-			if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error setting frame rate (" + string(strerror(errno)) + ")"}});
-		};
-	};
+			while (true) {
+				success = (ioctl(fd, VIDIOC_S_PARM, &parm) != -1);
+				if (success) break;
 
-	if (success) {
-		// initialize image format by get ioctl
-		memset(&fmt, 0, sizeof(fmt));
-
-		fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-
-		while (true) {
-			success = (ioctl(fd, VIDIOC_G_FMT, &fmt) != -1);
-			if (success) break;
-
-			if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error initializing image format (" + string(strerror(errno)) + ")"}});
-		};
-	};
-	
-	if (success) {
-		// validate width & height
-		memset(&fszenum, 0, sizeof(fszenum));
-
-		fszenum.index = 6;
-		if (!stg.YUV422NotYUV420) fszenum.pixel_format = V4L2_PIX_FMT_YUV420;
-		else fszenum.pixel_format = V4L2_PIX_FMT_YUYV;
-
-		while (true) {
-			success = (ioctl(fd, VIDIOC_ENUM_FRAMESIZES, &fszenum) != -1);
-			if (success) break;
-
-			if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error obtaining frame size (" + string(strerror(errno)) + ")"}});
+				if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error setting frame rate (" + string(strerror(errno)) + ")"}});
+			};
 		};
 
-		//cout << "obtained capture size for mode 6 is " << fszenum.discrete.width << "x" << fszenum.discrete.height << endl;
-	};
+		if (success) {
+			// initialize image format by get ioctl
+			memset(&fmt, 0, sizeof(fmt));
 
-	if (success) {
-		// set image format
-		//memset(&fmt, 0, sizeof(fmt));
+			fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 
-		fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-		fmt.fmt.pix.bytesperline = 0;
-		fmt.fmt.pix.priv = 0;
-		fmt.fmt.pix.sizeimage = 0;
-		fmt.fmt.pix.width = xchg->stgwzskframegeo.wAcq;
-		fmt.fmt.pix.height = xchg->stgwzskframegeo.hAcq;
-		if (!stg.YUV422NotYUV420) fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUV420;
-		else fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
-		//fmt.fmt.pix.field = V4L2_FIELD_NONE;
+			while (true) {
+				success = (ioctl(fd, VIDIOC_G_FMT, &fmt) != -1);
+				if (success) break;
 
-		while (true) {
-			success = (ioctl(fd, VIDIOC_S_FMT, &fmt) != -1);
-			if (success) break;
-
-			if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error setting image format (" + string(strerror(errno)) + ")"}});
+				if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error initializing image format (" + string(strerror(errno)) + ")"}});
+			};
 		};
-	};
+		
+		if (success) {
+			// validate width & height
+			memset(&fszenum, 0, sizeof(fszenum));
 
-	//if (success) success = setCtrl(V4L2_CID_HFLIP, "horizontal flip", true, 0, true);
-	//if (success) success = setCtrl(V4L2_CID_MXC_VF_ROT, "MXC rotate", false, V4L2_MXC_ROTATE_180, false);
-	//if (success) success = setCtrl(V4L2_CID_POWER_LINE_FREQUENCY, "power_line_frequency", false, V4L2_CID_POWER_LINE_FREQUENCY_50HZ, false);
-	//if (success) success = setCtrl(V4L2_CID_BACKLIGHT_COMPENSATION, "backlight_compensation", false, 5, false);
-	//if (success) success = setCtrl(V4L2_CID_EXPOSURE_AUTO, "exposure_auto", false, V4L2_EXPOSURE_MANUAL, false);
-	//if (success) success = setCtrl(V4L2_CID_EXPOSURE_ABSOLUTE, "exposure_absolute", false, 100, false);
-	//if (success) success = setCtrl(V4L2_CID_FOCUS_AUTO, "focus_auto", true, 0, false);
-	//if (success) success = setCtrl(V4L2_CID_FOCUS_ABSOLUTE, "focus_absolute", false, 10, false);
+			fszenum.index = 6;
+			if (!stg.YUV422NotYUV420) fszenum.pixel_format = V4L2_PIX_FMT_YUV420;
+			else fszenum.pixel_format = V4L2_PIX_FMT_YUYV;
 
-	if (success) {
-		// request buffers
-		memset(&req, 0, sizeof(req));
+			while (true) {
+				success = (ioctl(fd, VIDIOC_ENUM_FRAMESIZES, &fszenum) != -1);
+				if (success) break;
 
-		req.count = N;
-		req.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-		req.memory = V4L2_MEMORY_MMAP;
+				if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error obtaining frame size (" + string(strerror(errno)) + ")"}});
+			};
 
-		while (true) {
-			success = (ioctl(fd, VIDIOC_REQBUFS, &req) != -1);
-			if (success) break;
-
-			if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error requesting buffers (" + string(strerror(errno)) + ")"}});
+			//cout << "obtained capture size for mode 6 is " << fszenum.discrete.width << "x" << fszenum.discrete.height << endl;
 		};
-	};
 
-	if (success) {
-		// map to user space memory and queue (intertwined with result items)
-		for (unsigned int i = 0; i < N; i++) resultAcq.append(new ResultitemAcq(xchg, fd, i));
-	};
+		if (success) {
+			// set image format
+			//memset(&fmt, 0, sizeof(fmt));
 
-	if (!success && (fd != -1)) {
-		close(fd);
-		fd = 0;
+			fmt.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+			fmt.fmt.pix.bytesperline = 0;
+			fmt.fmt.pix.priv = 0;
+			fmt.fmt.pix.sizeimage = 0;
+			fmt.fmt.pix.width = xchg->stgwzskframegeo.wAcq;
+			fmt.fmt.pix.height = xchg->stgwzskframegeo.hAcq;
+			if (!stg.YUV422NotYUV420) fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUV420;
+			else fmt.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
+			//fmt.fmt.pix.field = V4L2_FIELD_NONE;
+
+			while (true) {
+				success = (ioctl(fd, VIDIOC_S_FMT, &fmt) != -1);
+				if (success) break;
+
+				if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error setting image format (" + string(strerror(errno)) + ")"}});
+			};
+		};
+
+		//if (success) success = setCtrl(V4L2_CID_HFLIP, "horizontal flip", true, 0, true);
+		//if (success) success = setCtrl(V4L2_CID_MXC_VF_ROT, "MXC rotate", false, V4L2_MXC_ROTATE_180, false);
+		//if (success) success = setCtrl(V4L2_CID_POWER_LINE_FREQUENCY, "power_line_frequency", false, V4L2_CID_POWER_LINE_FREQUENCY_50HZ, false);
+		//if (success) success = setCtrl(V4L2_CID_BACKLIGHT_COMPENSATION, "backlight_compensation", false, 5, false);
+		//if (success) success = setCtrl(V4L2_CID_EXPOSURE_AUTO, "exposure_auto", false, V4L2_EXPOSURE_MANUAL, false);
+		//if (success) success = setCtrl(V4L2_CID_EXPOSURE_ABSOLUTE, "exposure_absolute", false, 100, false);
+		//if (success) success = setCtrl(V4L2_CID_FOCUS_AUTO, "focus_auto", true, 0, false);
+		//if (success) success = setCtrl(V4L2_CID_FOCUS_ABSOLUTE, "focus_absolute", false, 10, false);
+
+		if (success) {
+			// request buffers
+			memset(&req, 0, sizeof(req));
+
+			req.count = N;
+			req.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+			req.memory = V4L2_MEMORY_MMAP;
+
+			while (true) {
+				success = (ioctl(fd, VIDIOC_REQBUFS, &req) != -1);
+				if (success) break;
+
+				if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error requesting buffers (" + string(strerror(errno)) + ")"}});
+			};
+		};
+
+		if (success) {
+			// map to user space memory and queue (intertwined with result items)
+			for (unsigned int i = 0; i < N; i++) resultAcq.append(new ResultitemAcq(xchg, fd, i));
+		};
+
+		if (!success && (fd != -1)) {
+			close(fd);
+			fd = 0;
+		};
+
+	} catch (WzskException& e) {
+		cout << e.getSquawk(VecWzskVError::getIx, VecWzskVError::getTitle, VecWzskVLocale::ENUS) << endl;
 	};
 
 	acq = 0;

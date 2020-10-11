@@ -2,8 +2,8 @@
 	* \file JobWzskSrcFpga.cpp
 	* job handler for job JobWzskSrcFpga (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -43,7 +43,7 @@ void JobWzskSrcFpga::Shrdat::init(
 	try {
 		hw.init(stg.path);
 
-		hw.rxtxdump = true;
+		hw.rxtxdump = false;
 		hw.reset();
 
 		t0 = Wzsk::getNow();
@@ -118,6 +118,111 @@ JobWzskSrcFpga::Claim::Claim(
 	this->step = step;
 };
 
+bool JobWzskSrcFpga::setExposure(
+			const bool autoNotManual
+			, const float _Texp
+		) {
+	bool success = false;
+
+	usmallint Texp;
+	
+	float Texp_imd = 16.0 * _Texp / (2844.0/25e6); // units of line*16, one line takes (2844/25e6)s = 113.76µs at pclk = 25MHz
+
+	if (Texp_imd < 1.0) Texp = 1;
+	else if (Texp_imd > 65535.0) Texp = 65535;
+	else Texp = lround(Texp_imd);
+
+	if (!autoNotManual) {
+		success = camif_modReg(0x3503, 0x03, 0x03);
+
+		if (success) success = camif_setReg(0x3502, (Texp & 0x000F) << 4);
+		if (success) success = camif_setReg(0x3501, Texp >> 4);
+		if (success) success = camif_setReg(0x3500, Texp >> 12);
+
+	} else {
+		success = camif_modReg(0x3503, 0x03, 0x00);
+	};
+
+	return success;
+};
+
+bool JobWzskSrcFpga::setFocus(
+			const float _focus
+		) {
+	bool success = false;
+
+	usmallint focus;
+	
+	if (_focus < 0.0) focus = 0;
+	else if (_focus > 1.0) focus = 1023;
+	else focus = lround(1023.0 * _focus);
+
+	success = camif_modReg(0x3603, 0x3F, focus >> 4);
+	if (success) success = camif_modReg(0x3602, 0xF0, focus << 4);
+
+	return success;
+};
+
+bool JobWzskSrcFpga::getAngle(
+			float& angle // in °
+		) {
+	bool success = false;
+
+	utinyint tixVState;
+	usmallint _angle;
+
+	try {
+		shrdat.hw.step->getInfo(tixVState, _angle);
+
+		angle = ((float) _angle) * 360.0/4096.0;
+
+		success = true;
+
+	} catch (DbeException& e) {
+		if (shrdat.excdump) cout << e.err << endl;
+	};
+
+	return success;
+};
+
+bool JobWzskSrcFpga::moveto(
+			float& _angle
+			, const float omega // in 1/s
+		) {
+	bool success = false;
+
+	usmallint angle;
+
+	utinyint Tstep;
+
+	float angle_imd = _angle;
+
+	while (angle_imd >= 360.0) angle_imd -= 360.0;
+	while (angle_imd < 0.0) angle_imd += 360.0;
+
+	angle = lround(4096.0 * angle_imd/360.0);
+	if (angle == 4096) angle = 0;
+
+	// rotational speed is 1 / (4096 * Tstep * 1e-4s)
+	float Tstep_imd = 1.0 / (4096.0 * omega * 1e-4);
+
+	if (Tstep_imd < 50.0) Tstep = 50;
+	else if (Tstep_imd > 255.0) Tstep = 255;
+	else Tstep = lround(Tstep_imd);
+
+	try {
+		shrdat.hw.step->moveto(angle, Tstep);
+		_angle = 360.0 * ((float) angle) / 4096.0; // fix target to raster
+
+		success = true;
+
+	} catch (DbeException& e) {
+		if (shrdat.excdump) cout << e.err << endl;
+	};
+
+	return success;
+};
+
 bool JobWzskSrcFpga::setStep(
 			const bool rng
 			, const bool ccwNotCw
@@ -136,28 +241,6 @@ bool JobWzskSrcFpga::setStep(
 
 	try {
 		shrdat.hw.step->set(rng, ccwNotCw, Tstep);
-
-		success = true;
-
-	} catch (DbeException& e) {
-		if (shrdat.excdump) cout << e.err << endl;
-	};
-
-	return success;
-};
-
-bool JobWzskSrcFpga::getAngle(
-			float& angle // in °
-		) {
-	bool success = false;
-
-	utinyint tixVState;
-	usmallint _angle;
-
-	try {
-		shrdat.hw.step->getInfo(tixVState, _angle);
-
-		angle = ((float) _angle) * 360.0/4096.0;
 
 		success = true;
 
@@ -246,19 +329,14 @@ bool JobWzskSrcFpga::camif_setRng(
 	return success;
 };
 
-bool JobWzskSrcFpga::camif_setFocus(
-			const float _focus // 0 .. 1
+bool JobWzskSrcFpga::camif_setReg(
+			const usmallint regaddr
+			, const utinyint val
 		) {
 	bool success = false;
 
-	usmallint focus;
-	
-	if (_focus < 0.0) focus = 0;
-	else if (_focus > 1.0) focus = 1023;
-	else focus = lround(1023.0 * _focus);
-
 	try {
-		shrdat.hw.camif->setFocus(focus);
+		shrdat.hw.camif->setReg(regaddr, val);
 
 		success = true;
 
@@ -269,21 +347,34 @@ bool JobWzskSrcFpga::camif_setFocus(
 	return success;
 };
 
-bool JobWzskSrcFpga::camif_setTexp(
-			const float _Texp // in s
+bool JobWzskSrcFpga::camif_getReg(
+			const usmallint regaddr
+			, utinyint& val
 		) {
 	bool success = false;
 
-	usmallint Texp;
-	
-	float Texp_imd = 16.0 * _Texp / (2844.0/25e6); // units of line*16, one line takes (2844/25e6)s = 113.76µs at pclk = 25MHz
+	try {
+		shrdat.hw.camif->setRegaddr(regaddr);
+		shrdat.hw.camif->getReg(val);
 
-	if (Texp_imd < 1.0) Texp = 1;
-	else if (Texp_imd > 65535.0) Texp = 65535;
-	else Texp = lround(Texp_imd);
+		success = true;
+
+	} catch (DbeException& e) {
+		if (shrdat.excdump) cout << e.err << endl;
+	};
+
+	return success;
+};
+
+bool JobWzskSrcFpga::camif_modReg(
+			const usmallint regaddr
+			, const utinyint mask
+			, const utinyint val
+		) {
+	bool success = false;
 
 	try {
-		shrdat.hw.camif->setTexp(Texp);
+		shrdat.hw.camif->modReg(regaddr, mask, val);
 
 		success = true;
 
@@ -333,18 +424,14 @@ bool JobWzskSrcFpga::featdet_getInfo(
 };
 
 bool JobWzskSrcFpga::featdet_getCornerinfo(
-			usmallint& scoreMinMsb
-			, uint& scoreMinLsb
-			, usmallint& scoreMaxMsb
-			, uint& scoreMaxLsb
-			, utinyint& shift
-			, uint& NCorner
-			, utinyint& thd
+			utinyint& shift
+			, utinyint& scoreMin
+			, utinyint& scoreMax
 		) {
 	bool success = false;
 
 	try {
-		shrdat.hw.featdet->getCornerinfo(scoreMinMsb, scoreMinLsb, scoreMaxMsb, scoreMaxLsb, shift, NCorner, thd);
+		shrdat.hw.featdet->getCornerinfo(shift, scoreMin, scoreMax);
 
 		success = true;
 
@@ -356,12 +443,13 @@ bool JobWzskSrcFpga::featdet_getCornerinfo(
 };
 
 bool JobWzskSrcFpga::featdet_setCorner(
-			const uint Ntrg
+			const bool linNotLog
+			, const uint Ntrg
 		) {
 	bool success = false;
 
 	try {
-		shrdat.hw.featdet->setCorner(Ntrg);
+		shrdat.hw.featdet->setCorner(linNotLog, Ntrg);
 
 		success = true;
 
@@ -373,8 +461,8 @@ bool JobWzskSrcFpga::featdet_setCorner(
 };
 
 bool JobWzskSrcFpga::featdet_setThd(
-			const unsigned char lvlFirst
-			, const unsigned char lvlSecond
+			const utinyint lvlFirst
+			, const utinyint lvlSecond
 		) {
 	bool success = false;
 
@@ -406,50 +494,14 @@ bool JobWzskSrcFpga::featdet_triggerThd() {
 };
 
 bool JobWzskSrcFpga::laser_set(
-			const float _l // 0 .. 1
-			, const float _r // 0 .. 1
+			const usmallint l
+			, const usmallint r
 		) {
 	bool success = false;
 
-	usmallint l, r;
-
-	if (_l < 0.0) l = 0.0;
-	else if (_l > 1.0) l = 1023.0;
-	else l = 1023.0 * _l;
-
-	if (_r < 0.0) r = 0.0;
-	else if (_r > 1.0) r = 1023.0;
-	else r = 1023.0 * _r;
-
 	try {
-		shrdat.hw.laser->set(l, r);
-
-		success = true;
-
-	} catch (DbeException& e) {
-		if (shrdat.excdump) cout << e.err << endl;
-	};
-
-	return success;
-};
-
-bool JobWzskSrcFpga::step_moveto(
-			const float _angle // in °
-		) {
-	bool success = false;
-
-	usmallint angle;
-
-	float angle_imd = _angle;
-
-	while (angle_imd >= 360.0) angle_imd -= 360.0;
-	while (angle_imd < 0.0) angle_imd += 360.0;
-
-	angle = lround(4096.0 * angle_imd/360.0);
-	if (angle == 4096) angle = 0;
-
-	try {
-		shrdat.hw.step->moveto(angle);
+		//shrdat.hw.laser->set(l, r);
+		shrdat.hw.laser->set(r, l); // this is because the prototype has short laser wires and L/R are interchanged
 
 		success = true;
 
@@ -520,7 +572,20 @@ bool JobWzskSrcFpga::handleTest(
 			DbsWzsk* dbswzsk
 		) {
 	bool retval = false;
-	// IP handleTest --- INSERT
+	// IP handleTest --- IBEGIN
+
+	// stress test for AXI
+	const unsigned int Ntick = 10000;
+	const unsigned int Nmax = 10000000;
+
+	uint tkst;
+
+	for (unsigned int i = 0; i < Nmax; i++) {
+		tkclksrc_getTkst(tkst);
+		if ((i > 0) && ((i%Ntick) == 0)) cout << "\tat " << (tkst/10000) << "." << (tkst%10000) <<  ", " << i << " transfers completed." << endl;
+	};
+
+	// IP handleTest --- IEND
 	return retval;
 };
 

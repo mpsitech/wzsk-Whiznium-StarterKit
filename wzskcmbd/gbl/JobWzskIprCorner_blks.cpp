@@ -2,8 +2,8 @@
 	* \file JobWzskIprCorner_blks.cpp
 	* job handler for job JobWzskIprCorner (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 using namespace std;
@@ -93,7 +93,7 @@ uint JobWzskIprCorner::VecVVar::getIx(
 
 	if (s == "ntarget") return NTARGET;
 	if (s == "roiaxroiayroibxroibyroicxroicyroidxroidy") return ROIAXROIAYROIBXROIBYROICXROICYROIDXROIDY;
-	if (s == "flg") return FLG;
+	if (s == "flgshiftscoreminscoremax") return FLGSHIFTSCOREMINSCOREMAX;
 
 	return(0);
 };
@@ -103,7 +103,7 @@ string JobWzskIprCorner::VecVVar::getSref(
 		) {
 	if (ix == NTARGET) return("NTarget");
 	if (ix == ROIAXROIAYROIBXROIBYROICXROICYROIDXROIDY) return("roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy");
-	if (ix == FLG) return("flg");
+	if (ix == FLGSHIFTSCOREMINSCOREMAX) return("flgShiftScoreMinScoreMax");
 
 	return("");
 };
@@ -121,12 +121,16 @@ void JobWzskIprCorner::VecVVar::fillFeed(
  ******************************************************************************/
 
 JobWzskIprCorner::Stg::Stg(
-			const bool roiNotFull
+			const bool linNotLog
+			, const bool roiNotFull
+			, const utinyint flgPerRowMax
 		) :
 			Block()
 		{
+	this->linNotLog = linNotLog;
 	this->roiNotFull = roiNotFull;
-	mask = {ROINOTFULL};
+	this->flgPerRowMax = flgPerRowMax;
+	mask = {LINNOTLOG, ROINOTFULL, FLGPERROWMAX};
 };
 
 bool JobWzskIprCorner::Stg::readXML(
@@ -146,7 +150,9 @@ bool JobWzskIprCorner::Stg::readXML(
 	string itemtag = "StgitemJobWzskIprCorner";
 
 	if (basefound) {
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "linNotLog", linNotLog)) add(LINNOTLOG);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "roiNotFull", roiNotFull)) add(ROINOTFULL);
+		if (extractUtinyintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "flgPerRowMax", flgPerRowMax)) add(FLGPERROWMAX);
 	};
 
 	return basefound;
@@ -164,7 +170,9 @@ void JobWzskIprCorner::Stg::writeXML(
 	else itemtag = "StgitemJobWzskIprCorner";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
+		writeBoolAttr(wr, itemtag, "sref", "linNotLog", linNotLog);
 		writeBoolAttr(wr, itemtag, "sref", "roiNotFull", roiNotFull);
+		writeUtinyintAttr(wr, itemtag, "sref", "flgPerRowMax", flgPerRowMax);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -173,7 +181,9 @@ set<uint> JobWzskIprCorner::Stg::comm(
 		) {
 	set<uint> items;
 
+	if (linNotLog == comp->linNotLog) insert(items, LINNOTLOG);
 	if (roiNotFull == comp->roiNotFull) insert(items, ROINOTFULL);
+	if (flgPerRowMax == comp->flgPerRowMax) insert(items, FLGPERROWMAX);
 
 	return(items);
 };
@@ -186,7 +196,7 @@ set<uint> JobWzskIprCorner::Stg::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {ROINOTFULL};
+	diffitems = {LINNOTLOG, ROINOTFULL, FLGPERROWMAX};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

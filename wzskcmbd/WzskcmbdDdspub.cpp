@@ -2,8 +2,8 @@
 	* \file WzskcmbdDdspub.cpp
 	* DDS publisher based on rti DDS Connext for Wzsk combined daemon (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #include "Wzskcmbd.h"
@@ -365,9 +365,9 @@ WzskcmbdDdspub::DataWriters::DataWriters() {
 	writerJobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy = NULL;
 	JobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy = NULL;
 
-	topicJobWzskIprCorner_flg = NULL;
-	writerJobWzskIprCorner_flg = NULL;
-	JobWzskIprCorner_flg = NULL;
+	topicJobWzskIprCorner_flgShiftScoreMinScoreMax = NULL;
+	writerJobWzskIprCorner_flgShiftScoreMinScoreMax = NULL;
+	JobWzskIprCorner_flgShiftScoreMinScoreMax = NULL;
 
 	topicJobWzskActServo_angleTarget = NULL;
 	writerJobWzskActServo_angleTarget = NULL;
@@ -443,10 +443,10 @@ WzskcmbdDdspub::DataWriters::~DataWriters() {
 		delete writerJobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy;
 		delete JobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy;
 	};
-	if (topicJobWzskIprCorner_flg) {
-		delete topicJobWzskIprCorner_flg;
-		delete writerJobWzskIprCorner_flg;
-		delete JobWzskIprCorner_flg;
+	if (topicJobWzskIprCorner_flgShiftScoreMinScoreMax) {
+		delete topicJobWzskIprCorner_flgShiftScoreMinScoreMax;
+		delete writerJobWzskIprCorner_flgShiftScoreMinScoreMax;
+		delete JobWzskIprCorner_flgShiftScoreMinScoreMax;
 	};
 	if (topicJobWzskActServo_angleTarget) {
 		delete topicJobWzskActServo_angleTarget;
@@ -717,13 +717,13 @@ void* WzskcmbdDdspub::run(
 
 			xchg->addClstnDdspub(statshr.jrefIprcorner, "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy", true);
 		};
-		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "flg", ixAcc);
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "flgShiftScoreMinScoreMax", ixAcc);
 		if ((ixAcc & VecWzskWAccess::VIEW) == VecWzskWAccess::VIEW) {
-			dataWriters.JobWzskIprCorner_flg = new DdsJobWzskIprCorner::flg();
-			dataWriters.topicJobWzskIprCorner_flg = new dds::topic::Topic<DdsJobWzskIprCorner::flg>(participant, "JobWzskIprCorner.flg");
-			dataWriters.writerJobWzskIprCorner_flg = new dds::pub::DataWriter<DdsJobWzskIprCorner::flg>(dds::pub::Publisher(participant), *dataWriters.topicJobWzskIprCorner_flg);
+			dataWriters.JobWzskIprCorner_flgShiftScoreMinScoreMax = new DdsJobWzskIprCorner::flgShiftScoreMinScoreMax();
+			dataWriters.topicJobWzskIprCorner_flgShiftScoreMinScoreMax = new dds::topic::Topic<DdsJobWzskIprCorner::flgShiftScoreMinScoreMax>(participant, "JobWzskIprCorner.flgShiftScoreMinScoreMax");
+			dataWriters.writerJobWzskIprCorner_flgShiftScoreMinScoreMax = new dds::pub::DataWriter<DdsJobWzskIprCorner::flgShiftScoreMinScoreMax>(dds::pub::Publisher(participant), *dataWriters.topicJobWzskIprCorner_flgShiftScoreMinScoreMax);
 
-			xchg->addClstnDdspub(statshr.jrefIprcorner, "flg", true);
+			xchg->addClstnDdspub(statshr.jrefIprcorner, "flgShiftScoreMinScoreMax", true);
 		};
 	};
 	if (statshr.jrefActservo != 0) {
@@ -876,12 +876,15 @@ void* WzskcmbdDdspub::run(
 			JobWzskIprCorner::shrdat.runlockAccess("WzskcmbdDdspub", "run");
 
 			dataWriters.writerJobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy->write(*(dataWriters.JobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy));
-		} else if ((xchg->ddspubcall->jref == statshr.jrefIprcorner) && (xchg->ddspubcall->argInv.sref == "flg")) {
+		} else if ((xchg->ddspubcall->jref == statshr.jrefIprcorner) && (xchg->ddspubcall->argInv.sref == "flgShiftScoreMinScoreMax")) {
 			JobWzskIprCorner::shrdat.rlockAccess("WzskcmbdDdspub", "run");
-			dataWriters.JobWzskIprCorner_flg->_flg(JobWzskIprCorner::shrdat.flg);
+			dataWriters.JobWzskIprCorner_flgShiftScoreMinScoreMax->flg(JobWzskIprCorner::shrdat.flg);
+			dataWriters.JobWzskIprCorner_flgShiftScoreMinScoreMax->shift(JobWzskIprCorner::shrdat.shift);
+			dataWriters.JobWzskIprCorner_flgShiftScoreMinScoreMax->scoreMin(JobWzskIprCorner::shrdat.scoreMin);
+			dataWriters.JobWzskIprCorner_flgShiftScoreMinScoreMax->scoreMax(JobWzskIprCorner::shrdat.scoreMax);
 			JobWzskIprCorner::shrdat.runlockAccess("WzskcmbdDdspub", "run");
 
-			dataWriters.writerJobWzskIprCorner_flg->write(*(dataWriters.JobWzskIprCorner_flg));
+			dataWriters.writerJobWzskIprCorner_flgShiftScoreMinScoreMax->write(*(dataWriters.JobWzskIprCorner_flgShiftScoreMinScoreMax));
 		} else if ((xchg->ddspubcall->jref == statshr.jrefActservo) && (xchg->ddspubcall->argInv.sref == "angleTarget")) {
 			JobWzskActServo::shrdat.rlockAccess("WzskcmbdDdspub", "run");
 			dataWriters.JobWzskActServo_angleTarget->angle(JobWzskActServo::shrdat.angle);

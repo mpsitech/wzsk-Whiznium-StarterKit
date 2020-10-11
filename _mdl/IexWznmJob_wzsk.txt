@@ -8,12 +8,12 @@
 	- cmbeng;eng	cmbeng;eng	StgJobWzskAcqPtcloud									
 		- ImeICAMBlockItem.iref										
 		- 1										
-		- 2										
 		- ImeICAMBlockItem.end										
 		- ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment			
-		- 1	var	dLeft	float		0.2					
-		- 1	var	dRight	float		0.2					
-		- 0	var	dWork	float		0.2					
+		- 0	var	dLasback	float		0.03		laser origin behind focal plane [m]			
+		- 1	var	dLeft	float		0.2		lhs laser origin to main axis [m]			
+		- 1	var	dRight	float		0.2		rhs laser origin to main axis [m]			
+		- 0	var	dWork	float		0.2		focal plane to turntable center [m]			
 		- ImeIAMBlockItem.end										
 	- ImeIMBlock.end											
 - JobWzskActExposure	true	true	controls camera exposure time and focus									
@@ -50,7 +50,9 @@
 	- ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment								
 	- cmbeng;eng	cmbeng;eng	StgJobWzskIprCorner									
 		- ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment			
+		- 0	var	linNotLog	boolean		false					
 		- 0	var	roiNotFull	boolean		false					
+		- 0	var	flgPerRowMax	utinyint		50					
 		- ImeIAMBlockItem.end										
 	- ImeIMBlock.end											
 - JobWzskIprTrace	true	true	finds the lhs/rhs line laser traces									

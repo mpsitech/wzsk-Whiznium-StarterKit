@@ -2,8 +2,8 @@
 	* \file QryWzskOgrList.cpp
 	* job handler for job QryWzskOgrList (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -160,8 +160,8 @@ void QryWzskOgrList::rerun_orderSQL(
 			string& sqlstr
 			, const uint preIxOrd
 		) {
-	if (preIxOrd == VecVOrd::SUP) sqlstr += " ORDER BY TblWzskMObjgroup.supRefWzskMObjgroup ASC";
-	else if (preIxOrd == VecVOrd::TIT) sqlstr += " ORDER BY TblWzskMObjgroup.Title ASC";
+	if (preIxOrd == VecVOrd::TIT) sqlstr += " ORDER BY TblWzskMObjgroup.Title ASC";
+	else if (preIxOrd == VecVOrd::SUP) sqlstr += " ORDER BY TblWzskMObjgroup.supRefWzskMObjgroup ASC";
 	else if (preIxOrd == VecVOrd::SRF) sqlstr += " ORDER BY TblWzskMObjgroup.sref ASC";
 };
 

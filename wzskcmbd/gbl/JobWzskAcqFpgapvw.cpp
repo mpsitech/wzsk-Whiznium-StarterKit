@@ -2,8 +2,8 @@
 	* \file JobWzskAcqFpgapvw.cpp
 	* job handler for job JobWzskAcqFpgapvw (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -48,13 +48,16 @@ void JobWzskAcqFpgapvw::Shrdat::ResultitemPvw::setPvwmode(
 			const uint ixWzskVPvwmode
 		) {
 	unsigned int w, h;
+	size_t sizeBuf_new;
 
 	this->ixWzskVPvwmode = ixWzskVPvwmode;
 
 	Wzsk::getPvwWh(ixWzskVPvwmode, w, h);
+	sizeBuf_new = w * h;
+	if (!Wzsk::getPvwGrayNotRgb(ixWzskVPvwmode)) sizeBuf_new *= 3;
 
-	if ((w * h) != sizeBuf) {
-		sizeBuf = w * h;
+	if (sizeBuf != sizeBuf_new) {
+		sizeBuf = sizeBuf_new;
 
 		if (buf) delete[] buf;
 		buf = new unsigned char[sizeBuf + 2];
@@ -189,16 +192,18 @@ void* JobWzskAcqFpgapvw::runPvw(
 			if (shrdat.cancelPvw) break;
 
 			if (shrdat.ixWzskVPvwmode != ixWzskVPvwmode) {
-				// allow preview mode changes while thread running
+				// allow preview mode to change while thread running
 				srv->srcfpga->camacq_setPvw(true, Wzsk::getPvwRawNotBin(shrdat.ixWzskVPvwmode), Wzsk::getPvwGrayNotRgb(shrdat.ixWzskVPvwmode));
 
 				ixWzskVPvwmode = shrdat.ixWzskVPvwmode;
+
 				Wzsk::getPvwWh(ixWzskVPvwmode, w, h);
-				sizeBuf = 3 * w * h;
+				sizeBuf = w * h;
+				if (!Wzsk::getPvwGrayNotRgb(shrdat.ixWzskVPvwmode)) sizeBuf *= 3;
 
 				// sleep for 1/4Hz - 10ms = 240ms
 				deltat = {.tv_sec = 0, .tv_nsec = 240000000};
-				nanosleep(&deltat, NULL);
+				//nanosleep(&deltat, NULL);
 
 				continue;
 			};
@@ -220,16 +225,26 @@ void* JobWzskAcqFpgapvw::runPvw(
 
 				} else buf = auxbuf;
 
-				if (tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::ABUF) fpga.readPvwabufFromCamacq(sizeBuf, buf, datalen);
-				else if (tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::BBUF) fpga.readPvwbbufFromCamacq(sizeBuf, buf, datalen);
+				try {
+					if (tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::ABUF) fpga.readPvwabufFromCamacq(sizeBuf, buf, datalen);
+					else if (tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::BBUF) fpga.readPvwbbufFromCamacq(sizeBuf, buf, datalen);
+
+				} catch (DbeException& e) {
+					if (ri) {
+						shrdat.resultPvw.unlock(srv->jref, ixRi); // put result item back in queue and try again, starting from camacq_getPvwinfo()
+						ri = NULL;
+					};
+				};
 
 				if (ri) XchgWzsk::runExtcall(new ExtcallWzsk(srv->xchg, new Call(VecWzskVCall::CALLWZSKCALLBACK, srv->jref, Arg(ixRi, 0, {}, VecWzskVPvwmode::getSref(ixWzskVPvwmode), 0, 0.0, false, "", Arg::IX + Arg::SREF))));
 
 				shrdat.mPvw.unlock("JobWzskSrcFpga", "runPvw[2]");
 
-				// sleep for 1/4Hz - 10ms = 240ms
-				deltat = {.tv_sec = 0, .tv_nsec = 240000000};
-				nanosleep(&deltat, NULL);
+				if (ri) {
+					// sleep for 1/4Hz - 10ms = 240ms
+					deltat = {.tv_sec = 0, .tv_nsec = 240000000};
+					//nanosleep(&deltat, NULL);
+				};
 
 			} else {
 				shrdat.mPvw.unlock("JobWzskSrcFpga", "runPvw[3]");
@@ -246,6 +261,15 @@ void* JobWzskAcqFpgapvw::runPvw(
 		XchgWzsk::runExtcall(new ExtcallWzsk(srv->xchg, new Call(VecWzskVCall::CALLWZSKCALLBACK, srv->jref, Arg())));
 
 		shrdat.mPvw.unlock("JobWzskSrcFpga", "runPvw[4]");
+	};
+
+	try {
+		// - clean up
+		srv->srcfpga->camacq_setPvw(false, 0, 0);
+		srv->srcfpga->camif_setRng(true);
+
+	} catch (DbeException& e) {
+		cout << e.err << endl;
 	};
 
 	delete[] auxbuf;
@@ -358,7 +382,7 @@ void JobWzskAcqFpgapvw::changeStage(
 
 			setStage(dbswzsk, _ixVSge);
 			reenter = false;
-			// IP changeStage.refresh1 --- INSERT
+			//cout << "JobWzskAcqFpgapvw now entering stage " << VecVSge::getSref(_ixVSge) << endl; // IP changeStage.refresh1 --- ILINE
 		};
 
 		switch (_ixVSge) {
@@ -400,18 +424,22 @@ uint JobWzskAcqFpgapvw::enterSgeIdle(
 	// IP enterSgeIdle --- IBEGIN
 	pthread_t oldPvw;
 
+	shrdat.cancelPvw = true;
+
 	shrdat.mPvw.lock("JobWzskAcqFpgapvw", "enterSgeIdle");
 
 	oldPvw = shrdat.pvw; // original will be set 0 in the process
 
 	if (oldPvw != 0) {
-		shrdat.cancelPvw = true;
-
 		shrdat.mPvw.unlock("JobWzskAcqFpgapvw", "enterSgeIdle[1]");
 
 		pthread_join(oldPvw, NULL);
 
-	} else shrdat.mPvw.unlock("JobWzskAcqFpgapvw", "enterSgeIdle[2]");;
+	} else shrdat.mPvw.unlock("JobWzskAcqFpgapvw", "enterSgeIdle[2]");
+
+	xchg->clearCsjobRun(dbswzsk, ixWzskVJob);
+
+	for (unsigned int i = 0; i < shrdat.resultPvw.size(); i++) shrdat.resultPvw.unlock(jref, i);
 	// IP enterSgeIdle --- IEND
 
 	return retval;
@@ -432,18 +460,19 @@ uint JobWzskAcqFpgapvw::enterSgeRng(
 	// IP enterSgeRng --- IBEGIN
 	pthread_attr_t attr;
 
-	shrdat.mPvw.lock("JobWzskAcqFpgapvw", "enterSgeRng");
+	if (shrdat.pvw != 0) retval = VecVSge::IDLE;
+	else {
+		shrdat.mPvw.lock("JobWzskAcqFpgapvw", "enterSgeRng");
 
-//	shrdat.ixWzskVPvwmode = ixWzskVPvwmode;
+		shrdat.cancelPvw = false;
 
-	shrdat.cancelPvw = false;
+		pthread_attr_init(&attr);
+		pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
-	pthread_attr_init(&attr);
-	pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+		pthread_create(&shrdat.pvw, &attr, &runPvw, (void*) this);
 
-	pthread_create(&shrdat.pvw, &attr, &runPvw, (void*) this);
-
-	shrdat.mPvw.unlock("JobWzskAcqFpgapvw", "enterSgeRng");
+		shrdat.mPvw.unlock("JobWzskAcqFpgapvw", "enterSgeRng");
+	};
 	// IP enterSgeRng --- IEND
 
 	return retval;
@@ -542,17 +571,16 @@ bool JobWzskAcqFpgapvw::handleClaim(
 	};
 
 	// initiate stage change
-	if ((!run || !pvwFulfilled) && (ixVSge != VecVSge::IDLE)) {
+	if (!run || !pvwFulfilled) {
 		// changeStage() not used, rather nextIxVSgeFailure will be detected at a point when it is safe to change to idle
 		nextIxVSgeFailure = VecVSge::IDLE;
 
 	} else if (run && pvwFulfilled) {
 		shrdat.ixWzskVPvwmode = ixWzskVPvwmode; // mode can be changed on-the-fly
+	
+		nextIxVSgeFailure = VecVSge::RNG;
 
-		if (ixVSge == VecVSge::IDLE) {
-			nextIxVSgeFailure = VecVSge::RNG;
-			changeStage(dbswzsk, VecVSge::RNG);
-		};
+		if (ixVSge == VecVSge::IDLE) changeStage(dbswzsk, VecVSge::RNG);
 	};
 
 	mod = true; // for simplicity

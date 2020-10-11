@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrList.h
 	* job handler for job PnlWzskUsrList (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef PNLWZSKUSRLIST_H
@@ -131,7 +131,7 @@ public:
 		static const Sbecore::uint TCOULVWIDTH = 8;
 
 	public:
-		StgIac(const Sbecore::uint TcoGrpWidth = 100, const Sbecore::uint TcoOwnWidth = 100, const Sbecore::uint TcoPrsWidth = 100, const Sbecore::uint TcoSrfWidth = 100, const Sbecore::uint TcoUsgWidth = 100, const Sbecore::uint TcoSteWidth = 100, const Sbecore::uint TcoLclWidth = 100, const Sbecore::uint TcoUlvWidth = 100);
+		StgIac(const Sbecore::uint TcoGrpWidth = 80, const Sbecore::uint TcoOwnWidth = 80, const Sbecore::uint TcoPrsWidth = 200, const Sbecore::uint TcoSrfWidth = 150, const Sbecore::uint TcoUsgWidth = 150, const Sbecore::uint TcoSteWidth = 120, const Sbecore::uint TcoLclWidth = 150, const Sbecore::uint TcoUlvWidth = 100);
 
 	public:
 		Sbecore::uint TcoGrpWidth;

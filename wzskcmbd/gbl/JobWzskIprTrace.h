@@ -2,8 +2,8 @@
 	* \file JobWzskIprTrace.h
 	* job handler for job JobWzskIprTrace (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef JOBWZSKIPRTRACE_H
@@ -246,8 +246,8 @@ public:
 
 private:
 	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(DbsWzsk* dbswzsk);
-	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(DbsWzsk* dbswzsk);
 	bool handleCallWzskResultNewFromSrcv4l2(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(DbsWzsk* dbswzsk);
 	bool handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta(DbsWzsk* dbswzsk, const Sbecore::uint ixInv);
 
 private:

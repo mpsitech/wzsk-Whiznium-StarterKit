@@ -65,6 +65,7 @@
 		<Si sref="maxmon"></Si>
 	</StgWzskUasrv>
 	<StgJobWzskAcqPtcloud>
+		<Si sref="dLasback">0.03</Si>
 		<Si sref="dLeft">0.2</Si>
 		<Si sref="dRight">0.2</Si>
 		<Si sref="dWork">0.2</Si>
@@ -85,7 +86,9 @@
 		<Si sref="omega">0.025</Si>
 	</StgJobWzskActServo>
 	<StgJobWzskIprCorner>
+		<Si sref="linNotLog">false</Si>
 		<Si sref="roiNotFull">false</Si>
+		<Si sref="flgPerRowMax">50</Si>
 	</StgJobWzskIprCorner>
 	<StgJobWzskIprTrace>
 		<Si sref="v4l2RdNotDelta">false</Si>

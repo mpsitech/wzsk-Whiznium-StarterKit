@@ -2,8 +2,8 @@
 	* \file DlgWzskObjNew.cpp
 	* job handler for job DlgWzskObjNew (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD

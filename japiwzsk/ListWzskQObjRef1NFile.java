@@ -2,8 +2,8 @@
   * \file ListWzskQObjRef1NFile.java
   * Java API code for record set of table TblWzskQObjRef1NFile
   * \author Catherine Johnson
-  * \date created: 16 Sep 2020
-  * \date modified: 16 Sep 2020
+  * \date created: 6 Oct 2020
+  * \date modified: 6 Oct 2020
   */
 
 package apiwzsk;

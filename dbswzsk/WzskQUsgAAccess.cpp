@@ -2,8 +2,8 @@
 	* \file WzskQUsgAAccess.cpp
 	* Dbs and XML wrapper for table TblWzskQUsgAAccess (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #include "WzskQUsgAAccess.h"

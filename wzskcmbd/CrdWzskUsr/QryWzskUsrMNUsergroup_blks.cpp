@@ -2,8 +2,8 @@
 	* \file QryWzskUsrMNUsergroup_blks.cpp
 	* job handler for job QryWzskUsrMNUsergroup (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 using namespace std;

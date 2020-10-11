@@ -2,8 +2,8 @@
 	* \file CrdWzskLlv.h
 	* job handler for job CrdWzskLlv (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef CRDWZSKLLV_H
@@ -16,8 +16,8 @@
 #include "PnlWzskLlvHeadbar.h"
 #include "PnlWzskLlvLaser.h"
 #include "PnlWzskLlvTtable.h"
-#include "PnlWzskLlvCamera.h"
 #include "PnlWzskLlvTerm.h"
+#include "PnlWzskLlvCamera.h"
 
 #define VecVWzskLlvDo CrdWzskLlv::VecVDo
 #define VecVWzskLlvSge CrdWzskLlv::VecVSge
@@ -200,8 +200,8 @@ public:
 	PnlWzskLlvHeadbar* pnlheadbar;
 	PnlWzskLlvLaser* pnllaser;
 	PnlWzskLlvTtable* pnlttable;
-	PnlWzskLlvCamera* pnlcamera;
 	PnlWzskLlvTerm* pnlterm;
+	PnlWzskLlvCamera* pnlcamera;
 
 	// IP vars.cust --- INSERT
 

@@ -996,11 +996,11 @@ namespace DdsJobWzskIprCorner {
     // ---- setNTarget_req: 
 
     setNTarget_req::setNTarget_req() :
-        m_NTarget_ (0u)  {
+        m_NTarget_ (0)  {
     }   
 
     setNTarget_req::setNTarget_req (
-        uint32_t NTarget)
+        uint16_t NTarget)
         :
             m_NTarget_( NTarget ) {
     }
@@ -1372,11 +1372,11 @@ namespace DdsJobWzskIprCorner {
     // ---- NTarget: 
 
     NTarget::NTarget() :
-        m__NTarget_ (0u)  {
+        m__NTarget_ (0)  {
     }   
 
     NTarget::NTarget (
-        uint32_t _NTarget)
+        uint16_t _NTarget)
         :
             m__NTarget_( _NTarget ) {
     }
@@ -1541,52 +1541,82 @@ namespace DdsJobWzskIprCorner {
         return o;
     }
 
-    // ---- flg: 
+    // ---- flgShiftScoreMinScoreMax: 
 
-    flg::flg()  {
+    flgShiftScoreMinScoreMax::flgShiftScoreMinScoreMax() :
+        m_shift_ (0) ,
+        m_scoreMin_ (0) ,
+        m_scoreMax_ (0)  {
     }   
 
-    flg::flg (
-        const ::rti::core::bounded_sequence< bool, 786432 >& _flg)
+    flgShiftScoreMinScoreMax::flgShiftScoreMinScoreMax (
+        const ::rti::core::bounded_sequence< bool, 786432 >& flg,
+        uint8_t shift,
+        uint8_t scoreMin,
+        uint8_t scoreMax)
         :
-            m__flg_( _flg ) {
+            m_flg_( flg ),
+            m_shift_( shift ),
+            m_scoreMin_( scoreMin ),
+            m_scoreMax_( scoreMax ) {
     }
 
     #ifdef RTI_CXX11_RVALUE_REFERENCES
     #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
-    flg::flg(flg&& other_) OMG_NOEXCEPT  :m__flg_ (std::move(other_.m__flg_))
+    flgShiftScoreMinScoreMax::flgShiftScoreMinScoreMax(flgShiftScoreMinScoreMax&& other_) OMG_NOEXCEPT  :m_flg_ (std::move(other_.m_flg_))
+    ,
+    m_shift_ (std::move(other_.m_shift_))
+    ,
+    m_scoreMin_ (std::move(other_.m_scoreMin_))
+    ,
+    m_scoreMax_ (std::move(other_.m_scoreMax_))
     {
     } 
 
-    flg& flg::operator=(flg&&  other_) OMG_NOEXCEPT {
-        flg tmp(std::move(other_));
+    flgShiftScoreMinScoreMax& flgShiftScoreMinScoreMax::operator=(flgShiftScoreMinScoreMax&&  other_) OMG_NOEXCEPT {
+        flgShiftScoreMinScoreMax tmp(std::move(other_));
         swap(tmp); 
         return *this;
     }
     #endif
     #endif   
 
-    void flg::swap(flg& other_)  OMG_NOEXCEPT 
+    void flgShiftScoreMinScoreMax::swap(flgShiftScoreMinScoreMax& other_)  OMG_NOEXCEPT 
     {
         using std::swap;
-        swap(m__flg_, other_.m__flg_);
+        swap(m_flg_, other_.m_flg_);
+        swap(m_shift_, other_.m_shift_);
+        swap(m_scoreMin_, other_.m_scoreMin_);
+        swap(m_scoreMax_, other_.m_scoreMax_);
     }  
 
-    bool flg::operator == (const flg& other_) const {
-        if (m__flg_ != other_.m__flg_) {
+    bool flgShiftScoreMinScoreMax::operator == (const flgShiftScoreMinScoreMax& other_) const {
+        if (m_flg_ != other_.m_flg_) {
+            return false;
+        }
+        if (m_shift_ != other_.m_shift_) {
+            return false;
+        }
+        if (m_scoreMin_ != other_.m_scoreMin_) {
+            return false;
+        }
+        if (m_scoreMax_ != other_.m_scoreMax_) {
             return false;
         }
         return true;
     }
-    bool flg::operator != (const flg& other_) const {
+    bool flgShiftScoreMinScoreMax::operator != (const flgShiftScoreMinScoreMax& other_) const {
         return !this->operator ==(other_);
     }
 
-    std::ostream& operator << (std::ostream& o,const flg& sample)
+    std::ostream& operator << (std::ostream& o,const flgShiftScoreMinScoreMax& sample)
     {
         ::rti::util::StreamFlagSaver flag_saver (o);
         o <<"[";
-        o << "_flg: " << sample._flg() ;
+        o << "flg: " << sample.flg()<<", ";
+        o << "shift: <" << std::hex<<(int)sample.shift() <<", ";
+        o << "scoreMin: <" << std::hex<<(int)sample.scoreMin() <<", ";
+        o << "scoreMax: <" << std::hex<<(int)sample.scoreMax()  ;
         o <<"]";
         return o;
     }
@@ -7356,15 +7386,15 @@ namespace rti {
 
                 setNTarget_req_g_tc._data._annotations._allowedDataRepresentationMask = 5;
 
-                setNTarget_req_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::dynamic_type< uint_AliasTag_t>::get().native();
+                setNTarget_req_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::dynamic_type< usmallint_AliasTag_t>::get().native();
 
                 /* Initialize the values for member annotations. */
-                setNTarget_req_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_ULONG;
-                setNTarget_req_g_tc_members[0]._annotations._defaultValue._u.ulong_value = 0u;
-                setNTarget_req_g_tc_members[0]._annotations._minValue._d = RTI_XCDR_TK_ULONG;
-                setNTarget_req_g_tc_members[0]._annotations._minValue._u.ulong_value = RTIXCdrUnsignedLong_MIN;
-                setNTarget_req_g_tc_members[0]._annotations._maxValue._d = RTI_XCDR_TK_ULONG;
-                setNTarget_req_g_tc_members[0]._annotations._maxValue._u.ulong_value = RTIXCdrUnsignedLong_MAX;
+                setNTarget_req_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_USHORT;
+                setNTarget_req_g_tc_members[0]._annotations._defaultValue._u.ushort_value = 0;
+                setNTarget_req_g_tc_members[0]._annotations._minValue._d = RTI_XCDR_TK_USHORT;
+                setNTarget_req_g_tc_members[0]._annotations._minValue._u.ushort_value = RTIXCdrUnsignedShort_MIN;
+                setNTarget_req_g_tc_members[0]._annotations._maxValue._d = RTI_XCDR_TK_USHORT;
+                setNTarget_req_g_tc_members[0]._annotations._maxValue._u.ushort_value = RTIXCdrUnsignedShort_MAX;
 
                 setNTarget_req_g_tc._data._sampleAccessInfo = sample_access_info();
                 setNTarget_req_g_tc._data._typePlugin = type_plugin_info();    
@@ -8521,15 +8551,15 @@ namespace rti {
 
                 NTarget_g_tc._data._annotations._allowedDataRepresentationMask = 5;
 
-                NTarget_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::dynamic_type< uint_AliasTag_t>::get().native();
+                NTarget_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::dynamic_type< usmallint_AliasTag_t>::get().native();
 
                 /* Initialize the values for member annotations. */
-                NTarget_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_ULONG;
-                NTarget_g_tc_members[0]._annotations._defaultValue._u.ulong_value = 0u;
-                NTarget_g_tc_members[0]._annotations._minValue._d = RTI_XCDR_TK_ULONG;
-                NTarget_g_tc_members[0]._annotations._minValue._u.ulong_value = RTIXCdrUnsignedLong_MIN;
-                NTarget_g_tc_members[0]._annotations._maxValue._d = RTI_XCDR_TK_ULONG;
-                NTarget_g_tc_members[0]._annotations._maxValue._u.ulong_value = RTIXCdrUnsignedLong_MAX;
+                NTarget_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_USHORT;
+                NTarget_g_tc_members[0]._annotations._defaultValue._u.ushort_value = 0;
+                NTarget_g_tc_members[0]._annotations._minValue._d = RTI_XCDR_TK_USHORT;
+                NTarget_g_tc_members[0]._annotations._minValue._u.ushort_value = RTIXCdrUnsignedShort_MIN;
+                NTarget_g_tc_members[0]._annotations._maxValue._d = RTI_XCDR_TK_USHORT;
+                NTarget_g_tc_members[0]._annotations._maxValue._u.ushort_value = RTIXCdrUnsignedShort_MAX;
 
                 NTarget_g_tc._data._sampleAccessInfo = sample_access_info();
                 NTarget_g_tc._data._typePlugin = type_plugin_info();    
@@ -8995,22 +9025,76 @@ namespace rti {
         #ifndef NDDS_STANDALONE_TYPE
 
         template<>
-        struct native_type_code< DdsJobWzskIprCorner::flg > {
+        struct native_type_code< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax > {
             static DDS_TypeCode * get()
             {
                 using namespace ::rti::topic::interpreter;
 
                 static RTIBool is_initialized = RTI_FALSE;
 
-                static DDS_TypeCode flg_g_tc__flg_sequence;
+                static DDS_TypeCode flgShiftScoreMinScoreMax_g_tc_flg_sequence;
 
-                static DDS_TypeCode_Member flg_g_tc_members[1]=
+                static DDS_TypeCode_Member flgShiftScoreMinScoreMax_g_tc_members[4]=
                 {
 
                     {
-                        (char *)"_flg",/* Member name */
+                        (char *)"flg",/* Member name */
                         {
                             0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"shift",/* Member name */
+                        {
+                            1,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"scoreMin",/* Member name */
+                        {
+                            2,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"scoreMax",/* Member name */
+                        {
+                            3,/* Representation ID */
                             DDS_BOOLEAN_FALSE,/* Is a pointer? */
                             -1, /* Bitfield bits */
                             NULL/* Member type code is assigned later */
@@ -9027,104 +9111,137 @@ namespace rti {
                     }
                 };
 
-                static DDS_TypeCode flg_g_tc =
+                static DDS_TypeCode flgShiftScoreMinScoreMax_g_tc =
                 {{
                         DDS_TK_STRUCT, /* Kind */
                         DDS_BOOLEAN_FALSE, /* Ignored */
                         -1, /*Ignored*/
-                        (char *)"DdsJobWzskIprCorner::flg", /* Name */
+                        (char *)"DdsJobWzskIprCorner::flgShiftScoreMinScoreMax", /* Name */
                         NULL, /* Ignored */      
                         0, /* Ignored */
                         0, /* Ignored */
                         NULL, /* Ignored */
-                        1, /* Number of members */
-                        flg_g_tc_members, /* Members */
+                        4, /* Number of members */
+                        flgShiftScoreMinScoreMax_g_tc_members, /* Members */
                         DDS_VM_NONE, /* Ignored */
                         RTICdrTypeCodeAnnotations_INITIALIZER,
                         DDS_BOOLEAN_TRUE, /* _isCopyable */
                         NULL, /* _sampleAccessInfo: assigned later */
                         NULL /* _typePlugin: assigned later */
-                    }}; /* Type code for flg*/
+                    }}; /* Type code for flgShiftScoreMinScoreMax*/
 
                 if (is_initialized) {
-                    return &flg_g_tc;
+                    return &flgShiftScoreMinScoreMax_g_tc;
                 }
 
-                flg_g_tc__flg_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< bool, 786432 > >((786432));
+                flgShiftScoreMinScoreMax_g_tc_flg_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< bool, 786432 > >((786432));
 
-                flg_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+                flgShiftScoreMinScoreMax_g_tc._data._annotations._allowedDataRepresentationMask = 5;
 
-                flg_g_tc__flg_sequence._data._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
-                flg_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)& flg_g_tc__flg_sequence;
+                flgShiftScoreMinScoreMax_g_tc_flg_sequence._data._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
+                flgShiftScoreMinScoreMax_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)& flgShiftScoreMinScoreMax_g_tc_flg_sequence;
+                flgShiftScoreMinScoreMax_g_tc_members[1]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::dynamic_type< utinyint_AliasTag_t>::get().native();
+                flgShiftScoreMinScoreMax_g_tc_members[2]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::dynamic_type< utinyint_AliasTag_t>::get().native();
+                flgShiftScoreMinScoreMax_g_tc_members[3]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::dynamic_type< utinyint_AliasTag_t>::get().native();
 
                 /* Initialize the values for member annotations. */
 
-                flg_g_tc._data._sampleAccessInfo = sample_access_info();
-                flg_g_tc._data._typePlugin = type_plugin_info();    
+                flgShiftScoreMinScoreMax_g_tc_members[1]._annotations._defaultValue._d = RTI_XCDR_TK_OCTET;
+                flgShiftScoreMinScoreMax_g_tc_members[1]._annotations._defaultValue._u.octet_value = 0;
+                flgShiftScoreMinScoreMax_g_tc_members[1]._annotations._minValue._d = RTI_XCDR_TK_OCTET;
+                flgShiftScoreMinScoreMax_g_tc_members[1]._annotations._minValue._u.octet_value = RTIXCdrOctet_MIN;
+                flgShiftScoreMinScoreMax_g_tc_members[1]._annotations._maxValue._d = RTI_XCDR_TK_OCTET;
+                flgShiftScoreMinScoreMax_g_tc_members[1]._annotations._maxValue._u.octet_value = RTIXCdrOctet_MAX;
+
+                flgShiftScoreMinScoreMax_g_tc_members[2]._annotations._defaultValue._d = RTI_XCDR_TK_OCTET;
+                flgShiftScoreMinScoreMax_g_tc_members[2]._annotations._defaultValue._u.octet_value = 0;
+                flgShiftScoreMinScoreMax_g_tc_members[2]._annotations._minValue._d = RTI_XCDR_TK_OCTET;
+                flgShiftScoreMinScoreMax_g_tc_members[2]._annotations._minValue._u.octet_value = RTIXCdrOctet_MIN;
+                flgShiftScoreMinScoreMax_g_tc_members[2]._annotations._maxValue._d = RTI_XCDR_TK_OCTET;
+                flgShiftScoreMinScoreMax_g_tc_members[2]._annotations._maxValue._u.octet_value = RTIXCdrOctet_MAX;
+
+                flgShiftScoreMinScoreMax_g_tc_members[3]._annotations._defaultValue._d = RTI_XCDR_TK_OCTET;
+                flgShiftScoreMinScoreMax_g_tc_members[3]._annotations._defaultValue._u.octet_value = 0;
+                flgShiftScoreMinScoreMax_g_tc_members[3]._annotations._minValue._d = RTI_XCDR_TK_OCTET;
+                flgShiftScoreMinScoreMax_g_tc_members[3]._annotations._minValue._u.octet_value = RTIXCdrOctet_MIN;
+                flgShiftScoreMinScoreMax_g_tc_members[3]._annotations._maxValue._d = RTI_XCDR_TK_OCTET;
+                flgShiftScoreMinScoreMax_g_tc_members[3]._annotations._maxValue._u.octet_value = RTIXCdrOctet_MAX;
+
+                flgShiftScoreMinScoreMax_g_tc._data._sampleAccessInfo = sample_access_info();
+                flgShiftScoreMinScoreMax_g_tc._data._typePlugin = type_plugin_info();    
 
                 is_initialized = RTI_TRUE;
 
-                return &flg_g_tc;
+                return &flgShiftScoreMinScoreMax_g_tc;
             }
 
             static RTIXCdrSampleAccessInfo * sample_access_info()
             {
                 static RTIBool is_initialized = RTI_FALSE;
 
-                DdsJobWzskIprCorner::flg *sample;
+                DdsJobWzskIprCorner::flgShiftScoreMinScoreMax *sample;
 
-                static RTIXCdrMemberAccessInfo flg_g_memberAccessInfos[1] =
+                static RTIXCdrMemberAccessInfo flgShiftScoreMinScoreMax_g_memberAccessInfos[4] =
                 {RTIXCdrMemberAccessInfo_INITIALIZER};
 
-                static RTIXCdrSampleAccessInfo flg_g_sampleAccessInfo = 
+                static RTIXCdrSampleAccessInfo flgShiftScoreMinScoreMax_g_sampleAccessInfo = 
                 RTIXCdrSampleAccessInfo_INITIALIZER;
 
                 if (is_initialized) {
-                    return (RTIXCdrSampleAccessInfo*) &flg_g_sampleAccessInfo;
+                    return (RTIXCdrSampleAccessInfo*) &flgShiftScoreMinScoreMax_g_sampleAccessInfo;
                 }
 
                 RTIXCdrHeap_allocateStruct(
                     &sample, 
-                    DdsJobWzskIprCorner::flg);
+                    DdsJobWzskIprCorner::flgShiftScoreMinScoreMax);
                 if (sample == NULL) {
                     return NULL;
                 }
 
-                flg_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
-                (RTIXCdrUnsignedLong) ((char *)&sample->_flg() - (char *)sample);
+                flgShiftScoreMinScoreMax_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->flg() - (char *)sample);
 
-                flg_g_sampleAccessInfo.memberAccessInfos = 
-                flg_g_memberAccessInfos;
+                flgShiftScoreMinScoreMax_g_memberAccessInfos[1].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->shift() - (char *)sample);
+
+                flgShiftScoreMinScoreMax_g_memberAccessInfos[2].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->scoreMin() - (char *)sample);
+
+                flgShiftScoreMinScoreMax_g_memberAccessInfos[3].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->scoreMax() - (char *)sample);
+
+                flgShiftScoreMinScoreMax_g_sampleAccessInfo.memberAccessInfos = 
+                flgShiftScoreMinScoreMax_g_memberAccessInfos;
 
                 {
-                    size_t candidateTypeSize = sizeof(DdsJobWzskIprCorner::flg);
+                    size_t candidateTypeSize = sizeof(DdsJobWzskIprCorner::flgShiftScoreMinScoreMax);
 
                     if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
-                        flg_g_sampleAccessInfo.typeSize[0] =
+                        flgShiftScoreMinScoreMax_g_sampleAccessInfo.typeSize[0] =
                         RTIXCdrUnsignedLong_MAX;
                     } else {
-                        flg_g_sampleAccessInfo.typeSize[0] =
+                        flgShiftScoreMinScoreMax_g_sampleAccessInfo.typeSize[0] =
                         (RTIXCdrUnsignedLong) candidateTypeSize;
                     }
                 }
 
-                flg_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                flgShiftScoreMinScoreMax_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
                 RTI_XCDR_TRUE;
 
-                flg_g_sampleAccessInfo.getMemberValuePointerFcn = 
-                interpreter::get_aggregation_value_pointer< DdsJobWzskIprCorner::flg >;
+                flgShiftScoreMinScoreMax_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax >;
 
-                flg_g_sampleAccessInfo.languageBinding = 
+                flgShiftScoreMinScoreMax_g_sampleAccessInfo.languageBinding = 
                 RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
 
                 RTIXCdrHeap_freeStruct(sample);
                 is_initialized = RTI_TRUE;
-                return (RTIXCdrSampleAccessInfo*) &flg_g_sampleAccessInfo;
+                return (RTIXCdrSampleAccessInfo*) &flgShiftScoreMinScoreMax_g_sampleAccessInfo;
             }
 
             static RTIXCdrTypePlugin * type_plugin_info()
             {
-                static RTIXCdrTypePlugin flg_g_typePlugin = 
+                static RTIXCdrTypePlugin flgShiftScoreMinScoreMax_g_typePlugin = 
                 {
                     NULL, /* serialize */
                     NULL, /* serialize_key */
@@ -9142,16 +9259,16 @@ namespace rti {
                     NULL
                 };
 
-                return &flg_g_typePlugin;
+                return &flgShiftScoreMinScoreMax_g_typePlugin;
             }
         }; // native_type_code
         #endif
 
-        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskIprCorner::flg >::get()
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax >::get()
         {
             return static_cast<const ::dds::core::xtypes::StructType&>(
                 ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
-                    *(native_type_code< DdsJobWzskIprCorner::flg >::get())));
+                    *(native_type_code< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax >::get())));
         }
 
         #ifndef NDDS_STANDALONE_TYPE
@@ -14556,7 +14673,7 @@ namespace dds {
 
         void topic_type_support< DdsJobWzskIprCorner::setNTarget_req >::reset_sample(DdsJobWzskIprCorner::setNTarget_req& sample) 
         {
-            sample.NTarget(0u);
+            sample.NTarget(0);
         }
 
         void topic_type_support< DdsJobWzskIprCorner::setNTarget_req >::allocate_sample(DdsJobWzskIprCorner::setNTarget_req& sample, int, int) 
@@ -14953,7 +15070,7 @@ namespace dds {
 
         void topic_type_support< DdsJobWzskIprCorner::NTarget >::reset_sample(DdsJobWzskIprCorner::NTarget& sample) 
         {
-            sample._NTarget(0u);
+            sample._NTarget(0);
         }
 
         void topic_type_support< DdsJobWzskIprCorner::NTarget >::allocate_sample(DdsJobWzskIprCorner::NTarget& sample, int, int) 
@@ -15034,7 +15151,7 @@ namespace dds {
 
         }
 
-        void topic_type_support< DdsJobWzskIprCorner::flg >:: register_type(
+        void topic_type_support< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax >:: register_type(
             ::dds::domain::DomainParticipant& participant,
             const std::string& type_name) 
         {
@@ -15042,18 +15159,18 @@ namespace dds {
             ::rti::domain::register_type_plugin(
                 participant,
                 type_name,
-                DdsJobWzskIprCorner::flgPlugin_new,
-                DdsJobWzskIprCorner::flgPlugin_delete);
+                DdsJobWzskIprCorner::flgShiftScoreMinScoreMaxPlugin_new,
+                DdsJobWzskIprCorner::flgShiftScoreMinScoreMaxPlugin_delete);
         }
 
-        std::vector<char>& topic_type_support< DdsJobWzskIprCorner::flg >::to_cdr_buffer(
+        std::vector<char>& topic_type_support< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax >::to_cdr_buffer(
             std::vector<char>& buffer, 
-            const DdsJobWzskIprCorner::flg& sample,
+            const DdsJobWzskIprCorner::flgShiftScoreMinScoreMax& sample,
             ::dds::core::policy::DataRepresentationId representation)
         {
             // First get the length of the buffer
             unsigned int length = 0;
-            RTIBool ok = flgPlugin_serialize_to_cdr_buffer(
+            RTIBool ok = flgShiftScoreMinScoreMaxPlugin_serialize_to_cdr_buffer(
                 NULL, 
                 &length,
                 &sample,
@@ -15064,7 +15181,7 @@ namespace dds {
 
             // Create a vector with that size and copy the cdr buffer into it
             buffer.resize(length);
-            ok = flgPlugin_serialize_to_cdr_buffer(
+            ok = flgShiftScoreMinScoreMaxPlugin_serialize_to_cdr_buffer(
                 &buffer[0], 
                 &length, 
                 &sample,
@@ -15076,28 +15193,31 @@ namespace dds {
             return buffer;
         }
 
-        void topic_type_support< DdsJobWzskIprCorner::flg >::from_cdr_buffer(DdsJobWzskIprCorner::flg& sample, 
+        void topic_type_support< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax >::from_cdr_buffer(DdsJobWzskIprCorner::flgShiftScoreMinScoreMax& sample, 
         const std::vector<char>& buffer)
         {
 
-            RTIBool ok  = flgPlugin_deserialize_from_cdr_buffer(
+            RTIBool ok  = flgShiftScoreMinScoreMaxPlugin_deserialize_from_cdr_buffer(
                 &sample, 
                 &buffer[0], 
                 static_cast<unsigned int>(buffer.size()));
             ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
-            "Failed to create DdsJobWzskIprCorner::flg from cdr buffer");
+            "Failed to create DdsJobWzskIprCorner::flgShiftScoreMinScoreMax from cdr buffer");
         }
 
-        void topic_type_support< DdsJobWzskIprCorner::flg >::reset_sample(DdsJobWzskIprCorner::flg& sample) 
+        void topic_type_support< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax >::reset_sample(DdsJobWzskIprCorner::flgShiftScoreMinScoreMax& sample) 
         {
-            ::rti::topic::reset_sample(sample._flg());
+            ::rti::topic::reset_sample(sample.flg());
+            sample.shift(0);
+            sample.scoreMin(0);
+            sample.scoreMax(0);
         }
 
-        void topic_type_support< DdsJobWzskIprCorner::flg >::allocate_sample(DdsJobWzskIprCorner::flg& sample, int, int) 
+        void topic_type_support< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax >::allocate_sample(DdsJobWzskIprCorner::flgShiftScoreMinScoreMax& sample, int, int) 
         {
             RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
 
-            ::rti::topic::allocate_sample(sample._flg(),  786432, -1);
+            ::rti::topic::allocate_sample(sample.flg(),  786432, -1);
         }
 
         void topic_type_support< DdsJobWzskActServo::moveto_req >:: register_type(

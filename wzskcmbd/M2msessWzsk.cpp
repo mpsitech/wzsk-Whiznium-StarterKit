@@ -2,8 +2,8 @@
 	* \file M2msessWzsk.cpp
 	* job handler for job M2msessWzsk (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -110,7 +110,7 @@ M2msessWzsk::M2msessWzsk(
 	if (!adm) {
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "NTarget", urus, refWzskMUser, ixWzskWAccessBase);
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy", urus, refWzskMUser, ixWzskWAccessBase);
-		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "flg", urus, refWzskMUser, ixWzskWAccessBase);
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "flgShiftScoreMinScoreMax", urus, refWzskMUser, ixWzskWAccessBase);
 	};
 	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD, adm, urus, refWzskMUser);
 	if (!adm) {

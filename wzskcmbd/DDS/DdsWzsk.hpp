@@ -9,8 +9,8 @@ For more information, type 'rtiddsgen -help' at a command shell
 or consult the RTI Connext manual.
 */
 
-#ifndef DdsWzsk_509372353_hpp
-#define DdsWzsk_509372353_hpp
+#ifndef DdsWzsk_509372441_hpp
+#define DdsWzsk_509372441_hpp
 
 #include <iosfwd>
 
@@ -1168,7 +1168,7 @@ namespace DdsJobWzskIprCorner {
         setNTarget_req();
 
         explicit setNTarget_req(
-            uint32_t NTarget);
+            uint16_t NTarget);
 
         #ifdef RTI_CXX11_RVALUE_REFERENCES
         #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
@@ -1182,15 +1182,15 @@ namespace DdsJobWzskIprCorner {
         #endif
         #endif 
 
-        uint32_t& NTarget() OMG_NOEXCEPT {
+        uint16_t& NTarget() OMG_NOEXCEPT {
             return m_NTarget_;
         }
 
-        const uint32_t& NTarget() const OMG_NOEXCEPT {
+        const uint16_t& NTarget() const OMG_NOEXCEPT {
             return m_NTarget_;
         }
 
-        void NTarget(uint32_t value) {
+        void NTarget(uint16_t value) {
             m_NTarget_ = value;
         }
 
@@ -1201,7 +1201,7 @@ namespace DdsJobWzskIprCorner {
 
       private:
 
-        uint32_t m_NTarget_;
+        uint16_t m_NTarget_;
 
     };
 
@@ -1560,7 +1560,7 @@ namespace DdsJobWzskIprCorner {
         NTarget();
 
         explicit NTarget(
-            uint32_t _NTarget);
+            uint16_t _NTarget);
 
         #ifdef RTI_CXX11_RVALUE_REFERENCES
         #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
@@ -1574,15 +1574,15 @@ namespace DdsJobWzskIprCorner {
         #endif
         #endif 
 
-        uint32_t& _NTarget() OMG_NOEXCEPT {
+        uint16_t& _NTarget() OMG_NOEXCEPT {
             return m__NTarget_;
         }
 
-        const uint32_t& _NTarget() const OMG_NOEXCEPT {
+        const uint16_t& _NTarget() const OMG_NOEXCEPT {
             return m__NTarget_;
         }
 
-        void _NTarget(uint32_t value) {
+        void _NTarget(uint16_t value) {
             m__NTarget_ = value;
         }
 
@@ -1593,7 +1593,7 @@ namespace DdsJobWzskIprCorner {
 
       private:
 
-        uint32_t m__NTarget_;
+        uint16_t m__NTarget_;
 
     };
 
@@ -1751,54 +1751,96 @@ namespace DdsJobWzskIprCorner {
 
     NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy& sample);
 
-    class NDDSUSERDllExport flg {
+    class NDDSUSERDllExport flgShiftScoreMinScoreMax {
       public:
-        flg();
+        flgShiftScoreMinScoreMax();
 
-        explicit flg(
-            const ::rti::core::bounded_sequence< bool, 786432 >& _flg);
+        flgShiftScoreMinScoreMax(
+            const ::rti::core::bounded_sequence< bool, 786432 >& flg,
+            uint8_t shift,
+            uint8_t scoreMin,
+            uint8_t scoreMax);
 
         #ifdef RTI_CXX11_RVALUE_REFERENCES
         #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
-        flg (flg&&) = default;
-        flg& operator=(flg&&) = default;
-        flg& operator=(const flg&) = default;
-        flg(const flg&) = default;
+        flgShiftScoreMinScoreMax (flgShiftScoreMinScoreMax&&) = default;
+        flgShiftScoreMinScoreMax& operator=(flgShiftScoreMinScoreMax&&) = default;
+        flgShiftScoreMinScoreMax& operator=(const flgShiftScoreMinScoreMax&) = default;
+        flgShiftScoreMinScoreMax(const flgShiftScoreMinScoreMax&) = default;
         #else
-        flg(flg&& other_) OMG_NOEXCEPT;  
-        flg& operator=(flg&&  other_) OMG_NOEXCEPT;
+        flgShiftScoreMinScoreMax(flgShiftScoreMinScoreMax&& other_) OMG_NOEXCEPT;  
+        flgShiftScoreMinScoreMax& operator=(flgShiftScoreMinScoreMax&&  other_) OMG_NOEXCEPT;
         #endif
         #endif 
 
-        ::rti::core::bounded_sequence< bool, 786432 >& _flg() OMG_NOEXCEPT {
-            return m__flg_;
+        ::rti::core::bounded_sequence< bool, 786432 >& flg() OMG_NOEXCEPT {
+            return m_flg_;
         }
 
-        const ::rti::core::bounded_sequence< bool, 786432 >& _flg() const OMG_NOEXCEPT {
-            return m__flg_;
+        const ::rti::core::bounded_sequence< bool, 786432 >& flg() const OMG_NOEXCEPT {
+            return m_flg_;
         }
 
-        void _flg(const ::rti::core::bounded_sequence< bool, 786432 >& value) {
-            m__flg_ = value;
+        void flg(const ::rti::core::bounded_sequence< bool, 786432 >& value) {
+            m_flg_ = value;
         }
 
-        bool operator == (const flg& other_) const;
-        bool operator != (const flg& other_) const;
+        uint8_t& shift() OMG_NOEXCEPT {
+            return m_shift_;
+        }
 
-        void swap(flg& other_) OMG_NOEXCEPT ;
+        const uint8_t& shift() const OMG_NOEXCEPT {
+            return m_shift_;
+        }
+
+        void shift(uint8_t value) {
+            m_shift_ = value;
+        }
+
+        uint8_t& scoreMin() OMG_NOEXCEPT {
+            return m_scoreMin_;
+        }
+
+        const uint8_t& scoreMin() const OMG_NOEXCEPT {
+            return m_scoreMin_;
+        }
+
+        void scoreMin(uint8_t value) {
+            m_scoreMin_ = value;
+        }
+
+        uint8_t& scoreMax() OMG_NOEXCEPT {
+            return m_scoreMax_;
+        }
+
+        const uint8_t& scoreMax() const OMG_NOEXCEPT {
+            return m_scoreMax_;
+        }
+
+        void scoreMax(uint8_t value) {
+            m_scoreMax_ = value;
+        }
+
+        bool operator == (const flgShiftScoreMinScoreMax& other_) const;
+        bool operator != (const flgShiftScoreMinScoreMax& other_) const;
+
+        void swap(flgShiftScoreMinScoreMax& other_) OMG_NOEXCEPT ;
 
       private:
 
-        ::rti::core::bounded_sequence< bool, 786432 > m__flg_;
+        ::rti::core::bounded_sequence< bool, 786432 > m_flg_;
+        uint8_t m_shift_;
+        uint8_t m_scoreMin_;
+        uint8_t m_scoreMax_;
 
     };
 
-    inline void swap(flg& a, flg& b)  OMG_NOEXCEPT 
+    inline void swap(flgShiftScoreMinScoreMax& a, flgShiftScoreMinScoreMax& b)  OMG_NOEXCEPT 
     {
         a.swap(b);
     }
 
-    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const flg& sample);
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const flgShiftScoreMinScoreMax& sample);
 
 } // namespace DdsJobWzskIprCorner  
 namespace DdsJobWzskActServo {
@@ -4011,17 +4053,17 @@ namespace dds {
         };
 
         template<>
-        struct topic_type_name< DdsJobWzskIprCorner::flg > {
+        struct topic_type_name< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax > {
             NDDSUSERDllExport static std::string value() {
-                return "DdsJobWzskIprCorner::flg";
+                return "DdsJobWzskIprCorner::flgShiftScoreMinScoreMax";
             }
         };
 
         template<>
-        struct is_topic_type< DdsJobWzskIprCorner::flg > : public ::dds::core::true_type {};
+        struct is_topic_type< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax > : public ::dds::core::true_type {};
 
         template<>
-        struct topic_type_support< DdsJobWzskIprCorner::flg > {
+        struct topic_type_support< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax > {
             NDDSUSERDllExport 
             static void register_type(
                 ::dds::domain::DomainParticipant& participant,
@@ -4030,17 +4072,17 @@ namespace dds {
             NDDSUSERDllExport 
             static std::vector<char>& to_cdr_buffer(
                 std::vector<char>& buffer, 
-                const DdsJobWzskIprCorner::flg& sample,
+                const DdsJobWzskIprCorner::flgShiftScoreMinScoreMax& sample,
                 ::dds::core::policy::DataRepresentationId representation 
                 = ::dds::core::policy::DataRepresentation::auto_id());
 
             NDDSUSERDllExport 
-            static void from_cdr_buffer(DdsJobWzskIprCorner::flg& sample, const std::vector<char>& buffer);
+            static void from_cdr_buffer(DdsJobWzskIprCorner::flgShiftScoreMinScoreMax& sample, const std::vector<char>& buffer);
             NDDSUSERDllExport 
-            static void reset_sample(DdsJobWzskIprCorner::flg& sample);
+            static void reset_sample(DdsJobWzskIprCorner::flgShiftScoreMinScoreMax& sample);
 
             NDDSUSERDllExport 
-            static void allocate_sample(DdsJobWzskIprCorner::flg& sample, int, int);
+            static void allocate_sample(DdsJobWzskIprCorner::flgShiftScoreMinScoreMax& sample, int, int);
 
             static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
             ::rti::topic::TypePluginKind::STL;
@@ -5377,14 +5419,14 @@ namespace rti {
 
         #ifndef NDDS_STANDALONE_TYPE
         template<>
-        struct dynamic_type< DdsJobWzskIprCorner::flg > {
+        struct dynamic_type< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax > {
             typedef ::dds::core::xtypes::StructType type;
             NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
         };
         #endif
 
         template <>
-        struct extensibility< DdsJobWzskIprCorner::flg > {
+        struct extensibility< DdsJobWzskIprCorner::flgShiftScoreMinScoreMax > {
             static const ::dds::core::xtypes::ExtensibilityKind::type kind =
             ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
         };
@@ -5763,5 +5805,5 @@ namespace rti {
 #define NDDSUSERDllExport
 #endif
 
-#endif // DdsWzsk_509372353_hpp
+#endif // DdsWzsk_509372441_hpp
 

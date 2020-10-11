@@ -2,8 +2,8 @@
 	* \file PnlWzskNavGalery_blks.cpp
 	* job handler for job PnlWzskNavGalery (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 using namespace std;
@@ -296,7 +296,7 @@ void PnlWzskNavGalery::Tag::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Galery");
+			writeStringAttr(wr, itemtag, "sref", "Cpt", "Gallery");
 			writeStringAttr(wr, itemtag, "sref", "CptOgr", "object groups");
 			writeStringAttr(wr, itemtag, "sref", "CptObj", "objects");
 			writeStringAttr(wr, itemtag, "sref", "CptSes", "sessions");

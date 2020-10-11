@@ -2,8 +2,8 @@
 	* \file JobWzskAcqPtcloud.h
 	* job handler for job JobWzskAcqPtcloud (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef JOBWZSKACQPTCLOUD_H
@@ -85,14 +85,17 @@ public:
 	class Stg : public Sbecore::Xmlio::Block {
 
 	public:
-		static const Sbecore::uint DLEFT = 1;
-		static const Sbecore::uint DRIGHT = 2;
-		static const Sbecore::uint DWORK = 3;
+		static const Sbecore::uint DLASBACK = 1;
+		static const Sbecore::uint DLEFT = 2;
+		static const Sbecore::uint DRIGHT = 3;
+		static const Sbecore::uint DWORK = 4;
 
 	public:
-		Stg(const float dLeft = 0.2, const float dRight = 0.2, const float dWork = 0.2);
+		Stg(const float dLasback = 0.03, const float dLeft = 0.2, const float dRight = 0.2, const float dWork = 0.2);
 
 	public:
+		float dLasback;
+
 		float dLeft;
 		float dRight;
 

@@ -2,8 +2,8 @@
 	* \file Wzsk.cpp
 	* Wzsk global functionality (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #include "Wzsk.h"
@@ -493,6 +493,7 @@ void Wzsk::bitmapToXy(
 			, const bool roi
 			, const vector<int>& xsRoi
 			, const vector<int>& ysRoi
+			, const bool rot180
 			, const bool append
 		) {
 	bool byteflip = src16Not8 && !bigendian();
@@ -555,8 +556,13 @@ void Wzsk::bitmapToXy(
 					if (roi) {
 						// count vector intersections with line pointing from test point to x = -width/2
 						for (unsigned int k = 0; k < xsRoi.size(); k++) {
-							rx = stix;
-							ry = i;
+							if (!rot180) {
+								rx = stix;
+								ry = i;
+							} else {
+								rx = width - stix - 1;
+								ry = height - i - 1;
+							};
 
 							x0 = xsRoi[k] + ((double) width)/2.0;
 							dx = dxsRoi[k];
@@ -579,8 +585,13 @@ void Wzsk::bitmapToXy(
 					};
 
 					if (!roi || (Nroi%2)) {
-						xs.push_back(((int) stix) - ((int) width)/2);
-						ys.push_back(((int) i) - ((int) height)/2);
+						if (!rot180) {
+							xs.push_back(((int) stix) - ((int) width)/2);
+							ys.push_back(((int) i) - ((int) height)/2);
+						} else {
+							xs.push_back(((int) (width - stix - 1)) - ((int) width)/2);
+							ys.push_back(((int) (height - i - 1)) - ((int) height)/2);
+						};
 
 						cnt++;
 						if (cnt >= cntPerRowMax) break;

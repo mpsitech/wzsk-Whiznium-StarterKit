@@ -2,8 +2,8 @@
 	* \file JobWzskAcqPtcloud.cpp
 	* job handler for job JobWzskAcqPtcloud (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -438,38 +438,45 @@ uint JobWzskAcqPtcloud::enterSgeProcess(
 
 	Shrdat::ResultitemBody* ri = (Shrdat::ResultitemBody*) shrdat.resultBody[ixRi];
 
-	const double alphaLeft = atan2(stg.dWork, stg.dLeft);
-	const double alphaRight = atan2(stg.dWork, stg.dRight);
+	const double alphaLeft = atan2(stg.dLeft, stg.dWork + stg.dLasback);
+	const double alphaRight = atan2(stg.dRight, stg.dWork + stg.dLasback);
 
-	const double phiLeft = shrdat.theta * M_PI / 180.0 + alphaLeft;
-	const double phiRight = shrdat.theta * M_PI / 180.0 - alphaRight;
+	const double pixToDim = 1e-6 * xchg->stgwzskcamera.hpix;
 
-	const double pixToDim = stg.dWork * xchg->stgwzskcamera.hpix / xchg->stgwzskcamera.f / 1000.0;
-
-	bool rNotL;
+	double rNotL;
+	double alpha;
 
 	double x_in, y_in;
-	double rho, phi, z;
+
+	double rho;
+	double x, y, z;
+
+	double phi;
 
 	// plain core algorithm
+	rNotL = 1.0;
+	alpha = alphaLeft;
+
 	for (unsigned int i = 0; i < riSrc->x.size(); i++) {
-		rNotL = (i >= riSrc->Nleft);
+		if (i == riSrc->Nleft) {
+			rNotL = -1.0;
+			alpha = alphaRight;
+		};
 
 		x_in = pixToDim * ((double) (riSrc->x[i]));
 		y_in = pixToDim * ((double) (riSrc->y[i]));
 
-		if (!rNotL) {
-			rho = fabs(x_in / sin(alphaLeft));
-			phi = phiLeft;
-		} else {
-			rho = fabs(x_in / sin(alphaRight));
-			phi = phiRight;
-		};
-		z = y_in;
+		rho = fabs(x_in) * stg.dWork / (1e-3 * xchg->stgwzskcamera.f * sin(alpha) + fabs(x_in) * cos(alpha));
 
-		ri->rNotL.push_back(rNotL);
-		ri->x.push_back(rho * cos(phi));
-		ri->y.push_back(rho * sin(phi));
+		x = rho * cos(alpha);
+		y = rho * rNotL * sin(alpha);
+		z = y_in / (1e-3 * xchg->stgwzskcamera.f) * (stg.dWork - rho * cos(alpha));
+
+		phi = shrdat.theta * M_PI / 180.0;
+
+		ri->rNotL.push_back(rNotL < 0.0);
+		ri->x.push_back(x * cos(phi) - y * sin(phi));
+		ri->y.push_back(x * sin(phi) + y * cos(phi));
 		ri->z.push_back(z);
 	};
 
@@ -597,7 +604,9 @@ uint JobWzskAcqPtcloud::enterSgeSave(
 		txtfi.close();
 
 		Filename = "ptcloud1.txt";
-		if (dbswzsk->loadStringBySQL("SELECT Filename FROM TblWzskMFile WHERE refIxVTbl = " + to_string(VecWzskVMFileRefTbl::SHT) + " AND refUref = " + to_string(refWzskMShot) + " AND Filename LIKE 'ptcloud%.txt' ORDER BY ref DESC LIMIT 1", Filename)) {
+		if (dbswzsk->loadStringBySQL("SELECT TblWzskMFile.Filename FROM TblWzskMObject, TblWzskMShot, TblWzskMFile WHERE TblWzskMObject.ref = " + to_string(shrdat.refWzskMObject)
+					+ " AND TblWzskMShot.refWzskMObject = TblWzskMObject.ref AND TblWzskMFile.refIxVTbl = " + to_string(VecWzskVMFileRefTbl::SHT)
+					+ " AND TblWzskMFile.refUref = TblWzskMShot.ref AND TblWzskMFile.Filename LIKE 'ptcloud%.txt' ORDER BY TblWzskMFile.ref DESC LIMIT 1", Filename)) {
 			Filename = Filename.substr(0, Filename.rfind(".txt"));
 			Filename = "ptcloud" + to_string(atoi(Filename.substr(7).c_str()) + 1) + ".txt";
 		};

@@ -2,8 +2,8 @@
 	* \file PnlWzskOgrList.h
 	* job handler for job PnlWzskOgrList (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef PNLWZSKOGRLIST_H
@@ -126,7 +126,7 @@ public:
 		static const Sbecore::uint TCOSUPWIDTH = 3;
 
 	public:
-		StgIac(const Sbecore::uint TcoSrfWidth = 100, const Sbecore::uint TcoTitWidth = 100, const Sbecore::uint TcoSupWidth = 100);
+		StgIac(const Sbecore::uint TcoSrfWidth = 100, const Sbecore::uint TcoTitWidth = 200, const Sbecore::uint TcoSupWidth = 250);
 
 	public:
 		Sbecore::uint TcoSrfWidth;

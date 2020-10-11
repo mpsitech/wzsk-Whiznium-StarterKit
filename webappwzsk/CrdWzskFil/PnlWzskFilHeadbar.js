@@ -2,8 +2,8 @@
   * \file PnlWzskFilHeadbar.js
   * web client functionality for panel PnlWzskFilHeadbar
   * \author Catherine Johnson
-  * \date created: 16 Sep 2020
-  * \date modified: 16 Sep 2020
+  * \date created: 6 Oct 2020
+  * \date modified: 6 Oct 2020
   */
 
 // --- view initialization

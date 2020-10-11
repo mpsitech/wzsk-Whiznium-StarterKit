@@ -2,8 +2,8 @@
 	* \file PnlWzskSes1NShot.cpp
 	* API code for job PnlWzskSes1NShot (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #include "PnlWzskSes1NShot.h"

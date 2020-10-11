@@ -2,8 +2,8 @@
 	* \file SessWzsk.cpp
 	* job handler for job SessWzsk (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -131,8 +131,8 @@ SessWzsk::SessWzsk(
 	xchg->addClstn(VecWzskVCall::CALLWZSKRECACCESS, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKLOG, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKCRDOPEN, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKCRDACTIVE, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKCRDCLOSE, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKCRDACTIVE, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -1032,10 +1032,10 @@ void SessWzsk::handleCall(
 		call->abort = handleCallWzskLog(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref, call->argInv.sref, call->argInv.intval);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCRDOPEN) {
 		call->abort = handleCallWzskCrdOpen(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref, call->argInv.sref, call->argInv.intval, call->argRet.ref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCRDACTIVE) {
-		call->abort = handleCallWzskCrdActive(dbswzsk, call->jref, call->argInv.ix, call->argRet.ix);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCRDCLOSE) {
 		call->abort = handleCallWzskCrdClose(dbswzsk, call->jref, call->argInv.ix);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCRDACTIVE) {
+		call->abort = handleCallWzskCrdActive(dbswzsk, call->jref, call->argInv.ix, call->argRet.ix);
 	};
 };
 
@@ -1244,17 +1244,6 @@ bool SessWzsk::handleCallWzskCrdOpen(
 	return retval;
 };
 
-bool SessWzsk::handleCallWzskCrdActive(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-			, const uint ixInv
-			, uint& ixRet
-		) {
-	bool retval = false;
-	ixRet = checkCrdActive(ixInv);
-	return retval;
-};
-
 bool SessWzsk::handleCallWzskCrdClose(
 			DbsWzsk* dbswzsk
 			, const ubigint jrefTrig
@@ -1395,6 +1384,17 @@ bool SessWzsk::handleCallWzskCrdClose(
 			} else it++;
 		};
 	};
+	return retval;
+};
+
+bool SessWzsk::handleCallWzskCrdActive(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+			, const uint ixInv
+			, uint& ixRet
+		) {
+	bool retval = false;
+	ixRet = checkCrdActive(ixInv);
 	return retval;
 };
 

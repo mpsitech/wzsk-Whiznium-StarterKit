@@ -2,8 +2,8 @@
 	* \file JobWzskIprCorner.cpp
 	* job handler for job JobWzskIprCorner (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -32,8 +32,6 @@ using namespace Xmlio;
 JobWzskIprCorner::Shrdat::ResultitemCorner::ResultitemCorner() :
 			Resultitem()
 		{
-	scoreMin = 0;
-	scoreMax = 0;
 	NCorner = 0;
 	thd = 0;
 
@@ -70,6 +68,10 @@ void JobWzskIprCorner::Shrdat::init(
 	roiDx = -512;
 	roiDy = 150;
 
+	shift = 0;
+	scoreMin = 0;
+	scoreMax = 0;
+
 	loopNotSngshot = false;
 
 	for (unsigned int i = 0; i < 2; i++) result.append(new ResultitemCorner());
@@ -104,6 +106,8 @@ JobWzskIprCorner::JobWzskIprCorner(
 	// IP constructor.cust1 --- IBEGIN
 	ixRiSrc = 0; ixRiSrc--;
 	ixRi = shrdat.result.size();
+
+	shift_last = 0;
 	// IP constructor.cust1 --- IEND
 
 	// IP constructor.spec1 --- INSERT
@@ -147,8 +151,10 @@ JobWzskIprCorner::Claim::Claim(
 void JobWzskIprCorner::scoreV4l2(
 			uint16_t* gr16
 			, uint16_t* score16
-			, ubigint& scoreMin
-			, ubigint& scoreMax
+			, const bool linNotLog
+			, utinyint& shift
+			, utinyint& _scoreMin
+			, utinyint& _scoreMax
 		) {
 	int64_t* score = NULL; // 1024 x 768
 
@@ -162,11 +168,9 @@ void JobWzskIprCorner::scoreV4l2(
 	int64_t termI, termII, termIIIk;
 	int64_t r;
 
-	int64_t minScore, maxScore;
+	int64_t scoreMin, scoreMax;
 
-	const bool linNotLog = false;
-
-	utinyint shift = 0;
+	utinyint testshift;
 	int64_t test = 0;
 
 	vector<unsigned int> hist;
@@ -184,8 +188,8 @@ void JobWzskIprCorner::scoreV4l2(
 	fiverowYsqr = new int64_t[5 * xchg->stgwzskframegeo.wGrrd];
 	fiverowXy = new int64_t[5 * xchg->stgwzskframegeo.wGrrd];
 
-	minScore = numeric_limits<int64_t>::max();
-	maxScore = numeric_limits<int64_t>::min();
+	scoreMin = numeric_limits<int64_t>::max();
+	scoreMax = numeric_limits<int64_t>::min();
 
 	ixFiverow = 0;
 	
@@ -226,8 +230,8 @@ void JobWzskIprCorner::scoreV4l2(
 
 				r = termI - termII - termIIIk;
 
-				if (r < minScore) minScore = r;
-				if (r > maxScore) maxScore = r;
+				if (r < scoreMin) scoreMin = r;
+				if (r > scoreMax) scoreMax = r;
 
 				stix = (i - 2) * xchg->stgwzskframegeo.wGrrd + j - 2;
 				score[stix] = r;
@@ -235,12 +239,16 @@ void JobWzskIprCorner::scoreV4l2(
 		};
 	};
 
-	if (linNotLog) {
-		for (test = 1, shift = 0; ; test *= 2, shift++) if (test >= maxScore)  break;
+	if (!linNotLog) {
+		shift = 0;
+
+	} else {
+		for (test = 1, shift = 0; ; test *= 2, shift++) if (test >= scoreMax)  break;
 		if (shift >= 8) shift -= 8;
 	};
 
-	//cout << "minScore = " << minScore << ", maxScore = " << maxScore << ", linear right shift by " << ((unsigned int) shift) << endl;
+	_scoreMin = 255;
+	_scoreMax = 0;
 
 	hist.resize(256, 0);
 
@@ -262,9 +270,9 @@ void JobWzskIprCorner::scoreV4l2(
 
 					if (r < 4) r16 = r;
 					else
-						for (test = 8, shift = 1; ; test *= 2, shift++)
+						for (test = 8, testshift = 1; ; test *= 2, testshift++)
 							if (r < test) {
-								r16 = (shift << 2) + ((r >> (shift - 1)) & 0x0003);
+								r16 = (testshift << 2) + ((r >> (testshift - 1)) & 0x0003);
 								break;
 							};
 				};
@@ -273,6 +281,9 @@ void JobWzskIprCorner::scoreV4l2(
 				if (r < 0) r16 = 0;
 				else r16 = (r >> shift);
 			};
+
+			if (r16 < _scoreMin) _scoreMin = r16;
+			if (r16 > _scoreMax) _scoreMax = r16;
 
 			score16[ldix] = r16;
 			hist[r16]++;
@@ -298,8 +309,10 @@ void JobWzskIprCorner::scoreV4l2(
 void JobWzskIprCorner::scoreV4l2Fp(
 			uint16_t* gr16
 			, uint16_t* score16
-			, ubigint& scoreMin
-			, ubigint& scoreMax
+			, const bool linNotLog
+			, utinyint& shift
+			, utinyint& _scoreMin
+			, utinyint& _scoreMax
 		) {
 	float* scoreFp = NULL; // 1024 x 768
 
@@ -315,11 +328,8 @@ void JobWzskIprCorner::scoreV4l2Fp(
 	float r;
 	uint32_t r_bits;
 
-	float minScore, maxScore;
+	float scoreMin, scoreMax;
 
-	const bool linNotLog = false;
-
-	utinyint shift = 0;
 	float test = 0.0;
 
 	vector<unsigned int> hist;
@@ -337,8 +347,8 @@ void JobWzskIprCorner::scoreV4l2Fp(
 	fiverowYsqr = new float[5 * xchg->stgwzskframegeo.wGrrd];
 	fiverowXy = new float[5 * xchg->stgwzskframegeo.wGrrd];
 
-	minScore = numeric_limits<float>::max();
-	maxScore = numeric_limits<float>::min();
+	scoreMin = numeric_limits<float>::max();
+	scoreMax = numeric_limits<float>::min();
 
 	ixFiverow = 0;
 	
@@ -379,8 +389,8 @@ void JobWzskIprCorner::scoreV4l2Fp(
 
 				r = termI - termII - termIIIk;
 
-				if (r < minScore) minScore = r;
-				if (r > maxScore) maxScore = r;
+				if (r < scoreMin) scoreMin = r;
+				if (r > scoreMax) scoreMax = r;
 
 				stix = (i - 2) * xchg->stgwzskframegeo.wGrrd + j - 2;
 				scoreFp[stix] = r;
@@ -388,14 +398,18 @@ void JobWzskIprCorner::scoreV4l2Fp(
 		};
 	};
 
-	if (linNotLog) {
-		for (test = 1.0, shift = 0; ; test *= 2.0, shift++) if (test >= maxScore)  break;
+	if (!linNotLog) {
+		shift = 0;
+
+	} else {
+		for (test = 1.0, shift = 0; ; test *= 2.0, shift++) if (test >= scoreMax)  break;
 
 		if (shift >= 8) shift -= 8;
 		test = pow(2.0, shift);
 	};
 
-	//cout << "minScore = " << minScore << ", maxScore = " << maxScore << ", linear right shift by " << ((unsigned int) shift) << endl;
+	_scoreMin = 255;
+	_scoreMax = 0;
 
 	hist.resize(256, 0);
 
@@ -419,6 +433,9 @@ void JobWzskIprCorner::scoreV4l2Fp(
 				if (r < 0.0) r16 = 0.0;
 				else r16 = (uint16_t) (r/test);
 			};
+
+			if (r16 < _scoreMin) _scoreMin = r16;
+			if (r16 > _scoreMax) _scoreMax = r16;
 
 			score16[ldix] = r16;
 			hist[r16]++;
@@ -525,7 +542,7 @@ void JobWzskIprCorner::maxselV4l2(
 
 bool JobWzskIprCorner::setNTarget(
 			DbsWzsk* dbswzsk
-			, const uint NTarget
+			, const usmallint NTarget
 		) {
 	bool retval = true;
 
@@ -651,7 +668,7 @@ void JobWzskIprCorner::handleRequest(
 		uint ixVMethod = VecVMethod::getIx(req->method->srefIxVMethod);
 
 		if ((ixVMethod == VecVMethod::SETNTARGET) && (req->method->parsInv.size() == 1) && (req->method->parsRet.size() == 1)) {
-			*((bool*) (req->method->parsRet[0])) = setNTarget(dbswzsk, *((const uint*) (req->method->parsInv[0])));
+			*((bool*) (req->method->parsRet[0])) = setNTarget(dbswzsk, *((const usmallint*) (req->method->parsInv[0])));
 		} else if ((ixVMethod == VecVMethod::SETROI) && (req->method->parsInv.size() == 8) && (req->method->parsRet.size() == 1)) {
 			*((bool*) (req->method->parsRet[0])) = setRoi(dbswzsk, *((const int*) (req->method->parsInv[0])), *((const int*) (req->method->parsInv[1])), *((const int*) (req->method->parsInv[2])), *((const int*) (req->method->parsInv[3])), *((const int*) (req->method->parsInv[4])), *((const int*) (req->method->parsInv[5])), *((const int*) (req->method->parsInv[6])), *((const int*) (req->method->parsInv[7])));
 		} else if ((ixVMethod == VecVMethod::SETROINOTFULL) && (req->method->parsInv.size() == 1) && (req->method->parsRet.size() == 1)) {
@@ -814,6 +831,8 @@ uint JobWzskIprCorner::enterSgeIdle(
 	if (ixRi != shrdat.result.size()) {
 		shrdat.result.unlock(0, ixRi);
 		ixRi = shrdat.result.size();
+
+		shift_last = 0;
 	};
 	// IP enterSgeIdle --- IEND
 
@@ -840,8 +859,6 @@ uint JobWzskIprCorner::enterSgeReady(
 		if (shrdat.result.dequeue(ixRi)) {
 			ri = (Shrdat::ResultitemCorner*) shrdat.result[ixRi];
 
-			ri->scoreMin = 0;
-			ri->scoreMax = 0;
 			ri->NCorner = 0;
 			ri->thd = 0;
 
@@ -853,7 +870,7 @@ uint JobWzskIprCorner::enterSgeReady(
 
 			// set source claim to run
 			if (srcv4l2) xchg->addCsjobClaim(dbswzsk, srcv4l2, new Claim(false, true));
-			else if (acqfpgaflg) xchg->addCsjobClaim(dbswzsk, acqfpgaflg, new JobWzskAcqFpgaflg::Claim(false, true, false, false));
+			else if (acqfpgaflg) xchg->addCsjobClaim(dbswzsk, acqfpgaflg, new JobWzskAcqFpgaflg::Claim(false, true, false, false, stg.linNotLog, shrdat.thd, 0, 0));
 
 		} else retval = VecVSge::IDLE;
 	};
@@ -905,6 +922,8 @@ uint JobWzskIprCorner::enterSgeProcess(
 
 	Shrdat::ResultitemCorner* ri = (Shrdat::ResultitemCorner*) shrdat.result[ixRi];
 
+	utinyint shift, scoreMin, scoreMax;
+
 	ri->thd = shrdat.thd;
 
 	// intermediate results
@@ -920,24 +939,18 @@ uint JobWzskIprCorner::enterSgeProcess(
 		// calculate score
 		score16 = new uint16_t[wGrrd * hGrrd];
 
-		//scoreV4l2(riSrcv4l2->gr16, score16, ri->scoreMin, ri->scoreMax);
-		scoreV4l2Fp(riSrcv4l2->gr16, score16, ri->scoreMin, ri->scoreMax);
+		//scoreV4l2(riSrcv4l2->gr16, score16, stg.linNotLog, shift, scoreMin, scoreMax);
+		scoreV4l2Fp(riSrcv4l2->gr16, score16, stg.linNotLog, shift, scoreMin, scoreMax);
 
 		srcv4l2->shrdat.resultAcq.unlock(jref, ixRiSrc);
 		ixRiSrc = 0; ixRiSrc--;
-
-		if (shrdat.thd == 255) {
-			// adapt initial threshold
-			shrdat.thd = 0;
-			for (unsigned int i = 0; i < wGrrd*hGrrd; i++) if (score16[i] > shrdat.thd) shrdat.thd = score16[i];
-		};
 
 		// select maxima
 		corner16 = new uint16_t[wGrrd/16 * hGrrd];
 
 		maxselV4l2(score16, corner16, ri->NCorner);
 
-		Wzsk::bitmapToXy((unsigned char*) corner16, true, wGrrd, hGrrd, ri->x, ri->y, wGrrd + 1, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, false);
+		Wzsk::bitmapToXy((unsigned char*) corner16, true, wGrrd, hGrrd, ri->x, ri->y, wGrrd + 1, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, false, false);
 
 		delete[] score16;
 
@@ -948,7 +961,11 @@ uint JobWzskIprCorner::enterSgeProcess(
 
 		ri->tIn = riSrcfpga->t;
 
-		Wzsk::bitmapToXy(riSrcfpga->buf, false, wGrrd, hGrrd, ri->x, ri->y, wGrrd + 1, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, false);
+		shift = riSrcfpga->shift;
+		scoreMin = riSrcfpga->scoreMin;
+		scoreMax = riSrcfpga->scoreMax;
+
+		Wzsk::bitmapToXy(riSrcfpga->buf, false, wGrrd, hGrrd, ri->x, ri->y, wGrrd + 1, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, true, false);
 
 		acqfpgaflg->shrdat.resultFlg.unlock(jref, ixRiSrc);
 		ixRiSrc = 0; ixRiSrc--;
@@ -957,24 +974,45 @@ uint JobWzskIprCorner::enterSgeProcess(
 	ri->NCorner = ri->x.size();
 	//cout << "NCorner_roi = " << ri->NCorner << endl;
 
-	if ((ri->NCorner > shrdat.NTarget) && (shrdat.thd < 255)) shrdat.thd++;
-	else if ((ri->NCorner < shrdat.NTarget) && (shrdat.thd > 0)) shrdat.thd--;
-
-	//cout << "thd_new = " << ((int) shrdat.thd) << endl;
-
 	ri->tOut = Wzsk::getNow();
 
 	// update shrdat
 	shrdat.wlockAccess(jref, "enterSgeProcess");
+
+	if (shrdat.thd == 255) {
+		// adapt initial threshold
+		shrdat.thd = scoreMax;
+
+	} else {
+		// adapt threshold for subsequent frame
+		if (!stg.linNotLog) {
+			if ((ri->NCorner > shrdat.NTarget) && (shrdat.thd < 255)) shrdat.thd++;
+			else if ((ri->NCorner < shrdat.NTarget) && (shrdat.thd > 0)) shrdat.thd--;
+
+		} else {
+			if (shift > shrdat.shift) shrdat.thd << (shift - shrdat.shift);
+			else if (shift < shrdat.shift) shrdat.thd >> (shrdat.shift - shift);
+			else {
+				if ((ri->NCorner > shrdat.NTarget) && (shrdat.thd < 255)) shrdat.thd++;
+				else if ((ri->NCorner < shrdat.NTarget) && (shrdat.thd > 0)) shrdat.thd--;
+			};
+		};
+
+		//cout << "thd_new = " << ((int) shrdat.thd) << endl;
+	};
 
 	shrdat.flg.clear();
 	shrdat.flg.resize(wGrrd * hGrrd, false);
 
 	for (unsigned int i = 0; i < ri->x.size(); i++) shrdat.flg[(ri->y[i] + hGrrd/2) * wGrrd + (ri->x[i] + wGrrd/2)] = true;
 
+	shrdat.shift = shift;
+	shrdat.scoreMin = scoreMin;
+	shrdat.scoreMax = scoreMax;
+
 	shrdat.wunlockAccess(jref, "enterSgeProcess");
 
-	xchg->triggerSrefCall(dbswzsk, VecWzskVCall::CALLWZSKSHRDATCHG, jref, "flg");
+	xchg->triggerSrefCall(dbswzsk, VecWzskVCall::CALLWZSKSHRDATCHG, jref, "flgShiftScoreMinScoreMax");
 
 	// inform super-jobs
 	xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixRi, "corner");

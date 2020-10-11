@@ -2,17 +2,17 @@
 	* \file Wzsk.h
 	* Wzsk global functionality (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef WZSK_H
 #define WZSK_H
 
-#define WZSK_VERSION "0.1.33"
+#define WZSK_VERSION "0.1.35"
 #define WZSK_VERSION_MAJOR 0
 #define WZSK_VERSION_MINOR 1
-#define WZSK_VERSION_SUB 33
+#define WZSK_VERSION_SUB 35
 
 // IP include.cust --- INSERT
 
@@ -97,7 +97,7 @@ namespace Wzsk {
 	// IP gbl --- IBEGIN
 	void getFlgWh(unsigned int& w, unsigned int& h);
 
-	void bitmapToXy(unsigned char* src, const bool src16Not8, const unsigned int width, const unsigned int height, std::vector<int>& xs, std::vector<int>& ys, const unsigned int cntPerRowMax, const bool roi, const std::vector<int>& xsRoi, const std::vector<int>& ysRoi, const bool append);
+	void bitmapToXy(unsigned char* src, const bool src16Not8, const unsigned int width, const unsigned int height, std::vector<int>& xs, std::vector<int>& ys, const unsigned int cntPerRowMax, const bool roi, const std::vector<int>& xsRoi, const std::vector<int>& ysRoi, const bool rot180, const bool append);
 
 	void getPvwWh(const Sbecore::uint ixWzskVPvwmode, unsigned int& w, unsigned int& h);
 	bool getPvwRawNotBin(const Sbecore::uint ixWzskVPvwmode);

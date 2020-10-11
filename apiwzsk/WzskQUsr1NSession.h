@@ -2,8 +2,8 @@
 	* \file WzskQUsr1NSession.h
 	* API code for table TblWzskQUsr1NSession (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef WZSKQUSR1NSESSION_H

@@ -2,8 +2,8 @@
 	* \file JobWzskAcqFpgaflg.cpp
 	* job handler for job JobWzskAcqFpgaflg (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -46,11 +46,9 @@ JobWzskAcqFpgaflg::Shrdat::ResultitemFlg::ResultitemFlg() :
 	tixVThdstate = 0;
 	t = 0.0;
 
+	shift = 0;
 	scoreMin = 0;
 	scoreMax = 0;
-	shift = 0;
-	NCorner = 0;
-	thd = 0;
 };
 
 JobWzskAcqFpgaflg::Shrdat::ResultitemFlg::~ResultitemFlg() {
@@ -76,6 +74,12 @@ void JobWzskAcqFpgaflg::Shrdat::init(
 
 	thdNotCorner = false;
 	thdDeltaNotAbs = false;
+
+	cornerLinNotLog = false;
+	cornerThd = 0;
+
+	thdLvlFirst = 0;
+	thdLvlSecond = 0;
 
 	cancelFlg = false;
 
@@ -136,11 +140,21 @@ JobWzskAcqFpgaflg::Claim::Claim(
 			, const bool run
 			, const bool thdNotCorner
 			, const bool thdDeltaNotAbs
+			, const bool cornerLinNotLog
+			, const utinyint cornerThd
+			, const utinyint thdLvlFirst
+			, const utinyint thdLvlSecond
 		) :
 			Sbecore::Claim(retractable, run)
 		{
 	this->thdNotCorner = thdNotCorner;
 	this->thdDeltaNotAbs = thdDeltaNotAbs;
+
+	this->cornerLinNotLog = cornerLinNotLog;
+	this->cornerThd = cornerThd;
+
+	this->thdLvlFirst = thdLvlFirst;
+	this->thdLvlSecond = thdLvlSecond;
 };
 
 void* JobWzskAcqFpgaflg::runFlg(
@@ -164,15 +178,13 @@ void* JobWzskAcqFpgaflg::runFlg(
 
 	string srefRi;
 
+	utinyint cornerThd = shrdat.cornerThd;
+
+	bool triggered;
+
 	utinyint tixVFlgbufstate;
 	utinyint tixVThdstate;
 	uint tkst;
-
-	usmallint scoreMinMsb; 
-	uint scoreMinLsb;
-	
-	usmallint scoreMaxMsb;
-	uint scoreMaxLsb;
 
 	size_t datalen;
 
@@ -191,7 +203,12 @@ void* JobWzskAcqFpgaflg::runFlg(
 
 		srv->srcfpga->camif_setRng(true);
 		srv->srcfpga->camacq_setGrrd(true, shrdat.thdNotCorner);
+		if (!shrdat.thdNotCorner) srv->srcfpga->featdet_setCorner(shrdat.cornerLinNotLog, shrdat.cornerThd);
+		else srv->srcfpga->featdet_setThd(shrdat.thdLvlFirst, shrdat.thdLvlSecond);
 		srv->srcfpga->featdet_set(true, shrdat.thdNotCorner, shrdat.thdDeltaNotAbs);
+		if (shrdat.thdNotCorner) srv->srcfpga->featdet_triggerThd();
+
+		triggered = false;
 
 		shrdat.mFlg.unlock("JobWzskAcqFpgaflg", "runFlg[1]");
 
@@ -199,12 +216,18 @@ void* JobWzskAcqFpgaflg::runFlg(
 		while (true) {
 			if (shrdat.cancelFlg) break;
 
+			if (!shrdat.thdNotCorner && (shrdat.cornerThd != cornerThd)) {
+				// allow corner threshold to change while thread running
+				srv->srcfpga->featdet_setCorner(shrdat.cornerLinNotLog, shrdat.cornerThd);
+				cornerThd = shrdat.cornerThd;
+			};
+
 			shrdat.mFlg.lock("JobWzskAcqFpgaflg", "runFlg[2]");
 
 			srv->srcfpga->featdet_getInfo(tixVFlgbufstate, tixVThdstate, tkst);
 			//cout << "tixVThdstate = " << VecVWskdArtyFeatdetThdstate::getSref(tixVThdstate) << endl;
 
-			if (shrdat.thdNotCorner && shrdat.thdDeltaNotAbs && (tixVThdstate == VecVWskdArtyFeatdetThdstate::WAITSECOND)) {
+			if (shrdat.thdNotCorner && shrdat.thdDeltaNotAbs && (tixVThdstate == VecVWskdArtyFeatdetThdstate::WAITSECOND) && !triggered) {
 				shrdat.mFlg.unlock("JobWzskAcqFpgaflg", "runFlg[2]");
 
 				shrdat.cFlg.lockMutex("JobWzskAcqFpgaflg", "runFlg");
@@ -215,7 +238,10 @@ void* JobWzskAcqFpgaflg::runFlg(
 				shrdat.cFlg.wait();
 				shrdat.cFlg.unlockMutex("JobWzskAcqFpgaflg", "runFlg");
 
-				srv->srcfpga->featdet_triggerThd();
+				if (!shrdat.cancelFlg) {
+					srv->srcfpga->featdet_triggerThd();
+					triggered = true;
+				};
 
 			} else if (tixVFlgbufstate == VecVWskdArtyFeatdetFlgbufstate::FULL) {
 				ri = NULL;
@@ -239,34 +265,33 @@ void* JobWzskAcqFpgaflg::runFlg(
 				} else buf = auxbuf;
 
 				if (ri && !shrdat.thdNotCorner) {
-					srv->srcfpga->featdet_getCornerinfo(scoreMinMsb, scoreMinLsb, scoreMaxMsb, scoreMaxLsb, ri->shift, ri->NCorner, ri->thd);
+					srv->srcfpga->featdet_getCornerinfo(ri->shift, ri->scoreMin, ri->scoreMax);
 
-					ri->scoreMin = scoreMinMsb;
-					ri->scoreMin <<= 32;
-					ri->scoreMin += scoreMinLsb;
-
-					ri->scoreMax = scoreMaxMsb;
-					ri->scoreMax <<= 32;
-					ri->scoreMax += scoreMaxLsb;
-
-					//cout << "scoreMin = " << ri->scoreMin << ", scoreMax = " << ri->scoreMax << ", shift = " << ((uint) (ri->shift)) << ", NCorner = " << ri->NCorner << ", thd = " << ((uint) (ri->thd)) << endl;
+					cout << "shift = " << ((int) ri->shift) << ", scoreMin = " << ((int) ri->scoreMin) << ", scoreMax = " << ((int) ri->scoreMax) << endl;
 				};
 
-				fpga.readFlgbufFromFeatdet(sizeBuf, buf, datalen);
+				try {
+					fpga.readFlgbufFromFeatdet(sizeBuf, buf, datalen);
+
+				} catch (DbeException& e) {
+					if (ri) {
+						shrdat.resultFlg.unlock(srv->jref, ixRi); // put result item back in queue and try again, starting from featdet_getInfo()
+						ri = NULL;
+					};
+				};
 
 				if (ri) XchgWzsk::runExtcall(new ExtcallWzsk(srv->xchg, new Call(VecWzskVCall::CALLWZSKCALLBACK, srv->jref, Arg(ixRi, 0, {}, srefRi, 0, 0.0, false, "", Arg::IX + Arg::SREF))));
 
 				shrdat.mFlg.unlock("JobWzskAcqFpgaflg", "runFlg[3]");
 
-				if (!shrdat.thdNotCorner) {
-					// one-shot for now
-					break;
+				if (ri) {
+					if (!shrdat.thdNotCorner) {
+						// sleep for 1/4Hz - 10ms = 240ms
+						deltat = {.tv_sec = 0, .tv_nsec = 240000000};
+						//nanosleep(&deltat, NULL);
 
-					// sleep for 1/4Hz - 10ms = 240ms
-					//deltat = {.tv_sec = 0, .tv_nsec = 240000000};
-					//nanosleep(&deltat, NULL);
-				
-				} else break;
+					} else break; // thd is one-shot
+				};
 
 			} else {
 				shrdat.mFlg.unlock("JobWzskAcqFpgaflg", "runFlg[4]");
@@ -283,6 +308,15 @@ void* JobWzskAcqFpgaflg::runFlg(
 		XchgWzsk::runExtcall(new ExtcallWzsk(srv->xchg, new Call(VecWzskVCall::CALLWZSKCALLBACK, srv->jref, Arg())));
 
 		shrdat.mFlg.unlock("JobWzskAcqFpgaflg", "runFlg[5]");
+	};
+
+	try {
+		// - clean up
+		srv->srcfpga->camacq_setGrrd(false, false);
+		srv->srcfpga->featdet_set(false, false, false);
+
+	} catch (DbeException& e) {
+		cout << e.err << endl;
 	};
 
 	delete[] auxbuf;
@@ -357,16 +391,20 @@ bool JobWzskAcqFpgaflg::handleCallWzskCallbackFromSelfInSgeRng(
 	bool retval = false;
 	// IP handleCallWzskCallbackFromSelfInSgeRng --- IBEGIN
 	if (trylockAccess("handleCallWzskCallbackFromSelfInSgeRng")) {
-		if (srefInv == "") {
-			// - something went wrong, cancel thread
+		if (nextIxVSgeFailure != VecVSge::RNG) {
+			// claim run attribute has been retracted
+			changeStage(dbswzsk, VecVSge::IDLE);
+
+		} else if (srefInv == "") {
+			// something went wrong, cancel thread
 			changeStage(dbswzsk, VecVSge::IDLE);
 
 		} else if (srefInv == "waitsecond") {
-			// - waiting for trigger before acquiring second frame
+			// waiting for trigger before acquiring second frame
 			xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKWAITSECOND, jref);
 
-		} else if (srefInv == "flg") {
-			// - new result available
+		} else {
+			// new result available
 			shrdat.resultFlg.lock(jref, ixInv);
 
 			// inform super-jobs about new result
@@ -380,7 +418,7 @@ bool JobWzskAcqFpgaflg::handleCallWzskCallbackFromSelfInSgeRng(
 		unlockAccess("handleCallWzskCallbackFromSelfInSgeRng");
 
 	} else {
-		if (srefInv == "flg") shrdat.resultFlg.unlock(jref, ixInv);
+		if ((srefInv != "") && (srefInv != "waitsecond")) shrdat.resultFlg.unlock(jref, ixInv);
 	};
 	// IP handleCallWzskCallbackFromSelfInSgeRng --- IEND
 	return retval;
@@ -443,20 +481,24 @@ uint JobWzskAcqFpgaflg::enterSgeIdle(
 	// IP enterSgeIdle --- IBEGIN
 	pthread_t oldFlg;
 
+	shrdat.cancelFlg = true;
+
 	shrdat.mFlg.lock("JobWzskAcqFpgaflg", "enterSgeIdle");
 
 	oldFlg = shrdat.flg; // original will be set 0 in the process
 
 	if (oldFlg != 0) {
-		shrdat.cancelFlg = true;
-
 		shrdat.mFlg.unlock("JobWzskAcqFpgaflg", "enterSgeIdle[1]");
+
+		shrdat.cFlg.signal("JobWzskAcqFpgaflg", "enterSgeIdle"); // in case thread is stuck waiting for trigger
 
 		pthread_join(oldFlg, NULL);
 
 	} else shrdat.mFlg.unlock("JobWzskAcqFpgaflg", "enterSgeIdle[2]");
 
 	xchg->clearCsjobRun(dbswzsk, ixWzskVJob);
+
+	for (unsigned int i = 0; i < shrdat.resultFlg.size(); i++) shrdat.resultFlg.unlock(jref, i);
 	// IP enterSgeIdle --- IEND
 
 	return retval;
@@ -477,16 +519,19 @@ uint JobWzskAcqFpgaflg::enterSgeRng(
 	// IP enterSgeRng --- IBEGIN
 	pthread_attr_t attr;
 
-	shrdat.mFlg.lock("JobWzskAcqFpgaflg", "enterSgeRng");
+	if (shrdat.flg != 0) retval = VecVSge::IDLE;
+	else {
+		shrdat.mFlg.lock("JobWzskAcqFpgaflg", "enterSgeRng");
 
-	shrdat.cancelFlg = false;
+		shrdat.cancelFlg = false;
 
-	pthread_attr_init(&attr);
-	pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+		pthread_attr_init(&attr);
+		pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
-	pthread_create(&shrdat.flg, &attr, &runFlg, (void*) this);
+		pthread_create(&shrdat.flg, &attr, &runFlg, (void*) this);
 
-	shrdat.mFlg.unlock("JobWzskAcqFpgaflg", "enterSgeRng");
+		shrdat.mFlg.unlock("JobWzskAcqFpgaflg", "enterSgeRng");
+	};
 	// IP enterSgeRng --- IEND
 
 	return retval;
@@ -520,6 +565,10 @@ bool JobWzskAcqFpgaflg::handleClaim(
 	bool run = false;
 	bool thdNotCorner = false;
 	bool thdDeltaNotAbs = false;
+	bool cornerLinNotLog = false;
+	utinyint cornerThd = 0;
+	utinyint thdLvlFirst = 0;
+	utinyint thdLvlSecond = 0;
 
 	bool available;
 	bool reattributed;
@@ -535,7 +584,10 @@ bool JobWzskAcqFpgaflg::handleClaim(
 			retractable = claim->retractable;
 			run = claim->run;
 			thdNotCorner = claim->thdNotCorner;
-			thdDeltaNotAbs = claim->thdDeltaNotAbs;
+			cornerLinNotLog = claim->cornerLinNotLog;
+			cornerThd = claim->cornerThd;
+			thdLvlFirst = claim->thdLvlFirst;
+			thdLvlSecond = claim->thdLvlSecond;
 		};
 	};
 
@@ -566,6 +618,10 @@ bool JobWzskAcqFpgaflg::handleClaim(
 					run = claim->run;
 					thdNotCorner = claim->thdNotCorner;
 					thdDeltaNotAbs = claim->thdDeltaNotAbs;
+					cornerLinNotLog = claim->cornerLinNotLog;
+					cornerThd = claim->cornerThd;
+					thdLvlFirst = claim->thdLvlFirst;
+					thdLvlSecond = claim->thdLvlSecond;
 
 					reattributed = true;
 				};
@@ -588,11 +644,21 @@ bool JobWzskAcqFpgaflg::handleClaim(
 	};
 
 	// initiate stage change
-	if (run && flgFulfilled && (ixVSge == VecVSge::IDLE)) {
+	if (!run || !flgFulfilled) {
+		// changeStage() not used, rather nextIxVSgeFailure will be detected at a point when it is safe to change to idle
+		nextIxVSgeFailure = VecVSge::IDLE;
+
+	} else if (run && flgFulfilled) {
 		shrdat.thdNotCorner = thdNotCorner;
 		shrdat.thdDeltaNotAbs = thdDeltaNotAbs;
-		
-		changeStage(dbswzsk, VecVSge::RNG);
+		shrdat.cornerLinNotLog = cornerLinNotLog;
+		shrdat.cornerThd = cornerThd; // corner threshold can be changed on-the-fly
+		shrdat.thdLvlFirst = thdLvlFirst;
+		shrdat.thdLvlSecond = thdLvlSecond;
+
+		nextIxVSgeFailure = VecVSge::RNG;
+
+		if (ixVSge == VecVSge::IDLE) changeStage(dbswzsk, VecVSge::RNG);
 	};
 
 	mod = true; // for simplicity

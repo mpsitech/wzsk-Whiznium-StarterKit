@@ -2,8 +2,8 @@
 # file checkin.sh
 # checkin script for Wzsk web-based UI, release webappwzsk_arty
 # author Catherine Johnson
-# date created: 16 Sep 2020
-# modified: 16 Sep 2020
+# date created: 6 Oct 2020
+# modified: 6 Oct 2020
 
 export set REPROOT=${WHIZROOT_CCH}/srcrep
 

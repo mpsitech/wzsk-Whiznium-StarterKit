@@ -2,8 +2,8 @@
 	* \file JobWzskIprTrace.cpp
 	* job handler for job JobWzskIprTrace (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -123,8 +123,8 @@ JobWzskIprTrace::JobWzskIprTrace(
 	// IP constructor.spec2 --- INSERT
 
 	if (srvNotCli) if (acqfpgaflg) xchg->addClstn(VecWzskVCall::CALLWZSKWAITSECOND, jref, Clstn::VecVJobmask::SPEC, acqfpgaflg->jref, false, Arg(), VecVSge::RIGHTON, Clstn::VecVJactype::LOCK);
-	if (srvNotCli) if (acqfpgaflg) xchg->addClstn(VecWzskVCall::CALLWZSKWAITSECOND, jref, Clstn::VecVJobmask::SPEC, acqfpgaflg->jref, false, Arg(), VecVSge::LEFTON, Clstn::VecVJactype::LOCK);
 	if (srvNotCli) if (srcv4l2) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, srcv4l2->jref, false, Arg(), 0, Clstn::VecVJactype::TRY);
+	if (srvNotCli) if (acqfpgaflg) xchg->addClstn(VecWzskVCall::CALLWZSKWAITSECOND, jref, Clstn::VecVJobmask::SPEC, acqfpgaflg->jref, false, Arg(), VecVSge::LEFTON, Clstn::VecVJactype::LOCK);
 	if (srvNotCli) if (acqfpgaflg) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, acqfpgaflg->jref, false, Arg(0,0,{},"thddelta",0,0.0,false,"",Arg::SREF), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- IBEGIN
@@ -478,10 +478,10 @@ void JobWzskIprTrace::handleCall(
 		) {
 	if ((call->ixVCall == VecWzskVCall::CALLWZSKWAITSECOND) && ([&](){bool match = false; if (acqfpgaflg) if (call->jref == acqfpgaflg->jref) match = true; return match;}()) && (ixVSge == VecVSge::RIGHTON)) {
 		call->abort = handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(dbswzsk);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKWAITSECOND) && ([&](){bool match = false; if (acqfpgaflg) if (call->jref == acqfpgaflg->jref) match = true; return match;}()) && (ixVSge == VecVSge::LEFTON)) {
-		call->abort = handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(dbswzsk);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (srcv4l2) if (call->jref == srcv4l2->jref) match = true; return match;}())) {
 		call->abort = handleCallWzskResultNewFromSrcv4l2(dbswzsk, call->argInv.ix, call->argInv.sref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKWAITSECOND) && ([&](){bool match = false; if (acqfpgaflg) if (call->jref == acqfpgaflg->jref) match = true; return match;}()) && (ixVSge == VecVSge::LEFTON)) {
+		call->abort = handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(dbswzsk);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (acqfpgaflg) if (call->jref == acqfpgaflg->jref) match = true; return match;}()) && (call->argInv.sref == "thddelta")) {
 		call->abort = handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta(dbswzsk, call->argInv.ix);
 	};
@@ -492,14 +492,6 @@ bool JobWzskIprTrace::handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(
 		) {
 	bool retval = false;
 	changeStage(dbswzsk, VecVSge::RIGHTOFF); // IP handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton --- ILINE
-	return retval;
-};
-
-bool JobWzskIprTrace::handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(
-			DbsWzsk* dbswzsk
-		) {
-	bool retval = false;
-	changeStage(dbswzsk, VecVSge::LEFTOFF); // IP handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton --- ILINE
 	return retval;
 };
 
@@ -531,6 +523,14 @@ bool JobWzskIprTrace::handleCallWzskResultNewFromSrcv4l2(
 		};
 	};
 	// IP handleCallWzskResultNewFromSrcv4l2 --- IEND
+	return retval;
+};
+
+bool JobWzskIprTrace::handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = false;
+	changeStage(dbswzsk, VecVSge::LEFTOFF); // IP handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton --- ILINE
 	return retval;
 };
 
@@ -696,7 +696,6 @@ uint JobWzskIprTrace::enterSgeReady(
 
 			// set source claim to run
 			if (srcv4l2) xchg->addCsjobClaim(dbswzsk, srcv4l2, new Claim(false, true));
-			else if (acqfpgaflg) xchg->addCsjobClaim(dbswzsk, acqfpgaflg, new JobWzskAcqFpgaflg::Claim(false, true, true, true));
 
 			if (stg.leftOnNotOff) retval = VecVSge::LEFTON;
 			else retval = VecVSge::RIGHTON;
@@ -770,7 +769,7 @@ uint JobWzskIprTrace::enterSgeProcess(
 		//deltaV4l2(riSrcv4l2On->rd16, riSrcv4l2->rd16, flg16, shrdat.levelOn - shrdat.levelOff);
 		deltaV4l2(riSrcv4l2On->gr16, riSrcv4l2->gr16, flg16, shrdat.levelOn - shrdat.levelOff);
 
-		Wzsk::bitmapToXy((unsigned char*) flg16, true, wGrrd, hGrrd, ri->x, ri->y, stg.flgPerRowMax, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, rightNotLeft);
+		Wzsk::bitmapToXy((unsigned char*) flg16, true, wGrrd, hGrrd, ri->x, ri->y, stg.flgPerRowMax, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, false, rightNotLeft);
 		//cout << "NFlag = " << ri->x.size() << endl;
 
 		ri->tOut = Wzsk::getNow();
@@ -787,7 +786,7 @@ uint JobWzskIprTrace::enterSgeProcess(
 		//flagV4l2(riSrcv4l2->rd16, flg16, (onNotOff) ? shrdat.levelOn : shrdat.levelOff, !onNotOff);
 		flagV4l2(riSrcv4l2->gr16, flg16, (onNotOff) ? shrdat.levelOn : shrdat.levelOff, !onNotOff);
 		if (!onNotOff) {
-			Wzsk::bitmapToXy((unsigned char*) flg16, true, wGrrd, hGrrd, ri->x, ri->y, stg.flgPerRowMax, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, rightNotLeft);
+			Wzsk::bitmapToXy((unsigned char*) flg16, true, wGrrd, hGrrd, ri->x, ri->y, stg.flgPerRowMax, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, false, rightNotLeft);
 			//cout << "NFlag = " << ri->x.size() << endl;
 		};
 
@@ -800,7 +799,7 @@ uint JobWzskIprTrace::enterSgeProcess(
 		// should only arrive here after LEFTOFF or RIGHTOFF
 		riSrcfpga = (ShrdatJobWzskAcqFpgaflg::ResultitemFlg*) acqfpgaflg->shrdat.resultFlg[ixRiSrc];
 
-		Wzsk::bitmapToXy(riSrcfpga->buf, false, wGrrd, hGrrd, ri->x, ri->y, stg.flgPerRowMax, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, rightNotLeft);
+		Wzsk::bitmapToXy(riSrcfpga->buf, false, wGrrd, hGrrd, ri->x, ri->y, stg.flgPerRowMax, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, true, rightNotLeft);
 
 		ri->tOut = Wzsk::getNow();
 
@@ -886,7 +885,7 @@ uint JobWzskIprTrace::enterSgeLefton(
 		actlaser->setRight(dbswzsk, 0.0);
 
 		if (srcv4l2) tMin = Wzsk::getNow();
-		else xchg->addCsjobClaim(dbswzsk, acqfpgaflg, new JobWzskAcqFpgaflg::Claim(false, true, true, true));
+		else xchg->addCsjobClaim(dbswzsk, acqfpgaflg, new JobWzskAcqFpgaflg::Claim(false, true, true, true, false, 0, shrdat.levelOn, shrdat.levelOff));
 	};
 	// IP enterSgeLefton --- IEND
 
@@ -942,7 +941,7 @@ uint JobWzskIprTrace::enterSgeRighton(
 		actlaser->setRight(dbswzsk, 1.0);
 
 		if (srcv4l2) tMin = Wzsk::getNow();
-		else xchg->addCsjobClaim(dbswzsk, acqfpgaflg, new JobWzskAcqFpgaflg::Claim(false, true, true, true));
+		else xchg->addCsjobClaim(dbswzsk, acqfpgaflg, new JobWzskAcqFpgaflg::Claim(false, true, true, true, false, 0, shrdat.levelOn, shrdat.levelOff));
 	};
 	// IP enterSgeRighton --- IEND
 

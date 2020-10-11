@@ -2,8 +2,8 @@
   * \file ListWzskQPrsADetail.java
   * Java API code for record set of table TblWzskQPrsADetail
   * \author Catherine Johnson
-  * \date created: 16 Sep 2020
-  * \date modified: 16 Sep 2020
+  * \date created: 6 Oct 2020
+  * \date modified: 6 Oct 2020
   */
 
 package apiwzsk;

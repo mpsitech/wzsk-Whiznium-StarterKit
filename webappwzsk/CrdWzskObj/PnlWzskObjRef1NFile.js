@@ -2,8 +2,8 @@
   * \file PnlWzskObjRef1NFile.js
   * web client functionality for panel PnlWzskObjRef1NFile
   * \author Catherine Johnson
-  * \date created: 16 Sep 2020
-  * \date modified: 16 Sep 2020
+  * \date created: 6 Oct 2020
+  * \date modified: 6 Oct 2020
   */
 
 // --- expand state management

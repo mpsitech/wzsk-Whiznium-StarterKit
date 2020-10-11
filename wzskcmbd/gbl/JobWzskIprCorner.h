@@ -2,8 +2,8 @@
 	* \file JobWzskIprCorner.h
 	* job handler for job JobWzskIprCorner (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef JOBWZSKIPRCORNER_H
@@ -72,7 +72,7 @@ public:
 	public:
 		static const Sbecore::uint NTARGET = 1;
 		static const Sbecore::uint ROIAXROIAYROIBXROIBYROICXROICYROIDXROIDY = 2;
-		static const Sbecore::uint FLG = 3;
+		static const Sbecore::uint FLGSHIFTSCOREMINSCOREMAX = 3;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -86,13 +86,17 @@ public:
 	class Stg : public Sbecore::Xmlio::Block {
 
 	public:
-		static const Sbecore::uint ROINOTFULL = 1;
+		static const Sbecore::uint LINNOTLOG = 1;
+		static const Sbecore::uint ROINOTFULL = 2;
+		static const Sbecore::uint FLGPERROWMAX = 3;
 
 	public:
-		Stg(const bool roiNotFull = false);
+		Stg(const bool linNotLog = false, const bool roiNotFull = false, const Sbecore::utinyint flgPerRowMax = 50);
 
 	public:
+		bool linNotLog;
 		bool roiNotFull;
+		Sbecore::utinyint flgPerRowMax;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -118,9 +122,6 @@ public:
 			~ResultitemCorner();
 
 		public:
-			// from featdet.getCornerinfo(), do the same for v4l2-based algorithm
-			Sbecore::ubigint scoreMin;
-			Sbecore::ubigint scoreMax;
 			Sbecore::uint NCorner;
 			Sbecore::utinyint thd;
 
@@ -136,7 +137,7 @@ public:
 		Shrdat();
 
 	public:
-		Sbecore::uint NTarget;
+		Sbecore::usmallint NTarget;
 
 		int roiAx;
 		int roiAy;
@@ -148,6 +149,9 @@ public:
 		int roiDy;
 
 		std::vector<bool> flg;
+		Sbecore::utinyint shift;
+		Sbecore::utinyint scoreMin;
+		Sbecore::utinyint scoreMax;
 
 		// IP Shrdat.vars.cust --- IBEGIN
 		bool loopNotSngshot;
@@ -179,6 +183,8 @@ public:
 	unsigned int ixRiSrc;
 
 	unsigned int ixRi;
+
+	Sbecore::utinyint shift_last;
 	// IP vars.cust --- IEND
 
 public:
@@ -195,8 +201,8 @@ public:
 		bool loopNotSngshot;
 	};
 
-	void scoreV4l2(uint16_t* gr16, uint16_t* score16, Sbecore::ubigint& scoreMin, Sbecore::ubigint& scoreMax);
-	void scoreV4l2Fp(uint16_t* gr16, uint16_t* score16, Sbecore::ubigint& scoreMin, Sbecore::ubigint& scoreMax);
+	void scoreV4l2(uint16_t* gr16, uint16_t* score16, const bool linNotLog, Sbecore::utinyint& shift, Sbecore::utinyint& _scoreMin, Sbecore::utinyint& _scoreMax);
+	void scoreV4l2Fp(uint16_t* gr16, uint16_t* score16, const bool linNotLog, Sbecore::utinyint& shift, Sbecore::utinyint& _scoreMin, Sbecore::utinyint& _scoreMax);
 
 	void maxselV4l2(uint16_t* score16, uint16_t* corner16, Sbecore::uint& NCorner);
 	// IP cust --- IEND
@@ -205,7 +211,7 @@ public:
 	// IP spec --- INSERT
 
 public:
-	bool setNTarget(DbsWzsk* dbswzsk, const Sbecore::uint NTarget);
+	bool setNTarget(DbsWzsk* dbswzsk, const Sbecore::usmallint NTarget);
 	bool setRoi(DbsWzsk* dbswzsk, const int roiAx, const int roiAy, const int roiBx, const int roiBy, const int roiCx, const int roiCy, const int roiDx, const int roiDy);
 	bool setRoiNotFull(DbsWzsk* dbswzsk, const bool roiNotFull);
 

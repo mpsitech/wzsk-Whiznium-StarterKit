@@ -2,8 +2,8 @@
 	* \file PnlWzskUsr1NSession.cpp
 	* API code for job PnlWzskUsr1NSession (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #include "PnlWzskUsr1NSession.h"

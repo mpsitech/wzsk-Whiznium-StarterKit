@@ -34,7 +34,7 @@
 	- ImeIMCard.end					
 - MdlWzskGalery						
 	- ImeIJMModule.srefX1RefWznmMLocale	Title	Comment			
-	- enus	galery				
+	- enus	gallery				
 	- dech	Galerie				
 	- ImeIJMModule.end					
 	- ImeIMCard.srefRefIxVTbl	srefRefUref	sref	Title	Avail	Active

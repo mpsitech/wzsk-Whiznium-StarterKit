@@ -2,8 +2,8 @@
 	* \file Wzskcmbd_exe.h
 	* Wzsk combined daemon main (declarations)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #ifndef WZSKCMBD_EXE_H

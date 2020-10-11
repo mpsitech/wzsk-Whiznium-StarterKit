@@ -2,8 +2,8 @@
 	* \file WzskcmbdUasrv.cpp
 	* OPC UA server based on Matrikon FLEX OPC UA SDK for Wzsk combined daemon (implementation)
 	* \author Catherine Johnson
-	* \date created: 16 Sep 2020
-	* \date modified: 16 Sep 2020
+	* \date created: 6 Oct 2020
+	* \date modified: 6 Oct 2020
 	*/
 
 #include "Wzskcmbd.h"
@@ -148,10 +148,10 @@ void WzskcmbdUasrv::Session::Initialise(
 				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy")] = ixAcc;
 				xchg->addClstnUasrv(statshr.jrefIprcorner, "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy", true);
 			};
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "flg", ixAcc);
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "flgShiftScoreMinScoreMax", ixAcc);
 			if (ixAcc != 0) {
-				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "flg")] = ixAcc;
-				xchg->addClstnUasrv(statshr.jrefIprcorner, "flg", true);
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "flgShiftScoreMinScoreMax")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefIprcorner, "flgShiftScoreMinScoreMax", true);
 			};
 		};
 		if (statshr.jrefActservo != 0) {
@@ -555,8 +555,8 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 
 		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD) && (srefIxVMethod == "setNTarget")) {
 			if (requestParameters->InputArguments().Size() == 1) {
-				IntrusivePtr_t<const UInt32_t> NTarget_inv_UA;
-				uint NTarget_inv;
+				IntrusivePtr_t<const UInt16_t> NTarget_inv_UA;
+				usmallint NTarget_inv;
 
 				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), NTarget_inv_UA);
 				NTarget_inv = NTarget_inv_UA->Value();
@@ -1112,7 +1112,7 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 			};
 
 			if (subvar == "NTarget") {
-				IntrusivePtr_t<UInt32_t> NTarget = new SafeRefCount_t<UInt32_t>();
+				IntrusivePtr_t<UInt16_t> NTarget = new SafeRefCount_t<UInt16_t>();
 				*NTarget = JobWzskIprCorner::shrdat.NTarget;
 				dataValue->Value() = NTarget;
 			};
@@ -1163,7 +1163,7 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 
 			JobWzskIprCorner::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR) && (srefIxVVar == "flg")) {
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR) && (srefIxVVar == "flgShiftScoreMinScoreMax")) {
 			JobWzskIprCorner::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
 			if (setSourceTimestamp) {
@@ -1181,6 +1181,18 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 					(*flg)[i] = item;
 				};
 				dataValue->Value() = flg;
+			} else if (subvar == "shift") {
+				IntrusivePtr_t<Byte_t> shift = new SafeRefCount_t<Byte_t>();
+				*shift = JobWzskIprCorner::shrdat.shift;
+				dataValue->Value() = shift;
+			} else if (subvar == "scoreMin") {
+				IntrusivePtr_t<Byte_t> scoreMin = new SafeRefCount_t<Byte_t>();
+				*scoreMin = JobWzskIprCorner::shrdat.scoreMin;
+				dataValue->Value() = scoreMin;
+			} else if (subvar == "scoreMax") {
+				IntrusivePtr_t<Byte_t> scoreMax = new SafeRefCount_t<Byte_t>();
+				*scoreMax = JobWzskIprCorner::shrdat.scoreMax;
+				dataValue->Value() = scoreMax;
 			};
 
 			JobWzskIprCorner::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
@@ -1690,7 +1702,7 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 	fAS_addJobFolder(VecWzskVJob::JOBWZSKIPRCORNER, addressSpace, objectsFolder, jobFolder);
 
 	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
-	srefsParsInv[0] = "NTarget"; opcUaIdsParsInv[0] = OpcUaId_UInt32;
+	srefsParsInv[0] = "NTarget"; opcUaIdsParsInv[0] = OpcUaId_UInt16;
 
 	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
 	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
@@ -1721,7 +1733,7 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 	fAS_addMethod(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD , "setRoiNotFull", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
 
 	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
-	srefsSubvars[0] = "NTarget"; icsVVartypeSubvars[0] = VecVVartype::UINT;
+	srefsSubvars[0] = "NTarget"; icsVVartypeSubvars[0] = VecVVartype::USMALLINT;
 
 	fAS_addVar(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR , "NTarget", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
@@ -1737,10 +1749,13 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 
 	fAS_addVar(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR , "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
-	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
+	srefsSubvars.resize(4); icsVVartypeSubvars.resize(4);
 	srefsSubvars[0] = "flg"; icsVVartypeSubvars[0] = VecVVartype::BOOLEANVEC;
+	srefsSubvars[1] = "shift"; icsVVartypeSubvars[1] = VecVVartype::UTINYINT;
+	srefsSubvars[2] = "scoreMin"; icsVVartypeSubvars[2] = VecVVartype::UTINYINT;
+	srefsSubvars[3] = "scoreMax"; icsVVartypeSubvars[3] = VecVVartype::UTINYINT;
 
-	fAS_addVar(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR , "flg", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+	fAS_addVar(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR , "flgShiftScoreMinScoreMax", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
 	fAS_addJobFolder(VecWzskVJob::JOBWZSKACTSERVO, addressSpace, objectsFolder, jobFolder);
 

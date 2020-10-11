@@ -2,8 +2,8 @@
 # file checkout.sh
 # checkout script for Wzsk Java API library, release &rlssref;
 # author &author;
-# date created: 16 Sep 2020
-# modified: 16 Sep 2020
+# date created: 6 Oct 2020
+# modified: 6 Oct 2020
 
 export set JAVAROOT=${WHIZROOT}/srcjava
 
