@@ -2,8 +2,8 @@
 	* \file Wzskcmbd_exe.cpp
 	* Wzsk combined daemon main (implementation)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #include "Wzskcmbd.h"
@@ -598,7 +598,7 @@ int main(
 
 	try {
 		// welcome message
-		cout << "Welcome to Whiznium StarterKit v0.1.35!" << endl;
+		cout << "Welcome to Whiznium StarterKit v0.1.36!" << endl;
 
 		// calls wzskcmbd.init()
 		wzskcmbd = new Wzskcmbd(exedir, clearAll, startMon);

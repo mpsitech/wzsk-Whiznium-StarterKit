@@ -2,8 +2,8 @@
 	* \file QryWzskSes1NShot.h
 	* API code for job QryWzskSes1NShot (declarations)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifndef QRYWZSKSES1NSHOT_H

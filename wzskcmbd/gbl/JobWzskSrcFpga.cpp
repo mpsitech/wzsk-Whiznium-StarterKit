@@ -2,8 +2,8 @@
 	* \file JobWzskSrcFpga.cpp
 	* job handler for job JobWzskSrcFpga (implementation)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -555,7 +555,15 @@ void JobWzskSrcFpga::handleRequest(
 		reqCmd = req;
 
 		if (req->cmd == "cmdset") {
+			cout << "\tstartRxtxdump" << endl;
+			cout << "\tstopRxtxdump" << endl;
 			cout << "\ttest" << endl;
+		} else if (req->cmd == "startRxtxdump") {
+			req->retain = handleStartRxtxdump(dbswzsk);
+
+		} else if (req->cmd == "stopRxtxdump") {
+			req->retain = handleStopRxtxdump(dbswzsk);
+
 		} else if (req->cmd == "test") {
 			req->retain = handleTest(dbswzsk);
 
@@ -568,6 +576,22 @@ void JobWzskSrcFpga::handleRequest(
 	};
 };
 
+bool JobWzskSrcFpga::handleStartRxtxdump(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = false;
+	shrdat.hw.rxtxdump = true; // IP handleStartRxtxdump --- ILINE
+	return retval;
+};
+
+bool JobWzskSrcFpga::handleStopRxtxdump(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = false;
+	shrdat.hw.rxtxdump = false; // IP handleStopRxtxdump --- ILINE
+	return retval;
+};
+
 bool JobWzskSrcFpga::handleTest(
 			DbsWzsk* dbswzsk
 		) {
@@ -578,10 +602,19 @@ bool JobWzskSrcFpga::handleTest(
 	const unsigned int Ntick = 10000;
 	const unsigned int Nmax = 10000000;
 
+	unsigned int Nfail = 0;
+
 	uint tkst;
 
 	for (unsigned int i = 0; i < Nmax; i++) {
-		tkclksrc_getTkst(tkst);
+		if (!tkclksrc_getTkst(tkst)) Nfail++;
+		else Nfail = 0;
+
+		if (Nfail > 5) {
+			cout << "\taborting." << endl;
+			break;
+		};
+
 		if ((i > 0) && ((i%Ntick) == 0)) cout << "\tat " << (tkst/10000) << "." << (tkst%10000) <<  ", " << i << " transfers completed." << endl;
 	};
 

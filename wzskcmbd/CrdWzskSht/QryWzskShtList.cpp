@@ -2,8 +2,8 @@
 	* \file QryWzskShtList.cpp
 	* job handler for job QryWzskShtList (implementation)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -216,9 +216,9 @@ void QryWzskShtList::rerun_orderSQL(
 			string& sqlstr
 			, const uint preIxOrd
 		) {
-	if (preIxOrd == VecVOrd::STA) sqlstr += " ORDER BY TblWzskMShot.start ASC";
+	if (preIxOrd == VecVOrd::SES) sqlstr += " ORDER BY TblWzskMShot.refWzskMSession ASC";
 	else if (preIxOrd == VecVOrd::OBJ) sqlstr += " ORDER BY TblWzskMShot.refWzskMObject ASC";
-	else if (preIxOrd == VecVOrd::SES) sqlstr += " ORDER BY TblWzskMShot.refWzskMSession ASC";
+	else if (preIxOrd == VecVOrd::STA) sqlstr += " ORDER BY TblWzskMShot.start ASC";
 };
 
 void QryWzskShtList::fetch(

@@ -2,8 +2,8 @@
 # file checkout.sh
 # checkout script for Wzsk combined daemon, release wzskcmbd_apalis(linux (ubt_x86_64) cross-compilation)
 # author Catherine Johnson
-# date created: 6 Oct 2020
-# modified: 6 Oct 2020
+# date created: 13 Oct 2020
+# modified: 13 Oct 2020
 
 export set SRCROOT=${SYSROOT}${WHIZROOT}/src
 export set LIBROOT=${SYSROOT}${WHIZROOT}/lib

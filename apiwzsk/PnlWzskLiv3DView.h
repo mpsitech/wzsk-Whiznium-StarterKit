@@ -2,8 +2,8 @@
 	* \file PnlWzskLiv3DView.h
 	* API code for job PnlWzskLiv3DView (declarations)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifndef PNLWZSKLIV3DVIEW_H

@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrRec.h
 	* job handler for job PnlWzskUsrRec (declarations)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifndef PNLWZSKUSRREC_H
@@ -14,8 +14,8 @@
 // IP include.cust --- INSERT
 
 #include "PnlWzskUsrMNUsergroup.h"
-#include "PnlWzskUsr1NSession.h"
 #include "PnlWzskUsrAAccess.h"
+#include "PnlWzskUsr1NSession.h"
 #include "PnlWzskUsrDetail.h"
 
 #define VecVWzskUsrRecDo PnlWzskUsrRec::VecVDo
@@ -174,8 +174,8 @@ public:
 	StatShr statshr;
 
 	PnlWzskUsrMNUsergroup* pnlmnusergroup;
-	PnlWzskUsr1NSession* pnl1nsession;
 	PnlWzskUsrAAccess* pnlaaccess;
+	PnlWzskUsr1NSession* pnl1nsession;
 	PnlWzskUsrDetail* pnldetail;
 
 	WzskMUser recUsr;

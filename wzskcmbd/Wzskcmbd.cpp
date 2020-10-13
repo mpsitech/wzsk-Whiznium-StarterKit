@@ -2,8 +2,8 @@
 	* \file Wzskcmbd.cpp
 	* inter-thread exchange object for Wzsk combined daemon (implementation)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #include "Wzskcmbd.h"
@@ -1290,13 +1290,13 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrAbt(
 	continf.TxtCpt = StrMod::cap(continf.TxtCpt);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		continf.TxtMsg1 = "Whiznium StarterKit version v0.1.35 released on 6-10-2020";
+		continf.TxtMsg1 = "Whiznium StarterKit version v0.1.36 released on 13-10-2020";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "contributors: Catherine Johnson";
 		continf.TxtMsg6 = "libraries: png 1.6.36 and ezdevwskd 1.0";
 		continf.TxtMsg8 = "Whiznium StarterKit is computer vision software which powers MPSI's tabletop 3D laser scanner that represents the primary on-boarding vehicle for Whiznium.";
 	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		continf.TxtMsg1 = "Whiznium StarterKit Version v0.1.35 ver\\u00f6ffentlicht am 6-10-2020";
+		continf.TxtMsg1 = "Whiznium StarterKit Version v0.1.36 ver\\u00f6ffentlicht am 13-10-2020";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "Mitwirkende: Catherine Johnson";
 		continf.TxtMsg6 = "Programmbibliotheken: png 1.6.36 und ezdevwskd 1.0";
@@ -1929,8 +1929,8 @@ void StmgrWzsk::handleCall(
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKPRSUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKPRSSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSESUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSESMENU);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSESSTD);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSESMENU);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHTUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSHTSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSGUPD_REFEQ) {
@@ -2182,7 +2182,7 @@ void XchgWzskcmbd::startMon() {
 	Clstn* clstn = NULL;
 	Preset* preset = NULL;
 
-	mon.start("Whiznium StarterKit v0.1.35", stgwzskpath.monpath);
+	mon.start("Whiznium StarterKit v0.1.36", stgwzskpath.monpath);
 
 	rwmJobs.rlock("XchgWzskcmbd", "startMon");
 	for (auto it = jobs.begin(); it != jobs.end(); it++) {

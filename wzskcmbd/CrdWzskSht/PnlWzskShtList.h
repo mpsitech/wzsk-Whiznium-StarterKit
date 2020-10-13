@@ -2,8 +2,8 @@
 	* \file PnlWzskShtList.h
 	* job handler for job PnlWzskShtList (declarations)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifndef PNLWZSKSHTLIST_H

@@ -2,8 +2,8 @@
   * \file PnlWzskLiv2DView.js
   * web client functionality for panel PnlWzskLiv2DView
   * \author Catherine Johnson
-  * \date created: 6 Oct 2020
-  * \date modified: 6 Oct 2020
+  * \date created: 13 Oct 2020
+  * \date modified: 13 Oct 2020
   */
 
 // IP cust --- IBEGIN
@@ -950,11 +950,26 @@ function handleDpchEng(dom, dpch) {
 		} else {
 			refresh();
 		};
-	} else if (dpch == "DpchEngWzskLiv2DViewLive") {
-		handleDpchEngWzskLiv2DViewLive(dom);
 	} else if (dpch == "DpchEngWzskLiv2DViewAlign") {
 		handleDpchEngWzskLiv2DViewAlign(dom);
+	} else if (dpch == "DpchEngWzskLiv2DViewLive") {
+		handleDpchEngWzskLiv2DViewLive(dom);
 	};
+};
+
+function handleDpchEngWzskLiv2DViewAlign(dom) {
+	// IP handleDpchEngWzskLiv2DViewAlign --- IBEGIN
+	var mask = [];
+
+	if (updateSrcblock(dom, "DpchEngWzskLiv2DViewAlign", "ContIacWzskLiv2DViewCorner", srcdoc)) mask.push("contiaccorner");
+	if (updateSrcblock(dom, "DpchEngWzskLiv2DViewAlign", "ContIacWzskLiv2DViewTrace", srcdoc)) mask.push("contiactrace");
+
+	//var srefIxWzskVExpstate = retrieveSi(srcdoc, "StatShrWzskLiv2DView", "srefIxWzskVExpstate");
+	//if (srefIxWzskVExpstate == "regd") {
+		if (mask.indexOf("contiaccorner") != -1) refreshRoi(false);
+		if (mask.indexOf("contiactrace") != -1) refreshRoi(true);
+	//};
+	// IP handleDpchEngWzskLiv2DViewAlign --- IEND
 };
 
 function handleDpchEngWzskLiv2DViewLive(dom) {
@@ -1033,21 +1048,6 @@ function handleDpchEngWzskLiv2DViewLive(dom) {
 	// IP handleDpchEngWzskLiv2DViewLive --- IEND
 };
 
-function handleDpchEngWzskLiv2DViewAlign(dom) {
-	// IP handleDpchEngWzskLiv2DViewAlign --- IBEGIN
-	var mask = [];
-
-	if (updateSrcblock(dom, "DpchEngWzskLiv2DViewAlign", "ContIacWzskLiv2DViewCorner", srcdoc)) mask.push("contiaccorner");
-	if (updateSrcblock(dom, "DpchEngWzskLiv2DViewAlign", "ContIacWzskLiv2DViewTrace", srcdoc)) mask.push("contiactrace");
-
-	//var srefIxWzskVExpstate = retrieveSi(srcdoc, "StatShrWzskLiv2DView", "srefIxWzskVExpstate");
-	//if (srefIxWzskVExpstate == "regd") {
-		if (mask.indexOf("contiaccorner") != -1) refreshRoi(false);
-		if (mask.indexOf("contiactrace") != -1) refreshRoi(true);
-	//};
-	// IP handleDpchEngWzskLiv2DViewAlign --- IEND
-};
-
 function handleDpchAppInitReply() {
 	var dom, blk;
 
@@ -1097,10 +1097,10 @@ function handleDpchAppDataDoReply() {
 				} else {
 					refresh();
 				};
-			} else if (blk.nodeName == "DpchEngWzskLiv2DViewLive") {
-				handleDpchEngWzskLiv2DViewLive(dom);
 			} else if (blk.nodeName == "DpchEngWzskLiv2DViewAlign") {
 				handleDpchEngWzskLiv2DViewAlign(dom);
+			} else if (blk.nodeName == "DpchEngWzskLiv2DViewLive") {
+				handleDpchEngWzskLiv2DViewLive(dom);
 			};
 		};
 	};

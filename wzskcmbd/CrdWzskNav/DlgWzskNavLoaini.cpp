@@ -2,8 +2,8 @@
 	* \file DlgWzskNavLoaini.cpp
 	* job handler for job DlgWzskNavLoaini (implementation)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -148,23 +148,23 @@ void DlgWzskNavLoaini::refresh(
 	muteRefresh = true;
 
 	StatShr oldStatshr(statshr);
-	ContInf oldContinf(continf);
 	ContIac oldContiac(contiac);
+	ContInf oldContinf(continf);
 
 	// IP refresh --- BEGIN
 	// statshr
 	statshr.ButDneActive = evalButDneActive(dbswzsk);
 
-	// continf
-	continf.numFSge = ixVSge;
-
 	// contiac
 	contiac.numFDse = ixVDit;
 
+	// continf
+	continf.numFSge = ixVSge;
+
 	// IP refresh --- END
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
-	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
+	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 
 	refreshIfi(dbswzsk, moditems);
 	refreshImp(dbswzsk, moditems);
@@ -228,8 +228,8 @@ void DlgWzskNavLoaini::handleRequest(
 		req->filename = handleDownload(dbswzsk);
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
-		if (ixVSge == VecVSge::IMPIDLE) handleTimerInSgeImpidle(dbswzsk, req->sref);
-		else if ((req->sref == "mon") && (ixVSge == VecVSge::IMPORT)) handleTimerWithSrefMonInSgeImport(dbswzsk);
+		if ((req->sref == "mon") && (ixVSge == VecVSge::IMPORT)) handleTimerWithSrefMonInSgeImport(dbswzsk);
+		else if (ixVSge == VecVSge::IMPIDLE) handleTimerInSgeImpidle(dbswzsk, req->sref);
 		else if (ixVSge == VecVSge::PRSIDLE) handleTimerInSgePrsidle(dbswzsk, req->sref);
 	};
 };
@@ -320,18 +320,18 @@ string DlgWzskNavLoaini::handleDownload(
 	return(""); // IP handleDownload --- LINE
 };
 
-void DlgWzskNavLoaini::handleTimerInSgeImpidle(
-			DbsWzsk* dbswzsk
-			, const string& sref
-		) {
-	changeStage(dbswzsk, nextIxVSgeSuccess);
-};
-
 void DlgWzskNavLoaini::handleTimerWithSrefMonInSgeImport(
 			DbsWzsk* dbswzsk
 		) {
 	wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
 	refreshWithDpchEng(dbswzsk); // IP handleTimerWithSrefMonInSgeImport --- ILINE
+};
+
+void DlgWzskNavLoaini::handleTimerInSgeImpidle(
+			DbsWzsk* dbswzsk
+			, const string& sref
+		) {
+	changeStage(dbswzsk, nextIxVSgeSuccess);
 };
 
 void DlgWzskNavLoaini::handleTimerInSgePrsidle(

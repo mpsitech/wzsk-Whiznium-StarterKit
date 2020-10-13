@@ -2,8 +2,8 @@
 	* \file WzskMPerson_vecs.cpp
 	* database access for table TblWzskMPerson (implementation of vectors)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 using namespace std;

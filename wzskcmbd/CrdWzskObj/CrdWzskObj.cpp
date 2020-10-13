@@ -2,8 +2,8 @@
 	* \file CrdWzskObj.cpp
 	* job handler for job CrdWzskObj (implementation)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -44,8 +44,8 @@ CrdWzskObj::CrdWzskObj(
 
 	pnllist = NULL;
 	pnlheadbar = NULL;
-	dlgnew = NULL;
 	pnlrec = NULL;
+	dlgnew = NULL;
 
 	// IP constructor.cust1 --- INSERT
 

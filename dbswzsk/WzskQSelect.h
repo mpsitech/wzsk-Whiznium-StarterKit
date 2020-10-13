@@ -2,8 +2,8 @@
 	* \file WzskQSelect.h
 	* Dbs and XML wrapper for table TblWzskQSelect (declarations)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifndef WZSKQSELECT_H

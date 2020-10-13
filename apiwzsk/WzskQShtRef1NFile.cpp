@@ -2,8 +2,8 @@
 	* \file WzskQShtRef1NFile.cpp
 	* API code for table TblWzskQShtRef1NFile (implementation)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #include "WzskQShtRef1NFile.h"

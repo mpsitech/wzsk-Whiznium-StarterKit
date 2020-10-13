@@ -2,8 +2,8 @@
   * \file CrdWzskFil.js
   * web client functionality for card CrdWzskFil
   * \author Catherine Johnson
-  * \date created: 6 Oct 2020
-  * \date modified: 6 Oct 2020
+  * \date created: 13 Oct 2020
+  * \date modified: 13 Oct 2020
   */
 
 function getInitdone(pnlshort) {
@@ -348,7 +348,7 @@ function refresh() {
 		if (scrJrefDlg != scrJrefDlgdownload) showDlg("DlgWzskFilDownload", scrJrefDlgdownload);
 	} else if (scrJrefDlg != "") hideDlg();
 
-	doc.title = retrieveCi(srcdoc, "ContInfWzskFil", "MtxCrdFil") + " - Whiznium StarterKit v0.1.35";
+	doc.title = retrieveCi(srcdoc, "ContInfWzskFil", "MtxCrdFil") + " - Whiznium StarterKit v0.1.36";
 };
 
 // --- event handlers

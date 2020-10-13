@@ -2,8 +2,8 @@
 	* \file JobWzskAcqFpgaflg.cpp
 	* job handler for job JobWzskAcqFpgaflg (implementation)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -267,7 +267,7 @@ void* JobWzskAcqFpgaflg::runFlg(
 				if (ri && !shrdat.thdNotCorner) {
 					srv->srcfpga->featdet_getCornerinfo(ri->shift, ri->scoreMin, ri->scoreMax);
 
-					cout << "shift = " << ((int) ri->shift) << ", scoreMin = " << ((int) ri->scoreMin) << ", scoreMax = " << ((int) ri->scoreMax) << endl;
+					//cout << "shift = " << ((int) ri->shift) << ", scoreMin = " << ((int) ri->scoreMin) << ", scoreMax = " << ((int) ri->scoreMax) << endl;
 				};
 
 				try {

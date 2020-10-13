@@ -2,8 +2,8 @@
 	* \file PnlWzskShtList.cpp
 	* job handler for job PnlWzskShtList (implementation)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -255,7 +255,7 @@ void PnlWzskShtList::handleDpchAppDataContiac(
 	diffitems = _contiac->diff(&contiac);
 
 	if (has(diffitems, ContIac::NUMFTOS)) {
-		if ((_contiac->numFTos >= QryWzskShtList::VecVOrd::STA) && (_contiac->numFTos <= QryWzskShtList::VecVOrd::SES)) {
+		if ((_contiac->numFTos >= QryWzskShtList::VecVOrd::SES) && (_contiac->numFTos <= QryWzskShtList::VecVOrd::STA)) {
 			muteRefresh = true;
 
 			xchg->addIxPreset(VecWzskVPreset::PREWZSKIXORD, jref, _contiac->numFTos);

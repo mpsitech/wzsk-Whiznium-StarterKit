@@ -2,8 +2,8 @@
 	* \file QryWzskUsrList.h
 	* API code for job QryWzskUsrList (declarations)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifndef QRYWZSKUSRLIST_H
@@ -27,9 +27,9 @@ namespace QryWzskUsrList {
 	class VecVOrd {
 
 	public:
-		static const Sbecore::uint STE = 1;
-		static const Sbecore::uint SRF = 2;
-		static const Sbecore::uint USG = 3;
+		static const Sbecore::uint USG = 1;
+		static const Sbecore::uint STE = 2;
+		static const Sbecore::uint SRF = 3;
 		static const Sbecore::uint PRS = 4;
 		static const Sbecore::uint OWN = 5;
 		static const Sbecore::uint GRP = 6;

@@ -2,8 +2,8 @@
 	* \file WzskAccRMUserUniversal.cpp
 	* database access for table TblWzskAccRMUserUniversal (implementation)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #include "WzskAccRMUserUniversal.h"

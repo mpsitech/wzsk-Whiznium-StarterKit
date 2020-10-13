@@ -2,8 +2,8 @@
 	* \file CrdWzskObj.h
 	* job handler for job CrdWzskObj (declarations)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #ifndef CRDWZSKOBJ_H
@@ -15,8 +15,8 @@
 
 #include "PnlWzskObjList.h"
 #include "PnlWzskObjHeadbar.h"
-#include "DlgWzskObjNew.h"
 #include "PnlWzskObjRec.h"
+#include "DlgWzskObjNew.h"
 
 #define VecVWzskObjDo CrdWzskObj::VecVDo
 #define VecVWzskObjSge CrdWzskObj::VecVSge
@@ -202,8 +202,8 @@ public:
 
 	PnlWzskObjList* pnllist;
 	PnlWzskObjHeadbar* pnlheadbar;
-	DlgWzskObjNew* dlgnew;
 	PnlWzskObjRec* pnlrec;
+	DlgWzskObjNew* dlgnew;
 
 	// IP vars.cust --- INSERT
 

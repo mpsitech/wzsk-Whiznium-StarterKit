@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvLaser.cpp
 	* API code for job PnlWzskLlvLaser (implementation)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 #include "PnlWzskLlvLaser.h"

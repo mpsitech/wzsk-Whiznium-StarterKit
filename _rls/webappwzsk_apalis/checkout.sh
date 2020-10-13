@@ -2,8 +2,8 @@
 # file checkout.sh
 # checkout script for Wzsk web-based UI, release webappwzsk_apalis
 # author Catherine Johnson
-# date created: 6 Oct 2020
-# modified: 6 Oct 2020
+# date created: 13 Oct 2020
+# modified: 13 Oct 2020
 
 export set WEBROOT=${SYSROOT}${WHIZROOT}/web
 

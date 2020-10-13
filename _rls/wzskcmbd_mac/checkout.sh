@@ -2,8 +2,8 @@
 # file checkout.sh
 # checkout script for Wzsk combined daemon, release wzskcmbd_mac
 # author Catherine Johnson
-# date created: 6 Oct 2020
-# modified: 6 Oct 2020
+# date created: 13 Oct 2020
+# modified: 13 Oct 2020
 
 export set SRCROOT=${WHIZROOT}/src
 export set LIBROOT=${WHIZROOT}/lib

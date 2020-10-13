@@ -2,8 +2,8 @@
 	* \file QryWzskUsrList_blks.cpp
 	* job handler for job QryWzskUsrList (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 6 Oct 2020
-	* \date modified: 6 Oct 2020
+	* \date created: 13 Oct 2020
+	* \date modified: 13 Oct 2020
 	*/
 
 using namespace std;
@@ -19,9 +19,9 @@ uint QryWzskUsrList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
+	if (s == "usg") return USG;
 	if (s == "ste") return STE;
 	if (s == "srf") return SRF;
-	if (s == "usg") return USG;
 	if (s == "prs") return PRS;
 	if (s == "own") return OWN;
 	if (s == "grp") return GRP;
@@ -32,9 +32,9 @@ uint QryWzskUsrList::VecVOrd::getIx(
 string QryWzskUsrList::VecVOrd::getSref(
 			const uint ix
 		) {
+	if (ix == USG) return("usg");
 	if (ix == STE) return("ste");
 	if (ix == SRF) return("srf");
-	if (ix == USG) return("usg");
 	if (ix == PRS) return("prs");
 	if (ix == OWN) return("own");
 	if (ix == GRP) return("grp");
