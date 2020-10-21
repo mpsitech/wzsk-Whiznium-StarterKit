@@ -2,8 +2,8 @@
   * \file PnlWzskUsr1NSession.js
   * web client functionality for panel PnlWzskUsr1NSession
   * \author Catherine Johnson
-  * \date created: 13 Oct 2020
-  * \date modified: 13 Oct 2020
+  * \date created: 18 Oct 2020
+  * \date modified: 18 Oct 2020
   */
 
 // --- expand state management

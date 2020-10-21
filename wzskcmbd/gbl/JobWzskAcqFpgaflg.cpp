@@ -2,8 +2,8 @@
 	* \file JobWzskAcqFpgaflg.cpp
 	* job handler for job JobWzskAcqFpgaflg (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -517,6 +517,7 @@ uint JobWzskAcqFpgaflg::enterSgeRng(
 	uint retval = VecVSge::RNG;
 
 	// IP enterSgeRng --- IBEGIN
+	int res;
 	pthread_attr_t attr;
 
 	if (shrdat.flg != 0) retval = VecVSge::IDLE;
@@ -528,7 +529,11 @@ uint JobWzskAcqFpgaflg::enterSgeRng(
 		pthread_attr_init(&attr);
 		pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
-		pthread_create(&shrdat.flg, &attr, &runFlg, (void*) this);
+		for (unsigned int i = 0; i < 3; i++) {
+			res = pthread_create(&shrdat.flg, &attr, &runFlg, (void*) this);
+			if ((res == 0) || (res != EAGAIN)) break;
+		};
+		if (res != 0) cout << "JobWzskAcqFpgaflg::enterSgeRng() error creating flagging thread (" << res << ")" << endl;
 
 		shrdat.mFlg.unlock("JobWzskAcqFpgaflg", "enterSgeRng");
 	};

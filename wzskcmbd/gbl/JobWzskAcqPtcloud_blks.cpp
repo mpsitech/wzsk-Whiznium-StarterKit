@@ -2,8 +2,8 @@
 	* \file JobWzskAcqPtcloud_blks.cpp
 	* job handler for job JobWzskAcqPtcloud (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 using namespace std;
@@ -20,6 +20,7 @@ uint JobWzskAcqPtcloud::VecVMethod::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "setdeltatheta") return SETDELTATHETA;
+	if (s == "setdwork") return SETDWORK;
 
 	return(0);
 };
@@ -28,6 +29,7 @@ string JobWzskAcqPtcloud::VecVMethod::getSref(
 			const uint ix
 		) {
 	if (ix == SETDELTATHETA) return("setDeltaTheta");
+	if (ix == SETDWORK) return("setDWork");
 
 	return("");
 };
@@ -37,7 +39,7 @@ void JobWzskAcqPtcloud::VecVMethod::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 1; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
+	for (unsigned int i = 1; i <= 2; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
 };
 
 /******************************************************************************
@@ -92,6 +94,7 @@ uint JobWzskAcqPtcloud::VecVVar::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "deltatheta") return DELTATHETA;
+	if (s == "dwork") return DWORK;
 	if (s == "xyz") return XYZ;
 
 	return(0);
@@ -101,6 +104,7 @@ string JobWzskAcqPtcloud::VecVVar::getSref(
 			const uint ix
 		) {
 	if (ix == DELTATHETA) return("deltaTheta");
+	if (ix == DWORK) return("dWork");
 	if (ix == XYZ) return("xYZ");
 
 	return("");
@@ -111,7 +115,7 @@ void JobWzskAcqPtcloud::VecVVar::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 2; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
+	for (unsigned int i = 1; i <= 3; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
 };
 
 /******************************************************************************
@@ -122,15 +126,13 @@ JobWzskAcqPtcloud::Stg::Stg(
 			const float dLasback
 			, const float dLeft
 			, const float dRight
-			, const float dWork
 		) :
 			Block()
 		{
 	this->dLasback = dLasback;
 	this->dLeft = dLeft;
 	this->dRight = dRight;
-	this->dWork = dWork;
-	mask = {DLASBACK, DLEFT, DRIGHT, DWORK};
+	mask = {DLASBACK, DLEFT, DRIGHT};
 };
 
 bool JobWzskAcqPtcloud::Stg::readXML(
@@ -153,7 +155,6 @@ bool JobWzskAcqPtcloud::Stg::readXML(
 		if (extractFloatAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "dLasback", dLasback)) add(DLASBACK);
 		if (extractFloatAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "dLeft", dLeft)) add(DLEFT);
 		if (extractFloatAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "dRight", dRight)) add(DRIGHT);
-		if (extractFloatAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "dWork", dWork)) add(DWORK);
 	};
 
 	return basefound;
@@ -174,7 +175,6 @@ void JobWzskAcqPtcloud::Stg::writeXML(
 		writeFloatAttr(wr, itemtag, "sref", "dLasback", dLasback);
 		writeFloatAttr(wr, itemtag, "sref", "dLeft", dLeft);
 		writeFloatAttr(wr, itemtag, "sref", "dRight", dRight);
-		writeFloatAttr(wr, itemtag, "sref", "dWork", dWork);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -186,7 +186,6 @@ set<uint> JobWzskAcqPtcloud::Stg::comm(
 	if (compareFloat(dLasback, comp->dLasback) < 1.0e-4) insert(items, DLASBACK);
 	if (compareFloat(dLeft, comp->dLeft) < 1.0e-4) insert(items, DLEFT);
 	if (compareFloat(dRight, comp->dRight) < 1.0e-4) insert(items, DRIGHT);
-	if (compareFloat(dWork, comp->dWork) < 1.0e-4) insert(items, DWORK);
 
 	return(items);
 };
@@ -199,7 +198,7 @@ set<uint> JobWzskAcqPtcloud::Stg::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {DLASBACK, DLEFT, DRIGHT, DWORK};
+	diffitems = {DLASBACK, DLEFT, DRIGHT};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

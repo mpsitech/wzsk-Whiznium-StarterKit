@@ -2,8 +2,8 @@
 	* \file QryWzskUsgMNUser.h
 	* job handler for job QryWzskUsgMNUser (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef QRYWZSKUSGMNUSER_H

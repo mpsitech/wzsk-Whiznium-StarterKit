@@ -2,8 +2,8 @@
 	* \file DlgWzskScfTtablecoord.cpp
 	* job handler for job DlgWzskScfTtablecoord (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -106,23 +106,23 @@ void DlgWzskScfTtablecoord::refresh(
 	if (muteRefresh && !unmute) return;
 	muteRefresh = true;
 
-	StatShr oldStatshr(statshr);
 	ContIac oldContiac(contiac);
+	StatShr oldStatshr(statshr);
 	ContInf oldContinf(continf);
 
 	// IP refresh --- BEGIN
-	// statshr
-	statshr.ButDneActive = evalButDneActive(dbswzsk);
-
 	// contiac
 	contiac.numFDse = ixVDit;
+
+	// statshr
+	statshr.ButDneActive = evalButDneActive(dbswzsk);
 
 	// continf
 	continf.numFSge = ixVSge;
 
 	// IP refresh --- END
-	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
+	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 
 	refreshPlh(dbswzsk, moditems);

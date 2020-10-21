@@ -2,8 +2,8 @@
 	* \file PnlWzskSesRec_evals.cpp
 	* job handler for job PnlWzskSesRec (implementation of availability/activation evaluation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 using namespace std;

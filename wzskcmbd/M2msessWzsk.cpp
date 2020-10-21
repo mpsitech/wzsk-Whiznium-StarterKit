@@ -2,8 +2,8 @@
 	* \file M2msessWzsk.cpp
 	* job handler for job M2msessWzsk (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -145,10 +145,12 @@ M2msessWzsk::M2msessWzsk(
 	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, adm, urus, refWzskMUser);
 	if (!adm) {
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDeltaTheta", urus, refWzskMUser, ixWzskWAccessBase);
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDWork", urus, refWzskMUser, ixWzskWAccessBase);
 	};
 	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, adm, urus, refWzskMUser);
 	if (!adm) {
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "deltaTheta", urus, refWzskMUser, ixWzskWAccessBase);
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "dWork", urus, refWzskMUser, ixWzskWAccessBase);
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "xYZ", urus, refWzskMUser, ixWzskWAccessBase);
 	};
 	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, adm, urus, refWzskMUser);

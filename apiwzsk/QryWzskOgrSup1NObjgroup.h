@@ -2,8 +2,8 @@
 	* \file QryWzskOgrSup1NObjgroup.h
 	* API code for job QryWzskOgrSup1NObjgroup (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef QRYWZSKOGRSUP1NOBJGROUP_H

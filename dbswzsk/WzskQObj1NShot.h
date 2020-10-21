@@ -2,8 +2,8 @@
 	* \file WzskQObj1NShot.h
 	* Dbs and XML wrapper for table TblWzskQObj1NShot (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef WZSKQOBJ1NSHOT_H

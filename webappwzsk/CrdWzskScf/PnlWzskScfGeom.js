@@ -2,8 +2,8 @@
   * \file PnlWzskScfGeom.js
   * web client functionality for panel PnlWzskScfGeom
   * \author Catherine Johnson
-  * \date created: 13 Oct 2020
-  * \date modified: 13 Oct 2020
+  * \date created: 18 Oct 2020
+  * \date modified: 18 Oct 2020
   */
 
 // IP cust --- INSERT

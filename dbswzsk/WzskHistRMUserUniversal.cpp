@@ -2,8 +2,8 @@
 	* \file WzskHistRMUserUniversal.cpp
 	* database access for table TblWzskHistRMUserUniversal (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #include "WzskHistRMUserUniversal.h"

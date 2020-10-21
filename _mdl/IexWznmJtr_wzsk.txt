@@ -268,12 +268,17 @@
 		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
 		- deltaTheta	float											
 		- ImeIAMMethodInvpar.end												
+	- setDWork	true												
+		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
+		- dWork	float											
+		- ImeIAMMethodInvpar.end												
 	- ImeIMMethod.end													
 	- ImeICAMJobVar.iref													
 	- 1													
 	- ImeICAMJobVar.end													
 	- ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment							
 	- 0	deltaTheta	float			true								
+	- 0	dWork	float			true	focal plane to turntable center [m]							
 	- 1	x	floatvec		72000	true	space for 72 * 2 * 500 points							
 	- 1	y	floatvec		72000	true								
 	- 1	z	floatvec		72000	true								
@@ -764,11 +769,15 @@
 		- retrupd	0		UpdLmdMax							255		
 		- retrupd	0		UpdPntMin							0		
 		- retrupd	0		UpdPntMax							1000		
+		- retrupd	0		SldCwdMin							0.2		
+		- retrupd	0		SldCwdMax							0.38		
+		- retrupd	0		SldCwdRast							0.005		
 		- ImeIAMBlockItem1.end												
 	- ImeIMBlock1.end													
 	- ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode			
 	- cal	CallWzskClaimChg	weak	imm					cust					
 	- cal	CallWzskResultNew	try	imm					cust					
+	- cal	CallWzskShrdatChg	weak	spec	acqptcloud				cust					
 	- cal	CallWzskShrdatChg	weak	spec	actexposure				cust					
 	- cal	CallWzskShrdatChg	weak	spec	actlaser				cust					
 	- cal	CallWzskShrdatChg	weak	spec	iprcorner				cust					
@@ -778,6 +787,7 @@
 	- ImeIMSensitivity1.end													
 	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
 	- JobWzskAcqPreview	acqpreview	false	cre										
+	- JobWzskAcqPtcloud	acqptcloud	false	cre										
 	- JobWzskActExposure	actexposure	false	cre										
 	- JobWzskActLaser	actlaser	false	cre										
 	- JobWzskActServo	actservo	false	cre										

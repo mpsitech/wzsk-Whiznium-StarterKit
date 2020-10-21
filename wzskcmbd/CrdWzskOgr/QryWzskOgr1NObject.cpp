@@ -2,8 +2,8 @@
 	* \file QryWzskOgr1NObject.cpp
 	* job handler for job QryWzskOgr1NObject (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD

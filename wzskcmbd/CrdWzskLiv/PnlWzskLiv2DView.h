@@ -2,8 +2,8 @@
 	* \file PnlWzskLiv2DView.h
 	* job handler for job PnlWzskLiv2DView (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef PNLWZSKLIV2DVIEW_H
@@ -20,6 +20,7 @@
 #include "JobWzskActServo.h"
 #include "JobWzskActLaser.h"
 #include "JobWzskActExposure.h"
+#include "JobWzskAcqPtcloud.h"
 #include "JobWzskAcqPreview.h"
 
 #define VecVWzskLiv2DViewDo PnlWzskLiv2DView::VecVDo
@@ -83,9 +84,10 @@ public:
 		static const Sbecore::uint CHKLRO = 8;
 		static const Sbecore::uint UPDPNT = 9;
 		static const Sbecore::uint CHKPRO = 10;
+		static const Sbecore::uint SLDCWD = 11;
 
 	public:
-		ContIac(const Sbecore::uint numFPupPvm = 1, const bool ChkAex = false, const double SldExt = 0.0, const double SldFcs = 0.0, const int UpdLlo = 0, const int UpdLuo = 0, const int UpdLmd = 0, const bool ChkLro = false, const int UpdPnt = 0, const bool ChkPro = false);
+		ContIac(const Sbecore::uint numFPupPvm = 1, const bool ChkAex = false, const double SldExt = 0.0, const double SldFcs = 0.0, const int UpdLlo = 0, const int UpdLuo = 0, const int UpdLmd = 0, const bool ChkLro = false, const int UpdPnt = 0, const bool ChkPro = false, const double SldCwd = 0.0);
 
 	public:
 		Sbecore::uint numFPupPvm;
@@ -98,6 +100,7 @@ public:
 		bool ChkLro;
 		int UpdPnt;
 		bool ChkPro;
+		double SldCwd;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -242,9 +245,12 @@ public:
 		static const Sbecore::uint UPDLMDMAX = 24;
 		static const Sbecore::uint UPDPNTMIN = 25;
 		static const Sbecore::uint UPDPNTMAX = 26;
+		static const Sbecore::uint SLDCWDMIN = 27;
+		static const Sbecore::uint SLDCWDMAX = 28;
+		static const Sbecore::uint SLDCWDRAST = 29;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool ButPlayActive = true, const bool ButStopActive = true, const bool ChkAexActive = true, const bool SldExtAvail = true, const bool SldExtActive = true, const double SldExtMin = 0.001, const double SldExtMax = 100.0, const double SldExtRast = 1.77828, const bool SldFcsActive = true, const double SldFcsMin = 0.0, const double SldFcsMax = 1.0, const bool TxtOafAvail = true, const bool ButStsActive = true, const bool UpdLloAvail = true, const int UpdLloMin = 0, const int UpdLloMax = 255, const bool UpdLuoAvail = true, const int UpdLuoMin = 0, const int UpdLuoMax = 255, const bool UpdLmdAvail = true, const int UpdLmdMin = 0, const int UpdLmdMax = 255, const int UpdPntMin = 0, const int UpdPntMax = 1000);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool ButPlayActive = true, const bool ButStopActive = true, const bool ChkAexActive = true, const bool SldExtAvail = true, const bool SldExtActive = true, const double SldExtMin = 0.001, const double SldExtMax = 100.0, const double SldExtRast = 1.77828, const bool SldFcsActive = true, const double SldFcsMin = 0.0, const double SldFcsMax = 1.0, const bool TxtOafAvail = true, const bool ButStsActive = true, const bool UpdLloAvail = true, const int UpdLloMin = 0, const int UpdLloMax = 255, const bool UpdLuoAvail = true, const int UpdLuoMin = 0, const int UpdLuoMax = 255, const bool UpdLmdAvail = true, const int UpdLmdMin = 0, const int UpdLmdMax = 255, const int UpdPntMin = 0, const int UpdPntMax = 1000, const double SldCwdMin = 0.2, const double SldCwdMax = 0.38, const double SldCwdRast = 0.005);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
@@ -273,6 +279,9 @@ public:
 		int UpdLmdMax;
 		int UpdPntMin;
 		int UpdPntMax;
+		double SldCwdMin;
+		double SldCwdMax;
+		double SldCwdRast;
 
 	public:
 		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
@@ -485,6 +494,7 @@ public:
 	JobWzskActServo* actservo;
 	JobWzskActLaser* actlaser;
 	JobWzskActExposure* actexposure;
+	JobWzskAcqPtcloud* acqptcloud;
 	JobWzskAcqPreview* acqpreview;
 
 	// IP vars.cust --- IBEGIN
@@ -535,12 +545,13 @@ public:
 
 private:
 	bool handleCallWzskStgChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
-	bool handleCallWzskSgeChgFromActservo(DbsWzsk* dbswzsk);
-	bool handleCallWzskShrdatChgFromIprtrace(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskShrdatChgFromIprcorner(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
-	bool handleCallWzskShrdatChgFromActlaser(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
-	bool handleCallWzskShrdatChgFromActexposure(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromIprtrace(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskSgeChgFromActservo(DbsWzsk* dbswzsk);
 	bool handleCallWzskResultNew(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromAcqptcloud(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromActexposure(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromActlaser(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskClaimChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 };

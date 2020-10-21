@@ -2,8 +2,8 @@
 	* \file JobWzskIprCorner.cpp
 	* job handler for job JobWzskIprCorner (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -676,8 +676,8 @@ void JobWzskIprCorner::handleRequest(
 		};
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
-		if (ixVSge == VecVSge::PRCIDLE) handleTimerInSgePrcidle(dbswzsk, req->sref);
-		else if ((req->sref == "srcstop") && (ixVSge == VecVSge::DONE)) handleTimerWithSrefSrcstopInSgeDone(dbswzsk);
+		if ((req->sref == "srcstop") && (ixVSge == VecVSge::DONE)) handleTimerWithSrefSrcstopInSgeDone(dbswzsk);
+		else if (ixVSge == VecVSge::PRCIDLE) handleTimerInSgePrcidle(dbswzsk, req->sref);
 	};
 };
 
@@ -689,17 +689,17 @@ bool JobWzskIprCorner::handleTest(
 	return retval;
 };
 
+void JobWzskIprCorner::handleTimerWithSrefSrcstopInSgeDone(
+			DbsWzsk* dbswzsk
+		) {
+	changeStage(dbswzsk, VecVSge::IDLE);
+};
+
 void JobWzskIprCorner::handleTimerInSgePrcidle(
 			DbsWzsk* dbswzsk
 			, const string& sref
 		) {
 	changeStage(dbswzsk, nextIxVSgeSuccess);
-};
-
-void JobWzskIprCorner::handleTimerWithSrefSrcstopInSgeDone(
-			DbsWzsk* dbswzsk
-		) {
-	changeStage(dbswzsk, VecVSge::IDLE);
 };
 
 void JobWzskIprCorner::handleCall(
@@ -965,7 +965,7 @@ uint JobWzskIprCorner::enterSgeProcess(
 		scoreMin = riSrcfpga->scoreMin;
 		scoreMax = riSrcfpga->scoreMax;
 
-		Wzsk::bitmapToXy(riSrcfpga->buf, false, wGrrd, hGrrd, ri->x, ri->y, wGrrd + 1, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, true, false);
+		Wzsk::bitmapToXy(riSrcfpga->buf, false, wGrrd, hGrrd, ri->x, ri->y, wGrrd + 1, stg.roiNotFull, {shrdat.roiAx,shrdat.roiBx,shrdat.roiCx,shrdat.roiDx}, {shrdat.roiAy,shrdat.roiBy,shrdat.roiCy,shrdat.roiDy}, false, false);
 
 		acqfpgaflg->shrdat.resultFlg.unlock(jref, ixRiSrc);
 		ixRiSrc = 0; ixRiSrc--;

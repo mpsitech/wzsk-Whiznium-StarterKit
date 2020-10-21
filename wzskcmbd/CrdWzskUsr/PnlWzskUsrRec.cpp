@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrRec.cpp
 	* job handler for job PnlWzskUsrRec (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -38,8 +38,8 @@ PnlWzskUsrRec::PnlWzskUsrRec(
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
 	pnlmnusergroup = NULL;
-	pnlaaccess = NULL;
 	pnl1nsession = NULL;
+	pnlaaccess = NULL;
 	pnldetail = NULL;
 
 	// IP constructor.cust1 --- INSERT

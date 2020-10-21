@@ -2,8 +2,8 @@
 	* \file JobWzskAcqPtcloud.h
 	* job handler for job JobWzskAcqPtcloud (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef JOBWZSKACQPTCLOUD_H
@@ -13,8 +13,8 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskIprTrace.h"
 #include "JobWzskActServo.h"
+#include "JobWzskIprTrace.h"
 
 #define VecVJobWzskAcqPtcloudMethod JobWzskAcqPtcloud::VecVMethod
 #define VecVJobWzskAcqPtcloudSge JobWzskAcqPtcloud::VecVSge
@@ -37,6 +37,7 @@ public:
 
 	public:
 		static const Sbecore::uint SETDELTATHETA = 1;
+		static const Sbecore::uint SETDWORK = 2;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -71,7 +72,8 @@ public:
 
 	public:
 		static const Sbecore::uint DELTATHETA = 1;
-		static const Sbecore::uint XYZ = 2;
+		static const Sbecore::uint DWORK = 2;
+		static const Sbecore::uint XYZ = 3;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -88,18 +90,15 @@ public:
 		static const Sbecore::uint DLASBACK = 1;
 		static const Sbecore::uint DLEFT = 2;
 		static const Sbecore::uint DRIGHT = 3;
-		static const Sbecore::uint DWORK = 4;
 
 	public:
-		Stg(const float dLasback = 0.03, const float dLeft = 0.2, const float dRight = 0.2, const float dWork = 0.2);
+		Stg(const float dLasback = 0.03, const float dLeft = 0.2, const float dRight = 0.2);
 
 	public:
 		float dLasback;
 
 		float dLeft;
 		float dRight;
-
-		float dWork;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -142,6 +141,7 @@ public:
 
 	public:
 		float deltaTheta;
+		float dWork;
 
 		std::vector<float> x;
 		std::vector<float> y;
@@ -169,8 +169,8 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
-	JobWzskIprTrace* iprtrace;
 	JobWzskActServo* actservo;
+	JobWzskIprTrace* iprtrace;
 
 	// IP vars.spec --- INSERT
 
@@ -203,6 +203,7 @@ public:
 
 public:
 	bool setDeltaTheta(DbsWzsk* dbswzsk, const float deltaTheta);
+	bool setDWork(DbsWzsk* dbswzsk, const float dWork);
 
 public:
 	void handleRequest(DbsWzsk* dbswzsk, ReqWzsk* req);

@@ -1,8 +1,8 @@
 # file Makefile.inc
 # make file paths for Wzsk combined daemon, release wzskcmbd_arty(linux (ubt_x86_64) cross-compilation)
 # author Catherine Johnson
-# date created: 13 Oct 2020
-# modified: 13 Oct 2020
+# date created: 18 Oct 2020
+# modified: 18 Oct 2020
 
 SRCROOT = ${WHIZROOT}/src
 LIBROOT = ${WHIZROOT}/lib

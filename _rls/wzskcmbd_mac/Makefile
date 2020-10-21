@@ -1,8 +1,8 @@
 # file Makefile
 # make file for Wzsk combined daemon, release wzskcmbd_mac
 # author Catherine Johnson
-# date created: 13 Oct 2020
-# modified: 13 Oct 2020
+# date created: 18 Oct 2020
+# modified: 18 Oct 2020
 
 include Makefile.inc
 

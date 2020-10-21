@@ -2,8 +2,8 @@
 	* \file JobWzskSrcV4l2.cpp
 	* job handler for job JobWzskSrcV4l2 (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -1638,6 +1638,7 @@ uint JobWzskSrcV4l2::enterSgeReady(
 	uint retval = VecVSge::READY;
 
 	// IP enterSgeReady --- IBEGIN
+	int res;
 	pthread_attr_t attr;
 
 	if (shrdat.acq == 0) {
@@ -1648,7 +1649,11 @@ uint JobWzskSrcV4l2::enterSgeReady(
 		pthread_attr_init(&attr);
 		pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
-		pthread_create(&shrdat.acq, &attr, &runAcq, (void*) this);
+		for (unsigned int i = 0; i < 3; i++) {
+			res = pthread_create(&shrdat.acq, &attr, &runAcq, (void*) this);
+			if ((res == 0) || (res != EAGAIN)) break;
+		};
+		if (res != 0) cout << "JobWzskSrcV4l2::enterSgeReady() error creating acquisition thread (" << res << ")" << endl;
 
 		shrdat.mAcq.unlock("JobWzskSrcV4l2", "enterSgeReady");
 

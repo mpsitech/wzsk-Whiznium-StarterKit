@@ -68,7 +68,6 @@
 		<Si sref="dLasback">0.03</Si>
 		<Si sref="dLeft">0.2</Si>
 		<Si sref="dRight">0.2</Si>
-		<Si sref="dWork">0.2</Si>
 	</StgJobWzskAcqPtcloud>
 	<StgJobWzskActLaser>
 		<Si sref="pathGpio">/dev/gpiochip5</Si>

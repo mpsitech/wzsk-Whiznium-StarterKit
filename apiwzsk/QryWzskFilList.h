@@ -2,8 +2,8 @@
 	* \file QryWzskFilList.h
 	* API code for job QryWzskFilList (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef QRYWZSKFILLIST_H
@@ -27,10 +27,10 @@ namespace QryWzskFilList {
 	class VecVOrd {
 
 	public:
-		static const Sbecore::uint REU = 1;
-		static const Sbecore::uint RET = 2;
-		static const Sbecore::uint FNM = 3;
-		static const Sbecore::uint OWN = 4;
+		static const Sbecore::uint OWN = 1;
+		static const Sbecore::uint FNM = 2;
+		static const Sbecore::uint RET = 3;
+		static const Sbecore::uint REU = 4;
 		static const Sbecore::uint GRP = 5;
 
 		static Sbecore::uint getIx(const std::string& sref);

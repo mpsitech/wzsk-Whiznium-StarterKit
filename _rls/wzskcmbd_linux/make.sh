@@ -2,8 +2,8 @@
 # file make.sh
 # make script for Wzsk combined daemon, release wzskcmbd_linux
 # author Catherine Johnson
-# date created: 13 Oct 2020
-# modified: 13 Oct 2020
+# date created: 18 Oct 2020
+# modified: 18 Oct 2020
 
 make Wzskcmbd.h.gch
 if [ $? -ne 0 ]; then

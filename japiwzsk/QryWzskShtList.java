@@ -2,8 +2,8 @@
   * \file QryWzskShtList.java
   * Java API code for job QryWzskShtList
   * \author Catherine Johnson
-  * \date created: 13 Oct 2020
-  * \date modified: 13 Oct 2020
+  * \date created: 18 Oct 2020
+  * \date modified: 18 Oct 2020
   */
 
 package apiwzsk;
@@ -18,18 +18,18 @@ public class QryWzskShtList {
 		*/
 	public static class VecVOrd {
 
-		public static final int SES = 1;
+		public static final int STA = 1;
 		public static final int OBJ = 2;
-		public static final int STA = 3;
+		public static final int SES = 3;
 
 		public static int getIx(
 					String sref
 				) {
 			String s = sref.toLowerCase();
 
-			if (s.equals("ses")) return SES;
-			if (s.equals("obj")) return OBJ;
 			if (s.equals("sta")) return STA;
+			if (s.equals("obj")) return OBJ;
+			if (s.equals("ses")) return SES;
 
 			return 0;
 		};
@@ -37,9 +37,9 @@ public class QryWzskShtList {
 		public static String getSref(
 					int ix
 				) {
-			if (ix == SES) return("ses");
-			if (ix == OBJ) return("obj");
 			if (ix == STA) return("sta");
+			if (ix == OBJ) return("obj");
+			if (ix == SES) return("ses");
 
 			return "";
 		};

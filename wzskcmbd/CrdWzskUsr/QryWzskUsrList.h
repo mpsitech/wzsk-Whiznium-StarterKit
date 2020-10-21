@@ -2,8 +2,8 @@
 	* \file QryWzskUsrList.h
 	* job handler for job QryWzskUsrList (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef QRYWZSKUSRLIST_H
@@ -34,9 +34,9 @@ public:
 		static const Sbecore::uint USG = 1;
 		static const Sbecore::uint STE = 2;
 		static const Sbecore::uint SRF = 3;
-		static const Sbecore::uint PRS = 4;
+		static const Sbecore::uint GRP = 4;
 		static const Sbecore::uint OWN = 5;
-		static const Sbecore::uint GRP = 6;
+		static const Sbecore::uint PRS = 6;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -146,8 +146,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskUsrUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskUsrMod(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskUsrUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskStubChgFromSelf(DbsWzsk* dbswzsk);
 
 };

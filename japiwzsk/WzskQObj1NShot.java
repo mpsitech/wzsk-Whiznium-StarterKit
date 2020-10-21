@@ -2,8 +2,8 @@
   * \file WzskQObj1NShot.h
   * Java API code for record of table TblWzskQObj1NShot
   * \author Catherine Johnson
-  * \date created: 13 Oct 2020
-  * \date modified: 13 Oct 2020
+  * \date created: 18 Oct 2020
+  * \date modified: 18 Oct 2020
   */
 
 package apiwzsk;

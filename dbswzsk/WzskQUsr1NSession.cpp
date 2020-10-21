@@ -2,8 +2,8 @@
 	* \file WzskQUsr1NSession.cpp
 	* Dbs and XML wrapper for table TblWzskQUsr1NSession (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #include "WzskQUsr1NSession.h"

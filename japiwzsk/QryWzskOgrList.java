@@ -2,8 +2,8 @@
   * \file QryWzskOgrList.java
   * Java API code for job QryWzskOgrList
   * \author Catherine Johnson
-  * \date created: 13 Oct 2020
-  * \date modified: 13 Oct 2020
+  * \date created: 18 Oct 2020
+  * \date modified: 18 Oct 2020
   */
 
 package apiwzsk;
@@ -19,8 +19,8 @@ public class QryWzskOgrList {
 	public static class VecVOrd {
 
 		public static final int SUP = 1;
-		public static final int TIT = 2;
-		public static final int SRF = 3;
+		public static final int SRF = 2;
+		public static final int TIT = 3;
 
 		public static int getIx(
 					String sref
@@ -28,8 +28,8 @@ public class QryWzskOgrList {
 			String s = sref.toLowerCase();
 
 			if (s.equals("sup")) return SUP;
-			if (s.equals("tit")) return TIT;
 			if (s.equals("srf")) return SRF;
+			if (s.equals("tit")) return TIT;
 
 			return 0;
 		};
@@ -38,8 +38,8 @@ public class QryWzskOgrList {
 					int ix
 				) {
 			if (ix == SUP) return("sup");
-			if (ix == TIT) return("tit");
 			if (ix == SRF) return("srf");
+			if (ix == TIT) return("tit");
 
 			return "";
 		};

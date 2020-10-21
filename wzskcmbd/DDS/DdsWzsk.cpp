@@ -2799,6 +2799,108 @@ namespace DdsJobWzskAcqPtcloud {
         return o;
     }
 
+    // ---- setDWork_req: 
+
+    setDWork_req::setDWork_req() :
+        m_dWork_ (0.0f)  {
+    }   
+
+    setDWork_req::setDWork_req (
+        float dWork)
+        :
+            m_dWork_( dWork ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    setDWork_req::setDWork_req(setDWork_req&& other_) OMG_NOEXCEPT  :m_dWork_ (std::move(other_.m_dWork_))
+    {
+    } 
+
+    setDWork_req& setDWork_req::operator=(setDWork_req&&  other_) OMG_NOEXCEPT {
+        setDWork_req tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void setDWork_req::swap(setDWork_req& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_dWork_, other_.m_dWork_);
+    }  
+
+    bool setDWork_req::operator == (const setDWork_req& other_) const {
+        if (m_dWork_ != other_.m_dWork_) {
+            return false;
+        }
+        return true;
+    }
+    bool setDWork_req::operator != (const setDWork_req& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const setDWork_req& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "dWork: " << std::setprecision(9) <<sample.dWork() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- setDWork_reply: 
+
+    setDWork_reply::setDWork_reply() :
+        m_success_ (0)  {
+    }   
+
+    setDWork_reply::setDWork_reply (
+        bool success)
+        :
+            m_success_( success ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    setDWork_reply::setDWork_reply(setDWork_reply&& other_) OMG_NOEXCEPT  :m_success_ (std::move(other_.m_success_))
+    {
+    } 
+
+    setDWork_reply& setDWork_reply::operator=(setDWork_reply&&  other_) OMG_NOEXCEPT {
+        setDWork_reply tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void setDWork_reply::swap(setDWork_reply& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_success_, other_.m_success_);
+    }  
+
+    bool setDWork_reply::operator == (const setDWork_reply& other_) const {
+        if (m_success_ != other_.m_success_) {
+            return false;
+        }
+        return true;
+    }
+    bool setDWork_reply::operator != (const setDWork_reply& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const setDWork_reply& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "success: " << sample.success() ;
+        o <<"]";
+        return o;
+    }
+
     // ---- deltaTheta: 
 
     deltaTheta::deltaTheta() :
@@ -2846,6 +2948,57 @@ namespace DdsJobWzskAcqPtcloud {
         ::rti::util::StreamFlagSaver flag_saver (o);
         o <<"[";
         o << "_deltaTheta: " << std::setprecision(9) <<sample._deltaTheta() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- dWork: 
+
+    dWork::dWork() :
+        m__dWork_ (0.0f)  {
+    }   
+
+    dWork::dWork (
+        float _dWork)
+        :
+            m__dWork_( _dWork ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    dWork::dWork(dWork&& other_) OMG_NOEXCEPT  :m__dWork_ (std::move(other_.m__dWork_))
+    {
+    } 
+
+    dWork& dWork::operator=(dWork&&  other_) OMG_NOEXCEPT {
+        dWork tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void dWork::swap(dWork& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m__dWork_, other_.m__dWork_);
+    }  
+
+    bool dWork::operator == (const dWork& other_) const {
+        if (m__dWork_ != other_.m__dWork_) {
+            return false;
+        }
+        return true;
+    }
+    bool dWork::operator != (const dWork& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const dWork& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "_dWork: " << std::setprecision(9) <<sample._dWork() ;
         o <<"]";
         return o;
     }
@@ -12920,6 +13073,328 @@ namespace rti {
         #ifndef NDDS_STANDALONE_TYPE
 
         template<>
+        struct native_type_code< DdsJobWzskAcqPtcloud::setDWork_req > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member setDWork_req_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"dWork",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode setDWork_req_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskAcqPtcloud::setDWork_req", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        setDWork_req_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for setDWork_req*/
+
+                if (is_initialized) {
+                    return &setDWork_req_g_tc;
+                }
+
+                setDWork_req_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                setDWork_req_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+
+                /* Initialize the values for member annotations. */
+                setDWork_req_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_FLOAT;
+                setDWork_req_g_tc_members[0]._annotations._defaultValue._u.float_value = 0.0f;
+                setDWork_req_g_tc_members[0]._annotations._minValue._d = RTI_XCDR_TK_FLOAT;
+                setDWork_req_g_tc_members[0]._annotations._minValue._u.float_value = RTIXCdrFloat_MIN;
+                setDWork_req_g_tc_members[0]._annotations._maxValue._d = RTI_XCDR_TK_FLOAT;
+                setDWork_req_g_tc_members[0]._annotations._maxValue._u.float_value = RTIXCdrFloat_MAX;
+
+                setDWork_req_g_tc._data._sampleAccessInfo = sample_access_info();
+                setDWork_req_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &setDWork_req_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskAcqPtcloud::setDWork_req *sample;
+
+                static RTIXCdrMemberAccessInfo setDWork_req_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo setDWork_req_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &setDWork_req_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskAcqPtcloud::setDWork_req);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                setDWork_req_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->dWork() - (char *)sample);
+
+                setDWork_req_g_sampleAccessInfo.memberAccessInfos = 
+                setDWork_req_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskAcqPtcloud::setDWork_req);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        setDWork_req_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        setDWork_req_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                setDWork_req_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                setDWork_req_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskAcqPtcloud::setDWork_req >;
+
+                setDWork_req_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &setDWork_req_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin setDWork_req_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &setDWork_req_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskAcqPtcloud::setDWork_req >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskAcqPtcloud::setDWork_req >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskAcqPtcloud::setDWork_reply > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member setDWork_reply_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"success",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode setDWork_reply_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskAcqPtcloud::setDWork_reply", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        setDWork_reply_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for setDWork_reply*/
+
+                if (is_initialized) {
+                    return &setDWork_reply_g_tc;
+                }
+
+                setDWork_reply_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                setDWork_reply_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&::rti::topic::interpreter::initialize_bool_typecode();
+
+                /* Initialize the values for member annotations. */
+                setDWork_reply_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_BOOLEAN;
+                setDWork_reply_g_tc_members[0]._annotations._defaultValue._u.boolean_value = 0;
+
+                setDWork_reply_g_tc._data._sampleAccessInfo = sample_access_info();
+                setDWork_reply_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &setDWork_reply_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskAcqPtcloud::setDWork_reply *sample;
+
+                static RTIXCdrMemberAccessInfo setDWork_reply_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo setDWork_reply_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &setDWork_reply_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskAcqPtcloud::setDWork_reply);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                setDWork_reply_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->success() - (char *)sample);
+
+                setDWork_reply_g_sampleAccessInfo.memberAccessInfos = 
+                setDWork_reply_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskAcqPtcloud::setDWork_reply);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        setDWork_reply_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        setDWork_reply_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                setDWork_reply_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                setDWork_reply_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskAcqPtcloud::setDWork_reply >;
+
+                setDWork_reply_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &setDWork_reply_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin setDWork_reply_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &setDWork_reply_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskAcqPtcloud::setDWork_reply >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskAcqPtcloud::setDWork_reply >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
         struct native_type_code< DdsJobWzskAcqPtcloud::deltaTheta > {
             static DDS_TypeCode * get()
             {
@@ -13078,6 +13553,169 @@ namespace rti {
             return static_cast<const ::dds::core::xtypes::StructType&>(
                 ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
                     *(native_type_code< DdsJobWzskAcqPtcloud::deltaTheta >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskAcqPtcloud::dWork > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode_Member dWork_g_tc_members[1]=
+                {
+
+                    {
+                        (char *)"_dWork",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode dWork_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskAcqPtcloud::dWork", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        1, /* Number of members */
+                        dWork_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for dWork*/
+
+                if (is_initialized) {
+                    return &dWork_g_tc;
+                }
+
+                dWork_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                dWork_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+
+                /* Initialize the values for member annotations. */
+                dWork_g_tc_members[0]._annotations._defaultValue._d = RTI_XCDR_TK_FLOAT;
+                dWork_g_tc_members[0]._annotations._defaultValue._u.float_value = 0.0f;
+                dWork_g_tc_members[0]._annotations._minValue._d = RTI_XCDR_TK_FLOAT;
+                dWork_g_tc_members[0]._annotations._minValue._u.float_value = RTIXCdrFloat_MIN;
+                dWork_g_tc_members[0]._annotations._maxValue._d = RTI_XCDR_TK_FLOAT;
+                dWork_g_tc_members[0]._annotations._maxValue._u.float_value = RTIXCdrFloat_MAX;
+
+                dWork_g_tc._data._sampleAccessInfo = sample_access_info();
+                dWork_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &dWork_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskAcqPtcloud::dWork *sample;
+
+                static RTIXCdrMemberAccessInfo dWork_g_memberAccessInfos[1] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo dWork_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &dWork_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskAcqPtcloud::dWork);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                dWork_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->_dWork() - (char *)sample);
+
+                dWork_g_sampleAccessInfo.memberAccessInfos = 
+                dWork_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskAcqPtcloud::dWork);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        dWork_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        dWork_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                dWork_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                dWork_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskAcqPtcloud::dWork >;
+
+                dWork_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &dWork_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin dWork_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &dWork_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskAcqPtcloud::dWork >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskAcqPtcloud::dWork >::get())));
         }
 
         #ifndef NDDS_STANDALONE_TYPE
@@ -16654,6 +17292,136 @@ namespace dds {
 
         }
 
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDWork_req >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskAcqPtcloud::setDWork_reqPlugin_new,
+                DdsJobWzskAcqPtcloud::setDWork_reqPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskAcqPtcloud::setDWork_req >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskAcqPtcloud::setDWork_req& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = setDWork_reqPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = setDWork_reqPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDWork_req >::from_cdr_buffer(DdsJobWzskAcqPtcloud::setDWork_req& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = setDWork_reqPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskAcqPtcloud::setDWork_req from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDWork_req >::reset_sample(DdsJobWzskAcqPtcloud::setDWork_req& sample) 
+        {
+            sample.dWork(0.0f);
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDWork_req >::allocate_sample(DdsJobWzskAcqPtcloud::setDWork_req& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDWork_reply >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskAcqPtcloud::setDWork_replyPlugin_new,
+                DdsJobWzskAcqPtcloud::setDWork_replyPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskAcqPtcloud::setDWork_reply >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskAcqPtcloud::setDWork_reply& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = setDWork_replyPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = setDWork_replyPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDWork_reply >::from_cdr_buffer(DdsJobWzskAcqPtcloud::setDWork_reply& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = setDWork_replyPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskAcqPtcloud::setDWork_reply from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDWork_reply >::reset_sample(DdsJobWzskAcqPtcloud::setDWork_reply& sample) 
+        {
+            sample.success(0);
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::setDWork_reply >::allocate_sample(DdsJobWzskAcqPtcloud::setDWork_reply& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
         void topic_type_support< DdsJobWzskAcqPtcloud::deltaTheta >:: register_type(
             ::dds::domain::DomainParticipant& participant,
             const std::string& type_name) 
@@ -16714,6 +17482,71 @@ namespace dds {
         }
 
         void topic_type_support< DdsJobWzskAcqPtcloud::deltaTheta >::allocate_sample(DdsJobWzskAcqPtcloud::deltaTheta& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::dWork >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskAcqPtcloud::dWorkPlugin_new,
+                DdsJobWzskAcqPtcloud::dWorkPlugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskAcqPtcloud::dWork >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskAcqPtcloud::dWork& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = dWorkPlugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = dWorkPlugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::dWork >::from_cdr_buffer(DdsJobWzskAcqPtcloud::dWork& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = dWorkPlugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskAcqPtcloud::dWork from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::dWork >::reset_sample(DdsJobWzskAcqPtcloud::dWork& sample) 
+        {
+            sample._dWork(0.0f);
+        }
+
+        void topic_type_support< DdsJobWzskAcqPtcloud::dWork >::allocate_sample(DdsJobWzskAcqPtcloud::dWork& sample, int, int) 
         {
             RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
 

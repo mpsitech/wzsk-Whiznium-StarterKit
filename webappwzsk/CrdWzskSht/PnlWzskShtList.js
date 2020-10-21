@@ -2,8 +2,8 @@
   * \file PnlWzskShtList.js
   * web client functionality for panel PnlWzskShtList
   * \author Catherine Johnson
-  * \date created: 13 Oct 2020
-  * \date modified: 13 Oct 2020
+  * \date created: 18 Oct 2020
+  * \date modified: 18 Oct 2020
   */
 
 // --- expand state management
@@ -133,11 +133,11 @@ function refreshB(chgcol) {
 			ix++;
 
 			if (i == 1) {
-				doc.cols.push("TcoSes"); doc.widths.push(TcoSesWidth); doc.fs.push("ses"); doc.tos.push(1); wtot += TcoSesWidth;
+				doc.cols.push("TcoSes"); doc.widths.push(TcoSesWidth); doc.fs.push("ses"); doc.tos.push(3); wtot += TcoSesWidth;
 			} else if (i == 2) {
 				doc.cols.push("TcoObj"); doc.widths.push(TcoObjWidth); doc.fs.push("obj"); doc.tos.push(2); wtot += TcoObjWidth;
 			} else if (i == 3) {
-				doc.cols.push("TcoSta"); doc.widths.push(TcoStaWidth); doc.fs.push("sta"); doc.tos.push(3); wtot += TcoStaWidth;
+				doc.cols.push("TcoSta"); doc.widths.push(TcoStaWidth); doc.fs.push("sta"); doc.tos.push(1); wtot += TcoStaWidth;
 			} else {
 				ix--;
 			};

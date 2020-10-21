@@ -2,8 +2,8 @@
 	* \file WzskcmbdDdspub.h
 	* DDS publisher based on rti DDS Connext for Wzsk combined daemon (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef WZSKCMBDDDSPUB_H
@@ -50,6 +50,7 @@ namespace WzskcmbdDdspub {
 		rti::request::Replier<DdsJobWzskActExposure::setFocus_req,DdsJobWzskActExposure::setFocus_reply>* replierJobWzskActExposure_setFocus;
 
 		rti::request::Replier<DdsJobWzskAcqPtcloud::setDeltaTheta_req,DdsJobWzskAcqPtcloud::setDeltaTheta_reply>* replierJobWzskAcqPtcloud_setDeltaTheta;
+		rti::request::Replier<DdsJobWzskAcqPtcloud::setDWork_req,DdsJobWzskAcqPtcloud::setDWork_reply>* replierJobWzskAcqPtcloud_setDWork;
 	};
 
 	/**
@@ -117,6 +118,10 @@ namespace WzskcmbdDdspub {
 		dds::topic::Topic<DdsJobWzskAcqPtcloud::deltaTheta>* topicJobWzskAcqPtcloud_deltaTheta;
 		dds::pub::DataWriter<DdsJobWzskAcqPtcloud::deltaTheta>* writerJobWzskAcqPtcloud_deltaTheta;
 		DdsJobWzskAcqPtcloud::deltaTheta* JobWzskAcqPtcloud_deltaTheta;
+
+		dds::topic::Topic<DdsJobWzskAcqPtcloud::dWork>* topicJobWzskAcqPtcloud_dWork;
+		dds::pub::DataWriter<DdsJobWzskAcqPtcloud::dWork>* writerJobWzskAcqPtcloud_dWork;
+		DdsJobWzskAcqPtcloud::dWork* JobWzskAcqPtcloud_dWork;
 
 		dds::topic::Topic<DdsJobWzskAcqPtcloud::xYZ>* topicJobWzskAcqPtcloud_xYZ;
 		dds::pub::DataWriter<DdsJobWzskAcqPtcloud::xYZ>* writerJobWzskAcqPtcloud_xYZ;

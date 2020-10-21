@@ -2,8 +2,8 @@
 	* \file WzskQSes1NShot.cpp
 	* API code for table TblWzskQSes1NShot (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #include "WzskQSes1NShot.h"

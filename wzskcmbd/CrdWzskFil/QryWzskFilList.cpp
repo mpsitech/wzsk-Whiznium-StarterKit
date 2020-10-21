@@ -2,8 +2,8 @@
 	* \file QryWzskFilList.cpp
 	* job handler for job QryWzskFilList (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -273,10 +273,10 @@ void QryWzskFilList::rerun_orderSQL(
 			string& sqlstr
 			, const uint preIxOrd
 		) {
-	if (preIxOrd == VecVOrd::REU) sqlstr += " ORDER BY TblWzskMFile.refUref ASC";
-	else if (preIxOrd == VecVOrd::RET) sqlstr += " ORDER BY TblWzskMFile.refIxVTbl ASC";
+	if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMFile.own ASC";
 	else if (preIxOrd == VecVOrd::FNM) sqlstr += " ORDER BY TblWzskMFile.Filename ASC";
-	else if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMFile.own ASC";
+	else if (preIxOrd == VecVOrd::RET) sqlstr += " ORDER BY TblWzskMFile.refIxVTbl ASC";
+	else if (preIxOrd == VecVOrd::REU) sqlstr += " ORDER BY TblWzskMFile.refUref ASC";
 	else if (preIxOrd == VecVOrd::GRP) sqlstr += " ORDER BY TblWzskMFile.grp ASC";
 };
 

@@ -2,8 +2,8 @@
 	* \file RootWzsk.cpp
 	* job handler for job RootWzsk (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -41,16 +41,16 @@ RootWzsk::RootWzsk(
 	srcv4l2 = NULL;
 	srcsysinfo = NULL;
 	srcfpga = NULL;
-	iprtrace = NULL;
 	iprcorner = NULL;
-	iprangle = NULL;
+	iprtrace = NULL;
 	actservo = NULL;
+	iprangle = NULL;
 	actlaser = NULL;
 	actexposure = NULL;
 	acqptcloud = NULL;
 	acqpreview = NULL;
-	acqfpgapvw = NULL;
 	acqfpgaflg = NULL;
+	acqfpgapvw = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -63,16 +63,16 @@ RootWzsk::RootWzsk(
 	srcv4l2 = new JobWzskSrcV4l2(xchg, dbswzsk, jref, ixWzskVLocale);
 	srcsysinfo = new JobWzskSrcSysinfo(xchg, dbswzsk, jref, ixWzskVLocale);
 	srcfpga = new JobWzskSrcFpga(xchg, dbswzsk, jref, ixWzskVLocale);
-	iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprcorner = new JobWzskIprCorner(xchg, dbswzsk, jref, ixWzskVLocale);
-	iprangle = new JobWzskIprAngle(xchg, dbswzsk, jref, ixWzskVLocale);
+	iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 	actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
+	iprangle = new JobWzskIprAngle(xchg, dbswzsk, jref, ixWzskVLocale);
 	actlaser = new JobWzskActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
 	actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqptcloud = new JobWzskAcqPtcloud(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqpreview = new JobWzskAcqPreview(xchg, dbswzsk, jref, ixWzskVLocale);
-	acqfpgapvw = new JobWzskAcqFpgapvw(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqfpgaflg = new JobWzskAcqFpgaflg(xchg, dbswzsk, jref, ixWzskVLocale);
+	acqfpgapvw = new JobWzskAcqFpgapvw(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 

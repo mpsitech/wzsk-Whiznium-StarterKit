@@ -2,8 +2,8 @@
   * \file Wzsk.idl
   * Wzsk DDS publisher interface description for RTI Code Generator
   * \author Catherine Johnson
-  * \date created: 13 Oct 2020
-  * \date modified: 13 Oct 2020
+  * \date created: 18 Oct 2020
+  * \date modified: 18 Oct 2020
   */
 
 typedef char tinyint;
@@ -258,8 +258,20 @@ module DdsJobWzskAcqPtcloud {
 		boolean success;
 	};
 
+	struct setDWork_req {
+		float dWork;
+	};
+
+	struct setDWork_reply {
+		boolean success;
+	};
+
 	struct deltaTheta {
 		float _deltaTheta;
+	};
+
+	struct dWork {
+		float _dWork;
 	};
 
 	struct xYZ {

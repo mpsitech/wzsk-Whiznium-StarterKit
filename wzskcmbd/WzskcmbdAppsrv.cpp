@@ -2,8 +2,8 @@
 	* \file WzskcmbdAppsrv.cpp
 	* application server for Wzsk combined daemon (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #include "Wzskcmbd.h"

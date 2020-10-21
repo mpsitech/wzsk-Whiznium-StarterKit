@@ -1,8 +1,8 @@
 # file Makefile
 # make file for Wzsk database access library, release dbswzsk_linux
 # author Catherine Johnson
-# date created: 13 Oct 2020
-# modified: 13 Oct 2020
+# date created: 18 Oct 2020
+# modified: 18 Oct 2020
 
 LIBROOT = ${WHIZROOT}/lib
 

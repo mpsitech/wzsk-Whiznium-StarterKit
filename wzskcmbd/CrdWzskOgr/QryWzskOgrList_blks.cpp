@@ -2,8 +2,8 @@
 	* \file QryWzskOgrList_blks.cpp
 	* job handler for job QryWzskOgrList (implementation of blocks)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 using namespace std;
@@ -20,8 +20,8 @@ uint QryWzskOgrList::VecVOrd::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "sup") return SUP;
-	if (s == "tit") return TIT;
 	if (s == "srf") return SRF;
+	if (s == "tit") return TIT;
 
 	return(0);
 };
@@ -30,8 +30,8 @@ string QryWzskOgrList::VecVOrd::getSref(
 			const uint ix
 		) {
 	if (ix == SUP) return("sup");
-	if (ix == TIT) return("tit");
 	if (ix == SRF) return("srf");
+	if (ix == TIT) return("tit");
 
 	return("");
 };

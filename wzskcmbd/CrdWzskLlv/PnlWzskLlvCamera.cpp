@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvCamera.cpp
 	* job handler for job PnlWzskLlvCamera (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -52,9 +52,9 @@ PnlWzskLlvCamera::PnlWzskLlvCamera(
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
+	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, actexposure->jref, false, Arg(), 0, Clstn::VecVJactype::TRY);
 	xchg->addClstn(VecWzskVCall::CALLWZSKCLAIMCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, acqpreview->jref, false, Arg(), 0, Clstn::VecVJactype::TRY);
-	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, actexposure->jref, false, Arg(), 0, Clstn::VecVJactype::TRY);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -295,13 +295,28 @@ void PnlWzskLlvCamera::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
+	if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == actexposure->jref)) {
+		call->abort = handleCallWzskShrdatChgFromActexposure(dbswzsk, call->argInv.ix, call->argInv.sref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
 		call->abort = handleCallWzskClaimChg(dbswzsk, call->jref);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && (call->jref == acqpreview->jref)) {
 		call->abort = handleCallWzskResultNewFromAcqpreview(dbswzsk, call->argInv.ix, call->argInv.sref);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == actexposure->jref)) {
-		call->abort = handleCallWzskShrdatChgFromActexposure(dbswzsk, call->argInv.ix, call->argInv.sref);
 	};
+};
+
+bool PnlWzskLlvCamera::handleCallWzskShrdatChgFromActexposure(
+			DbsWzsk* dbswzsk
+			, const uint ixInv
+			, const string& srefInv
+		) {
+	bool retval = false;
+	// IP handleCallWzskShrdatChgFromActexposure --- IBEGIN
+	set<uint> moditems;
+
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+	// IP handleCallWzskShrdatChgFromActexposure --- IEND
+	return retval;
 };
 
 bool PnlWzskLlvCamera::handleCallWzskClaimChg(
@@ -378,21 +393,6 @@ bool PnlWzskLlvCamera::handleCallWzskResultNewFromAcqpreview(
 		xchg->submitDpch(new DpchEngLive(jref, gray, red, green, blue, mask));
 	};
 	// IP handleCallWzskResultNewFromAcqpreview --- IEND
-	return retval;
-};
-
-bool PnlWzskLlvCamera::handleCallWzskShrdatChgFromActexposure(
-			DbsWzsk* dbswzsk
-			, const uint ixInv
-			, const string& srefInv
-		) {
-	bool retval = false;
-	// IP handleCallWzskShrdatChgFromActexposure --- IBEGIN
-	set<uint> moditems;
-
-	refresh(dbswzsk, moditems);
-	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	// IP handleCallWzskShrdatChgFromActexposure --- IEND
 	return retval;
 };
 

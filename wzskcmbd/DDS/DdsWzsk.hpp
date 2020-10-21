@@ -9,8 +9,8 @@ For more information, type 'rtiddsgen -help' at a command shell
 or consult the RTI Connext manual.
 */
 
-#ifndef DdsWzsk_509372441_hpp
-#define DdsWzsk_509372441_hpp
+#ifndef DdsWzsk_509372572_hpp
+#define DdsWzsk_509372572_hpp
 
 #include <iosfwd>
 
@@ -2988,6 +2988,104 @@ namespace DdsJobWzskAcqPtcloud {
 
     NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const setDeltaTheta_reply& sample);
 
+    class NDDSUSERDllExport setDWork_req {
+      public:
+        setDWork_req();
+
+        explicit setDWork_req(
+            float dWork);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        setDWork_req (setDWork_req&&) = default;
+        setDWork_req& operator=(setDWork_req&&) = default;
+        setDWork_req& operator=(const setDWork_req&) = default;
+        setDWork_req(const setDWork_req&) = default;
+        #else
+        setDWork_req(setDWork_req&& other_) OMG_NOEXCEPT;  
+        setDWork_req& operator=(setDWork_req&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        float& dWork() OMG_NOEXCEPT {
+            return m_dWork_;
+        }
+
+        const float& dWork() const OMG_NOEXCEPT {
+            return m_dWork_;
+        }
+
+        void dWork(float value) {
+            m_dWork_ = value;
+        }
+
+        bool operator == (const setDWork_req& other_) const;
+        bool operator != (const setDWork_req& other_) const;
+
+        void swap(setDWork_req& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        float m_dWork_;
+
+    };
+
+    inline void swap(setDWork_req& a, setDWork_req& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const setDWork_req& sample);
+
+    class NDDSUSERDllExport setDWork_reply {
+      public:
+        setDWork_reply();
+
+        explicit setDWork_reply(
+            bool success);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        setDWork_reply (setDWork_reply&&) = default;
+        setDWork_reply& operator=(setDWork_reply&&) = default;
+        setDWork_reply& operator=(const setDWork_reply&) = default;
+        setDWork_reply(const setDWork_reply&) = default;
+        #else
+        setDWork_reply(setDWork_reply&& other_) OMG_NOEXCEPT;  
+        setDWork_reply& operator=(setDWork_reply&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        bool& success() OMG_NOEXCEPT {
+            return m_success_;
+        }
+
+        const bool& success() const OMG_NOEXCEPT {
+            return m_success_;
+        }
+
+        void success(bool value) {
+            m_success_ = value;
+        }
+
+        bool operator == (const setDWork_reply& other_) const;
+        bool operator != (const setDWork_reply& other_) const;
+
+        void swap(setDWork_reply& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        bool m_success_;
+
+    };
+
+    inline void swap(setDWork_reply& a, setDWork_reply& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const setDWork_reply& sample);
+
     class NDDSUSERDllExport deltaTheta {
       public:
         deltaTheta();
@@ -3036,6 +3134,55 @@ namespace DdsJobWzskAcqPtcloud {
     }
 
     NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const deltaTheta& sample);
+
+    class NDDSUSERDllExport dWork {
+      public:
+        dWork();
+
+        explicit dWork(
+            float _dWork);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        dWork (dWork&&) = default;
+        dWork& operator=(dWork&&) = default;
+        dWork& operator=(const dWork&) = default;
+        dWork(const dWork&) = default;
+        #else
+        dWork(dWork&& other_) OMG_NOEXCEPT;  
+        dWork& operator=(dWork&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        float& _dWork() OMG_NOEXCEPT {
+            return m__dWork_;
+        }
+
+        const float& _dWork() const OMG_NOEXCEPT {
+            return m__dWork_;
+        }
+
+        void _dWork(float value) {
+            m__dWork_ = value;
+        }
+
+        bool operator == (const dWork& other_) const;
+        bool operator != (const dWork& other_) const;
+
+        void swap(dWork& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        float m__dWork_;
+
+    };
+
+    inline void swap(dWork& a, dWork& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const dWork& sample);
 
     class NDDSUSERDllExport xYZ {
       public:
@@ -4881,6 +5028,78 @@ namespace dds {
         };
 
         template<>
+        struct topic_type_name< DdsJobWzskAcqPtcloud::setDWork_req > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskAcqPtcloud::setDWork_req";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskAcqPtcloud::setDWork_req > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskAcqPtcloud::setDWork_req > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskAcqPtcloud::setDWork_req& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskAcqPtcloud::setDWork_req& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskAcqPtcloud::setDWork_req& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskAcqPtcloud::setDWork_req& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskAcqPtcloud::setDWork_reply > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskAcqPtcloud::setDWork_reply";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskAcqPtcloud::setDWork_reply > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskAcqPtcloud::setDWork_reply > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskAcqPtcloud::setDWork_reply& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskAcqPtcloud::setDWork_reply& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskAcqPtcloud::setDWork_reply& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskAcqPtcloud::setDWork_reply& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
         struct topic_type_name< DdsJobWzskAcqPtcloud::deltaTheta > {
             NDDSUSERDllExport static std::string value() {
                 return "DdsJobWzskAcqPtcloud::deltaTheta";
@@ -4911,6 +5130,42 @@ namespace dds {
 
             NDDSUSERDllExport 
             static void allocate_sample(DdsJobWzskAcqPtcloud::deltaTheta& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskAcqPtcloud::dWork > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskAcqPtcloud::dWork";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskAcqPtcloud::dWork > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskAcqPtcloud::dWork > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskAcqPtcloud::dWork& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskAcqPtcloud::dWork& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskAcqPtcloud::dWork& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskAcqPtcloud::dWork& sample, int, int);
 
             static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
             ::rti::topic::TypePluginKind::STL;
@@ -5741,6 +5996,34 @@ namespace rti {
 
         #ifndef NDDS_STANDALONE_TYPE
         template<>
+        struct dynamic_type< DdsJobWzskAcqPtcloud::setDWork_req > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskAcqPtcloud::setDWork_req > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskAcqPtcloud::setDWork_reply > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskAcqPtcloud::setDWork_reply > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
         struct dynamic_type< DdsJobWzskAcqPtcloud::deltaTheta > {
             typedef ::dds::core::xtypes::StructType type;
             NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
@@ -5749,6 +6032,20 @@ namespace rti {
 
         template <>
         struct extensibility< DdsJobWzskAcqPtcloud::deltaTheta > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskAcqPtcloud::dWork > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskAcqPtcloud::dWork > {
             static const ::dds::core::xtypes::ExtensibilityKind::type kind =
             ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
         };
@@ -5805,5 +6102,5 @@ namespace rti {
 #define NDDSUSERDllExport
 #endif
 
-#endif // DdsWzsk_509372441_hpp
+#endif // DdsWzsk_509372572_hpp
 

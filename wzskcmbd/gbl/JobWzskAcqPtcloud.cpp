@@ -2,8 +2,8 @@
 	* \file JobWzskAcqPtcloud.cpp
 	* job handler for job JobWzskAcqPtcloud (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -55,6 +55,7 @@ void JobWzskAcqPtcloud::Shrdat::init(
 		) {
 	// IP Shrdat.init --- IBEGIN
 	deltaTheta = 15.0;
+	dWork = 0.25;
 
 	refWzskMSession = 0;
 	refWzskMObject = 0;
@@ -85,8 +86,8 @@ JobWzskAcqPtcloud::JobWzskAcqPtcloud(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	iprtrace = NULL;
 	actservo = NULL;
+	iprtrace = NULL;
 
 	// IP constructor.cust1 --- IBEGIN
 	ixRiSrc = 0; ixRiSrc--;
@@ -95,8 +96,8 @@ JobWzskAcqPtcloud::JobWzskAcqPtcloud(
 
 	// IP constructor.spec1 --- INSERT
 
-	if (srvNotCli) iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 	if (srvNotCli) actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
+	if (srvNotCli) iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 
@@ -166,6 +167,38 @@ bool JobWzskAcqPtcloud::setDeltaTheta(
 	return retval;
 };
 
+bool JobWzskAcqPtcloud::setDWork(
+			DbsWzsk* dbswzsk
+			, const float dWork
+		) {
+	bool retval = true;
+
+	if (!srvNotCli) {
+		if (srv) {
+			retval = ((JobWzskAcqPtcloud*) srv)->setDWork(dbswzsk, dWork);
+
+		} else retval = false;
+
+		return retval;
+	};
+
+	lockAccess("setDWork");
+
+	// IP setDWork --- IBEGIN
+	shrdat.wlockAccess(jref, "setDWork");
+
+	shrdat.dWork = dWork;
+
+	shrdat.wunlockAccess(jref, "setDWork");
+
+	xchg->triggerSrefCall(dbswzsk, VecWzskVCall::CALLWZSKSHRDATCHG, jref, "dWork");
+	// IP setDWork --- IEND
+
+	unlockAccess("setDWork");
+
+	return retval;
+};
+
 void JobWzskAcqPtcloud::handleRequest(
 			DbsWzsk* dbswzsk
 			, ReqWzsk* req
@@ -189,6 +222,8 @@ void JobWzskAcqPtcloud::handleRequest(
 
 		if ((ixVMethod == VecVMethod::SETDELTATHETA) && (req->method->parsInv.size() == 1) && (req->method->parsRet.size() == 1)) {
 			*((bool*) (req->method->parsRet[0])) = setDeltaTheta(dbswzsk, *((const float*) (req->method->parsInv[0])));
+		} else if ((ixVMethod == VecVMethod::SETDWORK) && (req->method->parsInv.size() == 1) && (req->method->parsRet.size() == 1)) {
+			*((bool*) (req->method->parsRet[0])) = setDWork(dbswzsk, *((const float*) (req->method->parsInv[0])));
 		};
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
@@ -438,8 +473,8 @@ uint JobWzskAcqPtcloud::enterSgeProcess(
 
 	Shrdat::ResultitemBody* ri = (Shrdat::ResultitemBody*) shrdat.resultBody[ixRi];
 
-	const double alphaLeft = atan2(stg.dLeft, stg.dWork + stg.dLasback);
-	const double alphaRight = atan2(stg.dRight, stg.dWork + stg.dLasback);
+	const double alphaLeft = atan2(stg.dLeft, shrdat.dWork + stg.dLasback);
+	const double alphaRight = atan2(stg.dRight, shrdat.dWork + stg.dLasback);
 
 	const double pixToDim = 1e-6 * xchg->stgwzskcamera.hpix;
 
@@ -454,27 +489,27 @@ uint JobWzskAcqPtcloud::enterSgeProcess(
 	double phi;
 
 	// plain core algorithm
-	rNotL = 1.0;
+	rNotL = -1.0;
 	alpha = alphaLeft;
 
 	for (unsigned int i = 0; i < riSrc->x.size(); i++) {
 		if (i == riSrc->Nleft) {
-			rNotL = -1.0;
+			rNotL = 1.0;
 			alpha = alphaRight;
 		};
 
 		x_in = pixToDim * ((double) (riSrc->x[i]));
 		y_in = pixToDim * ((double) (riSrc->y[i]));
 
-		rho = fabs(x_in) * stg.dWork / (1e-3 * xchg->stgwzskcamera.f * sin(alpha) + fabs(x_in) * cos(alpha));
+		rho = fabs(x_in) * shrdat.dWork / (1e-3 * xchg->stgwzskcamera.f * sin(alpha) + fabs(x_in) * cos(alpha));
 
 		x = rho * cos(alpha);
 		y = rho * rNotL * sin(alpha);
-		z = y_in / (1e-3 * xchg->stgwzskcamera.f) * (stg.dWork - rho * cos(alpha));
+		z = y_in / (1e-3 * xchg->stgwzskcamera.f) * (shrdat.dWork - rho * cos(alpha));
 
 		phi = shrdat.theta * M_PI / 180.0;
 
-		ri->rNotL.push_back(rNotL < 0.0);
+		ri->rNotL.push_back(alpha == alphaRight);
 		ri->x.push_back(x * cos(phi) - y * sin(phi));
 		ri->y.push_back(x * sin(phi) + y * cos(phi));
 		ri->z.push_back(z);

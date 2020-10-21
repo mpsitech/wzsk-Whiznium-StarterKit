@@ -2,8 +2,8 @@
 	* \file JobWzskIprCorner.h
 	* job handler for job JobWzskIprCorner (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef JOBWZSKIPRCORNER_H
@@ -221,8 +221,8 @@ public:
 private:
 	bool handleTest(DbsWzsk* dbswzsk);
 
-	void handleTimerInSgePrcidle(DbsWzsk* dbswzsk, const std::string& sref);
 	void handleTimerWithSrefSrcstopInSgeDone(DbsWzsk* dbswzsk);
+	void handleTimerInSgePrcidle(DbsWzsk* dbswzsk, const std::string& sref);
 
 public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);

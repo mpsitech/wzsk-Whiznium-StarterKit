@@ -2,8 +2,8 @@
   * \file PnlWzskOgrSup1NObjgroup.java
   * Java API code for job PnlWzskOgrSup1NObjgroup
   * \author Catherine Johnson
-  * \date created: 13 Oct 2020
-  * \date modified: 13 Oct 2020
+  * \date created: 18 Oct 2020
+  * \date modified: 18 Oct 2020
   */
 
 package apiwzsk;

@@ -2,8 +2,8 @@
 	* \file WzskcmbdUasrv.cpp
 	* OPC UA server based on Matrikon FLEX OPC UA SDK for Wzsk combined daemon (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #include "Wzskcmbd.h"
@@ -213,12 +213,19 @@ void WzskcmbdUasrv::Session::Initialise(
 
 			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDeltaTheta", ixAcc);
 			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDeltaTheta")] = ixAcc;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDWork", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDWork")] = ixAcc;
 
 			ixVFeatgroups[statshr.jrefAcqptcloud] = VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR;
 			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "deltaTheta", ixAcc);
 			if (ixAcc != 0) {
 				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "deltaTheta")] = ixAcc;
 				xchg->addClstnUasrv(statshr.jrefAcqptcloud, "deltaTheta", true);
+			};
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "dWork", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "dWork")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefAcqptcloud, "dWork", true);
 			};
 			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "xYZ", ixAcc);
 			if (ixAcc != 0) {
@@ -860,6 +867,30 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 
 				result->StatusCode() = OpcUa_Good;
 			};
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD) && (srefIxVMethod == "setDWork")) {
+			if (requestParameters->InputArguments().Size() == 1) {
+				IntrusivePtr_t<const Float_t> dWork_inv_UA;
+				float dWork_inv;
+
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), dWork_inv_UA);
+				dWork_inv = dWork_inv_UA->Value();
+
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDWork",
+							{&dWork_inv},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
 		};
 
 	} else {
@@ -1285,6 +1316,22 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 				IntrusivePtr_t<Float_t> deltaTheta = new SafeRefCount_t<Float_t>();
 				*deltaTheta = JobWzskAcqPtcloud::shrdat.deltaTheta;
 				dataValue->Value() = deltaTheta;
+			};
+
+			JobWzskAcqPtcloud::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR) && (srefIxVVar == "dWork")) {
+			JobWzskAcqPtcloud::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "dWork") {
+				IntrusivePtr_t<Float_t> dWork = new SafeRefCount_t<Float_t>();
+				*dWork = JobWzskAcqPtcloud::shrdat.dWork;
+				dataValue->Value() = dWork;
 			};
 
 			JobWzskAcqPtcloud::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
@@ -1859,10 +1906,23 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 
 	fAS_addMethod(VecWzskVJob::JOBWZSKACQPTCLOUD, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD , "setDeltaTheta", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
 
+	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
+	srefsParsInv[0] = "dWork"; opcUaIdsParsInv[0] = OpcUaId_Float;
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
+	fAS_addMethod(VecWzskVJob::JOBWZSKACQPTCLOUD, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD , "setDWork", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
 	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
 	srefsSubvars[0] = "deltaTheta"; icsVVartypeSubvars[0] = VecVVartype::FLOAT;
 
 	fAS_addVar(VecWzskVJob::JOBWZSKACQPTCLOUD, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR , "deltaTheta", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
+	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
+	srefsSubvars[0] = "dWork"; icsVVartypeSubvars[0] = VecVVartype::FLOAT;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKACQPTCLOUD, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR , "dWork", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
 	srefsSubvars.resize(3); icsVVartypeSubvars.resize(3);
 	srefsSubvars[0] = "x"; icsVVartypeSubvars[0] = VecVVartype::FLOATVEC;

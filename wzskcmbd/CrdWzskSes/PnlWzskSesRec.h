@@ -2,8 +2,8 @@
 	* \file PnlWzskSesRec.h
 	* job handler for job PnlWzskSesRec (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef PNLWZSKSESREC_H

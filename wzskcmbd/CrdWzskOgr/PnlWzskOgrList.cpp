@@ -2,8 +2,8 @@
 	* \file PnlWzskOgrList.cpp
 	* job handler for job PnlWzskOgrList (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -246,7 +246,7 @@ void PnlWzskOgrList::handleDpchAppDataContiac(
 	diffitems = _contiac->diff(&contiac);
 
 	if (has(diffitems, ContIac::NUMFTOS)) {
-		if ((_contiac->numFTos >= QryWzskOgrList::VecVOrd::SUP) && (_contiac->numFTos <= QryWzskOgrList::VecVOrd::SRF)) {
+		if ((_contiac->numFTos >= QryWzskOgrList::VecVOrd::SUP) && (_contiac->numFTos <= QryWzskOgrList::VecVOrd::TIT)) {
 			muteRefresh = true;
 
 			xchg->addIxPreset(VecWzskVPreset::PREWZSKIXORD, jref, _contiac->numFTos);

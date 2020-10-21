@@ -2,8 +2,8 @@
 	* \file PnlWzskLiv2DView.cpp
 	* API code for job PnlWzskLiv2DView (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #include "PnlWzskLiv2DView.h"
@@ -71,6 +71,7 @@ PnlWzskLiv2DView::ContIac::ContIac(
 			, const bool ChkLro
 			, const int UpdPnt
 			, const bool ChkPro
+			, const double SldCwd
 		) :
 			Block()
 		{
@@ -84,8 +85,9 @@ PnlWzskLiv2DView::ContIac::ContIac(
 	this->ChkLro = ChkLro;
 	this->UpdPnt = UpdPnt;
 	this->ChkPro = ChkPro;
+	this->SldCwd = SldCwd;
 
-	mask = {NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO};
+	mask = {NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO, SLDCWD};
 };
 
 bool PnlWzskLiv2DView::ContIac::readXML(
@@ -115,6 +117,7 @@ bool PnlWzskLiv2DView::ContIac::readXML(
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "ChkLro", ChkLro)) add(CHKLRO);
 		if (extractIntAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "UpdPnt", UpdPnt)) add(UPDPNT);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "ChkPro", ChkPro)) add(CHKPRO);
+		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "SldCwd", SldCwd)) add(SLDCWD);
 	};
 
 	return basefound;
@@ -142,6 +145,7 @@ void PnlWzskLiv2DView::ContIac::writeXML(
 		writeBoolAttr(wr, itemtag, "sref", "ChkLro", ChkLro);
 		writeIntAttr(wr, itemtag, "sref", "UpdPnt", UpdPnt);
 		writeBoolAttr(wr, itemtag, "sref", "ChkPro", ChkPro);
+		writeDoubleAttr(wr, itemtag, "sref", "SldCwd", SldCwd);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -160,6 +164,7 @@ set<uint> PnlWzskLiv2DView::ContIac::comm(
 	if (ChkLro == comp->ChkLro) insert(items, CHKLRO);
 	if (UpdPnt == comp->UpdPnt) insert(items, UPDPNT);
 	if (ChkPro == comp->ChkPro) insert(items, CHKPRO);
+	if (compareDouble(SldCwd, comp->SldCwd) < 1.0e-4) insert(items, SLDCWD);
 
 	return(items);
 };
@@ -172,7 +177,7 @@ set<uint> PnlWzskLiv2DView::ContIac::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO};
+	diffitems = {NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO, SLDCWD};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -522,6 +527,9 @@ PnlWzskLiv2DView::StatShr::StatShr(
 			, const int UpdLmdMax
 			, const int UpdPntMin
 			, const int UpdPntMax
+			, const double SldCwdMin
+			, const double SldCwdMax
+			, const double SldCwdRast
 		) :
 			Block()
 		{
@@ -551,8 +559,11 @@ PnlWzskLiv2DView::StatShr::StatShr(
 	this->UpdLmdMax = UpdLmdMax;
 	this->UpdPntMin = UpdPntMin;
 	this->UpdPntMax = UpdPntMax;
+	this->SldCwdMin = SldCwdMin;
+	this->SldCwdMax = SldCwdMax;
+	this->SldCwdRast = SldCwdRast;
 
-	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX};
+	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX, SLDCWDMIN, SLDCWDMAX, SLDCWDRAST};
 };
 
 bool PnlWzskLiv2DView::StatShr::readXML(
@@ -603,6 +614,9 @@ bool PnlWzskLiv2DView::StatShr::readXML(
 		if (extractIntAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "UpdLmdMax", UpdLmdMax)) add(UPDLMDMAX);
 		if (extractIntAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "UpdPntMin", UpdPntMin)) add(UPDPNTMIN);
 		if (extractIntAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "UpdPntMax", UpdPntMax)) add(UPDPNTMAX);
+		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "SldCwdMin", SldCwdMin)) add(SLDCWDMIN);
+		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "SldCwdMax", SldCwdMax)) add(SLDCWDMAX);
+		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "SldCwdRast", SldCwdRast)) add(SLDCWDRAST);
 	};
 
 	return basefound;
@@ -639,6 +653,9 @@ set<uint> PnlWzskLiv2DView::StatShr::comm(
 	if (UpdLmdMax == comp->UpdLmdMax) insert(items, UPDLMDMAX);
 	if (UpdPntMin == comp->UpdPntMin) insert(items, UPDPNTMIN);
 	if (UpdPntMax == comp->UpdPntMax) insert(items, UPDPNTMAX);
+	if (compareDouble(SldCwdMin, comp->SldCwdMin) < 1.0e-4) insert(items, SLDCWDMIN);
+	if (compareDouble(SldCwdMax, comp->SldCwdMax) < 1.0e-4) insert(items, SLDCWDMAX);
+	if (compareDouble(SldCwdRast, comp->SldCwdRast) < 1.0e-4) insert(items, SLDCWDRAST);
 
 	return(items);
 };
@@ -651,7 +668,7 @@ set<uint> PnlWzskLiv2DView::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX};
+	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX, SLDCWDMIN, SLDCWDMAX, SLDCWDRAST};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -687,6 +704,8 @@ PnlWzskLiv2DView::Tag::Tag(
 			, const string& CptPro
 			, const string& ButPic
 			, const string& ButPcl
+			, const string& HdgCld
+			, const string& CptCwd
 		) :
 			Block()
 		{
@@ -715,8 +734,10 @@ PnlWzskLiv2DView::Tag::Tag(
 	this->CptPro = CptPro;
 	this->ButPic = ButPic;
 	this->ButPcl = ButPcl;
+	this->HdgCld = HdgCld;
+	this->CptCwd = CptCwd;
 
-	mask = {CPT, CPTPVM, CPTAEX, CPTEXT, CPTFCS, CPTOAF, BUTSTS, HDGTTB, BUTTCC, BUTTCW, HDGLOR, BUTLLE, BUTLRI, CPTLLO, CPTLUO, CPTLMD, CPTLGL, CPTLRO, BUTLTR, BUTLCL, HDGPOS, CPTPNT, CPTPRO, BUTPIC, BUTPCL};
+	mask = {CPT, CPTPVM, CPTAEX, CPTEXT, CPTFCS, CPTOAF, BUTSTS, HDGTTB, BUTTCC, BUTTCW, HDGLOR, BUTLLE, BUTLRI, CPTLLO, CPTLUO, CPTLMD, CPTLGL, CPTLRO, BUTLTR, BUTLCL, HDGPOS, CPTPNT, CPTPRO, BUTPIC, BUTPCL, HDGCLD, CPTCWD};
 };
 
 bool PnlWzskLiv2DView::Tag::readXML(
@@ -761,6 +782,8 @@ bool PnlWzskLiv2DView::Tag::readXML(
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptPro", CptPro)) add(CPTPRO);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "ButPic", ButPic)) add(BUTPIC);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "ButPcl", ButPcl)) add(BUTPCL);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "HdgCld", HdgCld)) add(HDGCLD);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptCwd", CptCwd)) add(CPTCWD);
 	};
 
 	return basefound;

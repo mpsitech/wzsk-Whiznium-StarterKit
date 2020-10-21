@@ -2,8 +2,8 @@
   * \file PnlWzskLiv2DView.java
   * Java API code for job PnlWzskLiv2DView
   * \author Catherine Johnson
-  * \date created: 13 Oct 2020
-  * \date modified: 13 Oct 2020
+  * \date created: 18 Oct 2020
+  * \date modified: 18 Oct 2020
   */
 
 package apiwzsk;
@@ -88,6 +88,7 @@ public class PnlWzskLiv2DView {
 		public static final int CHKLRO = 8;
 		public static final int UPDPNT = 9;
 		public static final int CHKPRO = 10;
+		public static final int SLDCWD = 11;
 
 		public ContIac(
 					int numFPupPvm
@@ -100,6 +101,7 @@ public class PnlWzskLiv2DView {
 					, boolean ChkLro
 					, int UpdPnt
 					, boolean ChkPro
+					, double SldCwd
 				) {
 			this.numFPupPvm = numFPupPvm;
 			this.ChkAex = ChkAex;
@@ -111,8 +113,9 @@ public class PnlWzskLiv2DView {
 			this.ChkLro = ChkLro;
 			this.UpdPnt = UpdPnt;
 			this.ChkPro = ChkPro;
+			this.SldCwd = SldCwd;
 
-			mask = new HashSet<Integer>(Arrays.asList(NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO));
+			mask = new HashSet<Integer>(Arrays.asList(NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO, SLDCWD));
 		};
 
 		public int numFPupPvm;
@@ -125,6 +128,7 @@ public class PnlWzskLiv2DView {
 		public boolean ChkLro;
 		public int UpdPnt;
 		public boolean ChkPro;
+		public double SldCwd;
 
 		public boolean readXML(
 					Document doc
@@ -149,6 +153,7 @@ public class PnlWzskLiv2DView {
 				ChkLro = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ChkLro", mask, CHKLRO);
 				UpdPnt = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "UpdPnt", mask, UPDPNT);
 				ChkPro = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "ChkPro", mask, CHKPRO);
+				SldCwd = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "SldCwd", mask, SLDCWD);
 
 				return true;
 			};
@@ -184,6 +189,7 @@ public class PnlWzskLiv2DView {
 			Xmlio.writeBooleanAttr(doc, el, itemtag, "sref", "ChkLro", ChkLro);
 			Xmlio.writeIntegerAttr(doc, el, itemtag, "sref", "UpdPnt", UpdPnt);
 			Xmlio.writeBooleanAttr(doc, el, itemtag, "sref", "ChkPro", ChkPro);
+			Xmlio.writeDoubleAttr(doc, el, itemtag, "sref", "SldCwd", SldCwd);
 		};
 
 		public HashSet<Integer> comm(
@@ -201,6 +207,7 @@ public class PnlWzskLiv2DView {
 			if (ChkLro == comp.ChkLro) items.add(CHKLRO);
 			if (UpdPnt == comp.UpdPnt) items.add(UPDPNT);
 			if (ChkPro == comp.ChkPro) items.add(CHKPRO);
+			if (Xmlio.compareDouble(SldCwd, comp.SldCwd) < 1.0e-4) items.add(SLDCWD);
 
 			return(items);
 		};
@@ -213,7 +220,7 @@ public class PnlWzskLiv2DView {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO));
+			diffitems = new HashSet<Integer>(Arrays.asList(NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO, SLDCWD));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -626,6 +633,9 @@ public class PnlWzskLiv2DView {
 		public static final int UPDLMDMAX = 24;
 		public static final int UPDPNTMIN = 25;
 		public static final int UPDPNTMAX = 26;
+		public static final int SLDCWDMIN = 27;
+		public static final int SLDCWDMAX = 28;
+		public static final int SLDCWDRAST = 29;
 
 		public StatShr(
 					int ixWzskVExpstate
@@ -654,6 +664,9 @@ public class PnlWzskLiv2DView {
 					, int UpdLmdMax
 					, int UpdPntMin
 					, int UpdPntMax
+					, double SldCwdMin
+					, double SldCwdMax
+					, double SldCwdRast
 				) {
 			this.ixWzskVExpstate = ixWzskVExpstate;
 			this.ButClaimActive = ButClaimActive;
@@ -681,8 +694,11 @@ public class PnlWzskLiv2DView {
 			this.UpdLmdMax = UpdLmdMax;
 			this.UpdPntMin = UpdPntMin;
 			this.UpdPntMax = UpdPntMax;
+			this.SldCwdMin = SldCwdMin;
+			this.SldCwdMax = SldCwdMax;
+			this.SldCwdRast = SldCwdRast;
 
-			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX));
+			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX, SLDCWDMIN, SLDCWDMAX, SLDCWDRAST));
 		};
 
 		public int ixWzskVExpstate;
@@ -711,6 +727,9 @@ public class PnlWzskLiv2DView {
 		public int UpdLmdMax;
 		public int UpdPntMin;
 		public int UpdPntMax;
+		public double SldCwdMin;
+		public double SldCwdMax;
+		public double SldCwdRast;
 
 		public boolean readXML(
 					Document doc
@@ -753,6 +772,9 @@ public class PnlWzskLiv2DView {
 				UpdLmdMax = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Si", "sref", "UpdLmdMax", mask, UPDLMDMAX);
 				UpdPntMin = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Si", "sref", "UpdPntMin", mask, UPDPNTMIN);
 				UpdPntMax = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Si", "sref", "UpdPntMax", mask, UPDPNTMAX);
+				SldCwdMin = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldCwdMin", mask, SLDCWDMIN);
+				SldCwdMax = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldCwdMax", mask, SLDCWDMAX);
+				SldCwdRast = Xmlio.extractDoubleAttrUclc(doc, basexpath, itemtag, "Si", "sref", "SldCwdRast", mask, SLDCWDRAST);
 
 				return true;
 			};
@@ -791,6 +813,9 @@ public class PnlWzskLiv2DView {
 			if (UpdLmdMax == comp.UpdLmdMax) items.add(UPDLMDMAX);
 			if (UpdPntMin == comp.UpdPntMin) items.add(UPDPNTMIN);
 			if (UpdPntMax == comp.UpdPntMax) items.add(UPDPNTMAX);
+			if (Xmlio.compareDouble(SldCwdMin, comp.SldCwdMin) < 1.0e-4) items.add(SLDCWDMIN);
+			if (Xmlio.compareDouble(SldCwdMax, comp.SldCwdMax) < 1.0e-4) items.add(SLDCWDMAX);
+			if (Xmlio.compareDouble(SldCwdRast, comp.SldCwdRast) < 1.0e-4) items.add(SLDCWDRAST);
 
 			return(items);
 		};
@@ -803,7 +828,7 @@ public class PnlWzskLiv2DView {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX));
+			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX, SLDCWDMIN, SLDCWDMAX, SLDCWDRAST));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -841,6 +866,8 @@ public class PnlWzskLiv2DView {
 		public static final int CPTPRO = 23;
 		public static final int BUTPIC = 24;
 		public static final int BUTPCL = 25;
+		public static final int HDGCLD = 26;
+		public static final int CPTCWD = 27;
 
 		public Tag(
 					String Cpt
@@ -868,6 +895,8 @@ public class PnlWzskLiv2DView {
 					, String CptPro
 					, String ButPic
 					, String ButPcl
+					, String HdgCld
+					, String CptCwd
 				) {
 			this.Cpt = Cpt;
 			this.CptPvm = CptPvm;
@@ -894,8 +923,10 @@ public class PnlWzskLiv2DView {
 			this.CptPro = CptPro;
 			this.ButPic = ButPic;
 			this.ButPcl = ButPcl;
+			this.HdgCld = HdgCld;
+			this.CptCwd = CptCwd;
 
-			mask = new HashSet<Integer>(Arrays.asList(CPT, CPTPVM, CPTAEX, CPTEXT, CPTFCS, CPTOAF, BUTSTS, HDGTTB, BUTTCC, BUTTCW, HDGLOR, BUTLLE, BUTLRI, CPTLLO, CPTLUO, CPTLMD, CPTLGL, CPTLRO, BUTLTR, BUTLCL, HDGPOS, CPTPNT, CPTPRO, BUTPIC, BUTPCL));
+			mask = new HashSet<Integer>(Arrays.asList(CPT, CPTPVM, CPTAEX, CPTEXT, CPTFCS, CPTOAF, BUTSTS, HDGTTB, BUTTCC, BUTTCW, HDGLOR, BUTLLE, BUTLRI, CPTLLO, CPTLUO, CPTLMD, CPTLGL, CPTLRO, BUTLTR, BUTLCL, HDGPOS, CPTPNT, CPTPRO, BUTPIC, BUTPCL, HDGCLD, CPTCWD));
 		};
 
 		public String Cpt;
@@ -923,6 +954,8 @@ public class PnlWzskLiv2DView {
 		public String CptPro;
 		public String ButPic;
 		public String ButPcl;
+		public String HdgCld;
+		public String CptCwd;
 
 		public boolean readXML(
 					Document doc
@@ -962,6 +995,8 @@ public class PnlWzskLiv2DView {
 				CptPro = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptPro", mask, CPTPRO);
 				ButPic = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButPic", mask, BUTPIC);
 				ButPcl = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "ButPcl", mask, BUTPCL);
+				HdgCld = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "HdgCld", mask, HDGCLD);
+				CptCwd = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "CptCwd", mask, CPTCWD);
 
 				return true;
 			};
@@ -999,6 +1034,8 @@ public class PnlWzskLiv2DView {
 			if (CptPro.equals(comp.CptPro)) items.add(CPTPRO);
 			if (ButPic.equals(comp.ButPic)) items.add(BUTPIC);
 			if (ButPcl.equals(comp.ButPcl)) items.add(BUTPCL);
+			if (HdgCld.equals(comp.HdgCld)) items.add(HDGCLD);
+			if (CptCwd.equals(comp.CptCwd)) items.add(CPTCWD);
 
 			return(items);
 		};
@@ -1011,7 +1048,7 @@ public class PnlWzskLiv2DView {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(CPT, CPTPVM, CPTAEX, CPTEXT, CPTFCS, CPTOAF, BUTSTS, HDGTTB, BUTTCC, BUTTCW, HDGLOR, BUTLLE, BUTLRI, CPTLLO, CPTLUO, CPTLMD, CPTLGL, CPTLRO, BUTLTR, BUTLCL, HDGPOS, CPTPNT, CPTPRO, BUTPIC, BUTPCL));
+			diffitems = new HashSet<Integer>(Arrays.asList(CPT, CPTPVM, CPTAEX, CPTEXT, CPTFCS, CPTOAF, BUTSTS, HDGTTB, BUTTCC, BUTTCW, HDGLOR, BUTLLE, BUTLRI, CPTLLO, CPTLUO, CPTLMD, CPTLGL, CPTLRO, BUTLTR, BUTLCL, HDGPOS, CPTPNT, CPTPRO, BUTPIC, BUTPCL, HDGCLD, CPTCWD));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -1257,11 +1294,11 @@ public class PnlWzskLiv2DView {
 		public DpchEngData() {
 			super(VecWzskVDpch.DPCHENGWZSKLIV2DVIEWDATA);
 
-			contiac = new ContIac(0, false, 0.0, 0.0, 0, 0, 0, false, 0, false);
+			contiac = new ContIac(0, false, 0.0, 0.0, 0, 0, 0, false, 0, false, 0.0);
 			continf = new ContInf(false, "", false, false, false, false, false, false);
 			feedFPupPvm = new Feed("FeedFPupPvm");
-			statshr = new StatShr(0, false, false, false, false, false, false, 0.0, 0.0, 0.0, false, 0.0, 0.0, false, false, false, 0, 0, false, 0, 0, false, 0, 0, 0, 0);
-			tag = new Tag("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+			statshr = new StatShr(0, false, false, false, false, false, false, 0.0, 0.0, 0.0, false, 0.0, 0.0, false, false, false, 0, 0, false, 0, 0, false, 0, 0, 0, 0, 0.0, 0.0, 0.0);
+			tag = new Tag("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
 		};
 
 		public ContIac contiac;
@@ -1302,11 +1339,11 @@ public class PnlWzskLiv2DView {
 				if (tag.readXML(doc, basexpath, true)) add(TAG);
 			} else {
 				scrJref = "";
-				contiac = new ContIac(0, false, 0.0, 0.0, 0, 0, 0, false, 0, false);
+				contiac = new ContIac(0, false, 0.0, 0.0, 0, 0, 0, false, 0, false, 0.0);
 				continf = new ContInf(false, "", false, false, false, false, false, false);
 				feedFPupPvm = new Feed("FeedFPupPvm");
-				statshr = new StatShr(0, false, false, false, false, false, false, 0.0, 0.0, 0.0, false, 0.0, 0.0, false, false, false, 0, 0, false, 0, 0, false, 0, 0, 0, 0);
-				tag = new Tag("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+				statshr = new StatShr(0, false, false, false, false, false, false, 0.0, 0.0, 0.0, false, 0.0, 0.0, false, false, false, 0, 0, false, 0, 0, false, 0, 0, 0, 0, 0.0, 0.0, 0.0);
+				tag = new Tag("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
 			};
 		};
 

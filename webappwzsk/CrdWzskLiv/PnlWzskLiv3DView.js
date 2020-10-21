@@ -2,8 +2,8 @@
   * \file PnlWzskLiv3DView.js
   * web client functionality for panel PnlWzskLiv3DView
   * \author Catherine Johnson
-  * \date created: 13 Oct 2020
-  * \date modified: 13 Oct 2020
+  * \date created: 18 Oct 2020
+  * \date modified: 18 Oct 2020
   */
 
 // IP cust --- IBEGIN

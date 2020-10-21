@@ -2,8 +2,8 @@
 	* \file WzskcmbdDdspub.cpp
 	* DDS publisher based on rti DDS Connext for Wzsk combined daemon (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #include "Wzskcmbd.h"
@@ -275,6 +275,23 @@ namespace rti {
 			};
 		};
 
+		template<> void ReplierListener<DdsJobWzskAcqPtcloud::setDWork_req,DdsJobWzskAcqPtcloud::setDWork_reply>::on_request_available(
+					Replier<DdsJobWzskAcqPtcloud::setDWork_req,DdsJobWzskAcqPtcloud::setDWork_reply>& replier
+				) {
+			auto requests = replier.receive_requests(dds::core::Duration());
+			DdsJobWzskAcqPtcloud::setDWork_reply reply;
+
+			for (const auto& request: requests) {
+				if (!request.info().valid()) continue;
+
+				WzskcmbdDdspub::runMethod(WzskcmbdDdspub::statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDWork",
+							{&request.data().dWork()},
+							{&reply.success()});
+
+				replier.send_reply(reply, request.info());
+			};
+		};
+
 	};
 };
 
@@ -303,6 +320,7 @@ WzskcmbdDdspub::Repliers::Repliers() {
 	replierJobWzskActExposure_setFocus = NULL;
 
 	replierJobWzskAcqPtcloud_setDeltaTheta = NULL;
+	replierJobWzskAcqPtcloud_setDWork = NULL;
 };
 
 WzskcmbdDdspub::Repliers::~Repliers() {
@@ -326,6 +344,7 @@ WzskcmbdDdspub::Repliers::~Repliers() {
 	if (replierJobWzskActExposure_setFocus) delete replierJobWzskActExposure_setFocus;
 
 	if (replierJobWzskAcqPtcloud_setDeltaTheta) delete replierJobWzskAcqPtcloud_setDeltaTheta;
+	if (replierJobWzskAcqPtcloud_setDWork) delete replierJobWzskAcqPtcloud_setDWork;
 };
 
 /******************************************************************************
@@ -388,6 +407,10 @@ WzskcmbdDdspub::DataWriters::DataWriters() {
 	topicJobWzskAcqPtcloud_deltaTheta = NULL;
 	writerJobWzskAcqPtcloud_deltaTheta = NULL;
 	JobWzskAcqPtcloud_deltaTheta = NULL;
+
+	topicJobWzskAcqPtcloud_dWork = NULL;
+	writerJobWzskAcqPtcloud_dWork = NULL;
+	JobWzskAcqPtcloud_dWork = NULL;
 
 	topicJobWzskAcqPtcloud_xYZ = NULL;
 	writerJobWzskAcqPtcloud_xYZ = NULL;
@@ -472,6 +495,11 @@ WzskcmbdDdspub::DataWriters::~DataWriters() {
 		delete topicJobWzskAcqPtcloud_deltaTheta;
 		delete writerJobWzskAcqPtcloud_deltaTheta;
 		delete JobWzskAcqPtcloud_deltaTheta;
+	};
+	if (topicJobWzskAcqPtcloud_dWork) {
+		delete topicJobWzskAcqPtcloud_dWork;
+		delete writerJobWzskAcqPtcloud_dWork;
+		delete JobWzskAcqPtcloud_dWork;
 	};
 	if (topicJobWzskAcqPtcloud_xYZ) {
 		delete topicJobWzskAcqPtcloud_xYZ;
@@ -645,6 +673,11 @@ void* WzskcmbdDdspub::run(
 			params.service_name("JobWzskAcqPtcloud.setDeltaTheta");
 			repliers.replierJobWzskAcqPtcloud_setDeltaTheta = new rti::request::Replier<DdsJobWzskAcqPtcloud::setDeltaTheta_req,DdsJobWzskAcqPtcloud::setDeltaTheta_reply>(params);
 		};
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDWork", ixAcc);
+		if ((ixAcc & VecWzskWAccess::EXEC) == VecWzskWAccess::EXEC) {
+			params.service_name("JobWzskAcqPtcloud.setDWork");
+			repliers.replierJobWzskAcqPtcloud_setDWork = new rti::request::Replier<DdsJobWzskAcqPtcloud::setDWork_req,DdsJobWzskAcqPtcloud::setDWork_reply>(params);
+		};
 	};
 
 	// - register call listeners for each variable with view (read) access
@@ -772,6 +805,14 @@ void* WzskcmbdDdspub::run(
 			dataWriters.writerJobWzskAcqPtcloud_deltaTheta = new dds::pub::DataWriter<DdsJobWzskAcqPtcloud::deltaTheta>(dds::pub::Publisher(participant), *dataWriters.topicJobWzskAcqPtcloud_deltaTheta);
 
 			xchg->addClstnDdspub(statshr.jrefAcqptcloud, "deltaTheta", true);
+		};
+		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "dWork", ixAcc);
+		if ((ixAcc & VecWzskWAccess::VIEW) == VecWzskWAccess::VIEW) {
+			dataWriters.JobWzskAcqPtcloud_dWork = new DdsJobWzskAcqPtcloud::dWork();
+			dataWriters.topicJobWzskAcqPtcloud_dWork = new dds::topic::Topic<DdsJobWzskAcqPtcloud::dWork>(participant, "JobWzskAcqPtcloud.dWork");
+			dataWriters.writerJobWzskAcqPtcloud_dWork = new dds::pub::DataWriter<DdsJobWzskAcqPtcloud::dWork>(dds::pub::Publisher(participant), *dataWriters.topicJobWzskAcqPtcloud_dWork);
+
+			xchg->addClstnDdspub(statshr.jrefAcqptcloud, "dWork", true);
 		};
 		xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqptcloud, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "xYZ", ixAcc);
 		if ((ixAcc & VecWzskWAccess::VIEW) == VecWzskWAccess::VIEW) {
@@ -918,6 +959,12 @@ void* WzskcmbdDdspub::run(
 			JobWzskAcqPtcloud::shrdat.runlockAccess("WzskcmbdDdspub", "run");
 
 			dataWriters.writerJobWzskAcqPtcloud_deltaTheta->write(*(dataWriters.JobWzskAcqPtcloud_deltaTheta));
+		} else if ((xchg->ddspubcall->jref == statshr.jrefAcqptcloud) && (xchg->ddspubcall->argInv.sref == "dWork")) {
+			JobWzskAcqPtcloud::shrdat.rlockAccess("WzskcmbdDdspub", "run");
+			dataWriters.JobWzskAcqPtcloud_dWork->_dWork(JobWzskAcqPtcloud::shrdat.dWork);
+			JobWzskAcqPtcloud::shrdat.runlockAccess("WzskcmbdDdspub", "run");
+
+			dataWriters.writerJobWzskAcqPtcloud_dWork->write(*(dataWriters.JobWzskAcqPtcloud_dWork));
 		} else if ((xchg->ddspubcall->jref == statshr.jrefAcqptcloud) && (xchg->ddspubcall->argInv.sref == "xYZ")) {
 			JobWzskAcqPtcloud::shrdat.rlockAccess("WzskcmbdDdspub", "run");
 			dataWriters.JobWzskAcqPtcloud_xYZ->x(JobWzskAcqPtcloud::shrdat.x);

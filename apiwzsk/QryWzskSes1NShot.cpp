@@ -2,8 +2,8 @@
 	* \file QryWzskSes1NShot.cpp
 	* API code for job QryWzskSes1NShot (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #include "QryWzskSes1NShot.h"

@@ -2,8 +2,8 @@
 	* \file DlgWzskNavLoaini.h
 	* job handler for job DlgWzskNavLoaini (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef DLGWZSKNAVLOAINI_H
@@ -411,9 +411,9 @@ public:
 	};
 
 	bool evalButDneActive(DbsWzsk* dbswzsk);
-	bool evalLfiDldActive(DbsWzsk* dbswzsk);
 	bool evalImpButRunActive(DbsWzsk* dbswzsk);
 	bool evalImpButStoActive(DbsWzsk* dbswzsk);
+	bool evalLfiDldActive(DbsWzsk* dbswzsk);
 	bool evalIfiUldActive(DbsWzsk* dbswzsk);
 
 public:

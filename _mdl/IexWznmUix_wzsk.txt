@@ -237,6 +237,18 @@
 			- ins	enus	Clear														
 			- ins	dech	Zur\u00fccksetzen														
 			- ImeIJMControlTitle2.end																
+		- ins	49	sep	0	cont	void		0	shr	Sep6	void							
+		- ins	50	hdg	0	cont	void		0	app	HdgCld	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	Point cloud														
+			- ins	dech	Punktewolke														
+			- ImeIJMControlTitle2.end																
+		- ins	51	sld	0	cont	void		0	shr	SldCwd	void							rast
+		- ins	52	cpt	0	cont	void		51	app	CptCwd	void							
+			- ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title														
+			- ins	enus	working distance [m]														
+			- ins	dech	Arbeitsentfernung [m]														
+			- ImeIJMControlTitle2.end																
 		- ImeIMControl2.end																	
 	- ins	form	2	PnlWzskLiv3DView	false														
 		- ImeICControl2.iref																	

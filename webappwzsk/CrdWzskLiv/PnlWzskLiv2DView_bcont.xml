@@ -62,6 +62,19 @@
 			function handleChkProChange() {parent.parent.window.handleChkChange(document,"ChkPro");};
 			function handleButPicClick() {parent.parent.window.handleButClick("ButPic");};
 			function handleButPclClick() {parent.parent.window.handleButPclClick();};
+			function handleSldCwdJpleftMov() {parent.parent.window.handleSldJpleftMov(document,"SldCwd");};
+			function handleSldCwdJpleftMou() {parent.parent.window.handleSldJpleftMou(document,"SldCwd");};
+			function handleSldCwdJpleftClick(evt) {parent.parent.window.handleSldJpleftClick(document,"SldCwd",true,false,true,evt);};
+			function handleSldCwdJprightMov() {parent.parent.window.handleSldJprightMov(document,"SldCwd");};
+			function handleSldCwdJprightMou() {parent.parent.window.handleSldJprightMou(document,"SldCwd");};
+			function handleSldCwdJprightClick(evt) {parent.parent.window.handleSldJprightClick(document,"SldCwd",true,false,true,evt);};
+			function handleSldCwdMov() {parent.parent.window.handleSldMov(document,"SldCwd");};
+			function handleSldCwdMou() {parent.parent.window.handleSldMou(document,"SldCwd");};
+			function handleSldCwdMdn() {parent.parent.window.handleSldMdn(document,"SldCwd");};
+			function handleSldCwdMove(evt) {parent.parent.window.handleSldMove(document,"SldCwd",true,false,true,evt);};
+			function handleSldCwdMup() {parent.parent.window.handleSldMup(document,"SldCwd",true);};
+			function handleSldCwdValKey(evt) {return parent.parent.window.handleSldValKey(document,"SldCwd",true,false,true,evt);};
+			function handleSldCwdValChange() {parent.parent.window.handleSldValChange(document,"SldCwd",true,false,true);};
 			<!-- IP custScript - INSERT -->
 		</script>
 		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
@@ -433,6 +446,51 @@
 					<td colspan="2"></td>
 					<td colspan="8" align="left">
 						<span id="ButPcl" class="but" onclick="handleButPclClick()">ButPcl</span>
+					</td>
+				</tr>
+				<tr id="tr61" class="show"><td colspan="11" height="3"></td></tr>
+				<tr id="tr62" class="show">
+					<td height="1"></td>
+					<td colspan="10" bgcolor="#7f7f7f"></td>
+				</tr>
+				<tr id="tr63" class="show"><td colspan="11" height="3"></td></tr>
+				<tr id="trCld" class="show">
+					<td height="25"></td>
+					<td colspan="2"></td>
+					<td colspan="8" align="left">
+						<span id="HdgCld" class="cpt">HdgCld</span>&#160;&#160;
+					</td>
+				</tr>
+				<tr id="trCwd" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptCwd" class="cpt">CptCwd</span>
+					</td>
+					<td></td>
+					<td id="tdSldCwd" colspan="5">
+						<svg class="svg" width="340" height="25" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<line class="sldlinact" x1="0" y1="12.5" x2="5" y2="12.5"/>
+							<line class="sldlinact" x1="335" y1="12.5" x2="340" y2="12.5"/>
+							<g id="SldCwdJpleft" class="sld" onmouseover="handleSldCwdJpleftMov()" onmouseout="handleSldCwdJpleftMou()" onclick="handleSldCwdJpleftClick(event)">
+								<rect id="SldCwdJpleftr" class="sldr" x="5" y="2" width="165" height="18"/>
+								<line id="SldCwdJpleftl" class="sldl" x1="5" y1="12.5" x2="167.5" y2="12.5"/>
+							</g>
+							<g id="SldCwdJpright" class="sld" onmouseover="handleSldCwdJprightMov()" onmouseout="handleSldCwdJprightMou()" onclick="handleSldCwdJprightClick(event)">
+								<rect id="SldCwdJprightr" class="sldr" x="170" y="2" width="165" height="18"/>
+								<line id="SldCwdJprightl" class="sldl" x1="172.5" y1="12.5" x2="335" y2="12.5"/>
+							</g>
+							<g id="SldCwd" class="sld" transform="translate(170 0)" onmouseover="handleSldCwdMov()" onmouseout="handleSldCwdMou()" onmousedown="handleSldCwdMdn()">
+								<rect id="SldCwdR" class="sldr" x="-3" y="2" width="6" height="21"/>
+								<g id="SldCwdBar" class="sldl">
+									<line x1="-2" y1="2" x2="-2" y2="23"/>
+									<line x1="2" y1="2" x2="2" y2="23"/>
+								</g>
+							</g>
+						</svg>
+					</td>
+					<td></td>
+					<td colspan="2" align="left">
+						<input id="SldCwdVal" class="txfxs" type="text" value="SldCwdVal" onchange="handleSldCwdValChange()" onkeypress="return handleSldCwdValKey(event)"/>
 					</td>
 				</tr>
 				<tr><td colspan="11" height="4"></td></tr>

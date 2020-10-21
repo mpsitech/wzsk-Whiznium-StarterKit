@@ -2,8 +2,8 @@
 	* \file ApiWzsk_blks.h
 	* Wzsk API library global data blocks (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef APIWZSK_BLKS_H

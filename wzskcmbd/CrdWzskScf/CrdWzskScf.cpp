@@ -2,8 +2,8 @@
 	* \file CrdWzskScf.cpp
 	* job handler for job CrdWzskScf (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -43,9 +43,9 @@ CrdWzskScf::CrdWzskScf(
 	pnlheadbar = NULL;
 	pnlgeom = NULL;
 	pnlconn = NULL;
-	dlglaserpos = NULL;
-	dlgttablecoord = NULL;
 	dlgcameramat = NULL;
+	dlgttablecoord = NULL;
+	dlglaserpos = NULL;
 
 	// IP constructor.cust1 --- INSERT
 

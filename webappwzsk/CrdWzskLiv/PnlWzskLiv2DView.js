@@ -2,8 +2,8 @@
   * \file PnlWzskLiv2DView.js
   * web client functionality for panel PnlWzskLiv2DView
   * \author Catherine Johnson
-  * \date created: 13 Oct 2020
-  * \date modified: 13 Oct 2020
+  * \date created: 18 Oct 2020
+  * \date modified: 18 Oct 2020
   */
 
 // IP cust --- IBEGIN
@@ -344,6 +344,8 @@ function initBD(bNotD) {
 	initCpt(contcontdoc, "CptPro", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptPro"));
 	initBut(contcontdoc, "ButPic", retrieveTi(srcdoc, "TagWzskLiv2DView", "ButPic"));
 	initBut(contcontdoc, "ButPcl", retrieveTi(srcdoc, "TagWzskLiv2DView", "ButPcl"));
+	initCpt(contcontdoc, "HdgCld", retrieveTi(srcdoc, "TagWzskLiv2DView", "HdgCld"));
+	initCpt(contcontdoc, "CptCwd", retrieveTi(srcdoc, "TagWzskLiv2DView", "CptCwd"));
 	// IP initBD --- END
 
 	refreshBD(bNotD);
@@ -367,7 +369,7 @@ function refreshA() {
 function refreshBD(bNotD) {
 	if (!contcontdoc) return;
 
-	var height = 1004; // full cont height
+	var height = 1061; // full cont height
 
 	// IP refreshBD.vars --- BEGIN
 	var ButClaimActive = (retrieveSi(srcdoc, "StatShrWzskLiv2DView", "ButClaimActive") == "true");
@@ -462,6 +464,8 @@ function refreshBD(bNotD) {
 	else imgdoc.getElementById("roiCorner").setAttribute("display", "none");
 
 	refreshBut(contcontdoc, "ButPic", true, retrieveCi(srcdoc, "ContInfWzskLiv2DView", "ButPicOn") == "true");
+
+	refreshSld(contcontdoc, "SldCwd", true, false, parseFloat(retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldCwdMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskLiv2DView", "SldCwdMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskLiv2DView", "SldCwd")), true, false);
 	// IP refreshBD --- REND
 
 	getCrdwnd().changeHeight("2DView", height+31);
@@ -950,26 +954,11 @@ function handleDpchEng(dom, dpch) {
 		} else {
 			refresh();
 		};
-	} else if (dpch == "DpchEngWzskLiv2DViewAlign") {
-		handleDpchEngWzskLiv2DViewAlign(dom);
 	} else if (dpch == "DpchEngWzskLiv2DViewLive") {
 		handleDpchEngWzskLiv2DViewLive(dom);
+	} else if (dpch == "DpchEngWzskLiv2DViewAlign") {
+		handleDpchEngWzskLiv2DViewAlign(dom);
 	};
-};
-
-function handleDpchEngWzskLiv2DViewAlign(dom) {
-	// IP handleDpchEngWzskLiv2DViewAlign --- IBEGIN
-	var mask = [];
-
-	if (updateSrcblock(dom, "DpchEngWzskLiv2DViewAlign", "ContIacWzskLiv2DViewCorner", srcdoc)) mask.push("contiaccorner");
-	if (updateSrcblock(dom, "DpchEngWzskLiv2DViewAlign", "ContIacWzskLiv2DViewTrace", srcdoc)) mask.push("contiactrace");
-
-	//var srefIxWzskVExpstate = retrieveSi(srcdoc, "StatShrWzskLiv2DView", "srefIxWzskVExpstate");
-	//if (srefIxWzskVExpstate == "regd") {
-		if (mask.indexOf("contiaccorner") != -1) refreshRoi(false);
-		if (mask.indexOf("contiactrace") != -1) refreshRoi(true);
-	//};
-	// IP handleDpchEngWzskLiv2DViewAlign --- IEND
 };
 
 function handleDpchEngWzskLiv2DViewLive(dom) {
@@ -1048,6 +1037,21 @@ function handleDpchEngWzskLiv2DViewLive(dom) {
 	// IP handleDpchEngWzskLiv2DViewLive --- IEND
 };
 
+function handleDpchEngWzskLiv2DViewAlign(dom) {
+	// IP handleDpchEngWzskLiv2DViewAlign --- IBEGIN
+	var mask = [];
+
+	if (updateSrcblock(dom, "DpchEngWzskLiv2DViewAlign", "ContIacWzskLiv2DViewCorner", srcdoc)) mask.push("contiaccorner");
+	if (updateSrcblock(dom, "DpchEngWzskLiv2DViewAlign", "ContIacWzskLiv2DViewTrace", srcdoc)) mask.push("contiactrace");
+
+	//var srefIxWzskVExpstate = retrieveSi(srcdoc, "StatShrWzskLiv2DView", "srefIxWzskVExpstate");
+	//if (srefIxWzskVExpstate == "regd") {
+		if (mask.indexOf("contiaccorner") != -1) refreshRoi(false);
+		if (mask.indexOf("contiactrace") != -1) refreshRoi(true);
+	//};
+	// IP handleDpchEngWzskLiv2DViewAlign --- IEND
+};
+
 function handleDpchAppInitReply() {
 	var dom, blk;
 
@@ -1097,10 +1101,10 @@ function handleDpchAppDataDoReply() {
 				} else {
 					refresh();
 				};
-			} else if (blk.nodeName == "DpchEngWzskLiv2DViewAlign") {
-				handleDpchEngWzskLiv2DViewAlign(dom);
 			} else if (blk.nodeName == "DpchEngWzskLiv2DViewLive") {
 				handleDpchEngWzskLiv2DViewLive(dom);
+			} else if (blk.nodeName == "DpchEngWzskLiv2DViewAlign") {
+				handleDpchEngWzskLiv2DViewAlign(dom);
 			};
 		};
 	};

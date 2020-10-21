@@ -13,7 +13,6 @@
 		- 0	var	dLasback	float		0.03		laser origin behind focal plane [m]			
 		- 1	var	dLeft	float		0.2		lhs laser origin to main axis [m]			
 		- 1	var	dRight	float		0.2		rhs laser origin to main axis [m]			
-		- 0	var	dWork	float		0.2		focal plane to turntable center [m]			
 		- ImeIAMBlockItem.end										
 	- ImeIMBlock.end											
 - JobWzskActExposure	true	true	controls camera exposure time and focus									

@@ -2,8 +2,8 @@
 	* \file JobWzskActServo.h
 	* job handler for job JobWzskActServo (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef JOBWZSKACTSERVO_H
@@ -165,8 +165,8 @@ public:
 private:
 	bool handleTest(DbsWzsk* dbswzsk);
 
-	void handleTimerWithSrefMonInSgeMove(DbsWzsk* dbswzsk);
 	void handleTimerWithSrefCallbackInSgeMove(DbsWzsk* dbswzsk);
+	void handleTimerWithSrefMonInSgeMove(DbsWzsk* dbswzsk);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

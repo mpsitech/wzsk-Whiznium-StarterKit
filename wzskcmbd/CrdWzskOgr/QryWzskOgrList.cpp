@@ -2,8 +2,8 @@
 	* \file QryWzskOgrList.cpp
 	* job handler for job QryWzskOgrList (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -161,8 +161,8 @@ void QryWzskOgrList::rerun_orderSQL(
 			, const uint preIxOrd
 		) {
 	if (preIxOrd == VecVOrd::SUP) sqlstr += " ORDER BY TblWzskMObjgroup.supRefWzskMObjgroup ASC";
-	else if (preIxOrd == VecVOrd::TIT) sqlstr += " ORDER BY TblWzskMObjgroup.Title ASC";
 	else if (preIxOrd == VecVOrd::SRF) sqlstr += " ORDER BY TblWzskMObjgroup.sref ASC";
+	else if (preIxOrd == VecVOrd::TIT) sqlstr += " ORDER BY TblWzskMObjgroup.Title ASC";
 };
 
 void QryWzskOgrList::fetch(
@@ -323,27 +323,13 @@ void QryWzskOgrList::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKOGRMOD) {
-		call->abort = handleCallWzskOgrMod(dbswzsk, call->jref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOGRUPD_REFEQ) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKOGRUPD_REFEQ) {
 		call->abort = handleCallWzskOgrUpd_refEq(dbswzsk, call->jref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOGRMOD) {
+		call->abort = handleCallWzskOgrMod(dbswzsk, call->jref);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSTUBCHG) && (call->jref == jref)) {
 		call->abort = handleCallWzskStubChgFromSelf(dbswzsk);
 	};
-};
-
-bool QryWzskOgrList::handleCallWzskOgrMod(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-
-	if ((ixWzskVQrystate == VecWzskVQrystate::UTD) || (ixWzskVQrystate == VecWzskVQrystate::SLM)) {
-		ixWzskVQrystate = VecWzskVQrystate::MNR;
-		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
-	};
-
-	return retval;
 };
 
 bool QryWzskOgrList::handleCallWzskOgrUpd_refEq(
@@ -354,6 +340,20 @@ bool QryWzskOgrList::handleCallWzskOgrUpd_refEq(
 
 	if (ixWzskVQrystate != VecWzskVQrystate::OOD) {
 		ixWzskVQrystate = VecWzskVQrystate::OOD;
+		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
+	};
+
+	return retval;
+};
+
+bool QryWzskOgrList::handleCallWzskOgrMod(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+
+	if ((ixWzskVQrystate == VecWzskVQrystate::UTD) || (ixWzskVQrystate == VecWzskVQrystate::SLM)) {
+		ixWzskVQrystate = VecWzskVQrystate::MNR;
 		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
 	};
 

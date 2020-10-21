@@ -2,8 +2,8 @@
 	* \file JobWzskActServo.cpp
 	* job handler for job JobWzskActServo (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifdef WZSKCMBD
@@ -367,8 +367,8 @@ void JobWzskActServo::handleRequest(
 		};
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
-		if ((req->sref == "mon") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefMonInSgeMove(dbswzsk);
-		else if ((req->sref == "callback") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefCallbackInSgeMove(dbswzsk);
+		if ((req->sref == "callback") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefCallbackInSgeMove(dbswzsk);
+		else if ((req->sref == "mon") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefMonInSgeMove(dbswzsk);
 	};
 };
 
@@ -380,17 +380,17 @@ bool JobWzskActServo::handleTest(
 	return retval;
 };
 
+void JobWzskActServo::handleTimerWithSrefCallbackInSgeMove(
+			DbsWzsk* dbswzsk
+		) {
+	changeStage(dbswzsk, ixVSge);
+};
+
 void JobWzskActServo::handleTimerWithSrefMonInSgeMove(
 			DbsWzsk* dbswzsk
 		) {
 	wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
 	// IP handleTimerWithSrefMonInSgeMove --- INSERT
-	changeStage(dbswzsk, ixVSge);
-};
-
-void JobWzskActServo::handleTimerWithSrefCallbackInSgeMove(
-			DbsWzsk* dbswzsk
-		) {
 	changeStage(dbswzsk, ixVSge);
 };
 
@@ -566,7 +566,7 @@ uint JobWzskActServo::enterSgeMove(
 
 				// switch on in synchronized fashion
 				for (int i = 0; i < Npwm; i++) {
-					if (shrdat.ccwNotCw) root = stg.pathroot + to_string(Npwm - i - 1);
+					if (!shrdat.ccwNotCw) root = stg.pathroot + to_string(Npwm - i - 1);
 					else root = stg.pathroot + to_string(i);
 
 					path = root + "/pwm0/enable";

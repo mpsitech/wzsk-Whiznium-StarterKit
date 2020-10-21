@@ -2,8 +2,8 @@
 	* \file QryWzskShtList.cpp
 	* API code for job QryWzskShtList (implementation)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #include "QryWzskShtList.h"
@@ -21,9 +21,9 @@ uint QryWzskShtList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "ses") return SES;
-	if (s == "obj") return OBJ;
 	if (s == "sta") return STA;
+	if (s == "obj") return OBJ;
+	if (s == "ses") return SES;
 
 	return(0);
 };
@@ -31,9 +31,9 @@ uint QryWzskShtList::VecVOrd::getIx(
 string QryWzskShtList::VecVOrd::getSref(
 			const uint ix
 		) {
-	if (ix == SES) return("ses");
-	if (ix == OBJ) return("obj");
 	if (ix == STA) return("sta");
+	if (ix == OBJ) return("obj");
+	if (ix == SES) return("ses");
 
 	return("");
 };

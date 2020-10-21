@@ -2,8 +2,8 @@
 	* \file QryWzskOgrList.h
 	* job handler for job QryWzskOgrList (declarations)
 	* \author Catherine Johnson
-	* \date created: 13 Oct 2020
-	* \date modified: 13 Oct 2020
+	* \date created: 18 Oct 2020
+	* \date modified: 18 Oct 2020
 	*/
 
 #ifndef QRYWZSKOGRLIST_H
@@ -32,8 +32,8 @@ public:
 
 	public:
 		static const Sbecore::uint SUP = 1;
-		static const Sbecore::uint TIT = 2;
-		static const Sbecore::uint SRF = 3;
+		static const Sbecore::uint SRF = 2;
+		static const Sbecore::uint TIT = 3;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -143,8 +143,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskOgrMod(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskOgrUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskOgrMod(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskStubChgFromSelf(DbsWzsk* dbswzsk);
 
 };
