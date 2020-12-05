@@ -1,10 +1,11 @@
 /**
 	* \file JobWzskAcqFpgaflg.cpp
 	* job handler for job JobWzskAcqFpgaflg (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifdef WZSKCMBD
 	#include <Wzskcmbd.h>
@@ -462,7 +463,7 @@ string JobWzskAcqFpgaflg::getSquawk(
 			else if (ixVSge == VecVSge::RNG) retval = "running";
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			if (ixVSge == VecVSge::IDLE) retval = "inaktiv";
-			else if (ixVSge == VecVSge::RNG) retval = "l\\u00e4uft";
+			else if (ixVSge == VecVSge::RNG) retval = "l\\u008auft";
 		};
 
 	} else {
@@ -671,6 +672,10 @@ bool JobWzskAcqFpgaflg::handleClaim(
 
 	return mod;
 };
+
+
+
+
 
 
 

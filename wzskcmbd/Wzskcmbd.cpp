@@ -1,10 +1,11 @@
 /**
 	* \file Wzskcmbd.cpp
 	* inter-thread exchange object for Wzsk combined daemon (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
-	*/
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
+  */
+// IP header --- ABOVE
 
 #include "Wzskcmbd.h"
 
@@ -1290,16 +1291,16 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrAbt(
 	continf.TxtCpt = StrMod::cap(continf.TxtCpt);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		continf.TxtMsg1 = "Whiznium StarterKit version v0.1.37 released on 18-10-2020";
+		continf.TxtMsg1 = "Whiznium StarterKit version v1.0.0 released on 5-12-2020";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
-		continf.TxtMsg4 = "contributors: Catherine Johnson";
-		continf.TxtMsg6 = "libraries: png 1.6.36 and ezdevwskd 1.0";
+		continf.TxtMsg4 = "contributors: -";
+		continf.TxtMsg6 = "libraries: ezdevwskd 0.1.26 and png 1.6.36";
 		continf.TxtMsg8 = "Whiznium StarterKit is computer vision software which powers MPSI's tabletop 3D laser scanner that represents the primary on-boarding vehicle for Whiznium.";
 	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		continf.TxtMsg1 = "Whiznium StarterKit Version v0.1.37 ver\\u00f6ffentlicht am 18-10-2020";
+		continf.TxtMsg1 = "Whiznium StarterKit Version v1.0.0 ver\\u00f6ffentlicht am 5-12-2020";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
-		continf.TxtMsg4 = "Mitwirkende: Catherine Johnson";
-		continf.TxtMsg6 = "Programmbibliotheken: png 1.6.36 und ezdevwskd 1.0";
+		continf.TxtMsg4 = "Mitwirkende: -";
+		continf.TxtMsg6 = "Programmbibliotheken: ezdevwskd 0.1.26 und png 1.6.36";
 		continf.TxtMsg8 = "Whiznium StarterKit ist Computer-Vision Software, welche MPSI's kompakten 3D-Laserscanner (prim\\u00e4res Onboarding-Werkzeug f\\u00fcr Whiznium) ansteuert.";
 	};
 
@@ -1924,8 +1925,8 @@ void StmgrWzsk::handleCall(
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOBJUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOBJSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOGRUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRSTD);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRHSREF);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKPRSUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKPRSSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSESUPD_REFEQ) {
@@ -2110,8 +2111,12 @@ XchgWzskcmbd::XchgWzskcmbd() :
 			, mLogfile("mLogfile", "XchgWzskcmbd", "XchgWzskcmbd")
 			, cJobprcs("cJobprcs", "XchgWzskcmbd", "XchgWzskcmbd")
 			, cOpprcs("cOpprcs", "XchgWzskcmbd", "XchgWzskcmbd")
+#if defined(SBECORE_DDS)
 			, cDdspub("cDdspub", "XchgWzskcmbd", "XchgWzskcmbd")
+#endif
+#if defined(SBECORE_UA)
 			, cUasrv("cUasrv", "XchgWzskcmbd", "XchgWzskcmbd")
+#endif
 			, mReqs("mReqs", "XchgWzskcmbd", "XchgWzskcmbd")
 			, orefseq("orefseq")
 			, mInvs("mInvs", "XchgWzskcmbd", "XchgWzskcmbd")
@@ -2122,8 +2127,12 @@ XchgWzskcmbd::XchgWzskcmbd() :
 			, jrefseq("jrefseq")
 			, rwmJobs("rwmJobs", "XchgWzskcmbd", "XchgWzskcmbd")
 			, rwmCsjobinfos("rwmCsjobinfos", "XchgWzskcmbd", "XchgWzskcmbd")
+#if defined(SBECORE_DDS)
 			, mDdspubcall("mDdspubcall", "XchgWzskcmbd", "XchgWzskcmbd")
+#endif
+#if defined(SBECORE_UA)
 			, mUasrvcall("mUasrvcall", "XchgWzskcmbd", "XchgWzskcmbd")
+#endif
 			, wrefseq("wrefseq")
 		{
 	// root job
@@ -2147,11 +2156,15 @@ XchgWzskcmbd::XchgWzskcmbd() :
 	csjobinfos[VecWzskVJob::JOBWZSKSRCSYSINFO] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCSYSINFO);
 	csjobinfos[VecWzskVJob::JOBWZSKSRCV4L2] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCV4L2);
 
+#if defined(SBECORE_DDS)
 	// DDS publisher call
 	ddspubcall = NULL;
+#endif
 
+#if defined(SBECORE_UA)
 	// OPC UA server call
 	uasrvcall = NULL;
+#endif
 };
 
 XchgWzskcmbd::~XchgWzskcmbd() {
@@ -2182,7 +2195,7 @@ void XchgWzskcmbd::startMon() {
 	Clstn* clstn = NULL;
 	Preset* preset = NULL;
 
-	mon.start("Whiznium StarterKit v0.1.37", stgwzskpath.monpath);
+	mon.start("Whiznium StarterKit v1.0.0", stgwzskpath.monpath);
 
 	rwmJobs.rlock("XchgWzskcmbd", "startMon");
 	for (auto it = jobs.begin(); it != jobs.end(); it++) {
@@ -2824,6 +2837,7 @@ Clstn* XchgWzskcmbd::addClstnStmgr(
 	return(clstn);
 };
 
+#if defined(SBECORE_DDS)
 Clstn* XchgWzskcmbd::addClstnDdspub(
 			const ubigint jrefTrig
 			, const string& sref
@@ -2852,7 +2866,9 @@ Clstn* XchgWzskcmbd::addClstnDdspub(
 
 	return(clstn);
 };
+#endif
 
+#if defined(SBECORE_UA)
 Clstn* XchgWzskcmbd::addClstnUasrv(
 			const ubigint jrefTrig
 			, const string& sref
@@ -2881,6 +2897,7 @@ Clstn* XchgWzskcmbd::addClstnUasrv(
 
 	return(clstn);
 };
+#endif
 
 Clstn* XchgWzskcmbd::getClstnByCref(
 			const clstnref_t& cref
@@ -3188,6 +3205,7 @@ void XchgWzskcmbd::triggerCall(
 				stmgr->unlockAccess("XchgWzskcmbd", "triggerCall");
 			};
 
+#if defined(SBECORE_DDS)
 		} else if (ixVTarget == Clstn::VecVTarget::DDSPUB) {
 			if (mDdspubcall.trylock("XchgWzskcmbd", "triggerCall", "jref=" + to_string(call->jref))) {
 				cDdspub.lockMutex("XchgWzskcmbd", "triggerCall[1]", "jref=" + to_string(call->jref));
@@ -3203,7 +3221,9 @@ void XchgWzskcmbd::triggerCall(
 
 				mDdspubcall.unlock("XchgWzskcmbd", "triggerCall", "jref=" + to_string(call->jref));
 			};
+#endif
 
+#if defined(SBECORE_UA)
 		} else if (ixVTarget == Clstn::VecVTarget::UASRV) {
 			if (mUasrvcall.trylock("XchgWzskcmbd", "triggerCall", "jref=" + to_string(call->jref))) {
 				cUasrv.lockMutex("XchgWzskcmbd", "triggerCall[1]", "jref=" + to_string(call->jref));
@@ -3218,6 +3238,7 @@ void XchgWzskcmbd::triggerCall(
 
 				mUasrvcall.unlock("XchgWzskcmbd", "triggerCall", "jref=" + to_string(call->jref));
 			};
+#endif
 		};
 
 		if (call->abort) break;
@@ -4247,10 +4268,15 @@ ubigint XchgWzskcmbd::addWakeup(
 		// delayed callback: generate dedicated wait thread
 		WakeupWzsk* wakeup = new WakeupWzsk(this, wref, jref, sref, deltat, weak);
 
-		res = pthread_create(&timer, NULL, &runWakeup, (void*) wakeup);
+		for (unsigned int i = 0; i < 3; i++) {
+			res = pthread_create(&timer, NULL, &runWakeup, (void*) wakeup);
+			if ((res == 0) || (res != EAGAIN)) break;
+		};
 		if (res != 0) cout << "XchgWzskcmbd::addWakeup() error creating timer thread (" << res << ")" << endl;
-		res = pthread_detach(timer);
-		if (res != 0) cout << "XchgWzskcmbd::addWakeup() error detaching timer thread (" << res << ")" << endl;
+		else {
+			res = pthread_detach(timer);
+			if (res != 0) cout << "XchgWzskcmbd::addWakeup() error detaching timer thread (" << res << ")" << endl;
+		};
 	};
 
 	return(wref);

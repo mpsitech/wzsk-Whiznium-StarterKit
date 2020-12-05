@@ -1,10 +1,11 @@
 /**
 	* \file JobWzskIprTrace.h
 	* job handler for job JobWzskIprTrace (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifndef JOBWZSKIPRTRACE_H
 #define JOBWZSKIPRTRACE_H
@@ -245,10 +246,10 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta(DbsWzsk* dbswzsk, const Sbecore::uint ixInv);
-	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(DbsWzsk* dbswzsk);
 	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(DbsWzsk* dbswzsk);
+	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(DbsWzsk* dbswzsk);
 	bool handleCallWzskResultNewFromSrcv4l2(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta(DbsWzsk* dbswzsk, const Sbecore::uint ixInv);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);
@@ -281,6 +282,10 @@ public:
 };
 
 #endif
+
+
+
+
 
 
 

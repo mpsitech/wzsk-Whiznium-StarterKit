@@ -1,919 +1,919 @@
-- IexWznmJtr v0.9.29														
-- ImeIMJob.sref														
-- DlgWzskNavLoaini														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- uld		lock	void					chgsge	prsidle			
-		- ImeIMSensitivity2.end												
-	- immcb	prsidle		parse										
-	- other	parse		prsdone	alrwzskper									
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	parsing initialization data										
-			- dech	lese Initialisierungsdaten ein										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- alr	alrwzskper		idle										
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	parse error										
-			- dech	Fehler beim Einlesen										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	prsdone												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	initialization data parsed										
-			- dech	Initialisierungsdaten eingelesen										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- con		lock	void			ImpButRun		chgsge	impidle			
-		- ImeIMSensitivity2.end												
-	- immcb	impidle		import										
-	- other	import	250000	done	alrwzskier									
-		- ImeIMSquawk.Title	Example											
-		- 	importing initialization data (1234 records added)											
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	importing initialization data (&impcnt; records added)										
-			- dech	importiere Initialisierungsdaten (&impcnt; Datens\u00e4tze hinzugef\u00fcgt)										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- alr	alrwzskier		idle										
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	import error										
-			- dech	Fehler beim Importieren										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	done												
-	- ImeIMStage.end													
-- DlgWzskObjNew														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	srefSnxRefWznmMStage	srefFnxRefWznmMStage	srefEnxRefWznmMStage	Comment							
-	- other	idle												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- con		lock	void			ButCre		chgsge	create			
-		- ImeIMSensitivity2.end												
-	- other	create		done	idle									
-	- other	done												
-	- ImeIMStage.end													
-- DlgWzskOgrNew														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	srefSnxRefWznmMStage	srefFnxRefWznmMStage	srefEnxRefWznmMStage	Comment							
-	- other	idle												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- con		lock	void			ButCre		chgsge	create			
-		- ImeIMSensitivity2.end												
-	- other	create		done	idle									
-	- other	done												
-	- ImeIMStage.end													
-- DlgWzskScfCameramat														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-	- other	done												
-	- ImeIMStage.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskIprCorner	iprcorner	false	cre										
-	- ImeIRMJobMJob.end													
-- DlgWzskScfLaserpos														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-	- other	done												
-	- ImeIMStage.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskActLaser	actlaser	false	cre										
-	- JobWzskIprTrace	iprtrace	false	cre										
-	- ImeIRMJobMJob.end													
-- DlgWzskScfTtablecoord														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-	- other	done												
-	- ImeIMStage.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskActServo	actservo	false	cre										
-	- JobWzskIprAngle	iprangle	false	cre										
-	- JobWzskIprCorner	iprcorner	false	cre										
-	- ImeIRMJobMJob.end													
-- JobWzskAcqFpgaflg														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	idle										
-			- dech	inaktiv										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	rng												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	running										
-			- dech	l\u00e4uft										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- cal	CallWzskCallback	weak	self					cust				
-		- ImeIMSensitivity2.end												
-	- ImeIMStage.end													
-	- ImeIAMJobCmd.sref	Comment												
-	- test													
-	- ImeIAMJobCmd.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskSrcFpga	srcfpga	false	cre										
-	- ImeIRMJobMJob.end													
-- JobWzskAcqFpgapvw														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	idle										
-			- dech	inaktiv										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	rng												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	running										
-			- dech	l\u00e4uft										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- cal	CallWzskCallback	weak	self					cust				
-		- ImeIMSensitivity2.end												
-	- ImeIMStage.end													
-	- ImeIAMJobCmd.sref	Comment												
-	- test													
-	- ImeIAMJobCmd.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskSrcFpga	srcfpga	false	cre										
-	- ImeIRMJobMJob.end													
-- JobWzskAcqPreview														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	idle										
-			- dech	inaktiv										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	ready												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	ready										
-			- dech	bereit										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- cal	CallWzskResultNew	try	spec	acqfpgapvw				chgsge	prcidle			
-		- cal	CallWzskResultNew	try	spec	srcv4l2				chgsge	prcidle			
-		- ImeIMSensitivity2.end												
-	- immcb	prcidle		process										
-	- other	process												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	processing										
-			- dech	Verarbeitung										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- ImeIMStage.end													
-	- ImeIAMJobCmd.sref	Comment												
-	- test													
-	- ImeIAMJobCmd.end													
-	- ImeICAMJobVar.iref													
-	- 1													
-	- ImeICAMJobVar.end													
-	- ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment							
-	- 0	gray	utinyintvec		49152	true	wGrrd/4 * hGrrd/4							
-	- 1	red	utinyintvec		19200	true	wRgb/8 * hRgb/8							
-	- 1	green	utinyintvec		19200	true								
-	- 1	blue	utinyintvec		19200	true								
-	- ImeIAMJobVar.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskAcqFpgapvw	acqfpgapvw	false	cust										
-	- JobWzskSrcV4l2	srcv4l2	false	cust										
-	- ImeIRMJobMJob.end													
-- JobWzskAcqPtcloud														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	idle										
-			- dech	inaktiv										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	ready												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	ready										
-			- dech	bereit										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	acquire					wait for new trace							
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	acquiring										
-			- dech	Aufzeichnung										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- cal	CallWzskResultNew	lock	spec	iprtrace				chgsge	prcidle			
-		- ImeIMSensitivity2.end												
-	- immcb	prcidle		process										
-	- other	process												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	processing										
-			- dech	Verarbeitung										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	turn					wait until target reached							
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	turning										
-			- dech	Drehung										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- cal	CallWzskSgeChg	lock	spec	actservo				cust				
-		- ImeIMSensitivity2.end												
-	- other	save												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	saving										
-			- dech	Speichern										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- ImeIMStage.end													
-	- ImeIAMJobCmd.sref	Comment												
-	- test													
-	- ImeIAMJobCmd.end													
-	- ImeIMMethod.sref	Execsrv	Comment											
-	- setDeltaTheta	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- deltaTheta	float											
-		- ImeIAMMethodInvpar.end												
-	- setDWork	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- dWork	float											
-		- ImeIAMMethodInvpar.end												
-	- ImeIMMethod.end													
-	- ImeICAMJobVar.iref													
-	- 1													
-	- ImeICAMJobVar.end													
-	- ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment							
-	- 0	deltaTheta	float			true								
-	- 0	dWork	float			true	focal plane to turntable center [m]							
-	- 1	x	floatvec		72000	true	space for 72 * 2 * 500 points							
-	- 1	y	floatvec		72000	true								
-	- 1	z	floatvec		72000	true								
-	- ImeIAMJobVar.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskActServo	actservo	false	cre										
-	- JobWzskIprTrace	iprtrace	false	cre										
-	- ImeIRMJobMJob.end													
-- JobWzskActExposure														
-	- ImeIMMethod.sref	Execsrv	Comment											
-	- setExposure	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- autoNotManual	boolean											
-		- Texp	float			in s								
-		- ImeIAMMethodInvpar.end												
-	- setFocus	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- focus	float			0..1								
-		- ImeIAMMethodInvpar.end												
-	- ImeIMMethod.end													
-	- ImeICAMJobVar.iref													
-	- 1													
-	- ImeICAMJobVar.end													
-	- ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment							
-	- 1	autoNotManual	boolean			true								
-	- 1	Texp	float			true								
-	- 0	focus	float			true								
-	- ImeIAMJobVar.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskSrcFpga	srcfpga	false	cust										
-	- JobWzskSrcV4l2	srcv4l2	false	cust										
-	- ImeIRMJobMJob.end													
-- JobWzskActLaser														
-	- ImeIAMJobCmd.sref	Comment												
-	- test													
-	- ImeIAMJobCmd.end													
-	- ImeIMMethod.sref	Execsrv	Comment											
-	- setLeft	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- left	float			0..1								
-		- ImeIAMMethodInvpar.end												
-	- setRight	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- right	float			0..1								
-		- ImeIAMMethodInvpar.end												
-	- ImeIMMethod.end													
-	- ImeICAMJobVar.iref													
-	- 1													
-	- ImeICAMJobVar.end													
-	- ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment							
-	- 1	left	float			true								
-	- 1	right	float			true								
-	- ImeIAMJobVar.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskSrcFpga	srcfpga	false	cust										
-	- ImeIRMJobMJob.end													
-- JobWzskActServo														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	idle										
-			- dech	inaktiv										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- othwc	move	250000											
-		- ImeIMSquawk.Title	Example											
-		- 	moving towards angle 90\u00b0											
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	moving										
-			- dech	Bewegung										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- ImeIMStage.end													
-	- ImeIAMJobCmd.sref	Comment												
-	- test													
-	- ImeIAMJobCmd.end													
-	- ImeIMMethod.sref	Execsrv	Comment											
-	- moveto	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- target	float			in \u00b0								
-		- ImeIAMMethodInvpar.end												
-	- stop	true												
-	- turn	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- ccwNotCw	boolean											
-		- ImeIAMMethodInvpar.end												
-	- zero	true												
-	- ImeIMMethod.end													
-	- ImeICAMJobVar.iref													
-	- 1													
-	- ImeICAMJobVar.end													
-	- ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment							
-	- 1	angle	float			true	in \u00b0							
-	- 1	target	float			true	in \u00b0							
-	- ImeIAMJobVar.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskSrcFpga	srcfpga	false	cust										
-	- ImeIRMJobMJob.end													
-- JobWzskIprAngle														
-	- ImeIAMJobCmd.sref	Comment												
-	- test													
-	- ImeIAMJobCmd.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskIprCorner	iprcorner	false	cre										
-	- ImeIRMJobMJob.end													
-- JobWzskIprCorner														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	idle										
-			- dech	inaktiv										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	ready												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	ready										
-			- dech	bereit										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- cal	CallWzskResultNew	try	spec	acqfpgaflg	sref=corner			chgsge	prcidle			
-		- cal	CallWzskResultNew	try	spec	srcv4l2				chgsge	prcidle			
-		- ImeIMSensitivity2.end												
-	- immcb	prcidle		process										
-	- other	process												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	processing										
-			- dech	Verarbeitung										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	done												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	done										
-			- dech	fertig										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- tmr		lock	void				srcstop	chgsge	idle			
-		- ImeIMSensitivity2.end												
-	- ImeIMStage.end													
-	- ImeIAMJobCmd.sref	Comment												
-	- test													
-	- ImeIAMJobCmd.end													
-	- ImeIMMethod.sref	Execsrv	Comment											
-	- setNTarget	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- NTarget	usmallint											
-		- ImeIAMMethodInvpar.end												
-	- setRoi	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- roiAx	int											
-		- roiAy	int											
-		- roiBx	int											
-		- roiBy	int											
-		- roiCx	int											
-		- roiCy	int											
-		- roiDx	int											
-		- roiDy	int											
-		- ImeIAMMethodInvpar.end												
-	- setRoiNotFull	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- roiNotFull	boolean											
-		- ImeIAMMethodInvpar.end												
-	- ImeIMMethod.end													
-	- ImeICAMJobVar.iref													
-	- 1													
-	- 2													
-	- ImeICAMJobVar.end													
-	- ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment							
-	- 0	NTarget	usmallint			true								
-	- 1	roiAx	int			true								
-	- 1	roiAy	int			true								
-	- 1	roiBx	int			true								
-	- 1	roiBy	int			true								
-	- 1	roiCx	int			true								
-	- 1	roiCy	int			true								
-	- 1	roiDx	int			true								
-	- 1	roiDy	int			true								
-	- 2	flg	booleanvec		786432	true	wGrrd * hGrrd							
-	- 2	shift	utinyint			true								
-	- 2	scoreMin	utinyint			true								
-	- 2	scoreMax	utinyint			true								
-	- ImeIAMJobVar.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskAcqFpgaflg	acqfpgaflg	false	cust										
-	- JobWzskSrcV4l2	srcv4l2	false	cust										
-	- ImeIRMJobMJob.end													
-- JobWzskIprTrace														
-	- ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	srefTimer	srefIxVAction	srefCsgRefWznmMStage	Custcode			
-	- cal	CallWzskResultNew	lock	spec	acqfpgaflg	sref=thddelta			cust					
-	- cal	CallWzskResultNew	try	spec	srcv4l2				cust					
-	- ImeIMSensitivity1.end													
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	idle										
-			- dech	inaktiv										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	ready												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	ready										
-			- dech	bereit										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- immcb	prcidle		process										
-	- other	process												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	processing										
-			- dech	Verarbeitung										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	lefton												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	left line laser on										
-			- dech	linker Linienlaser ein										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- cal	CallWzskWaitsecond	lock	spec	acqfpgaflg				chgsge	leftoff			
-		- ImeIMSensitivity2.end												
-	- other	leftoff												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	left line laser off										
-			- dech	linker Linienlaser aus										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	righton												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	right line laser on										
-			- dech	rechter Linienlaser ein										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- cal	CallWzskWaitsecond	lock	spec	acqfpgaflg				chgsge	rightoff			
-		- ImeIMSensitivity2.end												
-	- other	rightoff												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	right line laser off										
-			- dech	rechter Linienlaser aus										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	done												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	done										
-			- dech	fertig										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-		- ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode		
-		- tmr		lock	void				srcstop	chgsge	idle			
-		- ImeIMSensitivity2.end												
-	- ImeIMStage.end													
-	- ImeIAMJobCmd.sref	Comment												
-	- test													
-	- ImeIAMJobCmd.end													
-	- ImeIMMethod.sref	Execsrv	Comment											
-	- setLevel	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- levelOn	utinyint											
-		- levelOff	utinyint											
-		- ImeIAMMethodInvpar.end												
-	- setRoi	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- roiAx	int											
-		- roiAy	int											
-		- roiBx	int											
-		- roiBy	int											
-		- roiCx	int											
-		- roiCy	int											
-		- roiDx	int											
-		- roiDy	int											
-		- ImeIAMMethodInvpar.end												
-	- setRoiNotFull	true												
-		- ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment								
-		- roiNotFull	boolean											
-		- ImeIAMMethodInvpar.end												
-	- ImeIMMethod.end													
-	- ImeICAMJobVar.iref													
-	- 1													
-	- 2													
-	- 3													
-	- 4													
-	- ImeICAMJobVar.end													
-	- ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment							
-	- 1	pOnLeft	float			true	left line laser intensity in 'on' state							
-	- 1	pOnRight	float			true	right line laser intensity in 'on' state							
-	- 2	levelOn	utinyint			true	lower threshold level for 'on' state							
-	- 2	levelOff	utinyint			true	upper threshold level for 'off' state							
-	- 3	roiAx	int			true								
-	- 3	roiAy	int			true								
-	- 3	roiBx	int			true								
-	- 3	roiBy	int			true								
-	- 3	roiCx	int			true								
-	- 3	roiCy	int			true								
-	- 3	roiDx	int			true								
-	- 3	roiDy	int			true								
-	- 4	left	booleanvec		786432	true	wGrrd * hGrrd							
-	- 4	right	booleanvec		786432	true	wGrrd * hGrrd							
-	- ImeIAMJobVar.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskActLaser	actlaser	false	cre										
-	- JobWzskAcqFpgaflg	acqfpgaflg	false	cust										
-	- JobWzskSrcV4l2	srcv4l2	false	cust										
-	- ImeIRMJobMJob.end													
-- JobWzskSrcFpga														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	nc												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	not connected										
-			- dech	nicht verbunden										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	ready												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	ready										
-			- dech	bereit										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- ImeIMStage.end													
-	- ImeIAMJobCmd.sref	Comment												
-	- startRxtxdump													
-	- stopRxtxdump													
-	- test													
-	- ImeIAMJobCmd.end													
-- JobWzskSrcSysinfo														
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	idle										
-			- dech	inaktiv										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	run	1000000											
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	running										
-			- dech	aktiv										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- ImeIMStage.end													
-	- ImeIAMJobCmd.sref	Comment												
-	- test													
-	- ImeIAMJobCmd.end													
-	- ImeICAMJobVar.iref													
-	- 1													
-	- ImeICAMJobVar.end													
-	- ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment							
-	- 1	loadAll	floatvec		60	true								
-	- 1	loadCore0	floatvec		60	true								
-	- 1	loadCore1	floatvec		60	true								
-	- 1	loadCore2	floatvec		60	true								
-	- 1	loadCore3	floatvec		60	true								
-	- 0	temp	floatvec		60	true								
-	- ImeIAMJobVar.end													
-- JobWzskSrcV4l2														
-	- ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	srefTimer	srefIxVAction	srefCsgRefWznmMStage	Custcode			
-	- cal	CallWzskCallback	weak	self					cust					
-	- ImeIMSensitivity1.end													
-	- ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment							
-	- other	idle												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	idle										
-			- dech	inaktiv										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- other	ready												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	ready										
-			- dech	bereit										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- immcb	cnvidle		convert										
-	- other	convert												
-		- ImeIMSquawk.Title	Example											
-		- 												
-			- ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title										
-			- enus	converting										
-			- dech	Konvertierung										
-			- ImeIJMSquawkTitle.end											
-		- ImeIMSquawk.end												
-	- ImeIMStage.end													
-	- ImeIAMJobCmd.sref	Comment												
-	- test													
-	- ImeIAMJobCmd.end													
-- PnlWzskLiv2DView														
-	- ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment								
-	- ins	cont	app;eng;cmbeng	app;eng;cmbeng	ContIacWzskLiv2DViewCorner									
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- ins	0	var	roiAx	int						0		
-		- ins	0	var	roiAy	int						-200		
-		- ins	0	var	roiBx	int						300		
-		- ins	0	var	roiBy	int						0		
-		- ins	0	var	roiCx	int						0		
-		- ins	0	var	roiCy	int						200		
-		- ins	0	var	roiDx	int						-300		
-		- ins	0	var	roiDy	int						0		
-		- ImeIAMBlockItem1.end												
-	- ins	cont	app;eng;cmbeng	app;eng;cmbeng	ContIacWzskLiv2DViewTrace									
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- ins	0	var	roiAx	int						-300		
-		- ins	0	var	roiAy	int						-200		
-		- ins	0	var	roiBx	int						300		
-		- ins	0	var	roiBy	int						-200		
-		- ins	0	var	roiCx	int						300		
-		- ins	0	var	roiCy	int						400		
-		- ins	0	var	roiDx	int						-300		
-		- ins	0	var	roiDy	int						400		
-		- ImeIAMBlockItem1.end												
-	- ins	dpch	eng;cmbeng	app	DpchAppWzskLiv2DViewAlign									
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- ins	0	var	jref	scrref						0		
-		- ins	0	sub	contiaccorner	void					ContIacWzskLiv2DViewCorner			
-		- ins	0	sub	contiactrace	void					ContIacWzskLiv2DViewTrace			
-		- ImeIAMBlockItem1.end												
-	- ins	dpch	app	eng;cmbeng	DpchEngWzskLiv2DViewAlign									
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- ins	0	var	jref	scrref						0		
-		- ins	0	sub	contiaccorner	void					ContIacWzskLiv2DViewCorner			
-		- ins	0	sub	contiactrace	void					ContIacWzskLiv2DViewTrace			
-		- ImeIAMBlockItem1.end												
-	- ins	dpch	app	eng;cmbeng	DpchEngWzskLiv2DViewLive									
-		- ImeICAMBlockItem1.iref												
-		- 1												
-		- 2												
-		- 3												
-		- 4												
-		- ImeICAMBlockItem1.end												
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- ins	0	var	jref	scrref						0		
-		- ins	0	var	gray	utinyintvec								
-		- ins	1	var	red	utinyintvec								
-		- ins	1	var	green	utinyintvec								
-		- ins	1	var	blue	utinyintvec								
-		- ins	2	var	xCorner	intvec								
-		- ins	2	var	yCorner	intvec								
-		- ins	3	var	xTraceL	intvec								
-		- ins	3	var	yTraceL	intvec								
-		- ins	4	var	xTraceR	intvec								
-		- ins	4	var	yTraceR	intvec								
-		- ImeIAMBlockItem1.end												
-	- retr				StatShrWzskLiv2DView									
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- retrupd	0		SldExtMin							0.001		
-		- retrupd	0		SldExtMax							100.0		
-		- retrupd	0		SldExtRast							1.77828		
-		- retrupd	0		UpdLloMin							0		
-		- retrupd	0		UpdLloMax							255		
-		- retrupd	0		UpdLuoMin							0		
-		- retrupd	0		UpdLuoMax							255		
-		- retrupd	0		UpdLmdMin							0		
-		- retrupd	0		UpdLmdMax							255		
-		- retrupd	0		UpdPntMin							0		
-		- retrupd	0		UpdPntMax							1000		
-		- retrupd	0		SldCwdMin							0.2		
-		- retrupd	0		SldCwdMax							0.38		
-		- retrupd	0		SldCwdRast							0.005		
-		- ImeIAMBlockItem1.end												
-	- ImeIMBlock1.end													
-	- ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode			
-	- cal	CallWzskClaimChg	weak	imm					cust					
-	- cal	CallWzskResultNew	try	imm					cust					
-	- cal	CallWzskShrdatChg	weak	spec	acqptcloud				cust					
-	- cal	CallWzskShrdatChg	weak	spec	actexposure				cust					
-	- cal	CallWzskShrdatChg	weak	spec	actlaser				cust					
-	- cal	CallWzskShrdatChg	weak	spec	iprcorner				cust					
-	- cal	CallWzskShrdatChg	weak	spec	iprtrace				cust					
-	- cal	CallWzskSgeChg	weak	spec	actservo				cust					
-	- cal	CallWzskStgChg	weak	imm					cust					
-	- ImeIMSensitivity1.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskAcqPreview	acqpreview	false	cre										
-	- JobWzskAcqPtcloud	acqptcloud	false	cre										
-	- JobWzskActExposure	actexposure	false	cre										
-	- JobWzskActLaser	actlaser	false	cre										
-	- JobWzskActServo	actservo	false	cre										
-	- JobWzskIprCorner	iprcorner	false	cre										
-	- JobWzskIprTrace	iprtrace	false	cre										
-	- ImeIRMJobMJob.end													
-- PnlWzskLiv3DView														
-	- ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment								
-	- ins	dpch	app	eng;cmbeng	DpchEngWzskLiv3DViewLive									
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- ins	0	var	jref	scrref						0		
-		- ins	0	var	rNotL	booleanvec								
-		- ins	0	var	x	floatvec								
-		- ins	0	var	y	floatvec								
-		- ins	0	var	z	floatvec								
-		- ImeIAMBlockItem1.end												
-	- retr				StatShrWzskLiv3DView									
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- retrupd	0		SldAinMin							3.0		
-		- retrupd	0		SldAinMax							60.0		
-		- retrupd	0		SldAinRast							0.5		
-		- ImeIAMBlockItem1.end												
-	- ImeIMBlock1.end													
-	- ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode			
-	- cal	CallWzskClaimChg	weak	imm					cust					
-	- cal	CallWzskResultNew	try	imm					cust					
-	- cal	CallWzskShrdatChg	weak	imm					cust					
-	- cal	CallWzskSgeChg	weak	imm					cust					
-	- ImeIMSensitivity1.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskAcqPtcloud	acqptcloud	false	cre										
-	- ImeIRMJobMJob.end													
-- PnlWzskLivSysmon														
-	- ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment								
-	- ins	dpch	app	eng;cmbeng	DpchEngWzskLivSysmonLive									
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- ins	0	var	jref	scrref						0		
-		- ins	0	var	ts	floatvec								
-		- ins	0	var	cldtots	floatvec								
-		- ins	0	var	cld1s	floatvec								
-		- ins	0	var	cld2s	floatvec								
-		- ins	0	var	cld3s	floatvec								
-		- ins	0	var	cld4s	floatvec								
-		- ImeIAMBlockItem1.end												
-	- ImeIMBlock1.end													
-	- ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode			
-	- cal	CallWzskShrdatChg	weak	spec	srcsysinfo				cust					
-	- ImeIMSensitivity1.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskSrcSysinfo	srcsysinfo	false	cre										
-	- ImeIRMJobMJob.end													
-- PnlWzskLlvCamera														
-	- ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment								
-	- ins	dpch	app	eng;cmbeng	DpchEngWzskLlvCameraLive									
-		- ImeICAMBlockItem1.iref												
-		- 1												
-		- ImeICAMBlockItem1.end												
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- ins	0	var	jref	scrref						0		
-		- ins	0	var	gray	utinyintvec								
-		- ins	1	var	red	utinyintvec								
-		- ins	1	var	green	utinyintvec								
-		- ins	1	var	blue	utinyintvec								
-		- ImeIAMBlockItem1.end												
-	- retr				StatShrWzskLlvCamera									
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- retrupd	0		SldExtMin							0.001		
-		- retrupd	0		SldExtMax							100.0		
-		- retrupd	0		SldExtRast							1.77828		
-		- ImeIAMBlockItem1.end												
-	- ImeIMBlock1.end													
-	- ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode			
-	- cal	CallWzskClaimChg	weak	imm					cust					
-	- cal	CallWzskResultNew	try	spec	acqpreview				cust					
-	- cal	CallWzskShrdatChg	try	spec	actexposure				cust					
-	- ImeIMSensitivity1.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskAcqPreview	acqpreview	false	cre										
-	- JobWzskActExposure	actexposure	false	cre										
-	- ImeIRMJobMJob.end													
-- PnlWzskLlvLaser														
-	- ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment								
-	- retr				StatShrWzskLlvLaser									
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- retrupd	0		SldLleMin							0		
-		- retrupd	0		SldLleMax							100		
-		- retrupd	0		SldLriMin							0		
-		- retrupd	0		SldLriMax							100		
-		- ImeIAMBlockItem1.end												
-	- ImeIMBlock1.end													
-	- ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode			
-	- cal	CallWzskClaimChg	weak	imm					cust					
-	- cal	CallWzskShrdatChg	try	imm					cust					
-	- ImeIMSensitivity1.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskActLaser	actlaser	false	cre										
-	- ImeIRMJobMJob.end													
-- PnlWzskLlvTerm														
-	- ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode			
-	- cal	CallWzskClaimChg	weak	spec	srcfpga				cust					
-	- ImeIMSensitivity1.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskSrcFpga	srcfpga	false	cre										
-	- ImeIRMJobMJob.end													
-- PnlWzskLlvTtable														
-	- ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment								
-	- retr				StatShrWzskLlvTtable									
-		- ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		- retrupd	0		SldTrgMin							0		
-		- retrupd	0		SldTrgMax							360		
-		- ImeIAMBlockItem1.end												
-	- ImeIMBlock1.end													
-	- ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode			
-	- cal	CallWzskClaimChg	weak	imm					cust					
-	- cal	CallWzskShrdatChg	try	imm					cust					
-	- ImeIMSensitivity1.end													
-	- ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract										
-	- JobWzskActServo	actservo	false	cre										
-	- ImeIRMJobMJob.end													
-- RootWzsk														
-	- ImeIAMJobCmd.sref	Comment												
-	- test													
-	- ImeIAMJobCmd.end													
-- ImeIMJob.end														
-- ImeIMCall.srefIxVBasetype	srefsInvIxWznmWArgtype	srefsRetIxWznmWArgtype	sref	Comment										
-- evt	ix;sref		CallWzskCallback											
-- evt	ix;sref		CallWzskResultNew											
-- evt			CallWzskWaitsecond											
-- ImeIMCall.end														
+IexWznmJtr v0.9.29
+ImeIMJob.sref
+DlgWzskNavLoaini
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		uld		lock	void					chgsge	prsidle
+		ImeIMSensitivity2.end
+	immcb	prsidle		parse
+	other	parse		prsdone	alrwzskper
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	parsing initialization data
+			dech	lese Initialisierungsdaten ein
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	alr	alrwzskper		idle
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	parse error
+			dech	Fehler beim Einlesen
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	prsdone
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	initialization data parsed
+			dech	Initialisierungsdaten eingelesen
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		con		lock	void			ImpButRun		chgsge	impidle
+		ImeIMSensitivity2.end
+	immcb	impidle		import
+	other	import	250000	done	alrwzskier
+		ImeIMSquawk.Title	Example
+			importing initialization data (1234 records added)
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	importing initialization data (&impcnt; records added)
+			dech	importiere Initialisierungsdaten (&impcnt; Datens\u00e4tze hinzugef\u00fcgt)
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	alr	alrwzskier		idle
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	import error
+			dech	Fehler beim Importieren
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	done
+	ImeIMStage.end
+DlgWzskObjNew
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	srefSnxRefWznmMStage	srefFnxRefWznmMStage	srefEnxRefWznmMStage	Comment
+	other	idle
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		con		lock	void			ButCre		chgsge	create
+		ImeIMSensitivity2.end
+	other	create		done	idle
+	other	done
+	ImeIMStage.end
+DlgWzskOgrNew
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	srefSnxRefWznmMStage	srefFnxRefWznmMStage	srefEnxRefWznmMStage	Comment
+	other	idle
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		con		lock	void			ButCre		chgsge	create
+		ImeIMSensitivity2.end
+	other	create		done	idle
+	other	done
+	ImeIMStage.end
+DlgWzskScfCameramat
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+	other	done
+	ImeIMStage.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskIprCorner	iprcorner	false	cre
+	ImeIRMJobMJob.end
+DlgWzskScfLaserpos
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+	other	done
+	ImeIMStage.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskActLaser	actlaser	false	cre
+	JobWzskIprTrace	iprtrace	false	cre
+	ImeIRMJobMJob.end
+DlgWzskScfTtablecoord
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+	other	done
+	ImeIMStage.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskActServo	actservo	false	cre
+	JobWzskIprAngle	iprangle	false	cre
+	JobWzskIprCorner	iprcorner	false	cre
+	ImeIRMJobMJob.end
+JobWzskAcqFpgaflg
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	idle
+			dech	inaktiv
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	rng
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	running
+			dech	l\u008auft
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		cal	CallWzskCallback	weak	self					cust
+		ImeIMSensitivity2.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	test
+	ImeIAMJobCmd.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskSrcFpga	srcfpga	false	cre
+	ImeIRMJobMJob.end
+JobWzskAcqFpgapvw
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	idle
+			dech	inaktiv
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	rng
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	running
+			dech	l\u008auft
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		cal	CallWzskCallback	weak	self					cust
+		ImeIMSensitivity2.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	test
+	ImeIAMJobCmd.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskSrcFpga	srcfpga	false	cre
+	ImeIRMJobMJob.end
+JobWzskAcqPreview
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	idle
+			dech	inaktiv
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	ready
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	ready
+			dech	bereit
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		cal	CallWzskResultNew	try	spec	acqfpgapvw				chgsge	prcidle
+		cal	CallWzskResultNew	try	spec	srcv4l2				chgsge	prcidle
+		ImeIMSensitivity2.end
+	immcb	prcidle		process
+	other	process
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	processing
+			dech	Verarbeitung
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	test
+	ImeIAMJobCmd.end
+	ImeICAMJobVar.iref
+	1
+	ImeICAMJobVar.end
+	ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment
+	0	gray	utinyintvec		49152	true	wGrrd/4 * hGrrd/4
+	1	red	utinyintvec		19200	true	wRgb/8 * hRgb/8
+	1	green	utinyintvec		19200	true
+	1	blue	utinyintvec		19200	true
+	ImeIAMJobVar.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskAcqFpgapvw	acqfpgapvw	false	cust
+	JobWzskSrcV4l2	srcv4l2	false	cust
+	ImeIRMJobMJob.end
+JobWzskAcqPtcloud
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	idle
+			dech	inaktiv
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	ready
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	ready
+			dech	bereit
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	acquire					wait for new trace
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	acquiring
+			dech	Aufzeichnung
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		cal	CallWzskResultNew	lock	spec	iprtrace				chgsge	prcidle
+		ImeIMSensitivity2.end
+	immcb	prcidle		process
+	other	process
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	processing
+			dech	Verarbeitung
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	turn					wait until target reached
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	turning
+			dech	Drehung
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		cal	CallWzskSgeChg	lock	spec	actservo				cust
+		ImeIMSensitivity2.end
+	other	save
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	saving
+			dech	Speichern
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	test
+	ImeIAMJobCmd.end
+	ImeIMMethod.sref	Execsrv	Comment
+	setDeltaTheta	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		deltaTheta	float
+		ImeIAMMethodInvpar.end
+	setDWork	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		dWork	float
+		ImeIAMMethodInvpar.end
+	ImeIMMethod.end
+	ImeICAMJobVar.iref
+	1
+	ImeICAMJobVar.end
+	ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment
+	0	deltaTheta	float			true
+	0	dWork	float			true	focal plane to turntable center [m]
+	1	x	floatvec		72000	true	space for 72 * 2 * 500 points
+	1	y	floatvec		72000	true
+	1	z	floatvec		72000	true
+	ImeIAMJobVar.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskActServo	actservo	false	cre
+	JobWzskIprTrace	iprtrace	false	cre
+	ImeIRMJobMJob.end
+JobWzskActExposure
+	ImeIMMethod.sref	Execsrv	Comment
+	setExposure	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		autoNotManual	boolean
+		Texp	float			in s
+		ImeIAMMethodInvpar.end
+	setFocus	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		focus	float			0..1
+		ImeIAMMethodInvpar.end
+	ImeIMMethod.end
+	ImeICAMJobVar.iref
+	1
+	ImeICAMJobVar.end
+	ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment
+	1	autoNotManual	boolean			true
+	1	Texp	float			true
+	0	focus	float			true
+	ImeIAMJobVar.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskSrcFpga	srcfpga	false	cust
+	JobWzskSrcV4l2	srcv4l2	false	cust
+	ImeIRMJobMJob.end
+JobWzskActLaser
+	ImeIAMJobCmd.sref	Comment
+	test
+	ImeIAMJobCmd.end
+	ImeIMMethod.sref	Execsrv	Comment
+	setLeft	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		left	float			0..1
+		ImeIAMMethodInvpar.end
+	setRight	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		right	float			0..1
+		ImeIAMMethodInvpar.end
+	ImeIMMethod.end
+	ImeICAMJobVar.iref
+	1
+	ImeICAMJobVar.end
+	ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment
+	1	left	float			true
+	1	right	float			true
+	ImeIAMJobVar.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskSrcFpga	srcfpga	false	cust
+	ImeIRMJobMJob.end
+JobWzskActServo
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	idle
+			dech	inaktiv
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	othwc	move	250000
+		ImeIMSquawk.Title	Example
+			moving towards angle 90\u00a1
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	moving
+			dech	Bewegung
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	test
+	ImeIAMJobCmd.end
+	ImeIMMethod.sref	Execsrv	Comment
+	moveto	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		target	float			in \u00a1
+		ImeIAMMethodInvpar.end
+	stop	true
+	turn	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		ccwNotCw	boolean
+		ImeIAMMethodInvpar.end
+	zero	true
+	ImeIMMethod.end
+	ImeICAMJobVar.iref
+	1
+	ImeICAMJobVar.end
+	ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment
+	1	angle	float			true	in \u00a1
+	1	target	float			true	in \u00a1
+	ImeIAMJobVar.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskSrcFpga	srcfpga	false	cust
+	ImeIRMJobMJob.end
+JobWzskIprAngle
+	ImeIAMJobCmd.sref	Comment
+	test
+	ImeIAMJobCmd.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskIprCorner	iprcorner	false	cre
+	ImeIRMJobMJob.end
+JobWzskIprCorner
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	idle
+			dech	inaktiv
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	ready
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	ready
+			dech	bereit
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		cal	CallWzskResultNew	try	spec	acqfpgaflg	sref=corner			chgsge	prcidle
+		cal	CallWzskResultNew	try	spec	srcv4l2				chgsge	prcidle
+		ImeIMSensitivity2.end
+	immcb	prcidle		process
+	other	process
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	processing
+			dech	Verarbeitung
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	done
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	done
+			dech	fertig
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		tmr		lock	void				srcstop	chgsge	idle
+		ImeIMSensitivity2.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	test
+	ImeIAMJobCmd.end
+	ImeIMMethod.sref	Execsrv	Comment
+	setNTarget	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		NTarget	usmallint
+		ImeIAMMethodInvpar.end
+	setRoi	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		roiAx	int
+		roiAy	int
+		roiBx	int
+		roiBy	int
+		roiCx	int
+		roiCy	int
+		roiDx	int
+		roiDy	int
+		ImeIAMMethodInvpar.end
+	setRoiNotFull	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		roiNotFull	boolean
+		ImeIAMMethodInvpar.end
+	ImeIMMethod.end
+	ImeICAMJobVar.iref
+	1
+	2
+	ImeICAMJobVar.end
+	ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment
+	0	NTarget	usmallint			true
+	1	roiAx	int			true
+	1	roiAy	int			true
+	1	roiBx	int			true
+	1	roiBy	int			true
+	1	roiCx	int			true
+	1	roiCy	int			true
+	1	roiDx	int			true
+	1	roiDy	int			true
+	2	flg	booleanvec		786432	true	wGrrd * hGrrd
+	2	shift	utinyint			true
+	2	scoreMin	utinyint			true
+	2	scoreMax	utinyint			true
+	ImeIAMJobVar.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskAcqFpgaflg	acqfpgaflg	false	cust
+	JobWzskSrcV4l2	srcv4l2	false	cust
+	ImeIRMJobMJob.end
+JobWzskIprTrace
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	srefTimer	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskResultNew	lock	spec	acqfpgaflg	sref=thddelta			cust
+	cal	CallWzskResultNew	try	spec	srcv4l2				cust
+	ImeIMSensitivity1.end
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	idle
+			dech	inaktiv
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	ready
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	ready
+			dech	bereit
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	immcb	prcidle		process
+	other	process
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	processing
+			dech	Verarbeitung
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	lefton
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	left line laser on
+			dech	linker Linienlaser ein
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		cal	CallWzskWaitsecond	lock	spec	acqfpgaflg				chgsge	leftoff
+		ImeIMSensitivity2.end
+	other	leftoff
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	left line laser off
+			dech	linker Linienlaser aus
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	righton
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	right line laser on
+			dech	rechter Linienlaser ein
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		cal	CallWzskWaitsecond	lock	spec	acqfpgaflg				chgsge	rightoff
+		ImeIMSensitivity2.end
+	other	rightoff
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	right line laser off
+			dech	rechter Linienlaser aus
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	done
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	done
+			dech	fertig
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		tmr		lock	void				srcstop	chgsge	idle
+		ImeIMSensitivity2.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	test
+	ImeIAMJobCmd.end
+	ImeIMMethod.sref	Execsrv	Comment
+	setLevel	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		levelOn	utinyint
+		levelOff	utinyint
+		ImeIAMMethodInvpar.end
+	setRoi	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		roiAx	int
+		roiAy	int
+		roiBx	int
+		roiBy	int
+		roiCx	int
+		roiCy	int
+		roiDx	int
+		roiDy	int
+		ImeIAMMethodInvpar.end
+	setRoiNotFull	true
+		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
+		roiNotFull	boolean
+		ImeIAMMethodInvpar.end
+	ImeIMMethod.end
+	ImeICAMJobVar.iref
+	1
+	2
+	3
+	4
+	ImeICAMJobVar.end
+	ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment
+	1	pOnLeft	float			true	left line laser intensity in 'on' state
+	1	pOnRight	float			true	right line laser intensity in 'on' state
+	2	levelOn	utinyint			true	lower threshold level for 'on' state
+	2	levelOff	utinyint			true	upper threshold level for 'off' state
+	3	roiAx	int			true
+	3	roiAy	int			true
+	3	roiBx	int			true
+	3	roiBy	int			true
+	3	roiCx	int			true
+	3	roiCy	int			true
+	3	roiDx	int			true
+	3	roiDy	int			true
+	4	left	booleanvec		786432	true	wGrrd * hGrrd
+	4	right	booleanvec		786432	true	wGrrd * hGrrd
+	ImeIAMJobVar.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskActLaser	actlaser	false	cre
+	JobWzskAcqFpgaflg	acqfpgaflg	false	cust
+	JobWzskSrcV4l2	srcv4l2	false	cust
+	ImeIRMJobMJob.end
+JobWzskSrcFpga
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	nc
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	not connected
+			dech	nicht verbunden
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	ready
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	ready
+			dech	bereit
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	startRxtxdump
+	stopRxtxdump
+	test
+	ImeIAMJobCmd.end
+JobWzskSrcSysinfo
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	idle
+			dech	inaktiv
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	run	1000000
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	running
+			dech	aktiv
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	test
+	ImeIAMJobCmd.end
+	ImeICAMJobVar.iref
+	1
+	ImeICAMJobVar.end
+	ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment
+	1	loadAll	floatvec		60	true
+	1	loadCore0	floatvec		60	true
+	1	loadCore1	floatvec		60	true
+	1	loadCore2	floatvec		60	true
+	1	loadCore3	floatvec		60	true
+	0	temp	floatvec		60	true
+	ImeIAMJobVar.end
+JobWzskSrcV4l2
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	srefTimer	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskCallback	weak	self					cust
+	ImeIMSensitivity1.end
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	idle
+			dech	inaktiv
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	ready
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	ready
+			dech	bereit
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	immcb	cnvidle		convert
+	other	convert
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	converting
+			dech	Konvertierung
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	test
+	ImeIAMJobCmd.end
+PnlWzskLiv2DView
+	ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	ins	cont	app;eng;cmbeng	app;eng;cmbeng	ContIacWzskLiv2DViewCorner
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		ins	0	var	roiAx	int						0
+		ins	0	var	roiAy	int						-200
+		ins	0	var	roiBx	int						300
+		ins	0	var	roiBy	int						0
+		ins	0	var	roiCx	int						0
+		ins	0	var	roiCy	int						200
+		ins	0	var	roiDx	int						-300
+		ins	0	var	roiDy	int						0
+		ImeIAMBlockItem1.end
+	ins	cont	app;eng;cmbeng	app;eng;cmbeng	ContIacWzskLiv2DViewTrace
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		ins	0	var	roiAx	int						-300
+		ins	0	var	roiAy	int						-200
+		ins	0	var	roiBx	int						300
+		ins	0	var	roiBy	int						-200
+		ins	0	var	roiCx	int						300
+		ins	0	var	roiCy	int						400
+		ins	0	var	roiDx	int						-300
+		ins	0	var	roiDy	int						400
+		ImeIAMBlockItem1.end
+	ins	dpch	eng;cmbeng	app	DpchAppWzskLiv2DViewAlign
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		ins	0	var	jref	scrref						0
+		ins	0	sub	contiaccorner	void					ContIacWzskLiv2DViewCorner
+		ins	0	sub	contiactrace	void					ContIacWzskLiv2DViewTrace
+		ImeIAMBlockItem1.end
+	ins	dpch	app	eng;cmbeng	DpchEngWzskLiv2DViewAlign
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		ins	0	var	jref	scrref						0
+		ins	0	sub	contiaccorner	void					ContIacWzskLiv2DViewCorner
+		ins	0	sub	contiactrace	void					ContIacWzskLiv2DViewTrace
+		ImeIAMBlockItem1.end
+	ins	dpch	app	eng;cmbeng	DpchEngWzskLiv2DViewLive
+		ImeICAMBlockItem1.iref
+		1
+		2
+		3
+		4
+		ImeICAMBlockItem1.end
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		ins	0	var	jref	scrref						0
+		ins	0	var	gray	utinyintvec
+		ins	1	var	red	utinyintvec
+		ins	1	var	green	utinyintvec
+		ins	1	var	blue	utinyintvec
+		ins	2	var	xCorner	intvec
+		ins	2	var	yCorner	intvec
+		ins	3	var	xTraceL	intvec
+		ins	3	var	yTraceL	intvec
+		ins	4	var	xTraceR	intvec
+		ins	4	var	yTraceR	intvec
+		ImeIAMBlockItem1.end
+	retr				StatShrWzskLiv2DView
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		retrupd	0		SldExtMin							0.001
+		retrupd	0		SldExtMax							100.0
+		retrupd	0		SldExtRast							1.77828
+		retrupd	0		UpdLloMin							0
+		retrupd	0		UpdLloMax							255
+		retrupd	0		UpdLuoMin							0
+		retrupd	0		UpdLuoMax							255
+		retrupd	0		UpdLmdMin							0
+		retrupd	0		UpdLmdMax							255
+		retrupd	0		UpdPntMin							0
+		retrupd	0		UpdPntMax							1000
+		retrupd	0		SldCwdMin							0.2
+		retrupd	0		SldCwdMax							0.38
+		retrupd	0		SldCwdRast							0.005
+		ImeIAMBlockItem1.end
+	ImeIMBlock1.end
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskClaimChg	weak	imm					cust
+	cal	CallWzskResultNew	try	imm					cust
+	cal	CallWzskShrdatChg	weak	spec	acqptcloud				cust
+	cal	CallWzskShrdatChg	weak	spec	actexposure				cust
+	cal	CallWzskShrdatChg	weak	spec	actlaser				cust
+	cal	CallWzskShrdatChg	weak	spec	iprcorner				cust
+	cal	CallWzskShrdatChg	weak	spec	iprtrace				cust
+	cal	CallWzskSgeChg	weak	spec	actservo				cust
+	cal	CallWzskStgChg	weak	imm					cust
+	ImeIMSensitivity1.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskAcqPreview	acqpreview	false	cre
+	JobWzskAcqPtcloud	acqptcloud	false	cre
+	JobWzskActExposure	actexposure	false	cre
+	JobWzskActLaser	actlaser	false	cre
+	JobWzskActServo	actservo	false	cre
+	JobWzskIprCorner	iprcorner	false	cre
+	JobWzskIprTrace	iprtrace	false	cre
+	ImeIRMJobMJob.end
+PnlWzskLiv3DView
+	ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	ins	dpch	app	eng;cmbeng	DpchEngWzskLiv3DViewLive
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		ins	0	var	jref	scrref						0
+		ins	0	var	rNotL	booleanvec
+		ins	0	var	x	floatvec
+		ins	0	var	y	floatvec
+		ins	0	var	z	floatvec
+		ImeIAMBlockItem1.end
+	retr				StatShrWzskLiv3DView
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		retrupd	0		SldAinMin							3.0
+		retrupd	0		SldAinMax							60.0
+		retrupd	0		SldAinRast							0.5
+		ImeIAMBlockItem1.end
+	ImeIMBlock1.end
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskClaimChg	weak	imm					cust
+	cal	CallWzskResultNew	try	imm					cust
+	cal	CallWzskShrdatChg	weak	imm					cust
+	cal	CallWzskSgeChg	weak	imm					cust
+	ImeIMSensitivity1.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskAcqPtcloud	acqptcloud	false	cre
+	ImeIRMJobMJob.end
+PnlWzskLivSysmon
+	ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	ins	dpch	app	eng;cmbeng	DpchEngWzskLivSysmonLive
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		ins	0	var	jref	scrref						0
+		ins	0	var	ts	floatvec
+		ins	0	var	cldtots	floatvec
+		ins	0	var	cld1s	floatvec
+		ins	0	var	cld2s	floatvec
+		ins	0	var	cld3s	floatvec
+		ins	0	var	cld4s	floatvec
+		ImeIAMBlockItem1.end
+	ImeIMBlock1.end
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskShrdatChg	weak	spec	srcsysinfo				cust
+	ImeIMSensitivity1.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskSrcSysinfo	srcsysinfo	false	cre
+	ImeIRMJobMJob.end
+PnlWzskLlvCamera
+	ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	ins	dpch	app	eng;cmbeng	DpchEngWzskLlvCameraLive
+		ImeICAMBlockItem1.iref
+		1
+		ImeICAMBlockItem1.end
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		ins	0	var	jref	scrref						0
+		ins	0	var	gray	utinyintvec
+		ins	1	var	red	utinyintvec
+		ins	1	var	green	utinyintvec
+		ins	1	var	blue	utinyintvec
+		ImeIAMBlockItem1.end
+	retr				StatShrWzskLlvCamera
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		retrupd	0		SldExtMin							0.001
+		retrupd	0		SldExtMax							100.0
+		retrupd	0		SldExtRast							1.77828
+		ImeIAMBlockItem1.end
+	ImeIMBlock1.end
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskClaimChg	weak	imm					cust
+	cal	CallWzskResultNew	try	spec	acqpreview				cust
+	cal	CallWzskShrdatChg	try	spec	actexposure				cust
+	ImeIMSensitivity1.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskAcqPreview	acqpreview	false	cre
+	JobWzskActExposure	actexposure	false	cre
+	ImeIRMJobMJob.end
+PnlWzskLlvLaser
+	ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	retr				StatShrWzskLlvLaser
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		retrupd	0		SldLleMin							0
+		retrupd	0		SldLleMax							100
+		retrupd	0		SldLriMin							0
+		retrupd	0		SldLriMax							100
+		ImeIAMBlockItem1.end
+	ImeIMBlock1.end
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskClaimChg	weak	imm					cust
+	cal	CallWzskShrdatChg	try	imm					cust
+	ImeIMSensitivity1.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskActLaser	actlaser	false	cre
+	ImeIRMJobMJob.end
+PnlWzskLlvTerm
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskClaimChg	weak	spec	srcfpga				cust
+	ImeIMSensitivity1.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskSrcFpga	srcfpga	false	cre
+	ImeIRMJobMJob.end
+PnlWzskLlvTtable
+	ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	retr				StatShrWzskLlvTtable
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		retrupd	0		SldTrgMin							0
+		retrupd	0		SldTrgMax							360
+		ImeIAMBlockItem1.end
+	ImeIMBlock1.end
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskClaimChg	weak	imm					cust
+	cal	CallWzskShrdatChg	try	imm					cust
+	ImeIMSensitivity1.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskActServo	actservo	false	cre
+	ImeIRMJobMJob.end
+RootWzsk
+	ImeIAMJobCmd.sref	Comment
+	test
+	ImeIAMJobCmd.end
+ImeIMJob.end
+ImeIMCall.srefIxVBasetype	srefsInvIxWznmWArgtype	srefsRetIxWznmWArgtype	sref	Comment
+evt	ix;sref		CallWzskCallback
+evt	ix;sref		CallWzskResultNew
+evt			CallWzskWaitsecond
+ImeIMCall.end

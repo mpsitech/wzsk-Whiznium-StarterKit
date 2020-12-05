@@ -1,10 +1,11 @@
 /**
-  * \file ApiWzsk.java
-  * Wzsk Java API package global functionality
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
+	* \file ApiWzsk.java
+	* Wzsk Java API package global functionality
+	* \copyright (C) 2018-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
   */
+// IP header --- ABOVE
 
 package apiwzsk;
 
@@ -22,10 +23,10 @@ import sbecore.*;
 
 public class ApiWzsk {
 
-	public static final String WZSK_VERSION = "0.1.37";
-	public static final int WZSK_VERSION_MAJOR = 0;
-	public static final int WZSK_VERSION_MINOR = 1;
-	public static final int WZSK_VERSION_SUB = 37;
+	public static final String WZSK_VERSION = "1.0.0";
+	public static final int WZSK_VERSION_MAJOR = 1;
+	public static final int WZSK_VERSION_MINOR = 0;
+	public static final int WZSK_VERSION_SUB = 0;
 
 	public static DpchEngWzsk readDpchEng(
 				String s

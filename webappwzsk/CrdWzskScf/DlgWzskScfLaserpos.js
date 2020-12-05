@@ -1,11 +1,3 @@
-/**
-  * \file DlgWzskScfLaserpos.js
-  * web client functionality for dialog DlgWzskScfLaserpos
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 // IP cust --- INSERT
 
 // --- view initialization and refresh

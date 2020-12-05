@@ -1,42 +1,34 @@
-- IexWznmDpl v0.9.14				
-- ImeIMComponent.srefIxVBasetype	sref	Title	Comment	
-- cmbeng	wzskcmbd	Whiznium Starter Kit combined engine		
-	- ImeIMRelease.srefRefWznmMMachine	sref	srefsKOption	Comment
-	- apalis	wzskcmbd_apalis		
-	- arty	wzskcmbd_arty		
-	- linux	wzskcmbd_linux		
-	- mac	wzskcmbd_mac		
-	- ImeIMRelease.end			
-	- ImeIRMComponentMLibrary.srefRefWznmMLibrary			
-	- ezdevwskd			
-	- png			
-	- ImeIRMComponentMLibrary.end			
-- dbs	dbswzsk	Whiznium Starter Kit database access library		
-	- ImeIMRelease.srefRefWznmMMachine	sref	srefsKOption	Comment
-	- apalis	dbswzsk_apalis		
-	- arty	dbswzsk_arty		
-	- linux	dbswzsk_linux		
-	- mac	dbswzsk_mac		
-	- ImeIMRelease.end			
-- webapp	webappwzsk	Whiznium Starter Kit web app user interface files		
-	- ImeIMRelease.srefRefWznmMMachine	sref	srefsKOption	Comment
-	- apalis	webappwzsk_apalis		
-	- arty	webappwzsk_arty		
-	- linux	webappwzsk_linux		
-	- mac	webappwzsk_mac		
-	- ImeIMRelease.end			
-- api	apiwzsk	Whiznium Starter Kit API library		
-	- ImeIMRelease.srefRefWznmMMachine	sref	srefsKOption	Comment
-	- apalis	apiwzsk_apalis		
-	- arty	apiwzsk_arty		
-	- linux	apiwzsk_linux		
-	- mac	apiwzsk_mac		
-	- ImeIMRelease.end			
-- japi	japiwzsk	Whiznium Starter Kit Java API library		
-	- ImeIMRelease.srefRefWznmMMachine	sref	srefsKOption	Comment
-	- apalis	japiwzsk_apalis		
-	- arty	japiwzsk_arty		
-	- linux	japiwzsk_linux		
-	- mac	japiwzsk_mac		
-	- ImeIMRelease.end			
-- ImeIMComponent.end				
+IexWznmDpl v1.0.9
+ImeIMComponent.srefIxVBasetype	sref	Title	Comment
+cmbeng	wzskcmbd	Whiznium Starter Kit combined engine
+	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
+	any;yocto;armv7;plnx	wzskcmbd_plnx
+	any;yocto;riscv64	wzskcmbd_riscv
+	any;yocto;armv7;tdx	wzskcmbd_tdx
+	any;ubuntu	wzskcmbd_ubuntu
+	ImeIMRelease.end
+	ImeIRMComponentMLibrary.srefRefWznmMLibrary
+	ezdevwskd
+	png
+	ImeIRMComponentMLibrary.end
+dbs	dbswzsk	Whiznium Starter Kit database access library
+	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
+	any;yocto;armv7;plnx	dbswzsk_plnx
+	any;yocto;riscv64	dbswzsk_riscv
+	any;yocto;armv7;tdx	dbswzsk_tdx
+	any;ubuntu	dbswzsk_ubuntu
+	ImeIMRelease.end
+webapp	webappwzsk	Whiznium Starter Kit web app user interface files
+	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
+	any	webappwzsk_any
+	ImeIMRelease.end
+api	apiwzsk	Whiznium Starter Kit API library
+	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
+	any;mac	apiwzsk_mac
+	any;ubuntu	apiwzsk_ubuntu
+	ImeIMRelease.end
+japi	japiwzsk	Whiznium Starter Kit Java API library
+	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
+	any	japiwzsk_any
+	ImeIMRelease.end
+ImeIMComponent.end

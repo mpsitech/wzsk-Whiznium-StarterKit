@@ -1,11 +1,3 @@
-/**
-  * \file PnlWzskLivSysmon.js
-  * web client functionality for panel PnlWzskLivSysmon
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 // IP cust --- IBEGIN
 function refreshCusPlt(cusdoc) {
 	if (!getNode(srcdoc, "//wzsk:ts")) return;
@@ -279,6 +271,5 @@ function handleDpchAppDataDoReply() {
 		};
 	};
 };
-
 
 

@@ -1,18 +1,19 @@
 /**
 	* \file Wzsk.h
 	* Wzsk global functionality (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
-	*/
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
+  */
+// IP header --- ABOVE
 
 #ifndef WZSK_H
 #define WZSK_H
 
-#define WZSK_VERSION "0.1.37"
-#define WZSK_VERSION_MAJOR 0
-#define WZSK_VERSION_MINOR 1
-#define WZSK_VERSION_SUB 37
+#define WZSK_VERSION "1.0.0"
+#define WZSK_VERSION_MAJOR 1
+#define WZSK_VERSION_MINOR 0
+#define WZSK_VERSION_SUB 0
 
 // IP include.cust --- INSERT
 
@@ -271,6 +272,10 @@ public:
 };
 
 #endif
+
+
+
+
 
 
 

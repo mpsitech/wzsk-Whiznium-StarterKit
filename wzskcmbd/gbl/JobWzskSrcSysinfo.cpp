@@ -1,10 +1,11 @@
 /**
 	* \file JobWzskSrcSysinfo.cpp
 	* job handler for job JobWzskSrcSysinfo (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifdef WZSKCMBD
 	#include <Wzskcmbd.h>
@@ -91,7 +92,7 @@ JobWzskSrcSysinfo::JobWzskSrcSysinfo(
 
 	// IP constructor.spec2 --- INSERT
 
-	changeStage(dbswzsk, VecVSge::RUN); // IP constructor.cust3 --- ILINE
+	if (srvNotCli) changeStage(dbswzsk, VecVSge::RUN); // IP constructor.cust3 --- ILINE
 
 	// IP constructor.spec3 --- INSERT
 };
@@ -386,6 +387,10 @@ bool JobWzskSrcSysinfo::handleClaim(
 
 	return mod;
 };
+
+
+
+
 
 
 

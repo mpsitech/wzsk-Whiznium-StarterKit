@@ -1,10 +1,11 @@
 /**
 	* \file QryWzskFilList.h
 	* job handler for job QryWzskFilList (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifndef QRYWZSKFILLIST_H
 #define QRYWZSKFILLIST_H
@@ -31,10 +32,10 @@ public:
 	class VecVOrd {
 
 	public:
-		static const Sbecore::uint OWN = 1;
-		static const Sbecore::uint FNM = 2;
-		static const Sbecore::uint RET = 3;
-		static const Sbecore::uint REU = 4;
+		static const Sbecore::uint REU = 1;
+		static const Sbecore::uint RET = 2;
+		static const Sbecore::uint OWN = 3;
+		static const Sbecore::uint FNM = 4;
 		static const Sbecore::uint GRP = 5;
 
 		static Sbecore::uint getIx(const std::string& sref);

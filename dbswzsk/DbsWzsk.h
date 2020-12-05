@@ -1,18 +1,19 @@
 /**
 	* \file DbsWzsk.h
 	* C++ wrapper for database DbsWzsk (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
-	*/
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
+  */
+// IP header --- ABOVE
 
 #ifndef DBSWZSK_H
 #define DBSWZSK_H
 
-#define WZSK_VERSION "0.1.37"
-#define WZSK_VERSION_MAJOR 0
-#define WZSK_VERSION_MINOR 1
-#define WZSK_VERSION_SUB 37
+#define WZSK_VERSION "1.0.0"
+#define WZSK_VERSION_MAJOR 1
+#define WZSK_VERSION_MINOR 0
+#define WZSK_VERSION_SUB 0
 
 #include <sbecore/Types.h>
 
@@ -99,11 +100,11 @@ public:
 	class VecVCard {
 
 	public:
-		static const Sbecore::uint CRDWZSKUSG = 1;
-		static const Sbecore::uint CRDWZSKUSR = 2;
-		static const Sbecore::uint CRDWZSKPRS = 3;
-		static const Sbecore::uint CRDWZSKSCF = 4;
-		static const Sbecore::uint CRDWZSKNAV = 5;
+		static const Sbecore::uint CRDWZSKNAV = 1;
+		static const Sbecore::uint CRDWZSKUSG = 2;
+		static const Sbecore::uint CRDWZSKUSR = 3;
+		static const Sbecore::uint CRDWZSKPRS = 4;
+		static const Sbecore::uint CRDWZSKSCF = 5;
 		static const Sbecore::uint CRDWZSKLLV = 6;
 		static const Sbecore::uint CRDWZSKLIV = 7;
 		static const Sbecore::uint CRDWZSKOGR = 8;

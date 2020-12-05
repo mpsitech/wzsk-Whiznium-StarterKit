@@ -1,10 +1,11 @@
 /**
 	* \file JobWzskSrcV4l2.cpp
 	* job handler for job JobWzskSrcV4l2 (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifdef WZSKCMBD
 	#include <Wzskcmbd.h>
@@ -1458,6 +1459,8 @@ bool JobWzskSrcV4l2::handleTest(
 	// IP handleTest --- IBEGIN
 	timespec deltat;
 
+	unlockAccess("handleTest");
+
 	cout << "\ttesting manual exposure ..." << endl;
 
 	deltat = {.tv_sec = 0, .tv_nsec = 500000000}; // 500ms
@@ -1489,6 +1492,8 @@ bool JobWzskSrcV4l2::handleTest(
 	};
 
 	cout << "\texposure / focus test completed." << endl;
+
+	lockAccess("handleTest");
 
 	// IP handleTest --- IEND
 	return retval;
@@ -1769,6 +1774,10 @@ bool JobWzskSrcV4l2::handleClaim(
 
 	return mod;
 };
+
+
+
+
 
 
 

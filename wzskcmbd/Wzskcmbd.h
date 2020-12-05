@@ -1,10 +1,11 @@
 /**
 	* \file Wzskcmbd.h
 	* inter-thread exchange object for Wzsk combined daemon (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
-	*/
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
+  */
+// IP header --- ABOVE
 
 #ifndef WZSKCMBD_H
 #define WZSKCMBD_H
@@ -226,7 +227,7 @@ public:
 	static const Sbecore::uint HTTPS = 2;
 
 public:
-	StgWzskAppsrv(const Sbecore::usmallint port = 0, const bool https = false);
+	StgWzskAppsrv(const Sbecore::usmallint port = 13100, const bool https = false);
 
 public:
 	Sbecore::usmallint port;
@@ -277,7 +278,7 @@ public:
 	static const Sbecore::uint UASRV = 5;
 
 public:
-	StgWzskcmbd(const Sbecore::usmallint jobprcn = 1, const Sbecore::usmallint opprcn = 1, const bool appsrv = true, const bool ddspub = true, const bool uasrv = true);
+	StgWzskcmbd(const Sbecore::usmallint jobprcn = 4, const Sbecore::usmallint opprcn = 1, const bool appsrv = true, const bool ddspub = true, const bool uasrv = true);
 
 public:
 	Sbecore::usmallint jobprcn;
@@ -308,7 +309,7 @@ public:
 	static const Sbecore::uint PORT = 7;
 
 public:
-	StgWzskDatabase(const Sbecore::uint ixDbsVDbstype = 0, const std::string& dbspath = "", const std::string& dbsname = "", const std::string& username = "", const std::string& password = "", const std::string& ip = "", const Sbecore::usmallint port = 0);
+	StgWzskDatabase(const Sbecore::uint ixDbsVDbstype = 0, const std::string& dbspath = "./DbsWzsk.sql", const std::string& dbsname = "DbsWzsk", const std::string& username = "default", const std::string& password = "asdf1234", const std::string& ip = "127.0.0.1", const Sbecore::usmallint port = 3306);
 
 public:
 	Sbecore::uint ixDbsVDbstype;
@@ -427,7 +428,7 @@ public:
 	static const Sbecore::uint HELPURL = 6;
 
 public:
-	StgWzskPath(const std::string& acvpath = "", const std::string& keypath = "", const std::string& monpath = "", const std::string& tmppath = "", const std::string& webpath = "", const std::string& helpurl = "");
+	StgWzskPath(const std::string& acvpath = "${WHIZROOT}/acv/wzsk", const std::string& keypath = "", const std::string& monpath = "${WHIZROOT}/mon/wzsk", const std::string& tmppath = "${WHIZROOT}/tmp/wzsk", const std::string& webpath = "${WHIZROOT}/web/appwzsk", const std::string& helpurl = "http://www.mpsitech.com/wzsk");
 
 public:
 	std::string acvpath;
@@ -457,7 +458,7 @@ public:
 	static const Sbecore::uint MAXMON = 5;
 
 public:
-	StgWzskUasrv(const std::string& profile = "", const Sbecore::usmallint port = 0, const Sbecore::usmallint cycle = 0, const Sbecore::uint maxbrowse = 0, const Sbecore::uint maxmon = 0);
+	StgWzskUasrv(const std::string& profile = "./EmbeddedProfile_StandardNodes.xml", const Sbecore::usmallint port = 4840, const Sbecore::usmallint cycle = 100, const Sbecore::uint maxbrowse = 1000, const Sbecore::uint maxmon = 10000);
 
 public:
 	std::string profile;
@@ -898,11 +899,15 @@ public:
 	// condition for op processors
 	Sbecore::Cond cOpprcs;
 
+#if defined(SBECORE_DDS)
 	// condition for DDS publisher
 	Sbecore::Cond cDdspub;
+#endif
 
+#if defined(SBECORE_UA)
 	// condition for OPC UA server
 	Sbecore::Cond cUasrv;
+#endif
 
 	// request list
 	Sbecore::Mutex mReqs;
@@ -941,13 +946,17 @@ public:
 	Sbecore::Rwmutex rwmCsjobinfos;
 	std::map<Sbecore::uint,Sbecore::Csjobinfo*> csjobinfos;
 
+#if defined(SBECORE_DDS)
 	// DDS publisher call
 	Sbecore::Mutex mDdspubcall;
 	Sbecore::Call* ddspubcall;
+#endif
 
+#if defined(SBECORE_UA)
 	// OPC UA server call
 	Sbecore::Mutex mUasrvcall;
 	Sbecore::Call* uasrvcall;
+#endif
 
 	// sequence for wakeup references
 	Sbecore::Refseq wrefseq;
@@ -1012,8 +1021,12 @@ public:
 	Sbecore::Clstn* addIxRefSrefClstn(const Sbecore::uint ixWzskVCall, const Sbecore::ubigint jref, const Sbecore::uint ixVJobmask, const Sbecore::ubigint jrefTrig, const bool chgarg, const Sbecore::uint ix, const Sbecore::ubigint ref, const std::string& sref, const Sbecore::uint ixVSge = 0, const Sbecore::uint ixVJactype = Sbecore::Clstn::VecVJactype::LOCK);
 
 	Sbecore::Clstn* addClstnStmgr(const Sbecore::uint ixWzskVCall, const Sbecore::ubigint jref);
+#if defined(SBECORE_DDS)
 	Sbecore::Clstn* addClstnDdspub(const Sbecore::ubigint jrefTrig, const std::string& sref, const bool shrdatNotDat);
+#endif
+#if defined(SBECORE_UA)
 	Sbecore::Clstn* addClstnUasrv(const Sbecore::ubigint jrefTrig, const std::string& sref, const bool shrdatNotDat);
+#endif
 
 	Sbecore::Clstn* getClstnByCref(const Sbecore::clstnref_t& cref);
 	void getClstnsByJref(const Sbecore::ubigint jref, const Sbecore::uint ixVTarget, std::vector<Sbecore::uint>& icsWzskVCall, std::vector<Sbecore::uint>& icsVJobmask);

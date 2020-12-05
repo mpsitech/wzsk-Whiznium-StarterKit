@@ -1,10 +1,11 @@
 /**
 	* \file JobWzskAcqPtcloud.h
 	* job handler for job JobWzskAcqPtcloud (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifndef JOBWZSKACQPTCLOUD_H
 #define JOBWZSKACQPTCLOUD_H
@@ -13,8 +14,8 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskActServo.h"
 #include "JobWzskIprTrace.h"
+#include "JobWzskActServo.h"
 
 #define VecVJobWzskAcqPtcloudMethod JobWzskAcqPtcloud::VecVMethod
 #define VecVJobWzskAcqPtcloudSge JobWzskAcqPtcloud::VecVSge
@@ -169,8 +170,8 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
-	JobWzskActServo* actservo;
 	JobWzskIprTrace* iprtrace;
+	JobWzskActServo* actservo;
 
 	// IP vars.spec --- INSERT
 
@@ -247,6 +248,10 @@ public:
 };
 
 #endif
+
+
+
+
 
 
 

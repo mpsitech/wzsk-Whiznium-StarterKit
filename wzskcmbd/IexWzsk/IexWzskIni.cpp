@@ -1,10 +1,11 @@
 /**
 	* \file IexWzskIni.cpp
 	* data blocks and readers/writers for import/export complex IexWzskIni (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #include "IexWzskIni.h"
 
@@ -3124,6 +3125,7 @@ void IexWzskIni::ImeIMUsergroup::writeXML(
 void IexWzskIni::parseFromFile(
 			const string& fullpath
 			, const bool xmlNotTxt
+			, const string& rectpath
 			, ImeIAVControlPar& imeiavcontrolpar
 			, ImeIAVKeylistKey& imeiavkeylistkey
 			, ImeIAVValuelistVal& imeiavvaluelistval
@@ -3145,7 +3147,7 @@ void IexWzskIni::parseFromFile(
 		};
 
 	} else {
-			Txtrd rd(fullpath, "IexWzskIni", Version(""), VecVIme::getIx);
+			Txtrd rd(fullpath, rectpath, "IexWzskIni", Version(""), VecVIme::getIx);
 			readTxt(rd, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimfile, imeimusergroup);
 	};
 };

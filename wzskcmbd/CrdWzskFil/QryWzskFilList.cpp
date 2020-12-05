@@ -1,10 +1,11 @@
 /**
 	* \file QryWzskFilList.cpp
 	* job handler for job QryWzskFilList (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifdef WZSKCMBD
 	#include <Wzskcmbd.h>
@@ -273,10 +274,10 @@ void QryWzskFilList::rerun_orderSQL(
 			string& sqlstr
 			, const uint preIxOrd
 		) {
-	if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMFile.own ASC";
-	else if (preIxOrd == VecVOrd::FNM) sqlstr += " ORDER BY TblWzskMFile.Filename ASC";
+	if (preIxOrd == VecVOrd::REU) sqlstr += " ORDER BY TblWzskMFile.refUref ASC";
 	else if (preIxOrd == VecVOrd::RET) sqlstr += " ORDER BY TblWzskMFile.refIxVTbl ASC";
-	else if (preIxOrd == VecVOrd::REU) sqlstr += " ORDER BY TblWzskMFile.refUref ASC";
+	else if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMFile.own ASC";
+	else if (preIxOrd == VecVOrd::FNM) sqlstr += " ORDER BY TblWzskMFile.Filename ASC";
 	else if (preIxOrd == VecVOrd::GRP) sqlstr += " ORDER BY TblWzskMFile.grp ASC";
 };
 
@@ -309,10 +310,10 @@ void QryWzskFilList::fetch(
 			rec->stubOwn = StubWzsk::getStubOwner(dbswzsk, rec->own, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
 			rec->srefRefIxVTbl = VecWzskVMFileRefTbl::getSref(rec->refIxVTbl);
 			rec->titRefIxVTbl = VecWzskVMFileRefTbl::getTitle(rec->refIxVTbl, ixWzskVLocale);
-			if (rec->refIxVTbl == VecWzskVMFileRefTbl::OBJ) {
-				rec->stubRefUref = StubWzsk::getStubObjStd(dbswzsk, rec->refUref, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
-			} else if (rec->refIxVTbl == VecWzskVMFileRefTbl::SHT) {
+			if (rec->refIxVTbl == VecWzskVMFileRefTbl::SHT) {
 				rec->stubRefUref = StubWzsk::getStubShtStd(dbswzsk, rec->refUref, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
+			} else if (rec->refIxVTbl == VecWzskVMFileRefTbl::OBJ) {
+				rec->stubRefUref = StubWzsk::getStubObjStd(dbswzsk, rec->refUref, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
 			} else rec->stubRefUref = "-";
 			rec->titOsrefKContent = dbswzsk->getKlstTitleBySref(VecWzskVKeylist::KLSTWZSKKMFILECONTENT, rec->osrefKContent, ixWzskVLocale);
 			rec->titSrefKMimetype = dbswzsk->getKlstTitleBySref(VecWzskVKeylist::KLSTWZSKKMFILEMIMETYPE, rec->srefKMimetype, ixWzskVLocale);

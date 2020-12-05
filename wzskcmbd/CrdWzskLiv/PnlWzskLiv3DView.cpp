@@ -1,10 +1,11 @@
 /**
 	* \file PnlWzskLiv3DView.cpp
 	* job handler for job PnlWzskLiv3DView (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifdef WZSKCMBD
 	#include <Wzskcmbd.h>
@@ -49,8 +50,8 @@ PnlWzskLiv3DView::PnlWzskLiv3DView(
 
 	xchg->addClstn(VecWzskVCall::CALLWZSKSGECHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKCLAIMCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::TRY);
+	xchg->addClstn(VecWzskVCall::CALLWZSKCLAIMCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -286,10 +287,10 @@ void PnlWzskLiv3DView::handleCall(
 		call->abort = handleCallWzskSgeChg(dbswzsk, call->jref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) {
 		call->abort = handleCallWzskShrdatChg(dbswzsk, call->jref, call->argInv.ix, call->argInv.sref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
-		call->abort = handleCallWzskClaimChg(dbswzsk, call->jref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) {
 		call->abort = handleCallWzskResultNew(dbswzsk, call->jref, call->argInv.ix, call->argInv.sref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
+		call->abort = handleCallWzskClaimChg(dbswzsk, call->jref);
 	};
 };
 
@@ -323,20 +324,6 @@ bool PnlWzskLiv3DView::handleCallWzskShrdatChg(
 	return retval;
 };
 
-bool PnlWzskLiv3DView::handleCallWzskClaimChg(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-	// IP handleCallWzskClaimChg --- IBEGIN
-	set<uint> moditems;
-
-	refresh(dbswzsk, moditems);
-	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	// IP handleCallWzskClaimChg --- IEND
-	return retval;
-};
-
 bool PnlWzskLiv3DView::handleCallWzskResultNew(
 			DbsWzsk* dbswzsk
 			, const ubigint jrefTrig
@@ -359,6 +346,24 @@ bool PnlWzskLiv3DView::handleCallWzskResultNew(
 	// IP handleCallWzskResultNew --- IEND
 	return retval;
 };
+
+bool PnlWzskLiv3DView::handleCallWzskClaimChg(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+	// IP handleCallWzskClaimChg --- IBEGIN
+	set<uint> moditems;
+
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+	// IP handleCallWzskClaimChg --- IEND
+	return retval;
+};
+
+
+
+
 
 
 

@@ -1,10 +1,11 @@
 /**
 	* \file PnlWzskLlvTerm_blks.cpp
 	* job handler for job PnlWzskLlvTerm (implementation of blocks)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 using namespace std;
 using namespace Sbecore;
@@ -276,9 +277,9 @@ void PnlWzskLlvTerm::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Terminal");
 			writeStringAttr(wr, itemtag, "sref", "CptCst", "Verbindungsstatus");
 			writeStringAttr(wr, itemtag, "sref", "HdgDio", "Ein-/ausgehende Daten");
-			writeStringAttr(wr, itemtag, "sref", "HdgCex", "Befehlsausf\\u00fchrung");
+			writeStringAttr(wr, itemtag, "sref", "HdgCex", "Befehlsausf\\u009fhrung");
 			writeStringAttr(wr, itemtag, "sref", "CptCmd", "Befehl");
-			writeStringAttr(wr, itemtag, "sref", "ButApd", "Hinzuf\\u00fcgen");
+			writeStringAttr(wr, itemtag, "sref", "ButApd", "Hinzuf\\u009fgen");
 			writeStringAttr(wr, itemtag, "sref", "CptCsq", "Befehlsfolge");
 			writeStringAttr(wr, itemtag, "sref", "ButSmt", "Absenden");
 		};

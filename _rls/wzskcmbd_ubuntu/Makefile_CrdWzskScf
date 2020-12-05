@@ -1,0 +1,39 @@
+# file Makefile
+# make file for CrdWzskScf card job handler, release wzskcmbd_ubuntu
+# copyright: (C) 2016-2020 MPSI Technologies GmbH
+# author: Emily Johnson (auto-generation)
+# date created: 5 Dec 2020
+# IP header --- ABOVE
+
+include ../Makefile.inc
+
+CPP = g++
+CPPFLAGS = -std=c++11 -g -Wall -Os -pthread -DWZSKCMBD
+
+STATLIB = ar
+STATLIBFLAGS = rcs
+
+INCPATH = -I$(BUILDROOT)/dbswzsk -I$(BUILDROOT)/wzskcmbd/VecWzsk -I$(BUILDROOT)/wzskcmbd/IexWzsk -I$(BUILDROOT)/wzskcmbd
+INCPATH += -I${WHIZSDKROOT}/build -I${WHIZSDKROOT}/build/ezdevwskd -I/usr/include -I/usr/include/libxml2
+
+OBJS = CrdWzskScf.o PnlWzskScfHeadbar.o PnlWzskScfGeom.o PnlWzskScfConn.o DlgWzskScfCameramat.o DlgWzskScfLaserpos.o DlgWzskScfTtablecoord.o
+
+LIB = libcrdwzskscf
+
+.SUFFIXES: .cpp
+
+.cpp.o :
+	$(CPP) $(CPPFLAGS) $(INCPATH) -o $@ -c $<
+
+all:	$(LIB)
+
+$(LIB):	$(OBJS)
+	$(STATLIB) $(STATLIBFLAGS) $(LIB).a $(OBJS)
+	rm -f *.o
+
+install:
+	mv $(LIB).a $(LIBROOT)/wzskcmbd/
+
+clean:
+	rm -f *.o
+

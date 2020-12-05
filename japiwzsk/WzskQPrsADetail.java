@@ -1,10 +1,11 @@
 /**
-  * \file WzskQPrsADetail.h
-  * Java API code for record of table TblWzskQPrsADetail
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
+	* \file WzskQPrsADetail.h
+	* Java API code for record of table TblWzskQPrsADetail
+	* \copyright (C) 2018-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
   */
+// IP header --- ABOVE
 
 package apiwzsk;
 

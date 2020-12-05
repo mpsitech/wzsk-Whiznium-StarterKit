@@ -1,10 +1,11 @@
 /**
   * \file QryWzskOgrList.java
   * Java API code for job QryWzskOgrList
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
+	* \copyright (C) 2018-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
+	*/
+// IP header --- ABOVE
 
 package apiwzsk;
 
@@ -19,8 +20,8 @@ public class QryWzskOgrList {
 	public static class VecVOrd {
 
 		public static final int SUP = 1;
-		public static final int SRF = 2;
-		public static final int TIT = 3;
+		public static final int TIT = 2;
+		public static final int SRF = 3;
 
 		public static int getIx(
 					String sref
@@ -28,8 +29,8 @@ public class QryWzskOgrList {
 			String s = sref.toLowerCase();
 
 			if (s.equals("sup")) return SUP;
-			if (s.equals("srf")) return SRF;
 			if (s.equals("tit")) return TIT;
+			if (s.equals("srf")) return SRF;
 
 			return 0;
 		};
@@ -38,8 +39,8 @@ public class QryWzskOgrList {
 					int ix
 				) {
 			if (ix == SUP) return("sup");
-			if (ix == SRF) return("srf");
 			if (ix == TIT) return("tit");
+			if (ix == SRF) return("srf");
 
 			return "";
 		};

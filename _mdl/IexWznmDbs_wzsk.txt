@@ -1,750 +1,750 @@
-- IexWznmDbs v0.9.27												
-- ImeIMTable.srefIxVBasetype	srefRefIxVTbl	irefRefUref	sref	Short	unqSrefsWznmMTablecol	Comment						
-- main	void	0	TblWzskMFile	fil								
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- sngfull	enus	n	file								
-	- sngfull	dech	f	Datei								
-	- plfull	enus	n	files								
-	- plfull	dech	f	Dateien								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- grp		47	tbl	TblWzskMUsergroup	grp	grp	void	void		true	false
-	- own		48	tbl	TblWzskMUser	own	own	void	void		true	false
-	- tblref		49	tbl	TblWzskCFile	refWzskCFile	clu	trefclu	void		false	false
-	- vecref		50	vec	VecWzskVMFileRefTbl	refIxVTbl	ret	vreflin	void	idx	true	false
-	- tblref		50	tbl		refUref	reu	trefuniv	void		true	false
-	- klref		0	vec	KlstWzskKMFileContent	osrefKContent	cnt	klrefopt	void		true	false
-	- timeval		0	void		Archived	acv	tmstamp	void		false	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- short	enus	arch. time								
-		- short	dech	Arch. Zeit								
-		- full	enus	archiving time								
-		- full	dech	Zeitpunkt der Archivierung								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Filename	fnm	txt50	void	idx	true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	file name								
-		- full	dech	Dateiname								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Archivename	anm	txt30	void		false	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- short	enus	arch. name								
-		- short	dech	Archiv Name								
-		- full	enus	archive file name								
-		- full	dech	Dateiname in Archiv								
-		- ImeIAMTablecolTitle.end										
-	- klref		0	vec	KlstWzskKMFileMimetype	srefKMimetype	mim	klrefsng	void		true	false
-	- intval		0	void		Size	siz	usmallint	void		true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	size [kB]								
-		- full	dech	Gr\u00f6sse [kB]								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Comment	cmt	txtlong	void		false	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	comment								
-		- full	dech	Notiz								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-	- ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption								
-	- lin	VecWzskVMFileRefTbl		filfed								
-		- ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	table of reference								
-		- full	dech	Referenztabelle								
-		- ImeIAMVectorTitle2.end										
-		- ImeIMVectoritem2.sref	Avail	Implied	Title	Comment						
-		- void										
-			- ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment							
-			- enus	none								
-			- dech	kein								
-			- ImeIJMVectoritem2.end									
-		- obj										
-			- ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment							
-			- enus	object								
-			- dech	Objekt								
-			- ImeIJMVectoritem2.end									
-		- sht										
-			- ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment							
-			- enus	shot								
-			- dech	Aufnahme								
-			- ImeIJMVectoritem2.end									
-		- ImeIMVectoritem2.end										
-	- klst	KlstWzskKMFileContent										
-		- ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	content								
-		- full	dech	Inhalt								
-		- ImeIAMVectorTitle2.end										
-		- ImeIMVectoritem2.sref	Avail	Implied	Title	Comment						
-		- pvwsnap										
-			- ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment							
-			- enus	preview snapshot								
-			- dech	Vorschau Schnappschuss								
-			- ImeIJMVectoritem2.end									
-		- xyz										
-			- ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment							
-			- enus	point cloud								
-			- dech	Punktwolke								
-			- ImeIJMVectoritem2.end									
-		- ImeIMVectoritem2.end										
-	- klst	KlstWzskKMFileMimetype	mimetype	noloc								
-		- ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	MIME type								
-		- full	dech	MIME-Typ								
-		- ImeIAMVectorTitle2.end										
-	- ImeIMVector2.end											
-- main	void	0	TblWzskMPerson	prs								
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- sngfull	enus	n	person								
-	- sngfull	dech	f	Person								
-	- plfull	enus	n	persons								
-	- plfull	dech	f	Personen								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- grp		1	tbl	TblWzskMUsergroup	grp	grp	void	void		true	false
-	- own		2	tbl	TblWzskMUser	own	own	void	void		true	false
-	- vecref		32	vec	VecWzskWMPersonDerivate	ixWDerivate	drv	vrefand	void	idx	false	false
-	- vecref		0	vec	VecWzskVMPersonSex	ixVSex	sex	vreflin	void		true	false
-	- txtval		0	vec	VlstWzskUMPersonTitle	Title	tit	txt30	void		true	true
-	- txtval		0	void		Firstname	fnm	txt30	void		true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	first name								
-		- full	dech	Vorname								
-		- ImeIAMTablecolTitle.end										
-	- tblref		13	tbl	TblWzskJMPersonLastname	refJLastname	j	trefmin	void		false	true
-	- txtval		0	void		Lastname	lnm	txt50	void	idx	true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	last name								
-		- full	dech	Nachname								
-		- ImeIAMTablecolTitle.end										
-	- tblref		15	tbl	TblWzskAMPersonDetail	telRefADetail	ate	trefmin	void		false	false
-	- txtval		0	void		telVal	tel	txt192	void		true	false
-	- tblref		16	tbl	TblWzskAMPersonDetail	emlRefADetail	aem	trefmin	void		false	false
-	- txtval		0	void		emlVal	eml	txt192	void		true	false
-	- txtval		0	void		Salutation	sal	txt100	void		false	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	salutation								
-		- full	dech	Briefanrede								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-	- ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption								
-	- or	VecWzskWMPersonDerivate		filfed								
-		- ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus									
-		- full	dech									
-		- ImeIAMVectorTitle2.end										
-		- ImeIMVectoritem2.sref	Avail	Implied	Title	Comment						
-		- usr										
-			- ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment							
-			- enus	user								
-			- dech	Benutzer								
-			- ImeIJMVectoritem2.end									
-		- ImeIMVectoritem2.end										
-	- lin	VecWzskVMPersonSex	sex	filfed								
-		- ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	sex								
-		- full	dech	Geschlecht								
-		- ImeIAMVectorTitle2.end										
-	- vlst	VlstWzskUMPersonTitle	prstit									
-		- ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	title								
-		- full	dech	Anrede								
-		- ImeIAMVectorTitle2.end										
-	- ImeIMVector2.end											
-- main	void	0	TblWzskMSession	ses								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- refs	loadRefsByUsr	ref	refWzskMUser	start	void						
-	- rst	loadRstByUsr		refWzskMUser	start	void						
-	- ImeIAMTableLoadfct.end											
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- sngfull	enus	n	session								
-	- sngfull	dech	f	Sitzung								
-	- plfull	enus	n	sessions								
-	- plfull	dech	f	Sitzungen								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		23	tbl	TblWzskMUser	refWzskMUser	usr	trefspec	void		true	false
-	- timeval		0	void		start	sta	tmstamp	void	idx	true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- short	enus	start								
-		- short	dech	Start								
-		- full	enus	login time								
-		- full	dech	Login-Zeitpunkt								
-		- ImeIAMTablecolTitle.end										
-	- timeval		0	void		stop	sto	tmstamp	void		true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- short	enus	stop								
-		- short	dech	Stopp								
-		- full	enus	logout time								
-		- full	dech	Logout-Zeitpunkt								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Ip	ip	txt30	void		true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- short	enus	IP								
-		- short	dech	IP								
-		- full	enus	IP address								
-		- full	dech	IP Adresse								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-- main	void	0	TblWzskMUser	usr								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- ref	loadRefByPrs	ref	refWzskMPerson		void						
-	- rec	loadRecByPrs		refWzskMPerson		void						
-	- ref	loadRefBySrf	ref	sref		void						
-	- rec	loadRecBySrf		sref		void						
-	- rec	loadRecBySrfPwd		sref;Password		void						
-	- ImeIAMTableLoadfct.end											
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- sngfull	enus	n	user								
-	- sngfull	dech	m	Benutzer								
-	- plfull	enus	n	users								
-	- plfull	dech	m	Benutzer								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- grp		24	tbl	TblWzskMUsergroup	grp	grp	void	void		true	false
-	- own		25	tbl	TblWzskMUser	own	own	void	void		true	false
-	- tblref		30	tbl	TblWzskRMUserMUsergroup	refRUsergroup	rug	trefmin	void		false	false
-	- tblref		31	tbl	TblWzskMUsergroup	refWzskMUsergroup	usg	trefspec	void		true	false
-	- tblref		33	tbl	TblWzskMPerson	refWzskMPerson	prs	trefspec	void		true	true
-	- idsref		0	void		sref	srf	void	void		true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	login								
-		- full	dech	Login								
-		- ImeIAMTablecolTitle.end										
-	- tblref		35	tbl	TblWzskJMUserState	refJState	j	trefmin	void		false	false
-	- vecref		0	vec	VecWzskVMUserState	ixVState	ste	vreflin	void	idx	true	false
-	- vecref		0	vec	VecWzskVLocale	ixWzskVLocale	lcl	vreflin	void		true	false
-	- vecref		0	vec	VecWzskVUserlevel	ixWzskVUserlevel	ulv	vreflin	void		true	false
-	- txtval		0	void		Password	pwd	txt30	void		false	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	password								
-		- full	dech	Passwort								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Fullkey	fky	txtlong	void		false	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	full key (X.509)								
-		- full	dech	vollst\u00e4ndiger Schl\u00fcssel (X.509)								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Comment	cmt	txtlong	void		false	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	comment								
-		- full	dech	Notiz								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-	- ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption								
-	- lin	VecWzskVMUserState	usrste	filfed								
-		- ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	state								
-		- full	dech	Status								
-		- ImeIAMVectorTitle2.end										
-	- ImeIMVector2.end											
-- main	void	0	TblWzskMUsergroup	usg								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- ref	loadRefBySrf	ref	sref		void						
-	- rec	loadRecBySrf		sref		void						
-	- ImeIAMTableLoadfct.end											
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- sngfull	enus	n	user group								
-	- sngfull	dech	f	Benutzergruppe								
-	- plfull	enus	n	user groups								
-	- plfull	dech	f	Benutzergruppen								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- grp		36	tbl	TblWzskMUsergroup	grp	grp	void	void		true	false
-	- own		37	tbl	TblWzskMUser	own	own	void	void		true	false
-	- idsref		0	void		sref	srf	void	void		true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	identifier								
-		- full	dech	Bezeichner								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Comment	cmt	txtlong	void		false	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	comment								
-		- full	dech	Notiz								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-- aux	void	0	TblWzskAMPersonDetail	prsAdet								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- rec	loadRecByPrsTyp		refWzskMPerson;x1SrefKType		void						
-	- ImeIAMTableLoadfct.end											
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- plfull	enus	n	contact details								
-	- plfull	dech	f	Kontaktangaben								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		14	tbl	TblWzskMPerson	refWzskMPerson	prs	trefspec	void		true	false
-	- klref		0	vec	KlstWzskKAMPersonDetailType	x1SrefKType	typ	klrefsng	pt		true	true
-	- txtval		0	void		Val	val	txt192	void		true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	value								
-		- full	dech	Wert								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-	- ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption								
-	- klst	KlstWzskKAMPersonDetailType	ctdet									
-		- ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	type								
-		- full	dech	Typ								
-		- ImeIAMVectorTitle2.end										
-	- ImeIMVector2.end											
-- aux	void	0	TblWzskAMUserAccess	usrAacc								
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- plfull	enus	n	feature access rights								
-	- plfull	dech	n	Feature-Zugriffsrechte								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		17	tbl	TblWzskMUser	refWzskMUser	usr	trefspec	void		true	false
-	- vecref		0	vec	VecWzskVFeatgroup	x1IxWzskVFeatgroup	feg	vreflin	pt	idx	true	true
-	- uvsref		0	void		x2FeaSrefUix	fea	void	pt	idx	true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	feature								
-		- full	dech	Feature								
-		- ImeIAMTablecolTitle.end										
-	- vecref		0	vec	VecWzskWAccess	ixWzskWAccess	acc	vrefand	void		true	false
-	- ImeIMTablecol.end											
-- aux	void	0	TblWzskAMUsergroupAccess	usgAacc								
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- plfull	enus	n	feature access rights								
-	- plfull	dech	n	Feature-Zugriffsrechte								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		18	tbl	TblWzskMUsergroup	refWzskMUsergroup	usg	trefspec	void		true	false
-	- vecref		0	vec	VecWzskVFeatgroup	x1IxWzskVFeatgroup	feg	vreflin	pt	idx	true	true
-	- uvsref		0	void		x2FeaSrefUix	fea	void	pt	idx	true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	feature								
-		- full	dech	Feature								
-		- ImeIAMTablecolTitle.end										
-	- vecref		0	vec	VecWzskWAccess	ixWzskWAccess	acc	vrefand	void		true	false
-	- ImeIMTablecol.end											
-- aux	void	0	TblWzskAVControlPar	ctlApar								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- string	loadValByCtlUsrPar	Val	ixWzskVControl;x1RefWzskMUser;Par		void						
-	- ref	loadRefByCtlUsrPar	ref	ixWzskVControl;x1RefWzskMUser;Par		void						
-	- ImeIAMTableLoadfct.end											
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- plfull	enus	n	parameters								
-	- plfull	dech	m	Parameter								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- vecref		0	vec	VecWzskVControl	ixWzskVControl	ctl	vreflin	void	idx	true	false
-	- tblref		19	tbl	TblWzskMUser	x1RefWzskMUser	usr	trefspec	pt		true	false
-	- vecref		0	vec	VecWzskVLocale	x2IxWzskVLocale	lcl	vreflin	pt	idx	true	false
-	- txtval		0	void		Par	par	txt192	void	idx	true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	parameter								
-		- full	dech	Parameter								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Val	val	txt192	void		true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	value								
-		- full	dech	Wert								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-- aux	void	0	TblWzskAVKeylistKey	klsAkey								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- rst	loadRstByKls		klsIxWzskVKeylist	klsNum	void						
-	- rst	loadRstByKlsMtbUrf		klsIxWzskVKeylist;x1IxWzskVMaintable;x1Uref	klsNum	void						
-	- string	loadTitByRef	Title	ref		void						
-	- ref	loadRefByKlsSrf	ref	klsIxWzskVKeylist;sref		void						
-	- ref	loadRefByKlsMtbUrfSrf	ref	klsIxWzskVKeylist;x1IxWzskVMaintable;x1Uref;sref		void						
-	- ImeIAMTableLoadfct.end											
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- plfull	enus	n	keys								
-	- plfull	dech	m	Schl\u00fcssel								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- vecref		0	vec	VecWzskVKeylist	klsIxWzskVKeylist	kls	vreflin	void	idx	true	false
-	- enum		0	void		klsNum	kln	void	void		true	false
-	- vecref		20	vec	VecWzskVMaintable	x1IxWzskVMaintable	mtb	vreflin	pt	idx	true	false
-	- tblref		20	tbl		x1Uref	urf	trefuniv	pt		true	false
-	- boolval		0	void		Fixed	fix	void	void		true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	fixed								
-		- full	dech	statisch								
-		- ImeIAMTablecolTitle.end										
-	- idsref		0	void		sref	srf	void	void		true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	identifier								
-		- full	dech	Bezeichner								
-		- ImeIAMTablecolTitle.end										
-	- expr		0	void		Avail	avl	void	void		true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- short	enus	avail. rule								
-		- short	dech	verf\u00fcgbar								
-		- full	enus	availability rule								
-		- full	dech	Verf\u00fcgbarkeitsregel								
-		- ImeIAMTablecolTitle.end										
-	- expr		0	void		Implied	imp	void	void		true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- short	enus	impl. rule								
-		- short	dech	impliziert								
-		- full	enus	rule for implied								
-		- full	dech	Implikationsregel								
-		- ImeIAMTablecolTitle.end										
-	- tblref		22	tbl	TblWzskJAVKeylistKey	refJ	j	trefmin	void		true	true
-	- txtval		0	void		Title	tit	txt192	void		true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	name								
-		- full	dech	Name								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Comment	cmt	txtlong	void		true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	comment								
-		- full	dech	Notiz								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-- aux	void	0	TblWzskAVValuelistVal	vlsAval								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- rst	loadRstByVlsLcl		vlsIxWzskVValuelist;x1IxWzskVLocale	vlsNum	void						
-	- ImeIAMTableLoadfct.end											
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- plfull	enus	n	values								
-	- plfull	dech	m	Werte								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- vecref		0	vec	VecWzskVValuelist	vlsIxWzskVValuelist	vls	vreflin	void	idx	true	false
-	- enum		0	void		vlsNum	vln	void	void	idx	true	false
-	- vecref		0	vec	VecWzskVLocale	x1IxWzskVLocale	lcl	vreflin	pt	idx	true	false
-	- txtval		0	void		Val	val	txt192	void		true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	value								
-		- full	dech	Wert								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-- jump	void	0	TblWzskJAVKeylistKey	kakJkey								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- rst	loadRstByKlk		refWzskAVKeylistKey	x1IxWzskVLocale	void						
-	- string	loadTitByKlkLcl	Title	refWzskAVKeylistKey;x1IxWzskVLocale		void						
-	- ImeIAMTableLoadfct.end											
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- plfull	enus	n	name and comment by locale								
-	- plfull	dech	m	Name und Notiz nach Sprachversion								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		21	tbl	TblWzskAVKeylistKey	refWzskAVKeylistKey	klk	trefspec	void		true	false
-	- vecref		0	vec	VecWzskVLocale	x1IxWzskVLocale	lcl	vreflin	pt	idx	true	false
-	- txtval		0	void		Title	tit	txt192	void		true	false
-	- txtval		0	void		Comment	cmt	txtlong	void		true	false
-	- ImeIMTablecol.end											
-- jump	void	0	TblWzskJMPersonLastname	prsJlnm								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- rec	loadRecByPrsSta		refWzskMPerson;x1Startd.leq	x1Startd.desc	first						
-	- ImeIAMTableLoadfct.end											
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- plfull	enus	n	last name history								
-	- plfull	dech	m	Nachname im Zeitverlauf								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		12	tbl	TblWzskMPerson	refWzskMPerson	prs	trefspec	void		true	false
-	- timeval		0	void		x1Startd	sta	tmdate	spt	idx	true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	from								
-		- full	dech	ab								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Lastname	lnm	txt50	void	idx	true	false
-	- ImeIMTablecol.end											
-- jump	void	0	TblWzskJMUserState	usrJste								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- rec	loadRecByUsrSta		refWzskMUser;x1Start.leq	x1Start.desc	first						
-	- ImeIAMTableLoadfct.end											
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- plfull	enus	n	state history								
-	- plfull	dech	m	Status im Zeitverlauf								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		34	tbl	TblWzskMUser	refWzskMUser	usr	trefspec	void		true	false
-	- timeval		0	void		x1Start	sta	tmstamp	spt	idx	true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	from								
-		- full	dech	ab								
-		- ImeIAMTablecolTitle.end										
-	- vecref		0	vec	VecWzskVMUserState	ixVState	ste	vreflin	void		true	false
-	- ImeIMTablecol.end											
-- rel	rel	38	TblWzskAccRMUserUniversal	ausrRunv								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- rec	loadRecByUsrMtbUnv		refWzskMUser;unvIxWzskVMaintable;unvUref		void						
-	- ImeIAMTableLoadfct.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		39	tbl	TblWzskMUser	refWzskMUser	usr	trefspec	void		true	false
-	- vecref		40	vec	VecWzskVMaintable	unvIxWzskVMaintable	mtb	vreflin	void	idx	true	false
-	- tblref		40	tbl		unvUref	unv	trefuniv	void		true	false
-	- vecref		0	vec	VecWzskVRecaccess	ixWzskVRecaccess	rac	vreflin	void		true	false
-	- ImeIMTablecol.end											
-- rel	rel	41	TblWzskHistRMUserUniversal	husrRunv								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- ref	loadUnuByRef	unvUref	ref		void						
-	- rst	loadRstByUsrCrd		refWzskMUser;ixWzskVCard	start.desc	void						
-	- rec	loadRecByUsrMtbUnvCrd		refWzskMUser;unvIxWzskVMaintable;unvUref;ixWzskVCard		void						
-	- refs	loadRefsByUsrMtbCrd	ref	refWzskMUser;unvIxWzskVMaintable;ixWzskVCard	start.desc	limofs						
-	- ImeIAMTableLoadfct.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		42	tbl	TblWzskMUser	refWzskMUser	usr	trefspec	void		true	false
-	- vecref		43	vec	VecWzskVMaintable	unvIxWzskVMaintable	mtb	vreflin	void	idx	true	false
-	- tblref		43	tbl		unvUref	unv	trefuniv	void		true	false
-	- vecref		0	vec	VecWzskVCard	ixWzskVCard	crd	vreflin	void	idx	true	false
-	- vecref		0	vec	VecWzskVPreset	ixWzskVPreset	pre	vreflin	void	idx	true	false
-	- vecref		210	vec	VecWzskVMaintable	preIxWzskVMaintable	prm	vreflin	void	idx	true	false
-	- tblref		210	tbl		preUref	pru	trefuniv	void		true	false
-	- timeval		0	void		start	sta	tmstamp	void		true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	access time								
-		- full	dech	Zugriffszeit								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-- rel	rel	44	TblWzskRMUsergroupUniversal	usgRunv								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- rec	loadRecByUsgMtbUnv		refWzskMUsergroup;unvIxWzskVMaintable;unvUref		void						
-	- ImeIAMTableLoadfct.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		45	tbl	TblWzskMUsergroup	refWzskMUsergroup	usg	trefspec	void		true	false
-	- vecref		46	vec	VecWzskVMaintable	unvIxWzskVMaintable	mtb	vreflin	void	idx	true	false
-	- tblref		46	tbl		unvUref	unv	trefuniv	void		true	false
-	- vecref		0	vec	VecWzskVRecaccess	ixWzskVRecaccess	rac	vreflin	void		true	false
-	- ImeIMTablecol.end											
-- rel	rel	26	TblWzskRMUserMUsergroup	usrRusg								
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		27	tbl	TblWzskMUser	refWzskMUser	usr	trefspec	void		true	false
-	- tblref		28	tbl	TblWzskMUsergroup	refWzskMUsergroup	usg	trefspec	void		true	false
-	- vecref		0	vec	VecWzskVUserlevel	ixWzskVUserlevel	ulv	vreflin	void		false	false
-	- ImeIMTablecol.end											
-- clust	void	0	TblWzskCFile	filC								
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- ImeIMTablecol.end											
-- main	void	0	TblWzskMObject	obj								
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- sngfull	enus	n	object								
-	- sngfull	dech	n	Objekt								
-	- plfull	enus	n	objects								
-	- plfull	dech	n	Objekte								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		53	tbl	TblWzskMObjgroup	refWzskMObjgroup	ogr	trefspec	void		true	false
-	- txtval		0	void		Title	tit	txt100	void	idx	true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	name								
-		- full	dech	Name								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Comment	cmt	txtlong	void		true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	comment								
-		- full	dech	Notiz								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-- main	void	0	TblWzskMObjgroup	ogr								
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- sngfull	enus	n	object group								
-	- sngfull	dech	f	Objektgruppe								
-	- plfull	enus	n	object groups								
-	- plfull	dech	f	Objektgruppen								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		52	tbl	TblWzskMObjgroup	supRefWzskMObjgroup	sup	trefspec	void		true	false
-	- idsref		0	void		sref	srf	void	void		true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	identifier								
-		- full	dech	Bezeichner								
-		- ImeIAMTablecolTitle.end										
-	- tblref		58	tbl	TblWzskJMObjgroupTitle	refJTitle	j	trefmin	void		false	true
-	- txtval		0	void		Title	tit	txt100	void	idx	true	true
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	name								
-		- full	dech	Name								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Comment	cmt	txtlong	void		true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	comment								
-		- full	dech	Notiz								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-- main	void	0	TblWzskMShot	sht								
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- sngfull	enus	n	shot								
-	- sngfull	dech	f	Aufnahme								
-	- plfull	enus	n	shots								
-	- plfull	dech	f	Aufnahmen								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		54	tbl	TblWzskMSession	refWzskMSession	ses	trefspec	void		true	false
-	- tblref		55	tbl	TblWzskMObject	refWzskMObject	obj	trefspec	void		true	false
-	- timeval		0	void		start	sta	tmstamp	void	idx	true	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	start								
-		- full	dech	Start								
-		- ImeIAMTablecolTitle.end										
-	- txtval		0	void		Comment	cmt	txtlong	void		false	false
-		- ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	comment								
-		- full	dech	Notiz								
-		- ImeIAMTablecolTitle.end										
-	- ImeIMTablecol.end											
-- aux	void	0	TblWzskAMShotPar	shtApar								
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- plfull	enus	n	parameters								
-	- plfull	dech	n	Parameter								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		56	tbl	TblWzskMShot	refWzskMShot	sht	trefspec	void		true	false
-	- klref		0	vec	KlstWzskKAMShotParKey	x1SrefKKey	key	klrefsng	pt	idx	true	true
-	- txtval		0	void		Val	val	txt192	void		true	false
-	- ImeIMTablecol.end											
-	- ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption								
-	- klst	KlstWzskKMShotParKey										
-		- ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title								
-		- full	enus	key								
-		- full	dech	Schl\u00fcssel								
-		- ImeIAMVectorTitle2.end										
-		- ImeIMVectoritem2.sref	Avail	Implied	Title	Comment						
-		- deltaTheta										
-			- ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment							
-			- enus	angle increment [\u00b0]								
-			- dech	Winkel-Schrittweite [\u00b0]								
-			- ImeIJMVectoritem2.end									
-		- Npoint										
-			- ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment							
-			- enus	point cloud size								
-			- dech	Gr\u00f6sse der Punktwolke								
-			- ImeIJMVectoritem2.end									
-		- ImeIMVectoritem2.end										
-	- ImeIMVector2.end											
-- jump	void	0	TblWzskJMObjgroupTitle	ogrJtit								
-	- ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype						
-	- rec	loadRecByOgrLcl		refWzskMObjgroup;x1IxWzskVLocale		void						
-	- ImeIAMTableLoadfct.end											
-	- ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title								
-	- plfull	enus	n	name by locale								
-	- plfull	dech	m	Name nach Sprachversion								
-	- ImeIAMTableTitle.end											
-	- ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
-	- idref		0	void		ref	ref	void	void		false	false
-	- tblref		57	tbl	TblWzskMObjgroup	refWzskMObjgroup	ogr	trefspec	void		true	false
-	- vecref		0	vec	VecWzskVLocale	x1IxWzskVLocale	lcl	vreflin	spt	idx	true	false
-	- txtval		0	void		Title	tit	txt100	void	idx	true	true
-	- ImeIMTablecol.end											
-- ImeIMTable.end												
-- ImeIMRelation.iref	srefIxVBasetype	irefRefWznmCRelation	irefSupRefWznmMRelation	srefSupIxVSubrole	srefFrRefWznmMTable	srefFrsRefWznmMSubset	srefToRefWznmMTable	srefTosRefWznmMSubset	srefRefWznmMTable	Prefix	srefsKOption	
-- 1	grp	0	0	void	TblWzskMUsergroup		TblWzskMPerson					
-- 2	own	0	0	void	TblWzskMUser		TblWzskMPerson					
-- 12	j	0	0	void	TblWzskMPerson		TblWzskJMPersonLastname				pref	
-- 13	jpref	0	12	pref	TblWzskJMPersonLastname		TblWzskMPerson					
-- 14	aux	0	0	void	TblWzskMPerson		TblWzskAMPersonDetail				pref	
-- 15	auxpref	0	14	pref	TblWzskAMPersonDetail		TblWzskMPerson			tel		
-	- ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title									
-	- fromsngfull	enus	phone									
-	- fromsngfull	dech	Telefon									
-	- ImeIAMRelationTitle.end											
-- 16	auxpref	0	14	pref	TblWzskAMPersonDetail		TblWzskMPerson			eml		
-	- ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title									
-	- fromsngfull	enus	e-mail									
-	- fromsngfull	dech	E-Mail									
-	- ImeIAMRelationTitle.end											
-- 17	aux	0	0	void	TblWzskMUser		TblWzskAMUserAccess					
-- 18	aux	0	0	void	TblWzskMUsergroup		TblWzskAMUsergroupAccess					
-- 19	_1n	0	0	void	TblWzskMUser		TblWzskAVControlPar					
-- 20	um1n	0	0	void			TblWzskAVKeylistKey					
-- 21	j	0	0	void	TblWzskAVKeylistKey		TblWzskJAVKeylistKey				pref	
-- 22	jpref	0	21	pref	TblWzskJAVKeylistKey		TblWzskAVKeylistKey					
-- 23	_1n	0	0	void	TblWzskMUser		TblWzskMSession				affil	
-- 24	grp	0	0	void	TblWzskMUsergroup		TblWzskMUser					
-- 25	own	0	0	void	TblWzskMUser		TblWzskMUser					
-- 26	mn	0	0	void	TblWzskMUser		TblWzskMUsergroup		TblWzskRMUserMUsergroup		preffrom	
-- 27	_1n	0	26	from1n	TblWzskMUser		TblWzskRMUserMUsergroup					
-- 28	_1n	0	26	to1n	TblWzskMUsergroup		TblWzskRMUserMUsergroup					
-- 29	mnpref	0	26	frompref								
-- 30	_1n	0	29	r1n	TblWzskRMUserMUsergroup		TblWzskMUser					
-- 31	_1n	0	29	mn1n	TblWzskMUsergroup		TblWzskMUser					
-	- ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title									
-	- fromsngfull	enus	primary user group									
-	- fromsngfull	dech	prim\u00e4re Benutzergruppe									
-	- ImeIAMRelationTitle.end											
-- 32	drv	0	0	void	TblWzskMPerson							
-- 33	drvsub	0	32	sub	TblWzskMPerson		TblWzskMUser			usr		
-- 34	j	0	0	void	TblWzskMUser		TblWzskJMUserState				pref	
-- 35	jpref	0	34	pref	TblWzskJMUserState		TblWzskMUser					
-- 36	grp	0	0	void	TblWzskMUsergroup		TblWzskMUsergroup					
-- 37	own	0	0	void	TblWzskMUser		TblWzskMUsergroup					
-- 38	umn	0	0	void	TblWzskMUser				TblWzskAccRMUserUniversal	acc		
-- 39	_1n	0	38	from1n	TblWzskMUser		TblWzskAccRMUserUniversal					
-	- ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title									
-	- toplfull	enus	record access rights									
-	- toplfull	dech	Datensatz-Zugriffsrechte									
-	- ImeIAMRelationTitle.end											
-- 40	um1n	0	38	toum1n			TblWzskAccRMUserUniversal			unv		
-- 41	umn	0	0	void	TblWzskMUser				TblWzskHistRMUserUniversal	hist		
-- 42	_1n	0	41	from1n	TblWzskMUser		TblWzskHistRMUserUniversal					
-	- ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title									
-	- toplfull	enus	access history									
-	- toplfull	dech	Zugriffsverlauf									
-	- ImeIAMRelationTitle.end											
-- 43	um1n	0	41	toum1n			TblWzskHistRMUserUniversal			unv		
-- 44	umn	0	0	void	TblWzskMUsergroup				TblWzskRMUsergroupUniversal			
-- 45	_1n	0	44	from1n	TblWzskMUsergroup		TblWzskRMUsergroupUniversal					
-	- ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title									
-	- toplfull	enus	record access rights									
-	- toplfull	dech	Datensatz-Zugriffsrechte									
-	- ImeIAMRelationTitle.end											
-- 46	um1n	0	44	toum1n			TblWzskRMUsergroupUniversal			unv		
-- 47	grp	0	0	void	TblWzskMUsergroup		TblWzskMFile					
-- 48	own	0	0	void	TblWzskMUser		TblWzskMFile					
-- 49	clust	0	0	void	TblWzskCFile		TblWzskMFile					
-- 50	u1n	0	0	void			TblWzskMFile			ref	affil	
-	- ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title									
-	- fromsngfull	enus	reference									
-	- fromsngfull	dech	Referenz									
-	- ImeIAMRelationTitle.end											
-- 51	u1nsub	0	50	sub	TblWzskMShot		TblWzskMFile			sht		
-- 52	h1n	0	0	void	TblWzskMObjgroup		TblWzskMObjgroup			sup		
-	- ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title									
-	- fromsngfull	enus	super group									
-	- fromsngfull	dech	\u00fcbergeordnete Gruppe									
-	- toplfull	enus	sub-groups									
-	- toplfull	dech	Untergruppen									
-	- ImeIAMRelationTitle.end											
-- 53	_1n	0	0	void	TblWzskMObjgroup		TblWzskMObject				affil	
-- 54	_1n	0	0	void	TblWzskMSession		TblWzskMShot				affil	
-- 55	_1n	0	0	void	TblWzskMObject		TblWzskMShot				affil	
-- 56	aux	0	0	void	TblWzskMShot		TblWzskAMShotPar					
-- 57	j	0	0	void	TblWzskMObjgroup		TblWzskJMObjgroupTitle				pref	
-- 58	jpref	0	57	pref	TblWzskJMObjgroupTitle		TblWzskMObjgroup					
-- 59	u1nsub	0	50	sub	TblWzskMObject		TblWzskMFile			obj		
-- ImeIMRelation.end												
-- ImeIMStub.srefIxVBasetype	srefRefWznmMTable	srefRefWznmMSubset	sref	Hierarch	srefRefWznmMTablecol	Localized	Example					
-- tco	TblWzskMFile		StubWzskFilStd	false	Filename	false	customers.xlsx					
-- cust	TblWzskMPerson		StubWzskPrsStd	false		false	Franz Kuntz					
-- cust	TblWzskMSession		StubWzskSesMenu	false		true	user fkuntz / Franz Kuntz;logged in from 127.0.0.1;since 01-01-2010 10:34					
-- cust	TblWzskMSession		StubWzskSesStd	false		true	01-01-2010 10:34 from 127.0.0.1					
-- cust	TblWzskMUser		StubWzskUsrStd	false		false	fkuntz / Franz Kuntz					
-- tco	TblWzskMUsergroup		StubWzskUsgStd	false	sref	false	super					
-- tco	TblWzskMObject		StubWzskObjStd	false	Title	false	Tux					
-- tco	TblWzskMObjgroup		StubWzskOgrHsref	true	sref	false	icon;comp					
-- cust	TblWzskMObjgroup		StubWzskOgrStd	false		true	(icon;comp) Open Source Software					
-- cust	TblWzskMShot		StubWzskShtStd	false		false	Tux 1-9-2019 8:23:05					
-- ImeIMStub.end												
-- ImeIRMStubMStub.srefSupRefWznmMStub	srefSubRefWznmMStub											
-- StubWzskUsrStd	StubWzskSesMenu											
-- StubWzskPrsStd	StubWzskUsrStd											
-- StubWzskOgrHsref	StubWzskOgrHsref											
-- StubWzskOgrHsref	StubWzskOgrStd											
-- StubWzskObjStd	StubWzskShtStd											
-- ImeIRMStubMStub.end												
+IexWznmDbs v0.9.27
+ImeIMTable.srefIxVBasetype	srefRefIxVTbl	irefRefUref	sref	Short	unqSrefsWznmMTablecol	Comment
+main	void	0	TblWzskMFile	fil
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	sngfull	enus	n	file
+	sngfull	dech	f	Datei
+	plfull	enus	n	files
+	plfull	dech	f	Dateien
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	grp		47	tbl	TblWzskMUsergroup	grp	grp	void	void		true	false
+	own		48	tbl	TblWzskMUser	own	own	void	void		true	false
+	tblref		49	tbl	TblWzskCFile	refWzskCFile	clu	trefclu	void		false	false
+	vecref		50	vec	VecWzskVMFileRefTbl	refIxVTbl	ret	vreflin	void	idx	true	false
+	tblref		50	tbl		refUref	reu	trefuniv	void		true	false
+	klref		0	vec	KlstWzskKMFileContent	osrefKContent	cnt	klrefopt	void		true	false
+	timeval		0	void		Archived	acv	tmstamp	void		false	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		short	enus	arch. time
+		short	dech	Arch. Zeit
+		full	enus	archiving time
+		full	dech	Zeitpunkt der Archivierung
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Filename	fnm	txt50	void	idx	true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	file name
+		full	dech	Dateiname
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Archivename	anm	txt30	void		false	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		short	enus	arch. name
+		short	dech	Archiv Name
+		full	enus	archive file name
+		full	dech	Dateiname in Archiv
+		ImeIAMTablecolTitle.end
+	klref		0	vec	KlstWzskKMFileMimetype	srefKMimetype	mim	klrefsng	void		true	false
+	intval		0	void		Size	siz	usmallint	void		true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	size [kB]
+		full	dech	Gr\u00f6sse [kB]
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Comment	cmt	txtlong	void		false	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	comment
+		full	dech	Notiz
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+	ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
+	lin	VecWzskVMFileRefTbl		filfed
+		ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	table of reference
+		full	dech	Referenztabelle
+		ImeIAMVectorTitle2.end
+		ImeIMVectoritem2.sref	Avail	Implied	Title	Comment
+		void
+			ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment
+			enus	none
+			dech	kein
+			ImeIJMVectoritem2.end
+		obj
+			ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment
+			enus	object
+			dech	Objekt
+			ImeIJMVectoritem2.end
+		sht
+			ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment
+			enus	shot
+			dech	Aufnahme
+			ImeIJMVectoritem2.end
+		ImeIMVectoritem2.end
+	klst	KlstWzskKMFileContent
+		ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	content
+		full	dech	Inhalt
+		ImeIAMVectorTitle2.end
+		ImeIMVectoritem2.sref	Avail	Implied	Title	Comment
+		pvwsnap
+			ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment
+			enus	preview snapshot
+			dech	Vorschau Schnappschuss
+			ImeIJMVectoritem2.end
+		xyz
+			ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment
+			enus	point cloud
+			dech	Punktwolke
+			ImeIJMVectoritem2.end
+		ImeIMVectoritem2.end
+	klst	KlstWzskKMFileMimetype	mimetype	noloc
+		ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	MIME type
+		full	dech	MIME-Typ
+		ImeIAMVectorTitle2.end
+	ImeIMVector2.end
+main	void	0	TblWzskMPerson	prs
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	sngfull	enus	n	person
+	sngfull	dech	f	Person
+	plfull	enus	n	persons
+	plfull	dech	f	Personen
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	grp		1	tbl	TblWzskMUsergroup	grp	grp	void	void		true	false
+	own		2	tbl	TblWzskMUser	own	own	void	void		true	false
+	vecref		32	vec	VecWzskWMPersonDerivate	ixWDerivate	drv	vrefand	void	idx	false	false
+	vecref		0	vec	VecWzskVMPersonSex	ixVSex	sex	vreflin	void		true	false
+	txtval		0	vec	VlstWzskUMPersonTitle	Title	tit	txt30	void		true	true
+	txtval		0	void		Firstname	fnm	txt30	void		true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	first name
+		full	dech	Vorname
+		ImeIAMTablecolTitle.end
+	tblref		13	tbl	TblWzskJMPersonLastname	refJLastname	j	trefmin	void		false	true
+	txtval		0	void		Lastname	lnm	txt50	void	idx	true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	last name
+		full	dech	Nachname
+		ImeIAMTablecolTitle.end
+	tblref		15	tbl	TblWzskAMPersonDetail	telRefADetail	ate	trefmin	void		false	false
+	txtval		0	void		telVal	tel	txt192	void		true	false
+	tblref		16	tbl	TblWzskAMPersonDetail	emlRefADetail	aem	trefmin	void		false	false
+	txtval		0	void		emlVal	eml	txt192	void		true	false
+	txtval		0	void		Salutation	sal	txt100	void		false	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	salutation
+		full	dech	Briefanrede
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+	ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
+	or	VecWzskWMPersonDerivate		filfed
+		ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus
+		full	dech
+		ImeIAMVectorTitle2.end
+		ImeIMVectoritem2.sref	Avail	Implied	Title	Comment
+		usr
+			ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment
+			enus	user
+			dech	Benutzer
+			ImeIJMVectoritem2.end
+		ImeIMVectoritem2.end
+	lin	VecWzskVMPersonSex	sex	filfed
+		ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	sex
+		full	dech	Geschlecht
+		ImeIAMVectorTitle2.end
+	vlst	VlstWzskUMPersonTitle	prstit
+		ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	title
+		full	dech	Anrede
+		ImeIAMVectorTitle2.end
+	ImeIMVector2.end
+main	void	0	TblWzskMSession	ses
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	refs	loadRefsByUsr	ref	refWzskMUser	start	void
+	rst	loadRstByUsr		refWzskMUser	start	void
+	ImeIAMTableLoadfct.end
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	sngfull	enus	n	session
+	sngfull	dech	f	Sitzung
+	plfull	enus	n	sessions
+	plfull	dech	f	Sitzungen
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		23	tbl	TblWzskMUser	refWzskMUser	usr	trefspec	void		true	false
+	timeval		0	void		start	sta	tmstamp	void	idx	true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		short	enus	start
+		short	dech	Start
+		full	enus	login time
+		full	dech	Login-Zeitpunkt
+		ImeIAMTablecolTitle.end
+	timeval		0	void		stop	sto	tmstamp	void		true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		short	enus	stop
+		short	dech	Stopp
+		full	enus	logout time
+		full	dech	Logout-Zeitpunkt
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Ip	ip	txt30	void		true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		short	enus	IP
+		short	dech	IP
+		full	enus	IP address
+		full	dech	IP Adresse
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+main	void	0	TblWzskMUser	usr
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	ref	loadRefByPrs	ref	refWzskMPerson		void
+	rec	loadRecByPrs		refWzskMPerson		void
+	ref	loadRefBySrf	ref	sref		void
+	rec	loadRecBySrf		sref		void
+	rec	loadRecBySrfPwd		sref;Password		void
+	ImeIAMTableLoadfct.end
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	sngfull	enus	n	user
+	sngfull	dech	m	Benutzer
+	plfull	enus	n	users
+	plfull	dech	m	Benutzer
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	grp		24	tbl	TblWzskMUsergroup	grp	grp	void	void		true	false
+	own		25	tbl	TblWzskMUser	own	own	void	void		true	false
+	tblref		30	tbl	TblWzskRMUserMUsergroup	refRUsergroup	rug	trefmin	void		false	false
+	tblref		31	tbl	TblWzskMUsergroup	refWzskMUsergroup	usg	trefspec	void		true	false
+	tblref		33	tbl	TblWzskMPerson	refWzskMPerson	prs	trefspec	void		true	true
+	idsref		0	void		sref	srf	void	void		true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	login
+		full	dech	Login
+		ImeIAMTablecolTitle.end
+	tblref		35	tbl	TblWzskJMUserState	refJState	j	trefmin	void		false	false
+	vecref		0	vec	VecWzskVMUserState	ixVState	ste	vreflin	void	idx	true	false
+	vecref		0	vec	VecWzskVLocale	ixWzskVLocale	lcl	vreflin	void		true	false
+	vecref		0	vec	VecWzskVUserlevel	ixWzskVUserlevel	ulv	vreflin	void		true	false
+	txtval		0	void		Password	pwd	txt30	void		false	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	password
+		full	dech	Passwort
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Fullkey	fky	txtlong	void		false	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	full key (X.509)
+		full	dech	vollst\u00e4ndiger Schl\u00fcssel (X.509)
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Comment	cmt	txtlong	void		false	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	comment
+		full	dech	Notiz
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+	ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
+	lin	VecWzskVMUserState	usrste	filfed
+		ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	state
+		full	dech	Status
+		ImeIAMVectorTitle2.end
+	ImeIMVector2.end
+main	void	0	TblWzskMUsergroup	usg
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	ref	loadRefBySrf	ref	sref		void
+	rec	loadRecBySrf		sref		void
+	ImeIAMTableLoadfct.end
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	sngfull	enus	n	user group
+	sngfull	dech	f	Benutzergruppe
+	plfull	enus	n	user groups
+	plfull	dech	f	Benutzergruppen
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	grp		36	tbl	TblWzskMUsergroup	grp	grp	void	void		true	false
+	own		37	tbl	TblWzskMUser	own	own	void	void		true	false
+	idsref		0	void		sref	srf	void	void		true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	identifier
+		full	dech	Bezeichner
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Comment	cmt	txtlong	void		false	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	comment
+		full	dech	Notiz
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+aux	void	0	TblWzskAMPersonDetail	prsAdet
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	rec	loadRecByPrsTyp		refWzskMPerson;x1SrefKType		void
+	ImeIAMTableLoadfct.end
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	plfull	enus	n	contact details
+	plfull	dech	f	Kontaktangaben
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		14	tbl	TblWzskMPerson	refWzskMPerson	prs	trefspec	void		true	false
+	klref		0	vec	KlstWzskKAMPersonDetailType	x1SrefKType	typ	klrefsng	pt		true	true
+	txtval		0	void		Val	val	txt192	void		true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	value
+		full	dech	Wert
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+	ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
+	klst	KlstWzskKAMPersonDetailType	ctdet
+		ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	type
+		full	dech	Typ
+		ImeIAMVectorTitle2.end
+	ImeIMVector2.end
+aux	void	0	TblWzskAMUserAccess	usrAacc
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	plfull	enus	n	feature access rights
+	plfull	dech	n	Feature-Zugriffsrechte
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		17	tbl	TblWzskMUser	refWzskMUser	usr	trefspec	void		true	false
+	vecref		0	vec	VecWzskVFeatgroup	x1IxWzskVFeatgroup	feg	vreflin	pt	idx	true	true
+	uvsref		0	void		x2FeaSrefUix	fea	void	pt	idx	true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	feature
+		full	dech	Feature
+		ImeIAMTablecolTitle.end
+	vecref		0	vec	VecWzskWAccess	ixWzskWAccess	acc	vrefand	void		true	false
+	ImeIMTablecol.end
+aux	void	0	TblWzskAMUsergroupAccess	usgAacc
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	plfull	enus	n	feature access rights
+	plfull	dech	n	Feature-Zugriffsrechte
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		18	tbl	TblWzskMUsergroup	refWzskMUsergroup	usg	trefspec	void		true	false
+	vecref		0	vec	VecWzskVFeatgroup	x1IxWzskVFeatgroup	feg	vreflin	pt	idx	true	true
+	uvsref		0	void		x2FeaSrefUix	fea	void	pt	idx	true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	feature
+		full	dech	Feature
+		ImeIAMTablecolTitle.end
+	vecref		0	vec	VecWzskWAccess	ixWzskWAccess	acc	vrefand	void		true	false
+	ImeIMTablecol.end
+aux	void	0	TblWzskAVControlPar	ctlApar
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	string	loadValByCtlUsrPar	Val	ixWzskVControl;x1RefWzskMUser;Par		void
+	ref	loadRefByCtlUsrPar	ref	ixWzskVControl;x1RefWzskMUser;Par		void
+	ImeIAMTableLoadfct.end
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	plfull	enus	n	parameters
+	plfull	dech	m	Parameter
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	vecref		0	vec	VecWzskVControl	ixWzskVControl	ctl	vreflin	void	idx	true	false
+	tblref		19	tbl	TblWzskMUser	x1RefWzskMUser	usr	trefspec	pt		true	false
+	vecref		0	vec	VecWzskVLocale	x2IxWzskVLocale	lcl	vreflin	pt	idx	true	false
+	txtval		0	void		Par	par	txt192	void	idx	true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	parameter
+		full	dech	Parameter
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Val	val	txt192	void		true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	value
+		full	dech	Wert
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+aux	void	0	TblWzskAVKeylistKey	klsAkey
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	rst	loadRstByKls		klsIxWzskVKeylist	klsNum	void
+	rst	loadRstByKlsMtbUrf		klsIxWzskVKeylist;x1IxWzskVMaintable;x1Uref	klsNum	void
+	string	loadTitByRef	Title	ref		void
+	ref	loadRefByKlsSrf	ref	klsIxWzskVKeylist;sref		void
+	ref	loadRefByKlsMtbUrfSrf	ref	klsIxWzskVKeylist;x1IxWzskVMaintable;x1Uref;sref		void
+	ImeIAMTableLoadfct.end
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	plfull	enus	n	keys
+	plfull	dech	m	Schl\u00fcssel
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	vecref		0	vec	VecWzskVKeylist	klsIxWzskVKeylist	kls	vreflin	void	idx	true	false
+	enum		0	void		klsNum	kln	void	void		true	false
+	vecref		20	vec	VecWzskVMaintable	x1IxWzskVMaintable	mtb	vreflin	pt	idx	true	false
+	tblref		20	tbl		x1Uref	urf	trefuniv	pt		true	false
+	boolval		0	void		Fixed	fix	void	void		true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	fixed
+		full	dech	statisch
+		ImeIAMTablecolTitle.end
+	idsref		0	void		sref	srf	void	void		true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	identifier
+		full	dech	Bezeichner
+		ImeIAMTablecolTitle.end
+	expr		0	void		Avail	avl	void	void		true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		short	enus	avail. rule
+		short	dech	verf\u00fcgbar
+		full	enus	availability rule
+		full	dech	Verf\u00fcgbarkeitsregel
+		ImeIAMTablecolTitle.end
+	expr		0	void		Implied	imp	void	void		true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		short	enus	impl. rule
+		short	dech	impliziert
+		full	enus	rule for implied
+		full	dech	Implikationsregel
+		ImeIAMTablecolTitle.end
+	tblref		22	tbl	TblWzskJAVKeylistKey	refJ	j	trefmin	void		true	true
+	txtval		0	void		Title	tit	txt192	void		true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	name
+		full	dech	Name
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Comment	cmt	txtlong	void		true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	comment
+		full	dech	Notiz
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+aux	void	0	TblWzskAVValuelistVal	vlsAval
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	rst	loadRstByVlsLcl		vlsIxWzskVValuelist;x1IxWzskVLocale	vlsNum	void
+	ImeIAMTableLoadfct.end
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	plfull	enus	n	values
+	plfull	dech	m	Werte
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	vecref		0	vec	VecWzskVValuelist	vlsIxWzskVValuelist	vls	vreflin	void	idx	true	false
+	enum		0	void		vlsNum	vln	void	void	idx	true	false
+	vecref		0	vec	VecWzskVLocale	x1IxWzskVLocale	lcl	vreflin	pt	idx	true	false
+	txtval		0	void		Val	val	txt192	void		true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	value
+		full	dech	Wert
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+jump	void	0	TblWzskJAVKeylistKey	kakJkey
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	rst	loadRstByKlk		refWzskAVKeylistKey	x1IxWzskVLocale	void
+	string	loadTitByKlkLcl	Title	refWzskAVKeylistKey;x1IxWzskVLocale		void
+	ImeIAMTableLoadfct.end
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	plfull	enus	n	name and comment by locale
+	plfull	dech	m	Name und Notiz nach Sprachversion
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		21	tbl	TblWzskAVKeylistKey	refWzskAVKeylistKey	klk	trefspec	void		true	false
+	vecref		0	vec	VecWzskVLocale	x1IxWzskVLocale	lcl	vreflin	pt	idx	true	false
+	txtval		0	void		Title	tit	txt192	void		true	false
+	txtval		0	void		Comment	cmt	txtlong	void		true	false
+	ImeIMTablecol.end
+jump	void	0	TblWzskJMPersonLastname	prsJlnm
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	rec	loadRecByPrsSta		refWzskMPerson;x1Startd.leq	x1Startd.desc	first
+	ImeIAMTableLoadfct.end
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	plfull	enus	n	last name history
+	plfull	dech	m	Nachname im Zeitverlauf
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		12	tbl	TblWzskMPerson	refWzskMPerson	prs	trefspec	void		true	false
+	timeval		0	void		x1Startd	sta	tmdate	spt	idx	true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	from
+		full	dech	ab
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Lastname	lnm	txt50	void	idx	true	false
+	ImeIMTablecol.end
+jump	void	0	TblWzskJMUserState	usrJste
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	rec	loadRecByUsrSta		refWzskMUser;x1Start.leq	x1Start.desc	first
+	ImeIAMTableLoadfct.end
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	plfull	enus	n	state history
+	plfull	dech	m	Status im Zeitverlauf
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		34	tbl	TblWzskMUser	refWzskMUser	usr	trefspec	void		true	false
+	timeval		0	void		x1Start	sta	tmstamp	spt	idx	true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	from
+		full	dech	ab
+		ImeIAMTablecolTitle.end
+	vecref		0	vec	VecWzskVMUserState	ixVState	ste	vreflin	void		true	false
+	ImeIMTablecol.end
+rel	rel	38	TblWzskAccRMUserUniversal	ausrRunv
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	rec	loadRecByUsrMtbUnv		refWzskMUser;unvIxWzskVMaintable;unvUref		void
+	ImeIAMTableLoadfct.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		39	tbl	TblWzskMUser	refWzskMUser	usr	trefspec	void		true	false
+	vecref		40	vec	VecWzskVMaintable	unvIxWzskVMaintable	mtb	vreflin	void	idx	true	false
+	tblref		40	tbl		unvUref	unv	trefuniv	void		true	false
+	vecref		0	vec	VecWzskVRecaccess	ixWzskVRecaccess	rac	vreflin	void		true	false
+	ImeIMTablecol.end
+rel	rel	41	TblWzskHistRMUserUniversal	husrRunv
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	ref	loadUnuByRef	unvUref	ref		void
+	rst	loadRstByUsrCrd		refWzskMUser;ixWzskVCard	start.desc	void
+	rec	loadRecByUsrMtbUnvCrd		refWzskMUser;unvIxWzskVMaintable;unvUref;ixWzskVCard		void
+	refs	loadRefsByUsrMtbCrd	ref	refWzskMUser;unvIxWzskVMaintable;ixWzskVCard	start.desc	limofs
+	ImeIAMTableLoadfct.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		42	tbl	TblWzskMUser	refWzskMUser	usr	trefspec	void		true	false
+	vecref		43	vec	VecWzskVMaintable	unvIxWzskVMaintable	mtb	vreflin	void	idx	true	false
+	tblref		43	tbl		unvUref	unv	trefuniv	void		true	false
+	vecref		0	vec	VecWzskVCard	ixWzskVCard	crd	vreflin	void	idx	true	false
+	vecref		0	vec	VecWzskVPreset	ixWzskVPreset	pre	vreflin	void	idx	true	false
+	vecref		210	vec	VecWzskVMaintable	preIxWzskVMaintable	prm	vreflin	void	idx	true	false
+	tblref		210	tbl		preUref	pru	trefuniv	void		true	false
+	timeval		0	void		start	sta	tmstamp	void		true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	access time
+		full	dech	Zugriffszeit
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+rel	rel	44	TblWzskRMUsergroupUniversal	usgRunv
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	rec	loadRecByUsgMtbUnv		refWzskMUsergroup;unvIxWzskVMaintable;unvUref		void
+	ImeIAMTableLoadfct.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		45	tbl	TblWzskMUsergroup	refWzskMUsergroup	usg	trefspec	void		true	false
+	vecref		46	vec	VecWzskVMaintable	unvIxWzskVMaintable	mtb	vreflin	void	idx	true	false
+	tblref		46	tbl		unvUref	unv	trefuniv	void		true	false
+	vecref		0	vec	VecWzskVRecaccess	ixWzskVRecaccess	rac	vreflin	void		true	false
+	ImeIMTablecol.end
+rel	rel	26	TblWzskRMUserMUsergroup	usrRusg
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		27	tbl	TblWzskMUser	refWzskMUser	usr	trefspec	void		true	false
+	tblref		28	tbl	TblWzskMUsergroup	refWzskMUsergroup	usg	trefspec	void		true	false
+	vecref		0	vec	VecWzskVUserlevel	ixWzskVUserlevel	ulv	vreflin	void		false	false
+	ImeIMTablecol.end
+clust	void	0	TblWzskCFile	filC
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	ImeIMTablecol.end
+main	void	0	TblWzskMObject	obj
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	sngfull	enus	n	object
+	sngfull	dech	n	Objekt
+	plfull	enus	n	objects
+	plfull	dech	n	Objekte
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		53	tbl	TblWzskMObjgroup	refWzskMObjgroup	ogr	trefspec	void		true	false
+	txtval		0	void		Title	tit	txt100	void	idx	true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	name
+		full	dech	Name
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Comment	cmt	txtlong	void		true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	comment
+		full	dech	Notiz
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+main	void	0	TblWzskMObjgroup	ogr
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	sngfull	enus	n	object group
+	sngfull	dech	f	Objektgruppe
+	plfull	enus	n	object groups
+	plfull	dech	f	Objektgruppen
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		52	tbl	TblWzskMObjgroup	supRefWzskMObjgroup	sup	trefspec	void		true	false
+	idsref		0	void		sref	srf	void	void		true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	identifier
+		full	dech	Bezeichner
+		ImeIAMTablecolTitle.end
+	tblref		58	tbl	TblWzskJMObjgroupTitle	refJTitle	j	trefmin	void		false	true
+	txtval		0	void		Title	tit	txt100	void	idx	true	true
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	name
+		full	dech	Name
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Comment	cmt	txtlong	void		true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	comment
+		full	dech	Notiz
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+main	void	0	TblWzskMShot	sht
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	sngfull	enus	n	shot
+	sngfull	dech	f	Aufnahme
+	plfull	enus	n	shots
+	plfull	dech	f	Aufnahmen
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		54	tbl	TblWzskMSession	refWzskMSession	ses	trefspec	void		true	false
+	tblref		55	tbl	TblWzskMObject	refWzskMObject	obj	trefspec	void		true	false
+	timeval		0	void		start	sta	tmstamp	void	idx	true	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	start
+		full	dech	Start
+		ImeIAMTablecolTitle.end
+	txtval		0	void		Comment	cmt	txtlong	void		false	false
+		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	comment
+		full	dech	Notiz
+		ImeIAMTablecolTitle.end
+	ImeIMTablecol.end
+aux	void	0	TblWzskAMShotPar	shtApar
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	plfull	enus	n	parameters
+	plfull	dech	n	Parameter
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		56	tbl	TblWzskMShot	refWzskMShot	sht	trefspec	void		true	false
+	klref		0	vec	KlstWzskKAMShotParKey	x1SrefKKey	key	klrefsng	pt	idx	true	true
+	txtval		0	void		Val	val	txt192	void		true	false
+	ImeIMTablecol.end
+	ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
+	klst	KlstWzskKMShotParKey
+		ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title
+		full	enus	key
+		full	dech	Schl\u00fcssel
+		ImeIAMVectorTitle2.end
+		ImeIMVectoritem2.sref	Avail	Implied	Title	Comment
+		deltaTheta
+			ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment
+			enus	angle increment [\u00b0]
+			dech	Winkel-Schrittweite [\u00b0]
+			ImeIJMVectoritem2.end
+		Npoint
+			ImeIJMVectoritem2.srefX1RefWznmMLocale	Title	Comment
+			enus	point cloud size
+			dech	Gr\u00f6sse der Punktwolke
+			ImeIJMVectoritem2.end
+		ImeIMVectoritem2.end
+	ImeIMVector2.end
+jump	void	0	TblWzskJMObjgroupTitle	ogrJtit
+	ImeIAMTableLoadfct.srefIxVLoadtype	Fctname	ldSrefWznmMTablecol	lbySrefsWznmMTablecol	ordSrefsWznmMTablecol	srefIxVLimtype
+	rec	loadRecByOgrLcl		refWzskMObjgroup;x1IxWzskVLocale		void
+	ImeIAMTableLoadfct.end
+	ImeIAMTableTitle.srefX1IxVType	srefX2RefWznmMLocale	srefIxWznmVGender	Title
+	plfull	enus	n	name by locale
+	plfull	dech	m	Name nach Sprachversion
+	ImeIAMTableTitle.end
+	ImeIMTablecol.srefIxVBasetype	srefRefWznmMSubset	irefRefWznmMRelation	srefFctIxVTbl	srefFctUref	sref	Short	srefIxVSubtype	srefIxVAxisfct	srefsKOption	Principal	Eponymous
+	idref		0	void		ref	ref	void	void		false	false
+	tblref		57	tbl	TblWzskMObjgroup	refWzskMObjgroup	ogr	trefspec	void		true	false
+	vecref		0	vec	VecWzskVLocale	x1IxWzskVLocale	lcl	vreflin	spt	idx	true	false
+	txtval		0	void		Title	tit	txt100	void	idx	true	true
+	ImeIMTablecol.end
+ImeIMTable.end
+ImeIMRelation.iref	srefIxVBasetype	irefRefWznmCRelation	irefSupRefWznmMRelation	srefSupIxVSubrole	srefFrRefWznmMTable	srefFrsRefWznmMSubset	srefToRefWznmMTable	srefTosRefWznmMSubset	srefRefWznmMTable	Prefix	srefsKOption
+1	grp	0	0	void	TblWzskMUsergroup		TblWzskMPerson
+2	own	0	0	void	TblWzskMUser		TblWzskMPerson
+12	j	0	0	void	TblWzskMPerson		TblWzskJMPersonLastname				pref
+13	jpref	0	12	pref	TblWzskJMPersonLastname		TblWzskMPerson
+14	aux	0	0	void	TblWzskMPerson		TblWzskAMPersonDetail				pref
+15	auxpref	0	14	pref	TblWzskAMPersonDetail		TblWzskMPerson			tel
+	ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+	fromsngfull	enus	phone
+	fromsngfull	dech	Telefon
+	ImeIAMRelationTitle.end
+16	auxpref	0	14	pref	TblWzskAMPersonDetail		TblWzskMPerson			eml
+	ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+	fromsngfull	enus	e-mail
+	fromsngfull	dech	E-Mail
+	ImeIAMRelationTitle.end
+17	aux	0	0	void	TblWzskMUser		TblWzskAMUserAccess
+18	aux	0	0	void	TblWzskMUsergroup		TblWzskAMUsergroupAccess
+19	_1n	0	0	void	TblWzskMUser		TblWzskAVControlPar
+20	um1n	0	0	void			TblWzskAVKeylistKey
+21	j	0	0	void	TblWzskAVKeylistKey		TblWzskJAVKeylistKey				pref
+22	jpref	0	21	pref	TblWzskJAVKeylistKey		TblWzskAVKeylistKey
+23	_1n	0	0	void	TblWzskMUser		TblWzskMSession				affil
+24	grp	0	0	void	TblWzskMUsergroup		TblWzskMUser
+25	own	0	0	void	TblWzskMUser		TblWzskMUser
+26	mn	0	0	void	TblWzskMUser		TblWzskMUsergroup		TblWzskRMUserMUsergroup		preffrom
+27	_1n	0	26	from1n	TblWzskMUser		TblWzskRMUserMUsergroup
+28	_1n	0	26	to1n	TblWzskMUsergroup		TblWzskRMUserMUsergroup
+29	mnpref	0	26	frompref
+30	_1n	0	29	r1n	TblWzskRMUserMUsergroup		TblWzskMUser
+31	_1n	0	29	mn1n	TblWzskMUsergroup		TblWzskMUser
+	ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+	fromsngfull	enus	primary user group
+	fromsngfull	dech	prim\u00e4re Benutzergruppe
+	ImeIAMRelationTitle.end
+32	drv	0	0	void	TblWzskMPerson
+33	drvsub	0	32	sub	TblWzskMPerson		TblWzskMUser			usr
+34	j	0	0	void	TblWzskMUser		TblWzskJMUserState				pref
+35	jpref	0	34	pref	TblWzskJMUserState		TblWzskMUser
+36	grp	0	0	void	TblWzskMUsergroup		TblWzskMUsergroup
+37	own	0	0	void	TblWzskMUser		TblWzskMUsergroup
+38	umn	0	0	void	TblWzskMUser				TblWzskAccRMUserUniversal	acc
+39	_1n	0	38	from1n	TblWzskMUser		TblWzskAccRMUserUniversal
+	ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+	toplfull	enus	record access rights
+	toplfull	dech	Datensatz-Zugriffsrechte
+	ImeIAMRelationTitle.end
+40	um1n	0	38	toum1n			TblWzskAccRMUserUniversal			unv
+41	umn	0	0	void	TblWzskMUser				TblWzskHistRMUserUniversal	hist
+42	_1n	0	41	from1n	TblWzskMUser		TblWzskHistRMUserUniversal
+	ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+	toplfull	enus	access history
+	toplfull	dech	Zugriffsverlauf
+	ImeIAMRelationTitle.end
+43	um1n	0	41	toum1n			TblWzskHistRMUserUniversal			unv
+44	umn	0	0	void	TblWzskMUsergroup				TblWzskRMUsergroupUniversal
+45	_1n	0	44	from1n	TblWzskMUsergroup		TblWzskRMUsergroupUniversal
+	ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+	toplfull	enus	record access rights
+	toplfull	dech	Datensatz-Zugriffsrechte
+	ImeIAMRelationTitle.end
+46	um1n	0	44	toum1n			TblWzskRMUsergroupUniversal			unv
+47	grp	0	0	void	TblWzskMUsergroup		TblWzskMFile
+48	own	0	0	void	TblWzskMUser		TblWzskMFile
+49	clust	0	0	void	TblWzskCFile		TblWzskMFile
+50	u1n	0	0	void			TblWzskMFile			ref	affil
+	ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+	fromsngfull	enus	reference
+	fromsngfull	dech	Referenz
+	ImeIAMRelationTitle.end
+51	u1nsub	0	50	sub	TblWzskMShot		TblWzskMFile			sht
+52	h1n	0	0	void	TblWzskMObjgroup		TblWzskMObjgroup			sup
+	ImeIAMRelationTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
+	fromsngfull	enus	super group
+	fromsngfull	dech	\u00fcbergeordnete Gruppe
+	toplfull	enus	sub-groups
+	toplfull	dech	Untergruppen
+	ImeIAMRelationTitle.end
+53	_1n	0	0	void	TblWzskMObjgroup		TblWzskMObject				affil
+54	_1n	0	0	void	TblWzskMSession		TblWzskMShot				affil
+55	_1n	0	0	void	TblWzskMObject		TblWzskMShot				affil
+56	aux	0	0	void	TblWzskMShot		TblWzskAMShotPar
+57	j	0	0	void	TblWzskMObjgroup		TblWzskJMObjgroupTitle				pref
+58	jpref	0	57	pref	TblWzskJMObjgroupTitle		TblWzskMObjgroup
+59	u1nsub	0	50	sub	TblWzskMObject		TblWzskMFile			obj
+ImeIMRelation.end
+ImeIMStub.srefIxVBasetype	srefRefWznmMTable	srefRefWznmMSubset	sref	Hierarch	srefRefWznmMTablecol	Localized	Example
+tco	TblWzskMFile		StubWzskFilStd	false	Filename	false	customers.xlsx
+cust	TblWzskMPerson		StubWzskPrsStd	false		false	Franz Kuntz
+cust	TblWzskMSession		StubWzskSesMenu	false		true	user fkuntz / Franz Kuntz;logged in from 127.0.0.1;since 01-01-2010 10:34
+cust	TblWzskMSession		StubWzskSesStd	false		true	01-01-2010 10:34 from 127.0.0.1
+cust	TblWzskMUser		StubWzskUsrStd	false		false	fkuntz / Franz Kuntz
+tco	TblWzskMUsergroup		StubWzskUsgStd	false	sref	false	super
+tco	TblWzskMObject		StubWzskObjStd	false	Title	false	Tux
+tco	TblWzskMObjgroup		StubWzskOgrHsref	true	sref	false	icon;comp
+cust	TblWzskMObjgroup		StubWzskOgrStd	false		true	(icon;comp) Open Source Software
+cust	TblWzskMShot		StubWzskShtStd	false		false	Tux 1-9-2019 8:23:05
+ImeIMStub.end
+ImeIRMStubMStub.srefSupRefWznmMStub	srefSubRefWznmMStub
+StubWzskUsrStd	StubWzskSesMenu
+StubWzskPrsStd	StubWzskUsrStd
+StubWzskOgrHsref	StubWzskOgrHsref
+StubWzskOgrHsref	StubWzskOgrStd
+StubWzskObjStd	StubWzskShtStd
+ImeIRMStubMStub.end

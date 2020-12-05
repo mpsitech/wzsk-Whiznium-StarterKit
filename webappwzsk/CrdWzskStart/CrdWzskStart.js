@@ -1,11 +1,3 @@
-/**
-  * \file CrdWzskStart.js
-  * web client functionality for Wzsk start page
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 function initLogin() {
 	doc.getElementById("tdCont").setAttribute("height", "128");
 	doc.getElementById("Cont").setAttribute("height", "120");

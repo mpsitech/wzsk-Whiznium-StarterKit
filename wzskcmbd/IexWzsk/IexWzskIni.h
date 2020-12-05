@@ -1,10 +1,11 @@
 /**
 	* \file IexWzskIni.h
 	* data blocks and readers/writers for import/export complex IexWzskIni (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifndef IEXWZSKINI_H
 #define IEXWZSKINI_H
@@ -837,7 +838,7 @@ namespace IexWzskIni {
 		void writeXML(xmlTextWriter* wr, const bool shorttags = true);
 	};
 
-	void parseFromFile(const std::string& fullpath, const bool xmlNotTxt, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMFile& imeimfile, ImeIMUsergroup& imeimusergroup);
+	void parseFromFile(const std::string& fullpath, const bool xmlNotTxt, const std::string& rectpath, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMFile& imeimfile, ImeIMUsergroup& imeimusergroup);
 	void exportToFile(const std::string& fullpath, const bool xmlNotTxt, const bool shorttags, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMFile& imeimfile, ImeIMUsergroup& imeimusergroup);
 
 	void readTxt(Sbecore::Txtrd& txtrd, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMFile& imeimfile, ImeIMUsergroup& imeimusergroup);

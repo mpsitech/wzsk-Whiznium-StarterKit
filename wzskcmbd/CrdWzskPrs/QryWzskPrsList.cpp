@@ -1,10 +1,11 @@
 /**
 	* \file QryWzskPrsList.cpp
 	* job handler for job QryWzskPrsList (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifdef WZSKCMBD
 	#include <Wzskcmbd.h>
@@ -169,8 +170,8 @@ void QryWzskPrsList::rerun_orderSQL(
 			string& sqlstr
 			, const uint preIxOrd
 		) {
-	if (preIxOrd == VecVOrd::LNM) sqlstr += " ORDER BY TblWzskMPerson.Lastname ASC";
-	else if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMPerson.own ASC";
+	if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMPerson.own ASC";
+	else if (preIxOrd == VecVOrd::LNM) sqlstr += " ORDER BY TblWzskMPerson.Lastname ASC";
 	else if (preIxOrd == VecVOrd::GRP) sqlstr += " ORDER BY TblWzskMPerson.grp ASC";
 };
 

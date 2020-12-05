@@ -1,10 +1,11 @@
 /**
 	* \file JobWzskIprCorner.cpp
 	* job handler for job JobWzskIprCorner (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifdef WZSKCMBD
 	#include <Wzskcmbd.h>
@@ -676,8 +677,8 @@ void JobWzskIprCorner::handleRequest(
 		};
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
-		if ((req->sref == "srcstop") && (ixVSge == VecVSge::DONE)) handleTimerWithSrefSrcstopInSgeDone(dbswzsk);
-		else if (ixVSge == VecVSge::PRCIDLE) handleTimerInSgePrcidle(dbswzsk, req->sref);
+		if (ixVSge == VecVSge::PRCIDLE) handleTimerInSgePrcidle(dbswzsk, req->sref);
+		else if ((req->sref == "srcstop") && (ixVSge == VecVSge::DONE)) handleTimerWithSrefSrcstopInSgeDone(dbswzsk);
 	};
 };
 
@@ -689,17 +690,17 @@ bool JobWzskIprCorner::handleTest(
 	return retval;
 };
 
-void JobWzskIprCorner::handleTimerWithSrefSrcstopInSgeDone(
-			DbsWzsk* dbswzsk
-		) {
-	changeStage(dbswzsk, VecVSge::IDLE);
-};
-
 void JobWzskIprCorner::handleTimerInSgePrcidle(
 			DbsWzsk* dbswzsk
 			, const string& sref
 		) {
 	changeStage(dbswzsk, nextIxVSgeSuccess);
+};
+
+void JobWzskIprCorner::handleTimerWithSrefSrcstopInSgeDone(
+			DbsWzsk* dbswzsk
+		) {
+	changeStage(dbswzsk, VecVSge::IDLE);
 };
 
 void JobWzskIprCorner::handleCall(
@@ -1164,6 +1165,10 @@ bool JobWzskIprCorner::handleClaim(
 
 	return mod;
 };
+
+
+
+
 
 
 

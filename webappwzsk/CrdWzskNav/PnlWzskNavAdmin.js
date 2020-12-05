@@ -1,11 +1,3 @@
-/**
-  * \file PnlWzskNavAdmin.js
-  * web client functionality for panel PnlWzskNavAdmin
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 // IP cust --- INSERT
 
 // --- expand state management
@@ -407,6 +399,8 @@ function handleButCrdopenClick(ctlsref) {
 };
 
 function handleLstLoad(lstdoc, ctlsref, ncol, multsel) {
+	if (!srcdoc) return;
+
 	if (multsel) {
 		refreshLst(lstdoc, srcdoc, ncol, true, multsel, "FeedF" + ctlsref, parseInt(retrieveSi(srcdoc, "StatAppWzskNavAdmin", ctlsref + "NumFirstdisp")),
 					parseUintvec(retrieveCi(srcdoc, "ContIacWzskNavAdmin", "numsF" + ctlsref)));

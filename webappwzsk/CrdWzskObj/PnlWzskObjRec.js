@@ -1,11 +1,3 @@
-/**
-  * \file PnlWzskObjRec.js
-  * web client functionality for panel PnlWzskObjRec
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 function updateScrJrefs() {
 	scrJrefDetail = retrieveSi(srcdoc, "StatShrWzskObjRec", "scrJrefDetail");
 	scrJref1NShot = retrieveSi(srcdoc, "StatShrWzskObjRec", "scrJref1NShot");

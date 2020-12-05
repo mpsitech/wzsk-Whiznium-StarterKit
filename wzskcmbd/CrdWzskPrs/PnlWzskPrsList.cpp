@@ -1,10 +1,11 @@
 /**
 	* \file PnlWzskPrsList.cpp
 	* job handler for job PnlWzskPrsList (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifdef WZSKCMBD
 	#include <Wzskcmbd.h>
@@ -246,7 +247,7 @@ void PnlWzskPrsList::handleDpchAppDataContiac(
 	diffitems = _contiac->diff(&contiac);
 
 	if (has(diffitems, ContIac::NUMFTOS)) {
-		if ((_contiac->numFTos >= QryWzskPrsList::VecVOrd::LNM) && (_contiac->numFTos <= QryWzskPrsList::VecVOrd::GRP)) {
+		if ((_contiac->numFTos >= QryWzskPrsList::VecVOrd::OWN) && (_contiac->numFTos <= QryWzskPrsList::VecVOrd::GRP)) {
 			muteRefresh = true;
 
 			xchg->addIxPreset(VecWzskVPreset::PREWZSKIXORD, jref, _contiac->numFTos);

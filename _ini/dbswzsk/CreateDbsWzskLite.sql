@@ -1,3 +1,10 @@
+-- file CreateDbsWzskLite.sql
+-- SQLite database create script
+-- copyright: (C) 2016-2020 MPSI Technologies GmbH
+-- author: Emily Johnson (auto-generation)
+-- date created: 5 Dec 2020
+-- IP header --- ABOVE
+
 DROP TABLE IF EXISTS TblWzskAccRMUserUniversal;
 DROP TABLE IF EXISTS TblWzskAMPersonDetail;
 DROP TABLE IF EXISTS TblWzskAMShotPar;

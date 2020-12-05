@@ -1,10 +1,11 @@
 /**
 	* \file DlgWzskNavLoaini.h
 	* job handler for job DlgWzskNavLoaini (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifndef DLGWZSKNAVLOAINI_H
 #define DLGWZSKNAVLOAINI_H
@@ -411,9 +412,9 @@ public:
 	};
 
 	bool evalButDneActive(DbsWzsk* dbswzsk);
+	bool evalLfiDldActive(DbsWzsk* dbswzsk);
 	bool evalImpButRunActive(DbsWzsk* dbswzsk);
 	bool evalImpButStoActive(DbsWzsk* dbswzsk);
-	bool evalLfiDldActive(DbsWzsk* dbswzsk);
 	bool evalIfiUldActive(DbsWzsk* dbswzsk);
 
 public:
@@ -472,9 +473,9 @@ private:
 
 	std::string handleDownload(DbsWzsk* dbswzsk);
 
-	void handleTimerWithSrefMonInSgeImport(DbsWzsk* dbswzsk);
-	void handleTimerInSgeImpidle(DbsWzsk* dbswzsk, const std::string& sref);
 	void handleTimerInSgePrsidle(DbsWzsk* dbswzsk, const std::string& sref);
+	void handleTimerInSgeImpidle(DbsWzsk* dbswzsk, const std::string& sref);
+	void handleTimerWithSrefMonInSgeImport(DbsWzsk* dbswzsk);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge, DpchEngWzsk** dpcheng = NULL);
@@ -505,6 +506,10 @@ private:
 };
 
 #endif
+
+
+
+
 
 
 

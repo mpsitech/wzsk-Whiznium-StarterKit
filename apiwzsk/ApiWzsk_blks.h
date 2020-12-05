@@ -1,10 +1,11 @@
 /**
 	* \file ApiWzsk_blks.h
 	* Wzsk API library global data blocks (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifndef APIWZSK_BLKS_H
 #define APIWZSK_BLKS_H

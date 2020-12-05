@@ -1,10 +1,11 @@
 /**
 	* \file Wzskcmbd_exe.cpp
 	* Wzsk combined daemon main (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
-	*/
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
+  */
+// IP header --- ABOVE
 
 #include "Wzskcmbd.h"
 
@@ -117,6 +118,7 @@ Wzskcmbd::Wzskcmbd(
 		cout << " success" << endl;
 	};
 
+#if defined(SBECORE_DDS)
 	// 10. start DDS publisher
 	if (xchg->stgwzskcmbd.ddspub) {
 		cout << "\tstarting DDS publisher ..." << flush;
@@ -130,7 +132,9 @@ Wzskcmbd::Wzskcmbd(
 
 		cout << " success" << endl;
 	};
+#endif
 
+#if defined(SBECORE_UA)
 	// 11. start OPC UA server
 	if (xchg->stgwzskcmbd.uasrv) {
 		cout << "\tstarting OPC UA server ..." << flush;
@@ -144,22 +148,27 @@ Wzskcmbd::Wzskcmbd(
 
 		cout << " success" << endl;
 	};
+#endif
 
 	pthread_attr_destroy(&attr);
 };
 
 Wzskcmbd::~Wzskcmbd() {
+#if defined(SBECORE_UA)
 	// 1. stop OPC UA server
 	if (xchg->stgwzskcmbd.uasrv) {
 		pthread_cancel(uasrv);
 		pthread_join(uasrv, NULL);
 	};
+#endif
 
+#if defined(SBECORE_DDS)
 	// 2. stop DDS publisher
 	if (xchg->stgwzskcmbd.ddspub) {
 		pthread_cancel(ddspub);
 		pthread_join(ddspub, NULL);
 	};
+#endif
 
 	// 3. stop web server
 	if (xchg->stgwzskcmbd.appsrv) WzskcmbdAppsrv::stop(appsrv);
@@ -598,7 +607,7 @@ int main(
 
 	try {
 		// welcome message
-		cout << "Welcome to Whiznium StarterKit v0.1.37!" << endl;
+		cout << "Welcome to Whiznium StarterKit v1.0.0!" << endl;
 
 		// calls wzskcmbd.init()
 		wzskcmbd = new Wzskcmbd(exedir, clearAll, startMon);

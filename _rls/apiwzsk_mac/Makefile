@@ -1,10 +1,11 @@
 # file Makefile
 # make file for Wzsk API library, release apiwzsk_mac
-# author Catherine Johnson
-# date created: 18 Oct 2020
-# modified: 18 Oct 2020
+# copyright: (C) 2016-2020 MPSI Technologies GmbH
+# author: Emily Johnson (auto-generation)
+# date created: 5 Dec 2020
+# IP header --- ABOVE
 
-LIBROOT = ${WHIZROOT}/lib
+LIBROOT = ${WHIZSDKROOT}/lib
 
 CPP = g++
 CPPFLAGS = -std=c++11 -g -Wall -Os -pthread
@@ -12,7 +13,7 @@ CPPFLAGS = -std=c++11 -g -Wall -Os -pthread
 STATLIB = ar
 STATLIBFLAGS = rcs
 
-INCPATH = -I${WHIZROOT}/src -I/usr/include -I/usr/local/include/libxml2
+INCPATH = -I${WHIZSDKROOT}/build -I/usr/local/include/libxml2
 
 PCHS = ApiWzsk.h.gch
 

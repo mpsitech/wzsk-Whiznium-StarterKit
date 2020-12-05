@@ -1,10 +1,11 @@
 /**
 	* \file JobWzskAcqFpgaflg.h
 	* job handler for job JobWzskAcqFpgaflg (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifndef JOBWZSKACQFPGAFLG_H
 #define JOBWZSKACQFPGAFLG_H
@@ -180,6 +181,10 @@ public:
 };
 
 #endif
+
+
+
+
 
 
 

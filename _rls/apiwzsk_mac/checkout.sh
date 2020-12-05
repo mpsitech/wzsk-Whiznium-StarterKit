@@ -1,18 +1,24 @@
 #!/bin/bash
 # file checkout.sh
 # checkout script for Wzsk API library, release apiwzsk_mac
-# author Catherine Johnson
-# date created: 18 Oct 2020
-# modified: 18 Oct 2020
+# copyright: (C) 2016-2020 MPSI Technologies GmbH
+# author: Emily Johnson (auto-generation)
+# date created: 5 Dec 2020
+# IP header --- ABOVE
 
-export set SRCROOT=${WHIZROOT}/src
+if [ -z ${WHIZROOT+x} ]; then
+	echo "WHIZROOT is not defined. It looks as if you didn't run a Whiznium initialization script beforehand."
+	exit 1
+fi
 
-mkdir $SRCROOT/apiwzsk
+export set BUILDROOT=${WHIZSDKROOT}/build
 
-cp makeall.sh $SRCROOT/apiwzsk/
+mkdir $BUILDROOT/apiwzsk
 
-cp Makefile $SRCROOT/apiwzsk/
+cp makeall.sh $BUILDROOT/apiwzsk/
 
-cp ../../apiwzsk/*.h $SRCROOT/apiwzsk/
-cp ../../apiwzsk/*.cpp $SRCROOT/apiwzsk/
+cp Makefile $BUILDROOT/apiwzsk/
+
+cp ../../apiwzsk/*.h $BUILDROOT/apiwzsk/
+cp ../../apiwzsk/*.cpp $BUILDROOT/apiwzsk/
 

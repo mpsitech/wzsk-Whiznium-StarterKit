@@ -1,10 +1,11 @@
 /**
 	* \file DlgWzskScfTtablecoord.cpp
 	* job handler for job DlgWzskScfTtablecoord (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifdef WZSKCMBD
 	#include <Wzskcmbd.h>
@@ -106,23 +107,23 @@ void DlgWzskScfTtablecoord::refresh(
 	if (muteRefresh && !unmute) return;
 	muteRefresh = true;
 
-	ContIac oldContiac(contiac);
 	StatShr oldStatshr(statshr);
+	ContIac oldContiac(contiac);
 	ContInf oldContinf(continf);
 
 	// IP refresh --- BEGIN
-	// contiac
-	contiac.numFDse = ixVDit;
-
 	// statshr
 	statshr.ButDneActive = evalButDneActive(dbswzsk);
+
+	// contiac
+	contiac.numFDse = ixVDit;
 
 	// continf
 	continf.numFSge = ixVSge;
 
 	// IP refresh --- END
-	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 
 	refreshPlh(dbswzsk, moditems);

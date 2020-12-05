@@ -1,10 +1,11 @@
 /**
   * \file QryWzskUsgList.java
   * Java API code for job QryWzskUsgList
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
+	* \copyright (C) 2018-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
+	*/
+// IP header --- ABOVE
 
 package apiwzsk;
 
@@ -18,8 +19,8 @@ public class QryWzskUsgList {
 		*/
 	public static class VecVOrd {
 
-		public static final int OWN = 1;
-		public static final int SRF = 2;
+		public static final int SRF = 1;
+		public static final int OWN = 2;
 		public static final int GRP = 3;
 
 		public static int getIx(
@@ -27,8 +28,8 @@ public class QryWzskUsgList {
 				) {
 			String s = sref.toLowerCase();
 
-			if (s.equals("own")) return OWN;
 			if (s.equals("srf")) return SRF;
+			if (s.equals("own")) return OWN;
 			if (s.equals("grp")) return GRP;
 
 			return 0;
@@ -37,8 +38,8 @@ public class QryWzskUsgList {
 		public static String getSref(
 					int ix
 				) {
-			if (ix == OWN) return("own");
 			if (ix == SRF) return("srf");
+			if (ix == OWN) return("own");
 			if (ix == GRP) return("grp");
 
 			return "";

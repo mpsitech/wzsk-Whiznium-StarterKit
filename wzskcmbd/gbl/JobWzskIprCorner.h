@@ -1,10 +1,11 @@
 /**
 	* \file JobWzskIprCorner.h
 	* job handler for job JobWzskIprCorner (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifndef JOBWZSKIPRCORNER_H
 #define JOBWZSKIPRCORNER_H
@@ -221,8 +222,8 @@ public:
 private:
 	bool handleTest(DbsWzsk* dbswzsk);
 
-	void handleTimerWithSrefSrcstopInSgeDone(DbsWzsk* dbswzsk);
 	void handleTimerInSgePrcidle(DbsWzsk* dbswzsk, const std::string& sref);
+	void handleTimerWithSrefSrcstopInSgeDone(DbsWzsk* dbswzsk);
 
 public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
@@ -254,6 +255,10 @@ public:
 };
 
 #endif
+
+
+
+
 
 
 

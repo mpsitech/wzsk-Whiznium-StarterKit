@@ -1,10 +1,11 @@
 /**
 	* \file QryWzskPrsList.h
 	* API code for job QryWzskPrsList (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifndef QRYWZSKPRSLIST_H
 #define QRYWZSKPRSLIST_H
@@ -27,8 +28,8 @@ namespace QryWzskPrsList {
 	class VecVOrd {
 
 	public:
-		static const Sbecore::uint LNM = 1;
-		static const Sbecore::uint OWN = 2;
+		static const Sbecore::uint OWN = 1;
+		static const Sbecore::uint LNM = 2;
 		static const Sbecore::uint GRP = 3;
 
 		static Sbecore::uint getIx(const std::string& sref);

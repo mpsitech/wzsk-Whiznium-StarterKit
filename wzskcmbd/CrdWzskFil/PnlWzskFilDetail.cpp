@@ -1,10 +1,11 @@
 /**
 	* \file PnlWzskFilDetail.cpp
 	* job handler for job PnlWzskFilDetail (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifdef WZSKCMBD
 	#include <Wzskcmbd.h>
@@ -484,19 +485,19 @@ void PnlWzskFilDetail::handleDpchAppDoButReuViewClick(
 	ubigint refPre = ((ixPre) ? xchg->getRefPreset(ixPre, jref) : 0);
 
 	if (statshr.ButReuViewAvail && statshr.ButReuViewActive) {
-		if (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCSHT, jref)) if (recFil.refIxVTbl == VecWzskVMFileRefTbl::SHT) if (ixPre == VecWzskVPreset::PREWZSKREFOBJ) {
-			sref = "CrdWzskSht";
-			xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, ixPre, refPre, sref, recFil.refUref, jrefNew);
+		if (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCOBJ, jref)) if (recFil.refIxVTbl == VecWzskVMFileRefTbl::OBJ) {
+			sref = "CrdWzskObj";
+			xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, sref, recFil.refUref, jrefNew);
+		};
+		if (jrefNew == 0) {
+			if (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCSHT, jref)) if (recFil.refIxVTbl == VecWzskVMFileRefTbl::SHT) if (ixPre == VecWzskVPreset::PREWZSKREFOBJ) {
+				sref = "CrdWzskSht";
+				xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, ixPre, refPre, sref, recFil.refUref, jrefNew);
+			};
 		};
 		if (jrefNew == 0) {
 			if (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCSHT, jref)) if (recFil.refIxVTbl == VecWzskVMFileRefTbl::SHT) {
 				sref = "CrdWzskSht";
-				xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, sref, recFil.refUref, jrefNew);
-			};
-		};
-		if (jrefNew == 0) {
-			if (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCOBJ, jref)) if (recFil.refIxVTbl == VecWzskVMFileRefTbl::OBJ) {
-				sref = "CrdWzskObj";
 				xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, sref, recFil.refUref, jrefNew);
 			};
 		};

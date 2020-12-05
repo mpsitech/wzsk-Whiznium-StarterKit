@@ -1,11 +1,3 @@
-/**
-  * \file PnlWzskLlvCamera.js
-  * web client functionality for panel PnlWzskLlvCamera
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 // IP cust --- IBEGIN
 function refreshLive(mask) {
 	if (!contcontdoc) return;
@@ -640,6 +632,5 @@ function handleDpchAppDataDoReply() {
 		};
 	};
 };
-
 
 

@@ -1,10 +1,11 @@
 /**
 	* \file CrdWzskScf.h
 	* job handler for job CrdWzskScf (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifndef CRDWZSKSCF_H
 #define CRDWZSKSCF_H
@@ -17,8 +18,8 @@
 #include "PnlWzskScfGeom.h"
 #include "PnlWzskScfConn.h"
 #include "DlgWzskScfCameramat.h"
-#include "DlgWzskScfTtablecoord.h"
 #include "DlgWzskScfLaserpos.h"
+#include "DlgWzskScfTtablecoord.h"
 
 #define VecVWzskScfDo CrdWzskScf::VecVDo
 #define VecVWzskScfSge CrdWzskScf::VecVSge
@@ -203,8 +204,8 @@ public:
 	PnlWzskScfGeom* pnlgeom;
 	PnlWzskScfConn* pnlconn;
 	DlgWzskScfCameramat* dlgcameramat;
-	DlgWzskScfTtablecoord* dlgttablecoord;
 	DlgWzskScfLaserpos* dlglaserpos;
+	DlgWzskScfTtablecoord* dlgttablecoord;
 
 	// IP vars.cust --- INSERT
 

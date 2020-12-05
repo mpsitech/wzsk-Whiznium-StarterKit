@@ -1,10 +1,11 @@
 /**
 	* \file PnlWzskLivSysmon_blks.cpp
 	* job handler for job PnlWzskLivSysmon (implementation of blocks)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 using namespace std;
 using namespace Sbecore;
@@ -167,7 +168,7 @@ void PnlWzskLivSysmon::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "CptPltTot", "total");
 			writeStringAttr(wr, itemtag, "sref", "CptPltCor", "core");
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "System\\u00fcberwachung");
+			writeStringAttr(wr, itemtag, "sref", "Cpt", "System\\u009fberwachung");
 			writeStringAttr(wr, itemtag, "sref", "CptCtp", "CPU-Temperatur [\\u00b0C]");
 			writeStringAttr(wr, itemtag, "sref", "CptPltTme", "Zeit [s]");
 			writeStringAttr(wr, itemtag, "sref", "CptPltCld", "CPU-Last [\\u0025]");

@@ -1,11 +1,3 @@
-/**
-  * \file PnlWzskPrsDetail.js
-  * web client functionality for panel PnlWzskPrsDetail
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 // IP cust --- INSERT
 
 // --- expand state management
@@ -299,6 +291,8 @@ function handleButDlgopenClick(ctlsref) {
 };
 
 function handleLstLoad(lstdoc, ctlsref, ncol, multsel) {
+	if (!srcdoc) return;
+
 	if (multsel) {
 		refreshLst(lstdoc, srcdoc, ncol, false, multsel, "FeedF" + ctlsref, parseInt(retrieveSi(srcdoc, "StatAppWzskPrsDetail", ctlsref + "NumFirstdisp")),
 					parseUintvec(retrieveCi(srcdoc, "ContIacWzskPrsDetail", "numsF" + ctlsref)));

@@ -1,10 +1,11 @@
 /**
 	* \file DbsWzsk_vecs.cpp
 	* C++ wrapper for database DbsWzsk (implementation of vectors)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
-	*/
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
+  */
+// IP header --- ABOVE
 
 using namespace std;
 using namespace Sbecore;
@@ -19,11 +20,11 @@ uint DbsWzsk::VecVCard::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
+	if (s == "crdwzsknav") return CRDWZSKNAV;
 	if (s == "crdwzskusg") return CRDWZSKUSG;
 	if (s == "crdwzskusr") return CRDWZSKUSR;
 	if (s == "crdwzskprs") return CRDWZSKPRS;
 	if (s == "crdwzskscf") return CRDWZSKSCF;
-	if (s == "crdwzsknav") return CRDWZSKNAV;
 	if (s == "crdwzskllv") return CRDWZSKLLV;
 	if (s == "crdwzskliv") return CRDWZSKLIV;
 	if (s == "crdwzskogr") return CRDWZSKOGR;
@@ -38,11 +39,11 @@ uint DbsWzsk::VecVCard::getIx(
 string DbsWzsk::VecVCard::getSref(
 			const uint ix
 		) {
+	if (ix == CRDWZSKNAV) return("CrdWzskNav");
 	if (ix == CRDWZSKUSG) return("CrdWzskUsg");
 	if (ix == CRDWZSKUSR) return("CrdWzskUsr");
 	if (ix == CRDWZSKPRS) return("CrdWzskPrs");
 	if (ix == CRDWZSKSCF) return("CrdWzskScf");
-	if (ix == CRDWZSKNAV) return("CrdWzskNav");
 	if (ix == CRDWZSKLLV) return("CrdWzskLlv");
 	if (ix == CRDWZSKLIV) return("CrdWzskLiv");
 	if (ix == CRDWZSKOGR) return("CrdWzskOgr");

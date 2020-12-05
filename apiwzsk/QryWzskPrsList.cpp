@@ -1,10 +1,11 @@
 /**
 	* \file QryWzskPrsList.cpp
 	* API code for job QryWzskPrsList (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #include "QryWzskPrsList.h"
 
@@ -21,8 +22,8 @@ uint QryWzskPrsList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "lnm") return LNM;
 	if (s == "own") return OWN;
+	if (s == "lnm") return LNM;
 	if (s == "grp") return GRP;
 
 	return(0);
@@ -31,8 +32,8 @@ uint QryWzskPrsList::VecVOrd::getIx(
 string QryWzskPrsList::VecVOrd::getSref(
 			const uint ix
 		) {
-	if (ix == LNM) return("lnm");
 	if (ix == OWN) return("own");
+	if (ix == LNM) return("lnm");
 	if (ix == GRP) return("grp");
 
 	return("");

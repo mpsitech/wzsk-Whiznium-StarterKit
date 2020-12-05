@@ -1,10 +1,11 @@
 /**
 	* \file PnlWzskScfConn_blks.cpp
 	* job handler for job PnlWzskScfConn (implementation of blocks)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 using namespace std;
 using namespace Sbecore;
@@ -108,7 +109,7 @@ void PnlWzskScfConn::Tag::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Connections");
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Anschl\\u00fcsse");
+			writeStringAttr(wr, itemtag, "sref", "Cpt", "Anschl\\u009fsse");
 		};
 	xmlTextWriterEndElement(wr);
 };

@@ -1,10 +1,11 @@
 /**
 	* \file JobWzskIexIni.cpp
 	* job handler for job JobWzskIexIni (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifdef WZSKCMBD
 	#include <Wzskcmbd.h>
@@ -68,10 +69,12 @@ void JobWzskIexIni::parseFromFile(
 			DbsWzsk* dbswzsk
 			, const string& _fullpath
 			, const bool _xmlNotTxt
+			, const string& _rectpath
 		) {
 	if (ixVSge == VecVSge::IDLE) {
 		fullpath = _fullpath;
 		xmlNotTxt = _xmlNotTxt;
+		rectpath = _rectpath;
 
 		changeStage(dbswzsk, VecVSge::PARSE);
 	};
@@ -219,6 +222,7 @@ uint JobWzskIexIni::enterSgeIdle(
 
 	fullpath = "";
 	xmlNotTxt = false;
+	rectpath = "";
 
 	lineno = 0;
 	impcnt = 0;
@@ -250,7 +254,7 @@ uint JobWzskIexIni::enterSgeParse(
 	nextIxVSgeFailure = VecVSge::PRSERR;
 
 	try {
-		IexWzskIni::parseFromFile(fullpath, xmlNotTxt, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimfile, imeimusergroup);
+		IexWzskIni::parseFromFile(fullpath, xmlNotTxt, rectpath, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimfile, imeimusergroup);
 
 	} catch (SbeException& e) {
 		if (e.ix == SbeException::PATHNF) e.vals["path"] = "<hidden>";
@@ -914,6 +918,10 @@ void JobWzskIexIni::leaveSgeDone(
 		) {
 	// IP leaveSgeDone --- INSERT
 };
+
+
+
+
 
 
 

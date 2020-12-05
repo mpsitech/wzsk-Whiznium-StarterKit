@@ -1,10 +1,11 @@
 /**
 	* \file RootWzsk.h
 	* job handler for job RootWzsk (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifndef ROOTWZSK_H
 #define ROOTWZSK_H
@@ -16,18 +17,18 @@
 #include "JobWzskSrcV4l2.h"
 #include "JobWzskSrcSysinfo.h"
 #include "JobWzskSrcFpga.h"
-#include "JobWzskIprCorner.h"
 #include "JobWzskIprTrace.h"
-#include "JobWzskActServo.h"
+#include "JobWzskIprCorner.h"
 #include "JobWzskIprAngle.h"
+#include "JobWzskActServo.h"
 #include "JobWzskActLaser.h"
 #include "JobWzskActExposure.h"
 #include "JobWzskAcqPtcloud.h"
 #include "JobWzskAcqPreview.h"
-#include "JobWzskAcqFpgaflg.h"
 #include "JobWzskAcqFpgapvw.h"
-#include "SessWzsk.h"
+#include "JobWzskAcqFpgaflg.h"
 #include "M2msessWzsk.h"
+#include "SessWzsk.h"
 
 #define DpchAppRootWzskLogin RootWzsk::DpchAppLogin
 #define DpchEngRootWzskData RootWzsk::DpchEngData
@@ -97,18 +98,18 @@ public:
 	JobWzskSrcV4l2* srcv4l2;
 	JobWzskSrcSysinfo* srcsysinfo;
 	JobWzskSrcFpga* srcfpga;
-	JobWzskIprCorner* iprcorner;
 	JobWzskIprTrace* iprtrace;
-	JobWzskActServo* actservo;
+	JobWzskIprCorner* iprcorner;
 	JobWzskIprAngle* iprangle;
+	JobWzskActServo* actservo;
 	JobWzskActLaser* actlaser;
 	JobWzskActExposure* actexposure;
 	JobWzskAcqPtcloud* acqptcloud;
 	JobWzskAcqPreview* acqpreview;
-	JobWzskAcqFpgaflg* acqfpgaflg;
 	JobWzskAcqFpgapvw* acqfpgapvw;
-	std::list<SessWzsk*> sesss;
+	JobWzskAcqFpgaflg* acqfpgaflg;
 	std::list<M2msessWzsk*> m2msesss;
+	std::list<SessWzsk*> sesss;
 
 	// IP vars.spec --- INSERT
 

@@ -1,10 +1,11 @@
 /**
 	* \file JobWzskAcqPtcloud.cpp
 	* job handler for job JobWzskAcqPtcloud (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifdef WZSKCMBD
 	#include <Wzskcmbd.h>
@@ -86,8 +87,8 @@ JobWzskAcqPtcloud::JobWzskAcqPtcloud(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	actservo = NULL;
 	iprtrace = NULL;
+	actservo = NULL;
 
 	// IP constructor.cust1 --- IBEGIN
 	ixRiSrc = 0; ixRiSrc--;
@@ -96,8 +97,8 @@ JobWzskAcqPtcloud::JobWzskAcqPtcloud(
 
 	// IP constructor.spec1 --- INSERT
 
-	if (srvNotCli) actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
 	if (srvNotCli) iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
+	if (srvNotCli) actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 
@@ -782,6 +783,10 @@ bool JobWzskAcqPtcloud::handleClaim(
 
 	return mod;
 };
+
+
+
+
 
 
 

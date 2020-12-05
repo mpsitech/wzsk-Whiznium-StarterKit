@@ -1,11 +1,3 @@
-/**
-  * \file PnlWzskLlvTtable.js
-  * web client functionality for panel PnlWzskLlvTtable
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 // IP cust --- INSERT
 
 // --- expand state management

@@ -1,11 +1,3 @@
-/**
-  * \file PnlWzskLiv2DView.js
-  * web client functionality for panel PnlWzskLiv2DView
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 // IP cust --- IBEGIN
 function refreshRoi(traceNotCorner) {
 	if (!contcontdoc) return;
@@ -1109,6 +1101,5 @@ function handleDpchAppDataDoReply() {
 		};
 	};
 };
-
 
 

@@ -1,10 +1,11 @@
 /**
 	* \file QryWzskFilList_blks.cpp
 	* job handler for job QryWzskFilList (implementation of blocks)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 using namespace std;
 using namespace Sbecore;
@@ -19,10 +20,10 @@ uint QryWzskFilList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
+	if (s == "reu") return REU;
+	if (s == "ret") return RET;
 	if (s == "own") return OWN;
 	if (s == "fnm") return FNM;
-	if (s == "ret") return RET;
-	if (s == "reu") return REU;
 	if (s == "grp") return GRP;
 
 	return(0);
@@ -31,10 +32,10 @@ uint QryWzskFilList::VecVOrd::getIx(
 string QryWzskFilList::VecVOrd::getSref(
 			const uint ix
 		) {
+	if (ix == REU) return("reu");
+	if (ix == RET) return("ret");
 	if (ix == OWN) return("own");
 	if (ix == FNM) return("fnm");
-	if (ix == RET) return("ret");
-	if (ix == REU) return("reu");
 	if (ix == GRP) return("grp");
 
 	return("");

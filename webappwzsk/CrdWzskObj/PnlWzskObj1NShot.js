@@ -1,11 +1,3 @@
-/**
-  * \file PnlWzskObj1NShot.js
-  * web client functionality for panel PnlWzskObj1NShot
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 // --- expand state management
 function minimize(updh) {
 	if (retrieveSi(srcdoc, "StatAppWzskObj1NShot", "srefIxWzskVExpstate") == "mind") return;

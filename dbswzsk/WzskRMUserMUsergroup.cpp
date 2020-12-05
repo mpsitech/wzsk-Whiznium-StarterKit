@@ -1,10 +1,11 @@
 /**
 	* \file WzskRMUserMUsergroup.cpp
 	* database access for table TblWzskRMUserMUsergroup (implementation)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
-	*/
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
+  */
+// IP header --- ABOVE
 
 #include "WzskRMUserMUsergroup.h"
 

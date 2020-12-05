@@ -1,11 +1,3 @@
-/**
-  * \file CrdWzskSht.js
-  * web client functionality for card CrdWzskSht
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 function getInitdone(pnlshort) {
 	return(retrieveSi(srcdoc, "StatAppWzskSht", "initdone" + pnlshort) == "true");
 };
@@ -332,7 +324,7 @@ function changeHeight(pnlshort, height) {
 // --- view initialization and refresh
 function refresh() {
 
-	doc.title = retrieveCi(srcdoc, "ContInfWzskSht", "MtxCrdSht") + " - Whiznium StarterKit v0.1.37";
+	doc.title = retrieveCi(srcdoc, "ContInfWzskSht", "MtxCrdSht") + " - Whiznium StarterKit v1.0.0";
 };
 
 // --- event handlers

@@ -1,11 +1,3 @@
-/**
-  * \file PnlWzskNavGalery.js
-  * web client functionality for panel PnlWzskNavGalery
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 // IP cust --- INSERT
 
 // --- expand state management
@@ -505,6 +497,8 @@ function handleButCrdopenClick(ctlsref) {
 };
 
 function handleLstLoad(lstdoc, ctlsref, ncol, multsel) {
+	if (!srcdoc) return;
+
 	if (multsel) {
 		refreshLst(lstdoc, srcdoc, ncol, true, multsel, "FeedF" + ctlsref, parseInt(retrieveSi(srcdoc, "StatAppWzskNavGalery", ctlsref + "NumFirstdisp")),
 					parseUintvec(retrieveCi(srcdoc, "ContIacWzskNavGalery", "numsF" + ctlsref)));

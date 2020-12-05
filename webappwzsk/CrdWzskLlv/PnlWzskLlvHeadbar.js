@@ -1,11 +1,3 @@
-/**
-  * \file PnlWzskLlvHeadbar.js
-  * web client functionality for panel PnlWzskLlvHeadbar
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 // --- view initialization
 function getMenAvail(short) {
 	return(retrieveSi(srcdoc, "StatShrWzskLlvHeadbar", "Men" + short + "Avail") == "true");

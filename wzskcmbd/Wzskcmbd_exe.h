@@ -1,10 +1,11 @@
 /**
 	* \file Wzskcmbd_exe.h
 	* Wzsk combined daemon main (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
-	*/
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
+  */
+// IP header --- ABOVE
 
 #ifndef WZSKCMBD_EXE_H
 #define WZSKCMBD_EXE_H
@@ -17,8 +18,12 @@
 #include "WzskcmbdAppsrv.h"
 #include "WzskcmbdJobprc.h"
 #include "WzskcmbdOpprc.h"
-#include "WzskcmbdDdspub.h"
-#include "WzskcmbdUasrv.h"
+#if defined(SBECORE_DDS)
+	#include "WzskcmbdDdspub.h"
+#endif
+#if defined(SBECORE_UA)
+	#include "WzskcmbdUasrv.h"
+#endif
 
 /**
 	* Wzskcmbd
@@ -44,9 +49,13 @@ public:
 
 	std::vector<pthread_t> opprcs;
 
+#if defined(SBECORE_DDS)
 	pthread_t ddspub;
+#endif
 
+#if defined(SBECORE_UA)
 	pthread_t uasrv;
+#endif
 
 public:
 	void loadPref();

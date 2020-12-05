@@ -1,10 +1,11 @@
 /**
 	* \file JobWzskActServo.h
 	* job handler for job JobWzskActServo (declarations)
-	* \author Catherine Johnson
-	* \date created: 18 Oct 2020
-	* \date modified: 18 Oct 2020
+	* \copyright (C) 2016-2020 MPSI Technologies GmbH
+	* \author Emily Johnson (auto-generation)
+	* \date created: 5 Dec 2020
 	*/
+// IP header --- ABOVE
 
 #ifndef JOBWZSKACTSERVO_H
 #define JOBWZSKACTSERVO_H
@@ -185,6 +186,10 @@ public:
 };
 
 #endif
+
+
+
+
 
 
 

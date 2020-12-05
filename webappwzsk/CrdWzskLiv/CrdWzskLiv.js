@@ -1,11 +1,3 @@
-/**
-  * \file CrdWzskLiv.js
-  * web client functionality for card CrdWzskLiv
-  * \author Catherine Johnson
-  * \date created: 18 Oct 2020
-  * \date modified: 18 Oct 2020
-  */
-
 function getInitdone(pnlshort) {
 	return(retrieveSi(srcdoc, "StatAppWzskLiv", "initdone" + pnlshort) == "true");
 };
