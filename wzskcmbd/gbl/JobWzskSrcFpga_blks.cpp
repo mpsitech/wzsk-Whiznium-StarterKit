@@ -118,4 +118,3 @@ set<uint> JobWzskSrcFpga::Stg::diff(
 
 	return(diffitems);
 };
-

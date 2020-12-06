@@ -59,4 +59,3 @@ public class ListWzskQOgrList {
 		return false;
 	};
 };
-

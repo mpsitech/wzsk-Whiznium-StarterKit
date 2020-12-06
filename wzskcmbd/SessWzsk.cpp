@@ -1398,4 +1398,3 @@ bool SessWzsk::handleCallWzskCrdActive(
 	ixRet = checkCrdActive(ixInv);
 	return retval;
 };
-

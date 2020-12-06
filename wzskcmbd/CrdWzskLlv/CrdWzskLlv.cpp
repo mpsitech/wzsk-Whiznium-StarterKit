@@ -44,8 +44,8 @@ CrdWzskLlv::CrdWzskLlv(
 	pnlheadbar = NULL;
 	pnllaser = NULL;
 	pnlttable = NULL;
-	pnlcamera = NULL;
 	pnlterm = NULL;
+	pnlcamera = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -55,8 +55,8 @@ CrdWzskLlv::CrdWzskLlv(
 	pnlheadbar = new PnlWzskLlvHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnllaser = new PnlWzskLlvLaser(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlttable = new PnlWzskLlvTtable(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlcamera = new PnlWzskLlvCamera(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlterm = new PnlWzskLlvTerm(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlcamera = new PnlWzskLlvCamera(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 
@@ -303,10 +303,3 @@ void CrdWzskLlv::leaveSgeAlrwzskabt(
 		) {
 	// IP leaveSgeAlrwzskabt --- INSERT
 };
-
-
-
-
-
-
-

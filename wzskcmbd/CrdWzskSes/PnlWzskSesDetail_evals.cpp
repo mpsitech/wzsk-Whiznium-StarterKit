@@ -129,4 +129,3 @@ bool PnlWzskSesDetail::evalTxfIpActive(
 
 	return(args.back());
 };
-

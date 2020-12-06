@@ -53,4 +53,3 @@ public class WzskQSesList {
 		return false;
 	};
 };
-

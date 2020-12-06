@@ -537,4 +537,3 @@ void PnlWzskShtAPar::DpchEngData::readXML(
 		stgiacqry = QryWzskShtAPar::StgIac();
 	};
 };
-

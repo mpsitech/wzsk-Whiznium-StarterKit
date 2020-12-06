@@ -289,4 +289,3 @@ bool PnlWzskShtRec::handleCallWzskSht_objEq(
 	boolvalRet = (recSht.refWzskMObject == refInv); // IP handleCallWzskSht_objEq --- LINE
 	return retval;
 };
-

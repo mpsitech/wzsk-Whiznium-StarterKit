@@ -698,10 +698,3 @@ bool JobWzskActServo::handleClaim(
 
 	return mod;
 };
-
-
-
-
-
-
-

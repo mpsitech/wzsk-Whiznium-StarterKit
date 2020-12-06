@@ -482,4 +482,3 @@ void PnlWzskShtRef1NFile::DpchEngData::writeXML(
 		if (has(STGIACQRY)) stgiacqry.writeXML(wr);
 	xmlTextWriterEndElement(wr);
 };
-

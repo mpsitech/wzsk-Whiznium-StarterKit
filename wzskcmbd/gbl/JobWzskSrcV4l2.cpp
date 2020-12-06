@@ -1774,10 +1774,3 @@ bool JobWzskSrcV4l2::handleClaim(
 
 	return mod;
 };
-
-
-
-
-
-
-

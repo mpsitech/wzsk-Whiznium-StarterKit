@@ -204,4 +204,3 @@ set<uint> JobWzskAcqPtcloud::Stg::diff(
 
 	return(diffitems);
 };
-

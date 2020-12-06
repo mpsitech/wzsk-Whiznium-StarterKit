@@ -80,4 +80,3 @@ bool PnlWzskPrsADetail::evalButDeleteActive(
 
 	return(args.back());
 };
-

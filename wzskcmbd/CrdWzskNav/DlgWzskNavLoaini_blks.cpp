@@ -954,4 +954,3 @@ void DlgWzskNavLoaini::DpchEngData::writeXML(
 		if (has(TAGLFI)) TagLfi::writeXML(ixWzskVLocale, wr);
 	xmlTextWriterEndElement(wr);
 };
-

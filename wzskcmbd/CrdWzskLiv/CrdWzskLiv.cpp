@@ -41,8 +41,8 @@ CrdWzskLiv::CrdWzskLiv(
 	feedFSge.tag = "FeedFSge";
 	VecVSge::fillFeed(feedFSge);
 
-	pnlheadbar = NULL;
 	pnlsysmon = NULL;
+	pnlheadbar = NULL;
 	pnl3dview = NULL;
 	pnl2dview = NULL;
 
@@ -51,8 +51,8 @@ CrdWzskLiv::CrdWzskLiv(
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
-	pnlheadbar = new PnlWzskLivHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlsysmon = new PnlWzskLivSysmon(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlheadbar = new PnlWzskLivHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnl3dview = new PnlWzskLiv3DView(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnl2dview = new PnlWzskLiv2DView(xchg, dbswzsk, jref, ixWzskVLocale);
 
@@ -295,4 +295,3 @@ void CrdWzskLiv::leaveSgeAlrwzskabt(
 		) {
 	// IP leaveSgeAlrwzskabt --- INSERT
 };
-

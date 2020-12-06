@@ -346,4 +346,3 @@ private:
 };
 
 #endif
-

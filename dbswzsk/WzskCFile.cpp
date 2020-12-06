@@ -90,4 +90,3 @@ ubigint LiteTblWzskCFile::getNewRef() {
 	return sqlite3_last_insert_rowid(dbs);
 };
 #endif
-

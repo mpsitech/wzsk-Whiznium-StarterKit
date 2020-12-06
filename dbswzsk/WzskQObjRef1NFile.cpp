@@ -714,4 +714,3 @@ ubigint LiteTblWzskQObjRef1NFile::loadRstByJref(
 	return loadRstByStmt(stmtLoadRstByJref, append, rst);
 };
 #endif
-

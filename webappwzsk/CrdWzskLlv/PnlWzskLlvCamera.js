@@ -632,5 +632,3 @@ function handleDpchAppDataDoReply() {
 		};
 	};
 };
-
-

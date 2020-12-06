@@ -108,4 +108,3 @@ bool PnlWzskNavAdmin::evalButScfNewcrdAvail(
 
 	return(args.back());
 };
-

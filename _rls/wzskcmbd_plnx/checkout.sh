@@ -3,7 +3,7 @@
 # checkout script for Wzsk combined daemon, release wzskcmbd_plnx(ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Emily Johnson (auto-generation)
-# date created: 5 Dec 2020
+# date created: 6 Dec 2020
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then
@@ -140,4 +140,3 @@ cp Makefile_CrdWzskFil $BUILDROOT/wzskcmbd/CrdWzskFil/Makefile
 
 cp ../../wzskcmbd/CrdWzskFil/*.h $BUILDROOT/wzskcmbd/CrdWzskFil/
 cp ../../wzskcmbd/CrdWzskFil/*.cpp $BUILDROOT/wzskcmbd/CrdWzskFil/
-

@@ -47,8 +47,8 @@ CrdWzskFil::CrdWzskFil(
 
 	pnllist = NULL;
 	pnlheadbar = NULL;
-	pnlrec = NULL;
 	dlgdownload = NULL;
+	pnlrec = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -393,4 +393,3 @@ void CrdWzskFil::leaveSgeAlrwzskabt(
 		) {
 	// IP leaveSgeAlrwzskabt --- INSERT
 };
-

@@ -555,4 +555,3 @@ function handleDpchAppDoCrdopenReply() {
 		};
 	};
 };
-

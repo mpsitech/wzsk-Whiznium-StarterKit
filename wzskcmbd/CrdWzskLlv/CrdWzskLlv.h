@@ -17,8 +17,8 @@
 #include "PnlWzskLlvHeadbar.h"
 #include "PnlWzskLlvLaser.h"
 #include "PnlWzskLlvTtable.h"
-#include "PnlWzskLlvCamera.h"
 #include "PnlWzskLlvTerm.h"
+#include "PnlWzskLlvCamera.h"
 
 #define VecVWzskLlvDo CrdWzskLlv::VecVDo
 #define VecVWzskLlvSge CrdWzskLlv::VecVSge
@@ -201,8 +201,8 @@ public:
 	PnlWzskLlvHeadbar* pnlheadbar;
 	PnlWzskLlvLaser* pnllaser;
 	PnlWzskLlvTtable* pnlttable;
-	PnlWzskLlvCamera* pnlcamera;
 	PnlWzskLlvTerm* pnlterm;
+	PnlWzskLlvCamera* pnlcamera;
 
 	// IP vars.cust --- INSERT
 
@@ -248,4 +248,3 @@ private:
 };
 
 #endif
-

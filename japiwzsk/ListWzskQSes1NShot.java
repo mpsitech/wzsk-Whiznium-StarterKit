@@ -59,4 +59,3 @@ public class ListWzskQSes1NShot {
 		return false;
 	};
 };
-

@@ -327,10 +327,3 @@ void DlgWzskObjNew::leaveSgeDone(
 		) {
 	// IP leaveSgeDone --- INSERT
 };
-
-
-
-
-
-
-

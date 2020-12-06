@@ -127,4 +127,3 @@ set<uint> JobWzskSrcV4l2::Stg::diff(
 
 	return(diffitems);
 };
-

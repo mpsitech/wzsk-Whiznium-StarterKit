@@ -298,4 +298,3 @@ bool QryWzskOgrSup1NObjgroup::handleCallWzskStubChgFromSelf(
 	// IP handleCallWzskStubChgFromSelf --- INSERT
 	return retval;
 };
-

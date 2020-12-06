@@ -3,7 +3,7 @@
 # checkout script for Wzsk database access library, release dbswzsk_riscv(ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Emily Johnson (auto-generation)
-# date created: 5 Dec 2020
+# date created: 6 Dec 2020
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then
@@ -25,4 +25,3 @@ cp ../../dbswzsk/DbsWzsk.cpp $BUILDROOT/dbswzsk/
 
 cp ../../dbswzsk/Wzsk*.h $BUILDROOT/dbswzsk/
 cp ../../dbswzsk/Wzsk*.cpp $BUILDROOT/dbswzsk/
-

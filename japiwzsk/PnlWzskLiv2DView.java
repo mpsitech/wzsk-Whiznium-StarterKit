@@ -1445,4 +1445,3 @@ public class PnlWzskLiv2DView {
 	};
 
 };
-

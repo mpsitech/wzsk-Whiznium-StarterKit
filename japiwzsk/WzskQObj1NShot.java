@@ -41,4 +41,3 @@ public class WzskQObj1NShot {
 		return false;
 	};
 };
-

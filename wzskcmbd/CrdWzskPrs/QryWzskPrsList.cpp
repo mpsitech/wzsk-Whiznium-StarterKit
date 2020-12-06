@@ -396,4 +396,3 @@ bool QryWzskPrsList::handleCallWzskStubChgFromSelf(
 	// IP handleCallWzskStubChgFromSelf --- INSERT
 	return retval;
 };
-

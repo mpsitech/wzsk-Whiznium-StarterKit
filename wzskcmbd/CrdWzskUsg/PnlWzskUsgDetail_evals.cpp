@@ -66,4 +66,3 @@ bool PnlWzskUsgDetail::evalTxfCmtActive(
 
 	return(args.back());
 };
-

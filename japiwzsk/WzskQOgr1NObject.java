@@ -41,4 +41,3 @@ public class WzskQOgr1NObject {
 		return false;
 	};
 };
-

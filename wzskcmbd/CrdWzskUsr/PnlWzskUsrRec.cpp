@@ -294,4 +294,3 @@ bool PnlWzskUsrRec::handleCallWzskUsr_prsEq(
 	boolvalRet = (recUsr.refWzskMPerson == refInv); // IP handleCallWzskUsr_prsEq --- LINE
 	return retval;
 };
-

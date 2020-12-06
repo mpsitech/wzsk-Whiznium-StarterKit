@@ -607,7 +607,7 @@ int main(
 
 	try {
 		// welcome message
-		cout << "Welcome to Whiznium StarterKit v1.0.0!" << endl;
+		cout << "Welcome to Whiznium StarterKit v1.0.1!" << endl;
 
 		// calls wzskcmbd.init()
 		wzskcmbd = new Wzskcmbd(exedir, clearAll, startMon);
@@ -764,4 +764,3 @@ int main(
 
 	return(0);
 };
-

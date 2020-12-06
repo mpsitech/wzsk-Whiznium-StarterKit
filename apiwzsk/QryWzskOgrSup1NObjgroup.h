@@ -98,4 +98,3 @@ namespace QryWzskOgrSup1NObjgroup {
 };
 
 #endif
-

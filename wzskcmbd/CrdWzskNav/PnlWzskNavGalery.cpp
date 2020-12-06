@@ -616,4 +616,3 @@ bool PnlWzskNavGalery::handleCallWzskHusrRunvMod_crdUsrEq(
 	xchg->submitDpch(getNewDpchEng(moditems));
 	return retval;
 };
-

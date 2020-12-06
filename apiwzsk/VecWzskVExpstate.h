@@ -26,4 +26,3 @@ namespace VecWzskVExpstate {
 };
 
 #endif
-

@@ -2,7 +2,7 @@
 -- SQLite database create script
 -- copyright: (C) 2016-2020 MPSI Technologies GmbH
 -- author: Emily Johnson (auto-generation)
--- date created: 5 Dec 2020
+-- date created: 6 Dec 2020
 -- IP header --- ABOVE
 
 DROP TABLE IF EXISTS TblWzskAccRMUserUniversal;
@@ -610,4 +610,3 @@ CREATE TABLE TblWzskQUsrMNUsergroup(
 );
 CREATE INDEX TblWzskQUsrMNUsergroup_jref ON TblWzskQUsrMNUsergroup (jref);
 CREATE INDEX TblWzskQUsrMNUsergroup_jnum ON TblWzskQUsrMNUsergroup (jnum);
-

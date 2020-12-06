@@ -42,4 +42,3 @@ string VecWzskVPvwmode::getSref(
 
 	return("");
 };
-

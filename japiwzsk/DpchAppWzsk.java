@@ -58,4 +58,3 @@ public class DpchAppWzsk extends DpchWzsk {
 		if (has(SCRJREF)) Xmlio.writeString(doc, el, "scrJref", scrJref);
 	};
 };
-

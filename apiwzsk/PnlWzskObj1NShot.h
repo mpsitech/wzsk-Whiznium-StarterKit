@@ -254,4 +254,3 @@ namespace PnlWzskObj1NShot {
 };
 
 #endif
-

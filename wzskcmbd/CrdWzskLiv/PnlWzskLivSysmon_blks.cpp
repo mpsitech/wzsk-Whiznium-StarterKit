@@ -360,4 +360,3 @@ void PnlWzskLivSysmon::DpchEngLive::writeXML(
 		if (has(CLD4S)) writeFloatvec(wr, "cld4s", cld4s);
 	xmlTextWriterEndElement(wr);
 };
-

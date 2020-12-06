@@ -493,4 +493,3 @@ void PnlWzskOgrDetail::DpchEngData::writeXML(
 		if (has(TAG)) Tag::writeXML(ixWzskVLocale, wr);
 	xmlTextWriterEndElement(wr);
 };
-

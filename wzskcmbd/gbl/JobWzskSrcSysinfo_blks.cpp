@@ -160,4 +160,3 @@ set<uint> JobWzskSrcSysinfo::Stg::diff(
 
 	return(diffitems);
 };
-

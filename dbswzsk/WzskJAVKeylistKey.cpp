@@ -822,4 +822,3 @@ bool LiteTblWzskJAVKeylistKey::loadTitByKlkLcl(
 };
 
 #endif
-

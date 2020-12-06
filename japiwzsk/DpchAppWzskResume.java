@@ -17,4 +17,3 @@ public class DpchAppWzskResume extends DpchAppWzsk {
 		super(VecWzskVDpch.DPCHAPPWZSKRESUME, scrJref);
 	};
 };
-

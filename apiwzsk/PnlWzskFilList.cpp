@@ -616,4 +616,3 @@ void PnlWzskFilList::DpchEngData::readXML(
 		stgiacqry = QryWzskFilList::StgIac();
 	};
 };
-

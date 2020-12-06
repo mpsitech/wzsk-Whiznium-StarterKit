@@ -38,4 +38,3 @@ bool PnlWzskNavOp::evalButLivNewcrdAvail(
 
 	return(args.back());
 };
-

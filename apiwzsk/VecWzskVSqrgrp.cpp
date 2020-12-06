@@ -48,4 +48,3 @@ string VecWzskVSqrgrp::getSref(
 
 	return("");
 };
-

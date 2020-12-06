@@ -24,4 +24,3 @@ bool PnlWzskSesList::evalButDeleteActive(
 
 	return(args.back());
 };
-

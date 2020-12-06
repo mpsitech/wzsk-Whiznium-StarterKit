@@ -81,4 +81,3 @@ public class WzskQUsrList {
 		return false;
 	};
 };
-

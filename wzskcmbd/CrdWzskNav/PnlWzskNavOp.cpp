@@ -176,4 +176,3 @@ void PnlWzskNavOp::handleDpchAppDoButLivNewcrdClick(
 	if (jrefNew == 0) *dpcheng = new DpchEngWzskConfirm(false, 0, "");
 	else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskLiv");
 };
-

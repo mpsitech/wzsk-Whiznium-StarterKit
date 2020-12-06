@@ -38,4 +38,3 @@ bool CrdWzskFil::evalMitCrdDldActive(
 
 	return(args.back());
 };
-

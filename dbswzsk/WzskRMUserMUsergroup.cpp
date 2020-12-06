@@ -742,4 +742,3 @@ ubigint LiteTblWzskRMUserMUsergroup::loadRstByUsr(
 };
 
 #endif
-

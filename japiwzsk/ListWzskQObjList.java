@@ -59,4 +59,3 @@ public class ListWzskQObjList {
 		return false;
 	};
 };
-

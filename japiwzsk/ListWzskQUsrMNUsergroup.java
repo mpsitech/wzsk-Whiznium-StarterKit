@@ -59,4 +59,3 @@ public class ListWzskQUsrMNUsergroup {
 		return false;
 	};
 };
-

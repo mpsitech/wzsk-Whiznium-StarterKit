@@ -718,4 +718,3 @@ bool LiteTblWzskRMUsergroupUniversal::loadRecByUsgMtbUnv(
 };
 
 #endif
-

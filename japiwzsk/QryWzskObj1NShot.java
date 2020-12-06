@@ -272,4 +272,3 @@ public class QryWzskObj1NShot {
 	};
 
 };
-

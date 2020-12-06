@@ -844,4 +844,3 @@ void DbsWzsk::fillFeedFromVlst(
 		feed.appendTitles(vlsAval->Val);
 	};
 };
-

@@ -63,4 +63,3 @@ void VecWzskVSqrgrp::fillFeed(
 
 	for (unsigned int i = 1; i <= 8; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
 };
-

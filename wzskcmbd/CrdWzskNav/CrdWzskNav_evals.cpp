@@ -384,4 +384,3 @@ bool CrdWzskNav::evalMitAppLoiAvail(
 
 	return(args.back());
 };
-

@@ -2,7 +2,7 @@
 # make file for CrdWzskSes card job handler, release wzskcmbd_ubuntu
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Emily Johnson (auto-generation)
-# date created: 5 Dec 2020
+# date created: 6 Dec 2020
 # IP header --- ABOVE
 
 include ../Makefile.inc
@@ -16,7 +16,7 @@ STATLIBFLAGS = rcs
 INCPATH = -I$(BUILDROOT)/dbswzsk -I$(BUILDROOT)/wzskcmbd/VecWzsk -I$(BUILDROOT)/wzskcmbd/IexWzsk -I$(BUILDROOT)/wzskcmbd
 INCPATH += -I${WHIZSDKROOT}/build -I${WHIZSDKROOT}/build/ezdevwskd -I/usr/include -I/usr/include/libxml2
 
-OBJS = CrdWzskSes.o PnlWzskSesList.o QryWzskSesList.o PnlWzskSesHeadbar.o PnlWzskSesRec.o PnlWzskSes1NShot.o QryWzskSes1NShot.o PnlWzskSesDetail.o
+OBJS = CrdWzskSes.o PnlWzskSesList.o QryWzskSesList.o PnlWzskSesHeadbar.o PnlWzskSesRec.o PnlWzskSesDetail.o PnlWzskSes1NShot.o QryWzskSes1NShot.o
 
 LIB = libcrdwzskses
 
@@ -36,4 +36,3 @@ install:
 
 clean:
 	rm -f *.o
-

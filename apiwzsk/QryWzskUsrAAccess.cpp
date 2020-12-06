@@ -241,4 +241,3 @@ set<uint> QryWzskUsrAAccess::StgIac::diff(
 
 	return(diffitems);
 };
-

@@ -497,10 +497,3 @@ bool JobWzskActLaser::handleClaim(
 
 	return mod;
 };
-
-
-
-
-
-
-

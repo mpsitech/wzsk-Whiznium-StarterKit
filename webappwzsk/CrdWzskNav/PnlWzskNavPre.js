@@ -110,4 +110,3 @@ function handleDpchAppDoReply() {
 		};
 	};
 };
-

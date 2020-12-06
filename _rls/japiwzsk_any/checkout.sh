@@ -3,7 +3,7 @@
 # checkout script for Wzsk Java API library, release japiwzsk_any
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Emily Johnson (auto-generation)
-# date created: 5 Dec 2020
+# date created: 6 Dec 2020
 # IP header --- ABOVE
 
 if [ -z ${JAVAROOT+x} ]; then
@@ -18,4 +18,3 @@ mkdir $JAVAROOT/apiwzsk/bin
 mkdir $JAVAROOT/apiwzsk/bin/apiwzsk
 
 cp ../../japiwzsk/*.java $JAVAROOT/apiwzsk/src/apiwzsk/
-

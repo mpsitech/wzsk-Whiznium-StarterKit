@@ -15,4 +15,3 @@ public class DpchEngWzskSuspend extends DpchEngWzsk {
 		super(VecWzskVDpch.DPCHENGWZSKSUSPEND);
 	};
 };
-

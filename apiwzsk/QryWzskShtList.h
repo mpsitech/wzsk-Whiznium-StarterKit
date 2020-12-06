@@ -29,8 +29,8 @@ namespace QryWzskShtList {
 
 	public:
 		static const Sbecore::uint STA = 1;
-		static const Sbecore::uint OBJ = 2;
-		static const Sbecore::uint SES = 3;
+		static const Sbecore::uint SES = 2;
+		static const Sbecore::uint OBJ = 3;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -114,4 +114,3 @@ namespace QryWzskShtList {
 };
 
 #endif
-

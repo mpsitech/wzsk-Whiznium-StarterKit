@@ -80,4 +80,3 @@ bool PnlWzskShtAPar::evalButDeleteActive(
 
 	return(args.back());
 };
-

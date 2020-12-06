@@ -3,7 +3,7 @@
 # checkout script for Wzsk API library, release apiwzsk_ubuntu
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Emily Johnson (auto-generation)
-# date created: 5 Dec 2020
+# date created: 6 Dec 2020
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then
@@ -21,4 +21,3 @@ cp Makefile $BUILDROOT/apiwzsk/
 
 cp ../../apiwzsk/*.h $BUILDROOT/apiwzsk/
 cp ../../apiwzsk/*.cpp $BUILDROOT/apiwzsk/
-

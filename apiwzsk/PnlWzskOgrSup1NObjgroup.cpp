@@ -513,4 +513,3 @@ void PnlWzskOgrSup1NObjgroup::DpchEngData::readXML(
 		stgiacqry = QryWzskOgrSup1NObjgroup::StgIac();
 	};
 };
-

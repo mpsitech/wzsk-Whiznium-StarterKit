@@ -39,8 +39,8 @@ PnlWzskObjRec::PnlWzskObjRec(
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
 	pnlref1nfile = NULL;
-	pnl1nshot = NULL;
 	pnldetail = NULL;
+	pnl1nshot = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -275,4 +275,3 @@ bool PnlWzskObjRec::handleCallWzskObj_ogrEq(
 	boolvalRet = (recObj.refWzskMObjgroup == refInv); // IP handleCallWzskObj_ogrEq --- LINE
 	return retval;
 };
-

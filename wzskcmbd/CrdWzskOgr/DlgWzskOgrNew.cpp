@@ -345,10 +345,3 @@ void DlgWzskOgrNew::leaveSgeDone(
 		) {
 	// IP leaveSgeDone --- INSERT
 };
-
-
-
-
-
-
-

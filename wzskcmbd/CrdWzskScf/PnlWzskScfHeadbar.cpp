@@ -114,4 +114,3 @@ void PnlWzskScfHeadbar::handleDpchAppWzskInit(
 		) {
 	*dpcheng = getNewDpchEng({DpchEngData::ALL});
 };
-

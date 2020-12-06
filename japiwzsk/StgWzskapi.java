@@ -97,4 +97,3 @@ public class StgWzskapi extends Block {
 		Xmlio.writeStringAttr(doc, el, itemtag, "sref", "password", password);
 	};
 };
-

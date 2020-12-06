@@ -772,4 +772,3 @@ ubigint LiteTblWzskJMUserState::loadRstByUsr(
 };
 
 #endif
-

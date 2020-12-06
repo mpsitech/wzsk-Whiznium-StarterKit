@@ -72,4 +72,3 @@ public class DpchAppWzskAlert extends DpchAppWzsk {
 		if (has(NUMFMCB)) Xmlio.writeInteger(doc, el, "numFMcb", numFMcb);
 	};
 };
-

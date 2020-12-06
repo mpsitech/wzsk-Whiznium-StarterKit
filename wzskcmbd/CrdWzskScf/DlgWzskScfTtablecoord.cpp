@@ -276,4 +276,3 @@ void DlgWzskScfTtablecoord::leaveSgeDone(
 		) {
 	// IP leaveSgeDone --- INSERT
 };
-

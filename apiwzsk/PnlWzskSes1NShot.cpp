@@ -529,4 +529,3 @@ void PnlWzskSes1NShot::DpchEngData::readXML(
 		stgiacqry = QryWzskSes1NShot::StgIac();
 	};
 };
-

@@ -98,4 +98,3 @@ namespace QryWzskUsgAAccess {
 };
 
 #endif
-

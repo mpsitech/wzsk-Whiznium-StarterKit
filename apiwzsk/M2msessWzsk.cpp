@@ -144,4 +144,3 @@ void M2msessWzsk::DpchEngData::readXML(
 		statshr = StatShr();
 	};
 };
-

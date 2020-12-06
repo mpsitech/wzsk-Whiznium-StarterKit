@@ -525,4 +525,3 @@ void DlgWzskScfCameramat::DpchEngData::readXML(
 		tag = Tag();
 	};
 };
-

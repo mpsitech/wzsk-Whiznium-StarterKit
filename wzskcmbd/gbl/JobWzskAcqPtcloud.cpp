@@ -783,10 +783,3 @@ bool JobWzskAcqPtcloud::handleClaim(
 
 	return mod;
 };
-
-
-
-
-
-
-

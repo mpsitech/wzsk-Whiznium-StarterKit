@@ -78,4 +78,3 @@ void JobWzskAcqPreview::VecVVar::fillFeed(
 
 	for (unsigned int i = 1; i <= 2; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
 };
-

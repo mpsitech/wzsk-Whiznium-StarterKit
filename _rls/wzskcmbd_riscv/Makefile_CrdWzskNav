@@ -2,7 +2,7 @@
 # make file for CrdWzskNav card job handler, release wzskcmbd_riscv(ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Emily Johnson (auto-generation)
-# date created: 5 Dec 2020
+# date created: 6 Dec 2020
 # IP header --- ABOVE
 
 include ../Makefile.inc
@@ -36,4 +36,3 @@ install:
 
 clean:
 	rm -f *.o
-

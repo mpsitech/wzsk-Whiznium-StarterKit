@@ -183,4 +183,3 @@ set<uint> JobWzskActLaser::Stg::diff(
 
 	return(diffitems);
 };
-

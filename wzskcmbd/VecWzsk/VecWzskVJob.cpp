@@ -270,4 +270,3 @@ string VecWzskVJob::getSref(
 
 	return("");
 };
-

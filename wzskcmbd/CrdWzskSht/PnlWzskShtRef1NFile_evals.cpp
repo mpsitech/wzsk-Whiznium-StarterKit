@@ -107,4 +107,3 @@ bool PnlWzskShtRef1NFile::evalButDeleteActive(
 
 	return(args.back());
 };
-

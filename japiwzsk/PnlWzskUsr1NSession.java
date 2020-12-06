@@ -669,4 +669,3 @@ public class PnlWzskUsr1NSession {
 	};
 
 };
-

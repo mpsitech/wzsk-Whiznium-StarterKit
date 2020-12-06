@@ -3,7 +3,7 @@
 # re-make script for Wzsk combined daemon, release wzskcmbd_plnx(ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Emily Johnson (auto-generation)
-# date created: 5 Dec 2020
+# date created: 6 Dec 2020
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then
@@ -20,4 +20,3 @@ cd $REPROOT/wzsk/_rls/wzskcmbd_plnx
 cd $BUILDROOT/wzskcmbd
 
 ./make.sh "$@"
-

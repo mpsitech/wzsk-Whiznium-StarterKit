@@ -202,4 +202,3 @@ set<uint> JobWzskIprCorner::Stg::diff(
 
 	return(diffitems);
 };
-

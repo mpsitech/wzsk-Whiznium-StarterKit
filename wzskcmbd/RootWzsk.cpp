@@ -475,4 +475,3 @@ bool RootWzsk::handleCallWzskLogout(
 
 	return retval;
 };
-

@@ -184,4 +184,3 @@ string VecWzskVCall::getSref(
 
 	return("");
 };
-

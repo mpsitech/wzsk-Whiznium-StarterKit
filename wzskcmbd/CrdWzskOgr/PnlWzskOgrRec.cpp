@@ -275,4 +275,3 @@ bool PnlWzskOgrRec::handleCallWzskOgr_supEq(
 	boolvalRet = (recOgr.supRefWzskMObjgroup == refInv); // IP handleCallWzskOgr_supEq --- LINE
 	return retval;
 };
-

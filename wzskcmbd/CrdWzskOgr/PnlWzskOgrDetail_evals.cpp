@@ -157,4 +157,3 @@ bool PnlWzskOgrDetail::evalTxfCmtActive(
 
 	return(args.back());
 };
-

@@ -427,4 +427,3 @@ DpchEngWzskSuspend::DpchEngWzskSuspend() :
 			DpchEngWzsk(VecWzskVDpch::DPCHENGWZSKSUSPEND)
 		{
 };
-

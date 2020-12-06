@@ -148,4 +148,3 @@ void PnlWzskScfConn::handleDpchAppDoButMinimizeClick(
 	*dpcheng = getNewDpchEng({DpchEngData::STATSHR});
 	// IP handleDpchAppDoButMinimizeClick --- END
 };
-

@@ -49,4 +49,3 @@ public class WzskQUsrMNUsergroup {
 		return false;
 	};
 };
-

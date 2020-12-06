@@ -29,4 +29,3 @@ bool DlgWzskScfTtablecoord::evalButDneActive(
 
 	return(args.back());
 };
-

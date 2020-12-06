@@ -274,4 +274,3 @@ void DlgWzskScfLaserpos::leaveSgeDone(
 		) {
 	// IP leaveSgeDone --- INSERT
 };
-

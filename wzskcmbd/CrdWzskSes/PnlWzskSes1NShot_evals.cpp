@@ -107,4 +107,3 @@ bool PnlWzskSes1NShot::evalButDeleteActive(
 
 	return(args.back());
 };
-

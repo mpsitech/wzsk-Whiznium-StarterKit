@@ -49,4 +49,3 @@ public class WzskQShtList {
 		return false;
 	};
 };
-

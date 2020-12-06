@@ -300,4 +300,3 @@ bool QryWzskShtRef1NFile::handleCallWzskStubChgFromSelf(
 	// IP handleCallWzskStubChgFromSelf --- INSERT
 	return retval;
 };
-

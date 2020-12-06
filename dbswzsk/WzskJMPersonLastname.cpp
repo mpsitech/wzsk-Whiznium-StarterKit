@@ -778,4 +778,3 @@ ubigint LiteTblWzskJMPersonLastname::loadRstByPrs(
 };
 
 #endif
-

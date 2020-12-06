@@ -241,4 +241,3 @@ set<uint> QryWzskObj1NShot::StgIac::diff(
 
 	return(diffitems);
 };
-

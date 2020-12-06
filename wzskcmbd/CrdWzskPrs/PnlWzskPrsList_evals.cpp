@@ -24,4 +24,3 @@ bool PnlWzskPrsList::evalButDeleteActive(
 
 	return(args.back());
 };
-

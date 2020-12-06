@@ -29,4 +29,3 @@ bool DlgWzskScfLaserpos::evalButDneActive(
 
 	return(args.back());
 };
-

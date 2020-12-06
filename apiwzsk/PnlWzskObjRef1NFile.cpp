@@ -529,4 +529,3 @@ void PnlWzskObjRef1NFile::DpchEngData::readXML(
 		stgiacqry = QryWzskObjRef1NFile::StgIac();
 	};
 };
-

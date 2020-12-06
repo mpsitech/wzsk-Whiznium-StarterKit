@@ -271,4 +271,3 @@ bool PnlWzskObjDetail::handleCallWzskObj_ogrEq(
 	boolvalRet = (recObj.refWzskMObjgroup == refInv); // IP handleCallWzskObj_ogrEq --- LINE
 	return retval;
 };
-

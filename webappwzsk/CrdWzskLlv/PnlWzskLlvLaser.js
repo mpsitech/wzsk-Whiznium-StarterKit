@@ -468,4 +468,3 @@ function handleDpchAppDataDoReply() {
 		};
 	};
 };
-

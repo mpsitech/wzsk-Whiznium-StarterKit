@@ -239,4 +239,3 @@ namespace VecWzskVDpch {
 };
 
 #endif
-

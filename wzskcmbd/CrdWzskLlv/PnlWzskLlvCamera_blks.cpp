@@ -552,4 +552,3 @@ void PnlWzskLlvCamera::DpchEngLive::writeXML(
 		if (has(BLUE)) writeUtinyintvec(wr, "blue", blue);
 	xmlTextWriterEndElement(wr);
 };
-

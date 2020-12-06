@@ -570,4 +570,3 @@ void PnlWzskLiv3DView::DpchEngLive::writeXML(
 		if (has(Z)) writeFloatvec(wr, "z", z);
 	xmlTextWriterEndElement(wr);
 };
-

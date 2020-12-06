@@ -32,4 +32,3 @@ namespace VecWzskVPvwmode {
 };
 
 #endif
-

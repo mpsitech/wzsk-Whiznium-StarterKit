@@ -251,4 +251,3 @@ namespace DlgWzskObjNew {
 };
 
 #endif
-

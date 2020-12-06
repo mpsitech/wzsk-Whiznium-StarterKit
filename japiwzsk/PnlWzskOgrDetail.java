@@ -674,4 +674,3 @@ public class PnlWzskOgrDetail {
 	};
 
 };
-

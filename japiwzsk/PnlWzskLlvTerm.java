@@ -586,4 +586,3 @@ public class PnlWzskLlvTerm {
 	};
 
 };
-

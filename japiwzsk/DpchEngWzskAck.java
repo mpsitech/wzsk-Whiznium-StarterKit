@@ -15,4 +15,3 @@ public class DpchEngWzskAck extends DpchEngWzsk {
 		super(VecWzskVDpch.DPCHENGWZSKACK);
 	};
 };
-

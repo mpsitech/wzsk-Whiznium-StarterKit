@@ -227,4 +227,3 @@ void VecWzskVTag::appendToFeed(
 		) {
 	feed.appendIxSrefTitles(ix, getSref(ix), getTitle(ix, ixWzskVLocale));
 };
-

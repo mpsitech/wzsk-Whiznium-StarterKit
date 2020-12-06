@@ -59,4 +59,3 @@ public class ListWzskQUsgAAccess {
 		return false;
 	};
 };
-

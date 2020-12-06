@@ -55,7 +55,7 @@
 		<Si sref="monpath">${WHIZROOT}/mon/wzsk</Si>
 		<Si sref="tmppath">${WHIZROOT}/tmp/wzsk</Si>
 		<Si sref="webpath">${WHIZROOT}/web/appwzsk</Si>
-		<Si sref="helpurl">http://www.mpsitech.com/wzsk</Si>
+		<Si sref="helpurl">/wzsk</Si>
 	</StgWzskPath>
 	<StgWzskUasrv>
 		<Si sref="profile">./EmbeddedProfile_StandardNodes.xml</Si>

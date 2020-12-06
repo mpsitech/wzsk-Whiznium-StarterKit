@@ -30,4 +30,3 @@ namespace VecWzskVSqrgrp {
 };
 
 #endif
-

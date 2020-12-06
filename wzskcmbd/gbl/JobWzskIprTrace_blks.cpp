@@ -222,4 +222,3 @@ set<uint> JobWzskIprTrace::Stg::diff(
 
 	return(diffitems);
 };
-

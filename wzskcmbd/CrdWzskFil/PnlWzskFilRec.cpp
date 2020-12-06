@@ -293,4 +293,3 @@ bool PnlWzskFilRec::handleCallWzskFil_cluEq(
 	boolvalRet = (recFil.refWzskCFile == refInv); // IP handleCallWzskFil_cluEq --- LINE
 	return retval;
 };
-

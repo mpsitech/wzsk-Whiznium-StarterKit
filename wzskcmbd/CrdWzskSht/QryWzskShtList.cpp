@@ -218,8 +218,8 @@ void QryWzskShtList::rerun_orderSQL(
 			, const uint preIxOrd
 		) {
 	if (preIxOrd == VecVOrd::STA) sqlstr += " ORDER BY TblWzskMShot.start ASC";
-	else if (preIxOrd == VecVOrd::OBJ) sqlstr += " ORDER BY TblWzskMShot.refWzskMObject ASC";
 	else if (preIxOrd == VecVOrd::SES) sqlstr += " ORDER BY TblWzskMShot.refWzskMSession ASC";
+	else if (preIxOrd == VecVOrd::OBJ) sqlstr += " ORDER BY TblWzskMShot.refWzskMObject ASC";
 };
 
 void QryWzskShtList::fetch(
@@ -430,4 +430,3 @@ bool QryWzskShtList::handleCallWzskStubChgFromSelf(
 	// IP handleCallWzskStubChgFromSelf --- INSERT
 	return retval;
 };
-

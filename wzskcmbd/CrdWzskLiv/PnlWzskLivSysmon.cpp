@@ -237,10 +237,3 @@ bool PnlWzskLivSysmon::handleCallWzskShrdatChgFromSrcsysinfo(
 	// IP handleCallWzskShrdatChgFromSrcsysinfo --- IEND
 	return retval;
 };
-
-
-
-
-
-
-

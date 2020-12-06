@@ -721,4 +721,3 @@ ubigint LiteTblWzskAMShotPar::loadRstBySht(
 };
 
 #endif
-

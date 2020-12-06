@@ -14,8 +14,8 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskOgrList.h"
 #include "PnlWzskOgrHeadbar.h"
+#include "PnlWzskOgrList.h"
 #include "PnlWzskOgrRec.h"
 #include "DlgWzskOgrNew.h"
 
@@ -201,8 +201,8 @@ public:
 	Sbecore::Xmlio::Feed feedFMcbAlert;
 	Sbecore::Xmlio::Feed feedFSge;
 
-	PnlWzskOgrList* pnllist;
 	PnlWzskOgrHeadbar* pnlheadbar;
+	PnlWzskOgrList* pnllist;
 	PnlWzskOgrRec* pnlrec;
 	DlgWzskOgrNew* dlgnew;
 
@@ -254,4 +254,3 @@ private:
 };
 
 #endif
-

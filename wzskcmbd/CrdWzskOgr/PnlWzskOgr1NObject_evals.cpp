@@ -87,4 +87,3 @@ bool PnlWzskOgr1NObject::evalButDeleteActive(
 
 	return(args.back());
 };
-

@@ -41,4 +41,3 @@ public class WzskQObjRef1NFile {
 		return false;
 	};
 };
-

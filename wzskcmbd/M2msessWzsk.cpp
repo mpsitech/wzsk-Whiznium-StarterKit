@@ -46,8 +46,8 @@ M2msessWzsk::M2msessWzsk(
 	actservo = NULL;
 	actlaser = NULL;
 	actexposure = NULL;
-	acqptcloud = NULL;
 	acqpreview = NULL;
+	acqptcloud = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -143,6 +143,11 @@ M2msessWzsk::M2msessWzsk(
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "autoNotManualTexp", urus, refWzskMUser, ixWzskWAccessBase);
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "focus", urus, refWzskMUser, ixWzskWAccessBase);
 	};
+	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, adm, urus, refWzskMUser);
+	if (!adm) {
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "gray", urus, refWzskMUser, ixWzskWAccessBase);
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "redGreenBlue", urus, refWzskMUser, ixWzskWAccessBase);
+	};
 	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, adm, urus, refWzskMUser);
 	if (!adm) {
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "setDeltaTheta", urus, refWzskMUser, ixWzskWAccessBase);
@@ -153,11 +158,6 @@ M2msessWzsk::M2msessWzsk(
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "deltaTheta", urus, refWzskMUser, ixWzskWAccessBase);
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "dWork", urus, refWzskMUser, ixWzskWAccessBase);
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "xYZ", urus, refWzskMUser, ixWzskWAccessBase);
-	};
-	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, adm, urus, refWzskMUser);
-	if (!adm) {
-		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "gray", urus, refWzskMUser, ixWzskWAccessBase);
-		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "redGreenBlue", urus, refWzskMUser, ixWzskWAccessBase);
 	};
 
 	// create jobs according to access rights
@@ -185,13 +185,13 @@ M2msessWzsk::M2msessWzsk(
 		actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
 		statshr.jrefActexposure = actexposure->jref;
 	};
-	if ( (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "")) != accs.end()) || (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "")) != accs.end()) ) {
-		acqptcloud = new JobWzskAcqPtcloud(xchg, dbswzsk, jref, ixWzskVLocale);
-		statshr.jrefAcqptcloud = acqptcloud->jref;
-	};
 	if (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "")) != accs.end()) {
 		acqpreview = new JobWzskAcqPreview(xchg, dbswzsk, jref, ixWzskVLocale);
 		statshr.jrefAcqpreview = acqpreview->jref;
+	};
+	if ( (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "")) != accs.end()) || (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "")) != accs.end()) ) {
+		acqptcloud = new JobWzskAcqPtcloud(xchg, dbswzsk, jref, ixWzskVLocale);
+		statshr.jrefAcqptcloud = acqptcloud->jref;
 	};
 
 	// IP constructor.cust2 --- INSERT
@@ -364,4 +364,3 @@ bool M2msessWzsk::handleCallWzskAccess(
 	};
 	return retval;
 };
-

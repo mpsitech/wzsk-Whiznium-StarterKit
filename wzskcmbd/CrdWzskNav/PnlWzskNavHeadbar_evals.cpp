@@ -270,4 +270,3 @@ bool PnlWzskNavHeadbar::evalMitCrdFilAvail(
 
 	return(args.back());
 };
-

@@ -150,4 +150,3 @@ bool PnlWzskNavGalery::evalButFilViewActive(
 
 	return(args.back());
 };
-

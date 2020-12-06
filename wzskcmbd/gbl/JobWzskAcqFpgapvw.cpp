@@ -594,10 +594,3 @@ bool JobWzskAcqFpgapvw::handleClaim(
 
 	return mod;
 };
-
-
-
-
-
-
-

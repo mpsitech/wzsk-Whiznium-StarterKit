@@ -111,4 +111,3 @@ bool ListWzskQOgrSup1NObjgroup::readXML(
 
 	return basefound;
 };
-

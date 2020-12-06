@@ -17,4 +17,3 @@ public class DpchAppWzskInit extends DpchAppWzsk {
 		super(VecWzskVDpch.DPCHAPPWZSKINIT, scrJref);
 	};
 };
-

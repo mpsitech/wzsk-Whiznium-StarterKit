@@ -749,4 +749,3 @@ ubigint LiteTblWzskJMObjgroupTitle::loadRstByOgr(
 };
 
 #endif
-

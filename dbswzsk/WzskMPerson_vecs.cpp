@@ -124,4 +124,3 @@ void TblWzskMPerson::VecWDerivate::fillFeed(
 
 	for (unsigned int i = 1; i <= USR; i *= 2) feed.appendIxSrefTitles(i, getSrefs(i), getTitle(i, ixWzskVLocale));
 };
-

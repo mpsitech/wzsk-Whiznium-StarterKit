@@ -78,4 +78,3 @@ void VecWzskVIop::fillFeed(
 
 	for (unsigned int i = 1; i <= 6; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
 };
-

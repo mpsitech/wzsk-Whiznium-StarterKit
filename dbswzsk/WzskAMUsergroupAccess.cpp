@@ -760,4 +760,3 @@ ubigint LiteTblWzskAMUsergroupAccess::loadRstByUsg(
 };
 
 #endif
-

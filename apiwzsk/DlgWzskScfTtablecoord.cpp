@@ -525,4 +525,3 @@ void DlgWzskScfTtablecoord::DpchEngData::readXML(
 		tag = Tag();
 	};
 };
-

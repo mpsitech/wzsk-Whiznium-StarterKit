@@ -23,8 +23,8 @@ uint QryWzskUsgList::VecVOrd::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "srf") return SRF;
-	if (s == "own") return OWN;
 	if (s == "grp") return GRP;
+	if (s == "own") return OWN;
 
 	return(0);
 };
@@ -33,8 +33,8 @@ string QryWzskUsgList::VecVOrd::getSref(
 			const uint ix
 		) {
 	if (ix == SRF) return("srf");
-	if (ix == OWN) return("own");
 	if (ix == GRP) return("grp");
+	if (ix == OWN) return("own");
 
 	return("");
 };
@@ -267,4 +267,3 @@ set<uint> QryWzskUsgList::StgIac::diff(
 
 	return(diffitems);
 };
-

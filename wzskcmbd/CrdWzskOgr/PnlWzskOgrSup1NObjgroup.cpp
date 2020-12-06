@@ -319,4 +319,3 @@ bool PnlWzskOgrSup1NObjgroup::handleCallWzskStatChg(
 	// IP handleCallWzskStatChg --- END
 	return retval;
 };
-

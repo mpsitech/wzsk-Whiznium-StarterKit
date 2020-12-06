@@ -297,4 +297,3 @@ bool QryWzskSes1NShot::handleCallWzskStubChgFromSelf(
 	// IP handleCallWzskStubChgFromSelf --- INSERT
 	return retval;
 };
-

@@ -750,4 +750,3 @@ ubigint LiteTblWzskQUsrMNUsergroup::loadRstByJref(
 	return loadRstByStmt(stmtLoadRstByJref, append, rst);
 };
 #endif
-

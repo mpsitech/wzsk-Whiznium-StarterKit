@@ -87,4 +87,3 @@ bool PnlWzskUsrMNUsergroup::evalButSubActive(
 
 	return(args.back());
 };
-

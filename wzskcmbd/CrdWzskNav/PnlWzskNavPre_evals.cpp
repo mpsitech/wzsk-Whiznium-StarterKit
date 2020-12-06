@@ -24,4 +24,3 @@ bool PnlWzskNavPre::evalTxtObjAvail(
 
 	return(args.back());
 };
-

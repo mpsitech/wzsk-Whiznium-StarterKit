@@ -1101,5 +1101,3 @@ function handleDpchAppDataDoReply() {
 		};
 	};
 };
-
-

@@ -1096,4 +1096,3 @@ void PnlWzskLiv2DView::DpchEngLive::writeXML(
 		if (has(YTRACER)) writeIntvec(wr, "yTraceR", yTraceR);
 	xmlTextWriterEndElement(wr);
 };
-

@@ -440,4 +440,3 @@ void CrdWzskOgr::DpchEngData::readXML(
 		tag = Tag();
 	};
 };
-

@@ -274,4 +274,3 @@ bool PnlWzskSesDetail::handleCallWzskSes_usrEq(
 	boolvalRet = (recSes.refWzskMUser == refInv); // IP handleCallWzskSes_usrEq --- LINE
 	return retval;
 };
-

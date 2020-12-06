@@ -1165,10 +1165,3 @@ bool JobWzskIprCorner::handleClaim(
 
 	return mod;
 };
-
-
-
-
-
-
-

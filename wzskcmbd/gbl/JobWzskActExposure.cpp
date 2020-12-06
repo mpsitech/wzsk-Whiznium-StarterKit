@@ -214,10 +214,3 @@ bool JobWzskActExposure::handleClaim(
 
 	return mod;
 };
-
-
-
-
-
-
-

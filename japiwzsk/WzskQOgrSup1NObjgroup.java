@@ -41,4 +41,3 @@ public class WzskQOgrSup1NObjgroup {
 		return false;
 	};
 };
-

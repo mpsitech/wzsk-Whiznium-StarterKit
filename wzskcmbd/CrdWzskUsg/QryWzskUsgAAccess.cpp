@@ -344,4 +344,3 @@ bool QryWzskUsgAAccess::handleCallWzskStubChgFromSelf(
 	// IP handleCallWzskStubChgFromSelf --- INSERT
 	return retval;
 };
-

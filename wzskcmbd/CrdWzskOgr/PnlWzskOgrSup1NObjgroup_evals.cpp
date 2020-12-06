@@ -45,4 +45,3 @@ bool PnlWzskOgrSup1NObjgroup::evalButViewActive(
 
 	return(args.back());
 };
-

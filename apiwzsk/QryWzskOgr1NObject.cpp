@@ -241,4 +241,3 @@ set<uint> QryWzskOgr1NObject::StgIac::diff(
 
 	return(diffitems);
 };
-

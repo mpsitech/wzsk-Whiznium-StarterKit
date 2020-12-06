@@ -29,4 +29,3 @@ bool DlgWzskScfCameramat::evalButDneActive(
 
 	return(args.back());
 };
-

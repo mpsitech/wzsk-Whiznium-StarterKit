@@ -272,4 +272,3 @@ public class QryWzskObjRef1NFile {
 	};
 
 };
-

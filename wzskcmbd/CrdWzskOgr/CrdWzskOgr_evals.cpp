@@ -38,4 +38,3 @@ bool CrdWzskOgr::evalMitCrdNewAvail(
 
 	return(args.back());
 };
-

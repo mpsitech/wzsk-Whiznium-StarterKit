@@ -751,4 +751,3 @@ ubigint LiteTblWzskAMPersonDetail::loadRstByPrs(
 };
 
 #endif
-

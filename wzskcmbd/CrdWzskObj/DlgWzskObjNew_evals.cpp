@@ -45,4 +45,3 @@ bool DlgWzskObjNew::evalButCreActive(
 
 	return(args.back());
 };
-

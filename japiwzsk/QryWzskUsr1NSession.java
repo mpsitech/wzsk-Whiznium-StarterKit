@@ -272,4 +272,3 @@ public class QryWzskUsr1NSession {
 	};
 
 };
-

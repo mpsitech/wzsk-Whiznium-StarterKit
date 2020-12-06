@@ -763,4 +763,3 @@ public class PnlWzskLiv3DView {
 	};
 
 };
-

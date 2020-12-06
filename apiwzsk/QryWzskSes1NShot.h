@@ -98,4 +98,3 @@ namespace QryWzskSes1NShot {
 };
 
 #endif
-

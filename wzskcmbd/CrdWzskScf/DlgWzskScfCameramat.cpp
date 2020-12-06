@@ -272,4 +272,3 @@ void DlgWzskScfCameramat::leaveSgeDone(
 		) {
 	// IP leaveSgeDone --- INSERT
 };
-

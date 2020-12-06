@@ -59,4 +59,3 @@ public class ListWzskQOgrSup1NObjgroup {
 		return false;
 	};
 };
-

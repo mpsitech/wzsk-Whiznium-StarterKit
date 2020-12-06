@@ -645,4 +645,3 @@ public class PnlWzskOgrSup1NObjgroup {
 	};
 
 };
-

@@ -669,4 +669,3 @@ public class PnlWzskSes1NShot {
 	};
 
 };
-

@@ -557,4 +557,3 @@ void PnlWzskObjList::DpchEngData::readXML(
 		stgiacqry = QryWzskObjList::StgIac();
 	};
 };
-

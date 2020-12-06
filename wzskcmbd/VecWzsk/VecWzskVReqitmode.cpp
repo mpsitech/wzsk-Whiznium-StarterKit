@@ -38,4 +38,3 @@ string VecWzskVReqitmode::getSref(
 
 	return("");
 };
-

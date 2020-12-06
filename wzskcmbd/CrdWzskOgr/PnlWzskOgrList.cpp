@@ -393,4 +393,3 @@ bool PnlWzskOgrList::handleCallWzskStatChg(
 	// IP handleCallWzskStatChg --- END
 	return retval;
 };
-

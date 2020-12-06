@@ -2,7 +2,7 @@
 # make file for Wzsk combined daemon, release wzskcmbd_riscv(ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Emily Johnson (auto-generation)
-# date created: 5 Dec 2020
+# date created: 6 Dec 2020
 # IP header --- ABOVE
 
 include Makefile.inc
@@ -30,7 +30,7 @@ LIBPATH += -L=/lib
 
 LIBS = -lcrdwzsknav -lcrdwzskusg -lcrdwzskusr -lcrdwzskprs -lcrdwzskscf -lcrdwzskllv -lcrdwzskliv -lcrdwzskogr -lcrdwzskobj -lcrdwzskses -lcrdwzsksht -lcrdwzskfil
 LIBS += -liexwzsk -lvecwzsk -ldbswzsk
-LIBS += -lezdevwskd -lpng -lmicrohttpd -lsbecore_lite -lsbecore_mon
+LIBS += -lezdevwskd -lmicrohttpd -lpng -lsbecore_lite -lsbecore_mon
 LIBS += -ldbecore -lsbecore_plus -lsqlite3
 LIBS += -lsbecore
 LIBS += -lxml2
@@ -60,4 +60,3 @@ install:
 clean:
 	rm -f *.gch
 	rm -f *.o
-

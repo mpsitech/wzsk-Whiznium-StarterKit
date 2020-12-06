@@ -90,4 +90,3 @@ bool DlgWzskNavLoaini::evalIfiUldActive(
 
 	return(args.back());
 };
-

@@ -98,4 +98,3 @@ namespace QryWzskObjRef1NFile {
 };
 
 #endif
-

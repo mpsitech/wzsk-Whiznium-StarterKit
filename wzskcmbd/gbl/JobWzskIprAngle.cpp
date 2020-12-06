@@ -130,4 +130,3 @@ bool JobWzskIprAngle::handleClaim(
 
 	return mod;
 };
-

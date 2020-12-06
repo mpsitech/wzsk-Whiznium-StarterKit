@@ -735,4 +735,3 @@ ubigint LiteTblWzskAVValuelistVal::loadRstByVlsLcl(
 };
 
 #endif
-
