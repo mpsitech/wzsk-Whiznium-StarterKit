@@ -6,6 +6,10 @@ cmbeng	wzskcmbd	Whiznium Starter Kit combined engine
 	any;yocto;riscv64	wzskcmbd_riscv
 	any;yocto;armv7;tdx	wzskcmbd_tdx
 	any;ubuntu	wzskcmbd_ubuntu
+	// IP releases.mpsi --- IBEGIN
+	any;yocto;armv7;plnx;jack_arty_wzsk	wzskcmbd_plnx_mpsi
+	any;yocto;armv7;tdx;jack_apalis_wzsk	wzskcmbd_tdx_mpsi
+	// IP releases.mpsi --- IEND
 	ImeIMRelease.end
 	ImeIRMComponentMLibrary.srefRefWznmMLibrary
 	ezdevwskd
