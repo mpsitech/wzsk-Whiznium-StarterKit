@@ -468,22 +468,21 @@ uint DlgWzskNavLoaini::enterSgeParse(
 
 	iex->reset(dbswzsk);
 
-	// check file type
 	ififile.open(infilename.c_str(), ifstream::in);
 
 	buf = new char[16];
 	ififile.get(buf, 16);
 	s = string(buf);
 
-	ifitxt = (s.find("- ") == 0);
+	ifitxt = (s.find("IexWzskIni") == 0);
 	ifixml = (s.find("<?xml") == 0);		
 
 	delete[] buf;
 	ififile.close();
 
 	// parse file accordingly
-	if (ifitxt) iex->parseFromFile(dbswzsk, infilename, false);
-	else if (ifixml) iex->parseFromFile(dbswzsk, infilename, true);
+	if (ifitxt) iex->parseFromFile(dbswzsk, infilename, false, "");
+	else if (ifixml) iex->parseFromFile(dbswzsk, infilename, true, "");
 
 	if (iex->ixVSge != JobWzskIexIni::VecVSge::PRSDONE) {
 		if (reqCmd) {
