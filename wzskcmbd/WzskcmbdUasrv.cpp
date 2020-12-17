@@ -209,21 +209,6 @@ void WzskcmbdUasrv::Session::Initialise(
 				xchg->addClstnUasrv(statshr.jrefActexposure, "focus", true);
 			};
 		};
-		if (statshr.jrefAcqpreview != 0) {
-			insert(jobaccs, VecWzskVJob::JOBWZSKACQPREVIEW);
-
-			ixVFeatgroups[statshr.jrefAcqpreview] = VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR;
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqpreview, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "gray", ixAcc);
-			if (ixAcc != 0) {
-				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "gray")] = ixAcc;
-				xchg->addClstnUasrv(statshr.jrefAcqpreview, "gray", true);
-			};
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqpreview, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "redGreenBlue", ixAcc);
-			if (ixAcc != 0) {
-				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "redGreenBlue")] = ixAcc;
-				xchg->addClstnUasrv(statshr.jrefAcqpreview, "redGreenBlue", true);
-			};
-		};
 		if (statshr.jrefAcqptcloud != 0) {
 			insert(jobaccs, VecWzskVJob::JOBWZSKACQPTCLOUD);
 
@@ -247,6 +232,21 @@ void WzskcmbdUasrv::Session::Initialise(
 			if (ixAcc != 0) {
 				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "xYZ")] = ixAcc;
 				xchg->addClstnUasrv(statshr.jrefAcqptcloud, "xYZ", true);
+			};
+		};
+		if (statshr.jrefAcqpreview != 0) {
+			insert(jobaccs, VecWzskVJob::JOBWZSKACQPREVIEW);
+
+			ixVFeatgroups[statshr.jrefAcqpreview] = VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqpreview, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "gray", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "gray")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefAcqpreview, "gray", true);
+			};
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqpreview, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "redGreenBlue", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "redGreenBlue")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefAcqpreview, "redGreenBlue", true);
 			};
 		};
 	};
@@ -1305,70 +1305,6 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 
 			JobWzskActExposure::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR) && (srefIxVVar == "gray")) {
-			JobWzskAcqPreview::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-			if (setSourceTimestamp) {
-				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
-				*(dataValue->SourceTimestamp()) = timestamps[it->second];
-			};
-
-			if (subvar == "gray") {
-				unsigned int len = JobWzskAcqPreview::shrdat.gray.size();
-				IntrusivePtr_t<ArrayUA_t<Byte_t> > gray = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
-				gray->Initialise(len);
-				for (unsigned int i = 0; i < len; i++) {
-					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
-					item->Value(JobWzskAcqPreview::shrdat.gray[i]);
-					(*gray)[i] = item;
-				};
-				dataValue->Value() = gray;
-			};
-
-			JobWzskAcqPreview::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR) && (srefIxVVar == "redGreenBlue")) {
-			JobWzskAcqPreview::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-			if (setSourceTimestamp) {
-				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
-				*(dataValue->SourceTimestamp()) = timestamps[it->second];
-			};
-
-			if (subvar == "red") {
-				unsigned int len = JobWzskAcqPreview::shrdat.red.size();
-				IntrusivePtr_t<ArrayUA_t<Byte_t> > red = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
-				red->Initialise(len);
-				for (unsigned int i = 0; i < len; i++) {
-					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
-					item->Value(JobWzskAcqPreview::shrdat.red[i]);
-					(*red)[i] = item;
-				};
-				dataValue->Value() = red;
-			} else if (subvar == "green") {
-				unsigned int len = JobWzskAcqPreview::shrdat.green.size();
-				IntrusivePtr_t<ArrayUA_t<Byte_t> > green = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
-				green->Initialise(len);
-				for (unsigned int i = 0; i < len; i++) {
-					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
-					item->Value(JobWzskAcqPreview::shrdat.green[i]);
-					(*green)[i] = item;
-				};
-				dataValue->Value() = green;
-			} else if (subvar == "blue") {
-				unsigned int len = JobWzskAcqPreview::shrdat.blue.size();
-				IntrusivePtr_t<ArrayUA_t<Byte_t> > blue = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
-				blue->Initialise(len);
-				for (unsigned int i = 0; i < len; i++) {
-					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
-					item->Value(JobWzskAcqPreview::shrdat.blue[i]);
-					(*blue)[i] = item;
-				};
-				dataValue->Value() = blue;
-			};
-
-			JobWzskAcqPreview::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
 		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR) && (srefIxVVar == "deltaTheta")) {
 			JobWzskAcqPtcloud::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
@@ -1442,6 +1378,70 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 			};
 
 			JobWzskAcqPtcloud::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR) && (srefIxVVar == "gray")) {
+			JobWzskAcqPreview::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "gray") {
+				unsigned int len = JobWzskAcqPreview::shrdat.gray.size();
+				IntrusivePtr_t<ArrayUA_t<Byte_t> > gray = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
+				gray->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
+					item->Value(JobWzskAcqPreview::shrdat.gray[i]);
+					(*gray)[i] = item;
+				};
+				dataValue->Value() = gray;
+			};
+
+			JobWzskAcqPreview::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR) && (srefIxVVar == "redGreenBlue")) {
+			JobWzskAcqPreview::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "red") {
+				unsigned int len = JobWzskAcqPreview::shrdat.red.size();
+				IntrusivePtr_t<ArrayUA_t<Byte_t> > red = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
+				red->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
+					item->Value(JobWzskAcqPreview::shrdat.red[i]);
+					(*red)[i] = item;
+				};
+				dataValue->Value() = red;
+			} else if (subvar == "green") {
+				unsigned int len = JobWzskAcqPreview::shrdat.green.size();
+				IntrusivePtr_t<ArrayUA_t<Byte_t> > green = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
+				green->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
+					item->Value(JobWzskAcqPreview::shrdat.green[i]);
+					(*green)[i] = item;
+				};
+				dataValue->Value() = green;
+			} else if (subvar == "blue") {
+				unsigned int len = JobWzskAcqPreview::shrdat.blue.size();
+				IntrusivePtr_t<ArrayUA_t<Byte_t> > blue = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
+				blue->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
+					item->Value(JobWzskAcqPreview::shrdat.blue[i]);
+					(*blue)[i] = item;
+				};
+				dataValue->Value() = blue;
+			};
+
+			JobWzskAcqPreview::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 		};
 	};
 
@@ -1897,20 +1897,6 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 
 	fAS_addVar(VecWzskVJob::JOBWZSKACTEXPOSURE, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR , "focus", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
-	fAS_addJobFolder(VecWzskVJob::JOBWZSKACQPREVIEW, addressSpace, objectsFolder, jobFolder);
-
-	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
-	srefsSubvars[0] = "gray"; icsVVartypeSubvars[0] = VecVVartype::UTINYINTVEC;
-
-	fAS_addVar(VecWzskVJob::JOBWZSKACQPREVIEW, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR , "gray", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
-
-	srefsSubvars.resize(3); icsVVartypeSubvars.resize(3);
-	srefsSubvars[0] = "red"; icsVVartypeSubvars[0] = VecVVartype::UTINYINTVEC;
-	srefsSubvars[1] = "green"; icsVVartypeSubvars[1] = VecVVartype::UTINYINTVEC;
-	srefsSubvars[2] = "blue"; icsVVartypeSubvars[2] = VecVVartype::UTINYINTVEC;
-
-	fAS_addVar(VecWzskVJob::JOBWZSKACQPREVIEW, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR , "redGreenBlue", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
-
 	fAS_addJobFolder(VecWzskVJob::JOBWZSKACQPTCLOUD, addressSpace, objectsFolder, jobFolder);
 
 	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
@@ -1945,6 +1931,20 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 	srefsSubvars[2] = "z"; icsVVartypeSubvars[2] = VecVVartype::FLOATVEC;
 
 	fAS_addVar(VecWzskVJob::JOBWZSKACQPTCLOUD, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR , "xYZ", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
+	fAS_addJobFolder(VecWzskVJob::JOBWZSKACQPREVIEW, addressSpace, objectsFolder, jobFolder);
+
+	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
+	srefsSubvars[0] = "gray"; icsVVartypeSubvars[0] = VecVVartype::UTINYINTVEC;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKACQPREVIEW, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR , "gray", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
+	srefsSubvars.resize(3); icsVVartypeSubvars.resize(3);
+	srefsSubvars[0] = "red"; icsVVartypeSubvars[0] = VecVVartype::UTINYINTVEC;
+	srefsSubvars[1] = "green"; icsVVartypeSubvars[1] = VecVVartype::UTINYINTVEC;
+	srefsSubvars[2] = "blue"; icsVVartypeSubvars[2] = VecVVartype::UTINYINTVEC;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKACQPREVIEW, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR , "redGreenBlue", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
 	return status;
 };

@@ -15,8 +15,8 @@
 // IP include.cust --- INSERT
 
 #include "PnlWzskShtRef1NFile.h"
-#include "PnlWzskShtAPar.h"
 #include "PnlWzskShtDetail.h"
+#include "PnlWzskShtAPar.h"
 
 #define VecVWzskShtRecDo PnlWzskShtRec::VecVDo
 
@@ -172,8 +172,8 @@ public:
 	StatShr statshr;
 
 	PnlWzskShtRef1NFile* pnlref1nfile;
-	PnlWzskShtAPar* pnlapar;
 	PnlWzskShtDetail* pnldetail;
+	PnlWzskShtAPar* pnlapar;
 
 	WzskMShot recSht;
 

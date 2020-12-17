@@ -1150,8 +1150,7 @@ bool SessWzsk::handleCallWzskCrdOpen(
 		refRet = 0;
 
 	} else {
-		if (ixWzskVCard == VecWzskVCard::CRDWZSKNAV) {
-		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKUSG) {
+		if (ixWzskVCard == VecWzskVCard::CRDWZSKUSG) {
 			CrdWzskUsg* crdusg = NULL;
 
 			crdusg = new CrdWzskUsg(xchg, dbswzsk, jref, ixWzskVLocale, ref);
@@ -1183,6 +1182,7 @@ bool SessWzsk::handleCallWzskCrdOpen(
 
 			refRet = crdscf->jref;
 
+		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKNAV) {
 		} else if (ixWzskVCard == VecWzskVCard::CRDWZSKLLV) {
 			CrdWzskLlv* crdllv = NULL;
 
@@ -1257,13 +1257,7 @@ bool SessWzsk::handleCallWzskCrdClose(
 	ubigint jrefNotif = xchg->getRefPreset(VecWzskVPreset::PREWZSKJREFNOTIFY, jref);
 	if (jrefNotif == jrefTrig) xchg->removePreset(VecWzskVPreset::PREWZSKJREFNOTIFY, jref);
 
-	if (ixInv == VecWzskVCard::CRDWZSKNAV) {
-		if (crdnav) {
-			delete crdnav;
-			crdnav = NULL;
-		};
-
-	} else if (ixInv == VecWzskVCard::CRDWZSKUSG) {
+	if (ixInv == VecWzskVCard::CRDWZSKUSG) {
 		CrdWzskUsg* crdusg = NULL;
 
 		for (auto it = crdusgs.begin(); it != crdusgs.end();) {
@@ -1307,6 +1301,12 @@ bool SessWzsk::handleCallWzskCrdClose(
 				break;
 			} else it++;
 		};
+	} else if (ixInv == VecWzskVCard::CRDWZSKNAV) {
+		if (crdnav) {
+			delete crdnav;
+			crdnav = NULL;
+		};
+
 	} else if (ixInv == VecWzskVCard::CRDWZSKLLV) {
 		CrdWzskLlv* crdllv = NULL;
 

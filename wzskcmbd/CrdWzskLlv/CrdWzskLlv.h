@@ -15,10 +15,10 @@
 // IP include.cust --- INSERT
 
 #include "PnlWzskLlvHeadbar.h"
-#include "PnlWzskLlvLaser.h"
 #include "PnlWzskLlvTtable.h"
-#include "PnlWzskLlvTerm.h"
+#include "PnlWzskLlvLaser.h"
 #include "PnlWzskLlvCamera.h"
+#include "PnlWzskLlvTerm.h"
 
 #define VecVWzskLlvDo CrdWzskLlv::VecVDo
 #define VecVWzskLlvSge CrdWzskLlv::VecVSge
@@ -199,10 +199,10 @@ public:
 	Sbecore::Xmlio::Feed feedFSge;
 
 	PnlWzskLlvHeadbar* pnlheadbar;
-	PnlWzskLlvLaser* pnllaser;
 	PnlWzskLlvTtable* pnlttable;
-	PnlWzskLlvTerm* pnlterm;
+	PnlWzskLlvLaser* pnllaser;
 	PnlWzskLlvCamera* pnlcamera;
+	PnlWzskLlvTerm* pnlterm;
 
 	// IP vars.cust --- INSERT
 

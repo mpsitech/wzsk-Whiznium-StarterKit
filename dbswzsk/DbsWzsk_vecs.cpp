@@ -20,11 +20,11 @@ uint DbsWzsk::VecVCard::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "crdwzsknav") return CRDWZSKNAV;
 	if (s == "crdwzskusg") return CRDWZSKUSG;
 	if (s == "crdwzskusr") return CRDWZSKUSR;
 	if (s == "crdwzskprs") return CRDWZSKPRS;
 	if (s == "crdwzskscf") return CRDWZSKSCF;
+	if (s == "crdwzsknav") return CRDWZSKNAV;
 	if (s == "crdwzskllv") return CRDWZSKLLV;
 	if (s == "crdwzskliv") return CRDWZSKLIV;
 	if (s == "crdwzskogr") return CRDWZSKOGR;
@@ -39,11 +39,11 @@ uint DbsWzsk::VecVCard::getIx(
 string DbsWzsk::VecVCard::getSref(
 			const uint ix
 		) {
-	if (ix == CRDWZSKNAV) return("CrdWzskNav");
 	if (ix == CRDWZSKUSG) return("CrdWzskUsg");
 	if (ix == CRDWZSKUSR) return("CrdWzskUsr");
 	if (ix == CRDWZSKPRS) return("CrdWzskPrs");
 	if (ix == CRDWZSKSCF) return("CrdWzskScf");
+	if (ix == CRDWZSKNAV) return("CrdWzskNav");
 	if (ix == CRDWZSKLLV) return("CrdWzskLlv");
 	if (ix == CRDWZSKLIV) return("CrdWzskLiv");
 	if (ix == CRDWZSKOGR) return("CrdWzskOgr");
@@ -948,7 +948,7 @@ uint DbsWzsk::VecWAccess::getIx(
 	uint ix = 0;
 
 	vector<string> ss;
-	StrMod::stringToVector(StrMod::lc(srefs), ss);
+	StrMod::srefsToVector(StrMod::lc(srefs), ss);
 
 	for (unsigned int i = 0; i < ss.size(); i++) {
 		if (ss[i] == "edit") ix |= EDIT;

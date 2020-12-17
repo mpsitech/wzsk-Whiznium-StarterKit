@@ -474,8 +474,8 @@ private:
 	std::string handleDownload(DbsWzsk* dbswzsk);
 
 	void handleTimerInSgePrsidle(DbsWzsk* dbswzsk, const std::string& sref);
-	void handleTimerWithSrefMonInSgeImport(DbsWzsk* dbswzsk);
 	void handleTimerInSgeImpidle(DbsWzsk* dbswzsk, const std::string& sref);
+	void handleTimerWithSrefMonInSgeImport(DbsWzsk* dbswzsk);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge, DpchEngWzsk** dpcheng = NULL);

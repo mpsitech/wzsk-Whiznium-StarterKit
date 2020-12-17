@@ -116,14 +116,6 @@ namespace WzskcmbdDdspub {
 		dds::pub::DataWriter<DdsJobWzskActExposure::focus>* writerJobWzskActExposure_focus;
 		DdsJobWzskActExposure::focus* JobWzskActExposure_focus;
 
-		dds::topic::Topic<DdsJobWzskAcqPreview::gray>* topicJobWzskAcqPreview_gray;
-		dds::pub::DataWriter<DdsJobWzskAcqPreview::gray>* writerJobWzskAcqPreview_gray;
-		DdsJobWzskAcqPreview::gray* JobWzskAcqPreview_gray;
-
-		dds::topic::Topic<DdsJobWzskAcqPreview::redGreenBlue>* topicJobWzskAcqPreview_redGreenBlue;
-		dds::pub::DataWriter<DdsJobWzskAcqPreview::redGreenBlue>* writerJobWzskAcqPreview_redGreenBlue;
-		DdsJobWzskAcqPreview::redGreenBlue* JobWzskAcqPreview_redGreenBlue;
-
 		dds::topic::Topic<DdsJobWzskAcqPtcloud::deltaTheta>* topicJobWzskAcqPtcloud_deltaTheta;
 		dds::pub::DataWriter<DdsJobWzskAcqPtcloud::deltaTheta>* writerJobWzskAcqPtcloud_deltaTheta;
 		DdsJobWzskAcqPtcloud::deltaTheta* JobWzskAcqPtcloud_deltaTheta;
@@ -135,6 +127,14 @@ namespace WzskcmbdDdspub {
 		dds::topic::Topic<DdsJobWzskAcqPtcloud::xYZ>* topicJobWzskAcqPtcloud_xYZ;
 		dds::pub::DataWriter<DdsJobWzskAcqPtcloud::xYZ>* writerJobWzskAcqPtcloud_xYZ;
 		DdsJobWzskAcqPtcloud::xYZ* JobWzskAcqPtcloud_xYZ;
+
+		dds::topic::Topic<DdsJobWzskAcqPreview::gray>* topicJobWzskAcqPreview_gray;
+		dds::pub::DataWriter<DdsJobWzskAcqPreview::gray>* writerJobWzskAcqPreview_gray;
+		DdsJobWzskAcqPreview::gray* JobWzskAcqPreview_gray;
+
+		dds::topic::Topic<DdsJobWzskAcqPreview::redGreenBlue>* topicJobWzskAcqPreview_redGreenBlue;
+		dds::pub::DataWriter<DdsJobWzskAcqPreview::redGreenBlue>* writerJobWzskAcqPreview_redGreenBlue;
+		DdsJobWzskAcqPreview::redGreenBlue* JobWzskAcqPreview_redGreenBlue;
 	};
 
 	void* run(void* arg);

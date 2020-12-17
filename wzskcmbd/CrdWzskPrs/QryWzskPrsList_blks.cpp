@@ -20,8 +20,8 @@ uint QryWzskPrsList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "own") return OWN;
 	if (s == "lnm") return LNM;
+	if (s == "own") return OWN;
 	if (s == "grp") return GRP;
 
 	return(0);
@@ -30,8 +30,8 @@ uint QryWzskPrsList::VecVOrd::getIx(
 string QryWzskPrsList::VecVOrd::getSref(
 			const uint ix
 		) {
-	if (ix == OWN) return("own");
 	if (ix == LNM) return("lnm");
+	if (ix == OWN) return("own");
 	if (ix == GRP) return("grp");
 
 	return("");

@@ -2,8 +2,8 @@
 	* \file Wzsk.idl
 	* Wzsk DDS publisher interface description for RTI Code Generator
 	* \copyright (C) 2018-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 6 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 15 Dec 2020
   */
 // IP header --- ABOVE
 
@@ -250,18 +250,6 @@ module DdsJobWzskActExposure {
 	};
 };
 
-module DdsJobWzskAcqPreview {
-	struct gray {
-		sequence<octet, 49152> _gray;
-	};
-
-	struct redGreenBlue {
-		sequence<octet, 19200> red;
-		sequence<octet, 19200> green;
-		sequence<octet, 19200> blue;
-	};
-};
-
 module DdsJobWzskAcqPtcloud {
 	struct setDeltaTheta_req {
 		float deltaTheta;
@@ -291,5 +279,17 @@ module DdsJobWzskAcqPtcloud {
 		sequence<float, 72000> x;
 		sequence<float, 72000> y;
 		sequence<float, 72000> z;
+	};
+};
+
+module DdsJobWzskAcqPreview {
+	struct gray {
+		sequence<octet, 49152> _gray;
+	};
+
+	struct redGreenBlue {
+		sequence<octet, 19200> red;
+		sequence<octet, 19200> green;
+		sequence<octet, 19200> blue;
 	};
 };

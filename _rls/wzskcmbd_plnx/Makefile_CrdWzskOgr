@@ -1,8 +1,8 @@
 # file Makefile
-# make file for CrdWzskOgr card job handler, release wzskcmbd_plnx(ubuntu cross-compilation)
+# make file for CrdWzskOgr card job handler, release wzskcmbd_plnx (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
-# author: Emily Johnson (auto-generation)
-# date created: 6 Dec 2020
+# author: Alexander Wirthmueller (auto-generation)
+# date created: 15 Dec 2020
 # IP header --- ABOVE
 
 include ../Makefile.inc
@@ -16,7 +16,7 @@ STATLIBFLAGS = rcs
 INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
 INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
-OBJS = CrdWzskOgr.o PnlWzskOgrHeadbar.o PnlWzskOgrList.o QryWzskOgrList.o PnlWzskOgrRec.o PnlWzskOgrSup1NObjgroup.o QryWzskOgrSup1NObjgroup.o PnlWzskOgr1NObject.o QryWzskOgr1NObject.o PnlWzskOgrDetail.o DlgWzskOgrNew.o
+OBJS = CrdWzskOgr.o PnlWzskOgrList.o QryWzskOgrList.o PnlWzskOgrHeadbar.o PnlWzskOgrRec.o PnlWzskOgrSup1NObjgroup.o QryWzskOgrSup1NObjgroup.o PnlWzskOgr1NObject.o QryWzskOgr1NObject.o PnlWzskOgrDetail.o DlgWzskOgrNew.o
 
 LIB = libcrdwzskogr
 

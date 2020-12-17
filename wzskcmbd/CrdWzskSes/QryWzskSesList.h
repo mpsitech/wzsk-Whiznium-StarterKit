@@ -32,8 +32,8 @@ public:
 	class VecVOrd {
 
 	public:
-		static const Sbecore::uint STA = 1;
-		static const Sbecore::uint USR = 2;
+		static const Sbecore::uint USR = 1;
+		static const Sbecore::uint STA = 2;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);

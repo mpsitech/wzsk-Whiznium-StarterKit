@@ -14,8 +14,8 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskLivSysmon.h"
 #include "PnlWzskLivHeadbar.h"
+#include "PnlWzskLivSysmon.h"
 #include "PnlWzskLiv3DView.h"
 #include "PnlWzskLiv2DView.h"
 
@@ -191,8 +191,8 @@ public:
 	Sbecore::Xmlio::Feed feedFMcbAlert;
 	Sbecore::Xmlio::Feed feedFSge;
 
-	PnlWzskLivSysmon* pnlsysmon;
 	PnlWzskLivHeadbar* pnlheadbar;
+	PnlWzskLivSysmon* pnlsysmon;
 	PnlWzskLiv3DView* pnl3dview;
 	PnlWzskLiv2DView* pnl2dview;
 

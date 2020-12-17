@@ -41,11 +41,11 @@ CrdWzskScf::CrdWzskScf(
 	feedFSge.tag = "FeedFSge";
 	VecVSge::fillFeed(feedFSge);
 
-	pnlgeom = NULL;
 	pnlheadbar = NULL;
+	pnlgeom = NULL;
 	pnlconn = NULL;
-	dlglaserpos = NULL;
 	dlgttablecoord = NULL;
+	dlglaserpos = NULL;
 	dlgcameramat = NULL;
 
 	// IP constructor.cust1 --- INSERT
@@ -53,8 +53,8 @@ CrdWzskScf::CrdWzskScf(
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
-	pnlgeom = new PnlWzskScfGeom(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlheadbar = new PnlWzskScfHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlgeom = new PnlWzskScfGeom(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlconn = new PnlWzskScfConn(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT

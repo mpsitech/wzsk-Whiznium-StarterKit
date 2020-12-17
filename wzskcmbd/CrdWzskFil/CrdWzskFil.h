@@ -15,9 +15,9 @@
 // IP include.cust --- INSERT
 
 #include "PnlWzskFilList.h"
+#include "PnlWzskFilRec.h"
 #include "PnlWzskFilHeadbar.h"
 #include "DlgWzskFilDownload.h"
-#include "PnlWzskFilRec.h"
 
 #define VecVWzskFilDo CrdWzskFil::VecVDo
 #define VecVWzskFilSge CrdWzskFil::VecVSge
@@ -202,9 +202,9 @@ public:
 	Sbecore::Xmlio::Feed feedFSge;
 
 	PnlWzskFilList* pnllist;
+	PnlWzskFilRec* pnlrec;
 	PnlWzskFilHeadbar* pnlheadbar;
 	DlgWzskFilDownload* dlgdownload;
-	PnlWzskFilRec* pnlrec;
 
 	// IP vars.cust --- INSERT
 

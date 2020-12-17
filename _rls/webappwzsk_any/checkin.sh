@@ -2,8 +2,8 @@
 # file checkin.sh
 # checkin script for Wzsk web-based UI, release webappwzsk_any
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
-# author: Emily Johnson (auto-generation)
-# date created: 6 Dec 2020
+# author: Alexander Wirthmueller (auto-generation)
+# date created: 15 Dec 2020
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then

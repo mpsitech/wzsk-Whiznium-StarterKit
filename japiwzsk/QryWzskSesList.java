@@ -19,16 +19,16 @@ public class QryWzskSesList {
 		*/
 	public static class VecVOrd {
 
-		public static final int STA = 1;
-		public static final int USR = 2;
+		public static final int USR = 1;
+		public static final int STA = 2;
 
 		public static int getIx(
 					String sref
 				) {
 			String s = sref.toLowerCase();
 
-			if (s.equals("sta")) return STA;
 			if (s.equals("usr")) return USR;
+			if (s.equals("sta")) return STA;
 
 			return 0;
 		};
@@ -36,8 +36,8 @@ public class QryWzskSesList {
 		public static String getSref(
 					int ix
 				) {
-			if (ix == STA) return("sta");
 			if (ix == USR) return("usr");
+			if (ix == STA) return("sta");
 
 			return "";
 		};

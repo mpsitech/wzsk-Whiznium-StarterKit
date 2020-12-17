@@ -42,10 +42,10 @@ CrdWzskLlv::CrdWzskLlv(
 	VecVSge::fillFeed(feedFSge);
 
 	pnlheadbar = NULL;
-	pnllaser = NULL;
 	pnlttable = NULL;
-	pnlterm = NULL;
+	pnllaser = NULL;
 	pnlcamera = NULL;
+	pnlterm = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -53,10 +53,10 @@ CrdWzskLlv::CrdWzskLlv(
 	refresh(dbswzsk, moditems);
 
 	pnlheadbar = new PnlWzskLlvHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnllaser = new PnlWzskLlvLaser(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlttable = new PnlWzskLlvTtable(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlterm = new PnlWzskLlvTerm(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnllaser = new PnlWzskLlvLaser(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlcamera = new PnlWzskLlvCamera(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlterm = new PnlWzskLlvTerm(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 

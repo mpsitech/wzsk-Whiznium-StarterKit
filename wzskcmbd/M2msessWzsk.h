@@ -20,8 +20,8 @@
 #include "JobWzskActServo.h"
 #include "JobWzskActLaser.h"
 #include "JobWzskActExposure.h"
-#include "JobWzskAcqPreview.h"
 #include "JobWzskAcqPtcloud.h"
+#include "JobWzskAcqPreview.h"
 
 #define StatShrM2msessWzsk M2msessWzsk::StatShr
 
@@ -103,8 +103,8 @@ public:
 	JobWzskActServo* actservo;
 	JobWzskActLaser* actlaser;
 	JobWzskActExposure* actexposure;
-	JobWzskAcqPreview* acqpreview;
 	JobWzskAcqPtcloud* acqptcloud;
+	JobWzskAcqPreview* acqpreview;
 
 	std::multimap<Sbecore::featix_t,Sbecore::uint> accs;
 

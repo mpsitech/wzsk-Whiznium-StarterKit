@@ -50,7 +50,7 @@ ubigint Acv::addfile(
 	stat(path.c_str(), &st);
 	Size = st.st_size / 1024;
 
-	dbswzsk->tblwzskmfile->insertNewRec(&fil, 0, grp, own, refIxVTbl, refUref, osrefKContent, Archived, Filename, "", srefKMimetype, Size, Comment);
+	dbswzsk->tblwzskmfile->insertNewRec(&fil, grp, own, 0, refIxVTbl, refUref, osrefKContent, Archived, Filename, "", srefKMimetype, Size, Comment);
 	
 	// adjust archive name in record
 	str.str(""); str.fill('0'); str.width(8); str << right << fil->ref; str.width(0);

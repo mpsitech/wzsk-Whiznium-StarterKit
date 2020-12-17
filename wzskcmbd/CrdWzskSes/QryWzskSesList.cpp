@@ -154,8 +154,8 @@ void QryWzskSesList::rerun_orderSQL(
 			string& sqlstr
 			, const uint preIxOrd
 		) {
-	if (preIxOrd == VecVOrd::STA) sqlstr += " ORDER BY TblWzskMSession.start ASC";
-	else if (preIxOrd == VecVOrd::USR) sqlstr += " ORDER BY TblWzskMSession.refWzskMUser ASC";
+	if (preIxOrd == VecVOrd::USR) sqlstr += " ORDER BY TblWzskMSession.refWzskMUser ASC";
+	else if (preIxOrd == VecVOrd::STA) sqlstr += " ORDER BY TblWzskMSession.start ASC";
 };
 
 void QryWzskSesList::fetch(
