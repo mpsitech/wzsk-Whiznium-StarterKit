@@ -65,6 +65,9 @@ cp ../../wzskcmbd/Root*.cpp $BUILDROOT/wzskcmbd/
 cp ../../wzskcmbd/Sess*.h $BUILDROOT/wzskcmbd/
 cp ../../wzskcmbd/Sess*.cpp $BUILDROOT/wzskcmbd/
 
+cp ../../wzskcmbd/M2msess*.h $BUILDROOT/wzskcmbd/
+cp ../../wzskcmbd/M2msess*.cpp $BUILDROOT/wzskcmbd/
+
 cp ../../wzskcmbd/gbl/*.h $BUILDROOT/wzskcmbd/
 cp ../../wzskcmbd/gbl/*.cpp $BUILDROOT/wzskcmbd/
 
