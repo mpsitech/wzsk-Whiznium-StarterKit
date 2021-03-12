@@ -49,6 +49,17 @@ PnlWzskScfConn::StatShr::StatShr(
 	mask = {IXWZSKVEXPSTATE};
 };
 
+void PnlWzskScfConn::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskScfConn";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
+};
+
 void PnlWzskScfConn::StatShr::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -93,6 +104,22 @@ set<uint> PnlWzskScfConn::StatShr::diff(
  class PnlWzskScfConn::Tag
  ******************************************************************************/
 
+void PnlWzskScfConn::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskScfConn";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "Connections";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "Anschl\\u009fsse";
+	};
+};
+
 void PnlWzskScfConn::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -134,6 +161,26 @@ string PnlWzskScfConn::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskScfConn::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskScfConnDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void PnlWzskScfConn::DpchAppDo::readXML(
@@ -204,6 +251,17 @@ void PnlWzskScfConn::DpchEngData::merge(
 	if (src->has(JREF)) {jref = src->jref; add(JREF);};
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
+};
+
+void PnlWzskScfConn::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskScfConnData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void PnlWzskScfConn::DpchEngData::writeXML(

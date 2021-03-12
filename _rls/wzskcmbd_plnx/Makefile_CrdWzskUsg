@@ -1,14 +1,14 @@
 # file Makefile
 # make file for CrdWzskUsg card job handler, release wzskcmbd_plnx (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
-# author: Alexander Wirthmueller (auto-generation)
-# date created: 15 Dec 2020
+# author: Emily Johnson (auto-generation)
+# date created: 11 Mar 2021
 # IP header --- ABOVE
 
 include ../Makefile.inc
 
 CPP = ${TCHROOT}/arm-xilinx-linux-gnueabi-g++
-CPPFLAGS = --sysroot=${SYSROOT} -std=c++11 -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -g -Wall -Os -pthread -DWZSKCMBD
+CPPFLAGS = --sysroot=${SYSROOT} --sysroot=${SYSROOT} -std=c++11 -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -g -Wall -Os -pthread -DWZSKCMBD
 
 STATLIB = ${TCHROOT}/arm-xilinx-linux-gnueabi-ar
 STATLIBFLAGS = rcs
@@ -16,7 +16,7 @@ STATLIBFLAGS = rcs
 INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
 INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
-OBJS = CrdWzskUsg.o PnlWzskUsgHeadbar.o PnlWzskUsgList.o QryWzskUsgList.o PnlWzskUsgRec.o PnlWzskUsgMNUser.o QryWzskUsgMNUser.o PnlWzskUsgAAccess.o QryWzskUsgAAccess.o PnlWzskUsgDetail.o
+OBJS = CrdWzskUsg.o PnlWzskUsgList.o QryWzskUsgList.o PnlWzskUsgHeadbar.o PnlWzskUsgRec.o PnlWzskUsgMNUser.o QryWzskUsgMNUser.o PnlWzskUsgAAccess.o QryWzskUsgAAccess.o PnlWzskUsgDetail.o
 
 LIB = libcrdwzskusg
 

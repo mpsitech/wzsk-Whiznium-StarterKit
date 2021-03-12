@@ -39,6 +39,24 @@ M2msessWzsk::StatShr::StatShr(
 	mask = {JREFACQPREVIEW, JREFACQPTCLOUD, JREFACTEXPOSURE, JREFACTLASER, JREFACTSERVO, JREFIPRCORNER, JREFIPRTRACE, JREFSRCSYSINFO};
 };
 
+void M2msessWzsk::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrM2msessWzsk";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["scrJrefAcqpreview"] = Scr::scramble(jrefAcqpreview);
+	me["scrJrefAcqptcloud"] = Scr::scramble(jrefAcqptcloud);
+	me["scrJrefActexposure"] = Scr::scramble(jrefActexposure);
+	me["scrJrefActlaser"] = Scr::scramble(jrefActlaser);
+	me["scrJrefActservo"] = Scr::scramble(jrefActservo);
+	me["scrJrefIprcorner"] = Scr::scramble(jrefIprcorner);
+	me["scrJrefIprtrace"] = Scr::scramble(jrefIprtrace);
+	me["scrJrefSrcsysinfo"] = Scr::scramble(jrefSrcsysinfo);
+};
+
 void M2msessWzsk::StatShr::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -129,6 +147,16 @@ void M2msessWzsk::DpchEngData::merge(
 
 	if (src->has(JREF)) {jref = src->jref; add(JREF);};
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
+};
+
+void M2msessWzsk::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngM2msessWzskData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(STATSHR)) statshr.writeJSON(me);
 };
 
 void M2msessWzsk::DpchEngData::writeXML(

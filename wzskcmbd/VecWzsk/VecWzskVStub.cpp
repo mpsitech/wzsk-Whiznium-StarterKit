@@ -22,6 +22,11 @@ uint VecWzskVStub::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
+	if (s == "stubwzskshtstd") return STUBWZSKSHTSTD;
+	if (s == "stubwzskogrhsref") return STUBWZSKOGRHSREF;
+	if (s == "stubwzskogrstd") return STUBWZSKOGRSTD;
+	if (s == "stubwzskobjstd") return STUBWZSKOBJSTD;
+	if (s == "stubwzskfilstd") return STUBWZSKFILSTD;
 	if (s == "stubwzskprsstd") return STUBWZSKPRSSTD;
 	if (s == "stubwzsksesmenu") return STUBWZSKSESMENU;
 	if (s == "stubwzsksesstd") return STUBWZSKSESSTD;
@@ -29,11 +34,6 @@ uint VecWzskVStub::getIx(
 	if (s == "stubwzskusrstd") return STUBWZSKUSRSTD;
 	if (s == "stubwzskgroup") return STUBWZSKGROUP;
 	if (s == "stubwzskusgstd") return STUBWZSKUSGSTD;
-	if (s == "stubwzskshtstd") return STUBWZSKSHTSTD;
-	if (s == "stubwzskogrhsref") return STUBWZSKOGRHSREF;
-	if (s == "stubwzskogrstd") return STUBWZSKOGRSTD;
-	if (s == "stubwzskfilstd") return STUBWZSKFILSTD;
-	if (s == "stubwzskobjstd") return STUBWZSKOBJSTD;
 
 	return(0);
 };
@@ -41,6 +41,11 @@ uint VecWzskVStub::getIx(
 string VecWzskVStub::getSref(
 			const uint ix
 		) {
+	if (ix == STUBWZSKSHTSTD) return("StubWzskShtStd");
+	if (ix == STUBWZSKOGRHSREF) return("StubWzskOgrHsref");
+	if (ix == STUBWZSKOGRSTD) return("StubWzskOgrStd");
+	if (ix == STUBWZSKOBJSTD) return("StubWzskObjStd");
+	if (ix == STUBWZSKFILSTD) return("StubWzskFilStd");
 	if (ix == STUBWZSKPRSSTD) return("StubWzskPrsStd");
 	if (ix == STUBWZSKSESMENU) return("StubWzskSesMenu");
 	if (ix == STUBWZSKSESSTD) return("StubWzskSesStd");
@@ -48,11 +53,6 @@ string VecWzskVStub::getSref(
 	if (ix == STUBWZSKUSRSTD) return("StubWzskUsrStd");
 	if (ix == STUBWZSKGROUP) return("StubWzskGroup");
 	if (ix == STUBWZSKUSGSTD) return("StubWzskUsgStd");
-	if (ix == STUBWZSKSHTSTD) return("StubWzskShtStd");
-	if (ix == STUBWZSKOGRHSREF) return("StubWzskOgrHsref");
-	if (ix == STUBWZSKOGRSTD) return("StubWzskOgrStd");
-	if (ix == STUBWZSKFILSTD) return("StubWzskFilStd");
-	if (ix == STUBWZSKOBJSTD) return("StubWzskObjStd");
 
 	return("");
 };

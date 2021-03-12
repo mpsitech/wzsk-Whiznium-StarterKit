@@ -20,7 +20,7 @@
 /**
 	* ContInfWzskAlert
 	*/
-class ContInfWzskAlert : public Sbecore::Xmlio::Block {
+class ContInfWzskAlert : public Sbecore::Block {
 
 public:
 	static const Sbecore::uint TXTCPT = 1;
@@ -64,7 +64,7 @@ public:
 /**
 	* DpchWzsk
 	*/
-class DpchWzsk : public Sbecore::Xmlio::Block {
+class DpchWzsk : public Sbecore::Block {
 
 public:
 	DpchWzsk(const Sbecore::uint ixWzskVDpch = 0);
@@ -183,7 +183,7 @@ public:
 
 public:
 	ContInfWzskAlert continf;
-	Sbecore::Xmlio::Feed feedFMcb;
+	Sbecore::Feed feedFMcb;
 
 public:
 	static bool all(const std::set<Sbecore::uint>& items);

@@ -1,14 +1,14 @@
 # file Makefile
 # make file for Wzsk combined daemon, release wzskcmbd_tdx (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
-# author: Alexander Wirthmueller (auto-generation)
-# date created: 15 Dec 2020
+# author: Emily Johnson (auto-generation)
+# date created: 11 Mar 2021
 # IP header --- ABOVE
 
 include Makefile.inc
 
 CPP = ${TCHROOT}/arm-tdx-linux-gnueabi-g++
-CPPFLAGS = --sysroot=${SYSROOT} -std=c++11 -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -g -Wall -Os -pthread -DWZSKCMBD
+CPPFLAGS = --sysroot=${SYSROOT} --sysroot=${SYSROOT} -std=c++11 -march=armv7-a -mthumb -mfpu=neon -mfloat-abi=hard -g -Wall -Os -pthread -DWZSKCMBD
 
 LINK = ${TCHROOT}/arm-tdx-linux-gnueabi-g++
 LINKFLAGS = --sysroot=${SYSROOT}
@@ -33,7 +33,7 @@ LIBS += -liexwzsk -lvecwzsk -ldbswzsk
 LIBS += -lezdevwskd -lmicrohttpd -lpng -lsbecore_lite -lsbecore_mon
 LIBS += -ldbecore -lsbecore_plus -lsqlite3
 LIBS += -lsbecore
-LIBS += -lxml2
+LIBS += -ljsoncpp -lxml2
 LIBS += -lpthread
 
 EXE = Wzskcmbd

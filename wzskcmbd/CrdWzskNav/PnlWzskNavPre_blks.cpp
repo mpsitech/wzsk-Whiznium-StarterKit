@@ -47,6 +47,17 @@ PnlWzskNavPre::ContInf::ContInf(
 	mask = {TXTOBJ};
 };
 
+void PnlWzskNavPre::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfWzskNavPre";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["TxtObj"] = TxtObj;
+};
+
 void PnlWzskNavPre::ContInf::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -101,6 +112,17 @@ PnlWzskNavPre::StatShr::StatShr(
 	mask = {TXTOBJAVAIL};
 };
 
+void PnlWzskNavPre::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskNavPre";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["TxtObjAvail"] = TxtObjAvail;
+};
+
 void PnlWzskNavPre::StatShr::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -145,6 +167,22 @@ set<uint> PnlWzskNavPre::StatShr::diff(
  class PnlWzskNavPre::Tag
  ******************************************************************************/
 
+void PnlWzskNavPre::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskNavPre";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["CptObj"] = "object";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["CptObj"] = "Objekt";
+	};
+};
+
 void PnlWzskNavPre::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -186,6 +224,26 @@ string PnlWzskNavPre::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskNavPre::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskNavPreDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void PnlWzskNavPre::DpchAppDo::readXML(
@@ -260,6 +318,18 @@ void PnlWzskNavPre::DpchEngData::merge(
 	if (src->has(CONTINF)) {continf = src->continf; add(CONTINF);};
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
+};
+
+void PnlWzskNavPre::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskNavPreData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void PnlWzskNavPre::DpchEngData::writeXML(

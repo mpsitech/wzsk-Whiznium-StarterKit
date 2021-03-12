@@ -705,6 +705,7 @@ void JobWzskSrcV4l2::convertYUV420toRGBGrrdNEON(
 			, uint16_t* gr16
 			, uint16_t* rd16
 		) {
+#ifdef __arm__
 	// 132.437ms ; speed-up of 3.25 as compared to convertYUV422toRGBGrrdInt16
 
 	// YUV420 load strategy:
@@ -890,6 +891,7 @@ void JobWzskSrcV4l2::convertYUV420toRGBGrrdNEON(
 			vst1q_s16((int16_t*) &(rd16[stix]), rd);
 		};
 	};
+#endif
 };
 
 void JobWzskSrcV4l2::convertYUV422toRGBGrrdInt8(

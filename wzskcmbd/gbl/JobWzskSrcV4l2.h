@@ -19,8 +19,9 @@
 #undef MAP_TYPE
 #include <sys/stat.h>
 #include <sys/types.h>
-//#include <imx/linux/mxc_v4l2.h>
-#include <arm_neon.h>
+#ifdef __arm__
+	#include <arm_neon.h>
+#endif
 // IP include.cust --- IEND
 
 #define VecVJobWzskSrcV4l2Sge JobWzskSrcV4l2::VecVSge
@@ -49,13 +50,13 @@ public:
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
 
-		static void fillFeed(Sbecore::Xmlio::Feed& feed);
+		static void fillFeed(Sbecore::Feed& feed);
 	};
 
 	/**
 		* Stg (full: StgJobWzskSrcV4l2)
 		*/
-	class Stg : public Sbecore::Xmlio::Block {
+	class Stg : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint PATH = 1;

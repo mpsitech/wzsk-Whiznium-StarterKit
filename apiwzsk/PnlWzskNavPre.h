@@ -40,7 +40,7 @@ namespace PnlWzskNavPre {
 	/**
 	  * ContInf (full: ContInfWzskNavPre)
 	  */
-	class ContInf : public Sbecore::Xmlio::Block {
+	class ContInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint TXTOBJ = 1;
@@ -60,7 +60,7 @@ namespace PnlWzskNavPre {
 	/**
 	  * StatShr (full: StatShrWzskNavPre)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint TXTOBJAVAIL = 1;
@@ -80,7 +80,7 @@ namespace PnlWzskNavPre {
 	/**
 	  * Tag (full: TagWzskNavPre)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPTOBJ = 1;

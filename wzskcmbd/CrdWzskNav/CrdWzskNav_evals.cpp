@@ -73,7 +73,7 @@ bool CrdWzskNav::evalPnlopAvail(
 	return(args.back());
 };
 
-bool CrdWzskNav::evalPnlgaleryAvail(
+bool CrdWzskNav::evalPnlglryAvail(
 			DbsWzsk* dbswzsk
 		) {
 	// pre.ixCrdaccOgr()|pre.ixCrdaccObj()|pre.ixCrdaccSes()|pre.ixCrdaccSht()|pre.ixCrdaccFil()

@@ -89,6 +89,36 @@ PnlWzskLiv2DView::ContIac::ContIac(
 	mask = {NUMFPUPPVM, CHKAEX, SLDEXT, SLDFCS, UPDLLO, UPDLUO, UPDLMD, CHKLRO, UPDPNT, CHKPRO, SLDCWD};
 };
 
+bool PnlWzskLiv2DView::ContIac::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacWzskLiv2DView"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("numFPupPvm")) {numFPupPvm = me["numFPupPvm"].asUInt(); add(NUMFPUPPVM);};
+		if (me.isMember("ChkAex")) {ChkAex = me["ChkAex"].asBool(); add(CHKAEX);};
+		if (me.isMember("SldExt")) {SldExt = me["SldExt"].asDouble(); add(SLDEXT);};
+		if (me.isMember("SldFcs")) {SldFcs = me["SldFcs"].asDouble(); add(SLDFCS);};
+		if (me.isMember("UpdLlo")) {UpdLlo = me["UpdLlo"].asInt(); add(UPDLLO);};
+		if (me.isMember("UpdLuo")) {UpdLuo = me["UpdLuo"].asInt(); add(UPDLUO);};
+		if (me.isMember("UpdLmd")) {UpdLmd = me["UpdLmd"].asInt(); add(UPDLMD);};
+		if (me.isMember("ChkLro")) {ChkLro = me["ChkLro"].asBool(); add(CHKLRO);};
+		if (me.isMember("UpdPnt")) {UpdPnt = me["UpdPnt"].asInt(); add(UPDPNT);};
+		if (me.isMember("ChkPro")) {ChkPro = me["ChkPro"].asBool(); add(CHKPRO);};
+		if (me.isMember("SldCwd")) {SldCwd = me["SldCwd"].asDouble(); add(SLDCWD);};
+	};
+
+	return basefound;
+};
+
 bool PnlWzskLiv2DView::ContIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -120,6 +150,27 @@ bool PnlWzskLiv2DView::ContIac::readXML(
 	};
 
 	return basefound;
+};
+
+void PnlWzskLiv2DView::ContIac::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacWzskLiv2DView";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFPupPvm"] = numFPupPvm;
+	me["ChkAex"] = ChkAex;
+	me["SldExt"] = SldExt;
+	me["SldFcs"] = SldFcs;
+	me["UpdLlo"] = UpdLlo;
+	me["UpdLuo"] = UpdLuo;
+	me["UpdLmd"] = UpdLmd;
+	me["ChkLro"] = ChkLro;
+	me["UpdPnt"] = UpdPnt;
+	me["ChkPro"] = ChkPro;
+	me["SldCwd"] = SldCwd;
 };
 
 void PnlWzskLiv2DView::ContIac::writeXML(
@@ -210,6 +261,33 @@ PnlWzskLiv2DView::ContIacCorner::ContIacCorner(
 	mask = {ROIAX, ROIAY, ROIBX, ROIBY, ROICX, ROICY, ROIDX, ROIDY};
 };
 
+bool PnlWzskLiv2DView::ContIacCorner::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacWzskLiv2DViewCorner"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("roiAx")) {roiAx = me["roiAx"].asInt(); add(ROIAX);};
+		if (me.isMember("roiAy")) {roiAy = me["roiAy"].asInt(); add(ROIAY);};
+		if (me.isMember("roiBx")) {roiBx = me["roiBx"].asInt(); add(ROIBX);};
+		if (me.isMember("roiBy")) {roiBy = me["roiBy"].asInt(); add(ROIBY);};
+		if (me.isMember("roiCx")) {roiCx = me["roiCx"].asInt(); add(ROICX);};
+		if (me.isMember("roiCy")) {roiCy = me["roiCy"].asInt(); add(ROICY);};
+		if (me.isMember("roiDx")) {roiDx = me["roiDx"].asInt(); add(ROIDX);};
+		if (me.isMember("roiDy")) {roiDy = me["roiDy"].asInt(); add(ROIDY);};
+	};
+
+	return basefound;
+};
+
 bool PnlWzskLiv2DView::ContIacCorner::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -238,6 +316,24 @@ bool PnlWzskLiv2DView::ContIacCorner::readXML(
 	};
 
 	return basefound;
+};
+
+void PnlWzskLiv2DView::ContIacCorner::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacWzskLiv2DViewCorner";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["roiAx"] = roiAx;
+	me["roiAy"] = roiAy;
+	me["roiBx"] = roiBx;
+	me["roiBy"] = roiBy;
+	me["roiCx"] = roiCx;
+	me["roiCy"] = roiCy;
+	me["roiDx"] = roiDx;
+	me["roiDy"] = roiDy;
 };
 
 void PnlWzskLiv2DView::ContIacCorner::writeXML(
@@ -322,6 +418,33 @@ PnlWzskLiv2DView::ContIacTrace::ContIacTrace(
 	mask = {ROIAX, ROIAY, ROIBX, ROIBY, ROICX, ROICY, ROIDX, ROIDY};
 };
 
+bool PnlWzskLiv2DView::ContIacTrace::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacWzskLiv2DViewTrace"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("roiAx")) {roiAx = me["roiAx"].asInt(); add(ROIAX);};
+		if (me.isMember("roiAy")) {roiAy = me["roiAy"].asInt(); add(ROIAY);};
+		if (me.isMember("roiBx")) {roiBx = me["roiBx"].asInt(); add(ROIBX);};
+		if (me.isMember("roiBy")) {roiBy = me["roiBy"].asInt(); add(ROIBY);};
+		if (me.isMember("roiCx")) {roiCx = me["roiCx"].asInt(); add(ROICX);};
+		if (me.isMember("roiCy")) {roiCy = me["roiCy"].asInt(); add(ROICY);};
+		if (me.isMember("roiDx")) {roiDx = me["roiDx"].asInt(); add(ROIDX);};
+		if (me.isMember("roiDy")) {roiDy = me["roiDy"].asInt(); add(ROIDY);};
+	};
+
+	return basefound;
+};
+
 bool PnlWzskLiv2DView::ContIacTrace::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -350,6 +473,24 @@ bool PnlWzskLiv2DView::ContIacTrace::readXML(
 	};
 
 	return basefound;
+};
+
+void PnlWzskLiv2DView::ContIacTrace::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacWzskLiv2DViewTrace";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["roiAx"] = roiAx;
+	me["roiAy"] = roiAy;
+	me["roiBx"] = roiBx;
+	me["roiBy"] = roiBy;
+	me["roiCx"] = roiCx;
+	me["roiCy"] = roiCy;
+	me["roiDx"] = roiDx;
+	me["roiDy"] = roiDy;
 };
 
 void PnlWzskLiv2DView::ContIacTrace::writeXML(
@@ -432,6 +573,24 @@ PnlWzskLiv2DView::ContInf::ContInf(
 	this->ButPicOn = ButPicOn;
 
 	mask = {BUTCLAIMON, TXTOAF, BUTTCCON, BUTTCWON, BUTLLEON, BUTLRION, BUTLTRON, BUTPICON};
+};
+
+void PnlWzskLiv2DView::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfWzskLiv2DView";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ButClaimOn"] = ButClaimOn;
+	me["TxtOaf"] = TxtOaf;
+	me["ButTccOn"] = ButTccOn;
+	me["ButTcwOn"] = ButTcwOn;
+	me["ButLleOn"] = ButLleOn;
+	me["ButLriOn"] = ButLriOn;
+	me["ButLtrOn"] = ButLtrOn;
+	me["ButPicOn"] = ButPicOn;
 };
 
 void PnlWzskLiv2DView::ContInf::writeXML(
@@ -558,6 +717,45 @@ PnlWzskLiv2DView::StatShr::StatShr(
 	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX, TXTOAFAVAIL, BUTSTSACTIVE, UPDLLOAVAIL, UPDLLOMIN, UPDLLOMAX, UPDLUOAVAIL, UPDLUOMIN, UPDLUOMAX, UPDLMDAVAIL, UPDLMDMIN, UPDLMDMAX, UPDPNTMIN, UPDPNTMAX, SLDCWDMIN, SLDCWDMAX, SLDCWDRAST};
 };
 
+void PnlWzskLiv2DView::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskLiv2DView";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
+	me["ButClaimActive"] = ButClaimActive;
+	me["ButPlayActive"] = ButPlayActive;
+	me["ButStopActive"] = ButStopActive;
+	me["ChkAexActive"] = ChkAexActive;
+	me["SldExtAvail"] = SldExtAvail;
+	me["SldExtActive"] = SldExtActive;
+	me["SldExtMin"] = SldExtMin;
+	me["SldExtMax"] = SldExtMax;
+	me["SldExtRast"] = SldExtRast;
+	me["SldFcsActive"] = SldFcsActive;
+	me["SldFcsMin"] = SldFcsMin;
+	me["SldFcsMax"] = SldFcsMax;
+	me["TxtOafAvail"] = TxtOafAvail;
+	me["ButStsActive"] = ButStsActive;
+	me["UpdLloAvail"] = UpdLloAvail;
+	me["UpdLloMin"] = UpdLloMin;
+	me["UpdLloMax"] = UpdLloMax;
+	me["UpdLuoAvail"] = UpdLuoAvail;
+	me["UpdLuoMin"] = UpdLuoMin;
+	me["UpdLuoMax"] = UpdLuoMax;
+	me["UpdLmdAvail"] = UpdLmdAvail;
+	me["UpdLmdMin"] = UpdLmdMin;
+	me["UpdLmdMax"] = UpdLmdMax;
+	me["UpdPntMin"] = UpdPntMin;
+	me["UpdPntMax"] = UpdPntMax;
+	me["SldCwdMin"] = SldCwdMin;
+	me["SldCwdMax"] = SldCwdMax;
+	me["SldCwdRast"] = SldCwdRast;
+};
+
 void PnlWzskLiv2DView::StatShr::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -658,6 +856,74 @@ set<uint> PnlWzskLiv2DView::StatShr::diff(
  class PnlWzskLiv2DView::Tag
  ******************************************************************************/
 
+void PnlWzskLiv2DView::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskLiv2DView";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "Calibration";
+		me["CptPvm"] = "preview mode";
+		me["CptAex"] = "auto-exposure";
+		me["CptExt"] = "exposure time [ms]";
+		me["CptFcs"] = "focus (near -\\u003e far)";
+		me["CptOaf"] = "object affiliation";
+		me["ButSts"] = "Store snapshot";
+		me["HdgTtb"] = "Turntable";
+		me["ButTcc"] = "Turn counter-clockwise";
+		me["ButTcw"] = "Turn clockwise";
+		me["HdgLor"] = "Laser orientation";
+		me["ButLle"] = "Left on";
+		me["ButLri"] = "Right on";
+		me["CptLlo"] = "lower 'on' threshold level";
+		me["CptLuo"] = "upper 'off' threshold level";
+		me["CptLmd"] = "minimum 'on'-'off' difference";
+		me["CptLgl"] = "show guidelines";
+		me["CptLro"] = "ROI trapezoid";
+		me["ButLtr"] = "Trace";
+		me["ButLcl"] = "Clear";
+		me["HdgPos"] = "Pose estimation";
+		me["CptPnt"] = "target count";
+		me["CptPro"] = "ROI trapezoid";
+		me["ButPic"] = "Identify corners";
+		me["ButPcl"] = "Clear";
+		me["HdgCld"] = "Point cloud";
+		me["CptCwd"] = "working distance [m]";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "Kalibrierung";
+		me["CptPvm"] = "Vorschaumodus";
+		me["CptAex"] = "automatische Belichtung";
+		me["CptExt"] = "Belichtungszeit [ms]";
+		me["CptFcs"] = "Fokus (nah -\\u003e fern)";
+		me["CptOaf"] = "Objekt-Zuordnung";
+		me["ButSts"] = "Schnappschuss machen";
+		me["HdgTtb"] = "Drehteller";
+		me["ButTcc"] = "Gegen Uhrzeigersinn drehen";
+		me["ButTcw"] = "Im Uhrzeigersinn drehen";
+		me["HdgLor"] = "Laser-Orientierung";
+		me["ButLle"] = "Links ein";
+		me["ButLri"] = "Rechts ein";
+		me["CptLlo"] = "unterer 'ein'-Schwellwert";
+		me["CptLuo"] = "oberer 'aus'-Schwellwert";
+		me["CptLmd"] = "minimale 'ein'-'aus' Differenz";
+		me["CptLgl"] = "Hilfslinien anzeigen";
+		me["CptLro"] = "ROI-Trapez";
+		me["ButLtr"] = "Spur nachzeichnen";
+		me["ButLcl"] = "Zur\\u00fccksetzen";
+		me["HdgPos"] = "Lagebestimmung";
+		me["CptPnt"] = "Anzahl-Vorgabe";
+		me["CptPro"] = "ROI-Trapez";
+		me["ButPic"] = "Ecken identifizieren";
+		me["ButPcl"] = "Zur\\u00fccksetzen";
+		me["HdgCld"] = "Punktewolke";
+		me["CptCwd"] = "Arbeitsentfernung [m]";
+	};
+};
+
 void PnlWzskLiv2DView::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -753,6 +1019,29 @@ string PnlWzskLiv2DView::DpchAppAlign::getSrefsMask() {
 	return(srefs);
 };
 
+void PnlWzskLiv2DView::DpchAppAlign::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLiv2DViewAlign"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (contiaccorner.readJSON(me, true)) add(CONTIACCORNER);
+		if (contiactrace.readJSON(me, true)) add(CONTIACTRACE);
+	} else {
+		contiaccorner = ContIacCorner();
+		contiactrace = ContIacTrace();
+	};
+};
+
 void PnlWzskLiv2DView::DpchAppAlign::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -803,6 +1092,27 @@ string PnlWzskLiv2DView::DpchAppData::getSrefsMask() {
 	return(srefs);
 };
 
+void PnlWzskLiv2DView::DpchAppData::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLiv2DViewData"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (contiac.readJSON(me, true)) add(CONTIAC);
+	} else {
+		contiac = ContIac();
+	};
+};
+
 void PnlWzskLiv2DView::DpchAppData::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -850,6 +1160,26 @@ string PnlWzskLiv2DView::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskLiv2DView::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLiv2DViewDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void PnlWzskLiv2DView::DpchAppDo::readXML(
@@ -924,6 +1254,17 @@ void PnlWzskLiv2DView::DpchEngAlign::merge(
 	if (src->has(CONTIACTRACE)) {contiactrace = src->contiactrace; add(CONTIACTRACE);};
 };
 
+void PnlWzskLiv2DView::DpchEngAlign::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskLiv2DViewAlign"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTIACCORNER)) contiaccorner.writeJSON(me);
+	if (has(CONTIACTRACE)) contiactrace.writeJSON(me);
+};
+
 void PnlWzskLiv2DView::DpchEngAlign::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -986,6 +1327,20 @@ void PnlWzskLiv2DView::DpchEngData::merge(
 	if (src->has(FEEDFPUPPVM)) {feedFPupPvm = src->feedFPupPvm; add(FEEDFPUPPVM);};
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
+};
+
+void PnlWzskLiv2DView::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskLiv2DViewData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTIAC)) contiac.writeJSON(me);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(FEEDFPUPPVM)) feedFPupPvm.writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void PnlWzskLiv2DView::DpchEngData::writeXML(
@@ -1075,6 +1430,25 @@ void PnlWzskLiv2DView::DpchEngLive::merge(
 	if (src->has(YTRACEL)) {yTraceL = src->yTraceL; add(YTRACEL);};
 	if (src->has(XTRACER)) {xTraceR = src->xTraceR; add(XTRACER);};
 	if (src->has(YTRACER)) {yTraceR = src->yTraceR; add(YTRACER);};
+};
+
+void PnlWzskLiv2DView::DpchEngLive::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskLiv2DViewLive"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(GRAY)) Jsonio::writeUtinyintvec(me, "gray", gray);
+	if (has(RED)) Jsonio::writeUtinyintvec(me, "red", red);
+	if (has(GREEN)) Jsonio::writeUtinyintvec(me, "green", green);
+	if (has(BLUE)) Jsonio::writeUtinyintvec(me, "blue", blue);
+	if (has(XCORNER)) Jsonio::writeIntvec(me, "xCorner", xCorner);
+	if (has(YCORNER)) Jsonio::writeIntvec(me, "yCorner", yCorner);
+	if (has(XTRACEL)) Jsonio::writeIntvec(me, "xTraceL", xTraceL);
+	if (has(YTRACEL)) Jsonio::writeIntvec(me, "yTraceL", yTraceL);
+	if (has(XTRACER)) Jsonio::writeIntvec(me, "xTraceR", xTraceR);
+	if (has(YTRACER)) Jsonio::writeIntvec(me, "yTraceR", yTraceR);
 };
 
 void PnlWzskLiv2DView::DpchEngLive::writeXML(

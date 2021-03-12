@@ -44,7 +44,7 @@ namespace PnlWzskLlvTtable {
 	/**
 	  * ContIac (full: ContIacWzskLlvTtable)
 	  */
-	class ContIac : public Sbecore::Xmlio::Block {
+	class ContIac : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint SLDTRG = 1;
@@ -65,7 +65,7 @@ namespace PnlWzskLlvTtable {
 	/**
 	  * ContInf (full: ContInfWzskLlvTtable)
 	  */
-	class ContInf : public Sbecore::Xmlio::Block {
+	class ContInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
@@ -85,7 +85,7 @@ namespace PnlWzskLlvTtable {
 	/**
 	  * StatShr (full: StatShrWzskLlvTtable)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
@@ -113,7 +113,7 @@ namespace PnlWzskLlvTtable {
 	/**
 	  * Tag (full: TagWzskLlvTtable)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPT = 1;

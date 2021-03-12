@@ -32,7 +32,7 @@ MdlWzskOp
 		dech	Livedaten
 		ImeIJMCardTitle.end
 	ImeIMCard.end
-MdlWzskGalery
+MdlWzskGlry
 	ImeIJMModule.srefX1RefWznmMLocale	Title	Comment
 	enus	gallery
 	dech	Galerie

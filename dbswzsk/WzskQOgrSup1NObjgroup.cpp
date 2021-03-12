@@ -31,6 +31,21 @@ WzskQOgrSup1NObjgroup::WzskQOgrSup1NObjgroup(
 	this->stubRef = stubRef;
 };
 
+void WzskQOgrSup1NObjgroup::writeJSON(
+			Json::Value& sup
+			, bool jnumattr
+			, bool shorttags
+		) {
+	Json::Value& me = sup.append(Json::Value(Json::objectValue));
+
+	if (jnumattr) me["jnum"] = jnum;
+	if (shorttags) {
+		me["ref"] = stubRef;
+	} else {
+		me["stubRef"] = stubRef;
+	};
+};
+
 void WzskQOgrSup1NObjgroup::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -96,6 +111,16 @@ ListWzskQOgrSup1NObjgroup& ListWzskQOgrSup1NObjgroup::operator=(
 	};
 
 	return(*this);
+};
+
+void ListWzskQOgrSup1NObjgroup::writeJSON(
+			Json::Value& sup
+			, std::string difftag
+		) {
+	if (difftag == "") difftag = "ListWzskQOgrSup1NObjgroup";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::arrayValue);
+	for (unsigned int i = 0; i < nodes.size(); i++) nodes[i]->writeJSON(me, true, true);
 };
 
 void ListWzskQOgrSup1NObjgroup::writeXML(

@@ -29,6 +29,19 @@ WzskQPreselect::WzskQPreselect(
 	this->ref = ref;
 };
 
+void WzskQPreselect::writeJSON(
+			Json::Value& sup
+			, bool jnumattr
+			, bool shorttags
+		) {
+	Json::Value& me = sup.append(Json::Value(Json::objectValue));
+
+	if (jnumattr) me["jnum"] = jnum;
+	if (shorttags) {
+	} else {
+	};
+};
+
 void WzskQPreselect::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -92,6 +105,16 @@ ListWzskQPreselect& ListWzskQPreselect::operator=(
 	};
 
 	return(*this);
+};
+
+void ListWzskQPreselect::writeJSON(
+			Json::Value& sup
+			, std::string difftag
+		) {
+	if (difftag == "") difftag = "ListWzskQPreselect";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::arrayValue);
+	for (unsigned int i = 0; i < nodes.size(); i++) nodes[i]->writeJSON(me, true, true);
 };
 
 void ListWzskQPreselect::writeXML(

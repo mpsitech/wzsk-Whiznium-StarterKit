@@ -74,6 +74,7 @@ uint CrdWzskNav::VecVSge::getIx(
 
 	if (s == "idle") return IDLE;
 	if (s == "alrwzskabt") return ALRWZSKABT;
+	if (s == "alrwzsktrm") return ALRWZSKTRM;
 
 	return(0);
 };
@@ -83,6 +84,7 @@ string CrdWzskNav::VecVSge::getSref(
 		) {
 	if (ix == IDLE) return("idle");
 	if (ix == ALRWZSKABT) return("alrwzskabt");
+	if (ix == ALRWZSKTRM) return("alrwzsktrm");
 
 	return("");
 };
@@ -92,7 +94,7 @@ void CrdWzskNav::VecVSge::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 2; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
+	for (unsigned int i = 1; i <= 3; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
 };
 
 /******************************************************************************
@@ -115,6 +117,21 @@ CrdWzskNav::ContInf::ContInf(
 	this->MtxSesSes3 = MtxSesSes3;
 
 	mask = {NUMFSGE, MRLAPPHLP, MTXSESSES1, MTXSESSES2, MTXSESSES3};
+};
+
+void CrdWzskNav::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfWzskNav";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFSge"] = numFSge;
+	me["MrlAppHlp"] = MrlAppHlp;
+	me["MtxSesSes1"] = MtxSesSes1;
+	me["MtxSesSes2"] = MtxSesSes2;
+	me["MtxSesSes3"] = MtxSesSes3;
 };
 
 void CrdWzskNav::ContInf::writeXML(
@@ -169,6 +186,34 @@ set<uint> CrdWzskNav::ContInf::diff(
  class CrdWzskNav::StatApp
  ******************************************************************************/
 
+void CrdWzskNav::StatApp::writeJSON(
+			Json::Value& sup
+			, string difftag
+			, const uint ixWzskVReqitmode
+			, const usmallint latency
+			, const string& shortMenu
+			, const uint widthMenu
+			, const bool initdoneHeadbar
+			, const bool initdonePre
+			, const bool initdoneAdmin
+			, const bool initdoneOp
+			, const bool initdoneGlry
+		) {
+	if (difftag.length() == 0) difftag = "StatAppWzskNav";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVReqitmode"] = VecWzskVReqitmode::getSref(ixWzskVReqitmode);
+	me["latency"] = latency;
+	me["shortMenu"] = shortMenu;
+	me["widthMenu"] = widthMenu;
+	me["initdoneHeadbar"] = initdoneHeadbar;
+	me["initdonePre"] = initdonePre;
+	me["initdoneAdmin"] = initdoneAdmin;
+	me["initdoneOp"] = initdoneOp;
+	me["initdoneGlry"] = initdoneGlry;
+};
+
 void CrdWzskNav::StatApp::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -181,7 +226,7 @@ void CrdWzskNav::StatApp::writeXML(
 			, const bool initdonePre
 			, const bool initdoneAdmin
 			, const bool initdoneOp
-			, const bool initdoneGalery
+			, const bool initdoneGlry
 		) {
 	if (difftag.length() == 0) difftag = "StatAppWzskNav";
 
@@ -198,7 +243,7 @@ void CrdWzskNav::StatApp::writeXML(
 		writeBoolAttr(wr, itemtag, "sref", "initdonePre", initdonePre);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneAdmin", initdoneAdmin);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneOp", initdoneOp);
-		writeBoolAttr(wr, itemtag, "sref", "initdoneGalery", initdoneGalery);
+		writeBoolAttr(wr, itemtag, "sref", "initdoneGlry", initdoneGlry);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -215,8 +260,8 @@ CrdWzskNav::StatShr::StatShr(
 			, const bool pnladminAvail
 			, const ubigint jrefOp
 			, const bool pnlopAvail
-			, const ubigint jrefGalery
-			, const bool pnlgaleryAvail
+			, const ubigint jrefGlry
+			, const bool pnlglryAvail
 			, const bool MitSesSpsAvail
 			, const bool MspCrd1Avail
 			, const bool MitCrdUsgAvail
@@ -245,8 +290,8 @@ CrdWzskNav::StatShr::StatShr(
 	this->pnladminAvail = pnladminAvail;
 	this->jrefOp = jrefOp;
 	this->pnlopAvail = pnlopAvail;
-	this->jrefGalery = jrefGalery;
-	this->pnlgaleryAvail = pnlgaleryAvail;
+	this->jrefGlry = jrefGlry;
+	this->pnlglryAvail = pnlglryAvail;
 	this->MitSesSpsAvail = MitSesSpsAvail;
 	this->MspCrd1Avail = MspCrd1Avail;
 	this->MitCrdUsgAvail = MitCrdUsgAvail;
@@ -265,7 +310,44 @@ CrdWzskNav::StatShr::StatShr(
 	this->MspApp2Avail = MspApp2Avail;
 	this->MitAppLoiAvail = MitAppLoiAvail;
 
-	mask = {JREFDLGLOAINI, JREFHEADBAR, JREFPRE, PNLPREAVAIL, JREFADMIN, PNLADMINAVAIL, JREFOP, PNLOPAVAIL, JREFGALERY, PNLGALERYAVAIL, MITSESSPSAVAIL, MSPCRD1AVAIL, MITCRDUSGAVAIL, MITCRDUSRAVAIL, MITCRDPRSAVAIL, MITCRDSCFAVAIL, MSPCRD2AVAIL, MITCRDLLVAVAIL, MITCRDLIVAVAIL, MSPCRD3AVAIL, MITCRDOGRAVAIL, MITCRDOBJAVAIL, MITCRDSESAVAIL, MITCRDSHTAVAIL, MITCRDFILAVAIL, MSPAPP2AVAIL, MITAPPLOIAVAIL};
+	mask = {JREFDLGLOAINI, JREFHEADBAR, JREFPRE, PNLPREAVAIL, JREFADMIN, PNLADMINAVAIL, JREFOP, PNLOPAVAIL, JREFGLRY, PNLGLRYAVAIL, MITSESSPSAVAIL, MSPCRD1AVAIL, MITCRDUSGAVAIL, MITCRDUSRAVAIL, MITCRDPRSAVAIL, MITCRDSCFAVAIL, MSPCRD2AVAIL, MITCRDLLVAVAIL, MITCRDLIVAVAIL, MSPCRD3AVAIL, MITCRDOGRAVAIL, MITCRDOBJAVAIL, MITCRDSESAVAIL, MITCRDSHTAVAIL, MITCRDFILAVAIL, MSPAPP2AVAIL, MITAPPLOIAVAIL};
+};
+
+void CrdWzskNav::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskNav";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["scrJrefDlgloaini"] = Scr::scramble(jrefDlgloaini);
+	me["scrJrefHeadbar"] = Scr::scramble(jrefHeadbar);
+	me["scrJrefPre"] = Scr::scramble(jrefPre);
+	me["pnlpreAvail"] = pnlpreAvail;
+	me["scrJrefAdmin"] = Scr::scramble(jrefAdmin);
+	me["pnladminAvail"] = pnladminAvail;
+	me["scrJrefOp"] = Scr::scramble(jrefOp);
+	me["pnlopAvail"] = pnlopAvail;
+	me["scrJrefGlry"] = Scr::scramble(jrefGlry);
+	me["pnlglryAvail"] = pnlglryAvail;
+	me["MitSesSpsAvail"] = MitSesSpsAvail;
+	me["MspCrd1Avail"] = MspCrd1Avail;
+	me["MitCrdUsgAvail"] = MitCrdUsgAvail;
+	me["MitCrdUsrAvail"] = MitCrdUsrAvail;
+	me["MitCrdPrsAvail"] = MitCrdPrsAvail;
+	me["MitCrdScfAvail"] = MitCrdScfAvail;
+	me["MspCrd2Avail"] = MspCrd2Avail;
+	me["MitCrdLlvAvail"] = MitCrdLlvAvail;
+	me["MitCrdLivAvail"] = MitCrdLivAvail;
+	me["MspCrd3Avail"] = MspCrd3Avail;
+	me["MitCrdOgrAvail"] = MitCrdOgrAvail;
+	me["MitCrdObjAvail"] = MitCrdObjAvail;
+	me["MitCrdSesAvail"] = MitCrdSesAvail;
+	me["MitCrdShtAvail"] = MitCrdShtAvail;
+	me["MitCrdFilAvail"] = MitCrdFilAvail;
+	me["MspApp2Avail"] = MspApp2Avail;
+	me["MitAppLoiAvail"] = MitAppLoiAvail;
 };
 
 void CrdWzskNav::StatShr::writeXML(
@@ -288,8 +370,8 @@ void CrdWzskNav::StatShr::writeXML(
 		writeBoolAttr(wr, itemtag, "sref", "pnladminAvail", pnladminAvail);
 		writeStringAttr(wr, itemtag, "sref", "scrJrefOp", Scr::scramble(jrefOp));
 		writeBoolAttr(wr, itemtag, "sref", "pnlopAvail", pnlopAvail);
-		writeStringAttr(wr, itemtag, "sref", "scrJrefGalery", Scr::scramble(jrefGalery));
-		writeBoolAttr(wr, itemtag, "sref", "pnlgaleryAvail", pnlgaleryAvail);
+		writeStringAttr(wr, itemtag, "sref", "scrJrefGlry", Scr::scramble(jrefGlry));
+		writeBoolAttr(wr, itemtag, "sref", "pnlglryAvail", pnlglryAvail);
 		writeBoolAttr(wr, itemtag, "sref", "MitSesSpsAvail", MitSesSpsAvail);
 		writeBoolAttr(wr, itemtag, "sref", "MspCrd1Avail", MspCrd1Avail);
 		writeBoolAttr(wr, itemtag, "sref", "MitCrdUsgAvail", MitCrdUsgAvail);
@@ -323,8 +405,8 @@ set<uint> CrdWzskNav::StatShr::comm(
 	if (pnladminAvail == comp->pnladminAvail) insert(items, PNLADMINAVAIL);
 	if (jrefOp == comp->jrefOp) insert(items, JREFOP);
 	if (pnlopAvail == comp->pnlopAvail) insert(items, PNLOPAVAIL);
-	if (jrefGalery == comp->jrefGalery) insert(items, JREFGALERY);
-	if (pnlgaleryAvail == comp->pnlgaleryAvail) insert(items, PNLGALERYAVAIL);
+	if (jrefGlry == comp->jrefGlry) insert(items, JREFGLRY);
+	if (pnlglryAvail == comp->pnlglryAvail) insert(items, PNLGLRYAVAIL);
 	if (MitSesSpsAvail == comp->MitSesSpsAvail) insert(items, MITSESSPSAVAIL);
 	if (MspCrd1Avail == comp->MspCrd1Avail) insert(items, MSPCRD1AVAIL);
 	if (MitCrdUsgAvail == comp->MitCrdUsgAvail) insert(items, MITCRDUSGAVAIL);
@@ -354,7 +436,7 @@ set<uint> CrdWzskNav::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {JREFDLGLOAINI, JREFHEADBAR, JREFPRE, PNLPREAVAIL, JREFADMIN, PNLADMINAVAIL, JREFOP, PNLOPAVAIL, JREFGALERY, PNLGALERYAVAIL, MITSESSPSAVAIL, MSPCRD1AVAIL, MITCRDUSGAVAIL, MITCRDUSRAVAIL, MITCRDPRSAVAIL, MITCRDSCFAVAIL, MSPCRD2AVAIL, MITCRDLLVAVAIL, MITCRDLIVAVAIL, MSPCRD3AVAIL, MITCRDOGRAVAIL, MITCRDOBJAVAIL, MITCRDSESAVAIL, MITCRDSHTAVAIL, MITCRDFILAVAIL, MSPAPP2AVAIL, MITAPPLOIAVAIL};
+	diffitems = {JREFDLGLOAINI, JREFHEADBAR, JREFPRE, PNLPREAVAIL, JREFADMIN, PNLADMINAVAIL, JREFOP, PNLOPAVAIL, JREFGLRY, PNLGLRYAVAIL, MITSESSPSAVAIL, MSPCRD1AVAIL, MITCRDUSGAVAIL, MITCRDUSRAVAIL, MITCRDPRSAVAIL, MITCRDSCFAVAIL, MSPCRD2AVAIL, MITCRDLLVAVAIL, MITCRDLIVAVAIL, MSPCRD3AVAIL, MITCRDOGRAVAIL, MITCRDOBJAVAIL, MITCRDSESAVAIL, MITCRDSHTAVAIL, MITCRDFILAVAIL, MSPAPP2AVAIL, MITAPPLOIAVAIL};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -363,6 +445,47 @@ set<uint> CrdWzskNav::StatShr::diff(
 /******************************************************************************
  class CrdWzskNav::Tag
  ******************************************************************************/
+
+void CrdWzskNav::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskNav";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["MitCrdUsg"] = "User groups ...";
+		me["MitCrdUsr"] = "Users ...";
+		me["MitCrdPrs"] = "Persons ...";
+		me["MitCrdScf"] = "System configuration ...";
+		me["MitCrdLlv"] = "Low-level access ...";
+		me["MitCrdLiv"] = "Live data ...";
+		me["MitCrdOgr"] = "Object groups ...";
+		me["MitCrdObj"] = "Objects ...";
+		me["MitCrdSes"] = "Sessions ...";
+		me["MitCrdSht"] = "Shots ...";
+		me["MitCrdFil"] = "Files ...";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["MitCrdUsg"] = "Benutzergruppen ...";
+		me["MitCrdUsr"] = "Benutzer ...";
+		me["MitCrdPrs"] = "Personen ...";
+		me["MitCrdScf"] = "Systemkonfiguration ...";
+		me["MitCrdLlv"] = "Low-level Zugriff ...";
+		me["MitCrdLiv"] = "Livedaten ...";
+		me["MitCrdOgr"] = "Objektgruppen ...";
+		me["MitCrdObj"] = "Objekte ...";
+		me["MitCrdSes"] = "Sitzungen ...";
+		me["MitCrdSht"] = "Aufnahmen ...";
+		me["MitCrdFil"] = "Dateien ...";
+	};
+	me["MitAppAbt"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::ABOUT, ixWzskVLocale)) + " ...";
+	me["MrlAppHlp"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::HELP, ixWzskVLocale)) + " ...";
+	me["MitSesSps"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::SUSPSESS, ixWzskVLocale));
+	me["MitSesTrm"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::CLSESS, ixWzskVLocale));
+	me["MitAppLoi"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::LOAINI, ixWzskVLocale)) + " ...";
+};
 
 void CrdWzskNav::Tag::writeXML(
 			const uint ixWzskVLocale
@@ -430,6 +553,26 @@ string CrdWzskNav::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void CrdWzskNav::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskNavDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void CrdWzskNav::DpchAppDo::readXML(
@@ -510,6 +653,20 @@ void CrdWzskNav::DpchEngData::merge(
 	if (src->has(STATAPP)) add(STATAPP);
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
+};
+
+void CrdWzskNav::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskNavData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(FEEDFSGE)) feedFSge.writeJSON(me);
+	if (has(STATAPP)) StatApp::writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void CrdWzskNav::DpchEngData::writeXML(

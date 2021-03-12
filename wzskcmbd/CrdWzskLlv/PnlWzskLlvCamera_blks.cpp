@@ -61,6 +61,29 @@ PnlWzskLlvCamera::ContIac::ContIac(
 	mask = {NUMFPUPMDE, CHKAEX, SLDEXT, SLDFCS};
 };
 
+bool PnlWzskLlvCamera::ContIac::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacWzskLlvCamera"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("numFPupMde")) {numFPupMde = me["numFPupMde"].asUInt(); add(NUMFPUPMDE);};
+		if (me.isMember("ChkAex")) {ChkAex = me["ChkAex"].asBool(); add(CHKAEX);};
+		if (me.isMember("SldExt")) {SldExt = me["SldExt"].asDouble(); add(SLDEXT);};
+		if (me.isMember("SldFcs")) {SldFcs = me["SldFcs"].asDouble(); add(SLDFCS);};
+	};
+
+	return basefound;
+};
+
 bool PnlWzskLlvCamera::ContIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -85,6 +108,20 @@ bool PnlWzskLlvCamera::ContIac::readXML(
 	};
 
 	return basefound;
+};
+
+void PnlWzskLlvCamera::ContIac::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacWzskLlvCamera";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFPupMde"] = numFPupMde;
+	me["ChkAex"] = ChkAex;
+	me["SldExt"] = SldExt;
+	me["SldFcs"] = SldFcs;
 };
 
 void PnlWzskLlvCamera::ContIac::writeXML(
@@ -145,6 +182,17 @@ PnlWzskLlvCamera::ContInf::ContInf(
 	this->ButClaimOn = ButClaimOn;
 
 	mask = {BUTCLAIMON};
+};
+
+void PnlWzskLlvCamera::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfWzskLlvCamera";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ButClaimOn"] = ButClaimOn;
 };
 
 void PnlWzskLlvCamera::ContInf::writeXML(
@@ -225,6 +273,29 @@ PnlWzskLlvCamera::StatShr::StatShr(
 	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, BUTPLAYACTIVE, BUTSTOPACTIVE, CHKAEXACTIVE, SLDEXTAVAIL, SLDEXTACTIVE, SLDEXTMIN, SLDEXTMAX, SLDEXTRAST, SLDFCSACTIVE, SLDFCSMIN, SLDFCSMAX};
 };
 
+void PnlWzskLlvCamera::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskLlvCamera";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
+	me["ButClaimActive"] = ButClaimActive;
+	me["ButPlayActive"] = ButPlayActive;
+	me["ButStopActive"] = ButStopActive;
+	me["ChkAexActive"] = ChkAexActive;
+	me["SldExtAvail"] = SldExtAvail;
+	me["SldExtActive"] = SldExtActive;
+	me["SldExtMin"] = SldExtMin;
+	me["SldExtMax"] = SldExtMax;
+	me["SldExtRast"] = SldExtRast;
+	me["SldFcsActive"] = SldFcsActive;
+	me["SldFcsMin"] = SldFcsMin;
+	me["SldFcsMax"] = SldFcsMax;
+};
+
 void PnlWzskLlvCamera::StatShr::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -293,6 +364,30 @@ set<uint> PnlWzskLlvCamera::StatShr::diff(
  class PnlWzskLlvCamera::Tag
  ******************************************************************************/
 
+void PnlWzskLlvCamera::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskLlvCamera";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "Camera";
+		me["CptMde"] = "mode";
+		me["CptAex"] = "auto-exposure";
+		me["CptExt"] = "exposure time [ms]";
+		me["CptFcs"] = "focus (near -\\u003e far)";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "Kamera";
+		me["CptMde"] = "Modus";
+		me["CptAex"] = "automatische Belichtung";
+		me["CptExt"] = "Belichtungszeit [ms]";
+		me["CptFcs"] = "Fokus (nah -\\u003e fern)";
+	};
+};
+
 void PnlWzskLlvCamera::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -343,6 +438,27 @@ string PnlWzskLlvCamera::DpchAppData::getSrefsMask() {
 	return(srefs);
 };
 
+void PnlWzskLlvCamera::DpchAppData::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLlvCameraData"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (contiac.readJSON(me, true)) add(CONTIAC);
+	} else {
+		contiac = ContIac();
+	};
+};
+
 void PnlWzskLlvCamera::DpchAppData::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -390,6 +506,26 @@ string PnlWzskLlvCamera::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskLlvCamera::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLlvCameraDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void PnlWzskLlvCamera::DpchAppDo::readXML(
@@ -474,6 +610,20 @@ void PnlWzskLlvCamera::DpchEngData::merge(
 	if (src->has(TAG)) add(TAG);
 };
 
+void PnlWzskLlvCamera::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskLlvCameraData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTIAC)) contiac.writeJSON(me);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(FEEDFPUPMDE)) feedFPupMde.writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
+};
+
 void PnlWzskLlvCamera::DpchEngData::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -537,6 +687,19 @@ void PnlWzskLlvCamera::DpchEngLive::merge(
 	if (src->has(RED)) {red = src->red; add(RED);};
 	if (src->has(GREEN)) {green = src->green; add(GREEN);};
 	if (src->has(BLUE)) {blue = src->blue; add(BLUE);};
+};
+
+void PnlWzskLlvCamera::DpchEngLive::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskLlvCameraLive"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(GRAY)) Jsonio::writeUtinyintvec(me, "gray", gray);
+	if (has(RED)) Jsonio::writeUtinyintvec(me, "red", red);
+	if (has(GREEN)) Jsonio::writeUtinyintvec(me, "green", green);
+	if (has(BLUE)) Jsonio::writeUtinyintvec(me, "blue", blue);
 };
 
 void PnlWzskLlvCamera::DpchEngLive::writeXML(

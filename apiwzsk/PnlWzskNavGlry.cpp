@@ -1,23 +1,23 @@
 /**
-	* \file PnlWzskNavGalery.cpp
-	* API code for job PnlWzskNavGalery (implementation)
+	* \file PnlWzskNavGlry.cpp
+	* API code for job PnlWzskNavGlry (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
 	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \date created: 11 Mar 2021
 	*/
 // IP header --- ABOVE
 
-#include "PnlWzskNavGalery.h"
+#include "PnlWzskNavGlry.h"
 
 using namespace std;
 using namespace Sbecore;
 using namespace Xmlio;
 
 /******************************************************************************
- class PnlWzskNavGalery::VecVDo
+ class PnlWzskNavGlry::VecVDo
  ******************************************************************************/
 
-uint PnlWzskNavGalery::VecVDo::getIx(
+uint PnlWzskNavGlry::VecVDo::getIx(
 			const string& sref
 		) {
 	string s = StrMod::lc(sref);
@@ -36,7 +36,7 @@ uint PnlWzskNavGalery::VecVDo::getIx(
 	return(0);
 };
 
-string PnlWzskNavGalery::VecVDo::getSref(
+string PnlWzskNavGlry::VecVDo::getSref(
 			const uint ix
 		) {
 	if (ix == BUTOGRVIEWCLICK) return("ButOgrViewClick");
@@ -54,10 +54,10 @@ string PnlWzskNavGalery::VecVDo::getSref(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::ContIac
+ class PnlWzskNavGlry::ContIac
  ******************************************************************************/
 
-PnlWzskNavGalery::ContIac::ContIac(
+PnlWzskNavGlry::ContIac::ContIac(
 			const uint numFLstOgr
 			, const uint numFLstObj
 			, const uint numFLstSes
@@ -75,7 +75,7 @@ PnlWzskNavGalery::ContIac::ContIac(
 	mask = {NUMFLSTOGR, NUMFLSTOBJ, NUMFLSTSES, NUMFLSTSHT, NUMFLSTFIL};
 };
 
-bool PnlWzskNavGalery::ContIac::readXML(
+bool PnlWzskNavGlry::ContIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
 			, bool addbasetag
@@ -85,11 +85,11 @@ bool PnlWzskNavGalery::ContIac::readXML(
 	bool basefound;
 
 	if (addbasetag)
-		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "ContIacWzskNavGalery");
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "ContIacWzskNavGlry");
 	else
 		basefound = checkXPath(docctx, basexpath);
 
-	string itemtag = "ContitemIacWzskNavGalery";
+	string itemtag = "ContitemIacWzskNavGlry";
 
 	if (basefound) {
 		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "numFLstOgr", numFLstOgr)) add(NUMFLSTOGR);
@@ -102,16 +102,16 @@ bool PnlWzskNavGalery::ContIac::readXML(
 	return basefound;
 };
 
-void PnlWzskNavGalery::ContIac::writeXML(
+void PnlWzskNavGlry::ContIac::writeXML(
 			xmlTextWriter* wr
 			, string difftag
 			, bool shorttags
 		) {
-	if (difftag.length() == 0) difftag = "ContIacWzskNavGalery";
+	if (difftag.length() == 0) difftag = "ContIacWzskNavGlry";
 
 	string itemtag;
 	if (shorttags) itemtag = "Ci";
-	else itemtag = "ContitemIacWzskNavGalery";
+	else itemtag = "ContitemIacWzskNavGlry";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeUintAttr(wr, itemtag, "sref", "numFLstOgr", numFLstOgr);
@@ -122,7 +122,7 @@ void PnlWzskNavGalery::ContIac::writeXML(
 	xmlTextWriterEndElement(wr);
 };
 
-set<uint> PnlWzskNavGalery::ContIac::comm(
+set<uint> PnlWzskNavGlry::ContIac::comm(
 			const ContIac* comp
 		) {
 	set<uint> items;
@@ -136,7 +136,7 @@ set<uint> PnlWzskNavGalery::ContIac::comm(
 	return(items);
 };
 
-set<uint> PnlWzskNavGalery::ContIac::diff(
+set<uint> PnlWzskNavGlry::ContIac::diff(
 			const ContIac* comp
 		) {
 	set<uint> commitems;
@@ -151,10 +151,10 @@ set<uint> PnlWzskNavGalery::ContIac::diff(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::StatApp
+ class PnlWzskNavGlry::StatApp
  ******************************************************************************/
 
-PnlWzskNavGalery::StatApp::StatApp(
+PnlWzskNavGlry::StatApp::StatApp(
 			const uint ixWzskVExpstate
 			, const bool LstOgrAlt
 			, const bool LstObjAlt
@@ -184,7 +184,7 @@ PnlWzskNavGalery::StatApp::StatApp(
 	mask = {IXWZSKVEXPSTATE, LSTOGRALT, LSTOBJALT, LSTSESALT, LSTSHTALT, LSTFILALT, LSTOGRNUMFIRSTDISP, LSTOBJNUMFIRSTDISP, LSTSESNUMFIRSTDISP, LSTSHTNUMFIRSTDISP, LSTFILNUMFIRSTDISP};
 };
 
-bool PnlWzskNavGalery::StatApp::readXML(
+bool PnlWzskNavGlry::StatApp::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
 			, bool addbasetag
@@ -196,11 +196,11 @@ bool PnlWzskNavGalery::StatApp::readXML(
 	bool basefound;
 
 	if (addbasetag)
-		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "StatAppWzskNavGalery");
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "StatAppWzskNavGlry");
 	else
 		basefound = checkXPath(docctx, basexpath);
 
-	string itemtag = "StatitemAppWzskNavGalery";
+	string itemtag = "StatitemAppWzskNavGlry";
 
 	if (basefound) {
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "srefIxWzskVExpstate", srefIxWzskVExpstate)) {
@@ -222,7 +222,7 @@ bool PnlWzskNavGalery::StatApp::readXML(
 	return basefound;
 };
 
-set<uint> PnlWzskNavGalery::StatApp::comm(
+set<uint> PnlWzskNavGlry::StatApp::comm(
 			const StatApp* comp
 		) {
 	set<uint> items;
@@ -242,7 +242,7 @@ set<uint> PnlWzskNavGalery::StatApp::comm(
 	return(items);
 };
 
-set<uint> PnlWzskNavGalery::StatApp::diff(
+set<uint> PnlWzskNavGlry::StatApp::diff(
 			const StatApp* comp
 		) {
 	set<uint> commitems;
@@ -257,10 +257,10 @@ set<uint> PnlWzskNavGalery::StatApp::diff(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::StatShr
+ class PnlWzskNavGlry::StatShr
  ******************************************************************************/
 
-PnlWzskNavGalery::StatShr::StatShr(
+PnlWzskNavGlry::StatShr::StatShr(
 			const bool LstOgrAvail
 			, const bool ButOgrViewActive
 			, const bool LstObjAvail
@@ -288,7 +288,7 @@ PnlWzskNavGalery::StatShr::StatShr(
 	mask = {LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE};
 };
 
-bool PnlWzskNavGalery::StatShr::readXML(
+bool PnlWzskNavGlry::StatShr::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
 			, bool addbasetag
@@ -298,11 +298,11 @@ bool PnlWzskNavGalery::StatShr::readXML(
 	bool basefound;
 
 	if (addbasetag)
-		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "StatShrWzskNavGalery");
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "StatShrWzskNavGlry");
 	else
 		basefound = checkXPath(docctx, basexpath);
 
-	string itemtag = "StatitemShrWzskNavGalery";
+	string itemtag = "StatitemShrWzskNavGlry";
 
 	if (basefound) {
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "LstOgrAvail", LstOgrAvail)) add(LSTOGRAVAIL);
@@ -320,7 +320,7 @@ bool PnlWzskNavGalery::StatShr::readXML(
 	return basefound;
 };
 
-set<uint> PnlWzskNavGalery::StatShr::comm(
+set<uint> PnlWzskNavGlry::StatShr::comm(
 			const StatShr* comp
 		) {
 	set<uint> items;
@@ -339,7 +339,7 @@ set<uint> PnlWzskNavGalery::StatShr::comm(
 	return(items);
 };
 
-set<uint> PnlWzskNavGalery::StatShr::diff(
+set<uint> PnlWzskNavGlry::StatShr::diff(
 			const StatShr* comp
 		) {
 	set<uint> commitems;
@@ -354,10 +354,10 @@ set<uint> PnlWzskNavGalery::StatShr::diff(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::Tag
+ class PnlWzskNavGlry::Tag
  ******************************************************************************/
 
-PnlWzskNavGalery::Tag::Tag(
+PnlWzskNavGlry::Tag::Tag(
 			const string& Cpt
 			, const string& CptOgr
 			, const string& CptObj
@@ -377,7 +377,7 @@ PnlWzskNavGalery::Tag::Tag(
 	mask = {CPT, CPTOGR, CPTOBJ, CPTSES, CPTSHT, CPTFIL};
 };
 
-bool PnlWzskNavGalery::Tag::readXML(
+bool PnlWzskNavGlry::Tag::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
 			, bool addbasetag
@@ -387,11 +387,11 @@ bool PnlWzskNavGalery::Tag::readXML(
 	bool basefound;
 
 	if (addbasetag)
-		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "TagWzskNavGalery");
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "TagWzskNavGlry");
 	else
 		basefound = checkXPath(docctx, basexpath);
 
-	string itemtag = "TagitemWzskNavGalery";
+	string itemtag = "TagitemWzskNavGlry";
 
 	if (basefound) {
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "Cpt", Cpt)) add(CPT);
@@ -406,15 +406,15 @@ bool PnlWzskNavGalery::Tag::readXML(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::DpchAppData
+ class PnlWzskNavGlry::DpchAppData
  ******************************************************************************/
 
-PnlWzskNavGalery::DpchAppData::DpchAppData(
+PnlWzskNavGlry::DpchAppData::DpchAppData(
 			const string& scrJref
 			, ContIac* contiac
 			, const set<uint>& mask
 		) :
-			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKNAVGALERYDATA, scrJref)
+			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKNAVGLRYDATA, scrJref)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, CONTIAC};
 	else this->mask = mask;
@@ -422,7 +422,7 @@ PnlWzskNavGalery::DpchAppData::DpchAppData(
 		if (find(this->mask, CONTIAC) && contiac) this->contiac = *contiac;
 };
 
-string PnlWzskNavGalery::DpchAppData::getSrefsMask() {
+string PnlWzskNavGlry::DpchAppData::getSrefsMask() {
 	vector<string> ss;
 	string srefs;
 
@@ -434,10 +434,10 @@ string PnlWzskNavGalery::DpchAppData::getSrefsMask() {
 	return(srefs);
 };
 
-void PnlWzskNavGalery::DpchAppData::writeXML(
+void PnlWzskNavGlry::DpchAppData::writeXML(
 			xmlTextWriter* wr
 		) {
-	xmlTextWriterStartElement(wr, BAD_CAST "DpchAppWzskNavGaleryData");
+	xmlTextWriterStartElement(wr, BAD_CAST "DpchAppWzskNavGlryData");
 	xmlTextWriterWriteAttribute(wr, BAD_CAST "xmlns", BAD_CAST "http://www.mpsitech.com/wzsk");
 		if (has(SCRJREF)) writeString(wr, "scrJref", scrJref);
 		if (has(CONTIAC)) contiac.writeXML(wr);
@@ -445,15 +445,15 @@ void PnlWzskNavGalery::DpchAppData::writeXML(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::DpchAppDo
+ class PnlWzskNavGlry::DpchAppDo
  ******************************************************************************/
 
-PnlWzskNavGalery::DpchAppDo::DpchAppDo(
+PnlWzskNavGlry::DpchAppDo::DpchAppDo(
 			const string& scrJref
 			, const uint ixVDo
 			, const set<uint>& mask
 		) :
-			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKNAVGALERYDO, scrJref)
+			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKNAVGLRYDO, scrJref)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
@@ -461,7 +461,7 @@ PnlWzskNavGalery::DpchAppDo::DpchAppDo(
 	this->ixVDo = ixVDo;
 };
 
-string PnlWzskNavGalery::DpchAppDo::getSrefsMask() {
+string PnlWzskNavGlry::DpchAppDo::getSrefsMask() {
 	vector<string> ss;
 	string srefs;
 
@@ -473,10 +473,10 @@ string PnlWzskNavGalery::DpchAppDo::getSrefsMask() {
 	return(srefs);
 };
 
-void PnlWzskNavGalery::DpchAppDo::writeXML(
+void PnlWzskNavGlry::DpchAppDo::writeXML(
 			xmlTextWriter* wr
 		) {
-	xmlTextWriterStartElement(wr, BAD_CAST "DpchAppWzskNavGaleryDo");
+	xmlTextWriterStartElement(wr, BAD_CAST "DpchAppWzskNavGlryDo");
 	xmlTextWriterWriteAttribute(wr, BAD_CAST "xmlns", BAD_CAST "http://www.mpsitech.com/wzsk");
 		if (has(SCRJREF)) writeString(wr, "scrJref", scrJref);
 		if (has(IXVDO)) writeString(wr, "srefIxVDo", VecVDo::getSref(ixVDo));
@@ -484,11 +484,11 @@ void PnlWzskNavGalery::DpchAppDo::writeXML(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::DpchEngData
+ class PnlWzskNavGlry::DpchEngData
  ******************************************************************************/
 
-PnlWzskNavGalery::DpchEngData::DpchEngData() :
-			DpchEngWzsk(VecWzskVDpch::DPCHENGWZSKNAVGALERYDATA)
+PnlWzskNavGlry::DpchEngData::DpchEngData() :
+			DpchEngWzsk(VecWzskVDpch::DPCHENGWZSKNAVGLRYDATA)
 		{
 	feedFLstFil.tag = "FeedFLstFil";
 	feedFLstObj.tag = "FeedFLstObj";
@@ -497,7 +497,7 @@ PnlWzskNavGalery::DpchEngData::DpchEngData() :
 	feedFLstSht.tag = "FeedFLstSht";
 };
 
-string PnlWzskNavGalery::DpchEngData::getSrefsMask() {
+string PnlWzskNavGlry::DpchEngData::getSrefsMask() {
 	vector<string> ss;
 	string srefs;
 
@@ -517,7 +517,7 @@ string PnlWzskNavGalery::DpchEngData::getSrefsMask() {
 	return(srefs);
 };
 
-void PnlWzskNavGalery::DpchEngData::readXML(
+void PnlWzskNavGlry::DpchEngData::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
 			, bool addbasetag
@@ -527,7 +527,7 @@ void PnlWzskNavGalery::DpchEngData::readXML(
 	bool basefound;
 
 	if (addbasetag)
-		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "DpchEngWzskNavGaleryData");
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "DpchEngWzskNavGlryData");
 	else
 		basefound = checkXPath(docctx, basexpath);
 

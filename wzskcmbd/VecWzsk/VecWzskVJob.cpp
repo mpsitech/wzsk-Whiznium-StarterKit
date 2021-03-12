@@ -70,7 +70,7 @@ uint VecWzskVJob::getIx(
 	if (s == "pnlwzskllvterm") return PNLWZSKLLVTERM;
 	if (s == "pnlwzskllvttable") return PNLWZSKLLVTTABLE;
 	if (s == "pnlwzsknavadmin") return PNLWZSKNAVADMIN;
-	if (s == "pnlwzsknavgalery") return PNLWZSKNAVGALERY;
+	if (s == "pnlwzsknavglry") return PNLWZSKNAVGLRY;
 	if (s == "pnlwzsknavheadbar") return PNLWZSKNAVHEADBAR;
 	if (s == "pnlwzsknavop") return PNLWZSKNAVOP;
 	if (s == "pnlwzsknavpre") return PNLWZSKNAVPRE;
@@ -196,7 +196,7 @@ string VecWzskVJob::getSref(
 	if (ix == PNLWZSKLLVTERM) return("PnlWzskLlvTerm");
 	if (ix == PNLWZSKLLVTTABLE) return("PnlWzskLlvTtable");
 	if (ix == PNLWZSKNAVADMIN) return("PnlWzskNavAdmin");
-	if (ix == PNLWZSKNAVGALERY) return("PnlWzskNavGalery");
+	if (ix == PNLWZSKNAVGLRY) return("PnlWzskNavGlry");
 	if (ix == PNLWZSKNAVHEADBAR) return("PnlWzskNavHeadbar");
 	if (ix == PNLWZSKNAVOP) return("PnlWzskNavOp");
 	if (ix == PNLWZSKNAVPRE) return("PnlWzskNavPre");

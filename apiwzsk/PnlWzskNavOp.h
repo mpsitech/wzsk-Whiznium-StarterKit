@@ -41,7 +41,7 @@ namespace PnlWzskNavOp {
 	/**
 	  * StatApp (full: StatAppWzskNavOp)
 	  */
-	class StatApp : public Sbecore::Xmlio::Block {
+	class StatApp : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
@@ -61,7 +61,7 @@ namespace PnlWzskNavOp {
 	/**
 	  * StatShr (full: StatShrWzskNavOp)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint BUTLLVNEWCRDAVAIL = 1;
@@ -83,7 +83,7 @@ namespace PnlWzskNavOp {
 	/**
 	  * Tag (full: TagWzskNavOp)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPT = 1;

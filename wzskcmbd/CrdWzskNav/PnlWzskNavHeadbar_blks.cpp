@@ -25,6 +25,17 @@ PnlWzskNavHeadbar::StatShr::StatShr(
 	mask = {MENCRDAVAIL};
 };
 
+void PnlWzskNavHeadbar::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskNavHeadbar";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["MenCrdAvail"] = MenCrdAvail;
+};
+
 void PnlWzskNavHeadbar::StatShr::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -69,6 +80,32 @@ set<uint> PnlWzskNavHeadbar::StatShr::diff(
  class PnlWzskNavHeadbar::StgInf
  ******************************************************************************/
 
+void PnlWzskNavHeadbar::StgInf::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StgInfWzskNavHeadbar";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["MenAppCptwidth"] = "200";
+		me["MenAppWidth"] = "246";
+		me["MenSesCptwidth"] = "66";
+		me["MenSesWidth"] = "323";
+		me["MenCrdCptwidth"] = "100";
+		me["MenCrdWidth"] = "176";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["MenAppCptwidth"] = "200";
+		me["MenAppWidth"] = "246";
+		me["MenSesCptwidth"] = "66";
+		me["MenSesWidth"] = "323";
+		me["MenCrdCptwidth"] = "100";
+		me["MenCrdWidth"] = "169";
+	};
+};
+
 void PnlWzskNavHeadbar::StgInf::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -103,6 +140,24 @@ void PnlWzskNavHeadbar::StgInf::writeXML(
 /******************************************************************************
  class PnlWzskNavHeadbar::Tag
  ******************************************************************************/
+
+void PnlWzskNavHeadbar::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskNavHeadbar";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["MenApp"] = "Whiznium StarterKit";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["MenApp"] = "Whiznium StarterKit";
+	};
+	me["MenSes"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::SESS, ixWzskVLocale));
+	me["MenCrd"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::NAV, ixWzskVLocale));
+};
 
 void PnlWzskNavHeadbar::Tag::writeXML(
 			const uint ixWzskVLocale
@@ -167,6 +222,18 @@ void PnlWzskNavHeadbar::DpchEngData::merge(
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(STGINF)) add(STGINF);
 	if (src->has(TAG)) add(TAG);
+};
+
+void PnlWzskNavHeadbar::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskNavHeadbarData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(STGINF)) StgInf::writeJSON(ixWzskVLocale, me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void PnlWzskNavHeadbar::DpchEngData::writeXML(

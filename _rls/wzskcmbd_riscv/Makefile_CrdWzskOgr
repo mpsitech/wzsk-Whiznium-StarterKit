@@ -1,22 +1,22 @@
 # file Makefile
 # make file for CrdWzskOgr card job handler, release wzskcmbd_riscv (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
-# author: Alexander Wirthmueller (auto-generation)
-# date created: 15 Dec 2020
+# author: Emily Johnson (auto-generation)
+# date created: 11 Mar 2021
 # IP header --- ABOVE
 
 include ../Makefile.inc
 
-CPP = 
-CPPFLAGS = --sysroot=${SYSROOT} -DWZSKCMBD
+CPP = ${TCHROOT}/riscv64-oe-linux-g++
+CPPFLAGS = --sysroot=${SYSROOT} --sysroot=${SYSROOT} -std=c++11 -fstack-protector-strong -g -Wall -Os -pthread -DWZSKCMBD
 
-STATLIB = 
+STATLIB = ${TCHROOT}/riscv64-oe-linux-ar
 STATLIBFLAGS = rcs
 
 INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
 INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
-OBJS = CrdWzskOgr.o PnlWzskOgrList.o QryWzskOgrList.o PnlWzskOgrHeadbar.o PnlWzskOgrRec.o PnlWzskOgrSup1NObjgroup.o QryWzskOgrSup1NObjgroup.o PnlWzskOgr1NObject.o QryWzskOgr1NObject.o PnlWzskOgrDetail.o DlgWzskOgrNew.o
+OBJS = CrdWzskOgr.o PnlWzskOgrList.o QryWzskOgrList.o DlgWzskOgrNew.o PnlWzskOgrRec.o PnlWzskOgrSup1NObjgroup.o QryWzskOgrSup1NObjgroup.o PnlWzskOgr1NObject.o QryWzskOgr1NObject.o PnlWzskOgrDetail.o PnlWzskOgrHeadbar.o
 
 LIB = libcrdwzskogr
 

@@ -10,10 +10,10 @@
 #ifndef WZSK_H
 #define WZSK_H
 
-#define WZSK_VERSION "1.0.2"
+#define WZSK_VERSION "1.0.5"
 #define WZSK_VERSION_MAJOR 1
 #define WZSK_VERSION_MINOR 0
-#define WZSK_VERSION_SUB 2
+#define WZSK_VERSION_SUB 5
 
 // IP include.cust --- INSERT
 
@@ -158,7 +158,7 @@ public:
 /**
 	* ContInfWzskAlert
 	*/
-class ContInfWzskAlert : public Sbecore::Xmlio::Block {
+class ContInfWzskAlert : public Sbecore::Block {
 
 public:
 	static const Sbecore::uint TXTCPT = 1;
@@ -195,6 +195,7 @@ public:
 
 public:
 	static bool all(const std::set<Sbecore::uint>& items);
+	void writeJSON(Json::Value& sup, std::string difftag = "");
 	void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
 	std::set<Sbecore::uint> compare(const ContInfWzskAlert* comp);
 };
@@ -202,7 +203,7 @@ public:
 /**
 	* DpchWzsk
 	*/
-class DpchWzsk : public Sbecore::Xmlio::Block {
+class DpchWzsk : public Sbecore::Block {
 
 public:
 	DpchWzsk(const Sbecore::uint ixWzskVDpch = 0);

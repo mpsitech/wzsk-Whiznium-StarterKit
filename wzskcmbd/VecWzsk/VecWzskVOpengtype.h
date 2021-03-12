@@ -22,8 +22,8 @@ namespace VecWzskVOpengtype {
 
 	std::string getTitle(const Sbecore::uint ix, const Sbecore::uint ixWzskVLocale);
 
-	void appendToFeed(const Sbecore::uint ix, const Sbecore::uint ixWzskVLocale, Sbecore::Xmlio::Feed& feed);
-	void fillFeed(const Sbecore::uint ixWzskVLocale, Sbecore::Xmlio::Feed& feed);
+	void appendToFeed(const Sbecore::uint ix, const Sbecore::uint ixWzskVLocale, Sbecore::Feed& feed);
+	void fillFeed(const Sbecore::uint ixWzskVLocale, Sbecore::Feed& feed);
 };
 
 #endif

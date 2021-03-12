@@ -53,6 +53,27 @@ PnlWzskOgrDetail::ContIac::ContIac(
 	mask = {NUMFPUPJ, TXFCMT};
 };
 
+bool PnlWzskOgrDetail::ContIac::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacWzskOgrDetail"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("numFPupJ")) {numFPupJ = me["numFPupJ"].asUInt(); add(NUMFPUPJ);};
+		if (me.isMember("TxfCmt")) {TxfCmt = me["TxfCmt"].asString(); add(TXFCMT);};
+	};
+
+	return basefound;
+};
+
 bool PnlWzskOgrDetail::ContIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -75,6 +96,18 @@ bool PnlWzskOgrDetail::ContIac::readXML(
 	};
 
 	return basefound;
+};
+
+void PnlWzskOgrDetail::ContIac::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacWzskOgrDetail";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFPupJ"] = numFPupJ;
+	me["TxfCmt"] = TxfCmt;
 };
 
 void PnlWzskOgrDetail::ContIac::writeXML(
@@ -137,6 +170,19 @@ PnlWzskOgrDetail::ContInf::ContInf(
 	mask = {TXTSRF, TXTTIT, TXTSUP};
 };
 
+void PnlWzskOgrDetail::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfWzskOgrDetail";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["TxtSrf"] = TxtSrf;
+	me["TxtTit"] = TxtTit;
+	me["TxtSup"] = TxtSup;
+};
+
 void PnlWzskOgrDetail::ContInf::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -185,6 +231,18 @@ set<uint> PnlWzskOgrDetail::ContInf::diff(
  class PnlWzskOgrDetail::StatApp
  ******************************************************************************/
 
+void PnlWzskOgrDetail::StatApp::writeJSON(
+			Json::Value& sup
+			, string difftag
+			, const uint ixWzskVExpstate
+		) {
+	if (difftag.length() == 0) difftag = "StatAppWzskOgrDetail";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
+};
+
 void PnlWzskOgrDetail::StatApp::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -232,6 +290,26 @@ PnlWzskOgrDetail::StatShr::StatShr(
 	this->TxfCmtActive = TxfCmtActive;
 
 	mask = {BUTSAVEAVAIL, BUTSAVEACTIVE, TXTSRFACTIVE, PUPJACTIVE, BUTJEDITAVAIL, TXTTITACTIVE, TXTSUPACTIVE, BUTSUPVIEWAVAIL, BUTSUPVIEWACTIVE, TXFCMTACTIVE};
+};
+
+void PnlWzskOgrDetail::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskOgrDetail";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ButSaveAvail"] = ButSaveAvail;
+	me["ButSaveActive"] = ButSaveActive;
+	me["TxtSrfActive"] = TxtSrfActive;
+	me["PupJActive"] = PupJActive;
+	me["ButJEditAvail"] = ButJEditAvail;
+	me["TxtTitActive"] = TxtTitActive;
+	me["TxtSupActive"] = TxtSupActive;
+	me["ButSupViewAvail"] = ButSupViewAvail;
+	me["ButSupViewActive"] = ButSupViewActive;
+	me["TxfCmtActive"] = TxfCmtActive;
 };
 
 void PnlWzskOgrDetail::StatShr::writeXML(
@@ -296,6 +374,29 @@ set<uint> PnlWzskOgrDetail::StatShr::diff(
  class PnlWzskOgrDetail::Tag
  ******************************************************************************/
 
+void PnlWzskOgrDetail::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskOgrDetail";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["CptSrf"] = "identifier";
+		me["CptTit"] = "name";
+		me["CptSup"] = "super group";
+		me["CptCmt"] = "comment";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["CptSrf"] = "Bezeichner";
+		me["CptTit"] = "Name";
+		me["CptSup"] = "\\u00fcbergeordnete Gruppe";
+		me["CptCmt"] = "Notiz";
+	};
+	me["Cpt"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DETAIL, ixWzskVLocale));
+};
+
 void PnlWzskOgrDetail::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -345,6 +446,27 @@ string PnlWzskOgrDetail::DpchAppData::getSrefsMask() {
 	return(srefs);
 };
 
+void PnlWzskOgrDetail::DpchAppData::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskOgrDetailData"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (contiac.readJSON(me, true)) add(CONTIAC);
+	} else {
+		contiac = ContIac();
+	};
+};
+
 void PnlWzskOgrDetail::DpchAppData::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -392,6 +514,26 @@ string PnlWzskOgrDetail::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskOgrDetail::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskOgrDetailDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void PnlWzskOgrDetail::DpchAppDo::readXML(
@@ -476,6 +618,21 @@ void PnlWzskOgrDetail::DpchEngData::merge(
 	if (src->has(STATAPP)) add(STATAPP);
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
+};
+
+void PnlWzskOgrDetail::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskOgrDetailData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTIAC)) contiac.writeJSON(me);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(FEEDFPUPJ)) feedFPupJ.writeJSON(me);
+	if (has(STATAPP)) StatApp::writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void PnlWzskOgrDetail::DpchEngData::writeXML(

@@ -12,7 +12,11 @@
 
 // IP include.spec --- INSERT
 
-#include <arm_neon.h> // IP include.cust --- ILINE
+// IP include.cust --- IBEGIN
+#ifdef __arm__
+	#include <arm_neon.h>
+#endif
+// IP include.cust --- IEND
 
 #include "JobWzskSrcV4l2.h"
 #include "JobWzskAcqFpgaflg.h"
@@ -45,7 +49,7 @@ public:
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
 
-		static void fillFeed(Sbecore::Xmlio::Feed& feed);
+		static void fillFeed(Sbecore::Feed& feed);
 	};
 
 	/**
@@ -67,7 +71,7 @@ public:
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
 
-		static void fillFeed(Sbecore::Xmlio::Feed& feed);
+		static void fillFeed(Sbecore::Feed& feed);
 	};
 
 	/**
@@ -84,13 +88,13 @@ public:
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
 
-		static void fillFeed(Sbecore::Xmlio::Feed& feed);
+		static void fillFeed(Sbecore::Feed& feed);
 	};
 
 	/**
 		* Stg (full: StgJobWzskIprTrace)
 		*/
-	class Stg : public Sbecore::Xmlio::Block {
+	class Stg : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint V4L2RDNOTDELTA = 1;
@@ -246,8 +250,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(DbsWzsk* dbswzsk);
 	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(DbsWzsk* dbswzsk);
+	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(DbsWzsk* dbswzsk);
 	bool handleCallWzskResultNewFromSrcv4l2(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta(DbsWzsk* dbswzsk, const Sbecore::uint ixInv);
 

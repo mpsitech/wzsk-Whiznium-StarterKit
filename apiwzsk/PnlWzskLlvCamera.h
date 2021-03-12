@@ -47,7 +47,7 @@ namespace PnlWzskLlvCamera {
 	/**
 	  * ContIac (full: ContIacWzskLlvCamera)
 	  */
-	class ContIac : public Sbecore::Xmlio::Block {
+	class ContIac : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NUMFPUPMDE = 1;
@@ -74,7 +74,7 @@ namespace PnlWzskLlvCamera {
 	/**
 	  * ContInf (full: ContInfWzskLlvCamera)
 	  */
-	class ContInf : public Sbecore::Xmlio::Block {
+	class ContInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
@@ -94,7 +94,7 @@ namespace PnlWzskLlvCamera {
 	/**
 	  * StatShr (full: StatShrWzskLlvCamera)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
@@ -138,7 +138,7 @@ namespace PnlWzskLlvCamera {
 	/**
 	  * Tag (full: TagWzskLlvCamera)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPT = 1;
@@ -224,7 +224,7 @@ namespace PnlWzskLlvCamera {
 	public:
 		ContIac contiac;
 		ContInf continf;
-		Sbecore::Xmlio::Feed feedFPupMde;
+		Sbecore::Feed feedFPupMde;
 		StatShr statshr;
 		Tag tag;
 

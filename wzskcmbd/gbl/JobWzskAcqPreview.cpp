@@ -184,6 +184,7 @@ void JobWzskAcqPreview::binGrrd(
 			uint16_t* grrd16
 			, uint16_t* pvwgrrd16
 		) {
+#ifdef __arm__
 	const uint64_t zero64 = 0;
 
 	uint16x8_t data;
@@ -222,6 +223,7 @@ void JobWzskAcqPreview::binGrrd(
 			pvwgrrd16[stix] = acc16 >> 4;
 		};
 	};
+#endif
 };
 
 void JobWzskAcqPreview::binRgb(
@@ -241,6 +243,7 @@ void JobWzskAcqPreview::binRgb_component(
 			uint16_t* src
 			, uint16_t* dest
 		) {
+#ifdef __arm__
 	const uint64_t zero64 = 0;
 
 	uint16x8_t data;
@@ -274,6 +277,7 @@ void JobWzskAcqPreview::binRgb_component(
 			dest[stix] = acc16 >> 6;
 		};
 	};
+#endif
 };
 
 void JobWzskAcqPreview::rawGr(

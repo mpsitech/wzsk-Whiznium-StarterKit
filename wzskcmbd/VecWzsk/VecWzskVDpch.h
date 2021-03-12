@@ -57,8 +57,8 @@ namespace VecWzskVDpch {
 	const Sbecore::uint DPCHAPPWZSKNAVADMINDATA = 39;
 	const Sbecore::uint DPCHAPPWZSKNAVADMINDO = 40;
 	const Sbecore::uint DPCHAPPWZSKNAVDO = 41;
-	const Sbecore::uint DPCHAPPWZSKNAVGALERYDATA = 42;
-	const Sbecore::uint DPCHAPPWZSKNAVGALERYDO = 43;
+	const Sbecore::uint DPCHAPPWZSKNAVGLRYDATA = 42;
+	const Sbecore::uint DPCHAPPWZSKNAVGLRYDO = 43;
 	const Sbecore::uint DPCHAPPWZSKNAVOPDO = 44;
 	const Sbecore::uint DPCHAPPWZSKNAVPREDO = 45;
 	const Sbecore::uint DPCHAPPWZSKOBJ1NSHOTDATA = 46;
@@ -169,7 +169,7 @@ namespace VecWzskVDpch {
 	const Sbecore::uint DPCHENGWZSKLLVTTABLEDATA = 151;
 	const Sbecore::uint DPCHENGWZSKNAVADMINDATA = 152;
 	const Sbecore::uint DPCHENGWZSKNAVDATA = 153;
-	const Sbecore::uint DPCHENGWZSKNAVGALERYDATA = 154;
+	const Sbecore::uint DPCHENGWZSKNAVGLRYDATA = 154;
 	const Sbecore::uint DPCHENGWZSKNAVHEADBARDATA = 155;
 	const Sbecore::uint DPCHENGWZSKNAVOPDATA = 156;
 	const Sbecore::uint DPCHENGWZSKNAVPREDATA = 157;

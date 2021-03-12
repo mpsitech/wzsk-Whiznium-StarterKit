@@ -93,6 +93,7 @@ public class CrdWzskNav {
 
 		public static final int IDLE = 1;
 		public static final int ALRWZSKABT = 2;
+		public static final int ALRWZSKTRM = 3;
 
 		public static int getIx(
 					String sref
@@ -101,6 +102,7 @@ public class CrdWzskNav {
 
 			if (s.equals("idle")) return IDLE;
 			if (s.equals("alrwzskabt")) return ALRWZSKABT;
+			if (s.equals("alrwzsktrm")) return ALRWZSKTRM;
 
 			return 0;
 		};
@@ -110,6 +112,7 @@ public class CrdWzskNav {
 				) {
 			if (ix == IDLE) return("idle");
 			if (ix == ALRWZSKABT) return("alrwzskabt");
+			if (ix == ALRWZSKTRM) return("alrwzsktrm");
 
 			return "";
 		};
@@ -217,7 +220,7 @@ public class CrdWzskNav {
 		public static final int INITDONEPRE = 6;
 		public static final int INITDONEADMIN = 7;
 		public static final int INITDONEOP = 8;
-		public static final int INITDONEGALERY = 9;
+		public static final int INITDONEGLRY = 9;
 
 		public StatApp(
 					int ixWzskVReqitmode
@@ -228,7 +231,7 @@ public class CrdWzskNav {
 					, boolean initdonePre
 					, boolean initdoneAdmin
 					, boolean initdoneOp
-					, boolean initdoneGalery
+					, boolean initdoneGlry
 				) {
 			this.ixWzskVReqitmode = ixWzskVReqitmode;
 			this.latency = latency;
@@ -238,9 +241,9 @@ public class CrdWzskNav {
 			this.initdonePre = initdonePre;
 			this.initdoneAdmin = initdoneAdmin;
 			this.initdoneOp = initdoneOp;
-			this.initdoneGalery = initdoneGalery;
+			this.initdoneGlry = initdoneGlry;
 
-			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONEPRE, INITDONEADMIN, INITDONEOP, INITDONEGALERY));
+			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONEPRE, INITDONEADMIN, INITDONEOP, INITDONEGLRY));
 		};
 
 		public int ixWzskVReqitmode;
@@ -251,7 +254,7 @@ public class CrdWzskNav {
 		public boolean initdonePre;
 		public boolean initdoneAdmin;
 		public boolean initdoneOp;
-		public boolean initdoneGalery;
+		public boolean initdoneGlry;
 
 		public boolean readXML(
 					Document doc
@@ -276,7 +279,7 @@ public class CrdWzskNav {
 				initdonePre = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdonePre", mask, INITDONEPRE);
 				initdoneAdmin = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneAdmin", mask, INITDONEADMIN);
 				initdoneOp = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneOp", mask, INITDONEOP);
-				initdoneGalery = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneGalery", mask, INITDONEGALERY);
+				initdoneGlry = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneGlry", mask, INITDONEGLRY);
 
 				return true;
 			};
@@ -297,7 +300,7 @@ public class CrdWzskNav {
 			if (initdonePre == comp.initdonePre) items.add(INITDONEPRE);
 			if (initdoneAdmin == comp.initdoneAdmin) items.add(INITDONEADMIN);
 			if (initdoneOp == comp.initdoneOp) items.add(INITDONEOP);
-			if (initdoneGalery == comp.initdoneGalery) items.add(INITDONEGALERY);
+			if (initdoneGlry == comp.initdoneGlry) items.add(INITDONEGLRY);
 
 			return(items);
 		};
@@ -310,7 +313,7 @@ public class CrdWzskNav {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONEPRE, INITDONEADMIN, INITDONEOP, INITDONEGALERY));
+			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONEPRE, INITDONEADMIN, INITDONEOP, INITDONEGLRY));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -331,8 +334,8 @@ public class CrdWzskNav {
 		public static final int PNLADMINAVAIL = 6;
 		public static final int SCRJREFOP = 7;
 		public static final int PNLOPAVAIL = 8;
-		public static final int SCRJREFGALERY = 9;
-		public static final int PNLGALERYAVAIL = 10;
+		public static final int SCRJREFGLRY = 9;
+		public static final int PNLGLRYAVAIL = 10;
 		public static final int MITSESSPSAVAIL = 11;
 		public static final int MSPCRD1AVAIL = 12;
 		public static final int MITCRDUSGAVAIL = 13;
@@ -360,8 +363,8 @@ public class CrdWzskNav {
 					, boolean pnladminAvail
 					, String scrJrefOp
 					, boolean pnlopAvail
-					, String scrJrefGalery
-					, boolean pnlgaleryAvail
+					, String scrJrefGlry
+					, boolean pnlglryAvail
 					, boolean MitSesSpsAvail
 					, boolean MspCrd1Avail
 					, boolean MitCrdUsgAvail
@@ -388,8 +391,8 @@ public class CrdWzskNav {
 			this.pnladminAvail = pnladminAvail;
 			this.scrJrefOp = scrJrefOp;
 			this.pnlopAvail = pnlopAvail;
-			this.scrJrefGalery = scrJrefGalery;
-			this.pnlgaleryAvail = pnlgaleryAvail;
+			this.scrJrefGlry = scrJrefGlry;
+			this.pnlglryAvail = pnlglryAvail;
 			this.MitSesSpsAvail = MitSesSpsAvail;
 			this.MspCrd1Avail = MspCrd1Avail;
 			this.MitCrdUsgAvail = MitCrdUsgAvail;
@@ -408,7 +411,7 @@ public class CrdWzskNav {
 			this.MspApp2Avail = MspApp2Avail;
 			this.MitAppLoiAvail = MitAppLoiAvail;
 
-			mask = new HashSet<Integer>(Arrays.asList(SCRJREFDLGLOAINI, SCRJREFHEADBAR, SCRJREFPRE, PNLPREAVAIL, SCRJREFADMIN, PNLADMINAVAIL, SCRJREFOP, PNLOPAVAIL, SCRJREFGALERY, PNLGALERYAVAIL, MITSESSPSAVAIL, MSPCRD1AVAIL, MITCRDUSGAVAIL, MITCRDUSRAVAIL, MITCRDPRSAVAIL, MITCRDSCFAVAIL, MSPCRD2AVAIL, MITCRDLLVAVAIL, MITCRDLIVAVAIL, MSPCRD3AVAIL, MITCRDOGRAVAIL, MITCRDOBJAVAIL, MITCRDSESAVAIL, MITCRDSHTAVAIL, MITCRDFILAVAIL, MSPAPP2AVAIL, MITAPPLOIAVAIL));
+			mask = new HashSet<Integer>(Arrays.asList(SCRJREFDLGLOAINI, SCRJREFHEADBAR, SCRJREFPRE, PNLPREAVAIL, SCRJREFADMIN, PNLADMINAVAIL, SCRJREFOP, PNLOPAVAIL, SCRJREFGLRY, PNLGLRYAVAIL, MITSESSPSAVAIL, MSPCRD1AVAIL, MITCRDUSGAVAIL, MITCRDUSRAVAIL, MITCRDPRSAVAIL, MITCRDSCFAVAIL, MSPCRD2AVAIL, MITCRDLLVAVAIL, MITCRDLIVAVAIL, MSPCRD3AVAIL, MITCRDOGRAVAIL, MITCRDOBJAVAIL, MITCRDSESAVAIL, MITCRDSHTAVAIL, MITCRDFILAVAIL, MSPAPP2AVAIL, MITAPPLOIAVAIL));
 		};
 
 		public String scrJrefDlgloaini;
@@ -419,8 +422,8 @@ public class CrdWzskNav {
 		public boolean pnladminAvail;
 		public String scrJrefOp;
 		public boolean pnlopAvail;
-		public String scrJrefGalery;
-		public boolean pnlgaleryAvail;
+		public String scrJrefGlry;
+		public boolean pnlglryAvail;
 		public boolean MitSesSpsAvail;
 		public boolean MspCrd1Avail;
 		public boolean MitCrdUsgAvail;
@@ -460,8 +463,8 @@ public class CrdWzskNav {
 				pnladminAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "pnladminAvail", mask, PNLADMINAVAIL);
 				scrJrefOp = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefOp", mask, SCRJREFOP);
 				pnlopAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "pnlopAvail", mask, PNLOPAVAIL);
-				scrJrefGalery = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefGalery", mask, SCRJREFGALERY);
-				pnlgaleryAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "pnlgaleryAvail", mask, PNLGALERYAVAIL);
+				scrJrefGlry = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefGlry", mask, SCRJREFGLRY);
+				pnlglryAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "pnlglryAvail", mask, PNLGLRYAVAIL);
 				MitSesSpsAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "MitSesSpsAvail", mask, MITSESSPSAVAIL);
 				MspCrd1Avail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "MspCrd1Avail", mask, MSPCRD1AVAIL);
 				MitCrdUsgAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "MitCrdUsgAvail", mask, MITCRDUSGAVAIL);
@@ -499,8 +502,8 @@ public class CrdWzskNav {
 			if (pnladminAvail == comp.pnladminAvail) items.add(PNLADMINAVAIL);
 			if (scrJrefOp.equals(comp.scrJrefOp)) items.add(SCRJREFOP);
 			if (pnlopAvail == comp.pnlopAvail) items.add(PNLOPAVAIL);
-			if (scrJrefGalery.equals(comp.scrJrefGalery)) items.add(SCRJREFGALERY);
-			if (pnlgaleryAvail == comp.pnlgaleryAvail) items.add(PNLGALERYAVAIL);
+			if (scrJrefGlry.equals(comp.scrJrefGlry)) items.add(SCRJREFGLRY);
+			if (pnlglryAvail == comp.pnlglryAvail) items.add(PNLGLRYAVAIL);
 			if (MitSesSpsAvail == comp.MitSesSpsAvail) items.add(MITSESSPSAVAIL);
 			if (MspCrd1Avail == comp.MspCrd1Avail) items.add(MSPCRD1AVAIL);
 			if (MitCrdUsgAvail == comp.MitCrdUsgAvail) items.add(MITCRDUSGAVAIL);
@@ -530,7 +533,7 @@ public class CrdWzskNav {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(SCRJREFDLGLOAINI, SCRJREFHEADBAR, SCRJREFPRE, PNLPREAVAIL, SCRJREFADMIN, PNLADMINAVAIL, SCRJREFOP, PNLOPAVAIL, SCRJREFGALERY, PNLGALERYAVAIL, MITSESSPSAVAIL, MSPCRD1AVAIL, MITCRDUSGAVAIL, MITCRDUSRAVAIL, MITCRDPRSAVAIL, MITCRDSCFAVAIL, MSPCRD2AVAIL, MITCRDLLVAVAIL, MITCRDLIVAVAIL, MSPCRD3AVAIL, MITCRDOGRAVAIL, MITCRDOBJAVAIL, MITCRDSESAVAIL, MITCRDSHTAVAIL, MITCRDFILAVAIL, MSPAPP2AVAIL, MITAPPLOIAVAIL));
+			diffitems = new HashSet<Integer>(Arrays.asList(SCRJREFDLGLOAINI, SCRJREFHEADBAR, SCRJREFPRE, PNLPREAVAIL, SCRJREFADMIN, PNLADMINAVAIL, SCRJREFOP, PNLOPAVAIL, SCRJREFGLRY, PNLGLRYAVAIL, MITSESSPSAVAIL, MSPCRD1AVAIL, MITCRDUSGAVAIL, MITCRDUSRAVAIL, MITCRDPRSAVAIL, MITCRDSCFAVAIL, MSPCRD2AVAIL, MITCRDLLVAVAIL, MITCRDLIVAVAIL, MSPCRD3AVAIL, MITCRDOGRAVAIL, MITCRDOBJAVAIL, MITCRDSESAVAIL, MITCRDSHTAVAIL, MITCRDFILAVAIL, MSPAPP2AVAIL, MITAPPLOIAVAIL));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);

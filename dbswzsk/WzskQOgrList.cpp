@@ -37,6 +37,25 @@ WzskQOgrList::WzskQOgrList(
 	this->stubSupRefWzskMObjgroup = stubSupRefWzskMObjgroup;
 };
 
+void WzskQOgrList::writeJSON(
+			Json::Value& sup
+			, bool jnumattr
+			, bool shorttags
+		) {
+	Json::Value& me = sup.append(Json::Value(Json::objectValue));
+
+	if (jnumattr) me["jnum"] = jnum;
+	if (shorttags) {
+		me["srf"] = sref;
+		me["tit"] = Title;
+		me["sup"] = stubSupRefWzskMObjgroup;
+	} else {
+		me["sref"] = sref;
+		me["Title"] = Title;
+		me["stubSupRefWzskMObjgroup"] = stubSupRefWzskMObjgroup;
+	};
+};
+
 void WzskQOgrList::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -106,6 +125,16 @@ ListWzskQOgrList& ListWzskQOgrList::operator=(
 	};
 
 	return(*this);
+};
+
+void ListWzskQOgrList::writeJSON(
+			Json::Value& sup
+			, std::string difftag
+		) {
+	if (difftag == "") difftag = "ListWzskQOgrList";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::arrayValue);
+	for (unsigned int i = 0; i < nodes.size(); i++) nodes[i]->writeJSON(me, true, true);
 };
 
 void ListWzskQOgrList::writeXML(

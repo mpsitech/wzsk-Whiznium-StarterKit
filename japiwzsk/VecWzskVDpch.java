@@ -47,7 +47,7 @@ public class VecWzskVDpch {
 	public static final int DPCHENGWZSKLLVTTABLEDATA = 34;
 	public static final int DPCHENGWZSKNAVADMINDATA = 35;
 	public static final int DPCHENGWZSKNAVDATA = 36;
-	public static final int DPCHENGWZSKNAVGALERYDATA = 37;
+	public static final int DPCHENGWZSKNAVGLRYDATA = 37;
 	public static final int DPCHENGWZSKNAVHEADBARDATA = 38;
 	public static final int DPCHENGWZSKNAVOPDATA = 39;
 	public static final int DPCHENGWZSKNAVPREDATA = 40;
@@ -145,8 +145,8 @@ public class VecWzskVDpch {
 	public static final int DPCHAPPWZSKNAVADMINDATA = 132;
 	public static final int DPCHAPPWZSKNAVADMINDO = 133;
 	public static final int DPCHAPPWZSKNAVDO = 134;
-	public static final int DPCHAPPWZSKNAVGALERYDATA = 135;
-	public static final int DPCHAPPWZSKNAVGALERYDO = 136;
+	public static final int DPCHAPPWZSKNAVGLRYDATA = 135;
+	public static final int DPCHAPPWZSKNAVGLRYDO = 136;
 	public static final int DPCHAPPWZSKNAVOPDO = 137;
 	public static final int DPCHAPPWZSKNAVPREDO = 138;
 	public static final int DPCHAPPWZSKOBJ1NSHOTDATA = 139;
@@ -263,7 +263,7 @@ public class VecWzskVDpch {
 		if (s.equals("dpchengwzskllvttabledata")) return DPCHENGWZSKLLVTTABLEDATA;
 		if (s.equals("dpchengwzsknavadmindata")) return DPCHENGWZSKNAVADMINDATA;
 		if (s.equals("dpchengwzsknavdata")) return DPCHENGWZSKNAVDATA;
-		if (s.equals("dpchengwzsknavgalerydata")) return DPCHENGWZSKNAVGALERYDATA;
+		if (s.equals("dpchengwzsknavglrydata")) return DPCHENGWZSKNAVGLRYDATA;
 		if (s.equals("dpchengwzsknavheadbardata")) return DPCHENGWZSKNAVHEADBARDATA;
 		if (s.equals("dpchengwzsknavopdata")) return DPCHENGWZSKNAVOPDATA;
 		if (s.equals("dpchengwzsknavpredata")) return DPCHENGWZSKNAVPREDATA;
@@ -361,8 +361,8 @@ public class VecWzskVDpch {
 		if (s.equals("dpchappwzsknavadmindata")) return DPCHAPPWZSKNAVADMINDATA;
 		if (s.equals("dpchappwzsknavadmindo")) return DPCHAPPWZSKNAVADMINDO;
 		if (s.equals("dpchappwzsknavdo")) return DPCHAPPWZSKNAVDO;
-		if (s.equals("dpchappwzsknavgalerydata")) return DPCHAPPWZSKNAVGALERYDATA;
-		if (s.equals("dpchappwzsknavgalerydo")) return DPCHAPPWZSKNAVGALERYDO;
+		if (s.equals("dpchappwzsknavglrydata")) return DPCHAPPWZSKNAVGLRYDATA;
+		if (s.equals("dpchappwzsknavglrydo")) return DPCHAPPWZSKNAVGLRYDO;
 		if (s.equals("dpchappwzsknavopdo")) return DPCHAPPWZSKNAVOPDO;
 		if (s.equals("dpchappwzsknavpredo")) return DPCHAPPWZSKNAVPREDO;
 		if (s.equals("dpchappwzskobj1nshotdata")) return DPCHAPPWZSKOBJ1NSHOTDATA;
@@ -480,7 +480,7 @@ public class VecWzskVDpch {
 		if (ix == DPCHENGWZSKLLVTTABLEDATA) return("DpchEngWzskLlvTtableData");
 		if (ix == DPCHENGWZSKNAVADMINDATA) return("DpchEngWzskNavAdminData");
 		if (ix == DPCHENGWZSKNAVDATA) return("DpchEngWzskNavData");
-		if (ix == DPCHENGWZSKNAVGALERYDATA) return("DpchEngWzskNavGaleryData");
+		if (ix == DPCHENGWZSKNAVGLRYDATA) return("DpchEngWzskNavGlryData");
 		if (ix == DPCHENGWZSKNAVHEADBARDATA) return("DpchEngWzskNavHeadbarData");
 		if (ix == DPCHENGWZSKNAVOPDATA) return("DpchEngWzskNavOpData");
 		if (ix == DPCHENGWZSKNAVPREDATA) return("DpchEngWzskNavPreData");
@@ -578,8 +578,8 @@ public class VecWzskVDpch {
 		if (ix == DPCHAPPWZSKNAVADMINDATA) return("DpchAppWzskNavAdminData");
 		if (ix == DPCHAPPWZSKNAVADMINDO) return("DpchAppWzskNavAdminDo");
 		if (ix == DPCHAPPWZSKNAVDO) return("DpchAppWzskNavDo");
-		if (ix == DPCHAPPWZSKNAVGALERYDATA) return("DpchAppWzskNavGaleryData");
-		if (ix == DPCHAPPWZSKNAVGALERYDO) return("DpchAppWzskNavGaleryDo");
+		if (ix == DPCHAPPWZSKNAVGLRYDATA) return("DpchAppWzskNavGlryData");
+		if (ix == DPCHAPPWZSKNAVGLRYDO) return("DpchAppWzskNavGlryDo");
 		if (ix == DPCHAPPWZSKNAVOPDO) return("DpchAppWzskNavOpDo");
 		if (ix == DPCHAPPWZSKNAVPREDO) return("DpchAppWzskNavPreDo");
 		if (ix == DPCHAPPWZSKOBJ1NSHOTDATA) return("DpchAppWzskObj1NShotData");

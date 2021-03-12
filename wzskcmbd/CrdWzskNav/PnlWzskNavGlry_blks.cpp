@@ -1,9 +1,9 @@
 /**
-	* \file PnlWzskNavGalery_blks.cpp
-	* job handler for job PnlWzskNavGalery (implementation of blocks)
+	* \file PnlWzskNavGlry_blks.cpp
+	* job handler for job PnlWzskNavGlry (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
 	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \date created: 11 Mar 2021
 	*/
 // IP header --- ABOVE
 
@@ -12,10 +12,10 @@ using namespace Sbecore;
 using namespace Xmlio;
 
 /******************************************************************************
- class PnlWzskNavGalery::VecVDo
+ class PnlWzskNavGlry::VecVDo
  ******************************************************************************/
 
-uint PnlWzskNavGalery::VecVDo::getIx(
+uint PnlWzskNavGlry::VecVDo::getIx(
 			const string& sref
 		) {
 	string s = StrMod::lc(sref);
@@ -34,7 +34,7 @@ uint PnlWzskNavGalery::VecVDo::getIx(
 	return(0);
 };
 
-string PnlWzskNavGalery::VecVDo::getSref(
+string PnlWzskNavGlry::VecVDo::getSref(
 			const uint ix
 		) {
 	if (ix == BUTOGRVIEWCLICK) return("ButOgrViewClick");
@@ -52,10 +52,10 @@ string PnlWzskNavGalery::VecVDo::getSref(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::ContIac
+ class PnlWzskNavGlry::ContIac
  ******************************************************************************/
 
-PnlWzskNavGalery::ContIac::ContIac(
+PnlWzskNavGlry::ContIac::ContIac(
 			const uint numFLstOgr
 			, const uint numFLstObj
 			, const uint numFLstSes
@@ -73,7 +73,31 @@ PnlWzskNavGalery::ContIac::ContIac(
 	mask = {NUMFLSTOGR, NUMFLSTOBJ, NUMFLSTSES, NUMFLSTSHT, NUMFLSTFIL};
 };
 
-bool PnlWzskNavGalery::ContIac::readXML(
+bool PnlWzskNavGlry::ContIac::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacWzskNavGlry"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("numFLstOgr")) {numFLstOgr = me["numFLstOgr"].asUInt(); add(NUMFLSTOGR);};
+		if (me.isMember("numFLstObj")) {numFLstObj = me["numFLstObj"].asUInt(); add(NUMFLSTOBJ);};
+		if (me.isMember("numFLstSes")) {numFLstSes = me["numFLstSes"].asUInt(); add(NUMFLSTSES);};
+		if (me.isMember("numFLstSht")) {numFLstSht = me["numFLstSht"].asUInt(); add(NUMFLSTSHT);};
+		if (me.isMember("numFLstFil")) {numFLstFil = me["numFLstFil"].asUInt(); add(NUMFLSTFIL);};
+	};
+
+	return basefound;
+};
+
+bool PnlWzskNavGlry::ContIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
 			, bool addbasetag
@@ -83,11 +107,11 @@ bool PnlWzskNavGalery::ContIac::readXML(
 	bool basefound;
 
 	if (addbasetag)
-		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "ContIacWzskNavGalery");
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "ContIacWzskNavGlry");
 	else
 		basefound = checkXPath(docctx, basexpath);
 
-	string itemtag = "ContitemIacWzskNavGalery";
+	string itemtag = "ContitemIacWzskNavGlry";
 
 	if (basefound) {
 		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "numFLstOgr", numFLstOgr)) add(NUMFLSTOGR);
@@ -100,16 +124,31 @@ bool PnlWzskNavGalery::ContIac::readXML(
 	return basefound;
 };
 
-void PnlWzskNavGalery::ContIac::writeXML(
+void PnlWzskNavGlry::ContIac::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacWzskNavGlry";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFLstOgr"] = numFLstOgr;
+	me["numFLstObj"] = numFLstObj;
+	me["numFLstSes"] = numFLstSes;
+	me["numFLstSht"] = numFLstSht;
+	me["numFLstFil"] = numFLstFil;
+};
+
+void PnlWzskNavGlry::ContIac::writeXML(
 			xmlTextWriter* wr
 			, string difftag
 			, bool shorttags
 		) {
-	if (difftag.length() == 0) difftag = "ContIacWzskNavGalery";
+	if (difftag.length() == 0) difftag = "ContIacWzskNavGlry";
 
 	string itemtag;
 	if (shorttags) itemtag = "Ci";
-	else itemtag = "ContitemIacWzskNavGalery";
+	else itemtag = "ContitemIacWzskNavGlry";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeUintAttr(wr, itemtag, "sref", "numFLstOgr", numFLstOgr);
@@ -120,7 +159,7 @@ void PnlWzskNavGalery::ContIac::writeXML(
 	xmlTextWriterEndElement(wr);
 };
 
-set<uint> PnlWzskNavGalery::ContIac::comm(
+set<uint> PnlWzskNavGlry::ContIac::comm(
 			const ContIac* comp
 		) {
 	set<uint> items;
@@ -134,7 +173,7 @@ set<uint> PnlWzskNavGalery::ContIac::comm(
 	return(items);
 };
 
-set<uint> PnlWzskNavGalery::ContIac::diff(
+set<uint> PnlWzskNavGlry::ContIac::diff(
 			const ContIac* comp
 		) {
 	set<uint> commitems;
@@ -149,10 +188,42 @@ set<uint> PnlWzskNavGalery::ContIac::diff(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::StatApp
+ class PnlWzskNavGlry::StatApp
  ******************************************************************************/
 
-void PnlWzskNavGalery::StatApp::writeXML(
+void PnlWzskNavGlry::StatApp::writeJSON(
+			Json::Value& sup
+			, string difftag
+			, const uint ixWzskVExpstate
+			, const bool LstOgrAlt
+			, const bool LstObjAlt
+			, const bool LstSesAlt
+			, const bool LstShtAlt
+			, const bool LstFilAlt
+			, const uint LstOgrNumFirstdisp
+			, const uint LstObjNumFirstdisp
+			, const uint LstSesNumFirstdisp
+			, const uint LstShtNumFirstdisp
+			, const uint LstFilNumFirstdisp
+		) {
+	if (difftag.length() == 0) difftag = "StatAppWzskNavGlry";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
+	me["LstOgrAlt"] = LstOgrAlt;
+	me["LstObjAlt"] = LstObjAlt;
+	me["LstSesAlt"] = LstSesAlt;
+	me["LstShtAlt"] = LstShtAlt;
+	me["LstFilAlt"] = LstFilAlt;
+	me["LstOgrNumFirstdisp"] = LstOgrNumFirstdisp;
+	me["LstObjNumFirstdisp"] = LstObjNumFirstdisp;
+	me["LstSesNumFirstdisp"] = LstSesNumFirstdisp;
+	me["LstShtNumFirstdisp"] = LstShtNumFirstdisp;
+	me["LstFilNumFirstdisp"] = LstFilNumFirstdisp;
+};
+
+void PnlWzskNavGlry::StatApp::writeXML(
 			xmlTextWriter* wr
 			, string difftag
 			, bool shorttags
@@ -168,11 +239,11 @@ void PnlWzskNavGalery::StatApp::writeXML(
 			, const uint LstShtNumFirstdisp
 			, const uint LstFilNumFirstdisp
 		) {
-	if (difftag.length() == 0) difftag = "StatAppWzskNavGalery";
+	if (difftag.length() == 0) difftag = "StatAppWzskNavGlry";
 
 	string itemtag;
 	if (shorttags) itemtag = "Si";
-	else itemtag = "StatitemAppWzskNavGalery";
+	else itemtag = "StatitemAppWzskNavGlry";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeStringAttr(wr, itemtag, "sref", "srefIxWzskVExpstate", VecWzskVExpstate::getSref(ixWzskVExpstate));
@@ -190,10 +261,10 @@ void PnlWzskNavGalery::StatApp::writeXML(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::StatShr
+ class PnlWzskNavGlry::StatShr
  ******************************************************************************/
 
-PnlWzskNavGalery::StatShr::StatShr(
+PnlWzskNavGlry::StatShr::StatShr(
 			const bool LstOgrAvail
 			, const bool ButOgrViewActive
 			, const bool LstObjAvail
@@ -221,16 +292,36 @@ PnlWzskNavGalery::StatShr::StatShr(
 	mask = {LSTOGRAVAIL, BUTOGRVIEWACTIVE, LSTOBJAVAIL, BUTOBJVIEWACTIVE, LSTSESAVAIL, BUTSESVIEWACTIVE, LSTSHTAVAIL, BUTSHTVIEWACTIVE, LSTFILAVAIL, BUTFILVIEWACTIVE};
 };
 
-void PnlWzskNavGalery::StatShr::writeXML(
+void PnlWzskNavGlry::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskNavGlry";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["LstOgrAvail"] = LstOgrAvail;
+	me["ButOgrViewActive"] = ButOgrViewActive;
+	me["LstObjAvail"] = LstObjAvail;
+	me["ButObjViewActive"] = ButObjViewActive;
+	me["LstSesAvail"] = LstSesAvail;
+	me["ButSesViewActive"] = ButSesViewActive;
+	me["LstShtAvail"] = LstShtAvail;
+	me["ButShtViewActive"] = ButShtViewActive;
+	me["LstFilAvail"] = LstFilAvail;
+	me["ButFilViewActive"] = ButFilViewActive;
+};
+
+void PnlWzskNavGlry::StatShr::writeXML(
 			xmlTextWriter* wr
 			, string difftag
 			, bool shorttags
 		) {
-	if (difftag.length() == 0) difftag = "StatShrWzskNavGalery";
+	if (difftag.length() == 0) difftag = "StatShrWzskNavGlry";
 
 	string itemtag;
 	if (shorttags) itemtag = "Si";
-	else itemtag = "StatitemShrWzskNavGalery";
+	else itemtag = "StatitemShrWzskNavGlry";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeBoolAttr(wr, itemtag, "sref", "LstOgrAvail", LstOgrAvail);
@@ -246,7 +337,7 @@ void PnlWzskNavGalery::StatShr::writeXML(
 	xmlTextWriterEndElement(wr);
 };
 
-set<uint> PnlWzskNavGalery::StatShr::comm(
+set<uint> PnlWzskNavGlry::StatShr::comm(
 			const StatShr* comp
 		) {
 	set<uint> items;
@@ -265,7 +356,7 @@ set<uint> PnlWzskNavGalery::StatShr::comm(
 	return(items);
 };
 
-set<uint> PnlWzskNavGalery::StatShr::diff(
+set<uint> PnlWzskNavGlry::StatShr::diff(
 			const StatShr* comp
 		) {
 	set<uint> commitems;
@@ -280,20 +371,46 @@ set<uint> PnlWzskNavGalery::StatShr::diff(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::Tag
+ class PnlWzskNavGlry::Tag
  ******************************************************************************/
 
-void PnlWzskNavGalery::Tag::writeXML(
+void PnlWzskNavGlry::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskNavGlry";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "Gallery";
+		me["CptOgr"] = "object groups";
+		me["CptObj"] = "objects";
+		me["CptSes"] = "sessions";
+		me["CptSht"] = "shots";
+		me["CptFil"] = "files";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "Galerie";
+		me["CptOgr"] = "Objektgruppen";
+		me["CptObj"] = "Objekte";
+		me["CptSes"] = "Sitzungen";
+		me["CptSht"] = "Aufnahmen";
+		me["CptFil"] = "Dateien";
+	};
+};
+
+void PnlWzskNavGlry::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
 			, string difftag
 			, bool shorttags
 		) {
-	if (difftag.length() == 0) difftag = "TagWzskNavGalery";
+	if (difftag.length() == 0) difftag = "TagWzskNavGlry";
 
 	string itemtag;
 	if (shorttags) itemtag = "Ti";
-	else itemtag = "TagitemWzskNavGalery";
+	else itemtag = "TagitemWzskNavGlry";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
@@ -315,15 +432,15 @@ void PnlWzskNavGalery::Tag::writeXML(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::DpchAppData
+ class PnlWzskNavGlry::DpchAppData
  ******************************************************************************/
 
-PnlWzskNavGalery::DpchAppData::DpchAppData() :
-			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKNAVGALERYDATA)
+PnlWzskNavGlry::DpchAppData::DpchAppData() :
+			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKNAVGLRYDATA)
 		{
 };
 
-string PnlWzskNavGalery::DpchAppData::getSrefsMask() {
+string PnlWzskNavGlry::DpchAppData::getSrefsMask() {
 	vector<string> ss;
 	string srefs;
 
@@ -335,7 +452,28 @@ string PnlWzskNavGalery::DpchAppData::getSrefsMask() {
 	return(srefs);
 };
 
-void PnlWzskNavGalery::DpchAppData::readXML(
+void PnlWzskNavGlry::DpchAppData::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskNavGlryData"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (contiac.readJSON(me, true)) add(CONTIAC);
+	} else {
+		contiac = ContIac();
+	};
+};
+
+void PnlWzskNavGlry::DpchAppData::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
 			, bool addbasetag
@@ -347,7 +485,7 @@ void PnlWzskNavGalery::DpchAppData::readXML(
 	bool basefound;
 
 	if (addbasetag)
-		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "DpchAppWzskNavGaleryData");
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "DpchAppWzskNavGlryData");
 	else
 		basefound = checkXPath(docctx, basexpath);
 
@@ -363,16 +501,16 @@ void PnlWzskNavGalery::DpchAppData::readXML(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::DpchAppDo
+ class PnlWzskNavGlry::DpchAppDo
  ******************************************************************************/
 
-PnlWzskNavGalery::DpchAppDo::DpchAppDo() :
-			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKNAVGALERYDO)
+PnlWzskNavGlry::DpchAppDo::DpchAppDo() :
+			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKNAVGLRYDO)
 		{
 	ixVDo = 0;
 };
 
-string PnlWzskNavGalery::DpchAppDo::getSrefsMask() {
+string PnlWzskNavGlry::DpchAppDo::getSrefsMask() {
 	vector<string> ss;
 	string srefs;
 
@@ -384,7 +522,27 @@ string PnlWzskNavGalery::DpchAppDo::getSrefsMask() {
 	return(srefs);
 };
 
-void PnlWzskNavGalery::DpchAppDo::readXML(
+void PnlWzskNavGlry::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskNavGlryDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
+};
+
+void PnlWzskNavGlry::DpchAppDo::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
 			, bool addbasetag
@@ -397,7 +555,7 @@ void PnlWzskNavGalery::DpchAppDo::readXML(
 	bool basefound;
 
 	if (addbasetag)
-		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "DpchAppWzskNavGaleryDo");
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "DpchAppWzskNavGlryDo");
 	else
 		basefound = checkXPath(docctx, basexpath);
 
@@ -415,10 +573,10 @@ void PnlWzskNavGalery::DpchAppDo::readXML(
 };
 
 /******************************************************************************
- class PnlWzskNavGalery::DpchEngData
+ class PnlWzskNavGlry::DpchEngData
  ******************************************************************************/
 
-PnlWzskNavGalery::DpchEngData::DpchEngData(
+PnlWzskNavGlry::DpchEngData::DpchEngData(
 			const ubigint jref
 			, ContIac* contiac
 			, Feed* feedFLstFil
@@ -429,7 +587,7 @@ PnlWzskNavGalery::DpchEngData::DpchEngData(
 			, StatShr* statshr
 			, const set<uint>& mask
 		) :
-			DpchEngWzsk(VecWzskVDpch::DPCHENGWZSKNAVGALERYDATA, jref)
+			DpchEngWzsk(VecWzskVDpch::DPCHENGWZSKNAVGLRYDATA, jref)
 		{
 	if (find(mask, ALL)) this->mask = {JREF, CONTIAC, FEEDFLSTFIL, FEEDFLSTOBJ, FEEDFLSTOGR, FEEDFLSTSES, FEEDFLSTSHT, STATAPP, STATSHR, TAG};
 	else this->mask = mask;
@@ -443,7 +601,7 @@ PnlWzskNavGalery::DpchEngData::DpchEngData(
 	if (find(this->mask, STATSHR) && statshr) this->statshr = *statshr;
 };
 
-string PnlWzskNavGalery::DpchEngData::getSrefsMask() {
+string PnlWzskNavGlry::DpchEngData::getSrefsMask() {
 	vector<string> ss;
 	string srefs;
 
@@ -463,7 +621,7 @@ string PnlWzskNavGalery::DpchEngData::getSrefsMask() {
 	return(srefs);
 };
 
-void PnlWzskNavGalery::DpchEngData::merge(
+void PnlWzskNavGlry::DpchEngData::merge(
 			DpchEngWzsk* dpcheng
 		) {
 	DpchEngData* src = (DpchEngData*) dpcheng;
@@ -480,11 +638,29 @@ void PnlWzskNavGalery::DpchEngData::merge(
 	if (src->has(TAG)) add(TAG);
 };
 
-void PnlWzskNavGalery::DpchEngData::writeXML(
+void PnlWzskNavGlry::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskNavGlryData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTIAC)) contiac.writeJSON(me);
+	if (has(FEEDFLSTFIL)) feedFLstFil.writeJSON(me);
+	if (has(FEEDFLSTOBJ)) feedFLstObj.writeJSON(me);
+	if (has(FEEDFLSTOGR)) feedFLstOgr.writeJSON(me);
+	if (has(FEEDFLSTSES)) feedFLstSes.writeJSON(me);
+	if (has(FEEDFLSTSHT)) feedFLstSht.writeJSON(me);
+	if (has(STATAPP)) StatApp::writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
+};
+
+void PnlWzskNavGlry::DpchEngData::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
 		) {
-	xmlTextWriterStartElement(wr, BAD_CAST "DpchEngWzskNavGaleryData");
+	xmlTextWriterStartElement(wr, BAD_CAST "DpchEngWzskNavGlryData");
 	xmlTextWriterWriteAttribute(wr, BAD_CAST "xmlns", BAD_CAST "http://www.mpsitech.com/wzsk");
 		if (has(JREF)) writeString(wr, "scrJref", Scr::scramble(jref));
 		if (has(CONTIAC)) contiac.writeXML(wr);

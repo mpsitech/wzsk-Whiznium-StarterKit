@@ -41,6 +41,27 @@ string DpchAppWzsk::getSrefsMask() {
 	else return("");
 };
 
+void DpchAppWzsk::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup[VecWzskVDpch::getSref(ixWzskVDpch)];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {
+			jref = Scr::descramble(me["scrJref"].asString());
+			add(JREF);
+		};
+	};
+};
+
 void DpchAppWzsk::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -93,6 +114,28 @@ string DpchAppWzskAlert::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void DpchAppWzskAlert::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskAlert"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {
+			jref = Scr::descramble(me["scrJref"].asString());
+			add(JREF);
+		};
+		if (me.isMember("numFMcb")) {numFMcb = me["numFMcb"].asInt(); add(NUMFMCB);};
+	};
 };
 
 void DpchAppWzskAlert::readXML(
@@ -178,6 +221,15 @@ void DpchEngWzsk::merge(
 	if (src->has(JREF)) {jref = src->jref; add(JREF);};
 };
 
+void DpchEngWzsk::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup[VecWzskVDpch::getSref(ixWzskVDpch)] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+};
+
 void DpchEngWzsk::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -253,6 +305,17 @@ void DpchEngWzskAlert::merge(
 	if (src->has(FEEDFMCB)) {feedFMcb = src->feedFMcb; add(FEEDFMCB);};
 };
 
+void DpchEngWzskAlert::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskAlert"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(FEEDFMCB)) feedFMcb.writeJSON(me);
+};
+
 void DpchEngWzskAlert::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -318,6 +381,17 @@ void DpchEngWzskConfirm::merge(
 	if (src->has(SREF)) {sref = src->sref; add(SREF);};
 };
 
+void DpchEngWzskConfirm::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskConfirm"] = Json::Value(Json::objectValue);
+
+	if (has(ACCEPTED)) me["accepted"] = accepted;
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(SREF)) me["sref"] = sref;
+};
+
 void DpchEngWzskConfirm::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -348,12 +422,18 @@ DpchEngWzskSuspend::DpchEngWzskSuspend(
 StgWzskAppearance::StgWzskAppearance(
 			const usmallint histlength
 			, const bool suspsess
+			, const uint sesstterm
+			, const uint sesstwarn
+			, const uint roottterm
 		) :
 			Block()
 		{
 	this->histlength = histlength;
 	this->suspsess = suspsess;
-	mask = {HISTLENGTH, SUSPSESS};
+	this->sesstterm = sesstterm;
+	this->sesstwarn = sesstwarn;
+	this->roottterm = roottterm;
+	mask = {HISTLENGTH, SUSPSESS, SESSTTERM, SESSTWARN, ROOTTTERM};
 };
 
 bool StgWzskAppearance::readXML(
@@ -375,6 +455,9 @@ bool StgWzskAppearance::readXML(
 	if (basefound) {
 		if (extractUsmallintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "histlength", histlength)) add(HISTLENGTH);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "suspsess", suspsess)) add(SUSPSESS);
+		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "sesstterm", sesstterm)) add(SESSTTERM);
+		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "sesstwarn", sesstwarn)) add(SESSTWARN);
+		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "roottterm", roottterm)) add(ROOTTTERM);
 	};
 
 	return basefound;
@@ -394,6 +477,9 @@ void StgWzskAppearance::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeUsmallintAttr(wr, itemtag, "sref", "histlength", histlength);
 		writeBoolAttr(wr, itemtag, "sref", "suspsess", suspsess);
+		writeUintAttr(wr, itemtag, "sref", "sesstterm", sesstterm);
+		writeUintAttr(wr, itemtag, "sref", "sesstwarn", sesstwarn);
+		writeUintAttr(wr, itemtag, "sref", "roottterm", roottterm);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -404,6 +490,9 @@ set<uint> StgWzskAppearance::comm(
 
 	if (histlength == comp->histlength) insert(items, HISTLENGTH);
 	if (suspsess == comp->suspsess) insert(items, SUSPSESS);
+	if (sesstterm == comp->sesstterm) insert(items, SESSTTERM);
+	if (sesstwarn == comp->sesstwarn) insert(items, SESSTWARN);
+	if (roottterm == comp->roottterm) insert(items, ROOTTTERM);
 
 	return(items);
 };
@@ -416,7 +505,7 @@ set<uint> StgWzskAppearance::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {HISTLENGTH, SUSPSESS};
+	diffitems = {HISTLENGTH, SUSPSESS, SESSTTERM, SESSTWARN, ROOTTTERM};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -1291,13 +1380,13 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrAbt(
 	continf.TxtCpt = StrMod::cap(continf.TxtCpt);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		continf.TxtMsg1 = "Whiznium StarterKit version v1.0.2 released on 15-12-2020";
+		continf.TxtMsg1 = "Whiznium StarterKit version v1.0.5 released on 11-3-2021";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "contributors: -";
 		continf.TxtMsg6 = "libraries: ezdevwskd 0.1.26 and png 1.6.36";
 		continf.TxtMsg8 = "Whiznium StarterKit is computer vision software which powers MPSI's tabletop 3D laser scanner that represents the primary on-boarding vehicle for Whiznium.";
 	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		continf.TxtMsg1 = "Whiznium StarterKit Version v1.0.2 ver\\u00f6ffentlicht am 15-12-2020";
+		continf.TxtMsg1 = "Whiznium StarterKit Version v1.0.5 ver\\u00f6ffentlicht am 11-3-2021";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "Mitwirkende: -";
 		continf.TxtMsg6 = "Programmbibliotheken: ezdevwskd 0.1.26 und png 1.6.36";
@@ -1389,6 +1478,60 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrSav(
 	return(new DpchEngWzskAlert(jref, &continf, &feedFMcbAlert, {DpchEngWzskAlert::ALL}));
 };
 
+DpchEngWzskAlert* AlrWzsk::prepareAlrTrm(
+			const ubigint jref
+			, const uint ixWzskVLocale
+			, const uint sesstterm
+			, const uint sesstwarn
+			, Feed& feedFMcbAlert
+		) {
+	ContInfWzskAlert continf;
+	// IP prepareAlrTrm --- BEGIN
+	continf.TxtCpt = VecWzskVTag::getTitle(VecWzskVTag::ANNOUNCE, ixWzskVLocale);
+	continf.TxtCpt = StrMod::cap(continf.TxtCpt);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		continf.TxtMsg1 = "Your session has been inactive for " + prepareAlrTrm_dtToString(ixWzskVLocale, sesstterm) + ". It will be terminated in " + prepareAlrTrm_dtToString(ixWzskVLocale, sesstwarn) + ".";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		continf.TxtMsg1 = "Ihre Sitzung ist seit " + prepareAlrTrm_dtToString(ixWzskVLocale, sesstterm) + " inaktiv. Sie wird in " + prepareAlrTrm_dtToString(ixWzskVLocale, sesstwarn) + " beendet.";
+	};
+
+	feedFMcbAlert.clear();
+
+	VecWzskVTag::appendToFeed(VecWzskVTag::OK, ixWzskVLocale, feedFMcbAlert);
+	feedFMcbAlert.cap();
+	// IP prepareAlrTrm --- END
+	return(new DpchEngWzskAlert(jref, &continf, &feedFMcbAlert, {DpchEngWzskAlert::ALL}));
+};
+
+string AlrWzsk::prepareAlrTrm_dtToString(
+			const uint ixWzskVLocale
+			, const time_t dt
+		) {
+	string s;
+
+	if ((dt%3600) == 0) {
+		s = to_string(dt/3600);
+
+		if (dt == 3600) s += " " + VecWzskVTag::getTitle(VecWzskVTag::HOUR, ixWzskVLocale);
+		else s += " " + VecWzskVTag::getTitle(VecWzskVTag::HOURS, ixWzskVLocale);
+
+	} else if ((dt%60) == 0) {
+		s = to_string(dt/60);
+
+		if (dt == 60) s += " " + VecWzskVTag::getTitle(VecWzskVTag::MINUTE, ixWzskVLocale);
+		else s += " " + VecWzskVTag::getTitle(VecWzskVTag::MINUTES, ixWzskVLocale);
+
+	} else {
+		s = to_string(dt);
+
+		if (dt == 1) s += " " + VecWzskVTag::getTitle(VecWzskVTag::SECOND, ixWzskVLocale);
+		else s += " " + VecWzskVTag::getTitle(VecWzskVTag::SECONDS, ixWzskVLocale);
+	};
+
+	return s;
+};
+
 /******************************************************************************
  class ReqWzsk
  ******************************************************************************/
@@ -1414,6 +1557,8 @@ ReqWzsk::ReqWzsk(
 
 	request = NULL;
 	requestlen = 0;
+
+	jsonNotXml = false;
 
 	jref = 0;
 
@@ -2031,7 +2176,7 @@ WakeupWzsk::WakeupWzsk(
 			, const ubigint wref
 			, const ubigint jref
 			, const string sref
-			, const unsigned int deltat
+			, const uint64_t deltat
 			, const bool weak
 		) {
 	this->xchg = xchg;
@@ -2195,7 +2340,7 @@ void XchgWzskcmbd::startMon() {
 	Clstn* clstn = NULL;
 	Preset* preset = NULL;
 
-	mon.start("Whiznium StarterKit v1.0.2", stgwzskpath.monpath);
+	mon.start("Whiznium StarterKit v1.0.5", stgwzskpath.monpath);
 
 	rwmJobs.rlock("XchgWzskcmbd", "startMon");
 	for (auto it = jobs.begin(); it != jobs.end(); it++) {
@@ -2458,11 +2603,16 @@ Arg XchgWzskcmbd::getPreset(
 		time_t rawtime;
 		time(&rawtime);
 
-		arg.mask = Arg::INTVAL;
+		if (ixWzskVPreset == VecWzskVPreset::PREWZSKSYSSTAMP) {
+			arg.mask = Arg::REF;
+			arg.ref = rawtime;
 
-		if (ixWzskVPreset == VecWzskVPreset::PREWZSKSYSDATE) arg.intval = (rawtime-rawtime%(3600*24))/(3600*24);
-		else if (ixWzskVPreset == VecWzskVPreset::PREWZSKSYSTIME) arg.intval = rawtime%(3600*24);
-		else if (ixWzskVPreset == VecWzskVPreset::PREWZSKSYSSTAMP) arg.intval = rawtime;
+		} else {
+			arg.mask = Arg::INTVAL;
+
+			if (ixWzskVPreset == VecWzskVPreset::PREWZSKSYSDATE) arg.intval = (rawtime-rawtime%(3600*24))/(3600*24);
+			else arg.intval = rawtime%(3600*24);
+		};
 
 	} else {
 		rwmJobs.rlock("XchgWzskcmbd", "getPreset", "jref=" + to_string(jref));
@@ -4243,7 +4393,7 @@ set<ubigint> XchgWzskcmbd::getCsjobClisByJref(
 ubigint XchgWzskcmbd::addWakeup(
 			const ubigint jref
 			, const string sref
-			, const unsigned int deltat
+			, const uint64_t deltat
 			, const bool weak
 		) {
 	int res;

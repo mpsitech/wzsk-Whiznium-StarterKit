@@ -57,6 +57,26 @@ PnlWzskPrsList::ContIac::ContIac(
 	mask = {NUMFTOS};
 };
 
+bool PnlWzskPrsList::ContIac::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacWzskPrsList"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("numFTos")) {numFTos = me["numFTos"].asUInt(); add(NUMFTOS);};
+	};
+
+	return basefound;
+};
+
 bool PnlWzskPrsList::ContIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -78,6 +98,17 @@ bool PnlWzskPrsList::ContIac::readXML(
 	};
 
 	return basefound;
+};
+
+void PnlWzskPrsList::ContIac::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacWzskPrsList";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFTos"] = numFTos;
 };
 
 void PnlWzskPrsList::ContIac::writeXML(
@@ -136,6 +167,18 @@ PnlWzskPrsList::ContInf::ContInf(
 	mask = {BUTFILTERON, NUMFCSIQST};
 };
 
+void PnlWzskPrsList::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfWzskPrsList";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ButFilterOn"] = ButFilterOn;
+	me["numFCsiQst"] = numFCsiQst;
+};
+
 void PnlWzskPrsList::ContInf::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -192,6 +235,18 @@ PnlWzskPrsList::StatShr::StatShr(
 	this->ButDeleteActive = ButDeleteActive;
 
 	mask = {IXWZSKVEXPSTATE, BUTDELETEACTIVE};
+};
+
+void PnlWzskPrsList::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskPrsList";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
+	me["ButDeleteActive"] = ButDeleteActive;
 };
 
 void PnlWzskPrsList::StatShr::writeXML(
@@ -263,6 +318,33 @@ PnlWzskPrsList::StgIac::StgIac(
 	mask = {TCOGRPWIDTH, TCOOWNWIDTH, TCOTITWIDTH, TCOFNMWIDTH, TCOLNMWIDTH, TCOSEXWIDTH, TCOTELWIDTH, TCOEMLWIDTH};
 };
 
+bool PnlWzskPrsList::StgIac::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["StgIacWzskPrsList"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("TcoGrpWidth")) {TcoGrpWidth = me["TcoGrpWidth"].asUInt(); add(TCOGRPWIDTH);};
+		if (me.isMember("TcoOwnWidth")) {TcoOwnWidth = me["TcoOwnWidth"].asUInt(); add(TCOOWNWIDTH);};
+		if (me.isMember("TcoTitWidth")) {TcoTitWidth = me["TcoTitWidth"].asUInt(); add(TCOTITWIDTH);};
+		if (me.isMember("TcoFnmWidth")) {TcoFnmWidth = me["TcoFnmWidth"].asUInt(); add(TCOFNMWIDTH);};
+		if (me.isMember("TcoLnmWidth")) {TcoLnmWidth = me["TcoLnmWidth"].asUInt(); add(TCOLNMWIDTH);};
+		if (me.isMember("TcoSexWidth")) {TcoSexWidth = me["TcoSexWidth"].asUInt(); add(TCOSEXWIDTH);};
+		if (me.isMember("TcoTelWidth")) {TcoTelWidth = me["TcoTelWidth"].asUInt(); add(TCOTELWIDTH);};
+		if (me.isMember("TcoEmlWidth")) {TcoEmlWidth = me["TcoEmlWidth"].asUInt(); add(TCOEMLWIDTH);};
+	};
+
+	return basefound;
+};
+
 bool PnlWzskPrsList::StgIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -291,6 +373,24 @@ bool PnlWzskPrsList::StgIac::readXML(
 	};
 
 	return basefound;
+};
+
+void PnlWzskPrsList::StgIac::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StgIacWzskPrsList";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["TcoGrpWidth"] = TcoGrpWidth;
+	me["TcoOwnWidth"] = TcoOwnWidth;
+	me["TcoTitWidth"] = TcoTitWidth;
+	me["TcoFnmWidth"] = TcoFnmWidth;
+	me["TcoLnmWidth"] = TcoLnmWidth;
+	me["TcoSexWidth"] = TcoSexWidth;
+	me["TcoTelWidth"] = TcoTelWidth;
+	me["TcoEmlWidth"] = TcoEmlWidth;
 };
 
 void PnlWzskPrsList::StgIac::writeXML(
@@ -350,6 +450,41 @@ set<uint> PnlWzskPrsList::StgIac::diff(
 /******************************************************************************
  class PnlWzskPrsList::Tag
  ******************************************************************************/
+
+void PnlWzskPrsList::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskPrsList";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "Persons";
+		me["TcoTit"] = "Title";
+		me["TcoFnm"] = "First name";
+		me["TcoLnm"] = "Last name";
+		me["TcoSex"] = "Sex";
+		me["TcoTel"] = "Phone";
+		me["TcoEml"] = "E-Mail";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "Personen";
+		me["TcoTit"] = "Title";
+		me["TcoFnm"] = "Vorname";
+		me["TcoLnm"] = "Nachname";
+		me["TcoSex"] = "Geschlecht";
+		me["TcoTel"] = "TelVal";
+		me["TcoEml"] = "EmlVal";
+	};
+	me["TxtRecord1"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale));
+	me["TxtRecord2"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale));
+	me["Trs"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::GOTO, ixWzskVLocale)) + " ...";
+	me["TxtShowing1"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::SHOWLONG, ixWzskVLocale));
+	me["TxtShowing2"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale));
+	me["TcoGrp"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::GRP, ixWzskVLocale));
+	me["TcoOwn"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::OWN, ixWzskVLocale));
+};
 
 void PnlWzskPrsList::Tag::writeXML(
 			const uint ixWzskVLocale
@@ -414,6 +549,31 @@ string PnlWzskPrsList::DpchAppData::getSrefsMask() {
 	return(srefs);
 };
 
+void PnlWzskPrsList::DpchAppData::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskPrsListData"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (contiac.readJSON(me, true)) add(CONTIAC);
+		if (stgiac.readJSON(me, true)) add(STGIAC);
+		if (stgiacqry.readJSON(me, true)) add(STGIACQRY);
+	} else {
+		contiac = ContIac();
+		stgiac = StgIac();
+		stgiacqry = QryWzskPrsList::StgIac();
+	};
+};
+
 void PnlWzskPrsList::DpchAppData::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -465,6 +625,26 @@ string PnlWzskPrsList::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskPrsList::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskPrsListDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void PnlWzskPrsList::DpchAppDo::readXML(
@@ -569,6 +749,26 @@ void PnlWzskPrsList::DpchEngData::merge(
 	if (src->has(STATAPPQRY)) add(STATAPPQRY);
 	if (src->has(STATSHRQRY)) {statshrqry = src->statshrqry; add(STATSHRQRY);};
 	if (src->has(STGIACQRY)) {stgiacqry = src->stgiacqry; add(STGIACQRY);};
+};
+
+void PnlWzskPrsList::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskPrsListData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTIAC)) contiac.writeJSON(me);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(FEEDFCSIQST)) feedFCsiQst.writeJSON(me);
+	if (has(FEEDFTOS)) feedFTos.writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(STGIAC)) stgiac.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
+	if (has(RST)) rst.writeJSON(me);
+	if (has(STATAPPQRY)) QryWzskPrsList::StatApp::writeJSON(me);
+	if (has(STATSHRQRY)) statshrqry.writeJSON(me);
+	if (has(STGIACQRY)) stgiacqry.writeJSON(me);
 };
 
 void PnlWzskPrsList::DpchEngData::writeXML(

@@ -1,22 +1,22 @@
 # file Makefile
 # make file for CrdWzskUsg card job handler, release wzskcmbd_riscv (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
-# author: Alexander Wirthmueller (auto-generation)
-# date created: 15 Dec 2020
+# author: Emily Johnson (auto-generation)
+# date created: 11 Mar 2021
 # IP header --- ABOVE
 
 include ../Makefile.inc
 
-CPP = 
-CPPFLAGS = --sysroot=${SYSROOT} -DWZSKCMBD
+CPP = ${TCHROOT}/riscv64-oe-linux-g++
+CPPFLAGS = --sysroot=${SYSROOT} --sysroot=${SYSROOT} -std=c++11 -fstack-protector-strong -g -Wall -Os -pthread -DWZSKCMBD
 
-STATLIB = 
+STATLIB = ${TCHROOT}/riscv64-oe-linux-ar
 STATLIBFLAGS = rcs
 
 INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
 INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
-OBJS = CrdWzskUsg.o PnlWzskUsgHeadbar.o PnlWzskUsgList.o QryWzskUsgList.o PnlWzskUsgRec.o PnlWzskUsgMNUser.o QryWzskUsgMNUser.o PnlWzskUsgAAccess.o QryWzskUsgAAccess.o PnlWzskUsgDetail.o
+OBJS = CrdWzskUsg.o PnlWzskUsgList.o QryWzskUsgList.o PnlWzskUsgHeadbar.o PnlWzskUsgRec.o PnlWzskUsgMNUser.o QryWzskUsgMNUser.o PnlWzskUsgAAccess.o QryWzskUsgAAccess.o PnlWzskUsgDetail.o
 
 LIB = libcrdwzskusg
 

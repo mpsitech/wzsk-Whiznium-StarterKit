@@ -44,7 +44,7 @@ namespace PnlWzskLlvLaser {
 	/**
 	  * ContIac (full: ContIacWzskLlvLaser)
 	  */
-	class ContIac : public Sbecore::Xmlio::Block {
+	class ContIac : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CHKERG = 1;
@@ -69,7 +69,7 @@ namespace PnlWzskLlvLaser {
 	/**
 	  * ContInf (full: ContInfWzskLlvLaser)
 	  */
-	class ContInf : public Sbecore::Xmlio::Block {
+	class ContInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
@@ -89,7 +89,7 @@ namespace PnlWzskLlvLaser {
 	/**
 	  * StatShr (full: StatShrWzskLlvLaser)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
@@ -123,7 +123,7 @@ namespace PnlWzskLlvLaser {
 	/**
 	  * Tag (full: TagWzskLlvLaser)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPT = 1;

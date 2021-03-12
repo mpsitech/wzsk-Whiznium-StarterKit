@@ -2,42 +2,42 @@
 
 // --- expand state management
 function minimize() {
-	if (retrieveSi(srcdoc, "StatAppWzskNavGalery", "srefIxWzskVExpstate") == "mind") return;
+	if (retrieveSi(srcdoc, "StatAppWzskNavGlry", "srefIxWzskVExpstate") == "mind") return;
 
-	setSi(srcdoc, "StatAppWzskNavGalery", "srefIxWzskVExpstate", "mind");
+	setSi(srcdoc, "StatAppWzskNavGlry", "srefIxWzskVExpstate", "mind");
 
 	// change container heights
-	getCrdwnd().changeHeight("Galery", 30);
+	getCrdwnd().changeHeight("Glry", 30);
 	doc.getElementById("tdSide").setAttribute("height", "30");
-	doc.getElementById("Galery_side").setAttribute("height", "30");
-	doc.getElementById("Galery_cont").setAttribute("height", "30");
+	doc.getElementById("Glry_side").setAttribute("height", "30");
+	doc.getElementById("Glry_cont").setAttribute("height", "30");
 
 	// change content
-	doc.getElementById("Galery_side").src = "./PnlWzskNavGalery_aside.html";
-	doc.getElementById("Galery_cont").src = "./PnlWzskNavGalery_a.html";
+	doc.getElementById("Glry_side").src = "./PnlWzskNavGlry_aside.html";
+	doc.getElementById("Glry_cont").src = "./PnlWzskNavGlry_a.html";
 };
 
 function regularize() {
-	if (retrieveSi(srcdoc, "StatAppWzskNavGalery", "srefIxWzskVExpstate") == "regd") return;
+	if (retrieveSi(srcdoc, "StatAppWzskNavGlry", "srefIxWzskVExpstate") == "regd") return;
 
-	setSi(srcdoc, "StatAppWzskNavGalery", "srefIxWzskVExpstate", "regd");
+	setSi(srcdoc, "StatAppWzskNavGlry", "srefIxWzskVExpstate", "regd");
 
 	// change content (container heights in refreshBD)
-	doc.getElementById("Galery_side").src = "./PnlWzskNavGalery_bside.html";
-	doc.getElementById("Galery_cont").src = "./PnlWzskNavGalery_b.html";
+	doc.getElementById("Glry_side").src = "./PnlWzskNavGlry_bside.html";
+	doc.getElementById("Glry_cont").src = "./PnlWzskNavGlry_b.html";
 };
 
 // --- view initialization and refresh
 function initA() {
 	if (!doc) return;
 
-	sidedoc = doc.getElementById("Galery_side").contentDocument;
-	contdoc = doc.getElementById("Galery_cont").contentDocument;
+	sidedoc = doc.getElementById("Glry_side").contentDocument;
+	contdoc = doc.getElementById("Glry_cont").contentDocument;
 	hdrdoc = null;
 	contcontdoc = null;
 	ftrdoc = null;
 
-	initCpt(contdoc, "Cpt", retrieveTi(srcdoc, "TagWzskNavGalery", "Cpt"));
+	initCpt(contdoc, "Cpt", retrieveTi(srcdoc, "TagWzskNavGlry", "Cpt"));
 
 	refreshA();
 };
@@ -45,20 +45,20 @@ function initA() {
 function initBD(bNotD) {
 	if (!doc) return;
 
-	sidedoc = doc.getElementById("Galery_side").contentDocument;
-	contdoc = doc.getElementById("Galery_cont").contentDocument;
-	hdrdoc = contdoc.getElementById("Galery_hdr").contentDocument;
-	contcontdoc = contdoc.getElementById("Galery_cont").contentDocument;
+	sidedoc = doc.getElementById("Glry_side").contentDocument;
+	contdoc = doc.getElementById("Glry_cont").contentDocument;
+	hdrdoc = contdoc.getElementById("Glry_hdr").contentDocument;
+	contcontdoc = contdoc.getElementById("Glry_cont").contentDocument;
 
 	// IP initBD --- BEGIN
-	initCpt(hdrdoc, "Cpt", retrieveTi(srcdoc, "TagWzskNavGalery", "Cpt"));
+	initCpt(hdrdoc, "Cpt", retrieveTi(srcdoc, "TagWzskNavGlry", "Cpt"));
 	// IP initBD --- END
 
 	refreshBD(bNotD);
 };
 
 function init() {
-	var srefIxWzskVExpstate = retrieveSi(srcdoc, "StatAppWzskNavGalery", "srefIxWzskVExpstate");
+	var srefIxWzskVExpstate = retrieveSi(srcdoc, "StatAppWzskNavGlry", "srefIxWzskVExpstate");
 
 	if (srefIxWzskVExpstate == "mind") {
 		initA();
@@ -78,30 +78,30 @@ function refreshBD(bNotD) {
 	var height = 490; // full cont height
 
 	// IP refreshBD.vars --- BEGIN
-	var LstOgrAlt = (retrieveSi(srcdoc, "StatAppWzskNavGalery", "LstOgrAlt") == "true");
-	var LstOgrAvail = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "LstOgrAvail") == "true");
+	var LstOgrAlt = (retrieveSi(srcdoc, "StatAppWzskNavGlry", "LstOgrAlt") == "true");
+	var LstOgrAvail = (retrieveSi(srcdoc, "StatShrWzskNavGlry", "LstOgrAvail") == "true");
 	var ButOgrViewAvail = !LstOgrAlt;
-	var ButOgrViewActive = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "ButOgrViewActive") == "true");
+	var ButOgrViewActive = (retrieveSi(srcdoc, "StatShrWzskNavGlry", "ButOgrViewActive") == "true");
 
-	var LstObjAlt = (retrieveSi(srcdoc, "StatAppWzskNavGalery", "LstObjAlt") == "true");
-	var LstObjAvail = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "LstObjAvail") == "true");
+	var LstObjAlt = (retrieveSi(srcdoc, "StatAppWzskNavGlry", "LstObjAlt") == "true");
+	var LstObjAvail = (retrieveSi(srcdoc, "StatShrWzskNavGlry", "LstObjAvail") == "true");
 	var ButObjViewAvail = !LstObjAlt;
-	var ButObjViewActive = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "ButObjViewActive") == "true");
+	var ButObjViewActive = (retrieveSi(srcdoc, "StatShrWzskNavGlry", "ButObjViewActive") == "true");
 
-	var LstSesAlt = (retrieveSi(srcdoc, "StatAppWzskNavGalery", "LstSesAlt") == "true");
-	var LstSesAvail = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "LstSesAvail") == "true");
+	var LstSesAlt = (retrieveSi(srcdoc, "StatAppWzskNavGlry", "LstSesAlt") == "true");
+	var LstSesAvail = (retrieveSi(srcdoc, "StatShrWzskNavGlry", "LstSesAvail") == "true");
 	var ButSesViewAvail = !LstSesAlt;
-	var ButSesViewActive = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "ButSesViewActive") == "true");
+	var ButSesViewActive = (retrieveSi(srcdoc, "StatShrWzskNavGlry", "ButSesViewActive") == "true");
 
-	var LstShtAlt = (retrieveSi(srcdoc, "StatAppWzskNavGalery", "LstShtAlt") == "true");
-	var LstShtAvail = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "LstShtAvail") == "true");
+	var LstShtAlt = (retrieveSi(srcdoc, "StatAppWzskNavGlry", "LstShtAlt") == "true");
+	var LstShtAvail = (retrieveSi(srcdoc, "StatShrWzskNavGlry", "LstShtAvail") == "true");
 	var ButShtViewAvail = !LstShtAlt;
-	var ButShtViewActive = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "ButShtViewActive") == "true");
+	var ButShtViewActive = (retrieveSi(srcdoc, "StatShrWzskNavGlry", "ButShtViewActive") == "true");
 
-	var LstFilAlt = (retrieveSi(srcdoc, "StatAppWzskNavGalery", "LstFilAlt") == "true");
-	var LstFilAvail = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "LstFilAvail") == "true");
+	var LstFilAlt = (retrieveSi(srcdoc, "StatAppWzskNavGlry", "LstFilAlt") == "true");
+	var LstFilAvail = (retrieveSi(srcdoc, "StatShrWzskNavGlry", "LstFilAvail") == "true");
 	var ButFilViewAvail = !LstFilAlt;
-	var ButFilViewActive = (retrieveSi(srcdoc, "StatShrWzskNavGalery", "ButFilViewActive") == "true");
+	var ButFilViewActive = (retrieveSi(srcdoc, "StatShrWzskNavGlry", "ButFilViewActive") == "true");
 
 	var mytd, first;
 	// IP refreshBD.vars --- END
@@ -114,7 +114,7 @@ function refreshBD(bNotD) {
 			mytd = contcontdoc.getElementById("ldynOgr");
 			clearElem(mytd);
 
-			mytd.appendChild(makeSpanCpt(contcontdoc, "CptOgr", retrieveTi(srcdoc, "TagWzskNavGalery", "CptOgr")));
+			mytd.appendChild(makeSpanCpt(contcontdoc, "CptOgr", retrieveTi(srcdoc, "TagWzskNavGlry", "CptOgr")));
 
 			mytd.appendChild(contcontdoc.createTextNode("\u00a0"));
 			if (LstOgrAlt) mytd.appendChild(makeImgBut(contcontdoc, "ButOgrExpand", "icon/expand"));
@@ -131,12 +131,12 @@ function refreshBD(bNotD) {
 				mytd.setAttribute("rowspan", "1");
 			} else {
 				mytd.setAttribute("rowspan", "2");
-				mytd.appendChild(makeIframeLst(contcontdoc, "LstOgr", "./PnlWzskNavGalery_LstOgr.xml", true));
+				mytd.appendChild(makeIframeLst(contcontdoc, "LstOgr", "./PnlWzskNavGlry_LstOgr.xml", true));
 			};
 
 		} else {
 			if (!LstOgrAlt) refreshLst(contcontdoc.getElementById("LstOgr").contentWindow.document, srcdoc, 1, true, false, "FeedFLstOgr",
-						parseInt(retrieveSi(srcdoc, "StatAppWzskNavGalery", "LstOgrNumFirstdisp")), [parseInt(retrieveCi(srcdoc, "ContIacWzskNavGalery", "numFLstOgr"))]);
+						parseInt(retrieveSi(srcdoc, "StatAppWzskNavGlry", "LstOgrNumFirstdisp")), [parseInt(retrieveCi(srcdoc, "ContIacWzskNavGlry", "numFLstOgr"))]);
 		};
 
 		if ((ButOgrViewAvail == !contcontdoc.getElementById("ButOgrView")) || !contcontdoc.getElementById("ButOgrNewcrd")) {
@@ -168,7 +168,7 @@ function refreshBD(bNotD) {
 			mytd = contcontdoc.getElementById("ldynObj");
 			clearElem(mytd);
 
-			mytd.appendChild(makeSpanCpt(contcontdoc, "CptObj", retrieveTi(srcdoc, "TagWzskNavGalery", "CptObj")));
+			mytd.appendChild(makeSpanCpt(contcontdoc, "CptObj", retrieveTi(srcdoc, "TagWzskNavGlry", "CptObj")));
 
 			mytd.appendChild(contcontdoc.createTextNode("\u00a0"));
 			if (LstObjAlt) mytd.appendChild(makeImgBut(contcontdoc, "ButObjExpand", "icon/expand"));
@@ -185,12 +185,12 @@ function refreshBD(bNotD) {
 				mytd.setAttribute("rowspan", "1");
 			} else {
 				mytd.setAttribute("rowspan", "2");
-				mytd.appendChild(makeIframeLst(contcontdoc, "LstObj", "./PnlWzskNavGalery_LstObj.xml", true));
+				mytd.appendChild(makeIframeLst(contcontdoc, "LstObj", "./PnlWzskNavGlry_LstObj.xml", true));
 			};
 
 		} else {
 			if (!LstObjAlt) refreshLst(contcontdoc.getElementById("LstObj").contentWindow.document, srcdoc, 1, true, false, "FeedFLstObj",
-						parseInt(retrieveSi(srcdoc, "StatAppWzskNavGalery", "LstObjNumFirstdisp")), [parseInt(retrieveCi(srcdoc, "ContIacWzskNavGalery", "numFLstObj"))]);
+						parseInt(retrieveSi(srcdoc, "StatAppWzskNavGlry", "LstObjNumFirstdisp")), [parseInt(retrieveCi(srcdoc, "ContIacWzskNavGlry", "numFLstObj"))]);
 		};
 
 		if ((ButObjViewAvail == !contcontdoc.getElementById("ButObjView")) || !contcontdoc.getElementById("ButObjNewcrd")) {
@@ -222,7 +222,7 @@ function refreshBD(bNotD) {
 			mytd = contcontdoc.getElementById("ldynSes");
 			clearElem(mytd);
 
-			mytd.appendChild(makeSpanCpt(contcontdoc, "CptSes", retrieveTi(srcdoc, "TagWzskNavGalery", "CptSes")));
+			mytd.appendChild(makeSpanCpt(contcontdoc, "CptSes", retrieveTi(srcdoc, "TagWzskNavGlry", "CptSes")));
 
 			mytd.appendChild(contcontdoc.createTextNode("\u00a0"));
 			if (LstSesAlt) mytd.appendChild(makeImgBut(contcontdoc, "ButSesExpand", "icon/expand"));
@@ -239,12 +239,12 @@ function refreshBD(bNotD) {
 				mytd.setAttribute("rowspan", "1");
 			} else {
 				mytd.setAttribute("rowspan", "2");
-				mytd.appendChild(makeIframeLst(contcontdoc, "LstSes", "./PnlWzskNavGalery_LstSes.xml", true));
+				mytd.appendChild(makeIframeLst(contcontdoc, "LstSes", "./PnlWzskNavGlry_LstSes.xml", true));
 			};
 
 		} else {
 			if (!LstSesAlt) refreshLst(contcontdoc.getElementById("LstSes").contentWindow.document, srcdoc, 1, true, false, "FeedFLstSes",
-						parseInt(retrieveSi(srcdoc, "StatAppWzskNavGalery", "LstSesNumFirstdisp")), [parseInt(retrieveCi(srcdoc, "ContIacWzskNavGalery", "numFLstSes"))]);
+						parseInt(retrieveSi(srcdoc, "StatAppWzskNavGlry", "LstSesNumFirstdisp")), [parseInt(retrieveCi(srcdoc, "ContIacWzskNavGlry", "numFLstSes"))]);
 		};
 
 		if ((ButSesViewAvail == !contcontdoc.getElementById("ButSesView")) || !contcontdoc.getElementById("ButSesNewcrd")) {
@@ -276,7 +276,7 @@ function refreshBD(bNotD) {
 			mytd = contcontdoc.getElementById("ldynSht");
 			clearElem(mytd);
 
-			mytd.appendChild(makeSpanCpt(contcontdoc, "CptSht", retrieveTi(srcdoc, "TagWzskNavGalery", "CptSht")));
+			mytd.appendChild(makeSpanCpt(contcontdoc, "CptSht", retrieveTi(srcdoc, "TagWzskNavGlry", "CptSht")));
 
 			mytd.appendChild(contcontdoc.createTextNode("\u00a0"));
 			if (LstShtAlt) mytd.appendChild(makeImgBut(contcontdoc, "ButShtExpand", "icon/expand"));
@@ -293,12 +293,12 @@ function refreshBD(bNotD) {
 				mytd.setAttribute("rowspan", "1");
 			} else {
 				mytd.setAttribute("rowspan", "2");
-				mytd.appendChild(makeIframeLst(contcontdoc, "LstSht", "./PnlWzskNavGalery_LstSht.xml", true));
+				mytd.appendChild(makeIframeLst(contcontdoc, "LstSht", "./PnlWzskNavGlry_LstSht.xml", true));
 			};
 
 		} else {
 			if (!LstShtAlt) refreshLst(contcontdoc.getElementById("LstSht").contentWindow.document, srcdoc, 1, true, false, "FeedFLstSht",
-						parseInt(retrieveSi(srcdoc, "StatAppWzskNavGalery", "LstShtNumFirstdisp")), [parseInt(retrieveCi(srcdoc, "ContIacWzskNavGalery", "numFLstSht"))]);
+						parseInt(retrieveSi(srcdoc, "StatAppWzskNavGlry", "LstShtNumFirstdisp")), [parseInt(retrieveCi(srcdoc, "ContIacWzskNavGlry", "numFLstSht"))]);
 		};
 
 		if ((ButShtViewAvail == !contcontdoc.getElementById("ButShtView")) || !contcontdoc.getElementById("ButShtNewcrd")) {
@@ -330,7 +330,7 @@ function refreshBD(bNotD) {
 			mytd = contcontdoc.getElementById("ldynFil");
 			clearElem(mytd);
 
-			mytd.appendChild(makeSpanCpt(contcontdoc, "CptFil", retrieveTi(srcdoc, "TagWzskNavGalery", "CptFil")));
+			mytd.appendChild(makeSpanCpt(contcontdoc, "CptFil", retrieveTi(srcdoc, "TagWzskNavGlry", "CptFil")));
 
 			mytd.appendChild(contcontdoc.createTextNode("\u00a0"));
 			if (LstFilAlt) mytd.appendChild(makeImgBut(contcontdoc, "ButFilExpand", "icon/expand"));
@@ -347,12 +347,12 @@ function refreshBD(bNotD) {
 				mytd.setAttribute("rowspan", "1");
 			} else {
 				mytd.setAttribute("rowspan", "2");
-				mytd.appendChild(makeIframeLst(contcontdoc, "LstFil", "./PnlWzskNavGalery_LstFil.xml", true));
+				mytd.appendChild(makeIframeLst(contcontdoc, "LstFil", "./PnlWzskNavGlry_LstFil.xml", true));
 			};
 
 		} else {
 			if (!LstFilAlt) refreshLst(contcontdoc.getElementById("LstFil").contentWindow.document, srcdoc, 1, true, false, "FeedFLstFil",
-						parseInt(retrieveSi(srcdoc, "StatAppWzskNavGalery", "LstFilNumFirstdisp")), [parseInt(retrieveCi(srcdoc, "ContIacWzskNavGalery", "numFLstFil"))]);
+						parseInt(retrieveSi(srcdoc, "StatAppWzskNavGlry", "LstFilNumFirstdisp")), [parseInt(retrieveCi(srcdoc, "ContIacWzskNavGlry", "numFLstFil"))]);
 		};
 
 		if ((ButFilViewAvail == !contcontdoc.getElementById("ButFilView")) || !contcontdoc.getElementById("ButFilNewcrd")) {
@@ -379,17 +379,17 @@ function refreshBD(bNotD) {
 
 	// IP refreshBD --- END
 
-	getCrdwnd().changeHeight("Galery", height+31);
+	getCrdwnd().changeHeight("Glry", height+31);
 	doc.getElementById("tdSide").setAttribute("height", "" + (height+31));
-	doc.getElementById("Galery_side").setAttribute("height", "" + (height+31));
-	doc.getElementById("Galery_cont").setAttribute("height", "" + (height+31));
+	doc.getElementById("Glry_side").setAttribute("height", "" + (height+31));
+	doc.getElementById("Glry_cont").setAttribute("height", "" + (height+31));
 	sidedoc.getElementById("tdFlex").setAttribute("height", "" + (height+31-30));
 	contdoc.getElementById("tdCont").setAttribute("height", "" + height);
-	contdoc.getElementById("Galery_cont").setAttribute("height", "" + height);
+	contdoc.getElementById("Glry_cont").setAttribute("height", "" + height);
 };
 
 function refresh() {
-	var srefIxWzskVExpstate = retrieveSi(srcdoc, "StatAppWzskNavGalery", "srefIxWzskVExpstate");
+	var srefIxWzskVExpstate = retrieveSi(srcdoc, "StatAppWzskNavGlry", "srefIxWzskVExpstate");
 
 	if (srefIxWzskVExpstate == "mind") {
 		refreshA();
@@ -405,7 +405,7 @@ function handleLoad() {
 	scrJref = location.search.substr(location.search.indexOf("scrJref=")+8);
 
 	doc = document;
-	srcdoc = doc.getElementById("Galery_src").contentDocument;
+	srcdoc = doc.getElementById("Glry_src").contentDocument;
 
 	var str = serializeDpchApp("DpchAppWzskInit", scrJref);
 	sendReq(str, doc, handleDpchAppInitReply, true);
@@ -424,12 +424,12 @@ function handleButMinimizeClick() {
 // --- generalized event handlers for app controls
 
 function handleButCollapseClick(basectlsref) {
-	setSi(srcdoc, "StatAppWzskNavGalery", basectlsref + "Alt", "true");
+	setSi(srcdoc, "StatAppWzskNavGlry", basectlsref + "Alt", "true");
 	refresh();
 };
 
 function handleButExpandClick(basectlsref) {
-	setSi(srcdoc, "StatAppWzskNavGalery", basectlsref + "Alt", "false");
+	setSi(srcdoc, "StatAppWzskNavGlry", basectlsref + "Alt", "false");
 	refresh();
 };
 
@@ -487,12 +487,12 @@ function handleLsbMup(lstdoc, basectlsref, ncol, multsel, evt) {
 // --- generalized event handlers for shared controls
 
 function handleButClick(ctlsref) {
-	var str = serializeDpchAppDo(srcdoc, "DpchAppWzskNavGaleryDo", scrJref, ctlsref + "Click");
+	var str = serializeDpchAppDo(srcdoc, "DpchAppWzskNavGlryDo", scrJref, ctlsref + "Click");
 	sendReq(str, doc, handleDpchAppDataDoReply);
 };
 
 function handleButCrdopenClick(ctlsref) {
-	var str = serializeDpchAppDo(srcdoc, "DpchAppWzskNavGaleryDo", scrJref, ctlsref + "Click");
+	var str = serializeDpchAppDo(srcdoc, "DpchAppWzskNavGlryDo", scrJref, ctlsref + "Click");
 	sendReq(str, doc, handleDpchAppDoCrdopenReply);
 };
 
@@ -500,11 +500,11 @@ function handleLstLoad(lstdoc, ctlsref, ncol, multsel) {
 	if (!srcdoc) return;
 
 	if (multsel) {
-		refreshLst(lstdoc, srcdoc, ncol, true, multsel, "FeedF" + ctlsref, parseInt(retrieveSi(srcdoc, "StatAppWzskNavGalery", ctlsref + "NumFirstdisp")),
-					parseUintvec(retrieveCi(srcdoc, "ContIacWzskNavGalery", "numsF" + ctlsref)));
+		refreshLst(lstdoc, srcdoc, ncol, true, multsel, "FeedF" + ctlsref, parseInt(retrieveSi(srcdoc, "StatAppWzskNavGlry", ctlsref + "NumFirstdisp")),
+					parseUintvec(retrieveCi(srcdoc, "ContIacWzskNavGlry", "numsF" + ctlsref)));
 	} else {
-		refreshLst(lstdoc, srcdoc, ncol, true, multsel, "FeedF" + ctlsref, parseInt(retrieveSi(srcdoc, "StatAppWzskNavGalery", ctlsref + "NumFirstdisp")),
-					[parseInt(retrieveCi(srcdoc, "ContIacWzskNavGalery", "numF" + ctlsref))]);
+		refreshLst(lstdoc, srcdoc, ncol, true, multsel, "FeedF" + ctlsref, parseInt(retrieveSi(srcdoc, "StatAppWzskNavGlry", ctlsref + "NumFirstdisp")),
+					[parseInt(retrieveCi(srcdoc, "ContIacWzskNavGlry", "numF" + ctlsref))]);
 	};
 };
 
@@ -512,7 +512,7 @@ function handleLstSelect(ctlsref, multsel, num) {
 	var found, oldNumFLst, numsFLst, oldNumsFLst;
 
 	if (multsel) {
-		oldNumsFLst = parseUintvec(retrieveCi(srcdoc, "ContIacWzskNavGalery", "numsF" + ctlsref));
+		oldNumsFLst = parseUintvec(retrieveCi(srcdoc, "ContIacWzskNavGlry", "numsF" + ctlsref));
 
 		found = false;
 
@@ -536,21 +536,21 @@ function handleLstSelect(ctlsref, multsel, num) {
 			numsFLst[oldNumsFLst.length] = num;
 		};
 
-		setCi(srcdoc, "ContIacWzskNavGalery", "numsF" + ctlsref, encodeUintvec(numsFLst));
+		setCi(srcdoc, "ContIacWzskNavGlry", "numsF" + ctlsref, encodeUintvec(numsFLst));
 
 	} else {
-		oldNumFLst = parseInt(retrieveCi(srcdoc, "ContIacWzskNavGalery", "numF" + ctlsref));
+		oldNumFLst = parseInt(retrieveCi(srcdoc, "ContIacWzskNavGlry", "numF" + ctlsref));
 		if (num == oldNumFLst) num = 0;
 
-		setCi(srcdoc, "ContIacWzskNavGalery", "numF" + ctlsref, num);
+		setCi(srcdoc, "ContIacWzskNavGlry", "numF" + ctlsref, num);
 	};
 
-	var str = serializeDpchAppData(srcdoc, "DpchAppWzskNavGaleryData", scrJref, "ContIacWzskNavGalery");
+	var str = serializeDpchAppData(srcdoc, "DpchAppWzskNavGlryData", scrJref, "ContIacWzskNavGlry");
 	sendReq(str, doc, handleDpchAppDataDoReply);
 };
 
 function changeLstNumFirstdisp(lstdoc, ctlsref, ncol, multsel, numFirstdisp, dNumFirstdisp) {
-	var oldNumFirstdisp = parseInt(retrieveSi(srcdoc, "StatAppWzskNavGalery", ctlsref + "NumFirstdisp"));
+	var oldNumFirstdisp = parseInt(retrieveSi(srcdoc, "StatAppWzskNavGlry", ctlsref + "NumFirstdisp"));
 	if (dNumFirstdisp != 0) numFirstdisp = oldNumFirstdisp + dNumFirstdisp;
 
 	var cnt = getFeedSize(srcdoc, "FeedF" + ctlsref);
@@ -559,10 +559,10 @@ function changeLstNumFirstdisp(lstdoc, ctlsref, ncol, multsel, numFirstdisp, dNu
 	if (numFirstdisp < 1) numFirstdisp = 1;
 
 	if (numFirstdisp != oldNumFirstdisp) {
-		setSi(srcdoc, "StatAppWzskNavGalery", ctlsref + "NumFirstdisp", "" + numFirstdisp);
+		setSi(srcdoc, "StatAppWzskNavGlry", ctlsref + "NumFirstdisp", "" + numFirstdisp);
 
-		if (multsel) refreshLst(lstdoc, srcdoc, ncol, true, multsel, "FeedF" + ctlsref, numFirstdisp, parseUintvec(retrieveCi(srcdoc, "ContIacWzskNavGalery", "numsF" + ctlsref)));
-		else refreshLst(lstdoc, srcdoc, ncol, true, multsel, "FeedF" + ctlsref, numFirstdisp, [parseInt(retrieveCi(srcdoc, "ContIacWzskNavGalery", "numF" + ctlsref))]);
+		if (multsel) refreshLst(lstdoc, srcdoc, ncol, true, multsel, "FeedF" + ctlsref, numFirstdisp, parseUintvec(retrieveCi(srcdoc, "ContIacWzskNavGlry", "numsF" + ctlsref)));
+		else refreshLst(lstdoc, srcdoc, ncol, true, multsel, "FeedF" + ctlsref, numFirstdisp, [parseInt(retrieveCi(srcdoc, "ContIacWzskNavGlry", "numF" + ctlsref))]);
 	};
 };
 
@@ -570,21 +570,21 @@ function changeLstNumFirstdisp(lstdoc, ctlsref, ncol, multsel, numFirstdisp, dNu
 function mergeDpchEngData(dom) {
 	var mask = [];
 
-	if (updateSrcblock(dom, "DpchEngWzskNavGaleryData", "ContIacWzskNavGalery", srcdoc)) mask.push("contiac");
-	if (updateSrcblock(dom, "DpchEngWzskNavGaleryData", "FeedFLstFil", srcdoc)) mask.push("feedFLstFil");
-	if (updateSrcblock(dom, "DpchEngWzskNavGaleryData", "FeedFLstObj", srcdoc)) mask.push("feedFLstObj");
-	if (updateSrcblock(dom, "DpchEngWzskNavGaleryData", "FeedFLstOgr", srcdoc)) mask.push("feedFLstOgr");
-	if (updateSrcblock(dom, "DpchEngWzskNavGaleryData", "FeedFLstSes", srcdoc)) mask.push("feedFLstSes");
-	if (updateSrcblock(dom, "DpchEngWzskNavGaleryData", "FeedFLstSht", srcdoc)) mask.push("feedFLstSht");
-	if (updateSrcblock(dom, "DpchEngWzskNavGaleryData", "StatAppWzskNavGalery", srcdoc)) mask.push("statapp");
-	if (updateSrcblock(dom, "DpchEngWzskNavGaleryData", "StatShrWzskNavGalery", srcdoc)) mask.push("statshr");
-	if (updateSrcblock(dom, "DpchEngWzskNavGaleryData", "TagWzskNavGalery", srcdoc)) mask.push("tag");
+	if (updateSrcblock(dom, "DpchEngWzskNavGlryData", "ContIacWzskNavGlry", srcdoc)) mask.push("contiac");
+	if (updateSrcblock(dom, "DpchEngWzskNavGlryData", "FeedFLstFil", srcdoc)) mask.push("feedFLstFil");
+	if (updateSrcblock(dom, "DpchEngWzskNavGlryData", "FeedFLstObj", srcdoc)) mask.push("feedFLstObj");
+	if (updateSrcblock(dom, "DpchEngWzskNavGlryData", "FeedFLstOgr", srcdoc)) mask.push("feedFLstOgr");
+	if (updateSrcblock(dom, "DpchEngWzskNavGlryData", "FeedFLstSes", srcdoc)) mask.push("feedFLstSes");
+	if (updateSrcblock(dom, "DpchEngWzskNavGlryData", "FeedFLstSht", srcdoc)) mask.push("feedFLstSht");
+	if (updateSrcblock(dom, "DpchEngWzskNavGlryData", "StatAppWzskNavGlry", srcdoc)) mask.push("statapp");
+	if (updateSrcblock(dom, "DpchEngWzskNavGlryData", "StatShrWzskNavGlry", srcdoc)) mask.push("statshr");
+	if (updateSrcblock(dom, "DpchEngWzskNavGlryData", "TagWzskNavGlry", srcdoc)) mask.push("tag");
 
 	return mask;
 };
 
 function handleDpchEng(dom, dpch) {
-	if (dpch == "DpchEngWzskNavGaleryData") {
+	if (dpch == "DpchEngWzskNavGlryData") {
 		mergeDpchEngData(dom);
 		refresh();
 	};
@@ -598,11 +598,11 @@ function handleDpchAppInitReply() {
 
 		blk = retrieveBlock(dom, "//wzsk:*");
 		if (blk) {
-			if (blk.nodeName == "DpchEngWzskNavGaleryData") {
+			if (blk.nodeName == "DpchEngWzskNavGlryData") {
 				mergeDpchEngData(dom);
 				init();
 
-				getCrdwnd().setInitdone("Galery");
+				getCrdwnd().setInitdone("Glry");
 			};
 		};
 	};
@@ -621,7 +621,7 @@ function handleDpchAppDataDoReply() {
 			if (blk.nodeName == "DpchEngWzskConfirm") {
 				// do nothing
 
-			} else if (blk.nodeName == "DpchEngWzskNavGaleryData") {
+			} else if (blk.nodeName == "DpchEngWzskNavGlryData") {
 				mergeDpchEngData(dom);
 				refresh();
 			};

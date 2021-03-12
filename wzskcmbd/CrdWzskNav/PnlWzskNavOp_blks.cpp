@@ -39,6 +39,18 @@ string PnlWzskNavOp::VecVDo::getSref(
  class PnlWzskNavOp::StatApp
  ******************************************************************************/
 
+void PnlWzskNavOp::StatApp::writeJSON(
+			Json::Value& sup
+			, string difftag
+			, const uint ixWzskVExpstate
+		) {
+	if (difftag.length() == 0) difftag = "StatAppWzskNavOp";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
+};
+
 void PnlWzskNavOp::StatApp::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -70,6 +82,18 @@ PnlWzskNavOp::StatShr::StatShr(
 	this->ButLivNewcrdAvail = ButLivNewcrdAvail;
 
 	mask = {BUTLLVNEWCRDAVAIL, BUTLIVNEWCRDAVAIL};
+};
+
+void PnlWzskNavOp::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskNavOp";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ButLlvNewcrdAvail"] = ButLlvNewcrdAvail;
+	me["ButLivNewcrdAvail"] = ButLivNewcrdAvail;
 };
 
 void PnlWzskNavOp::StatShr::writeXML(
@@ -118,6 +142,26 @@ set<uint> PnlWzskNavOp::StatShr::diff(
  class PnlWzskNavOp::Tag
  ******************************************************************************/
 
+void PnlWzskNavOp::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskNavOp";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "Operation";
+		me["CptLlv"] = "low-level access";
+		me["CptLiv"] = "live data";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "Betrieb";
+		me["CptLlv"] = "Low-level Zugriff";
+		me["CptLiv"] = "Livedaten";
+	};
+};
+
 void PnlWzskNavOp::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -163,6 +207,26 @@ string PnlWzskNavOp::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskNavOp::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskNavOpDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void PnlWzskNavOp::DpchAppDo::readXML(
@@ -235,6 +299,18 @@ void PnlWzskNavOp::DpchEngData::merge(
 	if (src->has(STATAPP)) add(STATAPP);
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
+};
+
+void PnlWzskNavOp::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskNavOpData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(STATAPP)) StatApp::writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void PnlWzskNavOp::DpchEngData::writeXML(

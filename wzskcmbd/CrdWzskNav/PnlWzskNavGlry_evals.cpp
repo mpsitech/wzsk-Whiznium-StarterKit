@@ -1,9 +1,9 @@
 /**
-	* \file PnlWzskNavGalery_evals.cpp
-	* job handler for job PnlWzskNavGalery (implementation of availability/activation evaluation)
+	* \file PnlWzskNavGlry_evals.cpp
+	* job handler for job PnlWzskNavGlry (implementation of availability/activation evaluation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
 	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \date created: 11 Mar 2021
 	*/
 // IP header --- ABOVE
 
@@ -11,7 +11,7 @@ using namespace std;
 using namespace Sbecore;
 using namespace Xmlio;
 
-bool PnlWzskNavGalery::evalLstOgrAvail(
+bool PnlWzskNavGlry::evalLstOgrAvail(
 			DbsWzsk* dbswzsk
 		) {
 	// pre.ixCrdaccOgr()
@@ -25,7 +25,7 @@ bool PnlWzskNavGalery::evalLstOgrAvail(
 	return(args.back());
 };
 
-bool PnlWzskNavGalery::evalButOgrViewActive(
+bool PnlWzskNavGlry::evalButOgrViewActive(
 			DbsWzsk* dbswzsk
 		) {
 	// LstOgr.sel()
@@ -39,7 +39,7 @@ bool PnlWzskNavGalery::evalButOgrViewActive(
 	return(args.back());
 };
 
-bool PnlWzskNavGalery::evalLstObjAvail(
+bool PnlWzskNavGlry::evalLstObjAvail(
 			DbsWzsk* dbswzsk
 		) {
 	// pre.ixCrdaccObj()
@@ -53,7 +53,7 @@ bool PnlWzskNavGalery::evalLstObjAvail(
 	return(args.back());
 };
 
-bool PnlWzskNavGalery::evalButObjViewActive(
+bool PnlWzskNavGlry::evalButObjViewActive(
 			DbsWzsk* dbswzsk
 		) {
 	// LstObj.sel()
@@ -67,7 +67,7 @@ bool PnlWzskNavGalery::evalButObjViewActive(
 	return(args.back());
 };
 
-bool PnlWzskNavGalery::evalLstSesAvail(
+bool PnlWzskNavGlry::evalLstSesAvail(
 			DbsWzsk* dbswzsk
 		) {
 	// pre.ixCrdaccSes()
@@ -81,7 +81,7 @@ bool PnlWzskNavGalery::evalLstSesAvail(
 	return(args.back());
 };
 
-bool PnlWzskNavGalery::evalButSesViewActive(
+bool PnlWzskNavGlry::evalButSesViewActive(
 			DbsWzsk* dbswzsk
 		) {
 	// LstSes.sel()
@@ -95,7 +95,7 @@ bool PnlWzskNavGalery::evalButSesViewActive(
 	return(args.back());
 };
 
-bool PnlWzskNavGalery::evalLstShtAvail(
+bool PnlWzskNavGlry::evalLstShtAvail(
 			DbsWzsk* dbswzsk
 		) {
 	// pre.ixCrdaccSht()
@@ -109,7 +109,7 @@ bool PnlWzskNavGalery::evalLstShtAvail(
 	return(args.back());
 };
 
-bool PnlWzskNavGalery::evalButShtViewActive(
+bool PnlWzskNavGlry::evalButShtViewActive(
 			DbsWzsk* dbswzsk
 		) {
 	// LstSht.sel()
@@ -123,7 +123,7 @@ bool PnlWzskNavGalery::evalButShtViewActive(
 	return(args.back());
 };
 
-bool PnlWzskNavGalery::evalLstFilAvail(
+bool PnlWzskNavGlry::evalLstFilAvail(
 			DbsWzsk* dbswzsk
 		) {
 	// pre.ixCrdaccFil()
@@ -137,7 +137,7 @@ bool PnlWzskNavGalery::evalLstFilAvail(
 	return(args.back());
 };
 
-bool PnlWzskNavGalery::evalButFilViewActive(
+bool PnlWzskNavGlry::evalButFilViewActive(
 			DbsWzsk* dbswzsk
 		) {
 	// LstFil.sel()

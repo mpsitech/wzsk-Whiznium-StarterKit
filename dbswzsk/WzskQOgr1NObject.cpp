@@ -31,6 +31,21 @@ WzskQOgr1NObject::WzskQOgr1NObject(
 	this->stubRef = stubRef;
 };
 
+void WzskQOgr1NObject::writeJSON(
+			Json::Value& sup
+			, bool jnumattr
+			, bool shorttags
+		) {
+	Json::Value& me = sup.append(Json::Value(Json::objectValue));
+
+	if (jnumattr) me["jnum"] = jnum;
+	if (shorttags) {
+		me["ref"] = stubRef;
+	} else {
+		me["stubRef"] = stubRef;
+	};
+};
+
 void WzskQOgr1NObject::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -96,6 +111,16 @@ ListWzskQOgr1NObject& ListWzskQOgr1NObject::operator=(
 	};
 
 	return(*this);
+};
+
+void ListWzskQOgr1NObject::writeJSON(
+			Json::Value& sup
+			, std::string difftag
+		) {
+	if (difftag == "") difftag = "ListWzskQOgr1NObject";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::arrayValue);
+	for (unsigned int i = 0; i < nodes.size(); i++) nodes[i]->writeJSON(me, true, true);
 };
 
 void ListWzskQOgr1NObject::writeXML(

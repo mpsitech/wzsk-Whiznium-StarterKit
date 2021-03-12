@@ -18,8 +18,8 @@
 #include "JobWzskIprTrace.h"
 #include "JobWzskIprCorner.h"
 #include "JobWzskActServo.h"
-#include "JobWzskActLaser.h"
 #include "JobWzskActExposure.h"
+#include "JobWzskActLaser.h"
 #include "JobWzskAcqPtcloud.h"
 #include "JobWzskAcqPreview.h"
 
@@ -36,7 +36,7 @@ public:
 	/**
 		* StatShr (full: StatShrM2msessWzsk)
 		*/
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint JREFACQPREVIEW = 1;
@@ -62,6 +62,7 @@ public:
 		Sbecore::ubigint jrefSrcsysinfo;
 
 	public:
+		void writeJSON(Json::Value& sup, std::string difftag = "");
 		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
 		std::set<Sbecore::uint> comm(const StatShr* comp);
 		std::set<Sbecore::uint> diff(const StatShr* comp);
@@ -87,6 +88,7 @@ public:
 		std::string getSrefsMask();
 		void merge(DpchEngWzsk* dpcheng);
 
+		void writeJSON(const Sbecore::uint ixWzskVLocale, Json::Value& sup);
 		void writeXML(const Sbecore::uint ixWzskVLocale, xmlTextWriter* wr);
 	};
 
@@ -101,8 +103,8 @@ public:
 	JobWzskIprTrace* iprtrace;
 	JobWzskIprCorner* iprcorner;
 	JobWzskActServo* actservo;
-	JobWzskActLaser* actlaser;
 	JobWzskActExposure* actexposure;
+	JobWzskActLaser* actlaser;
 	JobWzskAcqPtcloud* acqptcloud;
 	JobWzskAcqPreview* acqpreview;
 

@@ -46,7 +46,7 @@ namespace PnlWzskLlvTerm {
 	/**
 	  * ContIac (full: ContIacWzskLlvTerm)
 	  */
-	class ContIac : public Sbecore::Xmlio::Block {
+	class ContIac : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NUMFPUPCMD = 1;
@@ -69,7 +69,7 @@ namespace PnlWzskLlvTerm {
 	/**
 	  * ContInf (full: ContInfWzskLlvTerm)
 	  */
-	class ContInf : public Sbecore::Xmlio::Block {
+	class ContInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
@@ -93,7 +93,7 @@ namespace PnlWzskLlvTerm {
 	/**
 	  * StatShr (full: StatShrWzskLlvTerm)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
@@ -117,7 +117,7 @@ namespace PnlWzskLlvTerm {
 	/**
 	  * Tag (full: TagWzskLlvTerm)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPT = 1;
@@ -209,7 +209,7 @@ namespace PnlWzskLlvTerm {
 	public:
 		ContIac contiac;
 		ContInf continf;
-		Sbecore::Xmlio::Feed feedFPupCmd;
+		Sbecore::Feed feedFPupCmd;
 		StatShr statshr;
 		Tag tag;
 

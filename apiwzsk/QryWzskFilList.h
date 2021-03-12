@@ -30,9 +30,9 @@ namespace QryWzskFilList {
 	public:
 		static const Sbecore::uint REU = 1;
 		static const Sbecore::uint RET = 2;
-		static const Sbecore::uint FNM = 3;
-		static const Sbecore::uint GRP = 4;
-		static const Sbecore::uint OWN = 5;
+		static const Sbecore::uint OWN = 3;
+		static const Sbecore::uint FNM = 4;
+		static const Sbecore::uint GRP = 5;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -41,7 +41,7 @@ namespace QryWzskFilList {
 	/**
 	  * StatApp (full: StatAppQryWzskFilList)
 	  */
-	class StatApp : public Sbecore::Xmlio::Block {
+	class StatApp : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint FIRSTCOL = 1;
@@ -67,7 +67,7 @@ namespace QryWzskFilList {
 	/**
 	  * StatShr (full: StatShrQryWzskFilList)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NTOT = 1;
@@ -91,7 +91,7 @@ namespace QryWzskFilList {
 	/**
 	  * StgIac (full: StgIacQryWzskFilList)
 	  */
-	class StgIac : public Sbecore::Xmlio::Block {
+	class StgIac : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint JNUM = 1;

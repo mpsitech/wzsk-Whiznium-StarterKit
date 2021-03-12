@@ -1,38 +1,38 @@
 /**
-	* \file PnlWzskNavGalery.h
-	* job handler for job PnlWzskNavGalery (declarations)
+	* \file PnlWzskNavGlry.h
+	* job handler for job PnlWzskNavGlry (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
 	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \date created: 11 Mar 2021
 	*/
 // IP header --- ABOVE
 
-#ifndef PNLWZSKNAVGALERY_H
-#define PNLWZSKNAVGALERY_H
+#ifndef PNLWZSKNAVGLRY_H
+#define PNLWZSKNAVGLRY_H
 
 // IP include.spec --- INSERT
 
 // IP include.cust --- INSERT
 
-#define VecVWzskNavGaleryDo PnlWzskNavGalery::VecVDo
+#define VecVWzskNavGlryDo PnlWzskNavGlry::VecVDo
 
-#define ContIacWzskNavGalery PnlWzskNavGalery::ContIac
-#define StatAppWzskNavGalery PnlWzskNavGalery::StatApp
-#define StatShrWzskNavGalery PnlWzskNavGalery::StatShr
-#define TagWzskNavGalery PnlWzskNavGalery::Tag
+#define ContIacWzskNavGlry PnlWzskNavGlry::ContIac
+#define StatAppWzskNavGlry PnlWzskNavGlry::StatApp
+#define StatShrWzskNavGlry PnlWzskNavGlry::StatShr
+#define TagWzskNavGlry PnlWzskNavGlry::Tag
 
-#define DpchAppWzskNavGaleryData PnlWzskNavGalery::DpchAppData
-#define DpchAppWzskNavGaleryDo PnlWzskNavGalery::DpchAppDo
-#define DpchEngWzskNavGaleryData PnlWzskNavGalery::DpchEngData
+#define DpchAppWzskNavGlryData PnlWzskNavGlry::DpchAppData
+#define DpchAppWzskNavGlryDo PnlWzskNavGlry::DpchAppDo
+#define DpchEngWzskNavGlryData PnlWzskNavGlry::DpchEngData
 
 /**
-	* PnlWzskNavGalery
+	* PnlWzskNavGlry
 	*/
-class PnlWzskNavGalery : public JobWzsk {
+class PnlWzskNavGlry : public JobWzsk {
 
 public:
 	/**
-		* VecVDo (full: VecVWzskNavGaleryDo)
+		* VecVDo (full: VecVWzskNavGlryDo)
 		*/
 	class VecVDo {
 
@@ -53,9 +53,9 @@ public:
 	};
 
 	/**
-	  * ContIac (full: ContIacWzskNavGalery)
+	  * ContIac (full: ContIacWzskNavGlry)
 	  */
-	class ContIac : public Sbecore::Xmlio::Block {
+	class ContIac : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NUMFLSTOGR = 1;
@@ -75,25 +75,28 @@ public:
 		Sbecore::uint numFLstFil;
 
 	public:
+		bool readJSON(Json::Value& sup, bool addbasetag = false);
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
+		void writeJSON(Json::Value& sup, std::string difftag = "");
 		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
 		std::set<Sbecore::uint> comm(const ContIac* comp);
 		std::set<Sbecore::uint> diff(const ContIac* comp);
 	};
 
 	/**
-		* StatApp (full: StatAppWzskNavGalery)
+		* StatApp (full: StatAppWzskNavGlry)
 		*/
 	class StatApp {
 
 	public:
+		static void writeJSON(Json::Value& sup, std::string difftag = "", const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool LstOgrAlt = true, const bool LstObjAlt = true, const bool LstSesAlt = true, const bool LstShtAlt = true, const bool LstFilAlt = true, const Sbecore::uint LstOgrNumFirstdisp = 1, const Sbecore::uint LstObjNumFirstdisp = 1, const Sbecore::uint LstSesNumFirstdisp = 1, const Sbecore::uint LstShtNumFirstdisp = 1, const Sbecore::uint LstFilNumFirstdisp = 1);
 		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool LstOgrAlt = true, const bool LstObjAlt = true, const bool LstSesAlt = true, const bool LstShtAlt = true, const bool LstFilAlt = true, const Sbecore::uint LstOgrNumFirstdisp = 1, const Sbecore::uint LstObjNumFirstdisp = 1, const Sbecore::uint LstSesNumFirstdisp = 1, const Sbecore::uint LstShtNumFirstdisp = 1, const Sbecore::uint LstFilNumFirstdisp = 1);
 	};
 
 	/**
-		* StatShr (full: StatShrWzskNavGalery)
+		* StatShr (full: StatShrWzskNavGlry)
 		*/
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint LSTOGRAVAIL = 1;
@@ -123,22 +126,24 @@ public:
 		bool ButFilViewActive;
 
 	public:
+		void writeJSON(Json::Value& sup, std::string difftag = "");
 		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
 		std::set<Sbecore::uint> comm(const StatShr* comp);
 		std::set<Sbecore::uint> diff(const StatShr* comp);
 	};
 
 	/**
-		* Tag (full: TagWzskNavGalery)
+		* Tag (full: TagWzskNavGlry)
 		*/
 	class Tag {
 
 	public:
+		static void writeJSON(const Sbecore::uint ixWzskVLocale, Json::Value& sup, std::string difftag = "");
 		static void writeXML(const Sbecore::uint ixWzskVLocale, xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
 	};
 
 	/**
-		* DpchAppData (full: DpchAppWzskNavGaleryData)
+		* DpchAppData (full: DpchAppWzskNavGlryData)
 		*/
 	class DpchAppData : public DpchAppWzsk {
 
@@ -155,11 +160,12 @@ public:
 	public:
 		std::string getSrefsMask();
 
+		void readJSON(Json::Value& sup, bool addbasetag = false);
 		void readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
 	};
 
 	/**
-		* DpchAppDo (full: DpchAppWzskNavGaleryDo)
+		* DpchAppDo (full: DpchAppWzskNavGlryDo)
 		*/
 	class DpchAppDo : public DpchAppWzsk {
 
@@ -176,11 +182,12 @@ public:
 	public:
 		std::string getSrefsMask();
 
+		void readJSON(Json::Value& sup, bool addbasetag = false);
 		void readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
 	};
 
 	/**
-		* DpchEngData (full: DpchEngWzskNavGaleryData)
+		* DpchEngData (full: DpchEngWzskNavGlryData)
 		*/
 	class DpchEngData : public DpchEngWzsk {
 
@@ -198,21 +205,22 @@ public:
 		static const Sbecore::uint ALL = 11;
 
 	public:
-		DpchEngData(const Sbecore::ubigint jref = 0, ContIac* contiac = NULL, Sbecore::Xmlio::Feed* feedFLstFil = NULL, Sbecore::Xmlio::Feed* feedFLstObj = NULL, Sbecore::Xmlio::Feed* feedFLstOgr = NULL, Sbecore::Xmlio::Feed* feedFLstSes = NULL, Sbecore::Xmlio::Feed* feedFLstSht = NULL, StatShr* statshr = NULL, const std::set<Sbecore::uint>& mask = {NONE});
+		DpchEngData(const Sbecore::ubigint jref = 0, ContIac* contiac = NULL, Sbecore::Feed* feedFLstFil = NULL, Sbecore::Feed* feedFLstObj = NULL, Sbecore::Feed* feedFLstOgr = NULL, Sbecore::Feed* feedFLstSes = NULL, Sbecore::Feed* feedFLstSht = NULL, StatShr* statshr = NULL, const std::set<Sbecore::uint>& mask = {NONE});
 
 	public:
 		ContIac contiac;
-		Sbecore::Xmlio::Feed feedFLstFil;
-		Sbecore::Xmlio::Feed feedFLstObj;
-		Sbecore::Xmlio::Feed feedFLstOgr;
-		Sbecore::Xmlio::Feed feedFLstSes;
-		Sbecore::Xmlio::Feed feedFLstSht;
+		Sbecore::Feed feedFLstFil;
+		Sbecore::Feed feedFLstObj;
+		Sbecore::Feed feedFLstOgr;
+		Sbecore::Feed feedFLstSes;
+		Sbecore::Feed feedFLstSht;
 		StatShr statshr;
 
 	public:
 		std::string getSrefsMask();
 		void merge(DpchEngWzsk* dpcheng);
 
+		void writeJSON(const Sbecore::uint ixWzskVLocale, Json::Value& sup);
 		void writeXML(const Sbecore::uint ixWzskVLocale, xmlTextWriter* wr);
 	};
 
@@ -228,18 +236,18 @@ public:
 	bool evalButFilViewActive(DbsWzsk* dbswzsk);
 
 public:
-	PnlWzskNavGalery(XchgWzsk* xchg, DbsWzsk* dbswzsk, const Sbecore::ubigint jrefSup, const Sbecore::uint ixWzskVLocale);
-	~PnlWzskNavGalery();
+	PnlWzskNavGlry(XchgWzsk* xchg, DbsWzsk* dbswzsk, const Sbecore::ubigint jrefSup, const Sbecore::uint ixWzskVLocale);
+	~PnlWzskNavGlry();
 
 public:
 	ContIac contiac;
 	StatShr statshr;
 
-	Sbecore::Xmlio::Feed feedFLstFil;
-	Sbecore::Xmlio::Feed feedFLstObj;
-	Sbecore::Xmlio::Feed feedFLstOgr;
-	Sbecore::Xmlio::Feed feedFLstSes;
-	Sbecore::Xmlio::Feed feedFLstSht;
+	Sbecore::Feed feedFLstFil;
+	Sbecore::Feed feedFLstObj;
+	Sbecore::Feed feedFLstOgr;
+	Sbecore::Feed feedFLstSes;
+	Sbecore::Feed feedFLstSht;
 
 	// IP vars.cust --- INSERT
 

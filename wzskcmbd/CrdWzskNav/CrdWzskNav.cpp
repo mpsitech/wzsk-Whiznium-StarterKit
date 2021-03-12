@@ -42,7 +42,7 @@ CrdWzskNav::CrdWzskNav(
 	feedFSge.tag = "FeedFSge";
 	VecVSge::fillFeed(feedFSge);
 
-	pnlgalery = NULL;
+	pnlglry = NULL;
 	pnlop = NULL;
 	pnladmin = NULL;
 	pnlpre = NULL;
@@ -54,7 +54,7 @@ CrdWzskNav::CrdWzskNav(
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
-	pnlgalery = new PnlWzskNavGalery(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlglry = new PnlWzskNavGlry(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlop = new PnlWzskNavOp(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnladmin = new PnlWzskNavAdmin(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlpre = new PnlWzskNavPre(xchg, dbswzsk, jref, ixWzskVLocale);
@@ -66,7 +66,7 @@ CrdWzskNav::CrdWzskNav(
 	statshr.jrefPre = pnlpre->jref;
 	statshr.jrefAdmin = pnladmin->jref;
 	statshr.jrefOp = pnlop->jref;
-	statshr.jrefGalery = pnlgalery->jref;
+	statshr.jrefGlry = pnlglry->jref;
 
 	changeStage(dbswzsk, VecVSge::IDLE);
 
@@ -133,7 +133,7 @@ void CrdWzskNav::refresh(
 	statshr.pnlpreAvail = evalPnlpreAvail(dbswzsk);
 	statshr.pnladminAvail = evalPnladminAvail(dbswzsk);
 	statshr.pnlopAvail = evalPnlopAvail(dbswzsk);
-	statshr.pnlgaleryAvail = evalPnlgaleryAvail(dbswzsk);
+	statshr.pnlglryAvail = evalPnlglryAvail(dbswzsk);
 	statshr.MitSesSpsAvail = evalMitSesSpsAvail(dbswzsk);
 	statshr.MspCrd1Avail = evalMspCrd1Avail(dbswzsk);
 	statshr.MitCrdUsgAvail = evalMitCrdUsgAvail(dbswzsk);
@@ -174,8 +174,14 @@ void CrdWzskNav::updatePreset(
 	if (pnlpre) if (jrefTrig != pnlpre->jref) pnlpre->updatePreset(dbswzsk, ixWzskVPreset, jrefTrig, notif);
 	if (pnladmin) pnladmin->updatePreset(dbswzsk, ixWzskVPreset, jrefTrig, notif);
 	if (pnlop) pnlop->updatePreset(dbswzsk, ixWzskVPreset, jrefTrig, notif);
-	if (pnlgalery) pnlgalery->updatePreset(dbswzsk, ixWzskVPreset, jrefTrig, notif);
+	if (pnlglry) pnlglry->updatePreset(dbswzsk, ixWzskVPreset, jrefTrig, notif);
 	// IP updatePreset --- END
+};
+
+void CrdWzskNav::warnTerm(
+			DbsWzsk* dbswzsk
+		) {
+	if (ixVSge == VecVSge::IDLE) changeStage(dbswzsk, VecVSge::ALRWZSKTRM);
 };
 
 void CrdWzskNav::handleRequest(
@@ -447,6 +453,8 @@ void CrdWzskNav::handleDpchAppWzskAlert(
 	// IP handleDpchAppWzskAlert --- BEGIN
 	if (ixVSge == VecVSge::ALRWZSKABT) {
 		changeStage(dbswzsk, nextIxVSgeSuccess);
+	} else if (ixVSge == VecVSge::ALRWZSKTRM) {
+		changeStage(dbswzsk, nextIxVSgeSuccess);
 	};
 
 	*dpcheng = new DpchEngWzskConfirm(true, jref, "");
@@ -491,6 +499,7 @@ void CrdWzskNav::changeStage(
 			switch (ixVSge) {
 				case VecVSge::IDLE: leaveSgeIdle(dbswzsk); break;
 				case VecVSge::ALRWZSKABT: leaveSgeAlrwzskabt(dbswzsk); break;
+				case VecVSge::ALRWZSKTRM: leaveSgeAlrwzsktrm(dbswzsk); break;
 			};
 
 			setStage(dbswzsk, _ixVSge);
@@ -501,6 +510,7 @@ void CrdWzskNav::changeStage(
 		switch (_ixVSge) {
 			case VecVSge::IDLE: _ixVSge = enterSgeIdle(dbswzsk, reenter); break;
 			case VecVSge::ALRWZSKABT: _ixVSge = enterSgeAlrwzskabt(dbswzsk, reenter); break;
+			case VecVSge::ALRWZSKTRM: _ixVSge = enterSgeAlrwzsktrm(dbswzsk, reenter); break;
 		};
 
 		// IP changeStage.refresh2 --- INSERT
@@ -550,4 +560,22 @@ void CrdWzskNav::leaveSgeAlrwzskabt(
 			DbsWzsk* dbswzsk
 		) {
 	// IP leaveSgeAlrwzskabt --- INSERT
+};
+
+uint CrdWzskNav::enterSgeAlrwzsktrm(
+			DbsWzsk* dbswzsk
+			, const bool reenter
+		) {
+	uint retval = VecVSge::ALRWZSKTRM;
+	nextIxVSgeSuccess = VecVSge::IDLE;
+
+	xchg->submitDpch(AlrWzsk::prepareAlrTrm(jref, ixWzskVLocale, xchg->stgwzskappearance.sesstterm, xchg->stgwzskappearance.sesstwarn, feedFMcbAlert)); // IP enterSgeAlrwzsktrm --- LINE
+
+	return retval;
+};
+
+void CrdWzskNav::leaveSgeAlrwzsktrm(
+			DbsWzsk* dbswzsk
+		) {
+	// IP leaveSgeAlrwzsktrm --- INSERT
 };

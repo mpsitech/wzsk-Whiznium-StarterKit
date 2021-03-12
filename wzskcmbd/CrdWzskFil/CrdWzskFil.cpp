@@ -46,8 +46,8 @@ CrdWzskFil::CrdWzskFil(
 	VecVSge::fillFeed(feedFSge);
 
 	pnllist = NULL;
-	pnlrec = NULL;
 	pnlheadbar = NULL;
+	pnlrec = NULL;
 	dlgdownload = NULL;
 
 	// IP constructor.cust1 --- INSERT
@@ -61,8 +61,8 @@ CrdWzskFil::CrdWzskFil(
 	changeRef(dbswzsk, jref, ((ref + 1) == 0) ? 0 : ref, false);
 
 	pnllist = new PnlWzskFilList(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlrec = new PnlWzskFilRec(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlheadbar = new PnlWzskFilHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlrec = new PnlWzskFilRec(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 

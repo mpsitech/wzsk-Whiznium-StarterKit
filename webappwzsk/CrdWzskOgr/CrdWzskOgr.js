@@ -340,7 +340,7 @@ function refresh() {
 		if (scrJrefDlg != scrJrefDlgnew) showDlg("DlgWzskOgrNew", scrJrefDlgnew);
 	} else if (scrJrefDlg != "") hideDlg();
 
-	doc.title = retrieveCi(srcdoc, "ContInfWzskOgr", "MtxCrdOgr") + " - Whiznium StarterKit v1.0.2";
+	doc.title = retrieveCi(srcdoc, "ContInfWzskOgr", "MtxCrdOgr") + " - Whiznium StarterKit v1.0.5";
 };
 
 // --- event handlers

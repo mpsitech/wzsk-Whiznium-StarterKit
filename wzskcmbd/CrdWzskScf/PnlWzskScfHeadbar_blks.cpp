@@ -15,6 +15,28 @@ using namespace Xmlio;
  class PnlWzskScfHeadbar::StgInf
  ******************************************************************************/
 
+void PnlWzskScfHeadbar::StgInf::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StgInfWzskScfHeadbar";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["MenAppCptwidth"] = "200";
+		me["MenAppWidth"] = "246";
+		me["MenCrdCptwidth"] = "200";
+		me["MenCrdWidth"] = "200";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["MenAppCptwidth"] = "200";
+		me["MenAppWidth"] = "246";
+		me["MenCrdCptwidth"] = "250";
+		me["MenCrdWidth"] = "250";
+	};
+};
+
 void PnlWzskScfHeadbar::StgInf::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -45,6 +67,24 @@ void PnlWzskScfHeadbar::StgInf::writeXML(
 /******************************************************************************
  class PnlWzskScfHeadbar::Tag
  ******************************************************************************/
+
+void PnlWzskScfHeadbar::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskScfHeadbar";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["MenApp"] = "Whiznium StarterKit";
+		me["MenCrd"] = "System configuration";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["MenApp"] = "Whiznium StarterKit";
+		me["MenCrd"] = "Systemkonfiguration";
+	};
+};
 
 void PnlWzskScfHeadbar::Tag::writeXML(
 			const uint ixWzskVLocale
@@ -105,6 +145,17 @@ void PnlWzskScfHeadbar::DpchEngData::merge(
 	if (src->has(JREF)) {jref = src->jref; add(JREF);};
 	if (src->has(STGINF)) add(STGINF);
 	if (src->has(TAG)) add(TAG);
+};
+
+void PnlWzskScfHeadbar::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskScfHeadbarData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(STGINF)) StgInf::writeJSON(ixWzskVLocale, me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void PnlWzskScfHeadbar::DpchEngData::writeXML(

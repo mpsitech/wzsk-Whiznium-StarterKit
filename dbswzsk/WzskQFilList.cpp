@@ -59,6 +59,41 @@ WzskQFilList::WzskQFilList(
 	this->Size = Size;
 };
 
+void WzskQFilList::writeJSON(
+			Json::Value& sup
+			, bool jnumattr
+			, bool shorttags
+		) {
+	Json::Value& me = sup.append(Json::Value(Json::objectValue));
+
+	if (jnumattr) me["jnum"] = jnum;
+	if (shorttags) {
+		me["grp"] = stubGrp;
+		me["own"] = stubOwn;
+		me["fnm"] = Filename;
+		me["ret"] = srefRefIxVTbl;
+		me["ret2"] = titRefIxVTbl;
+		me["reu"] = stubRefUref;
+		me["cnt"] = osrefKContent;
+		me["cnt2"] = titOsrefKContent;
+		me["mim"] = srefKMimetype;
+		me["mim2"] = titSrefKMimetype;
+		me["siz"] = Size;
+	} else {
+		me["stubGrp"] = stubGrp;
+		me["stubOwn"] = stubOwn;
+		me["Filename"] = Filename;
+		me["srefRefIxVTbl"] = srefRefIxVTbl;
+		me["titRefIxVTbl"] = titRefIxVTbl;
+		me["stubRefUref"] = stubRefUref;
+		me["osrefKContent"] = osrefKContent;
+		me["titOsrefKContent"] = titOsrefKContent;
+		me["srefKMimetype"] = srefKMimetype;
+		me["titSrefKMimetype"] = titSrefKMimetype;
+		me["Size"] = Size;
+	};
+};
+
 void WzskQFilList::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -144,6 +179,16 @@ ListWzskQFilList& ListWzskQFilList::operator=(
 	};
 
 	return(*this);
+};
+
+void ListWzskQFilList::writeJSON(
+			Json::Value& sup
+			, std::string difftag
+		) {
+	if (difftag == "") difftag = "ListWzskQFilList";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::arrayValue);
+	for (unsigned int i = 0; i < nodes.size(); i++) nodes[i]->writeJSON(me, true, true);
 };
 
 void ListWzskQFilList::writeXML(

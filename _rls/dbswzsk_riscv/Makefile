@@ -1,19 +1,19 @@
 # file Makefile
 # make file for Wzsk database access library, release dbswzsk_riscv (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
-# author: Alexander Wirthmueller (auto-generation)
-# date created: 15 Dec 2020
+# author: Emily Johnson (auto-generation)
+# date created: 11 Mar 2021
 # IP header --- ABOVE
 
 LIBROOT = ${SYSROOT}${WHIZSDKROOT}/lib
 
-CPP = 
-CPPFLAGS = --sysroot=${SYSROOT}
+CPP = ${TCHROOT}/riscv64-oe-linux-g++
+CPPFLAGS = --sysroot=${SYSROOT} --sysroot=${SYSROOT} -std=c++11 -fstack-protector-strong -g -Wall -Os -pthread
 
-STATLIB = 
+STATLIB = ${TCHROOT}/riscv64-oe-linux-ar
 STATLIBFLAGS = rcs
 
-INCPATH = -I=${WHIZSDKROOT}/build -I=/usr/include/libxml2
+INCPATH = -I=${WHIZSDKROOT}/build -I=/usr/include -I=/usr/include/libxml2
 
 PCHS = DbsWzsk.h.gch
 

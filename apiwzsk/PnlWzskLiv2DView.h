@@ -58,7 +58,7 @@ namespace PnlWzskLiv2DView {
 	/**
 	  * ContIac (full: ContIacWzskLiv2DView)
 	  */
-	class ContIac : public Sbecore::Xmlio::Block {
+	class ContIac : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NUMFPUPPVM = 1;
@@ -99,7 +99,7 @@ namespace PnlWzskLiv2DView {
 	/**
 	  * ContIacCorner (full: ContIacWzskLiv2DViewCorner)
 	  */
-	class ContIacCorner : public Sbecore::Xmlio::Block {
+	class ContIacCorner : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint ROIAX = 1;
@@ -134,7 +134,7 @@ namespace PnlWzskLiv2DView {
 	/**
 	  * ContIacTrace (full: ContIacWzskLiv2DViewTrace)
 	  */
-	class ContIacTrace : public Sbecore::Xmlio::Block {
+	class ContIacTrace : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint ROIAX = 1;
@@ -169,7 +169,7 @@ namespace PnlWzskLiv2DView {
 	/**
 	  * ContInf (full: ContInfWzskLiv2DView)
 	  */
-	class ContInf : public Sbecore::Xmlio::Block {
+	class ContInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
@@ -203,7 +203,7 @@ namespace PnlWzskLiv2DView {
 	/**
 	  * StatShr (full: StatShrWzskLiv2DView)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
@@ -279,7 +279,7 @@ namespace PnlWzskLiv2DView {
 	/**
 	  * Tag (full: TagWzskLiv2DView)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPT = 1;
@@ -456,7 +456,7 @@ namespace PnlWzskLiv2DView {
 	public:
 		ContIac contiac;
 		ContInf continf;
-		Sbecore::Xmlio::Feed feedFPupPvm;
+		Sbecore::Feed feedFPupPvm;
 		StatShr statshr;
 		Tag tag;
 

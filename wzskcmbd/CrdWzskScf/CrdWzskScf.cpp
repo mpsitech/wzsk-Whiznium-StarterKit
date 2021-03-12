@@ -45,8 +45,8 @@ CrdWzskScf::CrdWzskScf(
 	pnlgeom = NULL;
 	pnlconn = NULL;
 	dlgttablecoord = NULL;
-	dlglaserpos = NULL;
 	dlgcameramat = NULL;
+	dlglaserpos = NULL;
 
 	// IP constructor.cust1 --- INSERT
 

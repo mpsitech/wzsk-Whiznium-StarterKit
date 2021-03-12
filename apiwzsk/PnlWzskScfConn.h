@@ -40,7 +40,7 @@ namespace PnlWzskScfConn {
 	/**
 	  * StatShr (full: StatShrWzskScfConn)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
@@ -60,7 +60,7 @@ namespace PnlWzskScfConn {
 	/**
 	  * Tag (full: TagWzskScfConn)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPT = 1;

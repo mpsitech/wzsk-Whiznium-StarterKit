@@ -168,6 +168,7 @@ void QryWzskShtAPar::fetch(
 			rec = rst.nodes[i];
 
 			rec->jnum = statshr.jnumFirstload + i;
+			rec->titX1SrefKKey = dbswzsk->getKlstTitleBySref(VecWzskVKeylist::KLSTWZSKKAMSHOTPARKEY, rec->x1SrefKKey, ixWzskVLocale);
 		};
 
 		stmgr->commit();

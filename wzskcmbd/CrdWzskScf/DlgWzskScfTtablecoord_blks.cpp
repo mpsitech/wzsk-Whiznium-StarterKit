@@ -125,6 +125,26 @@ DlgWzskScfTtablecoord::ContIac::ContIac(
 	mask = {NUMFDSE};
 };
 
+bool DlgWzskScfTtablecoord::ContIac::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacDlgWzskScfTtablecoord"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("numFDse")) {numFDse = me["numFDse"].asUInt(); add(NUMFDSE);};
+	};
+
+	return basefound;
+};
+
 bool DlgWzskScfTtablecoord::ContIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -146,6 +166,17 @@ bool DlgWzskScfTtablecoord::ContIac::readXML(
 	};
 
 	return basefound;
+};
+
+void DlgWzskScfTtablecoord::ContIac::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacDlgWzskScfTtablecoord";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFDse"] = numFDse;
 };
 
 void DlgWzskScfTtablecoord::ContIac::writeXML(
@@ -202,6 +233,17 @@ DlgWzskScfTtablecoord::ContInf::ContInf(
 	mask = {NUMFSGE};
 };
 
+void DlgWzskScfTtablecoord::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfDlgWzskScfTtablecoord";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFSge"] = numFSge;
+};
+
 void DlgWzskScfTtablecoord::ContInf::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -246,6 +288,20 @@ set<uint> DlgWzskScfTtablecoord::ContInf::diff(
  class DlgWzskScfTtablecoord::StatApp
  ******************************************************************************/
 
+void DlgWzskScfTtablecoord::StatApp::writeJSON(
+			Json::Value& sup
+			, string difftag
+			, const bool initdone
+			, const string& shortMenu
+		) {
+	if (difftag.length() == 0) difftag = "StatAppDlgWzskScfTtablecoord";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["initdone"] = initdone;
+	me["shortMenu"] = shortMenu;
+};
+
 void DlgWzskScfTtablecoord::StatApp::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -277,6 +333,17 @@ DlgWzskScfTtablecoord::StatShr::StatShr(
 	this->ButDneActive = ButDneActive;
 
 	mask = {BUTDNEACTIVE};
+};
+
+void DlgWzskScfTtablecoord::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrDlgWzskScfTtablecoord";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ButDneActive"] = ButDneActive;
 };
 
 void DlgWzskScfTtablecoord::StatShr::writeXML(
@@ -323,6 +390,23 @@ set<uint> DlgWzskScfTtablecoord::StatShr::diff(
  class DlgWzskScfTtablecoord::Tag
  ******************************************************************************/
 
+void DlgWzskScfTtablecoord::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagDlgWzskScfTtablecoord";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "Calibrate turntable coordinates";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "Drehteller-Koordinaten kalibrieren";
+	};
+	me["ButDne"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DONE, ixWzskVLocale));
+};
+
 void DlgWzskScfTtablecoord::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -364,6 +448,27 @@ string DlgWzskScfTtablecoord::DpchAppData::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void DlgWzskScfTtablecoord::DpchAppData::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppDlgWzskScfTtablecoordData"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (contiac.readJSON(me, true)) add(CONTIAC);
+	} else {
+		contiac = ContIac();
+	};
 };
 
 void DlgWzskScfTtablecoord::DpchAppData::readXML(
@@ -413,6 +518,26 @@ string DlgWzskScfTtablecoord::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void DlgWzskScfTtablecoord::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppDlgWzskScfTtablecoordDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void DlgWzskScfTtablecoord::DpchAppDo::readXML(
@@ -501,6 +626,22 @@ void DlgWzskScfTtablecoord::DpchEngData::merge(
 	if (src->has(STATAPP)) add(STATAPP);
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
+};
+
+void DlgWzskScfTtablecoord::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngDlgWzskScfTtablecoordData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTIAC)) contiac.writeJSON(me);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(FEEDFDSE)) feedFDse.writeJSON(me);
+	if (has(FEEDFSGE)) feedFSge.writeJSON(me);
+	if (has(STATAPP)) StatApp::writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void DlgWzskScfTtablecoord::DpchEngData::writeXML(

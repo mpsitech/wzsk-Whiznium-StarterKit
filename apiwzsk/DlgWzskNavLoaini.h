@@ -101,7 +101,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * ContIac (full: ContIacDlgWzskNavLoaini)
 	  */
-	class ContIac : public Sbecore::Xmlio::Block {
+	class ContIac : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NUMFDSE = 1;
@@ -122,7 +122,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * ContInf (full: ContInfDlgWzskNavLoaini)
 	  */
-	class ContInf : public Sbecore::Xmlio::Block {
+	class ContInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NUMFSGE = 1;
@@ -142,7 +142,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * ContInfImp (full: ContInfDlgWzskNavLoainiImp)
 	  */
-	class ContInfImp : public Sbecore::Xmlio::Block {
+	class ContInfImp : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint TXTPRG = 1;
@@ -162,7 +162,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * ContInfLfi (full: ContInfDlgWzskNavLoainiLfi)
 	  */
-	class ContInfLfi : public Sbecore::Xmlio::Block {
+	class ContInfLfi : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint DLD = 1;
@@ -182,7 +182,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * StatApp (full: StatAppDlgWzskNavLoaini)
 	  */
-	class StatApp : public Sbecore::Xmlio::Block {
+	class StatApp : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint INITDONE = 1;
@@ -204,7 +204,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * StatShr (full: StatShrDlgWzskNavLoaini)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint BUTDNEACTIVE = 1;
@@ -224,7 +224,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * StatShrIfi (full: StatShrDlgWzskNavLoainiIfi)
 	  */
-	class StatShrIfi : public Sbecore::Xmlio::Block {
+	class StatShrIfi : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint ULDACTIVE = 1;
@@ -244,7 +244,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * StatShrImp (full: StatShrDlgWzskNavLoainiImp)
 	  */
-	class StatShrImp : public Sbecore::Xmlio::Block {
+	class StatShrImp : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint BUTRUNACTIVE = 1;
@@ -266,7 +266,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * StatShrLfi (full: StatShrDlgWzskNavLoainiLfi)
 	  */
-	class StatShrLfi : public Sbecore::Xmlio::Block {
+	class StatShrLfi : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint DLDACTIVE = 1;
@@ -286,7 +286,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * Tag (full: TagDlgWzskNavLoaini)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPT = 1;
@@ -306,7 +306,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * TagIfi (full: TagDlgWzskNavLoainiIfi)
 	  */
-	class TagIfi : public Sbecore::Xmlio::Block {
+	class TagIfi : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint ULD = 1;
@@ -326,7 +326,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * TagImp (full: TagDlgWzskNavLoainiImp)
 	  */
-	class TagImp : public Sbecore::Xmlio::Block {
+	class TagImp : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPTPRG = 1;
@@ -348,7 +348,7 @@ namespace DlgWzskNavLoaini {
 	/**
 	  * TagLfi (full: TagDlgWzskNavLoainiLfi)
 	  */
-	class TagLfi : public Sbecore::Xmlio::Block {
+	class TagLfi : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint DLD = 1;
@@ -440,8 +440,8 @@ namespace DlgWzskNavLoaini {
 		ContInf continf;
 		ContInfImp continfimp;
 		ContInfLfi continflfi;
-		Sbecore::Xmlio::Feed feedFDse;
-		Sbecore::Xmlio::Feed feedFSge;
+		Sbecore::Feed feedFDse;
+		Sbecore::Feed feedFSge;
 		StatApp statapp;
 		StatShr statshr;
 		StatShrIfi statshrifi;

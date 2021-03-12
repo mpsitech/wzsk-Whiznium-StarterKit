@@ -351,9 +351,9 @@ uint DbsWzsk::VecVKeylist::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "klstwzskkampersondetailtype") return KLSTWZSKKAMPERSONDETAILTYPE;
+	if (s == "klstwzskkamshotparkey") return KLSTWZSKKAMSHOTPARKEY;
 	if (s == "klstwzskkmfilecontent") return KLSTWZSKKMFILECONTENT;
 	if (s == "klstwzskkmfilemimetype") return KLSTWZSKKMFILEMIMETYPE;
-	if (s == "klstwzskkmshotparkey") return KLSTWZSKKMSHOTPARKEY;
 
 	return(0);
 };
@@ -362,9 +362,9 @@ string DbsWzsk::VecVKeylist::getSref(
 			const uint ix
 		) {
 	if (ix == KLSTWZSKKAMPERSONDETAILTYPE) return("KlstWzskKAMPersonDetailType");
+	if (ix == KLSTWZSKKAMSHOTPARKEY) return("KlstWzskKAMShotParKey");
 	if (ix == KLSTWZSKKMFILECONTENT) return("KlstWzskKMFileContent");
 	if (ix == KLSTWZSKKMFILEMIMETYPE) return("KlstWzskKMFileMimetype");
-	if (ix == KLSTWZSKKMSHOTPARKEY) return("KlstWzskKMShotParKey");
 
 	return("");
 };
@@ -375,15 +375,15 @@ string DbsWzsk::VecVKeylist::getTitle(
 		) {
 	if (ixWzskVLocale == 1) {
 		if (ix == KLSTWZSKKAMPERSONDETAILTYPE) return("type");
+		if (ix == KLSTWZSKKAMSHOTPARKEY) return("key");
 		if (ix == KLSTWZSKKMFILECONTENT) return("content");
 		if (ix == KLSTWZSKKMFILEMIMETYPE) return("MIME type");
-		if (ix == KLSTWZSKKMSHOTPARKEY) return("key");
 		return(getSref(ix));
 	} else if (ixWzskVLocale == 2) {
 		if (ix == KLSTWZSKKAMPERSONDETAILTYPE) return("Typ");
+		if (ix == KLSTWZSKKAMSHOTPARKEY) return("Schl\\u00fcssel");
 		if (ix == KLSTWZSKKMFILECONTENT) return("Inhalt");
 		if (ix == KLSTWZSKKMFILEMIMETYPE) return("MIME-Typ");
-		if (ix == KLSTWZSKKMSHOTPARKEY) return("Schl\\u00fcssel");
 		return(getTitle(ix, 1));
 	};
 
@@ -664,6 +664,7 @@ uint DbsWzsk::VecVPreset::getIx(
 	if (s == "prewzsksysdate") return PREWZSKSYSDATE;
 	if (s == "prewzsksysstamp") return PREWZSKSYSSTAMP;
 	if (s == "prewzsksystime") return PREWZSKSYSTIME;
+	if (s == "prewzsktlast") return PREWZSKTLAST;
 	if (s == "prewzskusgaaccess.x1") return PREWZSKUSGAACCESS_X1;
 	if (s == "prewzskusgaaccess.x2") return PREWZSKUSGAACCESS_X2;
 	if (s == "prewzskusglist.grp") return PREWZSKUSGLIST_GRP;
@@ -741,6 +742,7 @@ string DbsWzsk::VecVPreset::getSref(
 	if (ix == PREWZSKSYSDATE) return("PreWzskSysdate");
 	if (ix == PREWZSKSYSSTAMP) return("PreWzskSysstamp");
 	if (ix == PREWZSKSYSTIME) return("PreWzskSystime");
+	if (ix == PREWZSKTLAST) return("PreWzskTlast");
 	if (ix == PREWZSKUSGAACCESS_X1) return("PreWzskUsgAAccess.x1");
 	if (ix == PREWZSKUSGAACCESS_X2) return("PreWzskUsgAAccess.x2");
 	if (ix == PREWZSKUSGLIST_GRP) return("PreWzskUsgList.grp");

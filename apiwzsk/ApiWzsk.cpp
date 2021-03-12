@@ -232,9 +232,9 @@ uint ApiWzsk::readDpchEng(
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKNAVDATA) {
 			*dpcheng = new CrdWzskNav::DpchEngData();
 			((CrdWzskNav::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKNAVGALERYDATA) {
-			*dpcheng = new PnlWzskNavGalery::DpchEngData();
-			((PnlWzskNavGalery::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKNAVGLRYDATA) {
+			*dpcheng = new PnlWzskNavGlry::DpchEngData();
+			((PnlWzskNavGlry::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKNAVHEADBARDATA) {
 			*dpcheng = new PnlWzskNavHeadbar::DpchEngData();
 			((PnlWzskNavHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);

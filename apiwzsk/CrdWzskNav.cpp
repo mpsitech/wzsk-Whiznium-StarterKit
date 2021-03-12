@@ -76,6 +76,7 @@ uint CrdWzskNav::VecVSge::getIx(
 
 	if (s == "idle") return IDLE;
 	if (s == "alrwzskabt") return ALRWZSKABT;
+	if (s == "alrwzsktrm") return ALRWZSKTRM;
 
 	return(0);
 };
@@ -85,6 +86,7 @@ string CrdWzskNav::VecVSge::getSref(
 		) {
 	if (ix == IDLE) return("idle");
 	if (ix == ALRWZSKABT) return("alrwzskabt");
+	if (ix == ALRWZSKTRM) return("alrwzsktrm");
 
 	return("");
 };
@@ -179,7 +181,7 @@ CrdWzskNav::StatApp::StatApp(
 			, const bool initdonePre
 			, const bool initdoneAdmin
 			, const bool initdoneOp
-			, const bool initdoneGalery
+			, const bool initdoneGlry
 		) :
 			Block()
 		{
@@ -191,9 +193,9 @@ CrdWzskNav::StatApp::StatApp(
 	this->initdonePre = initdonePre;
 	this->initdoneAdmin = initdoneAdmin;
 	this->initdoneOp = initdoneOp;
-	this->initdoneGalery = initdoneGalery;
+	this->initdoneGlry = initdoneGlry;
 
-	mask = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONEPRE, INITDONEADMIN, INITDONEOP, INITDONEGALERY};
+	mask = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONEPRE, INITDONEADMIN, INITDONEOP, INITDONEGLRY};
 };
 
 bool CrdWzskNav::StatApp::readXML(
@@ -226,7 +228,7 @@ bool CrdWzskNav::StatApp::readXML(
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdonePre", initdonePre)) add(INITDONEPRE);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneAdmin", initdoneAdmin)) add(INITDONEADMIN);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneOp", initdoneOp)) add(INITDONEOP);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneGalery", initdoneGalery)) add(INITDONEGALERY);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneGlry", initdoneGlry)) add(INITDONEGLRY);
 	};
 
 	return basefound;
@@ -245,7 +247,7 @@ set<uint> CrdWzskNav::StatApp::comm(
 	if (initdonePre == comp->initdonePre) insert(items, INITDONEPRE);
 	if (initdoneAdmin == comp->initdoneAdmin) insert(items, INITDONEADMIN);
 	if (initdoneOp == comp->initdoneOp) insert(items, INITDONEOP);
-	if (initdoneGalery == comp->initdoneGalery) insert(items, INITDONEGALERY);
+	if (initdoneGlry == comp->initdoneGlry) insert(items, INITDONEGLRY);
 
 	return(items);
 };
@@ -258,7 +260,7 @@ set<uint> CrdWzskNav::StatApp::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONEPRE, INITDONEADMIN, INITDONEOP, INITDONEGALERY};
+	diffitems = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONEPRE, INITDONEADMIN, INITDONEOP, INITDONEGLRY};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -277,8 +279,8 @@ CrdWzskNav::StatShr::StatShr(
 			, const bool pnladminAvail
 			, const string& scrJrefOp
 			, const bool pnlopAvail
-			, const string& scrJrefGalery
-			, const bool pnlgaleryAvail
+			, const string& scrJrefGlry
+			, const bool pnlglryAvail
 			, const bool MitSesSpsAvail
 			, const bool MspCrd1Avail
 			, const bool MitCrdUsgAvail
@@ -307,8 +309,8 @@ CrdWzskNav::StatShr::StatShr(
 	this->pnladminAvail = pnladminAvail;
 	this->scrJrefOp = scrJrefOp;
 	this->pnlopAvail = pnlopAvail;
-	this->scrJrefGalery = scrJrefGalery;
-	this->pnlgaleryAvail = pnlgaleryAvail;
+	this->scrJrefGlry = scrJrefGlry;
+	this->pnlglryAvail = pnlglryAvail;
 	this->MitSesSpsAvail = MitSesSpsAvail;
 	this->MspCrd1Avail = MspCrd1Avail;
 	this->MitCrdUsgAvail = MitCrdUsgAvail;
@@ -327,7 +329,7 @@ CrdWzskNav::StatShr::StatShr(
 	this->MspApp2Avail = MspApp2Avail;
 	this->MitAppLoiAvail = MitAppLoiAvail;
 
-	mask = {SCRJREFDLGLOAINI, SCRJREFHEADBAR, SCRJREFPRE, PNLPREAVAIL, SCRJREFADMIN, PNLADMINAVAIL, SCRJREFOP, PNLOPAVAIL, SCRJREFGALERY, PNLGALERYAVAIL, MITSESSPSAVAIL, MSPCRD1AVAIL, MITCRDUSGAVAIL, MITCRDUSRAVAIL, MITCRDPRSAVAIL, MITCRDSCFAVAIL, MSPCRD2AVAIL, MITCRDLLVAVAIL, MITCRDLIVAVAIL, MSPCRD3AVAIL, MITCRDOGRAVAIL, MITCRDOBJAVAIL, MITCRDSESAVAIL, MITCRDSHTAVAIL, MITCRDFILAVAIL, MSPAPP2AVAIL, MITAPPLOIAVAIL};
+	mask = {SCRJREFDLGLOAINI, SCRJREFHEADBAR, SCRJREFPRE, PNLPREAVAIL, SCRJREFADMIN, PNLADMINAVAIL, SCRJREFOP, PNLOPAVAIL, SCRJREFGLRY, PNLGLRYAVAIL, MITSESSPSAVAIL, MSPCRD1AVAIL, MITCRDUSGAVAIL, MITCRDUSRAVAIL, MITCRDPRSAVAIL, MITCRDSCFAVAIL, MSPCRD2AVAIL, MITCRDLLVAVAIL, MITCRDLIVAVAIL, MSPCRD3AVAIL, MITCRDOGRAVAIL, MITCRDOBJAVAIL, MITCRDSESAVAIL, MITCRDSHTAVAIL, MITCRDFILAVAIL, MSPAPP2AVAIL, MITAPPLOIAVAIL};
 };
 
 bool CrdWzskNav::StatShr::readXML(
@@ -355,8 +357,8 @@ bool CrdWzskNav::StatShr::readXML(
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnladminAvail", pnladminAvail)) add(PNLADMINAVAIL);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefOp", scrJrefOp)) add(SCRJREFOP);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnlopAvail", pnlopAvail)) add(PNLOPAVAIL);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefGalery", scrJrefGalery)) add(SCRJREFGALERY);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnlgaleryAvail", pnlgaleryAvail)) add(PNLGALERYAVAIL);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefGlry", scrJrefGlry)) add(SCRJREFGLRY);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnlglryAvail", pnlglryAvail)) add(PNLGLRYAVAIL);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "MitSesSpsAvail", MitSesSpsAvail)) add(MITSESSPSAVAIL);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "MspCrd1Avail", MspCrd1Avail)) add(MSPCRD1AVAIL);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "MitCrdUsgAvail", MitCrdUsgAvail)) add(MITCRDUSGAVAIL);
@@ -392,8 +394,8 @@ set<uint> CrdWzskNav::StatShr::comm(
 	if (pnladminAvail == comp->pnladminAvail) insert(items, PNLADMINAVAIL);
 	if (scrJrefOp == comp->scrJrefOp) insert(items, SCRJREFOP);
 	if (pnlopAvail == comp->pnlopAvail) insert(items, PNLOPAVAIL);
-	if (scrJrefGalery == comp->scrJrefGalery) insert(items, SCRJREFGALERY);
-	if (pnlgaleryAvail == comp->pnlgaleryAvail) insert(items, PNLGALERYAVAIL);
+	if (scrJrefGlry == comp->scrJrefGlry) insert(items, SCRJREFGLRY);
+	if (pnlglryAvail == comp->pnlglryAvail) insert(items, PNLGLRYAVAIL);
 	if (MitSesSpsAvail == comp->MitSesSpsAvail) insert(items, MITSESSPSAVAIL);
 	if (MspCrd1Avail == comp->MspCrd1Avail) insert(items, MSPCRD1AVAIL);
 	if (MitCrdUsgAvail == comp->MitCrdUsgAvail) insert(items, MITCRDUSGAVAIL);
@@ -423,7 +425,7 @@ set<uint> CrdWzskNav::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {SCRJREFDLGLOAINI, SCRJREFHEADBAR, SCRJREFPRE, PNLPREAVAIL, SCRJREFADMIN, PNLADMINAVAIL, SCRJREFOP, PNLOPAVAIL, SCRJREFGALERY, PNLGALERYAVAIL, MITSESSPSAVAIL, MSPCRD1AVAIL, MITCRDUSGAVAIL, MITCRDUSRAVAIL, MITCRDPRSAVAIL, MITCRDSCFAVAIL, MSPCRD2AVAIL, MITCRDLLVAVAIL, MITCRDLIVAVAIL, MSPCRD3AVAIL, MITCRDOGRAVAIL, MITCRDOBJAVAIL, MITCRDSESAVAIL, MITCRDSHTAVAIL, MITCRDFILAVAIL, MSPAPP2AVAIL, MITAPPLOIAVAIL};
+	diffitems = {SCRJREFDLGLOAINI, SCRJREFHEADBAR, SCRJREFPRE, PNLPREAVAIL, SCRJREFADMIN, PNLADMINAVAIL, SCRJREFOP, PNLOPAVAIL, SCRJREFGLRY, PNLGLRYAVAIL, MITSESSPSAVAIL, MSPCRD1AVAIL, MITCRDUSGAVAIL, MITCRDUSRAVAIL, MITCRDPRSAVAIL, MITCRDSCFAVAIL, MSPCRD2AVAIL, MITCRDLLVAVAIL, MITCRDLIVAVAIL, MSPCRD3AVAIL, MITCRDOGRAVAIL, MITCRDOBJAVAIL, MITCRDSESAVAIL, MITCRDSHTAVAIL, MITCRDFILAVAIL, MSPAPP2AVAIL, MITAPPLOIAVAIL};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

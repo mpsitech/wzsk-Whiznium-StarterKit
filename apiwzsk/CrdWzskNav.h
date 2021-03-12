@@ -62,6 +62,7 @@ namespace CrdWzskNav {
 	public:
 		static const Sbecore::uint IDLE = 1;
 		static const Sbecore::uint ALRWZSKABT = 2;
+		static const Sbecore::uint ALRWZSKTRM = 3;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -70,7 +71,7 @@ namespace CrdWzskNav {
 	/**
 	  * ContInf (full: ContInfWzskNav)
 	  */
-	class ContInf : public Sbecore::Xmlio::Block {
+	class ContInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NUMFSGE = 1;
@@ -98,7 +99,7 @@ namespace CrdWzskNav {
 	/**
 	  * StatApp (full: StatAppWzskNav)
 	  */
-	class StatApp : public Sbecore::Xmlio::Block {
+	class StatApp : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint IXWZSKVREQITMODE = 1;
@@ -109,10 +110,10 @@ namespace CrdWzskNav {
 		static const Sbecore::uint INITDONEPRE = 6;
 		static const Sbecore::uint INITDONEADMIN = 7;
 		static const Sbecore::uint INITDONEOP = 8;
-		static const Sbecore::uint INITDONEGALERY = 9;
+		static const Sbecore::uint INITDONEGLRY = 9;
 
 	public:
-		StatApp(const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdonePre = false, const bool initdoneAdmin = false, const bool initdoneOp = false, const bool initdoneGalery = false);
+		StatApp(const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdonePre = false, const bool initdoneAdmin = false, const bool initdoneOp = false, const bool initdoneGlry = false);
 
 	public:
 		Sbecore::uint ixWzskVReqitmode;
@@ -123,7 +124,7 @@ namespace CrdWzskNav {
 		bool initdonePre;
 		bool initdoneAdmin;
 		bool initdoneOp;
-		bool initdoneGalery;
+		bool initdoneGlry;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -134,7 +135,7 @@ namespace CrdWzskNav {
 	/**
 	  * StatShr (full: StatShrWzskNav)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint SCRJREFDLGLOAINI = 1;
@@ -145,8 +146,8 @@ namespace CrdWzskNav {
 		static const Sbecore::uint PNLADMINAVAIL = 6;
 		static const Sbecore::uint SCRJREFOP = 7;
 		static const Sbecore::uint PNLOPAVAIL = 8;
-		static const Sbecore::uint SCRJREFGALERY = 9;
-		static const Sbecore::uint PNLGALERYAVAIL = 10;
+		static const Sbecore::uint SCRJREFGLRY = 9;
+		static const Sbecore::uint PNLGLRYAVAIL = 10;
 		static const Sbecore::uint MITSESSPSAVAIL = 11;
 		static const Sbecore::uint MSPCRD1AVAIL = 12;
 		static const Sbecore::uint MITCRDUSGAVAIL = 13;
@@ -166,7 +167,7 @@ namespace CrdWzskNav {
 		static const Sbecore::uint MITAPPLOIAVAIL = 27;
 
 	public:
-		StatShr(const std::string& scrJrefDlgloaini = "", const std::string& scrJrefHeadbar = "", const std::string& scrJrefPre = "", const bool pnlpreAvail = false, const std::string& scrJrefAdmin = "", const bool pnladminAvail = false, const std::string& scrJrefOp = "", const bool pnlopAvail = false, const std::string& scrJrefGalery = "", const bool pnlgaleryAvail = false, const bool MitSesSpsAvail = true, const bool MspCrd1Avail = true, const bool MitCrdUsgAvail = true, const bool MitCrdUsrAvail = true, const bool MitCrdPrsAvail = true, const bool MitCrdScfAvail = true, const bool MspCrd2Avail = true, const bool MitCrdLlvAvail = true, const bool MitCrdLivAvail = true, const bool MspCrd3Avail = true, const bool MitCrdOgrAvail = true, const bool MitCrdObjAvail = true, const bool MitCrdSesAvail = true, const bool MitCrdShtAvail = true, const bool MitCrdFilAvail = true, const bool MspApp2Avail = true, const bool MitAppLoiAvail = true);
+		StatShr(const std::string& scrJrefDlgloaini = "", const std::string& scrJrefHeadbar = "", const std::string& scrJrefPre = "", const bool pnlpreAvail = false, const std::string& scrJrefAdmin = "", const bool pnladminAvail = false, const std::string& scrJrefOp = "", const bool pnlopAvail = false, const std::string& scrJrefGlry = "", const bool pnlglryAvail = false, const bool MitSesSpsAvail = true, const bool MspCrd1Avail = true, const bool MitCrdUsgAvail = true, const bool MitCrdUsrAvail = true, const bool MitCrdPrsAvail = true, const bool MitCrdScfAvail = true, const bool MspCrd2Avail = true, const bool MitCrdLlvAvail = true, const bool MitCrdLivAvail = true, const bool MspCrd3Avail = true, const bool MitCrdOgrAvail = true, const bool MitCrdObjAvail = true, const bool MitCrdSesAvail = true, const bool MitCrdShtAvail = true, const bool MitCrdFilAvail = true, const bool MspApp2Avail = true, const bool MitAppLoiAvail = true);
 
 	public:
 		std::string scrJrefDlgloaini;
@@ -177,8 +178,8 @@ namespace CrdWzskNav {
 		bool pnladminAvail;
 		std::string scrJrefOp;
 		bool pnlopAvail;
-		std::string scrJrefGalery;
-		bool pnlgaleryAvail;
+		std::string scrJrefGlry;
+		bool pnlglryAvail;
 		bool MitSesSpsAvail;
 		bool MspCrd1Avail;
 		bool MitCrdUsgAvail;
@@ -206,7 +207,7 @@ namespace CrdWzskNav {
 	/**
 	  * Tag (full: TagWzskNav)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint MITAPPABT = 1;
@@ -291,7 +292,7 @@ namespace CrdWzskNav {
 
 	public:
 		ContInf continf;
-		Sbecore::Xmlio::Feed feedFSge;
+		Sbecore::Feed feedFSge;
 		StatApp statapp;
 		StatShr statshr;
 		Tag tag;

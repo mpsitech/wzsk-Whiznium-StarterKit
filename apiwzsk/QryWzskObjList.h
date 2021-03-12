@@ -38,7 +38,7 @@ namespace QryWzskObjList {
 	/**
 	  * StatApp (full: StatAppQryWzskObjList)
 	  */
-	class StatApp : public Sbecore::Xmlio::Block {
+	class StatApp : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint FIRSTCOL = 1;
@@ -64,7 +64,7 @@ namespace QryWzskObjList {
 	/**
 	  * StatShr (full: StatShrQryWzskObjList)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NTOT = 1;
@@ -88,7 +88,7 @@ namespace QryWzskObjList {
 	/**
 	  * StgIac (full: StgIacQryWzskObjList)
 	  */
-	class StgIac : public Sbecore::Xmlio::Block {
+	class StgIac : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint JNUM = 1;

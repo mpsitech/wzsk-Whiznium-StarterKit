@@ -63,8 +63,8 @@ uint VecWzskVDpch::getIx(
 	if (s == "dpchappwzsknavadmindata") return DPCHAPPWZSKNAVADMINDATA;
 	if (s == "dpchappwzsknavadmindo") return DPCHAPPWZSKNAVADMINDO;
 	if (s == "dpchappwzsknavdo") return DPCHAPPWZSKNAVDO;
-	if (s == "dpchappwzsknavgalerydata") return DPCHAPPWZSKNAVGALERYDATA;
-	if (s == "dpchappwzsknavgalerydo") return DPCHAPPWZSKNAVGALERYDO;
+	if (s == "dpchappwzsknavglrydata") return DPCHAPPWZSKNAVGLRYDATA;
+	if (s == "dpchappwzsknavglrydo") return DPCHAPPWZSKNAVGLRYDO;
 	if (s == "dpchappwzsknavopdo") return DPCHAPPWZSKNAVOPDO;
 	if (s == "dpchappwzsknavpredo") return DPCHAPPWZSKNAVPREDO;
 	if (s == "dpchappwzskobj1nshotdata") return DPCHAPPWZSKOBJ1NSHOTDATA;
@@ -175,7 +175,7 @@ uint VecWzskVDpch::getIx(
 	if (s == "dpchengwzskllvttabledata") return DPCHENGWZSKLLVTTABLEDATA;
 	if (s == "dpchengwzsknavadmindata") return DPCHENGWZSKNAVADMINDATA;
 	if (s == "dpchengwzsknavdata") return DPCHENGWZSKNAVDATA;
-	if (s == "dpchengwzsknavgalerydata") return DPCHENGWZSKNAVGALERYDATA;
+	if (s == "dpchengwzsknavglrydata") return DPCHENGWZSKNAVGLRYDATA;
 	if (s == "dpchengwzsknavheadbardata") return DPCHENGWZSKNAVHEADBARDATA;
 	if (s == "dpchengwzsknavopdata") return DPCHENGWZSKNAVOPDATA;
 	if (s == "dpchengwzsknavpredata") return DPCHENGWZSKNAVPREDATA;
@@ -287,8 +287,8 @@ string VecWzskVDpch::getSref(
 	if (ix == DPCHAPPWZSKNAVADMINDATA) return("DpchAppWzskNavAdminData");
 	if (ix == DPCHAPPWZSKNAVADMINDO) return("DpchAppWzskNavAdminDo");
 	if (ix == DPCHAPPWZSKNAVDO) return("DpchAppWzskNavDo");
-	if (ix == DPCHAPPWZSKNAVGALERYDATA) return("DpchAppWzskNavGaleryData");
-	if (ix == DPCHAPPWZSKNAVGALERYDO) return("DpchAppWzskNavGaleryDo");
+	if (ix == DPCHAPPWZSKNAVGLRYDATA) return("DpchAppWzskNavGlryData");
+	if (ix == DPCHAPPWZSKNAVGLRYDO) return("DpchAppWzskNavGlryDo");
 	if (ix == DPCHAPPWZSKNAVOPDO) return("DpchAppWzskNavOpDo");
 	if (ix == DPCHAPPWZSKNAVPREDO) return("DpchAppWzskNavPreDo");
 	if (ix == DPCHAPPWZSKOBJ1NSHOTDATA) return("DpchAppWzskObj1NShotData");
@@ -399,7 +399,7 @@ string VecWzskVDpch::getSref(
 	if (ix == DPCHENGWZSKLLVTTABLEDATA) return("DpchEngWzskLlvTtableData");
 	if (ix == DPCHENGWZSKNAVADMINDATA) return("DpchEngWzskNavAdminData");
 	if (ix == DPCHENGWZSKNAVDATA) return("DpchEngWzskNavData");
-	if (ix == DPCHENGWZSKNAVGALERYDATA) return("DpchEngWzskNavGaleryData");
+	if (ix == DPCHENGWZSKNAVGLRYDATA) return("DpchEngWzskNavGlryData");
 	if (ix == DPCHENGWZSKNAVHEADBARDATA) return("DpchEngWzskNavHeadbarData");
 	if (ix == DPCHENGWZSKNAVOPDATA) return("DpchEngWzskNavOpData");
 	if (ix == DPCHENGWZSKNAVPREDATA) return("DpchEngWzskNavPreData");

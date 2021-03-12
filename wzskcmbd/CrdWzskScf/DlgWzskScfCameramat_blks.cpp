@@ -125,6 +125,26 @@ DlgWzskScfCameramat::ContIac::ContIac(
 	mask = {NUMFDSE};
 };
 
+bool DlgWzskScfCameramat::ContIac::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacDlgWzskScfCameramat"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("numFDse")) {numFDse = me["numFDse"].asUInt(); add(NUMFDSE);};
+	};
+
+	return basefound;
+};
+
 bool DlgWzskScfCameramat::ContIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -146,6 +166,17 @@ bool DlgWzskScfCameramat::ContIac::readXML(
 	};
 
 	return basefound;
+};
+
+void DlgWzskScfCameramat::ContIac::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacDlgWzskScfCameramat";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFDse"] = numFDse;
 };
 
 void DlgWzskScfCameramat::ContIac::writeXML(
@@ -202,6 +233,17 @@ DlgWzskScfCameramat::ContInf::ContInf(
 	mask = {NUMFSGE};
 };
 
+void DlgWzskScfCameramat::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfDlgWzskScfCameramat";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFSge"] = numFSge;
+};
+
 void DlgWzskScfCameramat::ContInf::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -246,6 +288,20 @@ set<uint> DlgWzskScfCameramat::ContInf::diff(
  class DlgWzskScfCameramat::StatApp
  ******************************************************************************/
 
+void DlgWzskScfCameramat::StatApp::writeJSON(
+			Json::Value& sup
+			, string difftag
+			, const bool initdone
+			, const string& shortMenu
+		) {
+	if (difftag.length() == 0) difftag = "StatAppDlgWzskScfCameramat";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["initdone"] = initdone;
+	me["shortMenu"] = shortMenu;
+};
+
 void DlgWzskScfCameramat::StatApp::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -277,6 +333,17 @@ DlgWzskScfCameramat::StatShr::StatShr(
 	this->ButDneActive = ButDneActive;
 
 	mask = {BUTDNEACTIVE};
+};
+
+void DlgWzskScfCameramat::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrDlgWzskScfCameramat";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ButDneActive"] = ButDneActive;
 };
 
 void DlgWzskScfCameramat::StatShr::writeXML(
@@ -323,6 +390,23 @@ set<uint> DlgWzskScfCameramat::StatShr::diff(
  class DlgWzskScfCameramat::Tag
  ******************************************************************************/
 
+void DlgWzskScfCameramat::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagDlgWzskScfCameramat";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "Calibrate camera matrix";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "Kameramatrix kalibrieren";
+	};
+	me["ButDne"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DONE, ixWzskVLocale));
+};
+
 void DlgWzskScfCameramat::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -364,6 +448,27 @@ string DlgWzskScfCameramat::DpchAppData::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void DlgWzskScfCameramat::DpchAppData::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppDlgWzskScfCameramatData"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (contiac.readJSON(me, true)) add(CONTIAC);
+	} else {
+		contiac = ContIac();
+	};
 };
 
 void DlgWzskScfCameramat::DpchAppData::readXML(
@@ -413,6 +518,26 @@ string DlgWzskScfCameramat::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void DlgWzskScfCameramat::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppDlgWzskScfCameramatDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void DlgWzskScfCameramat::DpchAppDo::readXML(
@@ -501,6 +626,22 @@ void DlgWzskScfCameramat::DpchEngData::merge(
 	if (src->has(STATAPP)) add(STATAPP);
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
+};
+
+void DlgWzskScfCameramat::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngDlgWzskScfCameramatData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTIAC)) contiac.writeJSON(me);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(FEEDFDSE)) feedFDse.writeJSON(me);
+	if (has(FEEDFSGE)) feedFSge.writeJSON(me);
+	if (has(STATAPP)) StatApp::writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void DlgWzskScfCameramat::DpchEngData::writeXML(

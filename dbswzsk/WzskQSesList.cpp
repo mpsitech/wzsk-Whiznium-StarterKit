@@ -43,6 +43,27 @@ WzskQSesList::WzskQSesList(
 	this->Ip = Ip;
 };
 
+void WzskQSesList::writeJSON(
+			Json::Value& sup
+			, bool jnumattr
+			, bool shorttags
+		) {
+	Json::Value& me = sup.append(Json::Value(Json::objectValue));
+
+	if (jnumattr) me["jnum"] = jnum;
+	if (shorttags) {
+		me["usr"] = stubRefWzskMUser;
+		me["sta"] = ftmStart;
+		me["sto"] = ftmStop;
+		me["ip"] = Ip;
+	} else {
+		me["stubRefWzskMUser"] = stubRefWzskMUser;
+		me["ftmStart"] = ftmStart;
+		me["ftmStop"] = ftmStop;
+		me["Ip"] = Ip;
+	};
+};
+
 void WzskQSesList::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -114,6 +135,16 @@ ListWzskQSesList& ListWzskQSesList::operator=(
 	};
 
 	return(*this);
+};
+
+void ListWzskQSesList::writeJSON(
+			Json::Value& sup
+			, std::string difftag
+		) {
+	if (difftag == "") difftag = "ListWzskQSesList";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::arrayValue);
+	for (unsigned int i = 0; i < nodes.size(); i++) nodes[i]->writeJSON(me, true, true);
 };
 
 void ListWzskQSesList::writeXML(

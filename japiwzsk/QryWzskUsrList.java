@@ -22,8 +22,8 @@ public class QryWzskUsrList {
 		public static final int STE = 1;
 		public static final int USG = 2;
 		public static final int SRF = 3;
-		public static final int PRS = 4;
-		public static final int OWN = 5;
+		public static final int OWN = 4;
+		public static final int PRS = 5;
 		public static final int GRP = 6;
 
 		public static int getIx(
@@ -34,8 +34,8 @@ public class QryWzskUsrList {
 			if (s.equals("ste")) return STE;
 			if (s.equals("usg")) return USG;
 			if (s.equals("srf")) return SRF;
-			if (s.equals("prs")) return PRS;
 			if (s.equals("own")) return OWN;
+			if (s.equals("prs")) return PRS;
 			if (s.equals("grp")) return GRP;
 
 			return 0;
@@ -47,8 +47,8 @@ public class QryWzskUsrList {
 			if (ix == STE) return("ste");
 			if (ix == USG) return("usg");
 			if (ix == SRF) return("srf");
-			if (ix == PRS) return("prs");
 			if (ix == OWN) return("own");
+			if (ix == PRS) return("prs");
 			if (ix == GRP) return("grp");
 
 			return "";

@@ -25,6 +25,17 @@ SessWzsk::StatShr::StatShr(
 	mask = {JREFCRDNAV};
 };
 
+void SessWzsk::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrSessWzsk";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["scrJrefCrdnav"] = Scr::scramble(jrefCrdnav);
+};
+
 void SessWzsk::StatShr::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -105,6 +116,17 @@ void SessWzsk::DpchEngData::merge(
 	if (src->has(JREF)) {jref = src->jref; add(JREF);};
 	if (src->has(FEEDFENSSEC)) {feedFEnsSec = src->feedFEnsSec; add(FEEDFENSSEC);};
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
+};
+
+void SessWzsk::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngSessWzskData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(FEEDFENSSEC)) feedFEnsSec.writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
 };
 
 void SessWzsk::DpchEngData::writeXML(

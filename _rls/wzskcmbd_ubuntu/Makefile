@@ -1,8 +1,8 @@
 # file Makefile
 # make file for Wzsk combined daemon, release wzskcmbd_ubuntu
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
-# author: Alexander Wirthmueller (auto-generation)
-# date created: 15 Dec 2020
+# author: Emily Johnson (auto-generation)
+# date created: 11 Mar 2021
 # IP header --- ABOVE
 
 include Makefile.inc
@@ -33,7 +33,7 @@ LIBS += -liexwzsk -lvecwzsk -ldbswzsk
 LIBS += -lezdevwskd -lmicrohttpd -lpng -lsbecore_lite -lsbecore_mon
 LIBS += -ldbecore -lsbecore_plus -lsqlite3
 LIBS += -lsbecore
-LIBS += -lxml2
+LIBS += -ljsoncpp -lxml2
 LIBS += -lpthread
 
 EXE = Wzskcmbd

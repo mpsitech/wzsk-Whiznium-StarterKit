@@ -83,6 +83,18 @@ CrdWzskLiv::ContInf::ContInf(
 	mask = {NUMFSGE, MRLAPPHLP};
 };
 
+void CrdWzskLiv::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfWzskLiv";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFSge"] = numFSge;
+	me["MrlAppHlp"] = MrlAppHlp;
+};
+
 void CrdWzskLiv::ContInf::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -128,6 +140,32 @@ set<uint> CrdWzskLiv::ContInf::diff(
 /******************************************************************************
  class CrdWzskLiv::StatApp
  ******************************************************************************/
+
+void CrdWzskLiv::StatApp::writeJSON(
+			Json::Value& sup
+			, string difftag
+			, const uint ixWzskVReqitmode
+			, const usmallint latency
+			, const string& shortMenu
+			, const uint widthMenu
+			, const bool initdone2DView
+			, const bool initdone3DView
+			, const bool initdoneSysmon
+			, const bool initdoneHeadbar
+		) {
+	if (difftag.length() == 0) difftag = "StatAppWzskLiv";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVReqitmode"] = VecWzskVReqitmode::getSref(ixWzskVReqitmode);
+	me["latency"] = latency;
+	me["shortMenu"] = shortMenu;
+	me["widthMenu"] = widthMenu;
+	me["initdone2DView"] = initdone2DView;
+	me["initdone3DView"] = initdone3DView;
+	me["initdoneSysmon"] = initdoneSysmon;
+	me["initdoneHeadbar"] = initdoneHeadbar;
+};
 
 void CrdWzskLiv::StatApp::writeXML(
 			xmlTextWriter* wr
@@ -180,6 +218,20 @@ CrdWzskLiv::StatShr::StatShr(
 	mask = {JREF2DVIEW, JREF3DVIEW, JREFSYSMON, JREFHEADBAR};
 };
 
+void CrdWzskLiv::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskLiv";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["scrJref2DView"] = Scr::scramble(jref2DView);
+	me["scrJref3DView"] = Scr::scramble(jref3DView);
+	me["scrJrefSysmon"] = Scr::scramble(jrefSysmon);
+	me["scrJrefHeadbar"] = Scr::scramble(jrefHeadbar);
+};
+
 void CrdWzskLiv::StatShr::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -230,6 +282,22 @@ set<uint> CrdWzskLiv::StatShr::diff(
  class CrdWzskLiv::Tag
  ******************************************************************************/
 
+void CrdWzskLiv::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskLiv";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+	};
+	me["MitAppAbt"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::ABOUT, ixWzskVLocale)) + " ...";
+	me["MrlAppHlp"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::HELP, ixWzskVLocale)) + " ...";
+};
+
 void CrdWzskLiv::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -271,6 +339,26 @@ string CrdWzskLiv::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void CrdWzskLiv::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLivDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void CrdWzskLiv::DpchAppDo::readXML(
@@ -351,6 +439,20 @@ void CrdWzskLiv::DpchEngData::merge(
 	if (src->has(STATAPP)) add(STATAPP);
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
+};
+
+void CrdWzskLiv::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskLivData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(FEEDFSGE)) feedFSge.writeJSON(me);
+	if (has(STATAPP)) StatApp::writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void CrdWzskLiv::DpchEngData::writeXML(

@@ -20,8 +20,8 @@ public class QryWzskShtList {
 	public static class VecVOrd {
 
 		public static final int STA = 1;
-		public static final int OBJ = 2;
-		public static final int SES = 3;
+		public static final int SES = 2;
+		public static final int OBJ = 3;
 
 		public static int getIx(
 					String sref
@@ -29,8 +29,8 @@ public class QryWzskShtList {
 			String s = sref.toLowerCase();
 
 			if (s.equals("sta")) return STA;
-			if (s.equals("obj")) return OBJ;
 			if (s.equals("ses")) return SES;
+			if (s.equals("obj")) return OBJ;
 
 			return 0;
 		};
@@ -39,8 +39,8 @@ public class QryWzskShtList {
 					int ix
 				) {
 			if (ix == STA) return("sta");
-			if (ix == OBJ) return("obj");
 			if (ix == SES) return("ses");
+			if (ix == OBJ) return("obj");
 
 			return "";
 		};

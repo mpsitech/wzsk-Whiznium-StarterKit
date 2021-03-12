@@ -13,7 +13,7 @@ function checkInitdone() {
 	var initdonePre = (retrieveSi(srcdoc, "StatAppWzskNav", "initdonePre") == "true");
 	var initdoneAdmin = (retrieveSi(srcdoc, "StatAppWzskNav", "initdoneAdmin") == "true");
 	var initdoneOp = (retrieveSi(srcdoc, "StatAppWzskNav", "initdoneOp") == "true");
-	var initdoneGalery = (retrieveSi(srcdoc, "StatAppWzskNav", "initdoneGalery") == "true");
+	var initdoneGlry = (retrieveSi(srcdoc, "StatAppWzskNav", "initdoneGlry") == "true");
 
 	if (!initdoneHeadbar) {
 		doc.getElementById("Headbar").src = "./PnlWzskNavHeadbar.html?scrJref=" + scrJrefHeadbar;
@@ -23,8 +23,8 @@ function checkInitdone() {
 		doc.getElementById("Admin").src = "./PnlWzskNavAdmin.html?scrJref=" + scrJrefAdmin;
 	} else if (!initdoneOp) {
 		doc.getElementById("Op").src = "./PnlWzskNavOp.html?scrJref=" + scrJrefOp;
-	} else if (!initdoneGalery) {
-		doc.getElementById("Galery").src = "./PnlWzskNavGalery.html?scrJref=" + scrJrefGalery;
+	} else if (!initdoneGlry) {
+		doc.getElementById("Glry").src = "./PnlWzskNavGlry.html?scrJref=" + scrJrefGlry;
 	} else {
 		doc.initdone = true;
 		window.onfocus = resumeNotify;
@@ -56,7 +56,7 @@ function getHeight() {
 	if (doc.getElementById("trPre").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdPre").getAttribute("height"));
 	if (doc.getElementById("trAdmin").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdAdmin").getAttribute("height")) + 8;
 	if (doc.getElementById("trOp").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdOp").getAttribute("height")) + 8;
-	if (doc.getElementById("trGalery").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdGalery").getAttribute("height")) + 8;
+	if (doc.getElementById("trGlry").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdGlry").getAttribute("height")) + 8;
 
 	height += 5;
 
@@ -395,9 +395,9 @@ function changeHeight(pnlshort, height) {
 	} else if (pnlshort == "Op") {
 		doc.getElementById("tdOp").setAttribute("height", "" + height);
 		doc.getElementById("Op").setAttribute("height", "" + height);
-	} else if (pnlshort == "Galery") {
-		doc.getElementById("tdGalery").setAttribute("height", "" + height);
-		doc.getElementById("Galery").setAttribute("height", "" + height);
+	} else if (pnlshort == "Glry") {
+		doc.getElementById("tdGlry").setAttribute("height", "" + height);
+		doc.getElementById("Glry").setAttribute("height", "" + height);
 	};
 
 	if (divPnldshld) divPnldshld.setAttribute("style", "height:" + getHeight() + "px;");
@@ -411,7 +411,7 @@ function refresh() {
 	var pnlpreAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "pnlpreAvail") == "true");
 	var pnladminAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "pnladminAvail") == "true");
 	var pnlopAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "pnlopAvail") == "true");
-	var pnlgaleryAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "pnlgaleryAvail") == "true");
+	var pnlglryAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "pnlglryAvail") == "true");
 
 	if (scrJrefDlgloaini != "") {
 		if (scrJrefDlg != scrJrefDlgloaini) showDlg("DlgWzskNavLoaini", scrJrefDlgloaini);
@@ -420,7 +420,7 @@ function refresh() {
 	setPnlAvail("Pre", pnlpreAvail);
 	setPnlAvail("Admin", pnladminAvail);
 	setPnlAvail("Op", pnlopAvail);
-	setPnlAvail("Galery", pnlgaleryAvail);
+	setPnlAvail("Glry", pnlglryAvail);
 };
 
 // --- event handlers
@@ -485,8 +485,8 @@ function handleDpchEngSub(_scrJref, dom, dpch) {
 		doc.getElementById("Admin").contentWindow.handleDpchEng(dom, dpch);
 	} else if (_scrJref == scrJrefOp) {
 		doc.getElementById("Op").contentWindow.handleDpchEng(dom, dpch);
-	} else if (_scrJref == scrJrefGalery) {
-		doc.getElementById("Galery").contentWindow.handleDpchEng(dom, dpch);
+	} else if (_scrJref == scrJrefGlry) {
+		doc.getElementById("Glry").contentWindow.handleDpchEng(dom, dpch);
 
 	} else {
 		// alert("got a '" + dpch + "' from job with scrJref " + _scrJref);
@@ -509,7 +509,7 @@ function handleDpchAppInitReply() {
 				scrJrefPre = retrieveSi(srcdoc, "StatShrWzskNav", "scrJrefPre");
 				scrJrefAdmin = retrieveSi(srcdoc, "StatShrWzskNav", "scrJrefAdmin");
 				scrJrefOp = retrieveSi(srcdoc, "StatShrWzskNav", "scrJrefOp");
-				scrJrefGalery = retrieveSi(srcdoc, "StatShrWzskNav", "scrJrefGalery");
+				scrJrefGlry = retrieveSi(srcdoc, "StatShrWzskNav", "scrJrefGlry");
 
 				scrJrefPnld = "";
 

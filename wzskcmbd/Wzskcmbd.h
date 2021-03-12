@@ -28,6 +28,9 @@
 #include <sys/stat.h>
 
 #include <microhttpd.h>
+#if MHD_VERSION < 0x0097002
+	#define MHD_Result int
+#endif
 
 #include <sbecore/Txtrd.h>
 #include <sbecore/TxtMon.h>
@@ -58,6 +61,7 @@ public:
 	static bool all(const std::set<Sbecore::uint>& items);
 	virtual std::string getSrefsMask();
 
+	virtual void readJSON(Json::Value& sup, bool addbasetag = false);
 	virtual void readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
 };
 
@@ -80,6 +84,7 @@ public:
 	static bool all(const std::set<Sbecore::uint>& items);
 	std::string getSrefsMask();
 
+	void readJSON(Json::Value& sup, bool addbasetag = false);
 	void readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
 };
 
@@ -121,6 +126,7 @@ public:
 	virtual std::string getSrefsMask();
 	virtual void merge(DpchEngWzsk* dpcheng);
 
+	virtual void writeJSON(const Sbecore::uint ixWzskVLocale, Json::Value& sup);
 	virtual void writeXML(const Sbecore::uint ixWzskVLocale, xmlTextWriter* wr);
 };
 
@@ -145,17 +151,18 @@ public:
 	static const Sbecore::uint ALL = 4;
 
 public:
-	DpchEngWzskAlert(const Sbecore::ubigint jref = 0, ContInfWzskAlert* continf = NULL, Sbecore::Xmlio::Feed* feedFMcb = NULL, const std::set<Sbecore::uint>& mask = {NONE});
+	DpchEngWzskAlert(const Sbecore::ubigint jref = 0, ContInfWzskAlert* continf = NULL, Sbecore::Feed* feedFMcb = NULL, const std::set<Sbecore::uint>& mask = {NONE});
 
 public:
 	ContInfWzskAlert continf;
-	Sbecore::Xmlio::Feed feedFMcb;
+	Sbecore::Feed feedFMcb;
 
 public:
 	static bool all(const std::set<Sbecore::uint>& items);
 	std::string getSrefsMask();
 	void merge(DpchEngWzsk* dpcheng);
 
+	void writeJSON(const Sbecore::uint ixWzskVLocale, Json::Value& sup);
 	void writeXML(const Sbecore::uint ixWzskVLocale, xmlTextWriter* wr);
 };
 
@@ -182,6 +189,7 @@ public:
 	std::string getSrefsMask();
 	void merge(DpchEngWzsk* dpcheng);
 
+	void writeJSON(const Sbecore::uint ixWzskVLocale, Json::Value& sup);
 	void writeXML(const Sbecore::uint ixWzskVLocale, xmlTextWriter* wr);
 };
 
@@ -197,18 +205,24 @@ public:
 /**
 	* StgWzskAppearance
 	*/
-class StgWzskAppearance : public Sbecore::Xmlio::Block {
+class StgWzskAppearance : public Sbecore::Block {
 
 public:
 	static const Sbecore::uint HISTLENGTH = 1;
 	static const Sbecore::uint SUSPSESS = 2;
+	static const Sbecore::uint SESSTTERM = 3;
+	static const Sbecore::uint SESSTWARN = 4;
+	static const Sbecore::uint ROOTTTERM = 5;
 
 public:
-	StgWzskAppearance(const Sbecore::usmallint histlength = 20, const bool suspsess = true);
+	StgWzskAppearance(const Sbecore::usmallint histlength = 20, const bool suspsess = true, const Sbecore::uint sesstterm = 0, const Sbecore::uint sesstwarn = 0, const Sbecore::uint roottterm = 0);
 
 public:
 	Sbecore::usmallint histlength;
 	bool suspsess;
+	Sbecore::uint sesstterm;
+	Sbecore::uint sesstwarn;
+	Sbecore::uint roottterm;
 
 public:
 	bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -220,7 +234,7 @@ public:
 /**
 	* StgWzskAppsrv
 	*/
-class StgWzskAppsrv : public Sbecore::Xmlio::Block {
+class StgWzskAppsrv : public Sbecore::Block {
 
 public:
 	static const Sbecore::uint PORT = 1;
@@ -243,7 +257,7 @@ public:
 /**
 	* StgWzskCamera
 	*/
-class StgWzskCamera : public Sbecore::Xmlio::Block {
+class StgWzskCamera : public Sbecore::Block {
 
 public:
 	static const Sbecore::uint HPIX = 1;
@@ -268,7 +282,7 @@ public:
 /**
 	* StgWzskcmbd
 	*/
-class StgWzskcmbd : public Sbecore::Xmlio::Block {
+class StgWzskcmbd : public Sbecore::Block {
 
 public:
 	static const Sbecore::uint JOBPRCN = 1;
@@ -297,7 +311,7 @@ public:
 /**
 	* StgWzskDatabase
 	*/
-class StgWzskDatabase : public Sbecore::Xmlio::Block {
+class StgWzskDatabase : public Sbecore::Block {
 
 public:
 	static const Sbecore::uint IXDBSVDBSTYPE = 1;
@@ -330,7 +344,7 @@ public:
 /**
 	* StgWzskDdspub
 	*/
-class StgWzskDdspub : public Sbecore::Xmlio::Block {
+class StgWzskDdspub : public Sbecore::Block {
 
 public:
 	static const Sbecore::uint USERNAME = 1;
@@ -353,7 +367,7 @@ public:
 /**
 	* StgWzskFramegeo
 	*/
-class StgWzskFramegeo : public Sbecore::Xmlio::Block {
+class StgWzskFramegeo : public Sbecore::Block {
 
 public:
 	static const Sbecore::uint WACQ = 1;
@@ -396,7 +410,7 @@ public:
 /**
 	* StgWzskGlobal
 	*/
-class StgWzskGlobal : public Sbecore::Xmlio::Block {
+class StgWzskGlobal : public Sbecore::Block {
 
 public:
 	static const Sbecore::uint FPGANOTV4L2GPIO = 1;
@@ -417,7 +431,7 @@ public:
 /**
 	* StgWzskPath
 	*/
-class StgWzskPath : public Sbecore::Xmlio::Block {
+class StgWzskPath : public Sbecore::Block {
 
 public:
 	static const Sbecore::uint ACVPATH = 1;
@@ -448,7 +462,7 @@ public:
 /**
 	* StgWzskUasrv
 	*/
-class StgWzskUasrv : public Sbecore::Xmlio::Block {
+class StgWzskUasrv : public Sbecore::Block {
 
 public:
 	static const Sbecore::uint PROFILE = 1;
@@ -478,10 +492,12 @@ public:
 	* AlrWzsk
 	*/
 namespace AlrWzsk {
-	DpchEngWzskAlert* prepareAlrAbt(const Sbecore::ubigint jref, const Sbecore::uint ixWzskVLocale, Sbecore::Xmlio::Feed& feedFMcbAlert);
-	DpchEngWzskAlert* prepareAlrIer(const Sbecore::ubigint jref, const Sbecore::uint ixWzskVLocale, const std::string& iexsqk, Sbecore::Xmlio::Feed& feedFMcbAlert);
-	DpchEngWzskAlert* prepareAlrPer(const Sbecore::ubigint jref, const Sbecore::uint ixWzskVLocale, const std::string& iexsqk, Sbecore::Xmlio::Feed& feedFMcbAlert);
-	DpchEngWzskAlert* prepareAlrSav(const Sbecore::ubigint jref, const Sbecore::uint ixWzskVLocale, Sbecore::Xmlio::Feed& feedFMcbAlert);
+	DpchEngWzskAlert* prepareAlrAbt(const Sbecore::ubigint jref, const Sbecore::uint ixWzskVLocale, Sbecore::Feed& feedFMcbAlert);
+	DpchEngWzskAlert* prepareAlrIer(const Sbecore::ubigint jref, const Sbecore::uint ixWzskVLocale, const std::string& iexsqk, Sbecore::Feed& feedFMcbAlert);
+	DpchEngWzskAlert* prepareAlrPer(const Sbecore::ubigint jref, const Sbecore::uint ixWzskVLocale, const std::string& iexsqk, Sbecore::Feed& feedFMcbAlert);
+	DpchEngWzskAlert* prepareAlrSav(const Sbecore::ubigint jref, const Sbecore::uint ixWzskVLocale, Sbecore::Feed& feedFMcbAlert);
+	DpchEngWzskAlert* prepareAlrTrm(const Sbecore::ubigint jref, const Sbecore::uint ixWzskVLocale, const Sbecore::uint sesstterm, const Sbecore::uint sesstwarn, Sbecore::Feed& feedFMcbAlert);
+	std::string prepareAlrTrm_dtToString(const uint ixWzskVLocale, const time_t dt);
 };
 
 /**
@@ -553,6 +569,9 @@ public:
 	// specific data for base types DPCHAPP, NOTIFY, POLL, DPCHRET
 	char* request;
 	size_t requestlen;
+
+	// specifc data for base types DPCHAPP, NOTIFY, POLL
+	bool jsonNotXml;
 
 	// specific data for base types CMD, DPCHAPP, NOTIFY, POLL, UPLOAD, DOWNLOAD, DPCHRET, TIMER
 	Sbecore::ubigint jref;
@@ -776,7 +795,7 @@ public:
 class WakeupWzsk {
 
 public:
-	WakeupWzsk(XchgWzsk* xchg, const Sbecore::ubigint wref, const Sbecore::ubigint jref, const std::string sref, const unsigned int deltat = 0, const bool weak = false);
+	WakeupWzsk(XchgWzsk* xchg, const Sbecore::ubigint wref, const Sbecore::ubigint jref, const std::string sref, const uint64_t deltat = 0, const bool weak = false);
 
 public:
 	XchgWzsk* xchg;
@@ -785,7 +804,7 @@ public:
 
 	Sbecore::ubigint jref;
 	std::string sref;
-	unsigned int deltat;
+	uint64_t deltat;
 	bool weak;
 };
 
@@ -1096,7 +1115,7 @@ public:
 	std::set<Sbecore::ubigint> getCsjobClisByJref(const Sbecore::ubigint jref);
 
 	// timer methods
-	Sbecore::ubigint addWakeup(const Sbecore::ubigint jref, const std::string sref, const unsigned int deltat = 0, const bool weak = false);
+	Sbecore::ubigint addWakeup(const Sbecore::ubigint jref, const std::string sref, const uint64_t deltat = 0, const bool weak = false);
 	static void* runWakeup(void* arg);
 
 	// external call methods

@@ -24,7 +24,7 @@ namespace PnlWzskObjHeadbar {
 	/**
 	  * StgInf (full: StgInfWzskObjHeadbar)
 	  */
-	class StgInf : public Sbecore::Xmlio::Block {
+	class StgInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint MENAPPCPTWIDTH = 1;
@@ -50,7 +50,7 @@ namespace PnlWzskObjHeadbar {
 	/**
 	  * Tag (full: TagWzskObjHeadbar)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint MENAPP = 1;

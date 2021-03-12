@@ -1,9 +1,9 @@
 /**
-	* \file PnlWzskNavGalery.cpp
-	* job handler for job PnlWzskNavGalery (implementation)
+	* \file PnlWzskNavGlry.cpp
+	* job handler for job PnlWzskNavGlry (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
 	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \date created: 11 Mar 2021
 	*/
 // IP header --- ABOVE
 
@@ -13,10 +13,10 @@
 	#include <Wzskd.h>
 #endif
 
-#include "PnlWzskNavGalery.h"
+#include "PnlWzskNavGlry.h"
 
-#include "PnlWzskNavGalery_blks.cpp"
-#include "PnlWzskNavGalery_evals.cpp"
+#include "PnlWzskNavGlry_blks.cpp"
+#include "PnlWzskNavGlry_evals.cpp"
 
 using namespace std;
 using namespace Sbecore;
@@ -25,16 +25,16 @@ using namespace Xmlio;
 // IP ns.cust --- INSERT
 
 /******************************************************************************
- class PnlWzskNavGalery
+ class PnlWzskNavGlry
  ******************************************************************************/
 
-PnlWzskNavGalery::PnlWzskNavGalery(
+PnlWzskNavGlry::PnlWzskNavGlry(
 			XchgWzsk* xchg
 			, DbsWzsk* dbswzsk
 			, const ubigint jrefSup
 			, const uint ixWzskVLocale
 		) :
-			JobWzsk(xchg, VecWzskVJob::PNLWZSKNAVGALERY, jrefSup, ixWzskVLocale)
+			JobWzsk(xchg, VecWzskVJob::PNLWZSKNAVGLRY, jrefSup, ixWzskVLocale)
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
@@ -67,7 +67,7 @@ PnlWzskNavGalery::PnlWzskNavGalery(
 	xchg->addIxRefClstn(VecWzskVCall::CALLWZSKHUSRRUNVMOD_CRDUSREQ, jref, Clstn::VecVJobmask::ALL, 0, false, VecWzskVCard::CRDWZSKFIL, xchg->getRefPreset(VecWzskVPreset::PREWZSKOWNER, jref));
 };
 
-PnlWzskNavGalery::~PnlWzskNavGalery() {
+PnlWzskNavGlry::~PnlWzskNavGlry() {
 	// IP destructor.spec --- INSERT
 
 	// IP destructor.cust --- INSERT
@@ -77,7 +77,7 @@ PnlWzskNavGalery::~PnlWzskNavGalery() {
 
 // IP cust --- INSERT
 
-DpchEngWzsk* PnlWzskNavGalery::getNewDpchEng(
+DpchEngWzsk* PnlWzskNavGlry::getNewDpchEng(
 			set<uint> items
 		) {
 	DpchEngWzsk* dpcheng = NULL;
@@ -92,7 +92,7 @@ DpchEngWzsk* PnlWzskNavGalery::getNewDpchEng(
 	return dpcheng;
 };
 
-void PnlWzskNavGalery::refreshLstOgr(
+void PnlWzskNavGlry::refreshLstOgr(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
@@ -104,7 +104,7 @@ void PnlWzskNavGalery::refreshLstOgr(
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 };
 
-void PnlWzskNavGalery::refreshOgr(
+void PnlWzskNavGlry::refreshOgr(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
@@ -132,7 +132,7 @@ void PnlWzskNavGalery::refreshOgr(
 	refreshLstOgr(dbswzsk, moditems);
 };
 
-void PnlWzskNavGalery::refreshLstObj(
+void PnlWzskNavGlry::refreshLstObj(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
@@ -144,7 +144,7 @@ void PnlWzskNavGalery::refreshLstObj(
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 };
 
-void PnlWzskNavGalery::refreshObj(
+void PnlWzskNavGlry::refreshObj(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
@@ -172,7 +172,7 @@ void PnlWzskNavGalery::refreshObj(
 	refreshLstObj(dbswzsk, moditems);
 };
 
-void PnlWzskNavGalery::refreshLstSes(
+void PnlWzskNavGlry::refreshLstSes(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
@@ -184,7 +184,7 @@ void PnlWzskNavGalery::refreshLstSes(
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 };
 
-void PnlWzskNavGalery::refreshSes(
+void PnlWzskNavGlry::refreshSes(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
@@ -212,7 +212,7 @@ void PnlWzskNavGalery::refreshSes(
 	refreshLstSes(dbswzsk, moditems);
 };
 
-void PnlWzskNavGalery::refreshLstSht(
+void PnlWzskNavGlry::refreshLstSht(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
@@ -224,7 +224,7 @@ void PnlWzskNavGalery::refreshLstSht(
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 };
 
-void PnlWzskNavGalery::refreshSht(
+void PnlWzskNavGlry::refreshSht(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
@@ -252,7 +252,7 @@ void PnlWzskNavGalery::refreshSht(
 	refreshLstSht(dbswzsk, moditems);
 };
 
-void PnlWzskNavGalery::refreshLstFil(
+void PnlWzskNavGlry::refreshLstFil(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
@@ -264,7 +264,7 @@ void PnlWzskNavGalery::refreshLstFil(
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 };
 
-void PnlWzskNavGalery::refreshFil(
+void PnlWzskNavGlry::refreshFil(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
@@ -292,7 +292,7 @@ void PnlWzskNavGalery::refreshFil(
 	refreshLstFil(dbswzsk, moditems);
 };
 
-void PnlWzskNavGalery::refresh(
+void PnlWzskNavGlry::refresh(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 			, const bool unmute
@@ -305,7 +305,7 @@ void PnlWzskNavGalery::refresh(
 	muteRefresh = false;
 };
 
-void PnlWzskNavGalery::updatePreset(
+void PnlWzskNavGlry::updatePreset(
 			DbsWzsk* dbswzsk
 			, const uint ixWzskVPreset
 			, const ubigint jrefTrig
@@ -325,7 +325,7 @@ void PnlWzskNavGalery::updatePreset(
 	// IP updatePreset --- END
 };
 
-void PnlWzskNavGalery::handleRequest(
+void PnlWzskNavGlry::handleRequest(
 			DbsWzsk* dbswzsk
 			, ReqWzsk* req
 		) {
@@ -344,14 +344,14 @@ void PnlWzskNavGalery::handleRequest(
 		if (req->dpchapp->ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKINIT) {
 			handleDpchAppWzskInit(dbswzsk, (DpchAppWzskInit*) (req->dpchapp), &(req->dpcheng));
 
-		} else if (req->dpchapp->ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKNAVGALERYDATA) {
+		} else if (req->dpchapp->ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKNAVGLRYDATA) {
 			DpchAppData* dpchappdata = (DpchAppData*) (req->dpchapp);
 
 			if (dpchappdata->has(DpchAppData::CONTIAC)) {
 				handleDpchAppDataContiac(dbswzsk, &(dpchappdata->contiac), &(req->dpcheng));
 			};
 
-		} else if (req->dpchapp->ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKNAVGALERYDO) {
+		} else if (req->dpchapp->ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKNAVGLRYDO) {
 			DpchAppDo* dpchappdo = (DpchAppDo*) (req->dpchapp);
 
 			if (dpchappdo->ixVDo != 0) {
@@ -383,7 +383,7 @@ void PnlWzskNavGalery::handleRequest(
 	};
 };
 
-void PnlWzskNavGalery::handleDpchAppWzskInit(
+void PnlWzskNavGlry::handleDpchAppWzskInit(
 			DbsWzsk* dbswzsk
 			, DpchAppWzskInit* dpchappwzskinit
 			, DpchEngWzsk** dpcheng
@@ -391,7 +391,7 @@ void PnlWzskNavGalery::handleDpchAppWzskInit(
 	*dpcheng = getNewDpchEng({DpchEngData::ALL});
 };
 
-void PnlWzskNavGalery::handleDpchAppDataContiac(
+void PnlWzskNavGlry::handleDpchAppDataContiac(
 			DbsWzsk* dbswzsk
 			, ContIac* _contiac
 			, DpchEngWzsk** dpcheng
@@ -433,7 +433,7 @@ void PnlWzskNavGalery::handleDpchAppDataContiac(
 	*dpcheng = getNewDpchEng(moditems);
 };
 
-void PnlWzskNavGalery::handleDpchAppDoButOgrViewClick(
+void PnlWzskNavGlry::handleDpchAppDoButOgrViewClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
@@ -451,7 +451,7 @@ void PnlWzskNavGalery::handleDpchAppDoButOgrViewClick(
 	};
 };
 
-void PnlWzskNavGalery::handleDpchAppDoButOgrNewcrdClick(
+void PnlWzskNavGlry::handleDpchAppDoButOgrNewcrdClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
@@ -463,7 +463,7 @@ void PnlWzskNavGalery::handleDpchAppDoButOgrNewcrdClick(
 	else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskOgr");
 };
 
-void PnlWzskNavGalery::handleDpchAppDoButObjViewClick(
+void PnlWzskNavGlry::handleDpchAppDoButObjViewClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
@@ -481,7 +481,7 @@ void PnlWzskNavGalery::handleDpchAppDoButObjViewClick(
 	};
 };
 
-void PnlWzskNavGalery::handleDpchAppDoButObjNewcrdClick(
+void PnlWzskNavGlry::handleDpchAppDoButObjNewcrdClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
@@ -493,7 +493,7 @@ void PnlWzskNavGalery::handleDpchAppDoButObjNewcrdClick(
 	else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskObj");
 };
 
-void PnlWzskNavGalery::handleDpchAppDoButSesViewClick(
+void PnlWzskNavGlry::handleDpchAppDoButSesViewClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
@@ -511,7 +511,7 @@ void PnlWzskNavGalery::handleDpchAppDoButSesViewClick(
 	};
 };
 
-void PnlWzskNavGalery::handleDpchAppDoButSesNewcrdClick(
+void PnlWzskNavGlry::handleDpchAppDoButSesNewcrdClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
@@ -523,7 +523,7 @@ void PnlWzskNavGalery::handleDpchAppDoButSesNewcrdClick(
 	else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskSes");
 };
 
-void PnlWzskNavGalery::handleDpchAppDoButShtViewClick(
+void PnlWzskNavGlry::handleDpchAppDoButShtViewClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
@@ -541,7 +541,7 @@ void PnlWzskNavGalery::handleDpchAppDoButShtViewClick(
 	};
 };
 
-void PnlWzskNavGalery::handleDpchAppDoButShtNewcrdClick(
+void PnlWzskNavGlry::handleDpchAppDoButShtNewcrdClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
@@ -553,7 +553,7 @@ void PnlWzskNavGalery::handleDpchAppDoButShtNewcrdClick(
 	else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskSht");
 };
 
-void PnlWzskNavGalery::handleDpchAppDoButFilViewClick(
+void PnlWzskNavGlry::handleDpchAppDoButFilViewClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
@@ -571,7 +571,7 @@ void PnlWzskNavGalery::handleDpchAppDoButFilViewClick(
 	};
 };
 
-void PnlWzskNavGalery::handleDpchAppDoButFilNewcrdClick(
+void PnlWzskNavGlry::handleDpchAppDoButFilNewcrdClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
@@ -583,7 +583,7 @@ void PnlWzskNavGalery::handleDpchAppDoButFilNewcrdClick(
 	else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskFil");
 };
 
-void PnlWzskNavGalery::handleCall(
+void PnlWzskNavGlry::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
@@ -592,7 +592,7 @@ void PnlWzskNavGalery::handleCall(
 	};
 };
 
-bool PnlWzskNavGalery::handleCallWzskHusrRunvMod_crdUsrEq(
+bool PnlWzskNavGlry::handleCallWzskHusrRunvMod_crdUsrEq(
 			DbsWzsk* dbswzsk
 			, const ubigint jrefTrig
 			, const uint ixInv

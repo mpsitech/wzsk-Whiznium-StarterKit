@@ -79,12 +79,13 @@ RootWzsk::RootWzsk(
 
 	// IP constructor.spec2 --- INSERT
 
+	xchg->addClstn(VecWzskVCall::CALLWZSKREFPRESET, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSUSPSESS, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKLOGOUT, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
-	// IP constructor.spec3 --- INSERT
+	if (xchg->stgwzskappearance.roottterm != 0) wrefLast = xchg->addWakeup(jref, "warnterm", 1e6 * xchg->stgwzskappearance.roottterm);
 };
 
 RootWzsk::~RootWzsk() {
@@ -274,6 +275,9 @@ void RootWzsk::handleRequest(
 			handleDpchAppLogin(dbswzsk, (DpchAppLogin*) (req->dpchapp), req->ip, &(req->dpcheng));
 
 		};
+
+	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
+		if (req->sref == "warnterm") handleTimerWithSrefWarnterm(dbswzsk);
 	};
 };
 
@@ -308,6 +312,8 @@ bool RootWzsk::handleCreateSess(
 
 		cout << "\tjob reference: " << sess->jref << endl;
 		xchg->jrefCmd = sess->jref;
+
+		if ((xchg->stgwzskappearance.sesstterm != 0) && (sesss.size() == 1)) wrefLast = xchg->addWakeup(jref, "warnterm", 1e6 * (xchg->stgwzskappearance.sesstterm - xchg->stgwzskappearance.sesstwarn));
 
 		xchg->appendToLogfile("command line session created for user '" + input + "'");
 
@@ -389,6 +395,8 @@ void RootWzsk::handleDpchAppLogin(
 				sess = new SessWzsk(xchg, dbswzsk, jref, refUsr, ip);
 				sesss.push_back(sess);
 
+				if ((xchg->stgwzskappearance.sesstterm != 0) && (sesss.size() == 1)) wrefLast = xchg->addWakeup(jref, "warnterm", 1e6 * (xchg->stgwzskappearance.sesstterm - xchg->stgwzskappearance.sesstwarn));
+
 				xchg->appendToLogfile("session created for user '" + dpchapplogin->username + "' from IP " + ip);
 
 				*dpcheng = new DpchEngWzskConfirm(true, sess->jref, "");
@@ -415,15 +423,84 @@ void RootWzsk::handleDpchAppLogin(
 	};
 };
 
+void RootWzsk::handleTimerWithSrefWarnterm(
+			DbsWzsk* dbswzsk
+		) {
+	SessWzsk* sess = NULL;
+
+	time_t tlast;
+	time_t tnext = 0;
+
+	time_t rawtime;
+	time(&rawtime);
+
+	bool term;
+
+	if (xchg->stgwzskappearance.sesstterm != 0) {
+		for (auto it = sesss.begin(); it != sesss.end();) {
+			sess = *it;
+
+			term = false;
+
+			tlast = xchg->getRefPreset(VecWzskVPreset::PREWZSKTLAST, sess->jref);
+
+			if ((tlast + ((int) xchg->stgwzskappearance.sesstterm)) <= rawtime) term = true;
+			else if ((tlast + ((int) xchg->stgwzskappearance.sesstterm) - ((int) xchg->stgwzskappearance.sesstwarn)) <= rawtime) {
+				sess->warnTerm(dbswzsk);
+				if ((tnext == 0) || ((tlast + ((int) xchg->stgwzskappearance.sesstterm)) < tnext)) tnext = tlast + ((int) xchg->stgwzskappearance.sesstterm);
+			} else if ((tnext == 0) || ((tlast + ((int) xchg->stgwzskappearance.sesstterm) - ((int) xchg->stgwzskappearance.sesstwarn)) < tnext)) tnext = tlast + xchg->stgwzskappearance.sesstterm - xchg->stgwzskappearance.sesstwarn;
+
+			if (term) {
+				sess->term(dbswzsk);
+				it = sesss.erase(it);
+
+				delete sess;
+
+			} else it++;
+		};
+	};
+
+	term = false;
+
+	if (xchg->stgwzskappearance.roottterm != 0) {
+		tlast = xchg->getRefPreset(VecWzskVPreset::PREWZSKTLAST, jref);
+
+		if ((tlast + ((int) xchg->stgwzskappearance.roottterm)) <= rawtime) term = true;
+		else if ((tnext == 0) || ((tlast + ((int) xchg->stgwzskappearance.roottterm)) < tnext)) tnext = tlast + xchg->stgwzskappearance.roottterm;
+	};
+
+	if (term) {
+		cout << endl << "\tterminating due to inactivity" << endl;
+		kill(getpid(), SIGTERM);
+	} else if (tnext != 0) wrefLast = xchg->addWakeup(jref, "warnterm", 1e6 * (tnext - rawtime));
+};
+
 void RootWzsk::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKSUSPSESS) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKREFPRESET) {
+		call->abort = handleCallWzskRefPreSet(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSUSPSESS) {
 		call->abort = handleCallWzskSuspsess(dbswzsk, call->jref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKLOGOUT) {
 		call->abort = handleCallWzskLogout(dbswzsk, call->jref, call->argInv.boolval);
 	};
+};
+
+bool RootWzsk::handleCallWzskRefPreSet(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+			, const uint ixInv
+			, const ubigint refInv
+		) {
+	bool retval = false;
+
+	if (ixInv == VecWzskVPreset::PREWZSKTLAST) {
+		xchg->addRefPreset(ixInv, jref, refInv);
+	};
+
+	return retval;
 };
 
 bool RootWzsk::handleCallWzskSuspsess(
@@ -448,6 +525,8 @@ bool RootWzsk::handleCallWzskLogout(
 	SessWzsk* sess = NULL;
 	M2msessWzsk* m2msess = NULL;
 
+	time_t rawtime;
+
 	if (!boolvalInv) {
 		for (auto it = sesss.begin(); it != sesss.end();) {
 			sess = *it;
@@ -458,6 +537,11 @@ bool RootWzsk::handleCallWzskLogout(
 				delete sess;
 				break;
 			} else it++;
+		};
+
+		if (xchg->stgwzskappearance.roottterm) {
+			time(&rawtime);
+			xchg->addRefPreset(VecWzskVPreset::PREWZSKTLAST, jref, rawtime);
 		};
 
 	} else {

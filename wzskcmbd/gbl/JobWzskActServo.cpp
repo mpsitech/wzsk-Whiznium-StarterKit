@@ -368,8 +368,8 @@ void JobWzskActServo::handleRequest(
 		};
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
-		if ((req->sref == "callback") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefCallbackInSgeMove(dbswzsk);
-		else if ((req->sref == "mon") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefMonInSgeMove(dbswzsk);
+		if ((req->sref == "mon") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefMonInSgeMove(dbswzsk);
+		else if ((req->sref == "callback") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefCallbackInSgeMove(dbswzsk);
 	};
 };
 
@@ -381,17 +381,17 @@ bool JobWzskActServo::handleTest(
 	return retval;
 };
 
-void JobWzskActServo::handleTimerWithSrefCallbackInSgeMove(
-			DbsWzsk* dbswzsk
-		) {
-	changeStage(dbswzsk, ixVSge);
-};
-
 void JobWzskActServo::handleTimerWithSrefMonInSgeMove(
 			DbsWzsk* dbswzsk
 		) {
 	wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
 	// IP handleTimerWithSrefMonInSgeMove --- INSERT
+	changeStage(dbswzsk, ixVSge);
+};
+
+void JobWzskActServo::handleTimerWithSrefCallbackInSgeMove(
+			DbsWzsk* dbswzsk
+		) {
 	changeStage(dbswzsk, ixVSge);
 };
 

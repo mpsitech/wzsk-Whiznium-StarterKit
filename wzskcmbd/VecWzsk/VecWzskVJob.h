@@ -64,7 +64,7 @@ namespace VecWzskVJob {
 	const Sbecore::uint PNLWZSKLLVTERM = 46;
 	const Sbecore::uint PNLWZSKLLVTTABLE = 47;
 	const Sbecore::uint PNLWZSKNAVADMIN = 48;
-	const Sbecore::uint PNLWZSKNAVGALERY = 49;
+	const Sbecore::uint PNLWZSKNAVGLRY = 49;
 	const Sbecore::uint PNLWZSKNAVHEADBAR = 50;
 	const Sbecore::uint PNLWZSKNAVOP = 51;
 	const Sbecore::uint PNLWZSKNAVPRE = 52;

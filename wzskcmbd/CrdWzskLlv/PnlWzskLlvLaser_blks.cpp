@@ -55,6 +55,28 @@ PnlWzskLlvLaser::ContIac::ContIac(
 	mask = {CHKERG, SLDLLE, SLDLRI};
 };
 
+bool PnlWzskLlvLaser::ContIac::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacWzskLlvLaser"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("ChkErg")) {ChkErg = me["ChkErg"].asBool(); add(CHKERG);};
+		if (me.isMember("SldLle")) {SldLle = me["SldLle"].asDouble(); add(SLDLLE);};
+		if (me.isMember("SldLri")) {SldLri = me["SldLri"].asDouble(); add(SLDLRI);};
+	};
+
+	return basefound;
+};
+
 bool PnlWzskLlvLaser::ContIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -78,6 +100,19 @@ bool PnlWzskLlvLaser::ContIac::readXML(
 	};
 
 	return basefound;
+};
+
+void PnlWzskLlvLaser::ContIac::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacWzskLlvLaser";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ChkErg"] = ChkErg;
+	me["SldLle"] = SldLle;
+	me["SldLri"] = SldLri;
 };
 
 void PnlWzskLlvLaser::ContIac::writeXML(
@@ -136,6 +171,17 @@ PnlWzskLlvLaser::ContInf::ContInf(
 	this->ButClaimOn = ButClaimOn;
 
 	mask = {BUTCLAIMON};
+};
+
+void PnlWzskLlvLaser::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfWzskLlvLaser";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ButClaimOn"] = ButClaimOn;
 };
 
 void PnlWzskLlvLaser::ContInf::writeXML(
@@ -206,6 +252,24 @@ PnlWzskLlvLaser::StatShr::StatShr(
 	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDLLEACTIVE, SLDLLEMIN, SLDLLEMAX, SLDLRIACTIVE, SLDLRIMIN, SLDLRIMAX};
 };
 
+void PnlWzskLlvLaser::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskLlvLaser";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
+	me["ButClaimActive"] = ButClaimActive;
+	me["SldLleActive"] = SldLleActive;
+	me["SldLleMin"] = SldLleMin;
+	me["SldLleMax"] = SldLleMax;
+	me["SldLriActive"] = SldLriActive;
+	me["SldLriMin"] = SldLriMin;
+	me["SldLriMax"] = SldLriMax;
+};
+
 void PnlWzskLlvLaser::StatShr::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -264,6 +328,28 @@ set<uint> PnlWzskLlvLaser::StatShr::diff(
  class PnlWzskLlvLaser::Tag
  ******************************************************************************/
 
+void PnlWzskLlvLaser::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskLlvLaser";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "Line lasers";
+		me["CptErg"] = "entire range";
+		me["CptLle"] = "left [\\u0025]";
+		me["CptLri"] = "right [\\u0025]";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "Linienlaser";
+		me["CptErg"] = "vollst\\u00e4ndige Spanne";
+		me["CptLle"] = "links [\\u0025]";
+		me["CptLri"] = "rechts [\\u0025]";
+	};
+};
+
 void PnlWzskLlvLaser::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -310,6 +396,27 @@ string PnlWzskLlvLaser::DpchAppData::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskLlvLaser::DpchAppData::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLlvLaserData"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (contiac.readJSON(me, true)) add(CONTIAC);
+	} else {
+		contiac = ContIac();
+	};
 };
 
 void PnlWzskLlvLaser::DpchAppData::readXML(
@@ -359,6 +466,26 @@ string PnlWzskLlvLaser::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskLlvLaser::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLlvLaserDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void PnlWzskLlvLaser::DpchAppDo::readXML(
@@ -437,6 +564,19 @@ void PnlWzskLlvLaser::DpchEngData::merge(
 	if (src->has(CONTINF)) {continf = src->continf; add(CONTINF);};
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
+};
+
+void PnlWzskLlvLaser::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskLlvLaserData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTIAC)) contiac.writeJSON(me);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void PnlWzskLlvLaser::DpchEngData::writeXML(

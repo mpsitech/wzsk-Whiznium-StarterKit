@@ -70,7 +70,7 @@ namespace DlgWzskScfLaserpos {
 	/**
 	  * ContIac (full: ContIacDlgWzskScfLaserpos)
 	  */
-	class ContIac : public Sbecore::Xmlio::Block {
+	class ContIac : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NUMFDSE = 1;
@@ -91,7 +91,7 @@ namespace DlgWzskScfLaserpos {
 	/**
 	  * ContInf (full: ContInfDlgWzskScfLaserpos)
 	  */
-	class ContInf : public Sbecore::Xmlio::Block {
+	class ContInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NUMFSGE = 1;
@@ -111,7 +111,7 @@ namespace DlgWzskScfLaserpos {
 	/**
 	  * StatApp (full: StatAppDlgWzskScfLaserpos)
 	  */
-	class StatApp : public Sbecore::Xmlio::Block {
+	class StatApp : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint INITDONE = 1;
@@ -133,7 +133,7 @@ namespace DlgWzskScfLaserpos {
 	/**
 	  * StatShr (full: StatShrDlgWzskScfLaserpos)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint BUTDNEACTIVE = 1;
@@ -153,7 +153,7 @@ namespace DlgWzskScfLaserpos {
 	/**
 	  * Tag (full: TagDlgWzskScfLaserpos)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPT = 1;
@@ -235,8 +235,8 @@ namespace DlgWzskScfLaserpos {
 	public:
 		ContIac contiac;
 		ContInf continf;
-		Sbecore::Xmlio::Feed feedFDse;
-		Sbecore::Xmlio::Feed feedFSge;
+		Sbecore::Feed feedFDse;
+		Sbecore::Feed feedFSge;
 		StatApp statapp;
 		StatShr statshr;
 		Tag tag;

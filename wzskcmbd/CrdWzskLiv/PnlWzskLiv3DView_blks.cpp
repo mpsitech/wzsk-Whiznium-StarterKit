@@ -55,6 +55,26 @@ PnlWzskLiv3DView::ContIac::ContIac(
 	mask = {SLDAIN};
 };
 
+bool PnlWzskLiv3DView::ContIac::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacWzskLiv3DView"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("SldAin")) {SldAin = me["SldAin"].asDouble(); add(SLDAIN);};
+	};
+
+	return basefound;
+};
+
 bool PnlWzskLiv3DView::ContIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -76,6 +96,17 @@ bool PnlWzskLiv3DView::ContIac::readXML(
 	};
 
 	return basefound;
+};
+
+void PnlWzskLiv3DView::ContIac::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacWzskLiv3DView";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["SldAin"] = SldAin;
 };
 
 void PnlWzskLiv3DView::ContIac::writeXML(
@@ -136,6 +167,19 @@ PnlWzskLiv3DView::ContInf::ContInf(
 	mask = {BUTCLAIMON, TXTAST, TXTAOA};
 };
 
+void PnlWzskLiv3DView::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfWzskLiv3DView";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ButClaimOn"] = ButClaimOn;
+	me["TxtAst"] = TxtAst;
+	me["TxtAoa"] = TxtAoa;
+};
+
 void PnlWzskLiv3DView::ContInf::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -183,6 +227,20 @@ set<uint> PnlWzskLiv3DView::ContInf::diff(
 /******************************************************************************
  class PnlWzskLiv3DView::StatApp
  ******************************************************************************/
+
+void PnlWzskLiv3DView::StatApp::writeJSON(
+			Json::Value& sup
+			, string difftag
+			, const bool ButPlayActive
+			, const bool ButStopActive
+		) {
+	if (difftag.length() == 0) difftag = "StatAppWzskLiv3DView";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ButPlayActive"] = ButPlayActive;
+	me["ButStopActive"] = ButStopActive;
+};
 
 void PnlWzskLiv3DView::StatApp::writeXML(
 			xmlTextWriter* wr
@@ -239,6 +297,29 @@ PnlWzskLiv3DView::StatShr::StatShr(
 	this->ButAirActive = ButAirActive;
 
 	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTREHMIN, SLDTREHMAX, SLDTREVMIN, SLDTREVMAX, SLDAINACTIVE, SLDAINMIN, SLDAINMAX, SLDAINRAST, TXTAOAAVAIL, BUTASRACTIVE, BUTAIRACTIVE};
+};
+
+void PnlWzskLiv3DView::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskLiv3DView";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
+	me["ButClaimActive"] = ButClaimActive;
+	me["SldTreHMin"] = SldTreHMin;
+	me["SldTreHMax"] = SldTreHMax;
+	me["SldTreVMin"] = SldTreVMin;
+	me["SldTreVMax"] = SldTreVMax;
+	me["SldAinActive"] = SldAinActive;
+	me["SldAinMin"] = SldAinMin;
+	me["SldAinMax"] = SldAinMax;
+	me["SldAinRast"] = SldAinRast;
+	me["TxtAoaAvail"] = TxtAoaAvail;
+	me["ButAsrActive"] = ButAsrActive;
+	me["ButAirActive"] = ButAirActive;
 };
 
 void PnlWzskLiv3DView::StatShr::writeXML(
@@ -309,6 +390,34 @@ set<uint> PnlWzskLiv3DView::StatShr::diff(
  class PnlWzskLiv3DView::Tag
  ******************************************************************************/
 
+void PnlWzskLiv3DView::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskLiv3DView";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "3D Reconstruction";
+		me["HdgAcq"] = "Shot acquisition";
+		me["CptAin"] = "angle increment [\\u00b0]";
+		me["CptAst"] = "state";
+		me["CptAoa"] = "object affiliation";
+		me["ButAsr"] = "Start";
+		me["ButAir"] = "Interrupt";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "3D-Rekonstruktion";
+		me["HdgAcq"] = "Aufnahme";
+		me["CptAin"] = "Winkel-Schrittweite [\\u00b0]";
+		me["CptAst"] = "Status";
+		me["CptAoa"] = "Objekt-Zuordnung";
+		me["ButAsr"] = "Start";
+		me["ButAir"] = "Unterbrechen";
+	};
+};
+
 void PnlWzskLiv3DView::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -363,6 +472,27 @@ string PnlWzskLiv3DView::DpchAppData::getSrefsMask() {
 	return(srefs);
 };
 
+void PnlWzskLiv3DView::DpchAppData::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLiv3DViewData"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (contiac.readJSON(me, true)) add(CONTIAC);
+	} else {
+		contiac = ContIac();
+	};
+};
+
 void PnlWzskLiv3DView::DpchAppData::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -410,6 +540,26 @@ string PnlWzskLiv3DView::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskLiv3DView::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLiv3DViewDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void PnlWzskLiv3DView::DpchAppDo::readXML(
@@ -492,6 +642,20 @@ void PnlWzskLiv3DView::DpchEngData::merge(
 	if (src->has(TAG)) add(TAG);
 };
 
+void PnlWzskLiv3DView::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskLiv3DViewData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTIAC)) contiac.writeJSON(me);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(STATAPP)) StatApp::writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
+};
+
 void PnlWzskLiv3DView::DpchEngData::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -555,6 +719,19 @@ void PnlWzskLiv3DView::DpchEngLive::merge(
 	if (src->has(X)) {x = src->x; add(X);};
 	if (src->has(Y)) {y = src->y; add(Y);};
 	if (src->has(Z)) {z = src->z; add(Z);};
+};
+
+void PnlWzskLiv3DView::DpchEngLive::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskLiv3DViewLive"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(RNOTL)) Jsonio::writeBoolvec(me, "rNotL", rNotL);
+	if (has(X)) Jsonio::writeFloatvec(me, "x", x);
+	if (has(Y)) Jsonio::writeFloatvec(me, "y", y);
+	if (has(Z)) Jsonio::writeFloatvec(me, "z", z);
 };
 
 void PnlWzskLiv3DView::DpchEngLive::writeXML(

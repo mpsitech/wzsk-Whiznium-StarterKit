@@ -498,8 +498,8 @@ rel	rel	41	TblWzskHistRMUserUniversal	husrRunv
 	tblref		43	tbl		unvUref	unv	trefuniv	void		true	false
 	vecref		0	vec	VecWzskVCard	ixWzskVCard	crd	vreflin	void	idx	true	false
 	vecref		0	vec	VecWzskVPreset	ixWzskVPreset	pre	vreflin	void	idx	true	false
-	vecref		210	vec	VecWzskVMaintable	preIxWzskVMaintable	prm	vreflin	void	idx	true	false
-	tblref		210	tbl		preUref	pru	trefuniv	void		true	false
+	vecref		3	vec	VecWzskVMaintable	preIxWzskVMaintable	prm	vreflin	void	idx	true	false
+	tblref		3	tbl		preUref	pru	trefuniv	void		true	false
 	timeval		0	void		start	sta	tmstamp	void		true	false
 		ImeIAMTablecolTitle.srefX1IxVType	srefX2RefWznmMLocale	Title
 		full	enus	access time
@@ -610,7 +610,7 @@ aux	void	0	TblWzskAMShotPar	shtApar
 	txtval		0	void		Val	val	txt192	void		true	false
 	ImeIMTablecol.end
 	ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
-	klst	KlstWzskKMShotParKey
+	klst	KlstWzskKAMShotParKey
 		ImeIAMVectorTitle2.srefX1IxVType	srefX2RefWznmMLocale	Title
 		full	enus	key
 		full	dech	Schl\u00fcssel
@@ -646,6 +646,7 @@ ImeIMTable.end
 ImeIMRelation.iref	srefIxVBasetype	irefRefWznmCRelation	irefSupRefWznmMRelation	srefSupIxVSubrole	srefFrRefWznmMTable	srefFrsRefWznmMSubset	srefToRefWznmMTable	srefTosRefWznmMSubset	srefRefWznmMTable	Prefix	srefsKOption
 1	grp	0	0	void	TblWzskMUsergroup		TblWzskMPerson
 2	own	0	0	void	TblWzskMUser		TblWzskMPerson
+3	um1n	0	0	void			TblWzskHistRMUserUniversal			pre
 12	j	0	0	void	TblWzskMPerson		TblWzskJMPersonLastname				pref
 13	jpref	0	12	pref	TblWzskJMPersonLastname		TblWzskMPerson
 14	aux	0	0	void	TblWzskMPerson		TblWzskAMPersonDetail				pref

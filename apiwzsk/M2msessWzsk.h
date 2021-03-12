@@ -23,7 +23,7 @@ namespace M2msessWzsk {
 	/**
 	  * StatShr (full: StatShrM2msessWzsk)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint SCRJREFACQPREVIEW = 1;

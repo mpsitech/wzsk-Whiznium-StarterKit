@@ -51,6 +51,26 @@ PnlWzskLlvTtable::ContIac::ContIac(
 	mask = {SLDTRG};
 };
 
+bool PnlWzskLlvTtable::ContIac::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacWzskLlvTtable"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("SldTrg")) {SldTrg = me["SldTrg"].asDouble(); add(SLDTRG);};
+	};
+
+	return basefound;
+};
+
 bool PnlWzskLlvTtable::ContIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -72,6 +92,17 @@ bool PnlWzskLlvTtable::ContIac::readXML(
 	};
 
 	return basefound;
+};
+
+void PnlWzskLlvTtable::ContIac::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacWzskLlvTtable";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["SldTrg"] = SldTrg;
 };
 
 void PnlWzskLlvTtable::ContIac::writeXML(
@@ -126,6 +157,17 @@ PnlWzskLlvTtable::ContInf::ContInf(
 	this->ButClaimOn = ButClaimOn;
 
 	mask = {BUTCLAIMON};
+};
+
+void PnlWzskLlvTtable::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfWzskLlvTtable";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ButClaimOn"] = ButClaimOn;
 };
 
 void PnlWzskLlvTtable::ContInf::writeXML(
@@ -190,6 +232,21 @@ PnlWzskLlvTtable::StatShr::StatShr(
 	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGACTIVE, SLDTRGMIN, SLDTRGMAX};
 };
 
+void PnlWzskLlvTtable::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskLlvTtable";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
+	me["ButClaimActive"] = ButClaimActive;
+	me["SldTrgActive"] = SldTrgActive;
+	me["SldTrgMin"] = SldTrgMin;
+	me["SldTrgMax"] = SldTrgMax;
+};
+
 void PnlWzskLlvTtable::StatShr::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -242,6 +299,24 @@ set<uint> PnlWzskLlvTtable::StatShr::diff(
  class PnlWzskLlvTtable::Tag
  ******************************************************************************/
 
+void PnlWzskLlvTtable::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskLlvTtable";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "Turntable";
+		me["CptTrg"] = "angle [\\u00b0]";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "Drehteller";
+		me["CptTrg"] = "Winkel [\\u00b0]";
+	};
+};
+
 void PnlWzskLlvTtable::Tag::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -284,6 +359,27 @@ string PnlWzskLlvTtable::DpchAppData::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskLlvTtable::DpchAppData::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLlvTtableData"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (contiac.readJSON(me, true)) add(CONTIAC);
+	} else {
+		contiac = ContIac();
+	};
 };
 
 void PnlWzskLlvTtable::DpchAppData::readXML(
@@ -333,6 +429,26 @@ string PnlWzskLlvTtable::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskLlvTtable::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLlvTtableDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void PnlWzskLlvTtable::DpchAppDo::readXML(
@@ -411,6 +527,19 @@ void PnlWzskLlvTtable::DpchEngData::merge(
 	if (src->has(CONTINF)) {continf = src->continf; add(CONTINF);};
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
+};
+
+void PnlWzskLlvTtable::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskLlvTtableData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTIAC)) contiac.writeJSON(me);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void PnlWzskLlvTtable::DpchEngData::writeXML(

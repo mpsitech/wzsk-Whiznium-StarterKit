@@ -1,4 +1,4 @@
-IexWzskIni v1.0.2
+IexWzskIni v1.0.5
 ImeIAVKeylistKey.srefKlsIxWzskVKeylist	sref	Avail	Implied	Title	Comment
 KlstWzskKAMPersonDetailType	eml				
 	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
@@ -19,6 +19,16 @@ KlstWzskKAMPersonDetailType	tel
 	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
 	enus	phone	
 	dech	Telefon	
+	ImeIJAVKeylistKey.end
+KlstWzskKAMShotParKey	deltaTheta				
+	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	enus	angle increment [\u00b0]	
+	dech	Winkel-Schrittweite [\u00b0]	
+	ImeIJAVKeylistKey.end
+KlstWzskKAMShotParKey	Npoint				
+	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	enus	point cloud size	
+	dech	Gr\u00f6sse der Punktwolke	
 	ImeIJAVKeylistKey.end
 KlstWzskKMFileContent	pvwsnap				
 	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
@@ -60,16 +70,6 @@ KlstWzskKMFileMimetype	xls			application/msexcel
 KlstWzskKMFileMimetype	xlsx			application/vnd.openxmlformats-officedocument.spreadsheetml.sheet	
 KlstWzskKMFileMimetype	xml			text/xml	
 KlstWzskKMFileMimetype	zip			application/zip	
-KlstWzskKMShotParKey	deltaTheta				
-	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
-	enus	angle increment [\u00b0]	
-	dech	Winkel-Schrittweite [\u00b0]	
-	ImeIJAVKeylistKey.end
-KlstWzskKMShotParKey	Npoint				
-	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
-	enus	point cloud size	
-	dech	Gr\u00f6sse der Punktwolke	
-	ImeIJAVKeylistKey.end
 ImeIAVKeylistKey.end
 ImeIMUsergroup.sref	Comment
 wzskusers

@@ -59,7 +59,7 @@ namespace CrdWzskScf {
 	/**
 	  * ContInf (full: ContInfWzskScf)
 	  */
-	class ContInf : public Sbecore::Xmlio::Block {
+	class ContInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NUMFSGE = 1;
@@ -81,7 +81,7 @@ namespace CrdWzskScf {
 	/**
 	  * StatApp (full: StatAppWzskScf)
 	  */
-	class StatApp : public Sbecore::Xmlio::Block {
+	class StatApp : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint IXWZSKVREQITMODE = 1;
@@ -113,7 +113,7 @@ namespace CrdWzskScf {
 	/**
 	  * StatShr (full: StatShrWzskScf)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint SCRJREFDLGCAMERAMAT = 1;
@@ -143,7 +143,7 @@ namespace CrdWzskScf {
 	/**
 	  * Tag (full: TagWzskScf)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint MITAPPABT = 1;
@@ -206,7 +206,7 @@ namespace CrdWzskScf {
 
 	public:
 		ContInf continf;
-		Sbecore::Xmlio::Feed feedFSge;
+		Sbecore::Feed feedFSge;
 		StatApp statapp;
 		StatShr statshr;
 		Tag tag;

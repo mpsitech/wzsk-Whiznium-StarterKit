@@ -1,34 +1,34 @@
 /**
-	* \file PnlWzskNavGalery.h
-	* API code for job PnlWzskNavGalery (declarations)
+	* \file PnlWzskNavGlry.h
+	* API code for job PnlWzskNavGlry (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
 	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \date created: 11 Mar 2021
 	*/
 // IP header --- ABOVE
 
-#ifndef PNLWZSKNAVGALERY_H
-#define PNLWZSKNAVGALERY_H
+#ifndef PNLWZSKNAVGLRY_H
+#define PNLWZSKNAVGLRY_H
 
 #include "ApiWzsk_blks.h"
 
-#define VecVWzskNavGaleryDo PnlWzskNavGalery::VecVDo
+#define VecVWzskNavGlryDo PnlWzskNavGlry::VecVDo
 
-#define ContIacWzskNavGalery PnlWzskNavGalery::ContIac
-#define StatAppWzskNavGalery PnlWzskNavGalery::StatApp
-#define StatShrWzskNavGalery PnlWzskNavGalery::StatShr
-#define TagWzskNavGalery PnlWzskNavGalery::Tag
+#define ContIacWzskNavGlry PnlWzskNavGlry::ContIac
+#define StatAppWzskNavGlry PnlWzskNavGlry::StatApp
+#define StatShrWzskNavGlry PnlWzskNavGlry::StatShr
+#define TagWzskNavGlry PnlWzskNavGlry::Tag
 
-#define DpchAppWzskNavGaleryData PnlWzskNavGalery::DpchAppData
-#define DpchAppWzskNavGaleryDo PnlWzskNavGalery::DpchAppDo
-#define DpchEngWzskNavGaleryData PnlWzskNavGalery::DpchEngData
+#define DpchAppWzskNavGlryData PnlWzskNavGlry::DpchAppData
+#define DpchAppWzskNavGlryDo PnlWzskNavGlry::DpchAppDo
+#define DpchEngWzskNavGlryData PnlWzskNavGlry::DpchEngData
 
 /**
-	* PnlWzskNavGalery
+	* PnlWzskNavGlry
 	*/
-namespace PnlWzskNavGalery {
+namespace PnlWzskNavGlry {
 	/**
-		* VecVDo (full: VecVWzskNavGaleryDo)
+		* VecVDo (full: VecVWzskNavGlryDo)
 		*/
 	class VecVDo {
 
@@ -49,9 +49,9 @@ namespace PnlWzskNavGalery {
 	};
 
 	/**
-	  * ContIac (full: ContIacWzskNavGalery)
+	  * ContIac (full: ContIacWzskNavGlry)
 	  */
-	class ContIac : public Sbecore::Xmlio::Block {
+	class ContIac : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NUMFLSTOGR = 1;
@@ -78,9 +78,9 @@ namespace PnlWzskNavGalery {
 	};
 
 	/**
-	  * StatApp (full: StatAppWzskNavGalery)
+	  * StatApp (full: StatAppWzskNavGlry)
 	  */
-	class StatApp : public Sbecore::Xmlio::Block {
+	class StatApp : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
@@ -118,9 +118,9 @@ namespace PnlWzskNavGalery {
 	};
 
 	/**
-	  * StatShr (full: StatShrWzskNavGalery)
+	  * StatShr (full: StatShrWzskNavGlry)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint LSTOGRAVAIL = 1;
@@ -156,9 +156,9 @@ namespace PnlWzskNavGalery {
 	};
 
 	/**
-	  * Tag (full: TagWzskNavGalery)
+	  * Tag (full: TagWzskNavGlry)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPT = 1;
@@ -184,7 +184,7 @@ namespace PnlWzskNavGalery {
 	};
 
 	/**
-		* DpchAppData (full: DpchAppWzskNavGaleryData)
+		* DpchAppData (full: DpchAppWzskNavGlryData)
 		*/
 	class DpchAppData : public DpchAppWzsk {
 
@@ -206,7 +206,7 @@ namespace PnlWzskNavGalery {
 	};
 
 	/**
-		* DpchAppDo (full: DpchAppWzskNavGaleryDo)
+		* DpchAppDo (full: DpchAppWzskNavGlryDo)
 		*/
 	class DpchAppDo : public DpchAppWzsk {
 
@@ -228,7 +228,7 @@ namespace PnlWzskNavGalery {
 	};
 
 	/**
-		* DpchEngData (full: DpchEngWzskNavGaleryData)
+		* DpchEngData (full: DpchEngWzskNavGlryData)
 		*/
 	class DpchEngData : public DpchEngWzsk {
 
@@ -249,11 +249,11 @@ namespace PnlWzskNavGalery {
 
 	public:
 		ContIac contiac;
-		Sbecore::Xmlio::Feed feedFLstFil;
-		Sbecore::Xmlio::Feed feedFLstObj;
-		Sbecore::Xmlio::Feed feedFLstOgr;
-		Sbecore::Xmlio::Feed feedFLstSes;
-		Sbecore::Xmlio::Feed feedFLstSht;
+		Sbecore::Feed feedFLstFil;
+		Sbecore::Feed feedFLstObj;
+		Sbecore::Feed feedFLstOgr;
+		Sbecore::Feed feedFLstSes;
+		Sbecore::Feed feedFLstSht;
 		StatApp statapp;
 		StatShr statshr;
 		Tag tag;

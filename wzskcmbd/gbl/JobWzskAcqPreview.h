@@ -12,7 +12,11 @@
 
 // IP include.spec --- INSERT
 
-#include <arm_neon.h> // IP include.cust --- ILINE
+// IP include.cust --- IBEGIN
+#ifdef __arm__
+	#include <arm_neon.h>
+#endif
+// IP include.cust --- IEND
 
 #include "JobWzskSrcV4l2.h"
 #include "JobWzskAcqFpgapvw.h"
@@ -42,7 +46,7 @@ public:
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
 
-		static void fillFeed(Sbecore::Xmlio::Feed& feed);
+		static void fillFeed(Sbecore::Feed& feed);
 	};
 
 	/**
@@ -57,7 +61,7 @@ public:
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
 
-		static void fillFeed(Sbecore::Xmlio::Feed& feed);
+		static void fillFeed(Sbecore::Feed& feed);
 	};
 
 	/**

@@ -14,7 +14,7 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskNavGalery.h"
+#include "PnlWzskNavGlry.h"
 #include "PnlWzskNavOp.h"
 #include "PnlWzskNavAdmin.h"
 #include "PnlWzskNavPre.h"
@@ -73,17 +73,18 @@ public:
 	public:
 		static const Sbecore::uint IDLE = 1;
 		static const Sbecore::uint ALRWZSKABT = 2;
+		static const Sbecore::uint ALRWZSKTRM = 3;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
 
-		static void fillFeed(Sbecore::Xmlio::Feed& feed);
+		static void fillFeed(Sbecore::Feed& feed);
 	};
 
 	/**
 	  * ContInf (full: ContInfWzskNav)
 	  */
-	class ContInf : public Sbecore::Xmlio::Block {
+	class ContInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint NUMFSGE = 1;
@@ -103,6 +104,7 @@ public:
 		std::string MtxSesSes3;
 
 	public:
+		void writeJSON(Json::Value& sup, std::string difftag = "");
 		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
 		std::set<Sbecore::uint> comm(const ContInf* comp);
 		std::set<Sbecore::uint> diff(const ContInf* comp);
@@ -114,13 +116,14 @@ public:
 	class StatApp {
 
 	public:
-		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdonePre = false, const bool initdoneAdmin = false, const bool initdoneOp = false, const bool initdoneGalery = false);
+		static void writeJSON(Json::Value& sup, std::string difftag = "", const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdonePre = false, const bool initdoneAdmin = false, const bool initdoneOp = false, const bool initdoneGlry = false);
+		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdonePre = false, const bool initdoneAdmin = false, const bool initdoneOp = false, const bool initdoneGlry = false);
 	};
 
 	/**
 		* StatShr (full: StatShrWzskNav)
 		*/
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint JREFDLGLOAINI = 1;
@@ -131,8 +134,8 @@ public:
 		static const Sbecore::uint PNLADMINAVAIL = 6;
 		static const Sbecore::uint JREFOP = 7;
 		static const Sbecore::uint PNLOPAVAIL = 8;
-		static const Sbecore::uint JREFGALERY = 9;
-		static const Sbecore::uint PNLGALERYAVAIL = 10;
+		static const Sbecore::uint JREFGLRY = 9;
+		static const Sbecore::uint PNLGLRYAVAIL = 10;
 		static const Sbecore::uint MITSESSPSAVAIL = 11;
 		static const Sbecore::uint MSPCRD1AVAIL = 12;
 		static const Sbecore::uint MITCRDUSGAVAIL = 13;
@@ -152,7 +155,7 @@ public:
 		static const Sbecore::uint MITAPPLOIAVAIL = 27;
 
 	public:
-		StatShr(const Sbecore::ubigint jrefDlgloaini = 0, const Sbecore::ubigint jrefHeadbar = 0, const Sbecore::ubigint jrefPre = 0, const bool pnlpreAvail = false, const Sbecore::ubigint jrefAdmin = 0, const bool pnladminAvail = false, const Sbecore::ubigint jrefOp = 0, const bool pnlopAvail = false, const Sbecore::ubigint jrefGalery = 0, const bool pnlgaleryAvail = false, const bool MitSesSpsAvail = true, const bool MspCrd1Avail = true, const bool MitCrdUsgAvail = true, const bool MitCrdUsrAvail = true, const bool MitCrdPrsAvail = true, const bool MitCrdScfAvail = true, const bool MspCrd2Avail = true, const bool MitCrdLlvAvail = true, const bool MitCrdLivAvail = true, const bool MspCrd3Avail = true, const bool MitCrdOgrAvail = true, const bool MitCrdObjAvail = true, const bool MitCrdSesAvail = true, const bool MitCrdShtAvail = true, const bool MitCrdFilAvail = true, const bool MspApp2Avail = true, const bool MitAppLoiAvail = true);
+		StatShr(const Sbecore::ubigint jrefDlgloaini = 0, const Sbecore::ubigint jrefHeadbar = 0, const Sbecore::ubigint jrefPre = 0, const bool pnlpreAvail = false, const Sbecore::ubigint jrefAdmin = 0, const bool pnladminAvail = false, const Sbecore::ubigint jrefOp = 0, const bool pnlopAvail = false, const Sbecore::ubigint jrefGlry = 0, const bool pnlglryAvail = false, const bool MitSesSpsAvail = true, const bool MspCrd1Avail = true, const bool MitCrdUsgAvail = true, const bool MitCrdUsrAvail = true, const bool MitCrdPrsAvail = true, const bool MitCrdScfAvail = true, const bool MspCrd2Avail = true, const bool MitCrdLlvAvail = true, const bool MitCrdLivAvail = true, const bool MspCrd3Avail = true, const bool MitCrdOgrAvail = true, const bool MitCrdObjAvail = true, const bool MitCrdSesAvail = true, const bool MitCrdShtAvail = true, const bool MitCrdFilAvail = true, const bool MspApp2Avail = true, const bool MitAppLoiAvail = true);
 
 	public:
 		Sbecore::ubigint jrefDlgloaini;
@@ -163,8 +166,8 @@ public:
 		bool pnladminAvail;
 		Sbecore::ubigint jrefOp;
 		bool pnlopAvail;
-		Sbecore::ubigint jrefGalery;
-		bool pnlgaleryAvail;
+		Sbecore::ubigint jrefGlry;
+		bool pnlglryAvail;
 		bool MitSesSpsAvail;
 		bool MspCrd1Avail;
 		bool MitCrdUsgAvail;
@@ -184,6 +187,7 @@ public:
 		bool MitAppLoiAvail;
 
 	public:
+		void writeJSON(Json::Value& sup, std::string difftag = "");
 		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
 		std::set<Sbecore::uint> comm(const StatShr* comp);
 		std::set<Sbecore::uint> diff(const StatShr* comp);
@@ -195,6 +199,7 @@ public:
 	class Tag {
 
 	public:
+		static void writeJSON(const Sbecore::uint ixWzskVLocale, Json::Value& sup, std::string difftag = "");
 		static void writeXML(const Sbecore::uint ixWzskVLocale, xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
 	};
 
@@ -216,6 +221,7 @@ public:
 	public:
 		std::string getSrefsMask();
 
+		void readJSON(Json::Value& sup, bool addbasetag = false);
 		void readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
 	};
 
@@ -234,24 +240,25 @@ public:
 		static const Sbecore::uint ALL = 7;
 
 	public:
-		DpchEngData(const Sbecore::ubigint jref = 0, ContInf* continf = NULL, Sbecore::Xmlio::Feed* feedFSge = NULL, StatShr* statshr = NULL, const std::set<Sbecore::uint>& mask = {NONE});
+		DpchEngData(const Sbecore::ubigint jref = 0, ContInf* continf = NULL, Sbecore::Feed* feedFSge = NULL, StatShr* statshr = NULL, const std::set<Sbecore::uint>& mask = {NONE});
 
 	public:
 		ContInf continf;
-		Sbecore::Xmlio::Feed feedFSge;
+		Sbecore::Feed feedFSge;
 		StatShr statshr;
 
 	public:
 		std::string getSrefsMask();
 		void merge(DpchEngWzsk* dpcheng);
 
+		void writeJSON(const Sbecore::uint ixWzskVLocale, Json::Value& sup);
 		void writeXML(const Sbecore::uint ixWzskVLocale, xmlTextWriter* wr);
 	};
 
 	bool evalPnlpreAvail(DbsWzsk* dbswzsk);
 	bool evalPnladminAvail(DbsWzsk* dbswzsk);
 	bool evalPnlopAvail(DbsWzsk* dbswzsk);
-	bool evalPnlgaleryAvail(DbsWzsk* dbswzsk);
+	bool evalPnlglryAvail(DbsWzsk* dbswzsk);
 	bool evalMitSesSpsAvail(DbsWzsk* dbswzsk);
 	bool evalMspCrd1Avail(DbsWzsk* dbswzsk);
 	bool evalMitCrdUsgAvail(DbsWzsk* dbswzsk);
@@ -278,10 +285,10 @@ public:
 	ContInf continf;
 	StatShr statshr;
 
-	Sbecore::Xmlio::Feed feedFMcbAlert;
-	Sbecore::Xmlio::Feed feedFSge;
+	Sbecore::Feed feedFMcbAlert;
+	Sbecore::Feed feedFSge;
 
-	PnlWzskNavGalery* pnlgalery;
+	PnlWzskNavGlry* pnlglry;
 	PnlWzskNavOp* pnlop;
 	PnlWzskNavAdmin* pnladmin;
 	PnlWzskNavPre* pnlpre;
@@ -297,6 +304,7 @@ public:
 	DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
 	void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);
 	void updatePreset(DbsWzsk* dbswzsk, const Sbecore::uint ixWzskVPreset, const Sbecore::ubigint jrefTrig, const bool notif = false);
+	void warnTerm(DbsWzsk* dbswzsk);
 
 public:
 
@@ -342,6 +350,8 @@ private:
 	void leaveSgeIdle(DbsWzsk* dbswzsk);
 	Sbecore::uint enterSgeAlrwzskabt(DbsWzsk* dbswzsk, const bool reenter);
 	void leaveSgeAlrwzskabt(DbsWzsk* dbswzsk);
+	Sbecore::uint enterSgeAlrwzsktrm(DbsWzsk* dbswzsk, const bool reenter);
+	void leaveSgeAlrwzsktrm(DbsWzsk* dbswzsk);
 
 };
 

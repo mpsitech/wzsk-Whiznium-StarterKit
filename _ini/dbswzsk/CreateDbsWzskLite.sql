@@ -1,8 +1,8 @@
 -- file CreateDbsWzskLite.sql
 -- SQLite database create script
 -- copyright: (C) 2016-2020 MPSI Technologies GmbH
--- author: Alexander Wirthmueller (auto-generation)
--- date created: 15 Dec 2020
+-- author: Emily Johnson (auto-generation)
+-- date created: 11 Mar 2021
 -- IP header --- ABOVE
 
 DROP TABLE IF EXISTS TblWzskAccRMUserUniversal;

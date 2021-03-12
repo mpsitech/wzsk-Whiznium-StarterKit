@@ -1,16 +1,16 @@
 # file Makefile
 # make file for Wzsk combined daemon, release wzskcmbd_riscv (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
-# author: Alexander Wirthmueller (auto-generation)
-# date created: 15 Dec 2020
+# author: Emily Johnson (auto-generation)
+# date created: 11 Mar 2021
 # IP header --- ABOVE
 
 include Makefile.inc
 
-CPP = 
-CPPFLAGS = --sysroot=${SYSROOT} -DWZSKCMBD
+CPP = ${TCHROOT}/riscv64-oe-linux-g++
+CPPFLAGS = --sysroot=${SYSROOT} --sysroot=${SYSROOT} -std=c++11 -fstack-protector-strong -g -Wall -Os -pthread -DWZSKCMBD
 
-LINK = 
+LINK = ${TCHROOT}/riscv64-oe-linux-g++
 LINKFLAGS = --sysroot=${SYSROOT}
 
 INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
@@ -33,7 +33,7 @@ LIBS += -liexwzsk -lvecwzsk -ldbswzsk
 LIBS += -lezdevwskd -lmicrohttpd -lpng -lsbecore_lite -lsbecore_mon
 LIBS += -ldbecore -lsbecore_plus -lsqlite3
 LIBS += -lsbecore
-LIBS += -lxml2
+LIBS += -ljsoncpp -lxml2
 LIBS += -lpthread
 
 EXE = Wzskcmbd

@@ -87,6 +87,28 @@ DlgWzskObjNew::ContIac::ContIac(
 	mask = {NUMFPUPOGR, TXFTIT, TXFCMT};
 };
 
+bool DlgWzskObjNew::ContIac::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["ContIacDlgWzskObjNew"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("numFPupOgr")) {numFPupOgr = me["numFPupOgr"].asUInt(); add(NUMFPUPOGR);};
+		if (me.isMember("TxfTit")) {TxfTit = me["TxfTit"].asString(); add(TXFTIT);};
+		if (me.isMember("TxfCmt")) {TxfCmt = me["TxfCmt"].asString(); add(TXFCMT);};
+	};
+
+	return basefound;
+};
+
 bool DlgWzskObjNew::ContIac::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -110,6 +132,19 @@ bool DlgWzskObjNew::ContIac::readXML(
 	};
 
 	return basefound;
+};
+
+void DlgWzskObjNew::ContIac::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContIacDlgWzskObjNew";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFPupOgr"] = numFPupOgr;
+	me["TxfTit"] = TxfTit;
+	me["TxfCmt"] = TxfCmt;
 };
 
 void DlgWzskObjNew::ContIac::writeXML(
@@ -170,6 +205,17 @@ DlgWzskObjNew::ContInf::ContInf(
 	mask = {NUMFSGE};
 };
 
+void DlgWzskObjNew::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfDlgWzskObjNew";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["numFSge"] = numFSge;
+};
+
 void DlgWzskObjNew::ContInf::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -214,6 +260,18 @@ set<uint> DlgWzskObjNew::ContInf::diff(
  class DlgWzskObjNew::StatApp
  ******************************************************************************/
 
+void DlgWzskObjNew::StatApp::writeJSON(
+			Json::Value& sup
+			, string difftag
+			, const string& shortMenu
+		) {
+	if (difftag.length() == 0) difftag = "StatAppDlgWzskObjNew";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["shortMenu"] = shortMenu;
+};
+
 void DlgWzskObjNew::StatApp::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -245,6 +303,18 @@ DlgWzskObjNew::StatShr::StatShr(
 	this->ButCreActive = ButCreActive;
 
 	mask = {BUTCNCACTIVE, BUTCREACTIVE};
+};
+
+void DlgWzskObjNew::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrDlgWzskObjNew";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["ButCncActive"] = ButCncActive;
+	me["ButCreActive"] = ButCreActive;
 };
 
 void DlgWzskObjNew::StatShr::writeXML(
@@ -292,6 +362,30 @@ set<uint> DlgWzskObjNew::StatShr::diff(
 /******************************************************************************
  class DlgWzskObjNew::Tag
  ******************************************************************************/
+
+void DlgWzskObjNew::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagDlgWzskObjNew";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "Create new object";
+		me["CptOgr"] = "Object group";
+		me["CptTit"] = "Name";
+		me["CptCmt"] = "Comment";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "Neues Objekt anlegen";
+		me["CptOgr"] = "Objektgruppe";
+		me["CptTit"] = "Name";
+		me["CptCmt"] = "Notiz";
+	};
+	me["ButCnc"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::CANCEL, ixWzskVLocale));
+	me["ButCre"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::CREATE, ixWzskVLocale));
+};
 
 void DlgWzskObjNew::Tag::writeXML(
 			const uint ixWzskVLocale
@@ -343,6 +437,27 @@ string DlgWzskObjNew::DpchAppData::getSrefsMask() {
 	return(srefs);
 };
 
+void DlgWzskObjNew::DpchAppData::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppDlgWzskObjNewData"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (contiac.readJSON(me, true)) add(CONTIAC);
+	} else {
+		contiac = ContIac();
+	};
+};
+
 void DlgWzskObjNew::DpchAppData::readXML(
 			xmlXPathContext* docctx
 			, string basexpath
@@ -390,6 +505,26 @@ string DlgWzskObjNew::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void DlgWzskObjNew::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppDlgWzskObjNewDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void DlgWzskObjNew::DpchAppDo::readXML(
@@ -478,6 +613,22 @@ void DlgWzskObjNew::DpchEngData::merge(
 	if (src->has(STATAPP)) add(STATAPP);
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
+};
+
+void DlgWzskObjNew::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngDlgWzskObjNewData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTIAC)) contiac.writeJSON(me);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(FEEDFPUPOGR)) feedFPupOgr.writeJSON(me);
+	if (has(FEEDFSGE)) feedFSge.writeJSON(me);
+	if (has(STATAPP)) StatApp::writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
 
 void DlgWzskObjNew::DpchEngData::writeXML(

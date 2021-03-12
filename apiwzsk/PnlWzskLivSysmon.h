@@ -42,7 +42,7 @@ namespace PnlWzskLivSysmon {
 	/**
 	  * ContInf (full: ContInfWzskLivSysmon)
 	  */
-	class ContInf : public Sbecore::Xmlio::Block {
+	class ContInf : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint TXTCTP = 1;
@@ -62,7 +62,7 @@ namespace PnlWzskLivSysmon {
 	/**
 	  * StatShr (full: StatShrWzskLivSysmon)
 	  */
-	class StatShr : public Sbecore::Xmlio::Block {
+	class StatShr : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
@@ -82,7 +82,7 @@ namespace PnlWzskLivSysmon {
 	/**
 	  * Tag (full: TagWzskLivSysmon)
 	  */
-	class Tag : public Sbecore::Xmlio::Block {
+	class Tag : public Sbecore::Block {
 
 	public:
 		static const Sbecore::uint CPT = 1;

@@ -1,9 +1,9 @@
 /**
-  * \file PnlWzskNavGalery.java
-  * Java API code for job PnlWzskNavGalery
+  * \file PnlWzskNavGlry.java
+  * Java API code for job PnlWzskNavGlry
 	* \copyright (C) 2018-2020 MPSI Technologies GmbH
 	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \date created: 11 Mar 2021
 	*/
 // IP header --- ABOVE
 
@@ -13,9 +13,9 @@ import java.util.*;
 import org.w3c.dom.*;
 import sbecore.*;
 
-public class PnlWzskNavGalery {
+public class PnlWzskNavGlry {
 	/**
-		* VecVDo (full: VecVWzskNavGaleryDo)
+		* VecVDo (full: VecVWzskNavGlryDo)
 		*/
 	public static class VecVDo {
 
@@ -69,7 +69,7 @@ public class PnlWzskNavGalery {
 	};
 
 	/**
-	  * ContIac (full: ContIacWzskNavGalery)
+	  * ContIac (full: ContIacWzskNavGlry)
 	  */
 	public class ContIac extends Block {
 
@@ -109,9 +109,9 @@ public class PnlWzskNavGalery {
 
 			clear();
 
-			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "ContIacWzskNavGalery");
+			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "ContIacWzskNavGlry");
 
-			String itemtag = "ContitemIacWzskNavGalery";
+			String itemtag = "ContitemIacWzskNavGlry";
 
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				numFLstOgr = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Ci", "sref", "numFLstOgr", mask, NUMFLSTOGR);
@@ -132,12 +132,12 @@ public class PnlWzskNavGalery {
 					, String difftag
 					, boolean shorttags
 				) {
-			if (difftag.isEmpty()) difftag = "ContIacWzskNavGalery";
+			if (difftag.isEmpty()) difftag = "ContIacWzskNavGlry";
 
 			String itemtag;
 
 			if (shorttags) itemtag = "Ci";
-			else itemtag = "ContitemIacWzskNavGalery";
+			else itemtag = "ContitemIacWzskNavGlry";
 
 			Element el = doc.createElement(difftag);
 
@@ -182,7 +182,7 @@ public class PnlWzskNavGalery {
 	};
 
 	/**
-	  * StatApp (full: StatAppWzskNavGalery)
+	  * StatApp (full: StatAppWzskNavGlry)
 	  */
 	public class StatApp extends Block {
 
@@ -247,9 +247,9 @@ public class PnlWzskNavGalery {
 
 			clear();
 
-			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "StatAppWzskNavGalery");
+			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "StatAppWzskNavGlry");
 
-			String itemtag = "StatitemAppWzskNavGalery";
+			String itemtag = "StatitemAppWzskNavGlry";
 
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				srefIxWzskVExpstate = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "srefIxWzskVExpstate", mask, IXWZSKVEXPSTATE);
@@ -308,7 +308,7 @@ public class PnlWzskNavGalery {
 	};
 
 	/**
-	  * StatShr (full: StatShrWzskNavGalery)
+	  * StatShr (full: StatShrWzskNavGlry)
 	  */
 	public class StatShr extends Block {
 
@@ -368,9 +368,9 @@ public class PnlWzskNavGalery {
 
 			clear();
 
-			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "StatShrWzskNavGalery");
+			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "StatShrWzskNavGlry");
 
-			String itemtag = "StatitemShrWzskNavGalery";
+			String itemtag = "StatitemShrWzskNavGlry";
 
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				LstOgrAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "LstOgrAvail", mask, LSTOGRAVAIL);
@@ -426,7 +426,7 @@ public class PnlWzskNavGalery {
 	};
 
 	/**
-	  * Tag (full: TagWzskNavGalery)
+	  * Tag (full: TagWzskNavGlry)
 	  */
 	public class Tag extends Block {
 
@@ -470,9 +470,9 @@ public class PnlWzskNavGalery {
 
 			clear();
 
-			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "TagWzskNavGalery");
+			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "TagWzskNavGlry");
 
-			String itemtag = "TagitemWzskNavGalery";
+			String itemtag = "TagitemWzskNavGlry";
 
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				Cpt = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Ti", "sref", "Cpt", mask, CPT);
@@ -520,7 +520,7 @@ public class PnlWzskNavGalery {
 	};
 
 	/**
-		* DpchAppData (full: DpchAppWzskNavGaleryData)
+		* DpchAppData (full: DpchAppWzskNavGlryData)
 		*/
 	public class DpchAppData extends DpchAppWzsk {
 
@@ -533,7 +533,7 @@ public class PnlWzskNavGalery {
 					, ContIac contiac
 					, Integer[] mask
 				) {
-			super(VecWzskVDpch.DPCHAPPWZSKNAVGALERYDATA, scrJref);
+			super(VecWzskVDpch.DPCHAPPWZSKNAVGLRYDATA, scrJref);
 
 			this.mask = new HashSet<Integer>(Arrays.asList(mask));
 
@@ -561,7 +561,7 @@ public class PnlWzskNavGalery {
 					Document doc
 					, Element sup
 				) {
-			Element el = doc.createElement("DpchAppWzskNavGaleryData");
+			Element el = doc.createElement("DpchAppWzskNavGlryData");
 
 			if (sup == null) doc.appendChild(el);
 			else sup.appendChild(el);
@@ -575,7 +575,7 @@ public class PnlWzskNavGalery {
 	};
 
 	/**
-		* DpchAppDo (full: DpchAppWzskNavGaleryDo)
+		* DpchAppDo (full: DpchAppWzskNavGlryDo)
 		*/
 	public class DpchAppDo extends DpchAppWzsk {
 
@@ -588,7 +588,7 @@ public class PnlWzskNavGalery {
 					, int ixVDo
 					, Integer[] mask
 				) {
-			super(VecWzskVDpch.DPCHAPPWZSKNAVGALERYDO, scrJref);
+			super(VecWzskVDpch.DPCHAPPWZSKNAVGLRYDO, scrJref);
 
 			this.mask = new HashSet<Integer>(Arrays.asList(mask));
 
@@ -616,7 +616,7 @@ public class PnlWzskNavGalery {
 					Document doc
 					, Element sup
 				) {
-			Element el = doc.createElement("DpchAppWzskNavGaleryDo");
+			Element el = doc.createElement("DpchAppWzskNavGlryDo");
 
 			if (sup == null) doc.appendChild(el);
 			else sup.appendChild(el);
@@ -630,7 +630,7 @@ public class PnlWzskNavGalery {
 	};
 
 	/**
-		* DpchEngData (full: DpchEngWzskNavGaleryData)
+		* DpchEngData (full: DpchEngWzskNavGlryData)
 		*/
 	public class DpchEngData extends DpchEngWzsk {
 
@@ -646,7 +646,7 @@ public class PnlWzskNavGalery {
 		public static final int TAG = 10;
 
 		public DpchEngData() {
-			super(VecWzskVDpch.DPCHENGWZSKNAVGALERYDATA);
+			super(VecWzskVDpch.DPCHENGWZSKNAVGLRYDATA);
 
 			contiac = new ContIac(0, 0, 0, 0, 0);
 			feedFLstFil = new Feed("FeedFLstFil");
@@ -694,7 +694,7 @@ public class PnlWzskNavGalery {
 
 			clear();
 
-			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "DpchEngWzskNavGaleryData");
+			if (addbasetag) basexpath = Xmlio.checkUclcXPaths(doc, basexpath, "DpchEngWzskNavGlryData");
 
 			if (Xmlio.checkXPath(doc, basexpath)) {
 				scrJref = Xmlio.extractStringUclc(doc, basexpath, "scrJref", "", mask, SCRJREF);

@@ -49,6 +49,17 @@ PnlWzskLivSysmon::ContInf::ContInf(
 	mask = {TXTCTP};
 };
 
+void PnlWzskLivSysmon::ContInf::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "ContInfWzskLivSysmon";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["TxtCtp"] = TxtCtp;
+};
+
 void PnlWzskLivSysmon::ContInf::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -103,6 +114,17 @@ PnlWzskLivSysmon::StatShr::StatShr(
 	mask = {IXWZSKVEXPSTATE};
 };
 
+void PnlWzskLivSysmon::StatShr::writeJSON(
+			Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "StatShrWzskLivSysmon";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
+};
+
 void PnlWzskLivSysmon::StatShr::writeXML(
 			xmlTextWriter* wr
 			, string difftag
@@ -146,6 +168,32 @@ set<uint> PnlWzskLivSysmon::StatShr::diff(
 /******************************************************************************
  class PnlWzskLivSysmon::Tag
  ******************************************************************************/
+
+void PnlWzskLivSysmon::Tag::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+			, string difftag
+		) {
+	if (difftag.length() == 0) difftag = "TagWzskLivSysmon";
+
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
+
+	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		me["Cpt"] = "System monitor";
+		me["CptCtp"] = "CPU temperature [\\u00b0C]";
+		me["CptPltTme"] = "time [s]";
+		me["CptPltCld"] = "CPU load [\\u0025]";
+		me["CptPltTot"] = "total";
+		me["CptPltCor"] = "core";
+	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
+		me["Cpt"] = "System\\u009fberwachung";
+		me["CptCtp"] = "CPU-Temperatur [\\u00b0C]";
+		me["CptPltTme"] = "Zeit [s]";
+		me["CptPltCld"] = "CPU-Last [\\u0025]";
+		me["CptPltTot"] = "gesamt";
+		me["CptPltCor"] = "Kern";
+	};
+};
 
 void PnlWzskLivSysmon::Tag::writeXML(
 			const uint ixWzskVLocale
@@ -198,6 +246,26 @@ string PnlWzskLivSysmon::DpchAppDo::getSrefsMask() {
 	StrMod::vectorToString(ss, srefs);
 
 	return(srefs);
+};
+
+void PnlWzskLivSysmon::DpchAppDo::readJSON(
+			Json::Value& sup
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	Json::Value& me = sup;
+	if (addbasetag) me = sup["DpchAppWzskLivSysmonDo"];
+
+	basefound = (me != Json::nullValue);
+
+	if (basefound) {
+		if (me.isMember("scrJref")) {jref = Scr::descramble(me["scrJref"].asString()); add(JREF);};
+		if (me.isMember("srefIxVDo")) {ixVDo = VecVDo::getIx(me["srefIxVDo"].asString()); add(IXVDO);};
+	} else {
+	};
 };
 
 void PnlWzskLivSysmon::DpchAppDo::readXML(
@@ -274,6 +342,18 @@ void PnlWzskLivSysmon::DpchEngData::merge(
 	if (src->has(TAG)) add(TAG);
 };
 
+void PnlWzskLivSysmon::DpchEngData::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskLivSysmonData"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(STATSHR)) statshr.writeJSON(me);
+	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
+};
+
 void PnlWzskLivSysmon::DpchEngData::writeXML(
 			const uint ixWzskVLocale
 			, xmlTextWriter* wr
@@ -343,6 +423,21 @@ void PnlWzskLivSysmon::DpchEngLive::merge(
 	if (src->has(CLD2S)) {cld2s = src->cld2s; add(CLD2S);};
 	if (src->has(CLD3S)) {cld3s = src->cld3s; add(CLD3S);};
 	if (src->has(CLD4S)) {cld4s = src->cld4s; add(CLD4S);};
+};
+
+void PnlWzskLivSysmon::DpchEngLive::writeJSON(
+			const uint ixWzskVLocale
+			, Json::Value& sup
+		) {
+	Json::Value& me = sup["DpchEngWzskLivSysmonLive"] = Json::Value(Json::objectValue);
+
+	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
+	if (has(TS)) Jsonio::writeFloatvec(me, "ts", ts);
+	if (has(CLDTOTS)) Jsonio::writeFloatvec(me, "cldtots", cldtots);
+	if (has(CLD1S)) Jsonio::writeFloatvec(me, "cld1s", cld1s);
+	if (has(CLD2S)) Jsonio::writeFloatvec(me, "cld2s", cld2s);
+	if (has(CLD3S)) Jsonio::writeFloatvec(me, "cld3s", cld3s);
+	if (has(CLD4S)) Jsonio::writeFloatvec(me, "cld4s", cld4s);
 };
 
 void PnlWzskLivSysmon::DpchEngLive::writeXML(
