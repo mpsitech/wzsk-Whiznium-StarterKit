@@ -68,11 +68,32 @@ JobWzskIprTrace	true	true	finds the lhs/rhs line laser traces
 		1	var	rightOnNotOff	boolean		true
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
-JobWzskSrcFpga	true	true	handles the FPGA-based sub-system
+JobWzskSrcArty	true	true	handles the Zynq FPGA sub-system
 	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskSrcFpga
+	cmbeng;eng	cmbeng;eng	StgJobWzskSrcArty
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
 		0	var	path	string		/dev/arty
+		ImeIAMBlockItem.end
+	ImeIMBlock.end
+JobWzskSrcClnxevb	true	true	handles the CrossLink-NX FPGA system
+	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	cmbeng;eng	cmbeng;eng	StgJobWzskSrcClnxevb
+		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
+		0	var	path	string		/dev/ttyUSB0
+		ImeIAMBlockItem.end
+	ImeIMBlock.end
+JobWzskSrcIcicle	true	true	handles the PolarFire SOC FPGA sub-system
+	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	cmbeng;eng	cmbeng;eng	StgJobWzskSrcIcicle
+		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
+		0	var	path	string		/dev/icicle
+		ImeIAMBlockItem.end
+	ImeIMBlock.end
+JobWzskSrcMcvevp	true	true	handles the Cyclone-V FPGA sub-system
+	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	cmbeng;eng	cmbeng;eng	StgJobWzskSrcMcvevp
+		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
+		0	var	path	string		/dev/mcvevp
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
 JobWzskSrcSysinfo	true	true	queries system files for load and temperature
@@ -82,9 +103,17 @@ JobWzskSrcSysinfo	true	true	queries system files for load and temperature
 		1
 		ImeICAMBlockItem.end
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
+		0	var	pathrootCurrVolt	string		/var/lib/collectd/icicle-kit-es/sensors-microchip,pac1934
 		0	var	pathStat	string		/proc/stat
 		1	var	pathThermal	string		/sys/class/thermal/thermal_zone0/temp
 		1	var	pathrootXadc	string		/sys/bus/platform/drivers/xadc/f8007100.adc/iio:device0/in_temp0
+		ImeIAMBlockItem.end
+	ImeIMBlock.end
+JobWzskSrcUvbdvk	true	true	handles the UniversalBee MCU system
+	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	cmbeng;eng	cmbeng;eng	StgJobWzskSrcUvbdvk
+		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
+		0	var	path	string		/dev/ttyUSB0
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
 JobWzskSrcV4l2	true	true	delivers v4l2 camera frames
@@ -96,3 +125,30 @@ JobWzskSrcV4l2	true	true	delivers v4l2 camera frames
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
 ImeIMJob.end
+ImeIMCapability.sref
+PnlWzskLlvTermArty
+	ImeIRMCapabilityUniversal.srefUnvUref	srefKKey
+	CrdWzskLlv	car
+	JobWzskSrcArty	src
+	ImeIRMCapabilityUniversal.end
+PnlWzskLlvTermClnxevb
+	ImeIRMCapabilityUniversal.srefUnvUref	srefKKey
+	CrdWzskLlv	car
+	JobWzskSrcClnxevb	src
+	ImeIRMCapabilityUniversal.end
+PnlWzskLlvTermIcicle
+	ImeIRMCapabilityUniversal.srefUnvUref	srefKKey
+	CrdWzskLlv	car
+	JobWzskSrcIcicle	src
+	ImeIRMCapabilityUniversal.end
+PnlWzskLlvTermMcvevp
+	ImeIRMCapabilityUniversal.srefUnvUref	srefKKey
+	CrdWzskLlv	car
+	JobWzskSrcMcvevp	src
+	ImeIRMCapabilityUniversal.end
+PnlWzskLlvTermUvbdvk
+	ImeIRMCapabilityUniversal.srefUnvUref	srefKKey
+	CrdWzskLlv	car
+	JobWzskSrcUvbdvk	src
+	ImeIRMCapabilityUniversal.end
+ImeIMCapability.end

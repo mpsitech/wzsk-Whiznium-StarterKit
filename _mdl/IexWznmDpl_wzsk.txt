@@ -2,6 +2,7 @@ IexWznmDpl v1.0.9
 ImeIMComponent.srefIxVBasetype	sref	Title	Comment
 cmbeng	wzskcmbd	Whiznium Starter Kit combined engine
 	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
+	any;yocto;armv7;mcv	wzskcmbd_mcv
 	any;yocto;armv7;plnx	wzskcmbd_plnx
 	any;yocto;riscv64	wzskcmbd_riscv
 	any;yocto;armv7;tdx	wzskcmbd_tdx
@@ -13,6 +14,7 @@ cmbeng	wzskcmbd	Whiznium Starter Kit combined engine
 	ImeIRMComponentMLibrary.end
 dbs	dbswzsk	Whiznium Starter Kit database access library
 	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
+	any;yocto;armv7;mcv	dbswzsk_mcv
 	any;yocto;armv7;plnx	dbswzsk_plnx
 	any;yocto;riscv64	dbswzsk_riscv
 	any;yocto;armv7;tdx	dbswzsk_tdx

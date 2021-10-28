@@ -15,7 +15,10 @@
 // IP include.cust --- INSERT
 
 #include "JobWzskSrcV4l2.h"
-#include "JobWzskSrcFpga.h"
+#include "JobWzskSrcMcvevp.h"
+#include "JobWzskSrcIcicle.h"
+#include "JobWzskSrcArty.h"
+#include "JobWzskSrcClnxevb.h"
 
 #define VecVJobWzskActExposureMethod JobWzskActExposure::VecVMethod
 #define VecVJobWzskActExposureVar JobWzskActExposure::VecVVar
@@ -90,7 +93,10 @@ public:
 	static Shrdat shrdat;
 
 	JobWzskSrcV4l2* srcv4l2;
-	JobWzskSrcFpga* srcfpga;
+	JobWzskSrcMcvevp* srcmcvevp;
+	JobWzskSrcIcicle* srcicicle;
+	JobWzskSrcArty* srcarty;
+	JobWzskSrcClnxevb* srcclnxevb;
 
 	// IP vars.spec --- INSERT
 

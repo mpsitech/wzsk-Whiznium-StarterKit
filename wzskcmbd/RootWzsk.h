@@ -15,16 +15,20 @@
 // IP include.cust --- INSERT
 
 #include "JobWzskSrcV4l2.h"
+#include "JobWzskSrcUvbdvk.h"
 #include "JobWzskSrcSysinfo.h"
-#include "JobWzskSrcFpga.h"
+#include "JobWzskSrcMcvevp.h"
+#include "JobWzskSrcArty.h"
+#include "JobWzskSrcIcicle.h"
+#include "JobWzskSrcClnxevb.h"
 #include "JobWzskIprTrace.h"
 #include "JobWzskIprCorner.h"
 #include "JobWzskIprAngle.h"
 #include "JobWzskActServo.h"
 #include "JobWzskActLaser.h"
+#include "JobWzskAcqPreview.h"
 #include "JobWzskActExposure.h"
 #include "JobWzskAcqPtcloud.h"
-#include "JobWzskAcqPreview.h"
 #include "JobWzskAcqFpgapvw.h"
 #include "JobWzskAcqFpgaflg.h"
 #include "M2msessWzsk.h"
@@ -98,20 +102,24 @@ public:
 public:
 
 	JobWzskSrcV4l2* srcv4l2;
+	JobWzskSrcUvbdvk* srcuvbdvk;
 	JobWzskSrcSysinfo* srcsysinfo;
-	JobWzskSrcFpga* srcfpga;
+	JobWzskSrcMcvevp* srcmcvevp;
+	JobWzskSrcArty* srcarty;
+	JobWzskSrcIcicle* srcicicle;
+	JobWzskSrcClnxevb* srcclnxevb;
 	JobWzskIprTrace* iprtrace;
 	JobWzskIprCorner* iprcorner;
 	JobWzskIprAngle* iprangle;
 	JobWzskActServo* actservo;
 	JobWzskActLaser* actlaser;
+	JobWzskAcqPreview* acqpreview;
 	JobWzskActExposure* actexposure;
 	JobWzskAcqPtcloud* acqptcloud;
-	JobWzskAcqPreview* acqpreview;
 	JobWzskAcqFpgapvw* acqfpgapvw;
 	JobWzskAcqFpgaflg* acqfpgaflg;
-	std::list<M2msessWzsk*> m2msesss;
-	std::list<SessWzsk*> sesss;
+	std::map<Sbecore::ubigint, JobWzsk*> m2msesss;
+	std::map<Sbecore::ubigint, JobWzsk*> sesss;
 
 	// IP vars.spec --- INSERT
 

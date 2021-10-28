@@ -50,7 +50,7 @@
 		<Si sref="hGrrd">768</Si>
 	</StgWzskFramegeo>
 	<StgWzskGlobal>
-		<Si sref="fpgaNotV4l2gpio">false</Si>
+		<Si sref="srefIxWzskVTarget"></Si>
 	</StgWzskGlobal>
 	<StgWzskPath>
 		<Si sref="acvpath">${WHIZROOT}/acv/wzsk</Si>
@@ -99,14 +99,27 @@
 		<Si sref="leftOnNotOff">true</Si>
 		<Si sref="rightOnNotOff">true</Si>
 	</StgJobWzskIprTrace>
-	<StgJobWzskSrcFpga>
+	<StgJobWzskSrcArty>
 		<Si sref="path">/dev/arty</Si>
-	</StgJobWzskSrcFpga>
+	</StgJobWzskSrcArty>
+	<StgJobWzskSrcClnxevb>
+		<Si sref="path">/dev/ttyUSB0</Si>
+	</StgJobWzskSrcClnxevb>
+	<StgJobWzskSrcIcicle>
+		<Si sref="path">/dev/icicle</Si>
+	</StgJobWzskSrcIcicle>
+	<StgJobWzskSrcMcvevp>
+		<Si sref="path">/dev/mcvevp</Si>
+	</StgJobWzskSrcMcvevp>
 	<StgJobWzskSrcSysinfo>
+		<Si sref="pathrootCurrVolt">/var/lib/collectd/icicle-kit-es/sensors-microchip,pac1934</Si>
 		<Si sref="pathStat">/proc/stat</Si>
 		<Si sref="pathThermal">/sys/class/thermal/thermal_zone0/temp</Si>
 		<Si sref="pathrootXadc">/sys/bus/platform/drivers/xadc/f8007100.adc/iio:device0/in_temp0</Si>
 	</StgJobWzskSrcSysinfo>
+	<StgJobWzskSrcUvbdvk>
+		<Si sref="path">/dev/ttyUSB0</Si>
+	</StgJobWzskSrcUvbdvk>
 	<StgJobWzskSrcV4l2>
 		<Si sref="path">/dev/video1</Si>
 		<Si sref="YUV422NotYUV420">false</Si>

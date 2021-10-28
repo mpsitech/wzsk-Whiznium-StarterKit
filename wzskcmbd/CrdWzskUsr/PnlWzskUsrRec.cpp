@@ -38,10 +38,10 @@ PnlWzskUsrRec::PnlWzskUsrRec(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	pnlmnusergroup = NULL;
 	pnl1nsession = NULL;
-	pnlaaccess = NULL;
+	pnlmnusergroup = NULL;
 	pnldetail = NULL;
+	pnlaaccess = NULL;
 
 	// IP constructor.cust1 --- INSERT
 

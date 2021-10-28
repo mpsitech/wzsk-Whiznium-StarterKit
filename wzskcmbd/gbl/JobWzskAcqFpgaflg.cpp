@@ -108,15 +108,23 @@ JobWzskAcqFpgaflg::JobWzskAcqFpgaflg(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	srcfpga = NULL;
+	srcmcvevp = NULL;
+	srcicicle = NULL;
+	srcarty = NULL;
+	srcclnxevb = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	// IP constructor.spec1 --- INSERT
 
-	if (srvNotCli) srcfpga = new JobWzskSrcFpga(xchg, dbswzsk, jref, ixWzskVLocale);
-
-	// IP constructor.cust2 --- INSERT
+	// IP constructor.cust2 --- IBEGIN
+	if (srvNotCli) {
+		if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) srcarty = new JobWzskSrcArty(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB) srcclnxevb = new JobWzskSrcClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) srcicicle = new JobWzskSrcIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::MCVEVP) srcmcvevp = new JobWzskSrcMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
+	};
+	// IP constructor.cust2 --- IEND
 
 	// IP constructor.spec2 --- INSERT
 
@@ -163,8 +171,6 @@ void* JobWzskAcqFpgaflg::runFlg(
 		) {
 	JobWzskAcqFpgaflg* srv = (JobWzskAcqFpgaflg*) arg;
 
-	UntWskdArty& fpga = srv->srcfpga->shrdat.hw;
-
 	unsigned int w, h;
 	size_t sizeBuf;
 	
@@ -199,15 +205,28 @@ void* JobWzskAcqFpgaflg::runFlg(
 		// - prepare
 		shrdat.mFlg.lock("JobWzskAcqFpgaflg", "runFlg[1]");
 
-		srv->srcfpga->camacq_setGrrd(false, false);
-		srv->srcfpga->featdet_set(false, false, false);
+		if (srv->srcarty) {
+			srv->srcarty->camacq_setGrrd(false, false);
+			srv->srcarty->featdet_set(false, false, false);
 
-		srv->srcfpga->camif_setRng(true);
-		srv->srcfpga->camacq_setGrrd(true, shrdat.thdNotCorner);
-		if (!shrdat.thdNotCorner) srv->srcfpga->featdet_setCorner(shrdat.cornerLinNotLog, shrdat.cornerThd);
-		else srv->srcfpga->featdet_setThd(shrdat.thdLvlFirst, shrdat.thdLvlSecond);
-		srv->srcfpga->featdet_set(true, shrdat.thdNotCorner, shrdat.thdDeltaNotAbs);
-		if (shrdat.thdNotCorner) srv->srcfpga->featdet_triggerThd();
+			srv->srcarty->camif_setRng(true);
+			srv->srcarty->camacq_setGrrd(true, shrdat.thdNotCorner);
+			if (!shrdat.thdNotCorner) srv->srcarty->featdet_setCorner(shrdat.cornerLinNotLog, shrdat.cornerThd);
+			else srv->srcarty->featdet_setThd(shrdat.thdLvlFirst, shrdat.thdLvlSecond);
+			srv->srcarty->featdet_set(true, shrdat.thdNotCorner, shrdat.thdDeltaNotAbs);
+			if (shrdat.thdNotCorner) srv->srcarty->featdet_triggerThd();
+
+		} else if (srv->srcicicle) {
+			srv->srcicicle->camacq_setGrrd(false, false);
+			srv->srcicicle->featdet_set(false, false, false);
+
+			srv->srcicicle->camif_setRng(true);
+			srv->srcicicle->camacq_setGrrd(true, shrdat.thdNotCorner);
+			if (!shrdat.thdNotCorner) srv->srcicicle->featdet_setCorner(shrdat.cornerLinNotLog, shrdat.cornerThd);
+			else srv->srcicicle->featdet_setThd(shrdat.thdLvlFirst, shrdat.thdLvlSecond);
+			srv->srcicicle->featdet_set(true, shrdat.thdNotCorner, shrdat.thdDeltaNotAbs);
+			if (shrdat.thdNotCorner) srv->srcicicle->featdet_triggerThd();
+		};
 
 		triggered = false;
 
@@ -219,13 +238,16 @@ void* JobWzskAcqFpgaflg::runFlg(
 
 			if (!shrdat.thdNotCorner && (shrdat.cornerThd != cornerThd)) {
 				// allow corner threshold to change while thread running
-				srv->srcfpga->featdet_setCorner(shrdat.cornerLinNotLog, shrdat.cornerThd);
+				if (srv->srcarty) srv->srcarty->featdet_setCorner(shrdat.cornerLinNotLog, shrdat.cornerThd);
+				else if (srv->srcicicle) srv->srcicicle->featdet_setCorner(shrdat.cornerLinNotLog, shrdat.cornerThd);
+
 				cornerThd = shrdat.cornerThd;
 			};
 
 			shrdat.mFlg.lock("JobWzskAcqFpgaflg", "runFlg[2]");
 
-			srv->srcfpga->featdet_getInfo(tixVFlgbufstate, tixVThdstate, tkst);
+			if (srv->srcarty) srv->srcarty->featdet_getInfo(tixVFlgbufstate, tixVThdstate, tkst);
+			else if (srv->srcicicle) srv->srcicicle->featdet_getInfo(tixVFlgbufstate, tixVThdstate, tkst);
 			//cout << "tixVThdstate = " << VecVWskdArtyFeatdetThdstate::getSref(tixVThdstate) << endl;
 
 			if (shrdat.thdNotCorner && shrdat.thdDeltaNotAbs && (tixVThdstate == VecVWskdArtyFeatdetThdstate::WAITSECOND) && !triggered) {
@@ -240,7 +262,9 @@ void* JobWzskAcqFpgaflg::runFlg(
 				shrdat.cFlg.unlockMutex("JobWzskAcqFpgaflg", "runFlg");
 
 				if (!shrdat.cancelFlg) {
-					srv->srcfpga->featdet_triggerThd();
+					if (srv->srcarty) srv->srcarty->featdet_triggerThd();
+					else if (srv->srcicicle) srv->srcicicle->featdet_triggerThd();
+
 					triggered = true;
 				};
 
@@ -259,20 +283,24 @@ void* JobWzskAcqFpgaflg::runFlg(
 					};
 
 					ri->tixVThdstate = tixVThdstate;
-					ri->t = srv->srcfpga->tkstToT(tkst);
+
+					if (srv->srcarty) ri->t = srv->srcarty->tkstToT(tkst);
+					else if (srv->srcicicle) ri->t = srv->srcicicle->tkstToT(tkst);
 
 					buf = ri->buf;
 
 				} else buf = auxbuf;
 
 				if (ri && !shrdat.thdNotCorner) {
-					srv->srcfpga->featdet_getCornerinfo(ri->shift, ri->scoreMin, ri->scoreMax);
+					if (srv->srcarty) srv->srcarty->featdet_getCornerinfo(ri->shift, ri->scoreMin, ri->scoreMax);
+					else if (srv->srcicicle) srv->srcicicle->featdet_getCornerinfo(ri->shift, ri->scoreMin, ri->scoreMax);
 
 					//cout << "shift = " << ((int) ri->shift) << ", scoreMin = " << ((int) ri->scoreMin) << ", scoreMax = " << ((int) ri->scoreMax) << endl;
 				};
 
 				try {
-					fpga.readFlgbufFromFeatdet(sizeBuf, buf, datalen);
+					if (srv->srcarty) srv->srcarty->shrdat.hw.readFlgbufFromFeatdet(sizeBuf, buf, datalen);
+					else if (srv->srcicicle) srv->srcicicle->shrdat.hw.readFlgbufFromFeatdet(sizeBuf, buf, datalen);
 
 				} catch (DbeException& e) {
 					if (ri) {
@@ -313,8 +341,14 @@ void* JobWzskAcqFpgaflg::runFlg(
 
 	try {
 		// - clean up
-		srv->srcfpga->camacq_setGrrd(false, false);
-		srv->srcfpga->featdet_set(false, false, false);
+		if (srv->srcarty) {
+			srv->srcarty->camacq_setGrrd(false, false);
+			srv->srcarty->featdet_set(false, false, false);
+
+		} else if (srv->srcicicle) {
+			srv->srcicicle->camacq_setGrrd(false, false);
+			srv->srcicicle->featdet_set(false, false, false);
+		};
 
 	} catch (DbeException& e) {
 		cout << e.err << endl;
@@ -597,11 +631,20 @@ bool JobWzskAcqFpgaflg::handleClaim(
 		};
 	};
 
-	// add or remove "flg" claim with srcfpga
-	if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcfpga);
-	else xchg->addCsjobClaim(dbswzsk, srcfpga, new JobWzskSrcFpga::Claim(false, false, true, false, false, false));
+	if (srcarty) {
+		// add or remove "flg" claim with srcarty
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcarty);
+		else xchg->addCsjobClaim(dbswzsk, srcarty, new JobWzskSrcArty::Claim(false, false, true, false, false, false));
 
-	xchg->getCsjobClaim(srcfpga, flgTakenNotAvailable, flgFulfilled);
+		xchg->getCsjobClaim(srcarty, flgTakenNotAvailable, flgFulfilled);
+
+	} else if (srcicicle) {
+		// add or remove "flg" claim with srcicicle
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcicicle);
+		else xchg->addCsjobClaim(dbswzsk, srcicicle, new JobWzskSrcIcicle::Claim(false, false, true, false, false, false));
+
+		xchg->getCsjobClaim(srcicicle, flgTakenNotAvailable, flgFulfilled);
+	};
 
 	// try to fulfill
 	reattributed = false;

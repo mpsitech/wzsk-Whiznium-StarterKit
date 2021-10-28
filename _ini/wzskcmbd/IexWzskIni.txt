@@ -1,42 +1,42 @@
-IexWzskIni v1.0.5
+IexWzskIni v1.0.7
 ImeIAVKeylistKey.srefKlsIxWzskVKeylist	sref	Avail	Implied	Title	Comment
 KlstWzskKAMPersonDetailType	eml				
-	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
 	enus	e-mail	
 	dech	E-Mail	
 	ImeIJAVKeylistKey.end
 KlstWzskKAMPersonDetailType	fax				
-	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
 	enus	fax	
 	dech	Telefax	
 	ImeIJAVKeylistKey.end
 KlstWzskKAMPersonDetailType	mbl				
-	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
 	enus	mobile	
 	dech	Handy	
 	ImeIJAVKeylistKey.end
 KlstWzskKAMPersonDetailType	tel				
-	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
 	enus	phone	
 	dech	Telefon	
 	ImeIJAVKeylistKey.end
 KlstWzskKAMShotParKey	deltaTheta				
-	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
 	enus	angle increment [\u00b0]	
 	dech	Winkel-Schrittweite [\u00b0]	
 	ImeIJAVKeylistKey.end
 KlstWzskKAMShotParKey	Npoint				
-	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
 	enus	point cloud size	
 	dech	Gr\u00f6sse der Punktwolke	
 	ImeIJAVKeylistKey.end
 KlstWzskKMFileContent	pvwsnap				
-	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
 	enus	preview snapshot	
 	dech	Vorschau Schnappschuss	
 	ImeIJAVKeylistKey.end
 KlstWzskKMFileContent	xyz				
-	- ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
+	ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment
 	enus	point cloud	
 	dech	Punktwolke	
 	ImeIJAVKeylistKey.end

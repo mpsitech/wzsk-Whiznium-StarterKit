@@ -14,9 +14,9 @@
 
 // IP include.cust --- INSERT
 
+#include "PnlWzskObjDetail.h"
 #include "PnlWzskObjRef1NFile.h"
 #include "PnlWzskObj1NShot.h"
-#include "PnlWzskObjDetail.h"
 
 #define VecVWzskObjRecDo PnlWzskObjRec::VecVDo
 
@@ -177,9 +177,9 @@ public:
 	ContInf continf;
 	StatShr statshr;
 
+	PnlWzskObjDetail* pnldetail;
 	PnlWzskObjRef1NFile* pnlref1nfile;
 	PnlWzskObj1NShot* pnl1nshot;
-	PnlWzskObjDetail* pnldetail;
 
 	WzskMObject recObj;
 

@@ -17,9 +17,9 @@
 #include "PnlWzskScfHeadbar.h"
 #include "PnlWzskScfGeom.h"
 #include "PnlWzskScfConn.h"
+#include "DlgWzskScfLaserpos.h"
 #include "DlgWzskScfTtablecoord.h"
 #include "DlgWzskScfCameramat.h"
-#include "DlgWzskScfLaserpos.h"
 
 #define VecVWzskScfDo CrdWzskScf::VecVDo
 #define VecVWzskScfSge CrdWzskScf::VecVSge
@@ -209,9 +209,9 @@ public:
 	PnlWzskScfHeadbar* pnlheadbar;
 	PnlWzskScfGeom* pnlgeom;
 	PnlWzskScfConn* pnlconn;
+	DlgWzskScfLaserpos* dlglaserpos;
 	DlgWzskScfTtablecoord* dlgttablecoord;
 	DlgWzskScfCameramat* dlgcameramat;
-	DlgWzskScfLaserpos* dlglaserpos;
 
 	// IP vars.cust --- INSERT
 

@@ -14,7 +14,11 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskSrcFpga.h"
+#include "JobWzskSrcUvbdvk.h"
+#include "JobWzskSrcIcicle.h"
+#include "JobWzskSrcMcvevp.h"
+#include "JobWzskSrcClnxevb.h"
+#include "JobWzskSrcArty.h"
 
 #define VecVJobWzskActServoMethod JobWzskActServo::VecVMethod
 #define VecVJobWzskActServoSge JobWzskActServo::VecVSge
@@ -91,8 +95,8 @@ public:
 
 	public:
 		std::string pathroot;
-		bool halfstepNotTorque;
-		float omega;
+		bool halfstepNotTorque; // driving scheme
+		float omega; // [1/s]
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -113,8 +117,8 @@ public:
 		Shrdat();
 
 	public:
-		float angle;
-		float target;
+		float angle; // in \u00a1
+		float target; // in \u00a1
 
 		// IP Shrdat.vars.cust --- IBEGIN
 		bool ccwNotCw;
@@ -137,7 +141,11 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
-	JobWzskSrcFpga* srcfpga;
+	JobWzskSrcUvbdvk* srcuvbdvk;
+	JobWzskSrcIcicle* srcicicle;
+	JobWzskSrcMcvevp* srcmcvevp;
+	JobWzskSrcClnxevb* srcclnxevb;
+	JobWzskSrcArty* srcarty;
 
 	// IP vars.spec --- INSERT
 
@@ -166,8 +174,8 @@ public:
 private:
 	bool handleTest(DbsWzsk* dbswzsk);
 
-	void handleTimerWithSrefMonInSgeMove(DbsWzsk* dbswzsk);
 	void handleTimerWithSrefCallbackInSgeMove(DbsWzsk* dbswzsk);
+	void handleTimerWithSrefMonInSgeMove(DbsWzsk* dbswzsk);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

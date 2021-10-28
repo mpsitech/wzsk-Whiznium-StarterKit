@@ -52,7 +52,7 @@ void JobWzskActLaser::Shrdat::init(
 
 	gpiohandle_data data;
 
-	if (!xchg->stgwzskglobal.fpgaNotV4l2gpio) {
+	if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) {
 		// configure GPIO
 		path = stg.pathGpio;
 
@@ -203,14 +203,24 @@ JobWzskActLaser::JobWzskActLaser(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	srcfpga = NULL;
+	srcuvbdvk = NULL;
+	srcmcvevp = NULL;
+	srcicicle = NULL;
+	srcarty = NULL;
+	srcclnxevb = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	// IP constructor.spec1 --- INSERT
 
 	// IP constructor.cust2 --- IBEGIN
-	if (srvNotCli) if (xchg->stgwzskglobal.fpgaNotV4l2gpio) srcfpga = new JobWzskSrcFpga(xchg, dbswzsk, jref, ixWzskVLocale);
+	if (srvNotCli) {
+		if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) srcarty = new JobWzskSrcArty(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB) srcclnxevb = new JobWzskSrcClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) srcicicle = new JobWzskSrcIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::MCVEVP) srcmcvevp = new JobWzskSrcMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS) srcuvbdvk = new JobWzskSrcUvbdvk(xchg, dbswzsk, jref, ixWzskVLocale);
+	};
 	// IP constructor.cust2 --- IEND
 
 	// IP constructor.spec2 --- INSERT
@@ -246,7 +256,7 @@ usmallint JobWzskActLaser::pToAbs(
 
 bool JobWzskActLaser::setLeft(
 			DbsWzsk* dbswzsk
-			, const float left
+			, const float left // 0..1
 		) {
 	bool retval = true;
 
@@ -268,7 +278,7 @@ bool JobWzskActLaser::setLeft(
 
 	usmallint i = pToAbs(false, left);
 
-	if (!srcfpga) {
+	if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) {
 		retval = false;
 
 		data.values[0] = 0;
@@ -291,7 +301,8 @@ bool JobWzskActLaser::setLeft(
 
 		retval = true;
 
-	} else retval = srcfpga->laser_set(i, pToAbs(true, shrdat.right));
+	} else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) retval = srcarty->laser_set(i, pToAbs(true, shrdat.right));
+	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) retval = srcicicle->laser_set(i, pToAbs(true, shrdat.right));
 
 	if (retval) {
 		shrdat.wlockAccess(jref, "setLeft");
@@ -311,7 +322,7 @@ bool JobWzskActLaser::setLeft(
 
 bool JobWzskActLaser::setRight(
 			DbsWzsk* dbswzsk
-			, const float right
+			, const float right // 0..1
 		) {
 	bool retval = true;
 
@@ -333,7 +344,7 @@ bool JobWzskActLaser::setRight(
 
 	usmallint i = pToAbs(true, right);
 
-	if (!srcfpga) {
+	if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) {
 		retval = false;
 
 		data.values[0] = 1;
@@ -356,7 +367,8 @@ bool JobWzskActLaser::setRight(
 
 		retval = true;
 
-	} else retval = srcfpga->laser_set(pToAbs(false, shrdat.left), i);
+	} else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) retval = srcarty->laser_set(pToAbs(false, shrdat.left), i);
+	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) retval = srcicicle->laser_set(pToAbs(false, shrdat.left), i);
 
 	if (retval) {
 		shrdat.wlockAccess(jref, "setRight");
@@ -445,12 +457,19 @@ bool JobWzskActLaser::handleClaim(
 		};
 	};
 
-	if (srcfpga) {
-		// add or remove "laser" claim with srcfpga
-		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcfpga);
-		else xchg->addCsjobClaim(dbswzsk, srcfpga, new JobWzskSrcFpga::Claim(false, false, false, false, true, false));
+	if (srcarty) {
+		// add or remove "laser" claim with srcarty
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcarty);
+		else xchg->addCsjobClaim(dbswzsk, srcarty, new JobWzskSrcArty::Claim(false, false, true, false));
 
-		xchg->getCsjobClaim(srcfpga, laserTakenNotAvailable, laserFulfilled);
+		xchg->getCsjobClaim(srcarty, laserTakenNotAvailable, laserFulfilled);
+
+	} else if (srcicicle) {
+		// add or remove "laser" claim with srcicicle
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcicicle);
+		else xchg->addCsjobClaim(dbswzsk, srcicicle, new JobWzskSrcIcicle::Claim(false, false, true, false));
+
+		xchg->getCsjobClaim(srcicicle, laserTakenNotAvailable, laserFulfilled);
 
 	} else laserFulfilled = true;
 

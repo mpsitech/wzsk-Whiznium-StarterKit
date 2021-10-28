@@ -45,6 +45,15 @@ lin	VecWzskVSqrgrp		noloc;notit;apdfed;filfed
 	s2
 	s3
 	ImeIMVectoritem.end
+lin	VecWzskVTarget		apdfed;filfed
+	ImeIMVectoritem.sref	Avail	Implied	Title	Comment
+	apalis			Toradex Apalis on Ixora carrier board 
+	arty			Digilent Cora Z7
+	clnxevb			Lattice CrossLink-NX evaluation board
+	icicle			Microchip PolarFire Soc Icicle kit
+	mcvevp			Aries Cyclone V evaluation platform
+	ws			Generic Intel x64 workstation
+	ImeIMVectoritem.end
 ImeIMVector.end
 ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
 cmbeng;eng	cmbeng;eng	StgWzskCamera
@@ -74,18 +83,37 @@ cmbeng;eng	cmbeng;eng	StgWzskFramegeo
 	ImeIAMBlockItem.end
 cmbeng;eng	cmbeng;eng	StgWzskGlobal
 	ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	Defval	Comment
-	0	var	fpgaNotV4l2gpio	boolean	false
+	0	var	ixWzskVTarget	vecsref
 	ImeIAMBlockItem.end
 ImeIMBlock.end
 ImeIMCapability.srefTplRefWznmMCapability	sref	Title
 acv	Acv
-	ImeIAMCapabilityPar.x1SrefKKey	Val
-	dld	true
-	ImeIAMCapabilityPar.end
 arm	Arm
-dlgloaini	DlgWzskNavLoaini
-	ImeIAMCapabilityPar.x1SrefKKey	Val
-	acv	true
-	ImeIAMCapabilityPar.end
 prefs	CrdWzskScf
+dlgloaini	DlgWzskNavLoaini
+dbeterm	PnlWzskLlvTermArty
+	ImeIAMCapabilityPar.x1SrefKKey	Val
+	carNum	1
+	unt	UntWskdArty
+	ImeIAMCapabilityPar.end
+dbeterm	PnlWzskLlvTermClnxevb
+	ImeIAMCapabilityPar.x1SrefKKey	Val
+	carNum	2
+	unt	UntWskdCleb
+	ImeIAMCapabilityPar.end
+dbeterm	PnlWzskLlvTermIcicle
+	ImeIAMCapabilityPar.x1SrefKKey	Val
+	carNum	3
+	unt	UntWskdIccl
+	ImeIAMCapabilityPar.end
+dbeterm	PnlWzskLlvTermMcvevp
+	ImeIAMCapabilityPar.x1SrefKKey	Val
+	carNum	4
+	unt	UntWskdMcep
+	ImeIAMCapabilityPar.end
+dbeterm	PnlWzskLlvTermUvbdvk
+	ImeIAMCapabilityPar.x1SrefKKey	Val
+	carNum	5
+	unt	UntWskdUbdk
+	ImeIAMCapabilityPar.end
 ImeIMCapability.end

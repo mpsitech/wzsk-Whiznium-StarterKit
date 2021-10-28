@@ -69,7 +69,10 @@ JobWzskActExposure::JobWzskActExposure(
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
 	srcv4l2 = NULL;
-	srcfpga = NULL;
+	srcmcvevp = NULL;
+	srcicicle = NULL;
+	srcarty = NULL;
+	srcclnxevb = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -77,8 +80,11 @@ JobWzskActExposure::JobWzskActExposure(
 
 	// IP constructor.cust2 --- IBEGIN
 	if (srvNotCli) {
-		if (!xchg->stgwzskglobal.fpgaNotV4l2gpio) srcv4l2 = new JobWzskSrcV4l2(xchg, dbswzsk, jref, ixWzskVLocale);
-		else srcfpga = new JobWzskSrcFpga(xchg, dbswzsk, jref, ixWzskVLocale);
+		if ((xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) || (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS)) srcv4l2 = new JobWzskSrcV4l2(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) srcarty = new JobWzskSrcArty(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB) srcclnxevb = new JobWzskSrcClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) srcicicle = new JobWzskSrcIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::MCVEVP) srcmcvevp = new JobWzskSrcMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
 	};
 	// IP constructor.cust2 --- IEND
 
@@ -104,7 +110,7 @@ JobWzskActExposure::~JobWzskActExposure() {
 bool JobWzskActExposure::setExposure(
 			DbsWzsk* dbswzsk
 			, const bool autoNotManual
-			, const float Texp
+			, const float Texp // in s
 		) {
 	bool retval = true;
 
@@ -121,7 +127,8 @@ bool JobWzskActExposure::setExposure(
 
 	// IP setExposure --- IBEGIN
 	if (srcv4l2) retval = srcv4l2->setExposure(autoNotManual, Texp);
-	else if (srcfpga) retval = srcfpga->setExposure(autoNotManual, Texp);
+	else if (srcarty) retval = srcarty->setExposure(autoNotManual, Texp);
+	else if (srcicicle) retval = srcicicle->setExposure(autoNotManual, Texp);
 
 	if (retval) {
 		shrdat.wlockAccess(jref, "setExposure");
@@ -142,7 +149,7 @@ bool JobWzskActExposure::setExposure(
 
 bool JobWzskActExposure::setFocus(
 			DbsWzsk* dbswzsk
-			, const float focus
+			, const float focus // 0..1
 		) {
 	bool retval = true;
 
@@ -159,7 +166,8 @@ bool JobWzskActExposure::setFocus(
 
 	// IP setFocus --- IBEGIN
 	if (srcv4l2) retval = srcv4l2->setFocus(focus);
-	else if (srcfpga) retval = srcfpga->setFocus(focus);
+	else if (srcarty) retval = srcarty->setFocus(focus);
+	else if (srcicicle) retval = srcicicle->setFocus(focus);
 
 	if (retval) {
 		shrdat.wlockAccess(jref, "setFocus");

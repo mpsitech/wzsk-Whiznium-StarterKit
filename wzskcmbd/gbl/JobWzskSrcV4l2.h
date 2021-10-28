@@ -21,6 +21,8 @@
 #include <sys/types.h>
 #ifdef __arm__
 	#include <arm_neon.h>
+#elif __x86_64__
+	#include <emmintrin.h>
 #endif
 // IP include.cust --- IEND
 

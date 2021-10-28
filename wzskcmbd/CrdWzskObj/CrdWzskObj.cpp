@@ -44,9 +44,9 @@ CrdWzskObj::CrdWzskObj(
 	VecVSge::fillFeed(feedFSge);
 
 	pnllist = NULL;
-	dlgnew = NULL;
 	pnlrec = NULL;
 	pnlheadbar = NULL;
+	dlgnew = NULL;
 
 	// IP constructor.cust1 --- INSERT
 

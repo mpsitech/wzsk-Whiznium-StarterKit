@@ -10,10 +10,10 @@
 #ifndef APIWZSK_H
 #define APIWZSK_H
 
-#define WZSK_VERSION "1.0.5"
+#define WZSK_VERSION "1.0.7"
 #define WZSK_VERSION_MAJOR 1
 #define WZSK_VERSION_MINOR 0
-#define WZSK_VERSION_SUB 5
+#define WZSK_VERSION_SUB 7
 
 #include "ApiWzsk_blks.h"
 
@@ -70,7 +70,11 @@
 #include "PnlWzskLlvCamera.h"
 #include "PnlWzskLlvHeadbar.h"
 #include "PnlWzskLlvLaser.h"
-#include "PnlWzskLlvTerm.h"
+#include "PnlWzskLlvTermArty.h"
+#include "PnlWzskLlvTermClnxevb.h"
+#include "PnlWzskLlvTermIcicle.h"
+#include "PnlWzskLlvTermMcvevp.h"
+#include "PnlWzskLlvTermUvbdvk.h"
 #include "PnlWzskLlvTtable.h"
 #include "PnlWzskNavAdmin.h"
 #include "PnlWzskNavGlry.h"

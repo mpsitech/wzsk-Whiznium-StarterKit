@@ -81,10 +81,57 @@ void WzskcmbdUasrv::Session::Initialise(
 		delete req;
 
 		// - probe access rights and add call listeners
+		if (statshr.jrefIprcorner != 0) {
+			insert(jobaccs, VecWzskVJob::JOBWZSKIPRCORNER);
+
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setNTarget", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setNTarget")] = ixAcc;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setRoi", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setRoi")] = ixAcc;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setRoiNotFull", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setRoiNotFull")] = ixAcc;
+
+			ixVFeatgroups[statshr.jrefIprcorner] = VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "NTarget", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "NTarget")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefIprcorner, "NTarget", true);
+			};
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefIprcorner, "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy", true);
+			};
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "flgShiftScoreMinScoreMax", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "flgShiftScoreMinScoreMax")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefIprcorner, "flgShiftScoreMinScoreMax", true);
+			};
+		};
 		if (statshr.jrefSrcsysinfo != 0) {
 			insert(jobaccs, VecWzskVJob::JOBWZSKSRCSYSINFO);
 
 			ixVFeatgroups[statshr.jrefSrcsysinfo] = VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefSrcsysinfo, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "currCh0VoltCh0", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "currCh0VoltCh0")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefSrcsysinfo, "currCh0VoltCh0", true);
+			};
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefSrcsysinfo, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "currCh1VoltCh1", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "currCh1VoltCh1")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefSrcsysinfo, "currCh1VoltCh1", true);
+			};
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefSrcsysinfo, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "currCh2VoltCh2", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "currCh2VoltCh2")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefSrcsysinfo, "currCh2VoltCh2", true);
+			};
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefSrcsysinfo, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "currCh3VoltCh3", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "currCh3VoltCh3")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefSrcsysinfo, "currCh3VoltCh3", true);
+			};
 			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefSrcsysinfo, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "loadAllLoadCore0LoadCore1LoadCore2LoadCore3", ixAcc);
 			if (ixAcc != 0) {
 				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR, "loadAllLoadCore0LoadCore1LoadCore2LoadCore3")] = ixAcc;
@@ -128,33 +175,6 @@ void WzskcmbdUasrv::Session::Initialise(
 				xchg->addClstnUasrv(statshr.jrefIprtrace, "leftRight", true);
 			};
 		};
-		if (statshr.jrefIprcorner != 0) {
-			insert(jobaccs, VecWzskVJob::JOBWZSKIPRCORNER);
-
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setNTarget", ixAcc);
-			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setNTarget")] = ixAcc;
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setRoi", ixAcc);
-			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setRoi")] = ixAcc;
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setRoiNotFull", ixAcc);
-			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setRoiNotFull")] = ixAcc;
-
-			ixVFeatgroups[statshr.jrefIprcorner] = VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR;
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "NTarget", ixAcc);
-			if (ixAcc != 0) {
-				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "NTarget")] = ixAcc;
-				xchg->addClstnUasrv(statshr.jrefIprcorner, "NTarget", true);
-			};
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy", ixAcc);
-			if (ixAcc != 0) {
-				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy")] = ixAcc;
-				xchg->addClstnUasrv(statshr.jrefIprcorner, "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy", true);
-			};
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefIprcorner, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "flgShiftScoreMinScoreMax", ixAcc);
-			if (ixAcc != 0) {
-				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR, "flgShiftScoreMinScoreMax")] = ixAcc;
-				xchg->addClstnUasrv(statshr.jrefIprcorner, "flgShiftScoreMinScoreMax", true);
-			};
-		};
 		if (statshr.jrefActservo != 0) {
 			insert(jobaccs, VecWzskVJob::JOBWZSKACTSERVO);
 
@@ -172,6 +192,21 @@ void WzskcmbdUasrv::Session::Initialise(
 			if (ixAcc != 0) {
 				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTSERVOVAR, "angleTarget")] = ixAcc;
 				xchg->addClstnUasrv(statshr.jrefActservo, "angleTarget", true);
+			};
+		};
+		if (statshr.jrefActlaser != 0) {
+			insert(jobaccs, VecWzskVJob::JOBWZSKACTLASER);
+
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActlaser, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft")] = ixAcc;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActlaser, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight")] = ixAcc;
+
+			ixVFeatgroups[statshr.jrefActlaser] = VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActlaser, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, "leftRight", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, "leftRight")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefActlaser, "leftRight", true);
 			};
 		};
 		if (statshr.jrefActexposure != 0) {
@@ -194,19 +229,19 @@ void WzskcmbdUasrv::Session::Initialise(
 				xchg->addClstnUasrv(statshr.jrefActexposure, "focus", true);
 			};
 		};
-		if (statshr.jrefActlaser != 0) {
-			insert(jobaccs, VecWzskVJob::JOBWZSKACTLASER);
+		if (statshr.jrefAcqpreview != 0) {
+			insert(jobaccs, VecWzskVJob::JOBWZSKACQPREVIEW);
 
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActlaser, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft", ixAcc);
-			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft")] = ixAcc;
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActlaser, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight", ixAcc);
-			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight")] = ixAcc;
-
-			ixVFeatgroups[statshr.jrefActlaser] = VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR;
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActlaser, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, "leftRight", ixAcc);
+			ixVFeatgroups[statshr.jrefAcqpreview] = VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqpreview, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "gray", ixAcc);
 			if (ixAcc != 0) {
-				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, "leftRight")] = ixAcc;
-				xchg->addClstnUasrv(statshr.jrefActlaser, "leftRight", true);
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "gray")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefAcqpreview, "gray", true);
+			};
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqpreview, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "redGreenBlue", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "redGreenBlue")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefAcqpreview, "redGreenBlue", true);
 			};
 		};
 		if (statshr.jrefAcqptcloud != 0) {
@@ -232,21 +267,6 @@ void WzskcmbdUasrv::Session::Initialise(
 			if (ixAcc != 0) {
 				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "xYZ")] = ixAcc;
 				xchg->addClstnUasrv(statshr.jrefAcqptcloud, "xYZ", true);
-			};
-		};
-		if (statshr.jrefAcqpreview != 0) {
-			insert(jobaccs, VecWzskVJob::JOBWZSKACQPREVIEW);
-
-			ixVFeatgroups[statshr.jrefAcqpreview] = VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR;
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqpreview, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "gray", ixAcc);
-			if (ixAcc != 0) {
-				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "gray")] = ixAcc;
-				xchg->addClstnUasrv(statshr.jrefAcqpreview, "gray", true);
-			};
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefAcqpreview, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "redGreenBlue", ixAcc);
-			if (ixAcc != 0) {
-				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR, "redGreenBlue")] = ixAcc;
-				xchg->addClstnUasrv(statshr.jrefAcqpreview, "redGreenBlue", true);
 			};
 		};
 	};
@@ -446,18 +466,118 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 	if (it2 != sessions.end()) {
 		session = it2->second;
 
-		if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD) jref = session->statshr.jrefIprtrace;
-		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD) jref = session->statshr.jrefIprcorner;
+		if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD) jref = session->statshr.jrefIprcorner;
+		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD) jref = session->statshr.jrefIprtrace;
 		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD) jref = session->statshr.jrefActservo;
-		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD) jref = session->statshr.jrefActexposure;
 		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD) jref = session->statshr.jrefActlaser;
+		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD) jref = session->statshr.jrefActexposure;
 		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD) jref = session->statshr.jrefAcqptcloud;
 	} else {
 		return OpcUa_BadSessionIdInvalid;
 	};
 
 	if (jref != 0) {
-		if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD) && (srefIxVMethod == "setLevel")) {
+		if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD) && (srefIxVMethod == "setNTarget")) {
+			if (requestParameters->InputArguments().Size() == 1) {
+				IntrusivePtr_t<const UInt16_t> NTarget_inv_UA;
+				usmallint NTarget_inv;
+
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), NTarget_inv_UA);
+				NTarget_inv = NTarget_inv_UA->Value();
+
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setNTarget",
+							{&NTarget_inv},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD) && (srefIxVMethod == "setRoi")) {
+			if (requestParameters->InputArguments().Size() == 8) {
+				IntrusivePtr_t<const Int32_t> roiAx_inv_UA;
+				int roiAx_inv;
+				IntrusivePtr_t<const Int32_t> roiAy_inv_UA;
+				int roiAy_inv;
+				IntrusivePtr_t<const Int32_t> roiBx_inv_UA;
+				int roiBx_inv;
+				IntrusivePtr_t<const Int32_t> roiBy_inv_UA;
+				int roiBy_inv;
+				IntrusivePtr_t<const Int32_t> roiCx_inv_UA;
+				int roiCx_inv;
+				IntrusivePtr_t<const Int32_t> roiCy_inv_UA;
+				int roiCy_inv;
+				IntrusivePtr_t<const Int32_t> roiDx_inv_UA;
+				int roiDx_inv;
+				IntrusivePtr_t<const Int32_t> roiDy_inv_UA;
+				int roiDy_inv;
+
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), roiAx_inv_UA);
+				roiAx_inv = roiAx_inv_UA->Value();
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[1]), roiAy_inv_UA);
+				roiAy_inv = roiAy_inv_UA->Value();
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[2]), roiBx_inv_UA);
+				roiBx_inv = roiBx_inv_UA->Value();
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[3]), roiBy_inv_UA);
+				roiBy_inv = roiBy_inv_UA->Value();
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[4]), roiCx_inv_UA);
+				roiCx_inv = roiCx_inv_UA->Value();
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[5]), roiCy_inv_UA);
+				roiCy_inv = roiCy_inv_UA->Value();
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[6]), roiDx_inv_UA);
+				roiDx_inv = roiDx_inv_UA->Value();
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[7]), roiDy_inv_UA);
+				roiDy_inv = roiDy_inv_UA->Value();
+
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setRoi",
+							{&roiAx_inv,&roiAy_inv,&roiBx_inv,&roiBy_inv,&roiCx_inv,&roiCy_inv,&roiDx_inv,&roiDy_inv},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD) && (srefIxVMethod == "setRoiNotFull")) {
+			if (requestParameters->InputArguments().Size() == 1) {
+				IntrusivePtr_t<const Boolean_t> roiNotFull_inv_UA;
+				bool roiNotFull_inv;
+
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), roiNotFull_inv_UA);
+				roiNotFull_inv = roiNotFull_inv_UA->Value();
+
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setRoiNotFull",
+							{&roiNotFull_inv},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD) && (srefIxVMethod == "setLevel")) {
 			if (requestParameters->InputArguments().Size() == 2) {
 				IntrusivePtr_t<const Byte_t> levelOn_inv_UA;
 				utinyint levelOn_inv;
@@ -561,106 +681,6 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 				result->StatusCode() = OpcUa_Good;
 			};
 
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD) && (srefIxVMethod == "setNTarget")) {
-			if (requestParameters->InputArguments().Size() == 1) {
-				IntrusivePtr_t<const UInt16_t> NTarget_inv_UA;
-				usmallint NTarget_inv;
-
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), NTarget_inv_UA);
-				NTarget_inv = NTarget_inv_UA->Value();
-
-				bool success_ret;
-				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
-
-				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setNTarget",
-							{&NTarget_inv},
-							{&success_ret});
-
-				result.reset(new SafeRefCount_t<CallMethodResult_t>());
-				result->OutputArguments().Initialise(1);
-
-				success_ret_UA->Value(success_ret);
-				success_ret_UA->CopyTo((result->OutputArguments())[0]);
-
-				result->StatusCode() = OpcUa_Good;
-			};
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD) && (srefIxVMethod == "setRoi")) {
-			if (requestParameters->InputArguments().Size() == 8) {
-				IntrusivePtr_t<const Int32_t> roiAx_inv_UA;
-				int roiAx_inv;
-				IntrusivePtr_t<const Int32_t> roiAy_inv_UA;
-				int roiAy_inv;
-				IntrusivePtr_t<const Int32_t> roiBx_inv_UA;
-				int roiBx_inv;
-				IntrusivePtr_t<const Int32_t> roiBy_inv_UA;
-				int roiBy_inv;
-				IntrusivePtr_t<const Int32_t> roiCx_inv_UA;
-				int roiCx_inv;
-				IntrusivePtr_t<const Int32_t> roiCy_inv_UA;
-				int roiCy_inv;
-				IntrusivePtr_t<const Int32_t> roiDx_inv_UA;
-				int roiDx_inv;
-				IntrusivePtr_t<const Int32_t> roiDy_inv_UA;
-				int roiDy_inv;
-
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), roiAx_inv_UA);
-				roiAx_inv = roiAx_inv_UA->Value();
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[1]), roiAy_inv_UA);
-				roiAy_inv = roiAy_inv_UA->Value();
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[2]), roiBx_inv_UA);
-				roiBx_inv = roiBx_inv_UA->Value();
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[3]), roiBy_inv_UA);
-				roiBy_inv = roiBy_inv_UA->Value();
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[4]), roiCx_inv_UA);
-				roiCx_inv = roiCx_inv_UA->Value();
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[5]), roiCy_inv_UA);
-				roiCy_inv = roiCy_inv_UA->Value();
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[6]), roiDx_inv_UA);
-				roiDx_inv = roiDx_inv_UA->Value();
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[7]), roiDy_inv_UA);
-				roiDy_inv = roiDy_inv_UA->Value();
-
-				bool success_ret;
-				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
-
-				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setRoi",
-							{&roiAx_inv,&roiAy_inv,&roiBx_inv,&roiBy_inv,&roiCx_inv,&roiCy_inv,&roiDx_inv,&roiDy_inv},
-							{&success_ret});
-
-				result.reset(new SafeRefCount_t<CallMethodResult_t>());
-				result->OutputArguments().Initialise(1);
-
-				success_ret_UA->Value(success_ret);
-				success_ret_UA->CopyTo((result->OutputArguments())[0]);
-
-				result->StatusCode() = OpcUa_Good;
-			};
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD) && (srefIxVMethod == "setRoiNotFull")) {
-			if (requestParameters->InputArguments().Size() == 1) {
-				IntrusivePtr_t<const Boolean_t> roiNotFull_inv_UA;
-				bool roiNotFull_inv;
-
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), roiNotFull_inv_UA);
-				roiNotFull_inv = roiNotFull_inv_UA->Value();
-
-				bool success_ret;
-				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
-
-				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD, "setRoiNotFull",
-							{&roiNotFull_inv},
-							{&success_ret});
-
-				result.reset(new SafeRefCount_t<CallMethodResult_t>());
-				result->OutputArguments().Initialise(1);
-
-				success_ret_UA->Value(success_ret);
-				success_ret_UA->CopyTo((result->OutputArguments())[0]);
-
-				result->StatusCode() = OpcUa_Good;
-			};
-
 		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD) && (srefIxVMethod == "moveto")) {
 			if (requestParameters->InputArguments().Size() == 1) {
 				IntrusivePtr_t<const Float_t> target_inv_UA;
@@ -745,6 +765,54 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 				result->StatusCode() = OpcUa_Good;
 			};
 
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD) && (srefIxVMethod == "setLeft")) {
+			if (requestParameters->InputArguments().Size() == 1) {
+				IntrusivePtr_t<const Float_t> left_inv_UA;
+				float left_inv;
+
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), left_inv_UA);
+				left_inv = left_inv_UA->Value();
+
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft",
+							{&left_inv},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD) && (srefIxVMethod == "setRight")) {
+			if (requestParameters->InputArguments().Size() == 1) {
+				IntrusivePtr_t<const Float_t> right_inv_UA;
+				float right_inv;
+
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), right_inv_UA);
+				right_inv = right_inv_UA->Value();
+
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight",
+							{&right_inv},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
+
 		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD) && (srefIxVMethod == "setExposure")) {
 			if (requestParameters->InputArguments().Size() == 2) {
 				IntrusivePtr_t<const Boolean_t> autoNotManual_inv_UA;
@@ -786,54 +854,6 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 
 				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setFocus",
 							{&focus_inv},
-							{&success_ret});
-
-				result.reset(new SafeRefCount_t<CallMethodResult_t>());
-				result->OutputArguments().Initialise(1);
-
-				success_ret_UA->Value(success_ret);
-				success_ret_UA->CopyTo((result->OutputArguments())[0]);
-
-				result->StatusCode() = OpcUa_Good;
-			};
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD) && (srefIxVMethod == "setLeft")) {
-			if (requestParameters->InputArguments().Size() == 1) {
-				IntrusivePtr_t<const Float_t> left_inv_UA;
-				float left_inv;
-
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), left_inv_UA);
-				left_inv = left_inv_UA->Value();
-
-				bool success_ret;
-				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
-
-				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft",
-							{&left_inv},
-							{&success_ret});
-
-				result.reset(new SafeRefCount_t<CallMethodResult_t>());
-				result->OutputArguments().Initialise(1);
-
-				success_ret_UA->Value(success_ret);
-				success_ret_UA->CopyTo((result->OutputArguments())[0]);
-
-				result->StatusCode() = OpcUa_Good;
-			};
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD) && (srefIxVMethod == "setRight")) {
-			if (requestParameters->InputArguments().Size() == 1) {
-				IntrusivePtr_t<const Float_t> right_inv_UA;
-				float right_inv;
-
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), right_inv_UA);
-				right_inv = right_inv_UA->Value();
-
-				bool success_ret;
-				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
-
-				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight",
-							{&right_inv},
 							{&success_ret});
 
 				result.reset(new SafeRefCount_t<CallMethodResult_t>());
@@ -935,7 +955,229 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 		dataValue->StatusCode() = new SafeRefCount_t<StatusCode_t>();
 		*dataValue->StatusCode() = OpcUa_Good;
 
-		if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR) && (srefIxVVar == "loadAllLoadCore0LoadCore1LoadCore2LoadCore3")) {
+		if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR) && (srefIxVVar == "NTarget")) {
+			JobWzskIprCorner::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "NTarget") {
+				IntrusivePtr_t<UInt16_t> NTarget = new SafeRefCount_t<UInt16_t>();
+				*NTarget = JobWzskIprCorner::shrdat.NTarget;
+				dataValue->Value() = NTarget;
+			};
+
+			JobWzskIprCorner::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR) && (srefIxVVar == "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy")) {
+			JobWzskIprCorner::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "roiAx") {
+				IntrusivePtr_t<Int32_t> roiAx = new SafeRefCount_t<Int32_t>();
+				*roiAx = JobWzskIprCorner::shrdat.roiAx;
+				dataValue->Value() = roiAx;
+			} else if (subvar == "roiAy") {
+				IntrusivePtr_t<Int32_t> roiAy = new SafeRefCount_t<Int32_t>();
+				*roiAy = JobWzskIprCorner::shrdat.roiAy;
+				dataValue->Value() = roiAy;
+			} else if (subvar == "roiBx") {
+				IntrusivePtr_t<Int32_t> roiBx = new SafeRefCount_t<Int32_t>();
+				*roiBx = JobWzskIprCorner::shrdat.roiBx;
+				dataValue->Value() = roiBx;
+			} else if (subvar == "roiBy") {
+				IntrusivePtr_t<Int32_t> roiBy = new SafeRefCount_t<Int32_t>();
+				*roiBy = JobWzskIprCorner::shrdat.roiBy;
+				dataValue->Value() = roiBy;
+			} else if (subvar == "roiCx") {
+				IntrusivePtr_t<Int32_t> roiCx = new SafeRefCount_t<Int32_t>();
+				*roiCx = JobWzskIprCorner::shrdat.roiCx;
+				dataValue->Value() = roiCx;
+			} else if (subvar == "roiCy") {
+				IntrusivePtr_t<Int32_t> roiCy = new SafeRefCount_t<Int32_t>();
+				*roiCy = JobWzskIprCorner::shrdat.roiCy;
+				dataValue->Value() = roiCy;
+			} else if (subvar == "roiDx") {
+				IntrusivePtr_t<Int32_t> roiDx = new SafeRefCount_t<Int32_t>();
+				*roiDx = JobWzskIprCorner::shrdat.roiDx;
+				dataValue->Value() = roiDx;
+			} else if (subvar == "roiDy") {
+				IntrusivePtr_t<Int32_t> roiDy = new SafeRefCount_t<Int32_t>();
+				*roiDy = JobWzskIprCorner::shrdat.roiDy;
+				dataValue->Value() = roiDy;
+			};
+
+			JobWzskIprCorner::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR) && (srefIxVVar == "flgShiftScoreMinScoreMax")) {
+			JobWzskIprCorner::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "flg") {
+				unsigned int len = JobWzskIprCorner::shrdat.flg.size();
+				IntrusivePtr_t<ArrayUA_t<Boolean_t> > flg = new SafeRefCount_t<ArrayUA_t<Boolean_t> >();
+				flg->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Boolean_t> item = new SafeRefCount_t<Boolean_t>();
+					item->Value(JobWzskIprCorner::shrdat.flg[i]);
+					(*flg)[i] = item;
+				};
+				dataValue->Value() = flg;
+			} else if (subvar == "shift") {
+				IntrusivePtr_t<Byte_t> shift = new SafeRefCount_t<Byte_t>();
+				*shift = JobWzskIprCorner::shrdat.shift;
+				dataValue->Value() = shift;
+			} else if (subvar == "scoreMin") {
+				IntrusivePtr_t<Byte_t> scoreMin = new SafeRefCount_t<Byte_t>();
+				*scoreMin = JobWzskIprCorner::shrdat.scoreMin;
+				dataValue->Value() = scoreMin;
+			} else if (subvar == "scoreMax") {
+				IntrusivePtr_t<Byte_t> scoreMax = new SafeRefCount_t<Byte_t>();
+				*scoreMax = JobWzskIprCorner::shrdat.scoreMax;
+				dataValue->Value() = scoreMax;
+			};
+
+			JobWzskIprCorner::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR) && (srefIxVVar == "currCh0VoltCh0")) {
+			JobWzskSrcSysinfo::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "currCh0") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.currCh0.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > currCh0 = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				currCh0->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.currCh0[i]);
+					(*currCh0)[i] = item;
+				};
+				dataValue->Value() = currCh0;
+			} else if (subvar == "voltCh0") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.voltCh0.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > voltCh0 = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				voltCh0->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.voltCh0[i]);
+					(*voltCh0)[i] = item;
+				};
+				dataValue->Value() = voltCh0;
+			};
+
+			JobWzskSrcSysinfo::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR) && (srefIxVVar == "currCh1VoltCh1")) {
+			JobWzskSrcSysinfo::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "currCh1") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.currCh1.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > currCh1 = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				currCh1->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.currCh1[i]);
+					(*currCh1)[i] = item;
+				};
+				dataValue->Value() = currCh1;
+			} else if (subvar == "voltCh1") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.voltCh1.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > voltCh1 = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				voltCh1->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.voltCh1[i]);
+					(*voltCh1)[i] = item;
+				};
+				dataValue->Value() = voltCh1;
+			};
+
+			JobWzskSrcSysinfo::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR) && (srefIxVVar == "currCh2VoltCh2")) {
+			JobWzskSrcSysinfo::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "currCh2") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.currCh2.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > currCh2 = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				currCh2->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.currCh2[i]);
+					(*currCh2)[i] = item;
+				};
+				dataValue->Value() = currCh2;
+			} else if (subvar == "voltCh2") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.voltCh2.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > voltCh2 = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				voltCh2->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.voltCh2[i]);
+					(*voltCh2)[i] = item;
+				};
+				dataValue->Value() = voltCh2;
+			};
+
+			JobWzskSrcSysinfo::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR) && (srefIxVVar == "currCh3VoltCh3")) {
+			JobWzskSrcSysinfo::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "currCh3") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.currCh3.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > currCh3 = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				currCh3->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.currCh3[i]);
+					(*currCh3)[i] = item;
+				};
+				dataValue->Value() = currCh3;
+			} else if (subvar == "voltCh3") {
+				unsigned int len = JobWzskSrcSysinfo::shrdat.voltCh3.size();
+				IntrusivePtr_t<ArrayUA_t<Float_t> > voltCh3 = new SafeRefCount_t<ArrayUA_t<Float_t> >();
+				voltCh3->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Float_t> item = new SafeRefCount_t<Float_t>();
+					item->Value(JobWzskSrcSysinfo::shrdat.voltCh3[i]);
+					(*voltCh3)[i] = item;
+				};
+				dataValue->Value() = voltCh3;
+			};
+
+			JobWzskSrcSysinfo::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR) && (srefIxVVar == "loadAllLoadCore0LoadCore1LoadCore2LoadCore3")) {
 			JobWzskSrcSysinfo::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
 			if (setSourceTimestamp) {
@@ -1135,100 +1377,6 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 
 			JobWzskIprTrace::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR) && (srefIxVVar == "NTarget")) {
-			JobWzskIprCorner::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-			if (setSourceTimestamp) {
-				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
-				*(dataValue->SourceTimestamp()) = timestamps[it->second];
-			};
-
-			if (subvar == "NTarget") {
-				IntrusivePtr_t<UInt16_t> NTarget = new SafeRefCount_t<UInt16_t>();
-				*NTarget = JobWzskIprCorner::shrdat.NTarget;
-				dataValue->Value() = NTarget;
-			};
-
-			JobWzskIprCorner::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR) && (srefIxVVar == "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy")) {
-			JobWzskIprCorner::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-			if (setSourceTimestamp) {
-				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
-				*(dataValue->SourceTimestamp()) = timestamps[it->second];
-			};
-
-			if (subvar == "roiAx") {
-				IntrusivePtr_t<Int32_t> roiAx = new SafeRefCount_t<Int32_t>();
-				*roiAx = JobWzskIprCorner::shrdat.roiAx;
-				dataValue->Value() = roiAx;
-			} else if (subvar == "roiAy") {
-				IntrusivePtr_t<Int32_t> roiAy = new SafeRefCount_t<Int32_t>();
-				*roiAy = JobWzskIprCorner::shrdat.roiAy;
-				dataValue->Value() = roiAy;
-			} else if (subvar == "roiBx") {
-				IntrusivePtr_t<Int32_t> roiBx = new SafeRefCount_t<Int32_t>();
-				*roiBx = JobWzskIprCorner::shrdat.roiBx;
-				dataValue->Value() = roiBx;
-			} else if (subvar == "roiBy") {
-				IntrusivePtr_t<Int32_t> roiBy = new SafeRefCount_t<Int32_t>();
-				*roiBy = JobWzskIprCorner::shrdat.roiBy;
-				dataValue->Value() = roiBy;
-			} else if (subvar == "roiCx") {
-				IntrusivePtr_t<Int32_t> roiCx = new SafeRefCount_t<Int32_t>();
-				*roiCx = JobWzskIprCorner::shrdat.roiCx;
-				dataValue->Value() = roiCx;
-			} else if (subvar == "roiCy") {
-				IntrusivePtr_t<Int32_t> roiCy = new SafeRefCount_t<Int32_t>();
-				*roiCy = JobWzskIprCorner::shrdat.roiCy;
-				dataValue->Value() = roiCy;
-			} else if (subvar == "roiDx") {
-				IntrusivePtr_t<Int32_t> roiDx = new SafeRefCount_t<Int32_t>();
-				*roiDx = JobWzskIprCorner::shrdat.roiDx;
-				dataValue->Value() = roiDx;
-			} else if (subvar == "roiDy") {
-				IntrusivePtr_t<Int32_t> roiDy = new SafeRefCount_t<Int32_t>();
-				*roiDy = JobWzskIprCorner::shrdat.roiDy;
-				dataValue->Value() = roiDy;
-			};
-
-			JobWzskIprCorner::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR) && (srefIxVVar == "flgShiftScoreMinScoreMax")) {
-			JobWzskIprCorner::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-			if (setSourceTimestamp) {
-				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
-				*(dataValue->SourceTimestamp()) = timestamps[it->second];
-			};
-
-			if (subvar == "flg") {
-				unsigned int len = JobWzskIprCorner::shrdat.flg.size();
-				IntrusivePtr_t<ArrayUA_t<Boolean_t> > flg = new SafeRefCount_t<ArrayUA_t<Boolean_t> >();
-				flg->Initialise(len);
-				for (unsigned int i = 0; i < len; i++) {
-					IntrusivePtr_t<Boolean_t> item = new SafeRefCount_t<Boolean_t>();
-					item->Value(JobWzskIprCorner::shrdat.flg[i]);
-					(*flg)[i] = item;
-				};
-				dataValue->Value() = flg;
-			} else if (subvar == "shift") {
-				IntrusivePtr_t<Byte_t> shift = new SafeRefCount_t<Byte_t>();
-				*shift = JobWzskIprCorner::shrdat.shift;
-				dataValue->Value() = shift;
-			} else if (subvar == "scoreMin") {
-				IntrusivePtr_t<Byte_t> scoreMin = new SafeRefCount_t<Byte_t>();
-				*scoreMin = JobWzskIprCorner::shrdat.scoreMin;
-				dataValue->Value() = scoreMin;
-			} else if (subvar == "scoreMax") {
-				IntrusivePtr_t<Byte_t> scoreMax = new SafeRefCount_t<Byte_t>();
-				*scoreMax = JobWzskIprCorner::shrdat.scoreMax;
-				dataValue->Value() = scoreMax;
-			};
-
-			JobWzskIprCorner::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
 		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTSERVOVAR) && (srefIxVVar == "angleTarget")) {
 			JobWzskActServo::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
@@ -1248,6 +1396,26 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 			};
 
 			JobWzskActServo::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR) && (srefIxVVar == "leftRight")) {
+			JobWzskActLaser::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "left") {
+				IntrusivePtr_t<Float_t> left = new SafeRefCount_t<Float_t>();
+				*left = JobWzskActLaser::shrdat.left;
+				dataValue->Value() = left;
+			} else if (subvar == "right") {
+				IntrusivePtr_t<Float_t> right = new SafeRefCount_t<Float_t>();
+				*right = JobWzskActLaser::shrdat.right;
+				dataValue->Value() = right;
+			};
+
+			JobWzskActLaser::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
 		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR) && (srefIxVVar == "autoNotManualTexp")) {
 			JobWzskActExposure::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
@@ -1285,25 +1453,69 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 
 			JobWzskActExposure::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR) && (srefIxVVar == "leftRight")) {
-			JobWzskActLaser::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR) && (srefIxVVar == "gray")) {
+			JobWzskAcqPreview::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
 			if (setSourceTimestamp) {
 				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
 				*(dataValue->SourceTimestamp()) = timestamps[it->second];
 			};
 
-			if (subvar == "left") {
-				IntrusivePtr_t<Float_t> left = new SafeRefCount_t<Float_t>();
-				*left = JobWzskActLaser::shrdat.left;
-				dataValue->Value() = left;
-			} else if (subvar == "right") {
-				IntrusivePtr_t<Float_t> right = new SafeRefCount_t<Float_t>();
-				*right = JobWzskActLaser::shrdat.right;
-				dataValue->Value() = right;
+			if (subvar == "gray") {
+				unsigned int len = JobWzskAcqPreview::shrdat.gray.size();
+				IntrusivePtr_t<ArrayUA_t<Byte_t> > gray = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
+				gray->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
+					item->Value(JobWzskAcqPreview::shrdat.gray[i]);
+					(*gray)[i] = item;
+				};
+				dataValue->Value() = gray;
 			};
 
-			JobWzskActLaser::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+			JobWzskAcqPreview::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR) && (srefIxVVar == "redGreenBlue")) {
+			JobWzskAcqPreview::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "red") {
+				unsigned int len = JobWzskAcqPreview::shrdat.red.size();
+				IntrusivePtr_t<ArrayUA_t<Byte_t> > red = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
+				red->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
+					item->Value(JobWzskAcqPreview::shrdat.red[i]);
+					(*red)[i] = item;
+				};
+				dataValue->Value() = red;
+			} else if (subvar == "green") {
+				unsigned int len = JobWzskAcqPreview::shrdat.green.size();
+				IntrusivePtr_t<ArrayUA_t<Byte_t> > green = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
+				green->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
+					item->Value(JobWzskAcqPreview::shrdat.green[i]);
+					(*green)[i] = item;
+				};
+				dataValue->Value() = green;
+			} else if (subvar == "blue") {
+				unsigned int len = JobWzskAcqPreview::shrdat.blue.size();
+				IntrusivePtr_t<ArrayUA_t<Byte_t> > blue = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
+				blue->Initialise(len);
+				for (unsigned int i = 0; i < len; i++) {
+					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
+					item->Value(JobWzskAcqPreview::shrdat.blue[i]);
+					(*blue)[i] = item;
+				};
+				dataValue->Value() = blue;
+			};
+
+			JobWzskAcqPreview::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
 		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR) && (srefIxVVar == "deltaTheta")) {
 			JobWzskAcqPtcloud::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
@@ -1378,70 +1590,6 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 			};
 
 			JobWzskAcqPtcloud::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR) && (srefIxVVar == "gray")) {
-			JobWzskAcqPreview::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-			if (setSourceTimestamp) {
-				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
-				*(dataValue->SourceTimestamp()) = timestamps[it->second];
-			};
-
-			if (subvar == "gray") {
-				unsigned int len = JobWzskAcqPreview::shrdat.gray.size();
-				IntrusivePtr_t<ArrayUA_t<Byte_t> > gray = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
-				gray->Initialise(len);
-				for (unsigned int i = 0; i < len; i++) {
-					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
-					item->Value(JobWzskAcqPreview::shrdat.gray[i]);
-					(*gray)[i] = item;
-				};
-				dataValue->Value() = gray;
-			};
-
-			JobWzskAcqPreview::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR) && (srefIxVVar == "redGreenBlue")) {
-			JobWzskAcqPreview::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-			if (setSourceTimestamp) {
-				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
-				*(dataValue->SourceTimestamp()) = timestamps[it->second];
-			};
-
-			if (subvar == "red") {
-				unsigned int len = JobWzskAcqPreview::shrdat.red.size();
-				IntrusivePtr_t<ArrayUA_t<Byte_t> > red = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
-				red->Initialise(len);
-				for (unsigned int i = 0; i < len; i++) {
-					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
-					item->Value(JobWzskAcqPreview::shrdat.red[i]);
-					(*red)[i] = item;
-				};
-				dataValue->Value() = red;
-			} else if (subvar == "green") {
-				unsigned int len = JobWzskAcqPreview::shrdat.green.size();
-				IntrusivePtr_t<ArrayUA_t<Byte_t> > green = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
-				green->Initialise(len);
-				for (unsigned int i = 0; i < len; i++) {
-					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
-					item->Value(JobWzskAcqPreview::shrdat.green[i]);
-					(*green)[i] = item;
-				};
-				dataValue->Value() = green;
-			} else if (subvar == "blue") {
-				unsigned int len = JobWzskAcqPreview::shrdat.blue.size();
-				IntrusivePtr_t<ArrayUA_t<Byte_t> > blue = new SafeRefCount_t<ArrayUA_t<Byte_t> >();
-				blue->Initialise(len);
-				for (unsigned int i = 0; i < len; i++) {
-					IntrusivePtr_t<Byte_t> item = new SafeRefCount_t<Byte_t>();
-					item->Value(JobWzskAcqPreview::shrdat.blue[i]);
-					(*blue)[i] = item;
-				};
-				dataValue->Value() = blue;
-			};
-
-			JobWzskAcqPreview::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 		};
 	};
 
@@ -1497,7 +1645,7 @@ void* WzskcmbdUasrv::run(
 		} else xchg->cUasrv.unlockMutex("WzskcmbdUasrv", "run[2]");
 	};
 
-	pthread_cleanup_pop(0);
+	pthread_cleanup_pop(1);
 
 	return NULL;
 };
@@ -1667,7 +1815,89 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 	vector<string> srefsSubvars;
 	vector<uint> icsVVartypeSubvars;
 
+	fAS_addJobFolder(VecWzskVJob::JOBWZSKIPRCORNER, addressSpace, objectsFolder, jobFolder);
+
+	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
+	srefsParsInv[0] = "NTarget"; opcUaIdsParsInv[0] = OpcUaId_UInt16;
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
+	fAS_addMethod(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD , "setNTarget", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
+	srefsParsInv.resize(8); opcUaIdsParsInv.resize(8);
+	srefsParsInv[0] = "roiAx"; opcUaIdsParsInv[0] = OpcUaId_Int32;
+	srefsParsInv[1] = "roiAy"; opcUaIdsParsInv[1] = OpcUaId_Int32;
+	srefsParsInv[2] = "roiBx"; opcUaIdsParsInv[2] = OpcUaId_Int32;
+	srefsParsInv[3] = "roiBy"; opcUaIdsParsInv[3] = OpcUaId_Int32;
+	srefsParsInv[4] = "roiCx"; opcUaIdsParsInv[4] = OpcUaId_Int32;
+	srefsParsInv[5] = "roiCy"; opcUaIdsParsInv[5] = OpcUaId_Int32;
+	srefsParsInv[6] = "roiDx"; opcUaIdsParsInv[6] = OpcUaId_Int32;
+	srefsParsInv[7] = "roiDy"; opcUaIdsParsInv[7] = OpcUaId_Int32;
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
+	fAS_addMethod(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD , "setRoi", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
+	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
+	srefsParsInv[0] = "roiNotFull"; opcUaIdsParsInv[0] = OpcUaId_Boolean;
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
+	fAS_addMethod(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD , "setRoiNotFull", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
+	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
+	srefsSubvars[0] = "NTarget"; icsVVartypeSubvars[0] = VecVVartype::USMALLINT;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR , "NTarget", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
+	srefsSubvars.resize(8); icsVVartypeSubvars.resize(8);
+	srefsSubvars[0] = "roiAx"; icsVVartypeSubvars[0] = VecVVartype::INT;
+	srefsSubvars[1] = "roiAy"; icsVVartypeSubvars[1] = VecVVartype::INT;
+	srefsSubvars[2] = "roiBx"; icsVVartypeSubvars[2] = VecVVartype::INT;
+	srefsSubvars[3] = "roiBy"; icsVVartypeSubvars[3] = VecVVartype::INT;
+	srefsSubvars[4] = "roiCx"; icsVVartypeSubvars[4] = VecVVartype::INT;
+	srefsSubvars[5] = "roiCy"; icsVVartypeSubvars[5] = VecVVartype::INT;
+	srefsSubvars[6] = "roiDx"; icsVVartypeSubvars[6] = VecVVartype::INT;
+	srefsSubvars[7] = "roiDy"; icsVVartypeSubvars[7] = VecVVartype::INT;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR , "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
+	srefsSubvars.resize(4); icsVVartypeSubvars.resize(4);
+	srefsSubvars[0] = "flg"; icsVVartypeSubvars[0] = VecVVartype::BOOLEANVEC;
+	srefsSubvars[1] = "shift"; icsVVartypeSubvars[1] = VecVVartype::UTINYINT;
+	srefsSubvars[2] = "scoreMin"; icsVVartypeSubvars[2] = VecVVartype::UTINYINT;
+	srefsSubvars[3] = "scoreMax"; icsVVartypeSubvars[3] = VecVVartype::UTINYINT;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR , "flgShiftScoreMinScoreMax", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
 	fAS_addJobFolder(VecWzskVJob::JOBWZSKSRCSYSINFO, addressSpace, objectsFolder, jobFolder);
+
+	srefsSubvars.resize(2); icsVVartypeSubvars.resize(2);
+	srefsSubvars[0] = "currCh0"; icsVVartypeSubvars[0] = VecVVartype::FLOATVEC;
+	srefsSubvars[1] = "voltCh0"; icsVVartypeSubvars[1] = VecVVartype::FLOATVEC;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKSRCSYSINFO, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR , "currCh0VoltCh0", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
+	srefsSubvars.resize(2); icsVVartypeSubvars.resize(2);
+	srefsSubvars[0] = "currCh1"; icsVVartypeSubvars[0] = VecVVartype::FLOATVEC;
+	srefsSubvars[1] = "voltCh1"; icsVVartypeSubvars[1] = VecVVartype::FLOATVEC;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKSRCSYSINFO, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR , "currCh1VoltCh1", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
+	srefsSubvars.resize(2); icsVVartypeSubvars.resize(2);
+	srefsSubvars[0] = "currCh2"; icsVVartypeSubvars[0] = VecVVartype::FLOATVEC;
+	srefsSubvars[1] = "voltCh2"; icsVVartypeSubvars[1] = VecVVartype::FLOATVEC;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKSRCSYSINFO, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR , "currCh2VoltCh2", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
+	srefsSubvars.resize(2); icsVVartypeSubvars.resize(2);
+	srefsSubvars[0] = "currCh3"; icsVVartypeSubvars[0] = VecVVartype::FLOATVEC;
+	srefsSubvars[1] = "voltCh3"; icsVVartypeSubvars[1] = VecVVartype::FLOATVEC;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKSRCSYSINFO, VecWzskVFeatgroup::VECVJOBWZSKSRCSYSINFOVAR , "currCh3VoltCh3", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
 	srefsSubvars.resize(5); icsVVartypeSubvars.resize(5);
 	srefsSubvars[0] = "loadAll"; icsVVartypeSubvars[0] = VecVVartype::FLOATVEC;
@@ -1747,64 +1977,6 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 
 	fAS_addVar(VecWzskVJob::JOBWZSKIPRTRACE, VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEVAR , "leftRight", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
-	fAS_addJobFolder(VecWzskVJob::JOBWZSKIPRCORNER, addressSpace, objectsFolder, jobFolder);
-
-	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
-	srefsParsInv[0] = "NTarget"; opcUaIdsParsInv[0] = OpcUaId_UInt16;
-
-	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
-	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
-
-	fAS_addMethod(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD , "setNTarget", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
-
-	srefsParsInv.resize(8); opcUaIdsParsInv.resize(8);
-	srefsParsInv[0] = "roiAx"; opcUaIdsParsInv[0] = OpcUaId_Int32;
-	srefsParsInv[1] = "roiAy"; opcUaIdsParsInv[1] = OpcUaId_Int32;
-	srefsParsInv[2] = "roiBx"; opcUaIdsParsInv[2] = OpcUaId_Int32;
-	srefsParsInv[3] = "roiBy"; opcUaIdsParsInv[3] = OpcUaId_Int32;
-	srefsParsInv[4] = "roiCx"; opcUaIdsParsInv[4] = OpcUaId_Int32;
-	srefsParsInv[5] = "roiCy"; opcUaIdsParsInv[5] = OpcUaId_Int32;
-	srefsParsInv[6] = "roiDx"; opcUaIdsParsInv[6] = OpcUaId_Int32;
-	srefsParsInv[7] = "roiDy"; opcUaIdsParsInv[7] = OpcUaId_Int32;
-
-	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
-	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
-
-	fAS_addMethod(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD , "setRoi", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
-
-	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
-	srefsParsInv[0] = "roiNotFull"; opcUaIdsParsInv[0] = OpcUaId_Boolean;
-
-	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
-	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
-
-	fAS_addMethod(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD , "setRoiNotFull", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
-
-	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
-	srefsSubvars[0] = "NTarget"; icsVVartypeSubvars[0] = VecVVartype::USMALLINT;
-
-	fAS_addVar(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR , "NTarget", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
-
-	srefsSubvars.resize(8); icsVVartypeSubvars.resize(8);
-	srefsSubvars[0] = "roiAx"; icsVVartypeSubvars[0] = VecVVartype::INT;
-	srefsSubvars[1] = "roiAy"; icsVVartypeSubvars[1] = VecVVartype::INT;
-	srefsSubvars[2] = "roiBx"; icsVVartypeSubvars[2] = VecVVartype::INT;
-	srefsSubvars[3] = "roiBy"; icsVVartypeSubvars[3] = VecVVartype::INT;
-	srefsSubvars[4] = "roiCx"; icsVVartypeSubvars[4] = VecVVartype::INT;
-	srefsSubvars[5] = "roiCy"; icsVVartypeSubvars[5] = VecVVartype::INT;
-	srefsSubvars[6] = "roiDx"; icsVVartypeSubvars[6] = VecVVartype::INT;
-	srefsSubvars[7] = "roiDy"; icsVVartypeSubvars[7] = VecVVartype::INT;
-
-	fAS_addVar(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR , "roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
-
-	srefsSubvars.resize(4); icsVVartypeSubvars.resize(4);
-	srefsSubvars[0] = "flg"; icsVVartypeSubvars[0] = VecVVartype::BOOLEANVEC;
-	srefsSubvars[1] = "shift"; icsVVartypeSubvars[1] = VecVVartype::UTINYINT;
-	srefsSubvars[2] = "scoreMin"; icsVVartypeSubvars[2] = VecVVartype::UTINYINT;
-	srefsSubvars[3] = "scoreMax"; icsVVartypeSubvars[3] = VecVVartype::UTINYINT;
-
-	fAS_addVar(VecWzskVJob::JOBWZSKIPRCORNER, VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERVAR , "flgShiftScoreMinScoreMax", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
-
 	fAS_addJobFolder(VecWzskVJob::JOBWZSKACTSERVO, addressSpace, objectsFolder, jobFolder);
 
 	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
@@ -1843,6 +2015,30 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 
 	fAS_addVar(VecWzskVJob::JOBWZSKACTSERVO, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOVAR , "angleTarget", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
+	fAS_addJobFolder(VecWzskVJob::JOBWZSKACTLASER, addressSpace, objectsFolder, jobFolder);
+
+	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
+	srefsParsInv[0] = "left"; opcUaIdsParsInv[0] = OpcUaId_Float;
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
+	fAS_addMethod(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD , "setLeft", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
+	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
+	srefsParsInv[0] = "right"; opcUaIdsParsInv[0] = OpcUaId_Float;
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
+	fAS_addMethod(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD , "setRight", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
+	srefsSubvars.resize(2); icsVVartypeSubvars.resize(2);
+	srefsSubvars[0] = "left"; icsVVartypeSubvars[0] = VecVVartype::FLOAT;
+	srefsSubvars[1] = "right"; icsVVartypeSubvars[1] = VecVVartype::FLOAT;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR , "leftRight", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
 	fAS_addJobFolder(VecWzskVJob::JOBWZSKACTEXPOSURE, addressSpace, objectsFolder, jobFolder);
 
 	srefsParsInv.resize(2); opcUaIdsParsInv.resize(2);
@@ -1873,29 +2069,19 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 
 	fAS_addVar(VecWzskVJob::JOBWZSKACTEXPOSURE, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR , "focus", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
-	fAS_addJobFolder(VecWzskVJob::JOBWZSKACTLASER, addressSpace, objectsFolder, jobFolder);
+	fAS_addJobFolder(VecWzskVJob::JOBWZSKACQPREVIEW, addressSpace, objectsFolder, jobFolder);
 
-	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
-	srefsParsInv[0] = "left"; opcUaIdsParsInv[0] = OpcUaId_Float;
+	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
+	srefsSubvars[0] = "gray"; icsVVartypeSubvars[0] = VecVVartype::UTINYINTVEC;
 
-	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
-	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+	fAS_addVar(VecWzskVJob::JOBWZSKACQPREVIEW, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR , "gray", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
-	fAS_addMethod(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD , "setLeft", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+	srefsSubvars.resize(3); icsVVartypeSubvars.resize(3);
+	srefsSubvars[0] = "red"; icsVVartypeSubvars[0] = VecVVartype::UTINYINTVEC;
+	srefsSubvars[1] = "green"; icsVVartypeSubvars[1] = VecVVartype::UTINYINTVEC;
+	srefsSubvars[2] = "blue"; icsVVartypeSubvars[2] = VecVVartype::UTINYINTVEC;
 
-	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
-	srefsParsInv[0] = "right"; opcUaIdsParsInv[0] = OpcUaId_Float;
-
-	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
-	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
-
-	fAS_addMethod(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD , "setRight", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
-
-	srefsSubvars.resize(2); icsVVartypeSubvars.resize(2);
-	srefsSubvars[0] = "left"; icsVVartypeSubvars[0] = VecVVartype::FLOAT;
-	srefsSubvars[1] = "right"; icsVVartypeSubvars[1] = VecVVartype::FLOAT;
-
-	fAS_addVar(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR , "leftRight", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+	fAS_addVar(VecWzskVJob::JOBWZSKACQPREVIEW, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR , "redGreenBlue", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
 	fAS_addJobFolder(VecWzskVJob::JOBWZSKACQPTCLOUD, addressSpace, objectsFolder, jobFolder);
 
@@ -1931,20 +2117,6 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 	srefsSubvars[2] = "z"; icsVVartypeSubvars[2] = VecVVartype::FLOATVEC;
 
 	fAS_addVar(VecWzskVJob::JOBWZSKACQPTCLOUD, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR , "xYZ", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
-
-	fAS_addJobFolder(VecWzskVJob::JOBWZSKACQPREVIEW, addressSpace, objectsFolder, jobFolder);
-
-	srefsSubvars.resize(1); icsVVartypeSubvars.resize(1);
-	srefsSubvars[0] = "gray"; icsVVartypeSubvars[0] = VecVVartype::UTINYINTVEC;
-
-	fAS_addVar(VecWzskVJob::JOBWZSKACQPREVIEW, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR , "gray", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
-
-	srefsSubvars.resize(3); icsVVartypeSubvars.resize(3);
-	srefsSubvars[0] = "red"; icsVVartypeSubvars[0] = VecVVartype::UTINYINTVEC;
-	srefsSubvars[1] = "green"; icsVVartypeSubvars[1] = VecVVartype::UTINYINTVEC;
-	srefsSubvars[2] = "blue"; icsVVartypeSubvars[2] = VecVVartype::UTINYINTVEC;
-
-	fAS_addVar(VecWzskVJob::JOBWZSKACQPREVIEW, VecWzskVFeatgroup::VECVJOBWZSKACQPREVIEWVAR , "redGreenBlue", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
 	return status;
 };

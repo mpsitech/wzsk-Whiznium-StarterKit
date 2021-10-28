@@ -96,10 +96,10 @@ public:
 		Stg(const float dLasback = 0.03, const float dLeft = 0.2, const float dRight = 0.2);
 
 	public:
-		float dLasback;
+		float dLasback; // laser origin behind focal plane [m]
 
-		float dLeft;
-		float dRight;
+		float dLeft; // lhs laser origin to main axis [m]
+		float dRight; // rhs laser origin to main axis [m]
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -142,9 +142,9 @@ public:
 
 	public:
 		float deltaTheta;
-		float dWork;
+		float dWork; // focal plane to turntable center [m]
 
-		std::vector<float> x;
+		std::vector<float> x; // space for 72 * 2 * 500 points
 		std::vector<float> y;
 		std::vector<float> z;
 
@@ -218,8 +218,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskResultNewFromIprtraceInSgeAcquire(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskSgeChgFromActservoInSgeTurn(DbsWzsk* dbswzsk);
+	bool handleCallWzskResultNewFromIprtraceInSgeAcquire(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

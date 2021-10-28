@@ -429,9 +429,9 @@ public:
 	};
 
 	bool evalButDneActive(DbsWzsk* dbswzsk);
+	bool evalLfiDldActive(DbsWzsk* dbswzsk);
 	bool evalImpButRunActive(DbsWzsk* dbswzsk);
 	bool evalImpButStoActive(DbsWzsk* dbswzsk);
-	bool evalLfiDldActive(DbsWzsk* dbswzsk);
 	bool evalIfiUldActive(DbsWzsk* dbswzsk);
 
 public:

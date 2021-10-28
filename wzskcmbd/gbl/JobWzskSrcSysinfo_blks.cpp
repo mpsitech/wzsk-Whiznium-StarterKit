@@ -52,6 +52,10 @@ uint JobWzskSrcSysinfo::VecVVar::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
+	if (s == "currch0voltch0") return CURRCH0VOLTCH0;
+	if (s == "currch1voltch1") return CURRCH1VOLTCH1;
+	if (s == "currch2voltch2") return CURRCH2VOLTCH2;
+	if (s == "currch3voltch3") return CURRCH3VOLTCH3;
 	if (s == "loadallloadcore0loadcore1loadcore2loadcore3") return LOADALLLOADCORE0LOADCORE1LOADCORE2LOADCORE3;
 	if (s == "temp") return TEMP;
 
@@ -61,6 +65,10 @@ uint JobWzskSrcSysinfo::VecVVar::getIx(
 string JobWzskSrcSysinfo::VecVVar::getSref(
 			const uint ix
 		) {
+	if (ix == CURRCH0VOLTCH0) return("currCh0VoltCh0");
+	if (ix == CURRCH1VOLTCH1) return("currCh1VoltCh1");
+	if (ix == CURRCH2VOLTCH2) return("currCh2VoltCh2");
+	if (ix == CURRCH3VOLTCH3) return("currCh3VoltCh3");
 	if (ix == LOADALLLOADCORE0LOADCORE1LOADCORE2LOADCORE3) return("loadAllLoadCore0LoadCore1LoadCore2LoadCore3");
 	if (ix == TEMP) return("temp");
 
@@ -72,7 +80,7 @@ void JobWzskSrcSysinfo::VecVVar::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 2; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
+	for (unsigned int i = 1; i <= 6; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
 };
 
 /******************************************************************************
@@ -80,16 +88,18 @@ void JobWzskSrcSysinfo::VecVVar::fillFeed(
  ******************************************************************************/
 
 JobWzskSrcSysinfo::Stg::Stg(
-			const string& pathStat
+			const string& pathrootCurrVolt
+			, const string& pathStat
 			, const string& pathThermal
 			, const string& pathrootXadc
 		) :
 			Block()
 		{
+	this->pathrootCurrVolt = pathrootCurrVolt;
 	this->pathStat = pathStat;
 	this->pathThermal = pathThermal;
 	this->pathrootXadc = pathrootXadc;
-	mask = {PATHSTAT, PATHTHERMAL, PATHROOTXADC};
+	mask = {PATHROOTCURRVOLT, PATHSTAT, PATHTHERMAL, PATHROOTXADC};
 };
 
 bool JobWzskSrcSysinfo::Stg::readXML(
@@ -109,6 +119,7 @@ bool JobWzskSrcSysinfo::Stg::readXML(
 	string itemtag = "StgitemJobWzskSrcSysinfo";
 
 	if (basefound) {
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pathrootCurrVolt", pathrootCurrVolt)) add(PATHROOTCURRVOLT);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pathStat", pathStat)) add(PATHSTAT);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pathThermal", pathThermal)) add(PATHTHERMAL);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pathrootXadc", pathrootXadc)) add(PATHROOTXADC);
@@ -129,6 +140,7 @@ void JobWzskSrcSysinfo::Stg::writeXML(
 	else itemtag = "StgitemJobWzskSrcSysinfo";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
+		writeStringAttr(wr, itemtag, "sref", "pathrootCurrVolt", pathrootCurrVolt);
 		writeStringAttr(wr, itemtag, "sref", "pathStat", pathStat);
 		writeStringAttr(wr, itemtag, "sref", "pathThermal", pathThermal);
 		writeStringAttr(wr, itemtag, "sref", "pathrootXadc", pathrootXadc);
@@ -140,6 +152,7 @@ set<uint> JobWzskSrcSysinfo::Stg::comm(
 		) {
 	set<uint> items;
 
+	if (pathrootCurrVolt == comp->pathrootCurrVolt) insert(items, PATHROOTCURRVOLT);
 	if (pathStat == comp->pathStat) insert(items, PATHSTAT);
 	if (pathThermal == comp->pathThermal) insert(items, PATHTHERMAL);
 	if (pathrootXadc == comp->pathrootXadc) insert(items, PATHROOTXADC);
@@ -155,7 +168,7 @@ set<uint> JobWzskSrcSysinfo::Stg::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {PATHSTAT, PATHTHERMAL, PATHROOTXADC};
+	diffitems = {PATHROOTCURRVOLT, PATHSTAT, PATHTHERMAL, PATHROOTXADC};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

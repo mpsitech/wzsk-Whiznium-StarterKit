@@ -10,12 +10,12 @@
 #ifndef WZSK_H
 #define WZSK_H
 
-#define WZSK_VERSION "1.0.5"
+#define WZSK_VERSION "1.0.7"
 #define WZSK_VERSION_MAJOR 1
 #define WZSK_VERSION_MINOR 0
-#define WZSK_VERSION_SUB 5
+#define WZSK_VERSION_SUB 7
 
-// IP include.cust --- INSERT
+#include "DevWskd.h" // IP include.cust --- ILINE
 
 #include <fstream>
 #include <iostream>
@@ -41,6 +41,7 @@
 #include "VecWzskVSqrgrp.h"
 #include "VecWzskVStub.h"
 #include "VecWzskVTag.h"
+#include "VecWzskVTarget.h"
 
 #include <DbsWzsk.h>
 
@@ -96,6 +97,10 @@ namespace Tmp {
 	*/
 namespace Wzsk {
 	// IP gbl --- IBEGIN
+	void parseCmd(UntWskd& unt, std::string s, Dbecore::Cmd*& cmd);
+	Sbecore::uint getCmdix(UntWskd& unt, const std::string& cmdsref);
+	std::string getCmdsref(UntWskd& unt, const Sbecore::uint cmdix);
+
 	void getFlgWh(unsigned int& w, unsigned int& h);
 
 	void bitmapToXy(unsigned char* src, const bool src16Not8, const unsigned int width, const unsigned int height, std::vector<int>& xs, std::vector<int>& ys, const unsigned int cntPerRowMax, const bool roi, const std::vector<int>& xsRoi, const std::vector<int>& ysRoi, const bool rot180, const bool append);

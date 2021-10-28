@@ -1,7 +1,7 @@
-WZSK_VERSION = "1.0.5";
+WZSK_VERSION = "1.0.7";
 WZSK_VERSION_MAJOR = 1;
 WZSK_VERSION_MINOR = 0;
-WZSK_VERSION_SUB = 5;
+WZSK_VERSION_SUB = 7;
 
 function getCrdwnd() {
 	if (window.name == "Crd") return window;
@@ -140,16 +140,12 @@ function serializeDpchAppDoDlg(srcdoc, sref, scrJref, shortDit, srefIxVDo) {
 };
 
 function sendReq(str, doc, callback, async) {
-	str = "xml=" + str;
-
 	if (!doc.req) doc.req = new XMLHttpRequest();
 	doc.req.open("POST", "/dpch", (async == true));
 	doc.req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//	doc.req.setRequestHeader("Content-length", str.length);
-//	doc.req.setRequestHeader("Connection", "close");
 
 	doc.req.onreadystatechange = callback;
-	doc.req.send(str);
+	doc.req.send("xml=" + encodeURIComponent(str));
 };
 
 function getNode(srcdoc, xp) {

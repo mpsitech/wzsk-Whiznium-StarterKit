@@ -18,7 +18,11 @@
 #include <sys/ioctl.h>
 // IP include.cust --- IEND
 
-#include "JobWzskSrcFpga.h"
+#include "JobWzskSrcUvbdvk.h"
+#include "JobWzskSrcMcvevp.h"
+#include "JobWzskSrcIcicle.h"
+#include "JobWzskSrcArty.h"
+#include "JobWzskSrcClnxevb.h"
 
 #define VecVJobWzskActLaserMethod JobWzskActLaser::VecVMethod
 #define VecVJobWzskActLaserVar JobWzskActLaser::VecVVar
@@ -81,13 +85,13 @@ public:
 		Stg(const std::string& pathGpio = "/dev/gpiochip5", const Sbecore::utinyint lineoffsetLeft = 10, const Sbecore::utinyint lineoffsetRight = 9, const std::string& pathSpi = "/dev/spidev0.0", const Sbecore::usmallint leftMin = 164, const Sbecore::usmallint leftMax = 245, const Sbecore::usmallint rightMin = 164, const Sbecore::usmallint rightMax = 245);
 
 	public:
-		std::string pathGpio;
-		Sbecore::utinyint lineoffsetLeft;
-		Sbecore::utinyint lineoffsetRight;
+		std::string pathGpio; // corr. to GPIO6
+		Sbecore::utinyint lineoffsetLeft; // GPIO6_IO10
+		Sbecore::utinyint lineoffsetRight; // GPIO6_IO9
 
 		std::string pathSpi;
 
-		Sbecore::usmallint leftMin;
+		Sbecore::usmallint leftMin; // experimentally, full range corresponds to 16% .. 24%
 		Sbecore::usmallint leftMax;
 
 		Sbecore::usmallint rightMin;
@@ -140,7 +144,11 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
-	JobWzskSrcFpga* srcfpga;
+	JobWzskSrcUvbdvk* srcuvbdvk;
+	JobWzskSrcMcvevp* srcmcvevp;
+	JobWzskSrcIcicle* srcicicle;
+	JobWzskSrcArty* srcarty;
+	JobWzskSrcClnxevb* srcclnxevb;
 
 	// IP vars.spec --- INSERT
 

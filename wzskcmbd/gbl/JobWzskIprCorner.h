@@ -149,7 +149,7 @@ public:
 		int roiDx;
 		int roiDy;
 
-		std::vector<bool> flg;
+		std::vector<bool> flg; // wGrrd * hGrrd
 		Sbecore::utinyint shift;
 		Sbecore::utinyint scoreMin;
 		Sbecore::utinyint scoreMax;
@@ -229,8 +229,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskResultNewFromAcqfpgaflgWithSrefCornerInSgeReady(DbsWzsk* dbswzsk, const Sbecore::uint ixInv);
 	bool handleCallWzskResultNewFromSrcv4l2InSgeReady(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskResultNewFromAcqfpgaflgWithSrefCornerInSgeReady(DbsWzsk* dbswzsk, const Sbecore::uint ixInv);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

@@ -22,8 +22,8 @@ uint QryWzskFilList::VecVOrd::getIx(
 
 	if (s == "reu") return REU;
 	if (s == "ret") return RET;
-	if (s == "own") return OWN;
 	if (s == "fnm") return FNM;
+	if (s == "own") return OWN;
 	if (s == "grp") return GRP;
 
 	return(0);
@@ -34,8 +34,8 @@ string QryWzskFilList::VecVOrd::getSref(
 		) {
 	if (ix == REU) return("reu");
 	if (ix == RET) return("ret");
-	if (ix == OWN) return("own");
 	if (ix == FNM) return("fnm");
+	if (ix == OWN) return("own");
 	if (ix == GRP) return("grp");
 
 	return("");

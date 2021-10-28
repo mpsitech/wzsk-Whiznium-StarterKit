@@ -1,8 +1,8 @@
 # file Makefile
 # make file for Wzsk system vectors, release wzskcmbd_tdx (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
-# author: Emily Johnson (auto-generation)
-# date created: 11 Mar 2021
+# author: Alexander Wirthmueller (auto-generation)
+# date created: 25 Oct 2021
 # IP header --- ABOVE
 
 include ../Makefile.inc
@@ -15,7 +15,7 @@ STATLIBFLAGS = rcs
 
 INCPATH = -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
-OBJS = VecWzskVCall.o VecWzskVDpch.o VecWzskVError.o VecWzskVExpstate.o VecWzskVIop.o VecWzskVJob.o VecWzskVMimetype.o VecWzskVOpengtype.o VecWzskVOppack.o VecWzskVPvwmode.o VecWzskVQrystate.o VecWzskVReqitmode.o VecWzskVSqrgrp.o VecWzskVStub.o VecWzskVTag.o
+OBJS = VecWzskVCall.o VecWzskVDpch.o VecWzskVError.o VecWzskVExpstate.o VecWzskVIop.o VecWzskVJob.o VecWzskVMimetype.o VecWzskVOpengtype.o VecWzskVOppack.o VecWzskVPvwmode.o VecWzskVQrystate.o VecWzskVReqitmode.o VecWzskVSqrgrp.o VecWzskVStub.o VecWzskVTag.o VecWzskVTarget.o
 
 LIB = libvecwzsk
 

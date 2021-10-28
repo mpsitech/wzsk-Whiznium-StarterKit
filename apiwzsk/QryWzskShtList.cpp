@@ -23,8 +23,8 @@ uint QryWzskShtList::VecVOrd::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "sta") return STA;
-	if (s == "ses") return SES;
 	if (s == "obj") return OBJ;
+	if (s == "ses") return SES;
 
 	return(0);
 };
@@ -33,8 +33,8 @@ string QryWzskShtList::VecVOrd::getSref(
 			const uint ix
 		) {
 	if (ix == STA) return("sta");
-	if (ix == SES) return("ses");
 	if (ix == OBJ) return("obj");
+	if (ix == SES) return("ses");
 
 	return("");
 };

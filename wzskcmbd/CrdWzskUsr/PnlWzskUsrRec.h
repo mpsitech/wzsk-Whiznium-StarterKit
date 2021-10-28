@@ -14,10 +14,10 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskUsrMNUsergroup.h"
 #include "PnlWzskUsr1NSession.h"
-#include "PnlWzskUsrAAccess.h"
+#include "PnlWzskUsrMNUsergroup.h"
 #include "PnlWzskUsrDetail.h"
+#include "PnlWzskUsrAAccess.h"
 
 #define VecVWzskUsrRecDo PnlWzskUsrRec::VecVDo
 
@@ -180,10 +180,10 @@ public:
 	ContInf continf;
 	StatShr statshr;
 
-	PnlWzskUsrMNUsergroup* pnlmnusergroup;
 	PnlWzskUsr1NSession* pnl1nsession;
-	PnlWzskUsrAAccess* pnlaaccess;
+	PnlWzskUsrMNUsergroup* pnlmnusergroup;
 	PnlWzskUsrDetail* pnldetail;
+	PnlWzskUsrAAccess* pnlaaccess;
 
 	WzskMUser recUsr;
 

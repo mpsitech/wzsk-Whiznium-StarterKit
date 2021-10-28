@@ -14,6 +14,7 @@
 #include "VecWzskVPvwmode.h"
 #include "VecWzskVReqitmode.h"
 #include "VecWzskVSqrgrp.h"
+#include "VecWzskVTarget.h"
 
 #include "VecWzskVDpch.h"
 

@@ -146,7 +146,7 @@ JobWzskAcqPreview::JobWzskAcqPreview(
 
 	// IP constructor.cust2 --- IBEGIN
 	if (srvNotCli) {
-		if (!xchg->stgwzskglobal.fpgaNotV4l2gpio) srcv4l2 = new JobWzskSrcV4l2(xchg, dbswzsk, jref, ixWzskVLocale);
+		if ((xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) || (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS)) srcv4l2 = new JobWzskSrcV4l2(xchg, dbswzsk, jref, ixWzskVLocale);
 		else acqfpgapvw = new JobWzskAcqFpgapvw(xchg, dbswzsk, jref, ixWzskVLocale);
 	};
 	// IP constructor.cust2 --- IEND
@@ -223,6 +223,7 @@ void JobWzskAcqPreview::binGrrd(
 			pvwgrrd16[stix] = acc16 >> 4;
 		};
 	};
+#elif __x86_64__
 #endif
 };
 
@@ -277,6 +278,7 @@ void JobWzskAcqPreview::binRgb_component(
 			dest[stix] = acc16 >> 6;
 		};
 	};
+#elif __x86_64__
 #endif
 };
 

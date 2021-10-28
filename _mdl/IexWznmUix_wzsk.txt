@@ -370,66 +370,12 @@ CrdWzskLlv
 		ImeIAMControlPar1.end
 	ImeIMControl1.end
 	ImeIMPanel.srefIxVIop	srefIxVBasetype	carNum	sref	Detach	Avail	Comment
-	ins	form	1	PnlWzskLlvTerm	false	custom()
-		ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
-		ins	1	cpt	0	hdr	void		0	app	Cpt	void
-			ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title
-			ins	enus	Terminal
-			ins	dech	Terminal
-			ImeIJMControlTitle2.end
-		ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
-		ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
-		ins	4	but	0	hdr	void		0	shr	ButClaim	void						custom()	icon;onoff
-		ins	5	txt	0	cont	void		0	shr	TxtCst	void
-		ins	6	cpt	0	cont	void		5	app	CptCst	void
-			ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title
-			ins	enus	connection state
-			ins	dech	Verbindungsstatus
-			ImeIJMControlTitle2.end
-		ins	7	sep	0	cont	void		0	app	Sep1	void
-		ins	8	hdg	0	cont	void		0	app	HdgDio	void
-			ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title
-			ins	enus	Data in/out
-			ins	dech	Ein-/ausgehende Daten
-			ImeIJMControlTitle2.end
-		ins	9	cus	0	cont	void		0	shr	CusDat	void
-			ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal
-			ins	height		200
-			ImeIAMControlPar2.end
-		ins	10	txt	0	cont	void		9	shr	TxtDatLog	void
-		ins	11	sep	0	cont	void		0	app	Sep2	void
-		ins	12	hdg	0	cont	void		0	app	HdgCex	void
-			ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title
-			ins	enus	Command execution
-			ins	dech	Befehlsausf\u009fhrung
-			ImeIJMControlTitle2.end
-		ins	13	pup	0	cont	void		0	shr	PupCmd	void
-			ImeIMFeed2.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment
-			void		FeedFPupCmd
-			ImeIMFeed2.end
-		ins	14	cpt	0	cont	void		13	app	CptCmd	void
-			ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title
-			ins	enus	command
-			ins	dech	Befehl
-			ImeIJMControlTitle2.end
-		ins	15	but	0	cont	void		13	shr	ButApd	void
-			ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title
-			ins	enus	Append
-			ins	dech	Hinzuf\u009fgen
-			ImeIJMControlTitle2.end
-		ins	16	txf	0	cont	void		0	shr	TxfCsq	void							t
-		ins	17	cpt	0	cont	void		16	app	CptCsq	void
-			ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title
-			ins	enus	command sequence
-			ins	dech	Befehlsfolge
-			ImeIJMControlTitle2.end
-		ins	18	but	0	cont	void		0	shr	ButSmt	void						custom()
-			ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title
-			ins	enus	Submit
-			ins	dech	Absenden
-			ImeIJMControlTitle2.end
-		ImeIMControl2.end
-	ins	form	2	PnlWzskLlvCamera	false
+	retrupd			PnlWzskLlvTermArty		custom()
+	retrupd			PnlWzskLlvTermClnxevb		custom()
+	retrupd			PnlWzskLlvTermIcicle		custom()
+	retrupd			PnlWzskLlvTermMcvevp		custom()
+	retrupd			PnlWzskLlvTermUvbdvk		custom()
+	ins	form	6	PnlWzskLlvCamera	false
 		ImeICControl2.iref
 		1
 		ImeICControl2.end
@@ -483,7 +429,7 @@ CrdWzskLlv
 			ins	dech	Fokus (nah -\u003e fern)
 			ImeIJMControlTitle2.end
 		ImeIMControl2.end
-	ins	form	3	PnlWzskLlvTtable	false
+	ins	form	7	PnlWzskLlvTtable	false
 		ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
 		ins	1	cpt	0	hdr	void		0	app	Cpt	void
 			ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title
@@ -500,7 +446,7 @@ CrdWzskLlv
 			ins	dech	Winkel [\u00b0]
 			ImeIJMControlTitle2.end
 		ImeIMControl2.end
-	ins	form	4	PnlWzskLlvLaser	false
+	ins	form	8	PnlWzskLlvLaser	false
 		ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
 		ins	1	cpt	0	hdr	void		0	app	Cpt	void
 			ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title

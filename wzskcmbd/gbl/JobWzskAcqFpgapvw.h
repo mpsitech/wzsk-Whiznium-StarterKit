@@ -14,7 +14,10 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskSrcFpga.h"
+#include "JobWzskSrcMcvevp.h"
+#include "JobWzskSrcIcicle.h"
+#include "JobWzskSrcArty.h"
+#include "JobWzskSrcClnxevb.h"
 
 #define VecVJobWzskAcqFpgapvwSge JobWzskAcqFpgapvw::VecVSge
 
@@ -49,7 +52,7 @@ public:
 	public:
 		// IP Shrdat.subs --- IBEGIN
 		/**
-			* ResultitemPvw (full: ResultitemJobWzskSrcFpgaPvw)
+			* ResultitemPvw (full: ResultitemJobWzskAcqFpgapvwPvw)
 			*/
 		class ResultitemPvw : public Sbecore::Resultitem {
 
@@ -101,7 +104,10 @@ public:
 public:
 	static Shrdat shrdat;
 
-	JobWzskSrcFpga* srcfpga;
+	JobWzskSrcMcvevp* srcmcvevp;
+	JobWzskSrcIcicle* srcicicle;
+	JobWzskSrcArty* srcarty;
+	JobWzskSrcClnxevb* srcclnxevb;
 
 	// IP vars.spec --- INSERT
 

@@ -110,15 +110,23 @@ JobWzskAcqFpgapvw::JobWzskAcqFpgapvw(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	srcfpga = NULL;
+	srcmcvevp = NULL;
+	srcicicle = NULL;
+	srcarty = NULL;
+	srcclnxevb = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	// IP constructor.spec1 --- INSERT
 
-	if (srvNotCli) srcfpga = new JobWzskSrcFpga(xchg, dbswzsk, jref, ixWzskVLocale);
-
-	// IP constructor.cust2 --- INSERT
+	// IP constructor.cust2 --- IBEGIN
+	if (srvNotCli) {
+		if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) srcarty = new JobWzskSrcArty(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB) srcclnxevb = new JobWzskSrcClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) srcicicle = new JobWzskSrcIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
+		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::MCVEVP) srcmcvevp = new JobWzskSrcMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
+	};
+	// IP constructor.cust2 --- IEND
 
 	// IP constructor.spec2 --- INSERT
 
@@ -153,8 +161,6 @@ void* JobWzskAcqFpgapvw::runPvw(
 		) {
 	JobWzskAcqFpgapvw* srv = (JobWzskAcqFpgapvw*) arg;
 
-	UntWskdArty& fpga = srv->srcfpga->shrdat.hw;
-
 	uint ixWzskVPvwmode = 0;
 	unsigned int w, h;
 	size_t sizeBuf;
@@ -181,12 +187,18 @@ void* JobWzskAcqFpgapvw::runPvw(
 
 	try {
 		// - prepare
-		shrdat.mPvw.lock("JobWzskSrcFpga", "runPvw[1]");
+		shrdat.mPvw.lock("JobWzskAcqFpgapvw", "runPvw[1]");
 
-		srv->srcfpga->camacq_setPvw(false, 0, 0);
-		srv->srcfpga->camif_setRng(true);
+		if (srv->srcarty) {
+			srv->srcarty->camacq_setPvw(false, 0, 0);
+			srv->srcarty->camif_setRng(true);
 
-		shrdat.mPvw.unlock("JobWzskSrcFpga", "runPvw[1]");
+		} else if (srv->srcicicle) {
+			srv->srcicicle->camacq_setPvw(false, 0, 0);
+			srv->srcicicle->camif_setRng(true);
+		};
+
+		shrdat.mPvw.unlock("JobWzskAcqFpgapvw", "runPvw[1]");
 
 		// - loop
 		while (true) {
@@ -194,7 +206,8 @@ void* JobWzskAcqFpgapvw::runPvw(
 
 			if (shrdat.ixWzskVPvwmode != ixWzskVPvwmode) {
 				// allow preview mode to change while thread running
-				srv->srcfpga->camacq_setPvw(true, Wzsk::getPvwRawNotBin(shrdat.ixWzskVPvwmode), Wzsk::getPvwGrayNotRgb(shrdat.ixWzskVPvwmode));
+				if (srv->srcarty) srv->srcarty->camacq_setPvw(true, Wzsk::getPvwRawNotBin(shrdat.ixWzskVPvwmode), Wzsk::getPvwGrayNotRgb(shrdat.ixWzskVPvwmode));
+				else if (srv->srcicicle) srv->srcicicle->camacq_setPvw(true, Wzsk::getPvwRawNotBin(shrdat.ixWzskVPvwmode), Wzsk::getPvwGrayNotRgb(shrdat.ixWzskVPvwmode));
 
 				ixWzskVPvwmode = shrdat.ixWzskVPvwmode;
 
@@ -209,9 +222,10 @@ void* JobWzskAcqFpgapvw::runPvw(
 				continue;
 			};
 
-			shrdat.mPvw.lock("JobWzskSrcFpga", "runPvw[2]");
+			shrdat.mPvw.lock("JobWzskAcqFpgapvw", "runPvw[2]");
 
-			srv->srcfpga->camacq_getPvwinfo(tixVPvwbufstate, tkst);
+			if (srv->srcarty) srv->srcarty->camacq_getPvwinfo(tixVPvwbufstate, tkst);
+			else if (srv->srcicicle) srv->srcicicle->camacq_getPvwinfo(tixVPvwbufstate, tkst);
 			//cout << "tixVPvwbufstate = " << VecVWskdArtyCamacqPvwbufstate::getSref(tixVPvwbufstate) << ", tkst = " << tkst << endl;
 
 			if ((tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::ABUF) || (tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::BBUF)) {
@@ -220,15 +234,23 @@ void* JobWzskAcqFpgapvw::runPvw(
 
 				if (ri) {
 					ri->setPvwmode(ixWzskVPvwmode);
-					ri->t = srv->srcfpga->tkstToT(tkst);
+
+					if (srv->srcarty) ri->t = srv->srcarty->tkstToT(tkst);
+					else if (srv->srcicicle) ri->t = srv->srcicicle->tkstToT(tkst);
 
 					buf = ri->buf;
 
 				} else buf = auxbuf;
 
 				try {
-					if (tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::ABUF) fpga.readPvwabufFromCamacq(sizeBuf, buf, datalen);
-					else if (tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::BBUF) fpga.readPvwbbufFromCamacq(sizeBuf, buf, datalen);
+					if (tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::ABUF) {
+						if (srv->srcarty) srv->srcarty->shrdat.hw.readPvwabufFromCamacq(sizeBuf, buf, datalen);
+						else if (srv->srcicicle) srv->srcicicle->shrdat.hw.readPvwabufFromCamacq(sizeBuf, buf, datalen);
+
+					} else if (tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::BBUF) {
+						if (srv->srcarty) srv->srcarty->shrdat.hw.readPvwbbufFromCamacq(sizeBuf, buf, datalen);
+						else if (srv->srcicicle) srv->srcicicle->shrdat.hw.readPvwbbufFromCamacq(sizeBuf, buf, datalen);
+					};
 
 				} catch (DbeException& e) {
 					if (ri) {
@@ -239,7 +261,7 @@ void* JobWzskAcqFpgapvw::runPvw(
 
 				if (ri) XchgWzsk::runExtcall(new ExtcallWzsk(srv->xchg, new Call(VecWzskVCall::CALLWZSKCALLBACK, srv->jref, Arg(ixRi, 0, {}, VecWzskVPvwmode::getSref(ixWzskVPvwmode), 0, 0.0, false, "", Arg::IX + Arg::SREF))));
 
-				shrdat.mPvw.unlock("JobWzskSrcFpga", "runPvw[2]");
+				shrdat.mPvw.unlock("JobWzskAcqFpgapvw", "runPvw[2]");
 
 				if (ri) {
 					// sleep for 1/4Hz - 10ms = 240ms
@@ -248,7 +270,7 @@ void* JobWzskAcqFpgapvw::runPvw(
 				};
 
 			} else {
-				shrdat.mPvw.unlock("JobWzskSrcFpga", "runPvw[3]");
+				shrdat.mPvw.unlock("JobWzskAcqFpgapvw", "runPvw[3]");
 
 				// sleep for ten milliseconds
 				deltat = {.tv_sec = 0, .tv_nsec = 10000000};
@@ -261,13 +283,19 @@ void* JobWzskAcqFpgapvw::runPvw(
 
 		XchgWzsk::runExtcall(new ExtcallWzsk(srv->xchg, new Call(VecWzskVCall::CALLWZSKCALLBACK, srv->jref, Arg())));
 
-		shrdat.mPvw.unlock("JobWzskSrcFpga", "runPvw[4]");
+		shrdat.mPvw.unlock("JobWzskAcqFpgapvw", "runPvw[4]");
 	};
 
 	try {
 		// - clean up
-		srv->srcfpga->camacq_setPvw(false, 0, 0);
-		srv->srcfpga->camif_setRng(true);
+		if (srv->srcarty) {
+			srv->srcarty->camacq_setPvw(false, 0, 0);
+			srv->srcarty->camif_setRng(true);
+
+		} else if (srv->srcicicle) {
+			srv->srcicicle->camacq_setPvw(false, 0, 0);
+			srv->srcicicle->camif_setRng(true);
+		};
 
 	} catch (DbeException& e) {
 		cout << e.err << endl;
@@ -530,10 +558,18 @@ bool JobWzskAcqFpgapvw::handleClaim(
 	};
 
 	// add or remove "pvw" claim with srcfpga
-	if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcfpga);
-	else xchg->addCsjobClaim(dbswzsk, srcfpga, new JobWzskSrcFpga::Claim(false, false, false, true, false, false));
+	if (srcarty) {
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcarty);
+		else xchg->addCsjobClaim(dbswzsk, srcarty, new JobWzskSrcArty::Claim(false, false, false, true, false, false));
 
-	xchg->getCsjobClaim(srcfpga, pvwTakenNotAvailable, pvwFulfilled);
+		xchg->getCsjobClaim(srcarty, pvwTakenNotAvailable, pvwFulfilled);
+
+	} else if (srcicicle) {
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcicicle);
+		else xchg->addCsjobClaim(dbswzsk, srcicicle, new JobWzskSrcIcicle::Claim(false, false, false, true, false, false));
+
+		xchg->getCsjobClaim(srcicicle, pvwTakenNotAvailable, pvwFulfilled);
+	};
 
 	// try to fulfill
 	reattributed = false;

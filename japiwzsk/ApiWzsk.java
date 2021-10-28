@@ -23,10 +23,10 @@ import sbecore.*;
 
 public class ApiWzsk {
 
-	public static final String WZSK_VERSION = "1.0.5";
+	public static final String WZSK_VERSION = "1.0.7";
 	public static final int WZSK_VERSION_MAJOR = 1;
 	public static final int WZSK_VERSION_MINOR = 0;
-	public static final int WZSK_VERSION_SUB = 5;
+	public static final int WZSK_VERSION_SUB = 7;
 
 	public static DpchEngWzsk readDpchEng(
 				String s
@@ -73,7 +73,11 @@ public class ApiWzsk {
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVDATA) dpcheng = (new CrdWzskLlv()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVHEADBARDATA) dpcheng = (new PnlWzskLlvHeadbar()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVLASERDATA) dpcheng = (new PnlWzskLlvLaser()).new DpchEngData();
-			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMDATA) dpcheng = (new PnlWzskLlvTerm()).new DpchEngData();
+			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMARTYDATA) dpcheng = (new PnlWzskLlvTermArty()).new DpchEngData();
+			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMCLNXEVBDATA) dpcheng = (new PnlWzskLlvTermClnxevb()).new DpchEngData();
+			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMICICLEDATA) dpcheng = (new PnlWzskLlvTermIcicle()).new DpchEngData();
+			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMMCVEVPDATA) dpcheng = (new PnlWzskLlvTermMcvevp()).new DpchEngData();
+			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMUVBDVKDATA) dpcheng = (new PnlWzskLlvTermUvbdvk()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTTABLEDATA) dpcheng = (new PnlWzskLlvTtable()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKNAVADMINDATA) dpcheng = (new PnlWzskNavAdmin()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKNAVDATA) dpcheng = (new CrdWzskNav()).new DpchEngData();

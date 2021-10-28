@@ -2,8 +2,8 @@
 	* \file Wzsk.idl
 	* Wzsk DDS publisher interface description for RTI Code Generator
 	* \copyright (C) 2018-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 11 Mar 2021
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 25 Oct 2021
   */
 // IP header --- ABOVE
 
@@ -31,7 +31,82 @@ struct DdsDoublemat {
 typedef string<65536> stringvec;
 typedef string<50> vecsref;
 
+module DdsJobWzskIprCorner {
+	struct setNTarget_req {
+		usmallint NTarget;
+	};
+
+	struct setNTarget_reply {
+		boolean success;
+	};
+
+	struct setRoi_req {
+		int roiAx;
+		int roiAy;
+		int roiBx;
+		int roiBy;
+		int roiCx;
+		int roiCy;
+		int roiDx;
+		int roiDy;
+	};
+
+	struct setRoi_reply {
+		boolean success;
+	};
+
+	struct setRoiNotFull_req {
+		boolean roiNotFull;
+	};
+
+	struct setRoiNotFull_reply {
+		boolean success;
+	};
+
+	struct NTarget {
+		usmallint _NTarget;
+	};
+
+	struct roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy {
+		int roiAx;
+		int roiAy;
+		int roiBx;
+		int roiBy;
+		int roiCx;
+		int roiCy;
+		int roiDx;
+		int roiDy;
+	};
+
+	struct flgShiftScoreMinScoreMax {
+		sequence<boolean, 786432> flg;
+		utinyint shift;
+		utinyint scoreMin;
+		utinyint scoreMax;
+	};
+};
+
 module DdsJobWzskSrcSysinfo {
+	struct currCh0VoltCh0 {
+		sequence<float, 60> currCh0;
+		sequence<float, 60> voltCh0;
+	};
+
+	struct currCh1VoltCh1 {
+		sequence<float, 60> currCh1;
+		sequence<float, 60> voltCh1;
+	};
+
+	struct currCh2VoltCh2 {
+		sequence<float, 60> currCh2;
+		sequence<float, 60> voltCh2;
+	};
+
+	struct currCh3VoltCh3 {
+		sequence<float, 60> currCh3;
+		sequence<float, 60> voltCh3;
+	};
+
 	struct loadAllLoadCore0LoadCore1LoadCore2LoadCore3 {
 		sequence<float, 60> loadAll;
 		sequence<float, 60> loadCore0;
@@ -105,61 +180,6 @@ module DdsJobWzskIprTrace {
 	};
 };
 
-module DdsJobWzskIprCorner {
-	struct setNTarget_req {
-		usmallint NTarget;
-	};
-
-	struct setNTarget_reply {
-		boolean success;
-	};
-
-	struct setRoi_req {
-		int roiAx;
-		int roiAy;
-		int roiBx;
-		int roiBy;
-		int roiCx;
-		int roiCy;
-		int roiDx;
-		int roiDy;
-	};
-
-	struct setRoi_reply {
-		boolean success;
-	};
-
-	struct setRoiNotFull_req {
-		boolean roiNotFull;
-	};
-
-	struct setRoiNotFull_reply {
-		boolean success;
-	};
-
-	struct NTarget {
-		usmallint _NTarget;
-	};
-
-	struct roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy {
-		int roiAx;
-		int roiAy;
-		int roiBx;
-		int roiBy;
-		int roiCx;
-		int roiCy;
-		int roiDx;
-		int roiDy;
-	};
-
-	struct flgShiftScoreMinScoreMax {
-		sequence<boolean, 786432> flg;
-		utinyint shift;
-		utinyint scoreMin;
-		utinyint scoreMax;
-	};
-};
-
 module DdsJobWzskActServo {
 	struct moveto_req {
 		float target;
@@ -199,6 +219,29 @@ module DdsJobWzskActServo {
 	};
 };
 
+module DdsJobWzskActLaser {
+	struct setLeft_req {
+		float left;
+	};
+
+	struct setLeft_reply {
+		boolean success;
+	};
+
+	struct setRight_req {
+		float right;
+	};
+
+	struct setRight_reply {
+		boolean success;
+	};
+
+	struct leftRight {
+		float left;
+		float right;
+	};
+};
+
 module DdsJobWzskActExposure {
 	struct setExposure_req {
 		boolean autoNotManual;
@@ -227,26 +270,15 @@ module DdsJobWzskActExposure {
 	};
 };
 
-module DdsJobWzskActLaser {
-	struct setLeft_req {
-		float left;
+module DdsJobWzskAcqPreview {
+	struct gray {
+		sequence<octet, 49152> _gray;
 	};
 
-	struct setLeft_reply {
-		boolean success;
-	};
-
-	struct setRight_req {
-		float right;
-	};
-
-	struct setRight_reply {
-		boolean success;
-	};
-
-	struct leftRight {
-		float left;
-		float right;
+	struct redGreenBlue {
+		sequence<octet, 19200> red;
+		sequence<octet, 19200> green;
+		sequence<octet, 19200> blue;
 	};
 };
 
@@ -279,17 +311,5 @@ module DdsJobWzskAcqPtcloud {
 		sequence<float, 72000> x;
 		sequence<float, 72000> y;
 		sequence<float, 72000> z;
-	};
-};
-
-module DdsJobWzskAcqPreview {
-	struct gray {
-		sequence<octet, 49152> _gray;
-	};
-
-	struct redGreenBlue {
-		sequence<octet, 19200> red;
-		sequence<octet, 19200> green;
-		sequence<octet, 19200> blue;
 	};
 };

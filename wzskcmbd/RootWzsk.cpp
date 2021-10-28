@@ -40,16 +40,20 @@ RootWzsk::RootWzsk(
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
 	srcv4l2 = NULL;
+	srcuvbdvk = NULL;
 	srcsysinfo = NULL;
-	srcfpga = NULL;
+	srcmcvevp = NULL;
+	srcarty = NULL;
+	srcicicle = NULL;
+	srcclnxevb = NULL;
 	iprtrace = NULL;
 	iprcorner = NULL;
 	iprangle = NULL;
 	actservo = NULL;
 	actlaser = NULL;
+	acqpreview = NULL;
 	actexposure = NULL;
 	acqptcloud = NULL;
-	acqpreview = NULL;
 	acqfpgapvw = NULL;
 	acqfpgaflg = NULL;
 
@@ -62,16 +66,20 @@ RootWzsk::RootWzsk(
 	else clearQtb(dbswzsk);
 
 	srcv4l2 = new JobWzskSrcV4l2(xchg, dbswzsk, jref, ixWzskVLocale);
+	srcuvbdvk = new JobWzskSrcUvbdvk(xchg, dbswzsk, jref, ixWzskVLocale);
 	srcsysinfo = new JobWzskSrcSysinfo(xchg, dbswzsk, jref, ixWzskVLocale);
-	srcfpga = new JobWzskSrcFpga(xchg, dbswzsk, jref, ixWzskVLocale);
+	srcmcvevp = new JobWzskSrcMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
+	srcarty = new JobWzskSrcArty(xchg, dbswzsk, jref, ixWzskVLocale);
+	srcicicle = new JobWzskSrcIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
+	srcclnxevb = new JobWzskSrcClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprcorner = new JobWzskIprCorner(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprangle = new JobWzskIprAngle(xchg, dbswzsk, jref, ixWzskVLocale);
 	actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
 	actlaser = new JobWzskActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
+	acqpreview = new JobWzskAcqPreview(xchg, dbswzsk, jref, ixWzskVLocale);
 	actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqptcloud = new JobWzskAcqPtcloud(xchg, dbswzsk, jref, ixWzskVLocale);
-	acqpreview = new JobWzskAcqPreview(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqfpgapvw = new JobWzskAcqFpgapvw(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqfpgaflg = new JobWzskAcqFpgaflg(xchg, dbswzsk, jref, ixWzskVLocale);
 
@@ -298,8 +306,6 @@ bool RootWzsk::handleCreateSess(
 
 	ubigint refUsr;
 
-	SessWzsk* sess = NULL;
-
 	cout << "\tuser name: ";
 	cin >> input;
 	cout << "\tpassword: ";
@@ -307,11 +313,8 @@ bool RootWzsk::handleCreateSess(
 
 	// verify password and create a session
 	if (authenticate(dbswzsk, input, input2, refUsr)) {
-		sess = new SessWzsk(xchg, dbswzsk, jref, refUsr, "127.0.0.1");
-		sesss.push_back(sess);
-
-		cout << "\tjob reference: " << sess->jref << endl;
-		xchg->jrefCmd = sess->jref;
+		xchg->jrefCmd = insertSubjob(sesss, new SessWzsk(xchg, dbswzsk, jref, refUsr, "127.0.0.1"));
+		cout << "\tjob reference: " << xchg->jrefCmd << endl;
 
 		if ((xchg->stgwzskappearance.sesstterm != 0) && (sesss.size() == 1)) wrefLast = xchg->addWakeup(jref, "warnterm", 1e6 * (xchg->stgwzskappearance.sesstterm - xchg->stgwzskappearance.sesstwarn));
 
@@ -330,25 +333,17 @@ bool RootWzsk::handleEraseSess(
 			DbsWzsk* dbswzsk
 		) {
 	bool retval = false;
-	string input;
-	uint iinput;
 
-	SessWzsk* sess = NULL;
+	string input;
+	ubigint iinput;
 
 	cout << "\tjob reference: ";
 	cin >> input;
 	iinput = atoi(input.c_str());
 
-	for (auto it = sesss.begin(); it != sesss.end();) {
-		sess = *it;
-		if (sess->jref == iinput) {
-			it = sesss.erase(it);
-			delete sess;
-			break;
-		} else it++;
-	};
+	if (!eraseSubjobByJref(sesss, iinput)) cout << "\tjob reference doesn't exist!" << endl;
+	else cout << "\tsession erased." << endl;
 
-	return false;
 	return retval;
 };
 
@@ -368,8 +363,7 @@ void RootWzsk::handleDpchAppLogin(
 		) {
 	ubigint refUsr;
 
-	SessWzsk* sess = NULL;
-	M2msessWzsk* m2msess = NULL;
+	ubigint jrefSess;
 
 	Feed feedFEnsSps("FeedFEnsSps");
 
@@ -379,12 +373,12 @@ void RootWzsk::handleDpchAppLogin(
 			if (xchg->stgwzskappearance.suspsess && dpchapplogin->chksuspsess) {
 				// look for suspended sessions
 				for (auto it = sesss.begin(); it != sesss.end(); it++) {
-					sess = *it;
+					jrefSess = it->second->jref;
 
-					if (xchg->getRefPreset(VecWzskVPreset::PREWZSKOWNER, sess->jref) == refUsr) {
-						if (xchg->getBoolvalPreset(VecWzskVPreset::PREWZSKSUSPSESS, sess->jref)) {
-							xchg->addTxtvalPreset(VecWzskVPreset::PREWZSKIP, sess->jref, ip);
-							feedFEnsSps.appendIxSrefTitles(0, Scr::scramble(sess->jref), StubWzsk::getStubSesStd(dbswzsk, xchg->getRefPreset(VecWzskVPreset::PREWZSKSESS, sess->jref)));
+					if (xchg->getRefPreset(VecWzskVPreset::PREWZSKOWNER, jrefSess) == refUsr) {
+						if (xchg->getBoolvalPreset(VecWzskVPreset::PREWZSKSUSPSESS, jrefSess)) {
+							xchg->addTxtvalPreset(VecWzskVPreset::PREWZSKIP, jrefSess, ip);
+							feedFEnsSps.appendIxSrefTitles(0, Scr::scramble(jrefSess), StubWzsk::getStubSesStd(dbswzsk, xchg->getRefPreset(VecWzskVPreset::PREWZSKSESS, jrefSess)));
 						};
 					};
 				};
@@ -392,14 +386,13 @@ void RootWzsk::handleDpchAppLogin(
 
 			if (feedFEnsSps.size() == 0) {
 				// start new session
-				sess = new SessWzsk(xchg, dbswzsk, jref, refUsr, ip);
-				sesss.push_back(sess);
+				jrefSess = insertSubjob(sesss, new SessWzsk(xchg, dbswzsk, jref, refUsr, ip));
 
 				if ((xchg->stgwzskappearance.sesstterm != 0) && (sesss.size() == 1)) wrefLast = xchg->addWakeup(jref, "warnterm", 1e6 * (xchg->stgwzskappearance.sesstterm - xchg->stgwzskappearance.sesstwarn));
 
 				xchg->appendToLogfile("session created for user '" + dpchapplogin->username + "' from IP " + ip);
 
-				*dpcheng = new DpchEngWzskConfirm(true, sess->jref, "");
+				*dpcheng = new DpchEngWzskConfirm(true, jrefSess, "");
 
 			} else {
 				// return suspended sessions
@@ -407,13 +400,11 @@ void RootWzsk::handleDpchAppLogin(
 			};
 
 		} else {
-			m2msess = new M2msessWzsk(xchg, dbswzsk, jref, refUsr, ip);
-
-			m2msesss.push_back(m2msess);
+			jrefSess = insertSubjob(m2msesss, new M2msessWzsk(xchg, dbswzsk, jref, refUsr, ip));
 
 			xchg->appendToLogfile("M2M session created for user '" + dpchapplogin->username + "' from IP " + ip);
 
-			*dpcheng = new DpchEngWzskConfirm(true, m2msess->jref, "");
+			*dpcheng = new DpchEngWzskConfirm(true, jrefSess, "");
 		};
 
 	} else {
@@ -438,7 +429,7 @@ void RootWzsk::handleTimerWithSrefWarnterm(
 
 	if (xchg->stgwzskappearance.sesstterm != 0) {
 		for (auto it = sesss.begin(); it != sesss.end();) {
-			sess = *it;
+			sess = (SessWzsk*) it->second;
 
 			term = false;
 
@@ -522,22 +513,10 @@ bool RootWzsk::handleCallWzskLogout(
 		) {
 	bool retval = false;
 
-	SessWzsk* sess = NULL;
-	M2msessWzsk* m2msess = NULL;
-
 	time_t rawtime;
 
 	if (!boolvalInv) {
-		for (auto it = sesss.begin(); it != sesss.end();) {
-			sess = *it;
-			if (sess->jref == jrefTrig) {
-				sess->term(dbswzsk);
-				it = sesss.erase(it);
-
-				delete sess;
-				break;
-			} else it++;
-		};
+		eraseSubjobByJref(sesss, jrefTrig);
 
 		if (xchg->stgwzskappearance.roottterm) {
 			time(&rawtime);
@@ -545,16 +524,7 @@ bool RootWzsk::handleCallWzskLogout(
 		};
 
 	} else {
-		for (auto it = m2msesss.begin(); it != m2msesss.end();) {
-			m2msess = *it;
-			if (m2msess->jref == jrefTrig) {
-				m2msess->term(dbswzsk);
-				it = m2msesss.erase(it);
-
-				delete m2msess;
-				break;
-			} else it++;
-		};
+		eraseSubjobByJref(m2msesss, jrefTrig);
 	};
 
 	return retval;

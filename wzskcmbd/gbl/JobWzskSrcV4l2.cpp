@@ -212,6 +212,8 @@ void JobWzskSrcV4l2::Shrdat::init(
 	// IP Shrdat.init --- IBEGIN
 	bool success;
 
+	if ((xchg->stgwzskglobal.ixWzskVTarget != VecWzskVTarget::APALIS) && (xchg->stgwzskglobal.ixWzskVTarget != VecWzskVTarget::WS)) return;
+
 	v4l2_format fmt;
 	v4l2_streamparm parm;
 	v4l2_frmsizeenum fszenum;
@@ -238,8 +240,13 @@ void JobWzskSrcV4l2::Shrdat::init(
 
 			parm.parm.capture.timeperframe.numerator = 1;
 			parm.parm.capture.timeperframe.denominator = 15; // actual frame rate always ends up being 7.5Hz
-			parm.parm.capture.capturemode = 6; // 2592 x 1944 works after gstreamer changes some settings
-			//parm.parm.capture.capturemode = 8; // 1024 x 768 works with YUYV
+
+			if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) {
+				parm.parm.capture.capturemode = 6; // 2592 x 1944 works after gstreamer changes some settings
+				//parm.parm.capture.capturemode = 8; // 1024 x 768 works with YUYV
+			} else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS) {
+				parm.parm.capture.capturemode = 5; // 1600 x 1200 YUYV
+			};
 
 			while (true) {
 				success = (ioctl(fd, VIDIOC_S_PARM, &parm) != -1);
@@ -267,9 +274,11 @@ void JobWzskSrcV4l2::Shrdat::init(
 			// validate width & height
 			memset(&fszenum, 0, sizeof(fszenum));
 
-			fszenum.index = 6;
+			if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) fszenum.index = 6;
+			else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS) fszenum.index = 5;
+
 			if (!stg.YUV422NotYUV420) fszenum.pixel_format = V4L2_PIX_FMT_YUV420;
-			else fszenum.pixel_format = V4L2_PIX_FMT_YUYV;
+			else fszenum.pixel_format = V4L2_PIX_FMT_YUYV; // VecWzskVTarget::WS only works with this
 
 			while (true) {
 				success = (ioctl(fd, VIDIOC_ENUM_FRAMESIZES, &fszenum) != -1);
@@ -278,7 +287,7 @@ void JobWzskSrcV4l2::Shrdat::init(
 				if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error obtaining frame size (" + string(strerror(errno)) + ")"}});
 			};
 
-			//cout << "obtained capture size for mode 6 is " << fszenum.discrete.width << "x" << fszenum.discrete.height << endl;
+			//cout << "obtained capture size for mode " << fszenum.index << " is " << fszenum.discrete.width << "x" << fszenum.discrete.height << endl;
 		};
 
 		if (success) {
@@ -891,6 +900,7 @@ void JobWzskSrcV4l2::convertYUV420toRGBGrrdNEON(
 			vst1q_s16((int16_t*) &(rd16[stix]), rd);
 		};
 	};
+#elif __x86_64__
 #endif
 };
 

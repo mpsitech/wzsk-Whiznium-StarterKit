@@ -357,8 +357,8 @@ uint JobWzskSrcSysinfo::enterSgeRun(
 	getLoad();
 
 	// update temperature information
-	if (!xchg->stgwzskglobal.fpgaNotV4l2gpio) getTempThermal();
-	else getTempXadc();
+	if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) getTempThermal();
+	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) getTempXadc();
 
 	shrdat.wunlockAccess(jref, "enterSgeRun");
 

@@ -276,8 +276,8 @@ void QryWzskFilList::rerun_orderSQL(
 		) {
 	if (preIxOrd == VecVOrd::REU) sqlstr += " ORDER BY TblWzskMFile.refUref ASC";
 	else if (preIxOrd == VecVOrd::RET) sqlstr += " ORDER BY TblWzskMFile.refIxVTbl ASC";
-	else if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMFile.own ASC";
 	else if (preIxOrd == VecVOrd::FNM) sqlstr += " ORDER BY TblWzskMFile.Filename ASC";
+	else if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMFile.own ASC";
 	else if (preIxOrd == VecVOrd::GRP) sqlstr += " ORDER BY TblWzskMFile.grp ASC";
 };
 

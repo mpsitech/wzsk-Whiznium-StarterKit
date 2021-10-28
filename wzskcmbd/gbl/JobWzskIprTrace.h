@@ -15,6 +15,8 @@
 // IP include.cust --- IBEGIN
 #ifdef __arm__
 	#include <arm_neon.h>
+#elif __x86_64__
+	#include <emmintrin.h>
 #endif
 // IP include.cust --- IEND
 
@@ -153,11 +155,11 @@ public:
 		Shrdat();
 
 	public:
-		float pOnLeft;
-		float pOnRight;
+		float pOnLeft; // left line laser intensity in 'on' state
+		float pOnRight; // right line laser intensity in 'on' state
 
-		Sbecore::utinyint levelOn;
-		Sbecore::utinyint levelOff;
+		Sbecore::utinyint levelOn; // lower threshold level for 'on' state
+		Sbecore::utinyint levelOff; // upper threshold level for 'off' state
 
 		int roiAx;
 		int roiAy;
@@ -168,8 +170,8 @@ public:
 		int roiDx;
 		int roiDy;
 
-		std::vector<bool> left;
-		std::vector<bool> right;
+		std::vector<bool> left; // wGrrd * hGrrd
+		std::vector<bool> right; // wGrrd * hGrrd
 
 		// IP Shrdat.vars.cust --- IBEGIN
 		bool loopNotSngshot;
@@ -250,9 +252,9 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
+	bool handleCallWzskResultNewFromSrcv4l2(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(DbsWzsk* dbswzsk);
 	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(DbsWzsk* dbswzsk);
-	bool handleCallWzskResultNewFromSrcv4l2(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta(DbsWzsk* dbswzsk, const Sbecore::uint ixInv);
 
 private:

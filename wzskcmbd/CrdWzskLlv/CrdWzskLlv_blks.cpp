@@ -148,11 +148,15 @@ void CrdWzskLlv::StatApp::writeJSON(
 			, const usmallint latency
 			, const string& shortMenu
 			, const uint widthMenu
-			, const bool initdoneTerm
+			, const bool initdoneHeadbar
+			, const bool initdoneTermArty
+			, const bool initdoneTermClnxevb
+			, const bool initdoneTermIcicle
+			, const bool initdoneTermMcvevp
+			, const bool initdoneTermUvbdvk
 			, const bool initdoneCamera
 			, const bool initdoneTtable
 			, const bool initdoneLaser
-			, const bool initdoneHeadbar
 		) {
 	if (difftag.length() == 0) difftag = "StatAppWzskLlv";
 
@@ -162,11 +166,15 @@ void CrdWzskLlv::StatApp::writeJSON(
 	me["latency"] = latency;
 	me["shortMenu"] = shortMenu;
 	me["widthMenu"] = widthMenu;
-	me["initdoneTerm"] = initdoneTerm;
+	me["initdoneHeadbar"] = initdoneHeadbar;
+	me["initdoneTermArty"] = initdoneTermArty;
+	me["initdoneTermClnxevb"] = initdoneTermClnxevb;
+	me["initdoneTermIcicle"] = initdoneTermIcicle;
+	me["initdoneTermMcvevp"] = initdoneTermMcvevp;
+	me["initdoneTermUvbdvk"] = initdoneTermUvbdvk;
 	me["initdoneCamera"] = initdoneCamera;
 	me["initdoneTtable"] = initdoneTtable;
 	me["initdoneLaser"] = initdoneLaser;
-	me["initdoneHeadbar"] = initdoneHeadbar;
 };
 
 void CrdWzskLlv::StatApp::writeXML(
@@ -177,11 +185,15 @@ void CrdWzskLlv::StatApp::writeXML(
 			, const usmallint latency
 			, const string& shortMenu
 			, const uint widthMenu
-			, const bool initdoneTerm
+			, const bool initdoneHeadbar
+			, const bool initdoneTermArty
+			, const bool initdoneTermClnxevb
+			, const bool initdoneTermIcicle
+			, const bool initdoneTermMcvevp
+			, const bool initdoneTermUvbdvk
 			, const bool initdoneCamera
 			, const bool initdoneTtable
 			, const bool initdoneLaser
-			, const bool initdoneHeadbar
 		) {
 	if (difftag.length() == 0) difftag = "StatAppWzskLlv";
 
@@ -194,11 +206,15 @@ void CrdWzskLlv::StatApp::writeXML(
 		writeUsmallintAttr(wr, itemtag, "sref", "latency", latency);
 		writeStringAttr(wr, itemtag, "sref", "shortMenu", shortMenu);
 		writeUintAttr(wr, itemtag, "sref", "widthMenu", widthMenu);
-		writeBoolAttr(wr, itemtag, "sref", "initdoneTerm", initdoneTerm);
+		writeBoolAttr(wr, itemtag, "sref", "initdoneHeadbar", initdoneHeadbar);
+		writeBoolAttr(wr, itemtag, "sref", "initdoneTermArty", initdoneTermArty);
+		writeBoolAttr(wr, itemtag, "sref", "initdoneTermClnxevb", initdoneTermClnxevb);
+		writeBoolAttr(wr, itemtag, "sref", "initdoneTermIcicle", initdoneTermIcicle);
+		writeBoolAttr(wr, itemtag, "sref", "initdoneTermMcvevp", initdoneTermMcvevp);
+		writeBoolAttr(wr, itemtag, "sref", "initdoneTermUvbdvk", initdoneTermUvbdvk);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneCamera", initdoneCamera);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneTtable", initdoneTtable);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneLaser", initdoneLaser);
-		writeBoolAttr(wr, itemtag, "sref", "initdoneHeadbar", initdoneHeadbar);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -207,23 +223,39 @@ void CrdWzskLlv::StatApp::writeXML(
  ******************************************************************************/
 
 CrdWzskLlv::StatShr::StatShr(
-			const ubigint jrefTerm
-			, const bool pnltermAvail
+			const ubigint jrefHeadbar
+			, const ubigint jrefTermArty
+			, const bool pnltermartyAvail
+			, const ubigint jrefTermClnxevb
+			, const bool pnltermclnxevbAvail
+			, const ubigint jrefTermIcicle
+			, const bool pnltermicicleAvail
+			, const ubigint jrefTermMcvevp
+			, const bool pnltermmcvevpAvail
+			, const ubigint jrefTermUvbdvk
+			, const bool pnltermuvbdvkAvail
 			, const ubigint jrefCamera
 			, const ubigint jrefTtable
 			, const ubigint jrefLaser
-			, const ubigint jrefHeadbar
 		) :
 			Block()
 		{
-	this->jrefTerm = jrefTerm;
-	this->pnltermAvail = pnltermAvail;
+	this->jrefHeadbar = jrefHeadbar;
+	this->jrefTermArty = jrefTermArty;
+	this->pnltermartyAvail = pnltermartyAvail;
+	this->jrefTermClnxevb = jrefTermClnxevb;
+	this->pnltermclnxevbAvail = pnltermclnxevbAvail;
+	this->jrefTermIcicle = jrefTermIcicle;
+	this->pnltermicicleAvail = pnltermicicleAvail;
+	this->jrefTermMcvevp = jrefTermMcvevp;
+	this->pnltermmcvevpAvail = pnltermmcvevpAvail;
+	this->jrefTermUvbdvk = jrefTermUvbdvk;
+	this->pnltermuvbdvkAvail = pnltermuvbdvkAvail;
 	this->jrefCamera = jrefCamera;
 	this->jrefTtable = jrefTtable;
 	this->jrefLaser = jrefLaser;
-	this->jrefHeadbar = jrefHeadbar;
 
-	mask = {JREFTERM, PNLTERMAVAIL, JREFCAMERA, JREFTTABLE, JREFLASER, JREFHEADBAR};
+	mask = {JREFHEADBAR, JREFTERMARTY, PNLTERMARTYAVAIL, JREFTERMCLNXEVB, PNLTERMCLNXEVBAVAIL, JREFTERMICICLE, PNLTERMICICLEAVAIL, JREFTERMMCVEVP, PNLTERMMCVEVPAVAIL, JREFTERMUVBDVK, PNLTERMUVBDVKAVAIL, JREFCAMERA, JREFTTABLE, JREFLASER};
 };
 
 void CrdWzskLlv::StatShr::writeJSON(
@@ -234,12 +266,20 @@ void CrdWzskLlv::StatShr::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["scrJrefTerm"] = Scr::scramble(jrefTerm);
-	me["pnltermAvail"] = pnltermAvail;
+	me["scrJrefHeadbar"] = Scr::scramble(jrefHeadbar);
+	me["scrJrefTermArty"] = Scr::scramble(jrefTermArty);
+	me["pnltermartyAvail"] = pnltermartyAvail;
+	me["scrJrefTermClnxevb"] = Scr::scramble(jrefTermClnxevb);
+	me["pnltermclnxevbAvail"] = pnltermclnxevbAvail;
+	me["scrJrefTermIcicle"] = Scr::scramble(jrefTermIcicle);
+	me["pnltermicicleAvail"] = pnltermicicleAvail;
+	me["scrJrefTermMcvevp"] = Scr::scramble(jrefTermMcvevp);
+	me["pnltermmcvevpAvail"] = pnltermmcvevpAvail;
+	me["scrJrefTermUvbdvk"] = Scr::scramble(jrefTermUvbdvk);
+	me["pnltermuvbdvkAvail"] = pnltermuvbdvkAvail;
 	me["scrJrefCamera"] = Scr::scramble(jrefCamera);
 	me["scrJrefTtable"] = Scr::scramble(jrefTtable);
 	me["scrJrefLaser"] = Scr::scramble(jrefLaser);
-	me["scrJrefHeadbar"] = Scr::scramble(jrefHeadbar);
 };
 
 void CrdWzskLlv::StatShr::writeXML(
@@ -254,12 +294,20 @@ void CrdWzskLlv::StatShr::writeXML(
 	else itemtag = "StatitemShrWzskLlv";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeStringAttr(wr, itemtag, "sref", "scrJrefTerm", Scr::scramble(jrefTerm));
-		writeBoolAttr(wr, itemtag, "sref", "pnltermAvail", pnltermAvail);
+		writeStringAttr(wr, itemtag, "sref", "scrJrefHeadbar", Scr::scramble(jrefHeadbar));
+		writeStringAttr(wr, itemtag, "sref", "scrJrefTermArty", Scr::scramble(jrefTermArty));
+		writeBoolAttr(wr, itemtag, "sref", "pnltermartyAvail", pnltermartyAvail);
+		writeStringAttr(wr, itemtag, "sref", "scrJrefTermClnxevb", Scr::scramble(jrefTermClnxevb));
+		writeBoolAttr(wr, itemtag, "sref", "pnltermclnxevbAvail", pnltermclnxevbAvail);
+		writeStringAttr(wr, itemtag, "sref", "scrJrefTermIcicle", Scr::scramble(jrefTermIcicle));
+		writeBoolAttr(wr, itemtag, "sref", "pnltermicicleAvail", pnltermicicleAvail);
+		writeStringAttr(wr, itemtag, "sref", "scrJrefTermMcvevp", Scr::scramble(jrefTermMcvevp));
+		writeBoolAttr(wr, itemtag, "sref", "pnltermmcvevpAvail", pnltermmcvevpAvail);
+		writeStringAttr(wr, itemtag, "sref", "scrJrefTermUvbdvk", Scr::scramble(jrefTermUvbdvk));
+		writeBoolAttr(wr, itemtag, "sref", "pnltermuvbdvkAvail", pnltermuvbdvkAvail);
 		writeStringAttr(wr, itemtag, "sref", "scrJrefCamera", Scr::scramble(jrefCamera));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefTtable", Scr::scramble(jrefTtable));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefLaser", Scr::scramble(jrefLaser));
-		writeStringAttr(wr, itemtag, "sref", "scrJrefHeadbar", Scr::scramble(jrefHeadbar));
 	xmlTextWriterEndElement(wr);
 };
 
@@ -268,12 +316,20 @@ set<uint> CrdWzskLlv::StatShr::comm(
 		) {
 	set<uint> items;
 
-	if (jrefTerm == comp->jrefTerm) insert(items, JREFTERM);
-	if (pnltermAvail == comp->pnltermAvail) insert(items, PNLTERMAVAIL);
+	if (jrefHeadbar == comp->jrefHeadbar) insert(items, JREFHEADBAR);
+	if (jrefTermArty == comp->jrefTermArty) insert(items, JREFTERMARTY);
+	if (pnltermartyAvail == comp->pnltermartyAvail) insert(items, PNLTERMARTYAVAIL);
+	if (jrefTermClnxevb == comp->jrefTermClnxevb) insert(items, JREFTERMCLNXEVB);
+	if (pnltermclnxevbAvail == comp->pnltermclnxevbAvail) insert(items, PNLTERMCLNXEVBAVAIL);
+	if (jrefTermIcicle == comp->jrefTermIcicle) insert(items, JREFTERMICICLE);
+	if (pnltermicicleAvail == comp->pnltermicicleAvail) insert(items, PNLTERMICICLEAVAIL);
+	if (jrefTermMcvevp == comp->jrefTermMcvevp) insert(items, JREFTERMMCVEVP);
+	if (pnltermmcvevpAvail == comp->pnltermmcvevpAvail) insert(items, PNLTERMMCVEVPAVAIL);
+	if (jrefTermUvbdvk == comp->jrefTermUvbdvk) insert(items, JREFTERMUVBDVK);
+	if (pnltermuvbdvkAvail == comp->pnltermuvbdvkAvail) insert(items, PNLTERMUVBDVKAVAIL);
 	if (jrefCamera == comp->jrefCamera) insert(items, JREFCAMERA);
 	if (jrefTtable == comp->jrefTtable) insert(items, JREFTTABLE);
 	if (jrefLaser == comp->jrefLaser) insert(items, JREFLASER);
-	if (jrefHeadbar == comp->jrefHeadbar) insert(items, JREFHEADBAR);
 
 	return(items);
 };
@@ -286,7 +342,7 @@ set<uint> CrdWzskLlv::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {JREFTERM, PNLTERMAVAIL, JREFCAMERA, JREFTTABLE, JREFLASER, JREFHEADBAR};
+	diffitems = {JREFHEADBAR, JREFTERMARTY, PNLTERMARTYAVAIL, JREFTERMCLNXEVB, PNLTERMCLNXEVBAVAIL, JREFTERMICICLE, PNLTERMICICLEAVAIL, JREFTERMMCVEVP, PNLTERMMCVEVPAVAIL, JREFTERMUVBDVK, PNLTERMUVBDVKAVAIL, JREFCAMERA, JREFTTABLE, JREFLASER};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

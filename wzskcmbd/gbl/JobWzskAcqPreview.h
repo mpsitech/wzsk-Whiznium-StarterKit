@@ -15,6 +15,8 @@
 // IP include.cust --- IBEGIN
 #ifdef __arm__
 	#include <arm_neon.h>
+#elif __x86_64__
+	#include <emmintrin.h>
 #endif
 // IP include.cust --- IEND
 
@@ -119,9 +121,9 @@ public:
 		Shrdat();
 
 	public:
-		std::vector<Sbecore::utinyint> gray;
+		std::vector<Sbecore::utinyint> gray; // wGrrd/4 * hGrrd/4
 
-		std::vector<Sbecore::utinyint> red;
+		std::vector<Sbecore::utinyint> red; // wRgb/8 * hRgb/8
 		std::vector<Sbecore::utinyint> green;
 		std::vector<Sbecore::utinyint> blue;
 

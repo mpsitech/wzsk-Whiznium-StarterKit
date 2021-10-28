@@ -9,22 +9,34 @@ function setInitdone(pnlshort) {
 };
 
 function checkInitdone() {
-	var initdoneTerm = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTerm") == "true");
+	var initdoneHeadbar = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneHeadbar") == "true");
+	var initdoneTermArty = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermArty") == "true");
+	var initdoneTermClnxevb = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermClnxevb") == "true");
+	var initdoneTermIcicle = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermIcicle") == "true");
+	var initdoneTermMcvevp = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermMcvevp") == "true");
+	var initdoneTermUvbdvk = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermUvbdvk") == "true");
 	var initdoneCamera = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneCamera") == "true");
 	var initdoneTtable = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTtable") == "true");
 	var initdoneLaser = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneLaser") == "true");
-	var initdoneHeadbar = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneHeadbar") == "true");
 
-	if (!initdoneTerm) {
-		doc.getElementById("Term").src = "./PnlWzskLlvTerm.html?scrJref=" + scrJrefTerm;
+	if (!initdoneHeadbar) {
+		doc.getElementById("Headbar").src = "./PnlWzskLlvHeadbar.html?scrJref=" + scrJrefHeadbar;
+	} else if (!initdoneTermArty) {
+		doc.getElementById("TermArty").src = "./PnlWzskLlvTermArty.html?scrJref=" + scrJrefTermArty;
+	} else if (!initdoneTermClnxevb) {
+		doc.getElementById("TermClnxevb").src = "./PnlWzskLlvTermClnxevb.html?scrJref=" + scrJrefTermClnxevb;
+	} else if (!initdoneTermIcicle) {
+		doc.getElementById("TermIcicle").src = "./PnlWzskLlvTermIcicle.html?scrJref=" + scrJrefTermIcicle;
+	} else if (!initdoneTermMcvevp) {
+		doc.getElementById("TermMcvevp").src = "./PnlWzskLlvTermMcvevp.html?scrJref=" + scrJrefTermMcvevp;
+	} else if (!initdoneTermUvbdvk) {
+		doc.getElementById("TermUvbdvk").src = "./PnlWzskLlvTermUvbdvk.html?scrJref=" + scrJrefTermUvbdvk;
 	} else if (!initdoneCamera) {
 		doc.getElementById("Camera").src = "./PnlWzskLlvCamera.html?scrJref=" + scrJrefCamera;
 	} else if (!initdoneTtable) {
 		doc.getElementById("Ttable").src = "./PnlWzskLlvTtable.html?scrJref=" + scrJrefTtable;
 	} else if (!initdoneLaser) {
 		doc.getElementById("Laser").src = "./PnlWzskLlvLaser.html?scrJref=" + scrJrefLaser;
-	} else if (!initdoneHeadbar) {
-		doc.getElementById("Headbar").src = "./PnlWzskLlvHeadbar.html?scrJref=" + scrJrefHeadbar;
 	} else {
 		doc.initdone = true;
 		window.onfocus = resumeNotify;
@@ -53,7 +65,11 @@ function setPnlAvail(short, avail) {
 function getHeight() {
 	var height = 25;
 
-	if (doc.getElementById("trTerm").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdTerm").getAttribute("height")) + 8;
+	if (doc.getElementById("trTermArty").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdTermArty").getAttribute("height")) + 8;
+	if (doc.getElementById("trTermClnxevb").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdTermClnxevb").getAttribute("height")) + 8;
+	if (doc.getElementById("trTermIcicle").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdTermIcicle").getAttribute("height")) + 8;
+	if (doc.getElementById("trTermMcvevp").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdTermMcvevp").getAttribute("height")) + 8;
+	if (doc.getElementById("trTermUvbdvk").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdTermUvbdvk").getAttribute("height")) + 8;
 	height += 10 + parseInt(doc.getElementById("tdCamera").getAttribute("height")) + 8;
 	height += 10 + parseInt(doc.getElementById("tdTtable").getAttribute("height")) + 8;
 	height += 10 + parseInt(doc.getElementById("tdLaser").getAttribute("height")) + 8;
@@ -313,9 +329,21 @@ function changeHeight(pnlshort, height) {
 	var divDlgshld = doc.getElementById("divDlgshld");
 	var divAlrshld = doc.getElementById("divAlrshld");
 
-	if (pnlshort == "Term") {
-		doc.getElementById("tdTerm").setAttribute("height", "" + height);
-		doc.getElementById("Term").setAttribute("height", "" + height);
+	if (pnlshort == "TermArty") {
+		doc.getElementById("tdTermArty").setAttribute("height", "" + height);
+		doc.getElementById("TermArty").setAttribute("height", "" + height);
+	} else if (pnlshort == "TermClnxevb") {
+		doc.getElementById("tdTermClnxevb").setAttribute("height", "" + height);
+		doc.getElementById("TermClnxevb").setAttribute("height", "" + height);
+	} else if (pnlshort == "TermIcicle") {
+		doc.getElementById("tdTermIcicle").setAttribute("height", "" + height);
+		doc.getElementById("TermIcicle").setAttribute("height", "" + height);
+	} else if (pnlshort == "TermMcvevp") {
+		doc.getElementById("tdTermMcvevp").setAttribute("height", "" + height);
+		doc.getElementById("TermMcvevp").setAttribute("height", "" + height);
+	} else if (pnlshort == "TermUvbdvk") {
+		doc.getElementById("tdTermUvbdvk").setAttribute("height", "" + height);
+		doc.getElementById("TermUvbdvk").setAttribute("height", "" + height);
 	} else if (pnlshort == "Camera") {
 		doc.getElementById("tdCamera").setAttribute("height", "" + height);
 		doc.getElementById("Camera").setAttribute("height", "" + height);
@@ -334,9 +362,17 @@ function changeHeight(pnlshort, height) {
 
 // --- view initialization and refresh
 function refresh() {
-	var pnltermAvail = (retrieveSi(srcdoc, "StatShrWzskLlv", "pnltermAvail") == "true");
+	var pnltermartyAvail = (retrieveSi(srcdoc, "StatShrWzskLlv", "pnltermartyAvail") == "true");
+	var pnltermclnxevbAvail = (retrieveSi(srcdoc, "StatShrWzskLlv", "pnltermclnxevbAvail") == "true");
+	var pnltermicicleAvail = (retrieveSi(srcdoc, "StatShrWzskLlv", "pnltermicicleAvail") == "true");
+	var pnltermmcvevpAvail = (retrieveSi(srcdoc, "StatShrWzskLlv", "pnltermmcvevpAvail") == "true");
+	var pnltermuvbdvkAvail = (retrieveSi(srcdoc, "StatShrWzskLlv", "pnltermuvbdvkAvail") == "true");
 
-	setPnlAvail("Term", pnltermAvail);
+	setPnlAvail("TermArty", pnltermartyAvail);
+	setPnlAvail("TermClnxevb", pnltermclnxevbAvail);
+	setPnlAvail("TermIcicle", pnltermicicleAvail);
+	setPnlAvail("TermMcvevp", pnltermmcvevpAvail);
+	setPnlAvail("TermUvbdvk", pnltermuvbdvkAvail);
 };
 
 // --- event handlers
@@ -388,8 +424,16 @@ function handleDpchEngSub(_scrJref, dom, dpch) {
 	} else if (_scrJref == scrJrefDlg) {
 		doc.getElementById("Dlg").contentWindow.handleDpchEng(dom, dpch);
 
-	} else if (_scrJref == scrJrefTerm) {
-		doc.getElementById("Term").contentWindow.handleDpchEng(dom, dpch);
+	} else if (_scrJref == scrJrefTermArty) {
+		doc.getElementById("TermArty").contentWindow.handleDpchEng(dom, dpch);
+	} else if (_scrJref == scrJrefTermClnxevb) {
+		doc.getElementById("TermClnxevb").contentWindow.handleDpchEng(dom, dpch);
+	} else if (_scrJref == scrJrefTermIcicle) {
+		doc.getElementById("TermIcicle").contentWindow.handleDpchEng(dom, dpch);
+	} else if (_scrJref == scrJrefTermMcvevp) {
+		doc.getElementById("TermMcvevp").contentWindow.handleDpchEng(dom, dpch);
+	} else if (_scrJref == scrJrefTermUvbdvk) {
+		doc.getElementById("TermUvbdvk").contentWindow.handleDpchEng(dom, dpch);
 	} else if (_scrJref == scrJrefCamera) {
 		doc.getElementById("Camera").contentWindow.handleDpchEng(dom, dpch);
 	} else if (_scrJref == scrJrefTtable) {
@@ -414,11 +458,15 @@ function handleDpchAppInitReply() {
 				mergeDpchEngData(dom);
 
 				// establish sub-panel scrJref's as global variables, and start sub-panel load sequence
-				scrJrefTerm = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTerm");
+				scrJrefHeadbar = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefHeadbar");
+				scrJrefTermArty = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermArty");
+				scrJrefTermClnxevb = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermClnxevb");
+				scrJrefTermIcicle = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermIcicle");
+				scrJrefTermMcvevp = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermMcvevp");
+				scrJrefTermUvbdvk = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermUvbdvk");
 				scrJrefCamera = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefCamera");
 				scrJrefTtable = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTtable");
 				scrJrefLaser = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefLaser");
-				scrJrefHeadbar = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefHeadbar");
 
 				scrJrefPnld = "";
 

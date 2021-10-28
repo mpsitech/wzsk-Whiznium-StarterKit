@@ -269,7 +269,7 @@ public:
 
 public:
 	float hpix;
-	float f;
+	float f; // USB type A has 2.00
 	float fn;
 
 public:
@@ -388,7 +388,7 @@ public:
 public:
 	Sbecore::uint wAcq;
 	Sbecore::uint hAcq;
-	Sbecore::uint whAcq;
+	Sbecore::uint whAcq; // wAcq * hAcq
 
 	Sbecore::uint x0Rgb;
 	Sbecore::uint wRgb;
@@ -413,13 +413,13 @@ public:
 class StgWzskGlobal : public Sbecore::Block {
 
 public:
-	static const Sbecore::uint FPGANOTV4L2GPIO = 1;
+	static const Sbecore::uint IXWZSKVTARGET = 1;
 
 public:
-	StgWzskGlobal(const bool fpgaNotV4l2gpio = false);
+	StgWzskGlobal(const Sbecore::uint ixWzskVTarget = 0);
 
 public:
-	bool fpgaNotV4l2gpio;
+	Sbecore::uint ixWzskVTarget;
 
 public:
 	bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -679,6 +679,9 @@ public:
 	ReqWzsk* reqCmd;
 
 public:
+	Sbecore::ubigint insertSubjob(std::map<Sbecore::ubigint, JobWzsk*>& subjobs, JobWzsk* subjob);
+	bool eraseSubjobByJref(std::map<Sbecore::ubigint, JobWzsk*>& subjobs, const Sbecore::ubigint _jref);
+
 	virtual DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
 
 	virtual void refresh(DbsWzsk* dbswzsk, std::set<Sbecore::uint>& moditems, const bool unmute = false);

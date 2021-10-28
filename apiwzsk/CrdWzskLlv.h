@@ -85,25 +85,33 @@ namespace CrdWzskLlv {
 		static const Sbecore::uint LATENCY = 2;
 		static const Sbecore::uint SHORTMENU = 3;
 		static const Sbecore::uint WIDTHMENU = 4;
-		static const Sbecore::uint INITDONETERM = 5;
-		static const Sbecore::uint INITDONECAMERA = 6;
-		static const Sbecore::uint INITDONETTABLE = 7;
-		static const Sbecore::uint INITDONELASER = 8;
-		static const Sbecore::uint INITDONEHEADBAR = 9;
+		static const Sbecore::uint INITDONEHEADBAR = 5;
+		static const Sbecore::uint INITDONETERMARTY = 6;
+		static const Sbecore::uint INITDONETERMCLNXEVB = 7;
+		static const Sbecore::uint INITDONETERMICICLE = 8;
+		static const Sbecore::uint INITDONETERMMCVEVP = 9;
+		static const Sbecore::uint INITDONETERMUVBDVK = 10;
+		static const Sbecore::uint INITDONECAMERA = 11;
+		static const Sbecore::uint INITDONETTABLE = 12;
+		static const Sbecore::uint INITDONELASER = 13;
 
 	public:
-		StatApp(const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneTerm = false, const bool initdoneCamera = false, const bool initdoneTtable = false, const bool initdoneLaser = false, const bool initdoneHeadbar = false);
+		StatApp(const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneTermArty = false, const bool initdoneTermClnxevb = false, const bool initdoneTermIcicle = false, const bool initdoneTermMcvevp = false, const bool initdoneTermUvbdvk = false, const bool initdoneCamera = false, const bool initdoneTtable = false, const bool initdoneLaser = false);
 
 	public:
 		Sbecore::uint ixWzskVReqitmode;
 		Sbecore::usmallint latency;
 		std::string shortMenu;
 		Sbecore::uint widthMenu;
-		bool initdoneTerm;
+		bool initdoneHeadbar;
+		bool initdoneTermArty;
+		bool initdoneTermClnxevb;
+		bool initdoneTermIcicle;
+		bool initdoneTermMcvevp;
+		bool initdoneTermUvbdvk;
 		bool initdoneCamera;
 		bool initdoneTtable;
 		bool initdoneLaser;
-		bool initdoneHeadbar;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -117,23 +125,39 @@ namespace CrdWzskLlv {
 	class StatShr : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint SCRJREFTERM = 1;
-		static const Sbecore::uint PNLTERMAVAIL = 2;
-		static const Sbecore::uint SCRJREFCAMERA = 3;
-		static const Sbecore::uint SCRJREFTTABLE = 4;
-		static const Sbecore::uint SCRJREFLASER = 5;
-		static const Sbecore::uint SCRJREFHEADBAR = 6;
+		static const Sbecore::uint SCRJREFHEADBAR = 1;
+		static const Sbecore::uint SCRJREFTERMARTY = 2;
+		static const Sbecore::uint PNLTERMARTYAVAIL = 3;
+		static const Sbecore::uint SCRJREFTERMCLNXEVB = 4;
+		static const Sbecore::uint PNLTERMCLNXEVBAVAIL = 5;
+		static const Sbecore::uint SCRJREFTERMICICLE = 6;
+		static const Sbecore::uint PNLTERMICICLEAVAIL = 7;
+		static const Sbecore::uint SCRJREFTERMMCVEVP = 8;
+		static const Sbecore::uint PNLTERMMCVEVPAVAIL = 9;
+		static const Sbecore::uint SCRJREFTERMUVBDVK = 10;
+		static const Sbecore::uint PNLTERMUVBDVKAVAIL = 11;
+		static const Sbecore::uint SCRJREFCAMERA = 12;
+		static const Sbecore::uint SCRJREFTTABLE = 13;
+		static const Sbecore::uint SCRJREFLASER = 14;
 
 	public:
-		StatShr(const std::string& scrJrefTerm = "", const bool pnltermAvail = false, const std::string& scrJrefCamera = "", const std::string& scrJrefTtable = "", const std::string& scrJrefLaser = "", const std::string& scrJrefHeadbar = "");
+		StatShr(const std::string& scrJrefHeadbar = "", const std::string& scrJrefTermArty = "", const bool pnltermartyAvail = false, const std::string& scrJrefTermClnxevb = "", const bool pnltermclnxevbAvail = false, const std::string& scrJrefTermIcicle = "", const bool pnltermicicleAvail = false, const std::string& scrJrefTermMcvevp = "", const bool pnltermmcvevpAvail = false, const std::string& scrJrefTermUvbdvk = "", const bool pnltermuvbdvkAvail = false, const std::string& scrJrefCamera = "", const std::string& scrJrefTtable = "", const std::string& scrJrefLaser = "");
 
 	public:
-		std::string scrJrefTerm;
-		bool pnltermAvail;
+		std::string scrJrefHeadbar;
+		std::string scrJrefTermArty;
+		bool pnltermartyAvail;
+		std::string scrJrefTermClnxevb;
+		bool pnltermclnxevbAvail;
+		std::string scrJrefTermIcicle;
+		bool pnltermicicleAvail;
+		std::string scrJrefTermMcvevp;
+		bool pnltermmcvevpAvail;
+		std::string scrJrefTermUvbdvk;
+		bool pnltermuvbdvkAvail;
 		std::string scrJrefCamera;
 		std::string scrJrefTtable;
 		std::string scrJrefLaser;
-		std::string scrJrefHeadbar;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);

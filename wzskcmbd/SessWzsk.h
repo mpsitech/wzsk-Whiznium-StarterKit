@@ -21,11 +21,11 @@
 #include "CrdWzskOgr.h"
 #include "CrdWzskLiv.h"
 #include "CrdWzskLlv.h"
-#include "CrdWzskNav.h"
 #include "CrdWzskScf.h"
 #include "CrdWzskPrs.h"
 #include "CrdWzskUsr.h"
 #include "CrdWzskUsg.h"
+#include "CrdWzskNav.h"
 
 #define StatShrSessWzsk SessWzsk::StatShr
 
@@ -91,18 +91,18 @@ public:
 public:
 	StatShr statshr;
 
-	std::list<CrdWzskFil*> crdfils;
-	std::list<CrdWzskSht*> crdshts;
-	std::list<CrdWzskSes*> crdsess;
-	std::list<CrdWzskObj*> crdobjs;
-	std::list<CrdWzskOgr*> crdogrs;
-	std::list<CrdWzskLiv*> crdlivs;
-	std::list<CrdWzskLlv*> crdllvs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdfils;
+	std::map<Sbecore::ubigint, JobWzsk*> crdshts;
+	std::map<Sbecore::ubigint, JobWzsk*> crdsess;
+	std::map<Sbecore::ubigint, JobWzsk*> crdobjs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdogrs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdlivs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdllvs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdscfs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdprss;
+	std::map<Sbecore::ubigint, JobWzsk*> crdusrs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdusgs;
 	CrdWzskNav* crdnav;
-	std::list<CrdWzskScf*> crdscfs;
-	std::list<CrdWzskPrs*> crdprss;
-	std::list<CrdWzskUsr*> crdusrs;
-	std::list<CrdWzskUsg*> crdusgs;
 
 	std::map<Sbecore::ubigint,Sbecore::uint> usgaccs;
 
@@ -117,6 +117,8 @@ public:
 public:
 	void warnTerm(DbsWzsk* dbswzsk);
 	void term(DbsWzsk* dbswzsk);
+
+	void eraseCrd(std::map<Sbecore::ubigint, JobWzsk*>& subjobs);
 
 	Sbecore::uint checkCrdActive(const Sbecore::uint ixWzskVCard);
 	Sbecore::uint evalCrdshtActive();
@@ -169,11 +171,11 @@ public:
 
 private:
 	bool handleCallWzskRefPreSet(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv);
-	bool handleCallWzskCrdClose(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv);
-	bool handleCallWzskCrdActive(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, Sbecore::uint& ixRet);
 	bool handleCallWzskRecaccess(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, Sbecore::uint& ixRet);
 	bool handleCallWzskLog(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv, const int intvalInv);
+	bool handleCallWzskCrdClose(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv);
 	bool handleCallWzskCrdOpen(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv, const int intvalInv, Sbecore::ubigint& refRet);
+	bool handleCallWzskCrdActive(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, Sbecore::uint& ixRet);
 
 };
 

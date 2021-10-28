@@ -1097,12 +1097,12 @@ set<uint> StgWzskFramegeo::diff(
  ******************************************************************************/
 
 StgWzskGlobal::StgWzskGlobal(
-			const bool fpgaNotV4l2gpio
+			const uint ixWzskVTarget
 		) :
 			Block()
 		{
-	this->fpgaNotV4l2gpio = fpgaNotV4l2gpio;
-	mask = {FPGANOTV4L2GPIO};
+	this->ixWzskVTarget = ixWzskVTarget;
+	mask = {IXWZSKVTARGET};
 };
 
 bool StgWzskGlobal::readXML(
@@ -1111,6 +1111,8 @@ bool StgWzskGlobal::readXML(
 			, bool addbasetag
 		) {
 	clear();
+
+	string srefIxWzskVTarget;
 
 	bool basefound;
 
@@ -1122,7 +1124,10 @@ bool StgWzskGlobal::readXML(
 	string itemtag = "StgitemWzskGlobal";
 
 	if (basefound) {
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "fpgaNotV4l2gpio", fpgaNotV4l2gpio)) add(FPGANOTV4L2GPIO);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "srefIxWzskVTarget", srefIxWzskVTarget)) {
+			ixWzskVTarget = VecWzskVTarget::getIx(srefIxWzskVTarget);
+			add(IXWZSKVTARGET);
+		};
 	};
 
 	return basefound;
@@ -1140,7 +1145,7 @@ void StgWzskGlobal::writeXML(
 	else itemtag = "StgitemWzskGlobal";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeBoolAttr(wr, itemtag, "sref", "fpgaNotV4l2gpio", fpgaNotV4l2gpio);
+		writeStringAttr(wr, itemtag, "sref", "srefIxWzskVTarget", VecWzskVTarget::getSref(ixWzskVTarget));
 	xmlTextWriterEndElement(wr);
 };
 
@@ -1149,7 +1154,7 @@ set<uint> StgWzskGlobal::comm(
 		) {
 	set<uint> items;
 
-	if (fpgaNotV4l2gpio == comp->fpgaNotV4l2gpio) insert(items, FPGANOTV4L2GPIO);
+	if (ixWzskVTarget == comp->ixWzskVTarget) insert(items, IXWZSKVTARGET);
 
 	return(items);
 };
@@ -1162,7 +1167,7 @@ set<uint> StgWzskGlobal::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {FPGANOTV4L2GPIO};
+	diffitems = {IXWZSKVTARGET};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -1380,13 +1385,13 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrAbt(
 	continf.TxtCpt = StrMod::cap(continf.TxtCpt);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		continf.TxtMsg1 = "Whiznium StarterKit version v1.0.5 released on 11-3-2021";
+		continf.TxtMsg1 = "Whiznium StarterKit version v1.0.7 released on 25-10-2021";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "contributors: -";
 		continf.TxtMsg6 = "libraries: ezdevwskd 0.1.26 and png 1.6.36";
 		continf.TxtMsg8 = "Whiznium StarterKit is computer vision software which powers MPSI's tabletop 3D laser scanner that represents the primary on-boarding vehicle for Whiznium.";
 	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		continf.TxtMsg1 = "Whiznium StarterKit Version v1.0.5 ver\\u00f6ffentlicht am 11-3-2021";
+		continf.TxtMsg1 = "Whiznium StarterKit Version v1.0.7 ver\\u00f6ffentlicht am 25-10-2021";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "Mitwirkende: -";
 		continf.TxtMsg6 = "Programmbibliotheken: ezdevwskd 0.1.26 und png 1.6.36";
@@ -1697,6 +1702,31 @@ JobWzsk::~JobWzsk() {
 
 	mAccess.lock(VecWzskVJob::getSref(ixWzskVJob), "~" + VecWzskVJob::getSref(ixWzskVJob), "jref=" + to_string(jref));
 	mAccess.unlock(VecWzskVJob::getSref(ixWzskVJob), "~" + VecWzskVJob::getSref(ixWzskVJob), "jref=" + to_string(jref));
+};
+
+ubigint JobWzsk::insertSubjob(
+			map<ubigint, JobWzsk*>& subjobs
+			, JobWzsk* subjob
+		) {
+	subjobs[subjob->jref] = subjob;
+
+	return subjob->jref;
+};
+
+bool JobWzsk::eraseSubjobByJref(
+			map<ubigint, JobWzsk*>& subjobs
+			, const ubigint _jref
+		) {
+	auto it = subjobs.find(_jref);
+
+	if (it != subjobs.end()) {
+		delete it->second;
+		subjobs.erase(it);
+
+		return true;
+	};
+
+	return false;
 };
 
 DpchEngWzsk* JobWzsk::getNewDpchEng(
@@ -2070,8 +2100,8 @@ void StmgrWzsk::handleCall(
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOBJUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOBJSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOGRUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRHSREF);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRSTD);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRHSREF);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKPRSUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKPRSSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSESUPD_REFEQ) {
@@ -2297,8 +2327,12 @@ XchgWzskcmbd::XchgWzskcmbd() :
 	csjobinfos[VecWzskVJob::JOBWZSKIPRANGLE] = new Csjobinfo(VecWzskVJob::JOBWZSKIPRANGLE);
 	csjobinfos[VecWzskVJob::JOBWZSKIPRCORNER] = new Csjobinfo(VecWzskVJob::JOBWZSKIPRCORNER);
 	csjobinfos[VecWzskVJob::JOBWZSKIPRTRACE] = new Csjobinfo(VecWzskVJob::JOBWZSKIPRTRACE);
-	csjobinfos[VecWzskVJob::JOBWZSKSRCFPGA] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCFPGA);
+	csjobinfos[VecWzskVJob::JOBWZSKSRCARTY] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCARTY);
+	csjobinfos[VecWzskVJob::JOBWZSKSRCCLNXEVB] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCCLNXEVB);
+	csjobinfos[VecWzskVJob::JOBWZSKSRCICICLE] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCICICLE);
+	csjobinfos[VecWzskVJob::JOBWZSKSRCMCVEVP] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCMCVEVP);
 	csjobinfos[VecWzskVJob::JOBWZSKSRCSYSINFO] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCSYSINFO);
+	csjobinfos[VecWzskVJob::JOBWZSKSRCUVBDVK] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCUVBDVK);
 	csjobinfos[VecWzskVJob::JOBWZSKSRCV4L2] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCV4L2);
 
 #if defined(SBECORE_DDS)
@@ -2340,7 +2374,7 @@ void XchgWzskcmbd::startMon() {
 	Clstn* clstn = NULL;
 	Preset* preset = NULL;
 
-	mon.start("Whiznium StarterKit v1.0.5", stgwzskpath.monpath);
+	mon.start("Whiznium StarterKit v1.0.7", stgwzskpath.monpath);
 
 	rwmJobs.rlock("XchgWzskcmbd", "startMon");
 	for (auto it = jobs.begin(); it != jobs.end(); it++) {

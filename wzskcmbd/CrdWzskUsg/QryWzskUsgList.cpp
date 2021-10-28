@@ -336,27 +336,13 @@ void QryWzskUsgList::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKUSGUPD_REFEQ) {
-		call->abort = handleCallWzskUsgUpd_refEq(dbswzsk, call->jref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSGMOD) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKUSGMOD) {
 		call->abort = handleCallWzskUsgMod(dbswzsk, call->jref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSGUPD_REFEQ) {
+		call->abort = handleCallWzskUsgUpd_refEq(dbswzsk, call->jref);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSTUBCHG) && (call->jref == jref)) {
 		call->abort = handleCallWzskStubChgFromSelf(dbswzsk);
 	};
-};
-
-bool QryWzskUsgList::handleCallWzskUsgUpd_refEq(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-
-	if (ixWzskVQrystate != VecWzskVQrystate::OOD) {
-		ixWzskVQrystate = VecWzskVQrystate::OOD;
-		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
-	};
-
-	return retval;
 };
 
 bool QryWzskUsgList::handleCallWzskUsgMod(
@@ -367,6 +353,20 @@ bool QryWzskUsgList::handleCallWzskUsgMod(
 
 	if ((ixWzskVQrystate == VecWzskVQrystate::UTD) || (ixWzskVQrystate == VecWzskVQrystate::SLM)) {
 		ixWzskVQrystate = VecWzskVQrystate::MNR;
+		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
+	};
+
+	return retval;
+};
+
+bool QryWzskUsgList::handleCallWzskUsgUpd_refEq(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+
+	if (ixWzskVQrystate != VecWzskVQrystate::OOD) {
+		ixWzskVQrystate = VecWzskVQrystate::OOD;
 		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
 	};
 
