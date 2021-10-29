@@ -161,7 +161,7 @@ void PnlWzskLiv2DView::takeSnapshot(
 
 	string Filename;
 
-	Wzsk::getPvwWh(ixWzskVPvwmode, w, h);
+	Wzsk::getPvwWh(xchg->stgwzskglobal.ixWzskVTarget, ixWzskVPvwmode, w, h);
 
 	pngbuf = new unsigned char[4 * w * h];
 	memset(pngbuf, 0, 4 * w * h);

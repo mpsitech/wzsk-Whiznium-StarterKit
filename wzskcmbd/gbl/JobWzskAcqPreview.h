@@ -80,7 +80,7 @@ public:
 		class ResultitemGray : public Sbecore::Resultitem {
 
 		public:
-			ResultitemGray();
+			ResultitemGray(const Sbecore::uint ixWzskVTarget);
 			~ResultitemGray();
 
 		public:
@@ -98,7 +98,7 @@ public:
 		class ResultitemRgb : public Sbecore::Resultitem {
 
 		public:
-			ResultitemRgb();
+			ResultitemRgb(const Sbecore::uint ixWzskVTarget);
 			~ResultitemRgb();
 
 		public:

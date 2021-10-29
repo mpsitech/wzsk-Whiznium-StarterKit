@@ -46,14 +46,15 @@ JobWzskAcqFpgapvw::Shrdat::ResultitemPvw::~ResultitemPvw() {
 };
 
 void JobWzskAcqFpgapvw::Shrdat::ResultitemPvw::setPvwmode(
-			const uint ixWzskVPvwmode
+			const uint ixWzskVTarget
+			, const uint ixWzskVPvwmode
 		) {
 	unsigned int w, h;
 	size_t sizeBuf_new;
 
 	this->ixWzskVPvwmode = ixWzskVPvwmode;
 
-	Wzsk::getPvwWh(ixWzskVPvwmode, w, h);
+	Wzsk::getPvwWh(ixWzskVTarget, ixWzskVPvwmode, w, h);
 	sizeBuf_new = w * h;
 	if (!Wzsk::getPvwGrayNotRgb(ixWzskVPvwmode)) sizeBuf_new *= 3;
 
@@ -165,7 +166,7 @@ void* JobWzskAcqFpgapvw::runPvw(
 	unsigned int w, h;
 	size_t sizeBuf;
 
-	Wzsk::getPvwWh(VecWzskVPvwmode::BINRGB, w, h); // the larger of both possible buffer sizes
+	Wzsk::getPvwWh(srv->xchg->stgwzskglobal.ixWzskVTarget, VecWzskVPvwmode::BINRGB, w, h); // the larger of both possible buffer sizes
 	sizeBuf = 3 * w * h;
 
 	unsigned char* auxbuf = new unsigned char[sizeBuf + 2]; // used if no external buffer is assigned
@@ -211,7 +212,7 @@ void* JobWzskAcqFpgapvw::runPvw(
 
 				ixWzskVPvwmode = shrdat.ixWzskVPvwmode;
 
-				Wzsk::getPvwWh(ixWzskVPvwmode, w, h);
+				Wzsk::getPvwWh(srv->xchg->stgwzskglobal.ixWzskVTarget, ixWzskVPvwmode, w, h);
 				sizeBuf = w * h;
 				if (!Wzsk::getPvwGrayNotRgb(shrdat.ixWzskVPvwmode)) sizeBuf *= 3;
 
@@ -233,7 +234,7 @@ void* JobWzskAcqFpgapvw::runPvw(
 				if (shrdat.resultPvw.dequeue(ixRi)) ri = (Shrdat::ResultitemPvw*) shrdat.resultPvw[ixRi];
 
 				if (ri) {
-					ri->setPvwmode(ixWzskVPvwmode);
+					ri->setPvwmode(srv->xchg->stgwzskglobal.ixWzskVTarget, ixWzskVPvwmode);
 
 					if (srv->srcarty) ri->t = srv->srcarty->tkstToT(tkst);
 					else if (srv->srcicicle) ri->t = srv->srcicicle->tkstToT(tkst);

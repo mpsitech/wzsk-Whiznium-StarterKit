@@ -105,7 +105,7 @@ namespace Wzsk {
 
 	void bitmapToXy(unsigned char* src, const bool src16Not8, const unsigned int width, const unsigned int height, std::vector<int>& xs, std::vector<int>& ys, const unsigned int cntPerRowMax, const bool roi, const std::vector<int>& xsRoi, const std::vector<int>& ysRoi, const bool rot180, const bool append);
 
-	void getPvwWh(const Sbecore::uint ixWzskVPvwmode, unsigned int& w, unsigned int& h);
+	void getPvwWh(const Sbecore::uint ixWzskVTarget, const Sbecore::uint ixWzskVPvwmode, unsigned int& w, unsigned int& h);
 	bool getPvwRawNotBin(const Sbecore::uint ixWzskVPvwmode);
 	bool getPvwGrayNotRgb(const Sbecore::uint ixWzskVPvwmode);
 	uint getIxWzskVPvwmode(const bool rawNotBin, const bool grayNotRgb);

@@ -30,12 +30,14 @@ using namespace Xmlio;
  class JobWzskAcqPreview::Shrdat::ResultitemGray
  ******************************************************************************/
 
-JobWzskAcqPreview::Shrdat::ResultitemGray::ResultitemGray() :
+JobWzskAcqPreview::Shrdat::ResultitemGray::ResultitemGray(
+			const uint ixWzskVTarget
+		) :
 			Resultitem()
 		{
 	unsigned int w, h;
 
-	Wzsk::getPvwWh(VecWzskVPvwmode::BINGRAY, w, h);
+	Wzsk::getPvwWh(ixWzskVTarget, VecWzskVPvwmode::BINGRAY, w, h);
 	sizeBuf = w * h;
 
 	gr8 = new uint8_t[sizeBuf];
@@ -55,12 +57,14 @@ JobWzskAcqPreview::Shrdat::ResultitemGray::~ResultitemGray() {
  class JobWzskAcqPreview::Shrdat::ResultitemRgb
  ******************************************************************************/
 
-JobWzskAcqPreview::Shrdat::ResultitemRgb::ResultitemRgb() :
+JobWzskAcqPreview::Shrdat::ResultitemRgb::ResultitemRgb(
+			const uint ixWzskVTarget
+		) :
 			Resultitem()
 		{
 	unsigned int w, h;
 
-	Wzsk::getPvwWh(VecWzskVPvwmode::BINRGB, w, h);
+	Wzsk::getPvwWh(ixWzskVTarget, VecWzskVPvwmode::BINRGB, w, h);
 	sizeBuf = w * h;
 
 	r8 = new uint8_t[sizeBuf];
@@ -100,12 +104,12 @@ void JobWzskAcqPreview::Shrdat::init(
 			, DbsWzsk* dbswzsk
 		) {
 	// IP Shrdat.init --- IBEGIN
-	for (unsigned int i = 0; i < 2; i++) resultBingray.append(new ResultitemGray());
-	for (unsigned int i = 0; i < 2; i++) resultBinreddom.append(new ResultitemGray());
-	for (unsigned int i = 0; i < 2; i++) resultBinrgb.append(new ResultitemRgb());
+	for (unsigned int i = 0; i < 2; i++) resultBingray.append(new ResultitemGray(xchg->stgwzskglobal.ixWzskVTarget));
+	for (unsigned int i = 0; i < 2; i++) resultBinreddom.append(new ResultitemGray(xchg->stgwzskglobal.ixWzskVTarget));
+	for (unsigned int i = 0; i < 2; i++) resultBinrgb.append(new ResultitemRgb(xchg->stgwzskglobal.ixWzskVTarget));
 
-	for (unsigned int i = 0; i < 2; i++) resultRawgray.append(new ResultitemGray());
-	for (unsigned int i = 0; i < 2; i++) resultRawrgb.append(new ResultitemRgb());
+	for (unsigned int i = 0; i < 2; i++) resultRawgray.append(new ResultitemGray(xchg->stgwzskglobal.ixWzskVTarget));
+	for (unsigned int i = 0; i < 2; i++) resultRawrgb.append(new ResultitemRgb(xchg->stgwzskglobal.ixWzskVTarget));
 	// IP Shrdat.init --- IEND
 };
 
@@ -185,6 +189,7 @@ void JobWzskAcqPreview::binGrrd(
 			, uint16_t* pvwgrrd16
 		) {
 #ifdef __arm__
+	// hard-wired to 4x4 super-pixels
 	const uint64_t zero64 = 0;
 
 	uint16x8_t data;
@@ -224,6 +229,28 @@ void JobWzskAcqPreview::binGrrd(
 		};
 	};
 #elif __x86_64__
+	// hard-wired to 2x2 super-pixels
+	unsigned int ldix, stix;
+
+	uint32_t acc;
+
+	for (unsigned int i = 0; i < xchg->stgwzskframegeo.hGrrd; i += 2) {
+		for (unsigned int j = 0; j < xchg->stgwzskframegeo.wGrrd; j += 2) {
+			ldix = i * xchg->stgwzskframegeo.wGrrd + j;
+
+			acc = 0;
+
+			for (unsigned int k = 0; k < 2; k++) {
+				for (unsigned int l = 0; l < 2; l++) acc += grrd16[ldix+l];
+
+				ldix += xchg->stgwzskframegeo.wGrrd;
+			};
+
+			stix = i/2 * xchg->stgwzskframegeo.wGrrd/2 + j/2;
+
+			pvwgrrd16[stix] = acc >> 2;
+		};
+	};
 #endif
 };
 
@@ -245,6 +272,7 @@ void JobWzskAcqPreview::binRgb_component(
 			, uint16_t* dest
 		) {
 #ifdef __arm__
+	// hard-wired to 8x8 super-pixels
 	const uint64_t zero64 = 0;
 
 	uint16x8_t data;
@@ -279,6 +307,28 @@ void JobWzskAcqPreview::binRgb_component(
 		};
 	};
 #elif __x86_64__
+	// hard-wired to 2x2 super-pixels
+	unsigned int ldix, stix;
+
+	uint32_t acc;
+
+	for (unsigned int i = 0; i < xchg->stgwzskframegeo.hRgb; i += 2) {
+		for (unsigned int j = 0; j < xchg->stgwzskframegeo.wRgb; j += 2) {
+			ldix = i * xchg->stgwzskframegeo.wRgb + j;
+
+			acc = 0;
+
+			for (unsigned int k = 0; k < 2; k++) {
+				for (unsigned int l = 0; l < 2; l++) acc += src[ldix+l];
+
+				ldix += xchg->stgwzskframegeo.wRgb;
+			};
+
+			stix = i/2 * xchg->stgwzskframegeo.wRgb/2 + j/2;
+
+			dest[stix] = acc >> 2;
+		};
+	};
 #endif
 };
 
@@ -286,6 +336,8 @@ void JobWzskAcqPreview::rawGr(
 			uint16_t* grrd16
 			, uint16_t* pvwgrrd16
 		) {
+#ifdef __arm__
+	// hard-wired to /4 reduction
 	const unsigned int x0 = (xchg->stgwzskframegeo.wGrrd - xchg->stgwzskframegeo.wGrrd/4) / 2;
 	const unsigned int y0 = (xchg->stgwzskframegeo.hGrrd - xchg->stgwzskframegeo.hGrrd/4) / 2;
 
@@ -297,6 +349,20 @@ void JobWzskAcqPreview::rawGr(
 
 		memcpy(&(pvwgrrd16[stix]), &(grrd16[ldix]), 2 * xchg->stgwzskframegeo.wGrrd/4);
 	};
+#elif __x86_64__
+	// hard-wired to /2 reduction
+	const unsigned int x0 = (xchg->stgwzskframegeo.wGrrd - xchg->stgwzskframegeo.wGrrd/2) / 2;
+	const unsigned int y0 = (xchg->stgwzskframegeo.hGrrd - xchg->stgwzskframegeo.hGrrd/2) / 2;
+
+	unsigned int ldix, stix;
+
+	for (unsigned int i = 0; i < xchg->stgwzskframegeo.hGrrd/2; i++) {
+		ldix = (y0 + i) * xchg->stgwzskframegeo.wGrrd + x0;
+		stix = i * xchg->stgwzskframegeo.wGrrd/2;
+
+		memcpy(&(pvwgrrd16[stix]), &(grrd16[ldix]), 2 * xchg->stgwzskframegeo.wGrrd/2);
+	};
+#endif
 };
 
 void JobWzskAcqPreview::rawRgb(
@@ -307,6 +373,8 @@ void JobWzskAcqPreview::rawRgb(
 			, uint16_t* pvwg16
 			, uint16_t* pvwb16
 		) {
+#ifdef __arm__
+	// hard-wired to /8 reduction
 	const unsigned int x0 = (xchg->stgwzskframegeo.wRgb - xchg->stgwzskframegeo.wRgb/8) / 2;
 	const unsigned int y0 = (xchg->stgwzskframegeo.hRgb - xchg->stgwzskframegeo.hRgb/8) / 2;
 
@@ -320,6 +388,22 @@ void JobWzskAcqPreview::rawRgb(
 		memcpy(&(pvwg16[stix]), &(g16[ldix]), 2 * xchg->stgwzskframegeo.wRgb/8);
 		memcpy(&(pvwb16[stix]), &(b16[ldix]), 2 * xchg->stgwzskframegeo.wRgb/8);
 	};
+#elif __x86_64__
+	// hard-wired to /2 reduction
+	const unsigned int x0 = (xchg->stgwzskframegeo.wRgb - xchg->stgwzskframegeo.wRgb/2) / 2;
+	const unsigned int y0 = (xchg->stgwzskframegeo.hRgb - xchg->stgwzskframegeo.hRgb/2) / 2;
+
+	unsigned int ldix, stix;
+
+	for (unsigned int i = 0; i < xchg->stgwzskframegeo.hRgb/2; i++) {
+		ldix = (y0 + i) * xchg->stgwzskframegeo.wRgb + x0;
+		stix = i * xchg->stgwzskframegeo.wRgb/2;
+
+		memcpy(&(pvwr16[stix]), &(r16[ldix]), 2 * xchg->stgwzskframegeo.wRgb/2);
+		memcpy(&(pvwg16[stix]), &(g16[ldix]), 2 * xchg->stgwzskframegeo.wRgb/2);
+		memcpy(&(pvwb16[stix]), &(b16[ldix]), 2 * xchg->stgwzskframegeo.wRgb/2);
+	};
+#endif
 };
 
 void JobWzskAcqPreview::uint16ToUint8(
@@ -327,7 +411,7 @@ void JobWzskAcqPreview::uint16ToUint8(
 			, uint8_t* out8
 			, size_t sizeBuf
 		) {
-	// not using NEON extensions for now
+	// not using SIMD instructions for now
 	for (unsigned int i = 0; i < sizeBuf; i++) out8[i] = in16[i];
 };
 // IP cust --- IEND
@@ -648,7 +732,7 @@ uint JobWzskAcqPreview::enterSgeProcess(
 
 			riGray->tIn = riSrcv4l2->t;
 
-			rawGr(riSrcv4l2->rd16, riGray->gr16);
+			rawGr(riSrcv4l2->gr16, riGray->gr16);
 			uint16ToUint8(riGray->gr16, riGray->gr8, riGray->sizeBuf);
 
 			riGray->tOut = Wzsk::getNow();

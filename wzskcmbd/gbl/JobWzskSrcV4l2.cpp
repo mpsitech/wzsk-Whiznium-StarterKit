@@ -1250,13 +1250,13 @@ void JobWzskSrcV4l2::convertYUV422toRGBGrrdInt8(
 			else rd = 0;
 
 			// - Grrd
-			if (i < y0Grrd) continue;
-			if (i >= y0Grrd + 2 * hGrrd) continue;
+			if (i < 2 * y0Grrd) continue;
+			if (i >= 2 * (y0Grrd + hGrrd)) continue;
 
-			if (j < x0Grrd) continue;
-			if (j >= x0Grrd + 2 * wGrrd) continue;
+			if (j < 4 * x0Rgb) continue;
+			if (j >= 4 * (x0Rgb + wGrrd)) continue;
 
-			stix = ((i - y0Grrd) / 2) * wGrrd + (j - x0Grrd) / 2; // Grrd store index
+			stix = (i/2 - y0Grrd) * wGrrd + (j/4 - x0Grrd); // Grrd store index
 
 			// gray
 			gr8[stix] = y;
@@ -1363,13 +1363,13 @@ void JobWzskSrcV4l2::convertYUV422toRGBGrrdInt16(
 			b16[stix] = b;
 
 			// - Grrd
-			if (i < y0Grrd) continue;
-			if (i >= y0Grrd + 2 * hGrrd) continue;
+			if (i < 2 * y0Grrd) continue;
+			if (i >= 2 * (y0Grrd + hGrrd)) continue;
 
-			if (j < x0Grrd) continue;
-			if (j >= x0Grrd + 2 * wGrrd) continue;
+			if (j < 4 * x0Rgb) continue;
+			if (j >= 4 * (x0Rgb + wGrrd)) continue;
 
-			stix = ((i - y0Grrd) / 2) * wGrrd + (j - x0Grrd) / 2; // Grrd store index
+			stix = (i/2 - y0Grrd) * wGrrd + (j/4 - x0Grrd); // Grrd store index
 
 			// gray
 			gr16[stix] = y;

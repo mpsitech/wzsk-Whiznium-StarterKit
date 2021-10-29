@@ -501,16 +501,27 @@ string Wzsk::getCmdsref(
 };
 
 void Wzsk::getPvwWh(
-			const uint ixWzskVPvwmode
+			const uint ixWzskVTarget
+			, const uint ixWzskVPvwmode
 			, unsigned int& w
 			, unsigned int& h
 		) {
 	if ((ixWzskVPvwmode == VecWzskVPvwmode::BINGRAY) || (ixWzskVPvwmode == VecWzskVPvwmode::RAWGRAY)) {
-		w = 256;
-		h = 192;
+		if (ixWzskVTarget == VecWzskVTarget::WS) {
+			w = 400;
+			h = 300;
+		} else {
+			w = 256;
+			h = 192;
+		};
 	} else if ((ixWzskVPvwmode == VecWzskVPvwmode::BINRGB) || (ixWzskVPvwmode == VecWzskVPvwmode::RAWRGB)) {
-		w = 160;
-		h = 120;
+		if (ixWzskVTarget == VecWzskVTarget::WS) {
+			w = 400;
+			h = 300;
+		} else {
+			w = 160;
+			h = 120;
+		};
 	} else {
 		w = 0;
 		h = 0;

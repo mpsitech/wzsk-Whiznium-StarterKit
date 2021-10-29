@@ -70,7 +70,7 @@ public:
 			double t;
 
 		public:
-			void setPvwmode(const Sbecore::uint ixWzskVPvwmode);
+			void setPvwmode(const Sbecore::uint ixWzskVTarget, const Sbecore::uint ixWzskVPvwmode);
 		};
 		// IP Shrdat.subs --- IEND
 
