@@ -14,10 +14,10 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskUsr1NSession.h"
 #include "PnlWzskUsrMNUsergroup.h"
-#include "PnlWzskUsrDetail.h"
+#include "PnlWzskUsr1NSession.h"
 #include "PnlWzskUsrAAccess.h"
+#include "PnlWzskUsrDetail.h"
 
 #define VecVWzskUsrRecDo PnlWzskUsrRec::VecVDo
 
@@ -180,10 +180,10 @@ public:
 	ContInf continf;
 	StatShr statshr;
 
-	PnlWzskUsr1NSession* pnl1nsession;
 	PnlWzskUsrMNUsergroup* pnlmnusergroup;
-	PnlWzskUsrDetail* pnldetail;
+	PnlWzskUsr1NSession* pnl1nsession;
 	PnlWzskUsrAAccess* pnlaaccess;
+	PnlWzskUsrDetail* pnldetail;
 
 	WzskMUser recUsr;
 
@@ -218,8 +218,8 @@ public:
 
 private:
 	bool handleCallWzskUsrUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
-	bool handleCallWzskUsr_usgEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
 	bool handleCallWzskUsr_prsEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
+	bool handleCallWzskUsr_usgEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
 
 };
 

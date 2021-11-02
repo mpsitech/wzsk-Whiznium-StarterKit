@@ -206,8 +206,8 @@ JobWzskActLaser::JobWzskActLaser(
 	srcuvbdvk = NULL;
 	srcmcvevp = NULL;
 	srcicicle = NULL;
-	srcarty = NULL;
 	srcclnxevb = NULL;
+	srcarty = NULL;
 
 	// IP constructor.cust1 --- INSERT
 

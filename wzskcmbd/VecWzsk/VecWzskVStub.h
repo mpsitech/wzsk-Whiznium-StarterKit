@@ -16,17 +16,17 @@
 	* VecWzskVStub
 	*/
 namespace VecWzskVStub {
-	const Sbecore::uint STUBWZSKOWNER = 1;
-	const Sbecore::uint STUBWZSKUSRSTD = 2;
-	const Sbecore::uint STUBWZSKOBJSTD = 3;
-	const Sbecore::uint STUBWZSKOGRHSREF = 4;
-	const Sbecore::uint STUBWZSKOGRSTD = 5;
-	const Sbecore::uint STUBWZSKSHTSTD = 6;
-	const Sbecore::uint STUBWZSKGROUP = 7;
-	const Sbecore::uint STUBWZSKUSGSTD = 8;
-	const Sbecore::uint STUBWZSKSESMENU = 9;
-	const Sbecore::uint STUBWZSKSESSTD = 10;
-	const Sbecore::uint STUBWZSKPRSSTD = 11;
+	const Sbecore::uint STUBWZSKOGRHSREF = 1;
+	const Sbecore::uint STUBWZSKOGRSTD = 2;
+	const Sbecore::uint STUBWZSKSHTSTD = 3;
+	const Sbecore::uint STUBWZSKOBJSTD = 4;
+	const Sbecore::uint STUBWZSKGROUP = 5;
+	const Sbecore::uint STUBWZSKUSGSTD = 6;
+	const Sbecore::uint STUBWZSKOWNER = 7;
+	const Sbecore::uint STUBWZSKUSRSTD = 8;
+	const Sbecore::uint STUBWZSKPRSSTD = 9;
+	const Sbecore::uint STUBWZSKSESMENU = 10;
+	const Sbecore::uint STUBWZSKSESSTD = 11;
 	const Sbecore::uint STUBWZSKFILSTD = 12;
 
 	Sbecore::uint getIx(const std::string& sref);

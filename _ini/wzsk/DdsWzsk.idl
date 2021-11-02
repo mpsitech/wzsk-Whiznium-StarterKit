@@ -3,7 +3,7 @@
 	* Wzsk DDS publisher interface description for RTI Code Generator
 	* \copyright (C) 2018-2020 MPSI Technologies GmbH
 	* \author Alexander Wirthmueller (auto-generation)
-	* \date created: 25 Oct 2021
+	* \date created: 2 Nov 2021
   */
 // IP header --- ABOVE
 
@@ -30,61 +30,6 @@ struct DdsDoublemat {
 
 typedef string<65536> stringvec;
 typedef string<50> vecsref;
-
-module DdsJobWzskIprCorner {
-	struct setNTarget_req {
-		usmallint NTarget;
-	};
-
-	struct setNTarget_reply {
-		boolean success;
-	};
-
-	struct setRoi_req {
-		int roiAx;
-		int roiAy;
-		int roiBx;
-		int roiBy;
-		int roiCx;
-		int roiCy;
-		int roiDx;
-		int roiDy;
-	};
-
-	struct setRoi_reply {
-		boolean success;
-	};
-
-	struct setRoiNotFull_req {
-		boolean roiNotFull;
-	};
-
-	struct setRoiNotFull_reply {
-		boolean success;
-	};
-
-	struct NTarget {
-		usmallint _NTarget;
-	};
-
-	struct roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy {
-		int roiAx;
-		int roiAy;
-		int roiBx;
-		int roiBy;
-		int roiCx;
-		int roiCy;
-		int roiDx;
-		int roiDy;
-	};
-
-	struct flgShiftScoreMinScoreMax {
-		sequence<boolean, 786432> flg;
-		utinyint shift;
-		utinyint scoreMin;
-		utinyint scoreMax;
-	};
-};
 
 module DdsJobWzskSrcSysinfo {
 	struct currCh0VoltCh0 {
@@ -180,6 +125,61 @@ module DdsJobWzskIprTrace {
 	};
 };
 
+module DdsJobWzskIprCorner {
+	struct setNTarget_req {
+		usmallint NTarget;
+	};
+
+	struct setNTarget_reply {
+		boolean success;
+	};
+
+	struct setRoi_req {
+		int roiAx;
+		int roiAy;
+		int roiBx;
+		int roiBy;
+		int roiCx;
+		int roiCy;
+		int roiDx;
+		int roiDy;
+	};
+
+	struct setRoi_reply {
+		boolean success;
+	};
+
+	struct setRoiNotFull_req {
+		boolean roiNotFull;
+	};
+
+	struct setRoiNotFull_reply {
+		boolean success;
+	};
+
+	struct NTarget {
+		usmallint _NTarget;
+	};
+
+	struct roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy {
+		int roiAx;
+		int roiAy;
+		int roiBx;
+		int roiBy;
+		int roiCx;
+		int roiCy;
+		int roiDx;
+		int roiDy;
+	};
+
+	struct flgShiftScoreMinScoreMax {
+		sequence<boolean, 786432> flg;
+		utinyint shift;
+		utinyint scoreMin;
+		utinyint scoreMax;
+	};
+};
+
 module DdsJobWzskActServo {
 	struct moveto_req {
 		float target;
@@ -270,18 +270,6 @@ module DdsJobWzskActExposure {
 	};
 };
 
-module DdsJobWzskAcqPreview {
-	struct gray {
-		sequence<octet, 49152> _gray;
-	};
-
-	struct redGreenBlue {
-		sequence<octet, 19200> red;
-		sequence<octet, 19200> green;
-		sequence<octet, 19200> blue;
-	};
-};
-
 module DdsJobWzskAcqPtcloud {
 	struct setDeltaTheta_req {
 		float deltaTheta;
@@ -311,5 +299,17 @@ module DdsJobWzskAcqPtcloud {
 		sequence<float, 72000> x;
 		sequence<float, 72000> y;
 		sequence<float, 72000> z;
+	};
+};
+
+module DdsJobWzskAcqPreview {
+	struct gray {
+		sequence<octet, 49152> _gray;
+	};
+
+	struct redGreenBlue {
+		sequence<octet, 19200> red;
+		sequence<octet, 19200> green;
+		sequence<octet, 19200> blue;
 	};
 };

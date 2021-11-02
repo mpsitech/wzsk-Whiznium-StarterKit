@@ -14,9 +14,9 @@
 
 // IP include.cust --- INSERT
 
+#include "PnlWzskObjHeadbar.h"
 #include "PnlWzskObjList.h"
 #include "PnlWzskObjRec.h"
-#include "PnlWzskObjHeadbar.h"
 #include "DlgWzskObjNew.h"
 
 #define VecVWzskObjDo CrdWzskObj::VecVDo
@@ -207,9 +207,9 @@ public:
 	Sbecore::Feed feedFMcbAlert;
 	Sbecore::Feed feedFSge;
 
+	PnlWzskObjHeadbar* pnlheadbar;
 	PnlWzskObjList* pnllist;
 	PnlWzskObjRec* pnlrec;
-	PnlWzskObjHeadbar* pnlheadbar;
 	DlgWzskObjNew* dlgnew;
 
 	// IP vars.cust --- INSERT

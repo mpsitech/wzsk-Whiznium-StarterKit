@@ -21,8 +21,8 @@
 #include "JobWzskSrcUvbdvk.h"
 #include "JobWzskSrcMcvevp.h"
 #include "JobWzskSrcIcicle.h"
-#include "JobWzskSrcArty.h"
 #include "JobWzskSrcClnxevb.h"
+#include "JobWzskSrcArty.h"
 
 #define VecVJobWzskActLaserMethod JobWzskActLaser::VecVMethod
 #define VecVJobWzskActLaserVar JobWzskActLaser::VecVVar
@@ -147,8 +147,8 @@ public:
 	JobWzskSrcUvbdvk* srcuvbdvk;
 	JobWzskSrcMcvevp* srcmcvevp;
 	JobWzskSrcIcicle* srcicicle;
-	JobWzskSrcArty* srcarty;
 	JobWzskSrcClnxevb* srcclnxevb;
+	JobWzskSrcArty* srcarty;
 
 	// IP vars.spec --- INSERT
 

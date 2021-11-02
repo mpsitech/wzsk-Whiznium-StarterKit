@@ -16,8 +16,8 @@
 
 #include "JobWzskSrcMcvevp.h"
 #include "JobWzskSrcIcicle.h"
-#include "JobWzskSrcArty.h"
 #include "JobWzskSrcClnxevb.h"
+#include "JobWzskSrcArty.h"
 
 #define VecVJobWzskAcqFpgaflgSge JobWzskAcqFpgaflg::VecVSge
 
@@ -119,8 +119,8 @@ public:
 
 	JobWzskSrcMcvevp* srcmcvevp;
 	JobWzskSrcIcicle* srcicicle;
-	JobWzskSrcArty* srcarty;
 	JobWzskSrcClnxevb* srcclnxevb;
+	JobWzskSrcArty* srcarty;
 
 	// IP vars.spec --- INSERT
 

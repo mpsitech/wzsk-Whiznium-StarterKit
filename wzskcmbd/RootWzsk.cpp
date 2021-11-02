@@ -43,17 +43,17 @@ RootWzsk::RootWzsk(
 	srcuvbdvk = NULL;
 	srcsysinfo = NULL;
 	srcmcvevp = NULL;
-	srcarty = NULL;
 	srcicicle = NULL;
 	srcclnxevb = NULL;
+	srcarty = NULL;
 	iprtrace = NULL;
 	iprcorner = NULL;
 	iprangle = NULL;
 	actservo = NULL;
 	actlaser = NULL;
-	acqpreview = NULL;
 	actexposure = NULL;
 	acqptcloud = NULL;
+	acqpreview = NULL;
 	acqfpgapvw = NULL;
 	acqfpgaflg = NULL;
 
@@ -69,17 +69,17 @@ RootWzsk::RootWzsk(
 	srcuvbdvk = new JobWzskSrcUvbdvk(xchg, dbswzsk, jref, ixWzskVLocale);
 	srcsysinfo = new JobWzskSrcSysinfo(xchg, dbswzsk, jref, ixWzskVLocale);
 	srcmcvevp = new JobWzskSrcMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
-	srcarty = new JobWzskSrcArty(xchg, dbswzsk, jref, ixWzskVLocale);
 	srcicicle = new JobWzskSrcIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
 	srcclnxevb = new JobWzskSrcClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
+	srcarty = new JobWzskSrcArty(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprcorner = new JobWzskIprCorner(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprangle = new JobWzskIprAngle(xchg, dbswzsk, jref, ixWzskVLocale);
 	actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
 	actlaser = new JobWzskActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
-	acqpreview = new JobWzskAcqPreview(xchg, dbswzsk, jref, ixWzskVLocale);
 	actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqptcloud = new JobWzskAcqPtcloud(xchg, dbswzsk, jref, ixWzskVLocale);
+	acqpreview = new JobWzskAcqPreview(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqfpgapvw = new JobWzskAcqFpgapvw(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqfpgaflg = new JobWzskAcqFpgaflg(xchg, dbswzsk, jref, ixWzskVLocale);
 
@@ -87,8 +87,8 @@ RootWzsk::RootWzsk(
 
 	// IP constructor.spec2 --- INSERT
 
-	xchg->addClstn(VecWzskVCall::CALLWZSKREFPRESET, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSUSPSESS, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKREFPRESET, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKLOGOUT, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
@@ -470,13 +470,25 @@ void RootWzsk::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKREFPRESET) {
-		call->abort = handleCallWzskRefPreSet(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSUSPSESS) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKSUSPSESS) {
 		call->abort = handleCallWzskSuspsess(dbswzsk, call->jref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKREFPRESET) {
+		call->abort = handleCallWzskRefPreSet(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKLOGOUT) {
 		call->abort = handleCallWzskLogout(dbswzsk, call->jref, call->argInv.boolval);
 	};
+};
+
+bool RootWzsk::handleCallWzskSuspsess(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+
+	xchg->addBoolvalPreset(VecWzskVPreset::PREWZSKSUSPSESS, jrefTrig, true);
+	xchg->removeDcolsByJref(jrefTrig);
+
+	return retval;
 };
 
 bool RootWzsk::handleCallWzskRefPreSet(
@@ -490,18 +502,6 @@ bool RootWzsk::handleCallWzskRefPreSet(
 	if (ixInv == VecWzskVPreset::PREWZSKTLAST) {
 		xchg->addRefPreset(ixInv, jref, refInv);
 	};
-
-	return retval;
-};
-
-bool RootWzsk::handleCallWzskSuspsess(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-
-	xchg->addBoolvalPreset(VecWzskVPreset::PREWZSKSUSPSESS, jrefTrig, true);
-	xchg->removeDcolsByJref(jrefTrig);
 
 	return retval;
 };

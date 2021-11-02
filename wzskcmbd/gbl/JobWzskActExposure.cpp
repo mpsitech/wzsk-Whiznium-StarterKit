@@ -71,8 +71,8 @@ JobWzskActExposure::JobWzskActExposure(
 	srcv4l2 = NULL;
 	srcmcvevp = NULL;
 	srcicicle = NULL;
-	srcarty = NULL;
 	srcclnxevb = NULL;
+	srcarty = NULL;
 
 	// IP constructor.cust1 --- INSERT
 

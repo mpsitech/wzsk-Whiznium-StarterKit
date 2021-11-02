@@ -47,8 +47,8 @@ CrdWzskLlv::CrdWzskLlv(
 	pnltermuvbdvk = NULL;
 	pnltermmcvevp = NULL;
 	pnltermicicle = NULL;
-	pnltermarty = NULL;
 	pnltermclnxevb = NULL;
+	pnltermarty = NULL;
 	pnlheadbar = NULL;
 
 	// IP constructor.cust1 --- INSERT
@@ -62,8 +62,8 @@ CrdWzskLlv::CrdWzskLlv(
 	pnltermuvbdvk = new PnlWzskLlvTermUvbdvk(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnltermmcvevp = new PnlWzskLlvTermMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnltermicicle = new PnlWzskLlvTermIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnltermarty = new PnlWzskLlvTermArty(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnltermclnxevb = new PnlWzskLlvTermClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnltermarty = new PnlWzskLlvTermArty(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlheadbar = new PnlWzskLlvHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT

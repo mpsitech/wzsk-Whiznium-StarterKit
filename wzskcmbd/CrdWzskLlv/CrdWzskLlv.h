@@ -20,8 +20,8 @@
 #include "PnlWzskLlvTermUvbdvk.h"
 #include "PnlWzskLlvTermMcvevp.h"
 #include "PnlWzskLlvTermIcicle.h"
-#include "PnlWzskLlvTermArty.h"
 #include "PnlWzskLlvTermClnxevb.h"
+#include "PnlWzskLlvTermArty.h"
 #include "PnlWzskLlvHeadbar.h"
 
 #define VecVWzskLlvDo CrdWzskLlv::VecVDo
@@ -234,8 +234,8 @@ public:
 	PnlWzskLlvTermUvbdvk* pnltermuvbdvk;
 	PnlWzskLlvTermMcvevp* pnltermmcvevp;
 	PnlWzskLlvTermIcicle* pnltermicicle;
-	PnlWzskLlvTermArty* pnltermarty;
 	PnlWzskLlvTermClnxevb* pnltermclnxevb;
+	PnlWzskLlvTermArty* pnltermarty;
 	PnlWzskLlvHeadbar* pnlheadbar;
 
 	// IP vars.cust --- INSERT

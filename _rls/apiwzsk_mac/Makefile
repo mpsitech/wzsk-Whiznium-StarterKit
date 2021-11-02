@@ -2,7 +2,7 @@
 # make file for Wzsk API library, release apiwzsk_mac
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 25 Oct 2021
+# date created: 2 Nov 2021
 # IP header --- ABOVE
 
 LIBROOT = ${WHIZSDKROOT}/lib

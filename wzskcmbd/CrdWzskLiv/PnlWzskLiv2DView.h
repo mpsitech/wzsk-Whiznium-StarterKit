@@ -16,11 +16,11 @@
 #include <png.h>
 // IP include.cust --- IEND
 
-#include "JobWzskIprTrace.h"
 #include "JobWzskIprCorner.h"
-#include "JobWzskActExposure.h"
+#include "JobWzskIprTrace.h"
 #include "JobWzskActServo.h"
 #include "JobWzskActLaser.h"
+#include "JobWzskActExposure.h"
 #include "JobWzskAcqPtcloud.h"
 #include "JobWzskAcqPreview.h"
 
@@ -505,11 +505,11 @@ public:
 
 	Sbecore::Feed feedFPupPvm;
 
-	JobWzskIprTrace* iprtrace;
 	JobWzskIprCorner* iprcorner;
-	JobWzskActExposure* actexposure;
+	JobWzskIprTrace* iprtrace;
 	JobWzskActServo* actservo;
 	JobWzskActLaser* actlaser;
+	JobWzskActExposure* actexposure;
 	JobWzskAcqPtcloud* acqptcloud;
 	JobWzskAcqPreview* acqpreview;
 
@@ -560,14 +560,14 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskSgeChgFromActservo(DbsWzsk* dbswzsk);
-	bool handleCallWzskStgChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskShrdatChgFromActlaser(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
-	bool handleCallWzskShrdatChgFromIprcorner(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskStgChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskSgeChgFromActservo(DbsWzsk* dbswzsk);
 	bool handleCallWzskShrdatChgFromIprtrace(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
-	bool handleCallWzskResultNew(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const std::string& srefInv);
-	bool handleCallWzskShrdatChgFromAcqptcloud(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromIprcorner(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskShrdatChgFromActexposure(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromAcqptcloud(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskResultNew(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskClaimChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 };

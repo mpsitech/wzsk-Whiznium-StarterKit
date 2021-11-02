@@ -31,13 +31,13 @@ namespace WzskcmbdDdspub {
 		~Repliers();
 
 	public:
-		rti::request::Replier<DdsJobWzskIprCorner::setNTarget_req,DdsJobWzskIprCorner::setNTarget_reply>* replierJobWzskIprCorner_setNTarget;
-		rti::request::Replier<DdsJobWzskIprCorner::setRoi_req,DdsJobWzskIprCorner::setRoi_reply>* replierJobWzskIprCorner_setRoi;
-		rti::request::Replier<DdsJobWzskIprCorner::setRoiNotFull_req,DdsJobWzskIprCorner::setRoiNotFull_reply>* replierJobWzskIprCorner_setRoiNotFull;
-
 		rti::request::Replier<DdsJobWzskIprTrace::setLevel_req,DdsJobWzskIprTrace::setLevel_reply>* replierJobWzskIprTrace_setLevel;
 		rti::request::Replier<DdsJobWzskIprTrace::setRoi_req,DdsJobWzskIprTrace::setRoi_reply>* replierJobWzskIprTrace_setRoi;
 		rti::request::Replier<DdsJobWzskIprTrace::setRoiNotFull_req,DdsJobWzskIprTrace::setRoiNotFull_reply>* replierJobWzskIprTrace_setRoiNotFull;
+
+		rti::request::Replier<DdsJobWzskIprCorner::setNTarget_req,DdsJobWzskIprCorner::setNTarget_reply>* replierJobWzskIprCorner_setNTarget;
+		rti::request::Replier<DdsJobWzskIprCorner::setRoi_req,DdsJobWzskIprCorner::setRoi_reply>* replierJobWzskIprCorner_setRoi;
+		rti::request::Replier<DdsJobWzskIprCorner::setRoiNotFull_req,DdsJobWzskIprCorner::setRoiNotFull_reply>* replierJobWzskIprCorner_setRoiNotFull;
 
 		rti::request::Replier<DdsJobWzskActServo::moveto_req,DdsJobWzskActServo::moveto_reply>* replierJobWzskActServo_moveto;
 		rti::request::Replier<DdsJobWzskActServo::stop_req,DdsJobWzskActServo::stop_reply>* replierJobWzskActServo_stop;
@@ -64,18 +64,6 @@ namespace WzskcmbdDdspub {
 		~DataWriters();
 
 	public:
-		dds::topic::Topic<DdsJobWzskIprCorner::NTarget>* topicJobWzskIprCorner_NTarget;
-		dds::pub::DataWriter<DdsJobWzskIprCorner::NTarget>* writerJobWzskIprCorner_NTarget;
-		DdsJobWzskIprCorner::NTarget* JobWzskIprCorner_NTarget;
-
-		dds::topic::Topic<DdsJobWzskIprCorner::roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy>* topicJobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy;
-		dds::pub::DataWriter<DdsJobWzskIprCorner::roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy>* writerJobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy;
-		DdsJobWzskIprCorner::roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy* JobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy;
-
-		dds::topic::Topic<DdsJobWzskIprCorner::flgShiftScoreMinScoreMax>* topicJobWzskIprCorner_flgShiftScoreMinScoreMax;
-		dds::pub::DataWriter<DdsJobWzskIprCorner::flgShiftScoreMinScoreMax>* writerJobWzskIprCorner_flgShiftScoreMinScoreMax;
-		DdsJobWzskIprCorner::flgShiftScoreMinScoreMax* JobWzskIprCorner_flgShiftScoreMinScoreMax;
-
 		dds::topic::Topic<DdsJobWzskSrcSysinfo::currCh0VoltCh0>* topicJobWzskSrcSysinfo_currCh0VoltCh0;
 		dds::pub::DataWriter<DdsJobWzskSrcSysinfo::currCh0VoltCh0>* writerJobWzskSrcSysinfo_currCh0VoltCh0;
 		DdsJobWzskSrcSysinfo::currCh0VoltCh0* JobWzskSrcSysinfo_currCh0VoltCh0;
@@ -116,6 +104,18 @@ namespace WzskcmbdDdspub {
 		dds::pub::DataWriter<DdsJobWzskIprTrace::leftRight>* writerJobWzskIprTrace_leftRight;
 		DdsJobWzskIprTrace::leftRight* JobWzskIprTrace_leftRight;
 
+		dds::topic::Topic<DdsJobWzskIprCorner::NTarget>* topicJobWzskIprCorner_NTarget;
+		dds::pub::DataWriter<DdsJobWzskIprCorner::NTarget>* writerJobWzskIprCorner_NTarget;
+		DdsJobWzskIprCorner::NTarget* JobWzskIprCorner_NTarget;
+
+		dds::topic::Topic<DdsJobWzskIprCorner::roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy>* topicJobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy;
+		dds::pub::DataWriter<DdsJobWzskIprCorner::roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy>* writerJobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy;
+		DdsJobWzskIprCorner::roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy* JobWzskIprCorner_roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy;
+
+		dds::topic::Topic<DdsJobWzskIprCorner::flgShiftScoreMinScoreMax>* topicJobWzskIprCorner_flgShiftScoreMinScoreMax;
+		dds::pub::DataWriter<DdsJobWzskIprCorner::flgShiftScoreMinScoreMax>* writerJobWzskIprCorner_flgShiftScoreMinScoreMax;
+		DdsJobWzskIprCorner::flgShiftScoreMinScoreMax* JobWzskIprCorner_flgShiftScoreMinScoreMax;
+
 		dds::topic::Topic<DdsJobWzskActServo::angleTarget>* topicJobWzskActServo_angleTarget;
 		dds::pub::DataWriter<DdsJobWzskActServo::angleTarget>* writerJobWzskActServo_angleTarget;
 		DdsJobWzskActServo::angleTarget* JobWzskActServo_angleTarget;
@@ -132,14 +132,6 @@ namespace WzskcmbdDdspub {
 		dds::pub::DataWriter<DdsJobWzskActExposure::focus>* writerJobWzskActExposure_focus;
 		DdsJobWzskActExposure::focus* JobWzskActExposure_focus;
 
-		dds::topic::Topic<DdsJobWzskAcqPreview::gray>* topicJobWzskAcqPreview_gray;
-		dds::pub::DataWriter<DdsJobWzskAcqPreview::gray>* writerJobWzskAcqPreview_gray;
-		DdsJobWzskAcqPreview::gray* JobWzskAcqPreview_gray;
-
-		dds::topic::Topic<DdsJobWzskAcqPreview::redGreenBlue>* topicJobWzskAcqPreview_redGreenBlue;
-		dds::pub::DataWriter<DdsJobWzskAcqPreview::redGreenBlue>* writerJobWzskAcqPreview_redGreenBlue;
-		DdsJobWzskAcqPreview::redGreenBlue* JobWzskAcqPreview_redGreenBlue;
-
 		dds::topic::Topic<DdsJobWzskAcqPtcloud::deltaTheta>* topicJobWzskAcqPtcloud_deltaTheta;
 		dds::pub::DataWriter<DdsJobWzskAcqPtcloud::deltaTheta>* writerJobWzskAcqPtcloud_deltaTheta;
 		DdsJobWzskAcqPtcloud::deltaTheta* JobWzskAcqPtcloud_deltaTheta;
@@ -151,6 +143,14 @@ namespace WzskcmbdDdspub {
 		dds::topic::Topic<DdsJobWzskAcqPtcloud::xYZ>* topicJobWzskAcqPtcloud_xYZ;
 		dds::pub::DataWriter<DdsJobWzskAcqPtcloud::xYZ>* writerJobWzskAcqPtcloud_xYZ;
 		DdsJobWzskAcqPtcloud::xYZ* JobWzskAcqPtcloud_xYZ;
+
+		dds::topic::Topic<DdsJobWzskAcqPreview::gray>* topicJobWzskAcqPreview_gray;
+		dds::pub::DataWriter<DdsJobWzskAcqPreview::gray>* writerJobWzskAcqPreview_gray;
+		DdsJobWzskAcqPreview::gray* JobWzskAcqPreview_gray;
+
+		dds::topic::Topic<DdsJobWzskAcqPreview::redGreenBlue>* topicJobWzskAcqPreview_redGreenBlue;
+		dds::pub::DataWriter<DdsJobWzskAcqPreview::redGreenBlue>* writerJobWzskAcqPreview_redGreenBlue;
+		DdsJobWzskAcqPreview::redGreenBlue* JobWzskAcqPreview_redGreenBlue;
 	};
 
 	void* run(void* arg);

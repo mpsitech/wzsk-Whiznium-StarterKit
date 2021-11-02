@@ -125,8 +125,8 @@ void DlgWzskNavLoaini::refreshLfi(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
-	StatShrLfi oldStatshrlfi(statshrlfi);
 	ContInfLfi oldContinflfi(continflfi);
+	StatShrLfi oldStatshrlfi(statshrlfi);
 
 	// IP refreshLfi --- RBEGIN
 	// statshrlfi
@@ -136,8 +136,8 @@ void DlgWzskNavLoaini::refreshLfi(
 	continflfi.Dld = "log.txt";
 
 	// IP refreshLfi --- REND
-	if (statshrlfi.diff(&oldStatshrlfi).size() != 0) insert(moditems, DpchEngData::STATSHRLFI);
 	if (continflfi.diff(&oldContinflfi).size() != 0) insert(moditems, DpchEngData::CONTINFLFI);
+	if (statshrlfi.diff(&oldStatshrlfi).size() != 0) insert(moditems, DpchEngData::STATSHRLFI);
 };
 
 void DlgWzskNavLoaini::refresh(
@@ -229,8 +229,8 @@ void DlgWzskNavLoaini::handleRequest(
 		req->filename = handleDownload(dbswzsk);
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
-		if ((req->sref == "mon") && (ixVSge == VecVSge::IMPORT)) handleTimerWithSrefMonInSgeImport(dbswzsk);
-		else if (ixVSge == VecVSge::IMPIDLE) handleTimerInSgeImpidle(dbswzsk, req->sref);
+		if (ixVSge == VecVSge::IMPIDLE) handleTimerInSgeImpidle(dbswzsk, req->sref);
+		else if ((req->sref == "mon") && (ixVSge == VecVSge::IMPORT)) handleTimerWithSrefMonInSgeImport(dbswzsk);
 		else if (ixVSge == VecVSge::PRSIDLE) handleTimerInSgePrsidle(dbswzsk, req->sref);
 	};
 };
@@ -321,18 +321,18 @@ string DlgWzskNavLoaini::handleDownload(
 	return(""); // IP handleDownload --- LINE
 };
 
-void DlgWzskNavLoaini::handleTimerWithSrefMonInSgeImport(
-			DbsWzsk* dbswzsk
-		) {
-	wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
-	refreshWithDpchEng(dbswzsk); // IP handleTimerWithSrefMonInSgeImport --- ILINE
-};
-
 void DlgWzskNavLoaini::handleTimerInSgeImpidle(
 			DbsWzsk* dbswzsk
 			, const string& sref
 		) {
 	changeStage(dbswzsk, nextIxVSgeSuccess);
+};
+
+void DlgWzskNavLoaini::handleTimerWithSrefMonInSgeImport(
+			DbsWzsk* dbswzsk
+		) {
+	wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
+	refreshWithDpchEng(dbswzsk); // IP handleTimerWithSrefMonInSgeImport --- ILINE
 };
 
 void DlgWzskNavLoaini::handleTimerInSgePrsidle(

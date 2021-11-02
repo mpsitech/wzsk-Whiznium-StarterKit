@@ -40,11 +40,11 @@ PnlWzskLiv2DView::PnlWzskLiv2DView(
 	feedFPupPvm.tag = "FeedFPupPvm";
 	VecWzskVPvwmode::fillFeed(ixWzskVLocale, feedFPupPvm);
 
-	iprtrace = NULL;
 	iprcorner = NULL;
-	actexposure = NULL;
+	iprtrace = NULL;
 	actservo = NULL;
 	actlaser = NULL;
+	actexposure = NULL;
 	acqptcloud = NULL;
 	acqpreview = NULL;
 
@@ -56,11 +56,11 @@ PnlWzskLiv2DView::PnlWzskLiv2DView(
 	snapshotArmed = false;
 	// IP constructor.cust1 --- IEND
 
-	iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprcorner = new JobWzskIprCorner(xchg, dbswzsk, jref, ixWzskVLocale);
-	actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
+	iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 	actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
 	actlaser = new JobWzskActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
+	actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqptcloud = new JobWzskAcqPtcloud(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqpreview = new JobWzskAcqPreview(xchg, dbswzsk, jref, ixWzskVLocale);
 
@@ -69,14 +69,14 @@ PnlWzskLiv2DView::PnlWzskLiv2DView(
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
-	xchg->addClstn(VecWzskVCall::CALLWZSKSGECHG, jref, Clstn::VecVJobmask::SPEC, actservo->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKSTGCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, actlaser->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, iprcorner->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKSTGCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKSGECHG, jref, Clstn::VecVJobmask::SPEC, actservo->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, iprtrace->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::TRY);
-	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, acqptcloud->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, iprcorner->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, actexposure->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, acqptcloud->jref, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::TRY);
 	xchg->addClstn(VecWzskVCall::CALLWZSKCLAIMCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 
 	// IP constructor.cust3 --- IBEGIN
@@ -739,37 +739,39 @@ void PnlWzskLiv2DView::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if ((call->ixVCall == VecWzskVCall::CALLWZSKSGECHG) && (call->jref == actservo->jref)) {
-		call->abort = handleCallWzskSgeChgFromActservo(dbswzsk);
+	if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == actlaser->jref)) {
+		call->abort = handleCallWzskShrdatChgFromActlaser(dbswzsk, call->argInv.ix, call->argInv.sref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSTGCHG) {
 		call->abort = handleCallWzskStgChg(dbswzsk, call->jref);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == actlaser->jref)) {
-		call->abort = handleCallWzskShrdatChgFromActlaser(dbswzsk, call->argInv.ix, call->argInv.sref);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == iprcorner->jref)) {
-		call->abort = handleCallWzskShrdatChgFromIprcorner(dbswzsk, call->argInv.ix, call->argInv.sref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSGECHG) && (call->jref == actservo->jref)) {
+		call->abort = handleCallWzskSgeChgFromActservo(dbswzsk);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == iprtrace->jref)) {
 		call->abort = handleCallWzskShrdatChgFromIprtrace(dbswzsk, call->argInv.ix, call->argInv.sref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) {
-		call->abort = handleCallWzskResultNew(dbswzsk, call->jref, call->argInv.ix, call->argInv.sref);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == acqptcloud->jref)) {
-		call->abort = handleCallWzskShrdatChgFromAcqptcloud(dbswzsk, call->argInv.ix, call->argInv.sref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == iprcorner->jref)) {
+		call->abort = handleCallWzskShrdatChgFromIprcorner(dbswzsk, call->argInv.ix, call->argInv.sref);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == actexposure->jref)) {
 		call->abort = handleCallWzskShrdatChgFromActexposure(dbswzsk, call->argInv.ix, call->argInv.sref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == acqptcloud->jref)) {
+		call->abort = handleCallWzskShrdatChgFromAcqptcloud(dbswzsk, call->argInv.ix, call->argInv.sref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) {
+		call->abort = handleCallWzskResultNew(dbswzsk, call->jref, call->argInv.ix, call->argInv.sref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
 		call->abort = handleCallWzskClaimChg(dbswzsk, call->jref);
 	};
 };
 
-bool PnlWzskLiv2DView::handleCallWzskSgeChgFromActservo(
+bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromActlaser(
 			DbsWzsk* dbswzsk
+			, const uint ixInv
+			, const string& srefInv
 		) {
 	bool retval = false;
-	// IP handleCallWzskSgeChgFromActservo --- IBEGIN
+	// IP handleCallWzskShrdatChgFromActlaser --- IBEGIN
 	set<uint> moditems;
 
 	refresh(dbswzsk, moditems);
 	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	// IP handleCallWzskSgeChgFromActservo --- IEND
+	// IP handleCallWzskShrdatChgFromActlaser --- IEND
 	return retval;
 };
 
@@ -791,18 +793,35 @@ bool PnlWzskLiv2DView::handleCallWzskStgChg(
 	return retval;
 };
 
-bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromActlaser(
+bool PnlWzskLiv2DView::handleCallWzskSgeChgFromActservo(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = false;
+	// IP handleCallWzskSgeChgFromActservo --- IBEGIN
+	set<uint> moditems;
+
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+	// IP handleCallWzskSgeChgFromActservo --- IEND
+	return retval;
+};
+
+bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromIprtrace(
 			DbsWzsk* dbswzsk
 			, const uint ixInv
 			, const string& srefInv
 		) {
 	bool retval = false;
-	// IP handleCallWzskShrdatChgFromActlaser --- IBEGIN
+	// IP handleCallWzskShrdatChgFromIprtrace --- IBEGIN
 	set<uint> moditems;
 
-	refresh(dbswzsk, moditems);
-	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	// IP handleCallWzskShrdatChgFromActlaser --- IEND
+	refreshAlign(moditems);
+
+	if (!moditems.empty()) {
+		add(moditems, DpchEngAlign::JREF);
+		xchg->submitDpch(new DpchEngAlign(jref, &contiaccorner, &contiactrace, moditems));
+	};
+	// IP handleCallWzskShrdatChgFromIprtrace --- IEND
 	return retval;
 };
 
@@ -825,22 +844,33 @@ bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromIprcorner(
 	return retval;
 };
 
-bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromIprtrace(
+bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromActexposure(
 			DbsWzsk* dbswzsk
 			, const uint ixInv
 			, const string& srefInv
 		) {
 	bool retval = false;
-	// IP handleCallWzskShrdatChgFromIprtrace --- IBEGIN
+	// IP handleCallWzskShrdatChgFromActexposure --- IBEGIN
 	set<uint> moditems;
 
-	refreshAlign(moditems);
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+	// IP handleCallWzskShrdatChgFromActexposure --- IEND
+	return retval;
+};
 
-	if (!moditems.empty()) {
-		add(moditems, DpchEngAlign::JREF);
-		xchg->submitDpch(new DpchEngAlign(jref, &contiaccorner, &contiactrace, moditems));
-	};
-	// IP handleCallWzskShrdatChgFromIprtrace --- IEND
+bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromAcqptcloud(
+			DbsWzsk* dbswzsk
+			, const uint ixInv
+			, const string& srefInv
+		) {
+	bool retval = false;
+	// IP handleCallWzskShrdatChgFromAcqptcloud --- IBEGIN
+	set<uint> moditems;
+
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+	// IP handleCallWzskShrdatChgFromAcqptcloud --- IEND
 	return retval;
 };
 
@@ -972,36 +1002,6 @@ bool PnlWzskLiv2DView::handleCallWzskResultNew(
 		xchg->submitDpch(new DpchEngLive(jref, gray, red, green, blue, xCorner, yCorner, xTraceL, yTraceL, xTraceR, yTraceR, mask));
 	};
 	// IP handleCallWzskResultNew --- IEND
-	return retval;
-};
-
-bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromAcqptcloud(
-			DbsWzsk* dbswzsk
-			, const uint ixInv
-			, const string& srefInv
-		) {
-	bool retval = false;
-	// IP handleCallWzskShrdatChgFromAcqptcloud --- IBEGIN
-	set<uint> moditems;
-
-	refresh(dbswzsk, moditems);
-	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	// IP handleCallWzskShrdatChgFromAcqptcloud --- IEND
-	return retval;
-};
-
-bool PnlWzskLiv2DView::handleCallWzskShrdatChgFromActexposure(
-			DbsWzsk* dbswzsk
-			, const uint ixInv
-			, const string& srefInv
-		) {
-	bool retval = false;
-	// IP handleCallWzskShrdatChgFromActexposure --- IBEGIN
-	set<uint> moditems;
-
-	refresh(dbswzsk, moditems);
-	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	// IP handleCallWzskShrdatChgFromActexposure --- IEND
 	return retval;
 };
 

@@ -3,7 +3,7 @@
 # checkout script for Wzsk combined daemon, release wzskcmbd_mcv_mpsi (jack cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 25 Oct 2021
+# date created: 2 Nov 2021
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then
@@ -18,11 +18,11 @@ export set BINROOT=/home/mpsitech/emb/mcv/wzsk/sdk/sysroots/cortexa9t2hf-neon-po
 mkdir $BUILDROOT/wzskcmbd
 mkdir $BUILDROOT/wzskcmbd/IexWzsk
 mkdir $BUILDROOT/wzskcmbd/VecWzsk
-mkdir $BUILDROOT/wzskcmbd/CrdWzskNav
 mkdir $BUILDROOT/wzskcmbd/CrdWzskUsg
 mkdir $BUILDROOT/wzskcmbd/CrdWzskUsr
 mkdir $BUILDROOT/wzskcmbd/CrdWzskPrs
 mkdir $BUILDROOT/wzskcmbd/CrdWzskScf
+mkdir $BUILDROOT/wzskcmbd/CrdWzskNav
 mkdir $BUILDROOT/wzskcmbd/CrdWzskLlv
 mkdir $BUILDROOT/wzskcmbd/CrdWzskLiv
 mkdir $BUILDROOT/wzskcmbd/CrdWzskOgr
@@ -89,11 +89,6 @@ cp Makefile_VecWzsk $BUILDROOT/wzskcmbd/VecWzsk/Makefile
 cp ../../wzskcmbd/VecWzsk/Vec*.h $BUILDROOT/wzskcmbd/VecWzsk/
 cp ../../wzskcmbd/VecWzsk/Vec*.cpp $BUILDROOT/wzskcmbd/VecWzsk/
 
-cp Makefile_CrdWzskNav $BUILDROOT/wzskcmbd/CrdWzskNav/Makefile
-
-cp ../../wzskcmbd/CrdWzskNav/*.h $BUILDROOT/wzskcmbd/CrdWzskNav/
-cp ../../wzskcmbd/CrdWzskNav/*.cpp $BUILDROOT/wzskcmbd/CrdWzskNav/
-
 cp Makefile_CrdWzskUsg $BUILDROOT/wzskcmbd/CrdWzskUsg/Makefile
 
 cp ../../wzskcmbd/CrdWzskUsg/*.h $BUILDROOT/wzskcmbd/CrdWzskUsg/
@@ -113,6 +108,11 @@ cp Makefile_CrdWzskScf $BUILDROOT/wzskcmbd/CrdWzskScf/Makefile
 
 cp ../../wzskcmbd/CrdWzskScf/*.h $BUILDROOT/wzskcmbd/CrdWzskScf/
 cp ../../wzskcmbd/CrdWzskScf/*.cpp $BUILDROOT/wzskcmbd/CrdWzskScf/
+
+cp Makefile_CrdWzskNav $BUILDROOT/wzskcmbd/CrdWzskNav/Makefile
+
+cp ../../wzskcmbd/CrdWzskNav/*.h $BUILDROOT/wzskcmbd/CrdWzskNav/
+cp ../../wzskcmbd/CrdWzskNav/*.cpp $BUILDROOT/wzskcmbd/CrdWzskNav/
 
 cp Makefile_CrdWzskLlv $BUILDROOT/wzskcmbd/CrdWzskLlv/Makefile
 

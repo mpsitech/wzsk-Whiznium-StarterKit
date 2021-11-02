@@ -23,10 +23,10 @@ import sbecore.*;
 
 public class ApiWzsk {
 
-	public static final String WZSK_VERSION = "1.0.7";
+	public static final String WZSK_VERSION = "1.0.8";
 	public static final int WZSK_VERSION_MAJOR = 1;
 	public static final int WZSK_VERSION_MINOR = 0;
-	public static final int WZSK_VERSION_SUB = 7;
+	public static final int WZSK_VERSION_SUB = 8;
 
 	public static DpchEngWzsk readDpchEng(
 				String s

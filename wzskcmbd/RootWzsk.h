@@ -18,17 +18,17 @@
 #include "JobWzskSrcUvbdvk.h"
 #include "JobWzskSrcSysinfo.h"
 #include "JobWzskSrcMcvevp.h"
-#include "JobWzskSrcArty.h"
 #include "JobWzskSrcIcicle.h"
 #include "JobWzskSrcClnxevb.h"
+#include "JobWzskSrcArty.h"
 #include "JobWzskIprTrace.h"
 #include "JobWzskIprCorner.h"
 #include "JobWzskIprAngle.h"
 #include "JobWzskActServo.h"
 #include "JobWzskActLaser.h"
-#include "JobWzskAcqPreview.h"
 #include "JobWzskActExposure.h"
 #include "JobWzskAcqPtcloud.h"
+#include "JobWzskAcqPreview.h"
 #include "JobWzskAcqFpgapvw.h"
 #include "JobWzskAcqFpgaflg.h"
 #include "M2msessWzsk.h"
@@ -105,17 +105,17 @@ public:
 	JobWzskSrcUvbdvk* srcuvbdvk;
 	JobWzskSrcSysinfo* srcsysinfo;
 	JobWzskSrcMcvevp* srcmcvevp;
-	JobWzskSrcArty* srcarty;
 	JobWzskSrcIcicle* srcicicle;
 	JobWzskSrcClnxevb* srcclnxevb;
+	JobWzskSrcArty* srcarty;
 	JobWzskIprTrace* iprtrace;
 	JobWzskIprCorner* iprcorner;
 	JobWzskIprAngle* iprangle;
 	JobWzskActServo* actservo;
 	JobWzskActLaser* actlaser;
-	JobWzskAcqPreview* acqpreview;
 	JobWzskActExposure* actexposure;
 	JobWzskAcqPtcloud* acqptcloud;
+	JobWzskAcqPreview* acqpreview;
 	JobWzskAcqFpgapvw* acqfpgapvw;
 	JobWzskAcqFpgaflg* acqfpgaflg;
 	std::map<Sbecore::ubigint, JobWzsk*> m2msesss;
@@ -153,8 +153,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskRefPreSet(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv);
 	bool handleCallWzskSuspsess(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskRefPreSet(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv);
 	bool handleCallWzskLogout(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const bool boolvalInv);
 
 };

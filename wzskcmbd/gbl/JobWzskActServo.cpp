@@ -118,8 +118,8 @@ JobWzskActServo::JobWzskActServo(
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
 	srcuvbdvk = NULL;
-	srcicicle = NULL;
 	srcmcvevp = NULL;
+	srcicicle = NULL;
 	srcclnxevb = NULL;
 	srcarty = NULL;
 

@@ -1385,13 +1385,13 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrAbt(
 	continf.TxtCpt = StrMod::cap(continf.TxtCpt);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		continf.TxtMsg1 = "Whiznium StarterKit version v1.0.7 released on 25-10-2021";
+		continf.TxtMsg1 = "Whiznium StarterKit version v1.0.8 released on 2-11-2021";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "contributors: -";
 		continf.TxtMsg6 = "libraries: ezdevwskd 0.1.26 and png 1.6.36";
 		continf.TxtMsg8 = "Whiznium StarterKit is computer vision software which powers MPSI's tabletop 3D laser scanner that represents the primary on-boarding vehicle for Whiznium.";
 	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		continf.TxtMsg1 = "Whiznium StarterKit Version v1.0.7 ver\\u00f6ffentlicht am 25-10-2021";
+		continf.TxtMsg1 = "Whiznium StarterKit Version v1.0.8 ver\\u00f6ffentlicht am 2-11-2021";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "Mitwirkende: -";
 		continf.TxtMsg6 = "Programmbibliotheken: ezdevwskd 0.1.26 und png 1.6.36";
@@ -2100,8 +2100,8 @@ void StmgrWzsk::handleCall(
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOBJUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOBJSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOGRUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRSTD);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRHSREF);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKPRSUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKPRSSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSESUPD_REFEQ) {
@@ -2374,7 +2374,7 @@ void XchgWzskcmbd::startMon() {
 	Clstn* clstn = NULL;
 	Preset* preset = NULL;
 
-	mon.start("Whiznium StarterKit v1.0.7", stgwzskpath.monpath);
+	mon.start("Whiznium StarterKit v1.0.8", stgwzskpath.monpath);
 
 	rwmJobs.rlock("XchgWzskcmbd", "startMon");
 	for (auto it = jobs.begin(); it != jobs.end(); it++) {

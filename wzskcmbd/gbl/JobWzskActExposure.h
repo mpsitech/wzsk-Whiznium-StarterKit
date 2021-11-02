@@ -17,8 +17,8 @@
 #include "JobWzskSrcV4l2.h"
 #include "JobWzskSrcMcvevp.h"
 #include "JobWzskSrcIcicle.h"
-#include "JobWzskSrcArty.h"
 #include "JobWzskSrcClnxevb.h"
+#include "JobWzskSrcArty.h"
 
 #define VecVJobWzskActExposureMethod JobWzskActExposure::VecVMethod
 #define VecVJobWzskActExposureVar JobWzskActExposure::VecVVar
@@ -95,8 +95,8 @@ public:
 	JobWzskSrcV4l2* srcv4l2;
 	JobWzskSrcMcvevp* srcmcvevp;
 	JobWzskSrcIcicle* srcicicle;
-	JobWzskSrcArty* srcarty;
 	JobWzskSrcClnxevb* srcclnxevb;
+	JobWzskSrcArty* srcarty;
 
 	// IP vars.spec --- INSERT
 

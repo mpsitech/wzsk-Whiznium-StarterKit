@@ -58,7 +58,7 @@
 				</tr>
 				<tr id="trDat" class="show">
 					<!-- IP trDat - BEGIN -->
-					<td id="tdDat" height="100" colspan="11"></td>
+					<td id="tdDat" height="200" colspan="11"></td>
 					<!-- IP trDat - END -->
 				</tr>
 				<tr id="tr21" class="show"><td colspan="11" height="3"></td></tr>

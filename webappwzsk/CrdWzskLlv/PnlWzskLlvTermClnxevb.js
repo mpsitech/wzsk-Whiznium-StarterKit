@@ -74,7 +74,7 @@ function refreshA() {
 function refreshBD(bNotD) {
 	if (!contcontdoc) return;
 
-	var height = 324; // full cont height
+	var height = 424; // full cont height
 
 	// IP refreshBD.vars --- BEGIN
 	var ButClaimActive = (retrieveSi(srcdoc, "StatShrWzskLlvTermClnxevb", "ButClaimActive") == "true");
