@@ -44,9 +44,9 @@ void JobWzskSrcUvbdvk::Shrdat::init(
 	if (xchg->stgwzskglobal.ixWzskVTarget != VecWzskVTarget::WS) return;
 
 	try {
-		hw.init(stg.path, 5000000, 5000000);
+		hw.init(stg.path, 9600, 9600);
 
-		hw.rxtxdump = false;
+		hw.rxtxdump = true;
 		hw.reset();
 
 		t0 = Wzsk::getNow();
@@ -407,7 +407,113 @@ bool JobWzskSrcUvbdvk::handleClaim(
 		) {
 	bool mod = false;
 
-	// IP handleClaim --- INSERT
+	// IP handleClaim --- IBEGIN
+
+	// claim policy:
+	// - laser/step can be taken up independently by one client at a time
+	// - one client taking all trumps laser/step
+
+	Claim* claim = NULL;
+
+	ubigint jrefAll = 0;
+	ubigint jrefLaser = 0;
+	ubigint jrefStep = 0;
+
+	bool allRetractable = true;
+	bool laserRetractable = true;
+	bool stepRetractable = true;
+
+	bool allAvailable, laserAvailable, stepAvailable;
+	bool allReattributed, laserReattributed, stepReattributed;
+
+	// survey
+	for (auto it = claims.begin(); it != claims.end(); it++) {
+		claim = (Claim*) it->second;
+
+		if (claim->fulfilled) {
+			if (claim->all) {
+				jrefAll = it->first;
+				allRetractable = claim->retractable;
+			};
+			if (claim->laser) {
+				jrefLaser = it->first;
+				laserRetractable = claim->retractable;
+			};
+			if (claim->step) {
+				jrefStep = it->first;
+				stepRetractable = claim->retractable;
+			};
+		};
+	};
+
+	// try to fulfill, at most one re-attribution per feature
+	allReattributed = false;
+	laserReattributed = false;
+	stepReattributed = false;
+
+	for (unsigned int i = 0; i < 2; i++) {
+		for (auto it = claims.begin(); it != claims.end(); it++) {
+			claim = (Claim*) it->second;
+
+			allAvailable = allRetractable && laserRetractable && stepRetractable;
+			laserAvailable = allRetractable && laserRetractable;
+			stepAvailable = allRetractable && stepRetractable;
+
+			if (!allAvailable && !laserAvailable && !stepAvailable) break;
+
+			if (((i == 0) && (it->first == jrefNewest)) || ((i == 1) && (it->first != jrefNewest))) {
+				// preference given to newest claim
+
+				if (claim->all && allAvailable && !laserReattributed && !stepReattributed) {
+					if (jrefAll != 0) claims[jrefAll]->fulfilled = false;
+					if (jrefLaser != 0) claims[jrefLaser]->fulfilled = false;
+					if (jrefStep != 0) claims[jrefStep]->fulfilled = false;
+
+					claim->fulfilled = true;
+					allRetractable = claim->retractable;
+					allReattributed = true;
+
+				} else if (claim->laser && laserAvailable && !laserReattributed) {
+					if (jrefAll != 0) claims[jrefAll]->fulfilled = false;
+					if (jrefLaser != 0) claims[jrefLaser]->fulfilled = false;
+
+					claim->fulfilled = true;
+					laserRetractable = claim->retractable;
+					laserReattributed = true;
+
+				} else if (claim->step && stepAvailable && !stepReattributed) {
+					if (jrefAll != 0) claims[jrefAll]->fulfilled = false;
+					if (jrefStep != 0) claims[jrefStep]->fulfilled = false;
+
+					claim->fulfilled = true;
+					stepRetractable = claim->retractable;
+					stepReattributed = true;
+				};
+
+				if (allReattributed || (laserReattributed && stepReattributed)) break;
+			};
+
+		};
+
+		if (!allAvailable && !laserAvailable && !stepAvailable) break;
+		if (allReattributed || (laserReattributed && stepReattributed)) break;
+	};
+
+	// update taken status
+	allAvailable = allRetractable && laserRetractable && stepRetractable;
+	laserAvailable = allRetractable && laserRetractable;
+	stepAvailable = allRetractable && stepRetractable;
+
+	for (auto it = claims.begin(); it != claims.end(); it++) {
+		claim = (Claim*) it->second;
+
+		if (claim->all) claim->takenNotAvailable = !allAvailable;
+		else if (claim->laser) claim->takenNotAvailable = !laserAvailable;
+		else if (claim->step) claim->takenNotAvailable = !stepAvailable;
+	};
+
+	mod = true; // for simplicity
+	// IP handleClaim --- IEND
 
 	return mod;
 };
