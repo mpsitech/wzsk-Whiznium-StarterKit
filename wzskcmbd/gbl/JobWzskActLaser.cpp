@@ -303,6 +303,7 @@ bool JobWzskActLaser::setLeft(
 
 	} else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) retval = srcarty->laser_set(i, pToAbs(true, shrdat.right));
 	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) retval = srcicicle->laser_set(i, pToAbs(true, shrdat.right));
+	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS) retval = srcuvbdvk->laser_set(i, pToAbs(true, shrdat.right));
 
 	if (retval) {
 		shrdat.wlockAccess(jref, "setLeft");
@@ -369,6 +370,7 @@ bool JobWzskActLaser::setRight(
 
 	} else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) retval = srcarty->laser_set(pToAbs(false, shrdat.left), i);
 	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) retval = srcicicle->laser_set(pToAbs(false, shrdat.left), i);
+	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS) retval = srcuvbdvk->laser_set(pToAbs(false, shrdat.left), i);
 
 	if (retval) {
 		shrdat.wlockAccess(jref, "setRight");

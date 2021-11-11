@@ -186,7 +186,7 @@ void PnlWzskLlvLaser::handleDpchAppDataContiac(
 	diffitems = _contiac->diff(&contiac);
 	// IP handleDpchAppDataContiac --- IBEGIN
 
-	usmallint min_backup, max_backup;
+	StgJobWzskActLaser stg_backup;
 
 	muteRefresh = true;
 
@@ -194,36 +194,32 @@ void PnlWzskLlvLaser::handleDpchAppDataContiac(
 
 	if (hasAny(diffitems, {ContIac::CHKERG,ContIac::SLDLLE}) && statshr.SldLleActive) {
 		if (contiac.ChkErg) {
-			min_backup = actlaser->stg.leftMin;
-			max_backup = actlaser->stg.leftMax;
+			stg_backup = actlaser->stg;
 
 			actlaser->stg.leftMin = 0;
 			actlaser->stg.leftMax = 1023;
+			actlaser->stg.rightMin = 0;
+			actlaser->stg.rightMax = 1023;
 		};
 
 		actlaser->setLeft(dbswzsk, 0.01 * _contiac->SldLle);
 
-		if (contiac.ChkErg) {
-			actlaser->stg.leftMin = min_backup;
-			actlaser->stg.leftMax = max_backup;
-		};
+		if (contiac.ChkErg) actlaser->stg = stg_backup;
 	};
 
 	if (hasAny(diffitems, {ContIac::CHKERG,ContIac::SLDLRI}) && statshr.SldLriActive) {
 		if (contiac.ChkErg) {
-			min_backup = actlaser->stg.rightMin;
-			max_backup = actlaser->stg.rightMax;
+			stg_backup = actlaser->stg;
 
+			actlaser->stg.leftMin = 0;
+			actlaser->stg.leftMax = 1023;
 			actlaser->stg.rightMin = 0;
 			actlaser->stg.rightMax = 1023;
 		};
 
 		actlaser->setRight(dbswzsk, 0.01 * _contiac->SldLri);
 
-		if (contiac.ChkErg) {
-			actlaser->stg.rightMin = min_backup;
-			actlaser->stg.rightMax = max_backup;
-		};
+		if (contiac.ChkErg) actlaser->stg = stg_backup;
 	};
 
 	muteRefresh = false;

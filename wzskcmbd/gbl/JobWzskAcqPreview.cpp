@@ -42,7 +42,8 @@ JobWzskAcqPreview::Shrdat::ResultitemGray::ResultitemGray(
 
 	gr8 = new uint8_t[sizeBuf];
 
-	gr16 = new uint16_t[sizeBuf];
+	// 16 byte alignment required for SSE2 load/store
+	posix_memalign((void**) &gr16, 16, sizeBuf * sizeof(uint16_t));
 
 	tIn = 0.0;
 	tOut = 0.0;
@@ -71,9 +72,9 @@ JobWzskAcqPreview::Shrdat::ResultitemRgb::ResultitemRgb(
 	g8 = new uint8_t[sizeBuf];
 	b8 = new uint8_t[sizeBuf];
 
-	r16 = new uint16_t[sizeBuf];
-	g16 = new uint16_t[sizeBuf];
-	b16 = new uint16_t[sizeBuf];
+	posix_memalign((void**) &r16, 16, sizeBuf * sizeof(uint16_t));
+	posix_memalign((void**) &g16, 16, sizeBuf * sizeof(uint16_t));
+	posix_memalign((void**) &b16, 16, sizeBuf * sizeof(uint16_t));
 
 	tIn = 0.0;
 	tOut = 0.0;
@@ -230,6 +231,44 @@ void JobWzskAcqPreview::binGrrd(
 	};
 #elif __x86_64__
 	// hard-wired to 2x2 super-pixels
+	uint16_t* buf = NULL;
+
+	__m128i dataeven, dataodd, datashift;
+
+	unsigned int ldix, stix;
+
+	posix_memalign((void**) &buf, 16, xchg->stgwzskframegeo.wGrrd * sizeof(uint16_t));
+
+	for (unsigned int i = 0; i < xchg->stgwzskframegeo.hGrrd; i += 2) {
+		for (unsigned int j = 0; j < xchg->stgwzskframegeo.wGrrd; j += 8) {
+			ldix = i * xchg->stgwzskframegeo.wGrrd + j;
+			dataeven = _mm_load_si128((const __m128i*) &(grrd16[ldix]));
+
+			ldix += xchg->stgwzskframegeo.wGrrd;
+			dataodd = _mm_load_si128((const __m128i*) &(grrd16[ldix]));
+
+			dataeven = _mm_add_epi16(dataeven, dataodd);
+			datashift = _mm_slli_si128(dataeven, 2);
+
+			dataeven = _mm_add_epi16(dataeven, datashift);
+			dataeven = _mm_srli_epi16(dataeven, 2);
+
+			stix = i/2 * xchg->stgwzskframegeo.wGrrd/2 + j/2;
+			_mm_store_si128 ((__m128i*) buf, dataeven);
+			pvwgrrd16[stix++] = buf[1];
+			pvwgrrd16[stix++] = buf[3];
+			pvwgrrd16[stix++] = buf[5];
+			pvwgrrd16[stix] = buf[7];
+			//pvwgrrd16[stix++] = _mm_extract_epi16(dataeven, 1);
+			//pvwgrrd16[stix++] = _mm_extract_epi16(dataeven, 3);
+			//pvwgrrd16[stix++] = _mm_extract_epi16(dataeven, 5);
+			//pvwgrrd16[stix] = _mm_extract_epi16(dataeven, 7);
+		};
+	};
+
+	delete[] buf;
+#else
+	// hard-wired to 2x2 super-pixels
 	unsigned int ldix, stix;
 
 	uint32_t acc;
@@ -307,7 +346,40 @@ void JobWzskAcqPreview::binRgb_component(
 		};
 	};
 #elif __x86_64__
-	// hard-wired to 2x2 super-pixels
+	uint16_t* buf = NULL;
+
+	__m128i dataeven, dataodd, datashift;
+
+	unsigned int ldix, stix;
+
+	posix_memalign((void**) &buf, 16, xchg->stgwzskframegeo.wRgb * sizeof(uint16_t));
+
+	for (unsigned int i = 0; i < xchg->stgwzskframegeo.hRgb; i += 2) {
+		for (unsigned int j = 0; j < xchg->stgwzskframegeo.wRgb; j += 8) {
+			ldix = i * xchg->stgwzskframegeo.wRgb + j;
+			dataeven = _mm_load_si128((const __m128i*) &(src[ldix]));
+
+			ldix += xchg->stgwzskframegeo.wRgb;
+			dataodd = _mm_load_si128((const __m128i*) &(src[ldix]));
+
+			dataeven = _mm_add_epi16(dataeven, dataodd);
+			datashift = _mm_slli_si128(dataeven, 2);
+
+			dataeven = _mm_add_epi16(dataeven, datashift);
+			dataeven = _mm_srli_epi16(dataeven, 2);
+
+			stix = i/2 * xchg->stgwzskframegeo.wRgb/2 + j/2;
+			_mm_store_si128 ((__m128i*) buf, dataeven);
+			dest[stix++] = buf[1];
+			dest[stix++] = buf[3];
+			dest[stix++] = buf[5];
+			dest[stix] = buf[7];
+		};
+	};
+
+	delete[] buf;
+#else
+	// hard-wired to 2x2 super-pixels (non-SIMD)
 	unsigned int ldix, stix;
 
 	uint32_t acc;
@@ -349,8 +421,8 @@ void JobWzskAcqPreview::rawGr(
 
 		memcpy(&(pvwgrrd16[stix]), &(grrd16[ldix]), 2 * xchg->stgwzskframegeo.wGrrd/4);
 	};
-#elif __x86_64__
-	// hard-wired to /2 reduction
+#else
+	// hard-wired to /2 reduction (non-SIMD)
 	const unsigned int x0 = (xchg->stgwzskframegeo.wGrrd - xchg->stgwzskframegeo.wGrrd/2) / 2;
 	const unsigned int y0 = (xchg->stgwzskframegeo.hGrrd - xchg->stgwzskframegeo.hGrrd/2) / 2;
 
@@ -388,8 +460,8 @@ void JobWzskAcqPreview::rawRgb(
 		memcpy(&(pvwg16[stix]), &(g16[ldix]), 2 * xchg->stgwzskframegeo.wRgb/8);
 		memcpy(&(pvwb16[stix]), &(b16[ldix]), 2 * xchg->stgwzskframegeo.wRgb/8);
 	};
-#elif __x86_64__
-	// hard-wired to /2 reduction
+#else
+	// hard-wired to /2 reduction (non-SIMD)
 	const unsigned int x0 = (xchg->stgwzskframegeo.wRgb - xchg->stgwzskframegeo.wRgb/2) / 2;
 	const unsigned int y0 = (xchg->stgwzskframegeo.hRgb - xchg->stgwzskframegeo.hRgb/2) / 2;
 
