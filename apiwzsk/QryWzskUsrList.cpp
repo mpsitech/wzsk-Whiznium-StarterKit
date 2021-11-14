@@ -24,8 +24,8 @@ uint QryWzskUsrList::VecVOrd::getIx(
 
 	if (s == "ste") return STE;
 	if (s == "usg") return USG;
-	if (s == "srf") return SRF;
 	if (s == "prs") return PRS;
+	if (s == "srf") return SRF;
 	if (s == "own") return OWN;
 	if (s == "grp") return GRP;
 
@@ -37,8 +37,8 @@ string QryWzskUsrList::VecVOrd::getSref(
 		) {
 	if (ix == STE) return("ste");
 	if (ix == USG) return("usg");
-	if (ix == SRF) return("srf");
 	if (ix == PRS) return("prs");
+	if (ix == SRF) return("srf");
 	if (ix == OWN) return("own");
 	if (ix == GRP) return("grp");
 

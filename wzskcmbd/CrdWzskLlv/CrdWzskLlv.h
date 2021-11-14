@@ -17,8 +17,8 @@
 #include "PnlWzskLlvLaser.h"
 #include "PnlWzskLlvTtable.h"
 #include "PnlWzskLlvCamera.h"
-#include "PnlWzskLlvTermUvbdvk.h"
 #include "PnlWzskLlvTermMcvevp.h"
+#include "PnlWzskLlvTermUvbdvk.h"
 #include "PnlWzskLlvTermIcicle.h"
 #include "PnlWzskLlvTermClnxevb.h"
 #include "PnlWzskLlvTermArty.h"
@@ -231,8 +231,8 @@ public:
 	PnlWzskLlvLaser* pnllaser;
 	PnlWzskLlvTtable* pnlttable;
 	PnlWzskLlvCamera* pnlcamera;
-	PnlWzskLlvTermUvbdvk* pnltermuvbdvk;
 	PnlWzskLlvTermMcvevp* pnltermmcvevp;
+	PnlWzskLlvTermUvbdvk* pnltermuvbdvk;
 	PnlWzskLlvTermIcicle* pnltermicicle;
 	PnlWzskLlvTermClnxevb* pnltermclnxevb;
 	PnlWzskLlvTermArty* pnltermarty;

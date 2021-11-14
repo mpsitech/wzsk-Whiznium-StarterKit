@@ -310,10 +310,10 @@ void QryWzskFilList::fetch(
 			rec->stubOwn = StubWzsk::getStubOwner(dbswzsk, rec->own, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
 			rec->srefRefIxVTbl = VecWzskVMFileRefTbl::getSref(rec->refIxVTbl);
 			rec->titRefIxVTbl = VecWzskVMFileRefTbl::getTitle(rec->refIxVTbl, ixWzskVLocale);
-			if (rec->refIxVTbl == VecWzskVMFileRefTbl::SHT) {
-				rec->stubRefUref = StubWzsk::getStubShtStd(dbswzsk, rec->refUref, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
-			} else if (rec->refIxVTbl == VecWzskVMFileRefTbl::OBJ) {
+			if (rec->refIxVTbl == VecWzskVMFileRefTbl::OBJ) {
 				rec->stubRefUref = StubWzsk::getStubObjStd(dbswzsk, rec->refUref, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
+			} else if (rec->refIxVTbl == VecWzskVMFileRefTbl::SHT) {
+				rec->stubRefUref = StubWzsk::getStubShtStd(dbswzsk, rec->refUref, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
 			} else rec->stubRefUref = "-";
 			rec->titOsrefKContent = dbswzsk->getKlstTitleBySref(VecWzskVKeylist::KLSTWZSKKMFILECONTENT, rec->osrefKContent, ixWzskVLocale);
 			rec->titSrefKMimetype = dbswzsk->getKlstTitleBySref(VecWzskVKeylist::KLSTWZSKKMFILEMIMETYPE, rec->srefKMimetype, ixWzskVLocale);

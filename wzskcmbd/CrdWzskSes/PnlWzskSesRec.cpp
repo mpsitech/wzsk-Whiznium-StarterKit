@@ -38,8 +38,8 @@ PnlWzskSesRec::PnlWzskSesRec(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	pnl1nshot = NULL;
 	pnldetail = NULL;
+	pnl1nshot = NULL;
 
 	// IP constructor.cust1 --- INSERT
 

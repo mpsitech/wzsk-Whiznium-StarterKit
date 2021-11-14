@@ -22,8 +22,8 @@ uint QryWzskSesList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "sta") return STA;
 	if (s == "usr") return USR;
+	if (s == "sta") return STA;
 
 	return(0);
 };
@@ -31,8 +31,8 @@ uint QryWzskSesList::VecVOrd::getIx(
 string QryWzskSesList::VecVOrd::getSref(
 			const uint ix
 		) {
-	if (ix == STA) return("sta");
 	if (ix == USR) return("usr");
+	if (ix == STA) return("sta");
 
 	return("");
 };

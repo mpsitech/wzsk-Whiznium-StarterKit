@@ -158,8 +158,8 @@ JobWzskAcqPreview::JobWzskAcqPreview(
 
 	// IP constructor.spec2 --- INSERT
 
-	if (srvNotCli) if (acqfpgapvw) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, acqfpgapvw->jref, false, Arg(), VecVSge::READY, Clstn::VecVJactype::TRY);
 	if (srvNotCli) if (srcv4l2) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, srcv4l2->jref, false, Arg(), VecVSge::READY, Clstn::VecVJactype::TRY);
+	if (srvNotCli) if (acqfpgapvw) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, acqfpgapvw->jref, false, Arg(), VecVSge::READY, Clstn::VecVJactype::TRY);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -532,36 +532,11 @@ void JobWzskAcqPreview::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (acqfpgapvw) if (call->jref == acqfpgapvw->jref) match = true; return match;}()) && (ixVSge == VecVSge::READY)) {
-		call->abort = handleCallWzskResultNewFromAcqfpgapvwInSgeReady(dbswzsk, call->argInv.ix, call->argInv.sref);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (srcv4l2) if (call->jref == srcv4l2->jref) match = true; return match;}()) && (ixVSge == VecVSge::READY)) {
+	if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (srcv4l2) if (call->jref == srcv4l2->jref) match = true; return match;}()) && (ixVSge == VecVSge::READY)) {
 		call->abort = handleCallWzskResultNewFromSrcv4l2InSgeReady(dbswzsk, call->argInv.ix, call->argInv.sref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (acqfpgapvw) if (call->jref == acqfpgapvw->jref) match = true; return match;}()) && (ixVSge == VecVSge::READY)) {
+		call->abort = handleCallWzskResultNewFromAcqfpgapvwInSgeReady(dbswzsk, call->argInv.ix, call->argInv.sref);
 	};
-};
-
-bool JobWzskAcqPreview::handleCallWzskResultNewFromAcqfpgapvwInSgeReady(
-			DbsWzsk* dbswzsk
-			, const uint ixInv
-			, const string& srefInv
-		) {
-	bool retval = false;
-	// IP handleCallWzskResultNewFromAcqfpgapvwInSgeReady --- IBEGIN
-
-	// binreddom is not available for fpga at this time
-
-	if (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::BINGRAY) shrdat.resultBingray.dequeue(ixRiBingray);
-	else if (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::BINRGB) shrdat.resultBinrgb.dequeue(ixRiBinrgb);
-	else if (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::RAWGRAY) shrdat.resultRawgray.dequeue(ixRiRawgray);
-	else if (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::RAWRGB) shrdat.resultRawrgb.dequeue(ixRiRawrgb);
-
-	if ( (ixRiBingray != shrdat.resultBingray.size()) || (ixRiBinrgb != shrdat.resultBinrgb.size()) || (ixRiRawgray != shrdat.resultRawgray.size()) || (ixRiRawrgb != shrdat.resultRawrgb.size()) ) {
-		acqfpgapvw->shrdat.resultPvw.lock(jref, ixInv);
-		ixRiSrc = ixInv;
-
-		changeStage(dbswzsk, VecVSge::PRCIDLE);
-	};
-	// IP handleCallWzskResultNewFromAcqfpgapvwInSgeReady --- IEND
-	return retval;
 };
 
 bool JobWzskAcqPreview::handleCallWzskResultNewFromSrcv4l2InSgeReady(
@@ -586,6 +561,31 @@ bool JobWzskAcqPreview::handleCallWzskResultNewFromSrcv4l2InSgeReady(
 		changeStage(dbswzsk, VecVSge::PRCIDLE);
 	};
 	// IP handleCallWzskResultNewFromSrcv4l2InSgeReady --- IEND
+	return retval;
+};
+
+bool JobWzskAcqPreview::handleCallWzskResultNewFromAcqfpgapvwInSgeReady(
+			DbsWzsk* dbswzsk
+			, const uint ixInv
+			, const string& srefInv
+		) {
+	bool retval = false;
+	// IP handleCallWzskResultNewFromAcqfpgapvwInSgeReady --- IBEGIN
+
+	// binreddom is not available for fpga at this time
+
+	if (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::BINGRAY) shrdat.resultBingray.dequeue(ixRiBingray);
+	else if (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::BINRGB) shrdat.resultBinrgb.dequeue(ixRiBinrgb);
+	else if (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::RAWGRAY) shrdat.resultRawgray.dequeue(ixRiRawgray);
+	else if (VecWzskVPvwmode::getIx(srefInv) == VecWzskVPvwmode::RAWRGB) shrdat.resultRawrgb.dequeue(ixRiRawrgb);
+
+	if ( (ixRiBingray != shrdat.resultBingray.size()) || (ixRiBinrgb != shrdat.resultBinrgb.size()) || (ixRiRawgray != shrdat.resultRawgray.size()) || (ixRiRawrgb != shrdat.resultRawrgb.size()) ) {
+		acqfpgapvw->shrdat.resultPvw.lock(jref, ixInv);
+		ixRiSrc = ixInv;
+
+		changeStage(dbswzsk, VecVSge::PRCIDLE);
+	};
+	// IP handleCallWzskResultNewFromAcqfpgapvwInSgeReady --- IEND
 	return retval;
 };
 

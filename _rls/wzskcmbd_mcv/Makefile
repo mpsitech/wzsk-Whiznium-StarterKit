@@ -2,7 +2,7 @@
 # make file for Wzsk combined daemon, release wzskcmbd_mcv (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 2 Nov 2021
+# date created: 14 Nov 2021
 # IP header --- ABOVE
 
 include Makefile.inc
@@ -14,7 +14,7 @@ LINK = ${TCHROOT}/arm-poky-linux-gnueabi-g++
 LINKFLAGS = --sysroot=${SYSROOT}
 
 INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
-INCPATH += -I=$(BUILDROOT)/wzskcmbd/CrdWzskUsg -I=$(BUILDROOT)/wzskcmbd/CrdWzskUsr -I=$(BUILDROOT)/wzskcmbd/CrdWzskPrs -I=$(BUILDROOT)/wzskcmbd/CrdWzskScf -I=$(BUILDROOT)/wzskcmbd/CrdWzskNav -I=$(BUILDROOT)/wzskcmbd/CrdWzskLlv -I=$(BUILDROOT)/wzskcmbd/CrdWzskLiv -I=$(BUILDROOT)/wzskcmbd/CrdWzskOgr -I=$(BUILDROOT)/wzskcmbd/CrdWzskObj -I=$(BUILDROOT)/wzskcmbd/CrdWzskSes -I=$(BUILDROOT)/wzskcmbd/CrdWzskSht -I=$(BUILDROOT)/wzskcmbd/CrdWzskFil
+INCPATH += -I=$(BUILDROOT)/wzskcmbd/CrdWzskNav -I=$(BUILDROOT)/wzskcmbd/CrdWzskUsg -I=$(BUILDROOT)/wzskcmbd/CrdWzskUsr -I=$(BUILDROOT)/wzskcmbd/CrdWzskPrs -I=$(BUILDROOT)/wzskcmbd/CrdWzskScf -I=$(BUILDROOT)/wzskcmbd/CrdWzskLlv -I=$(BUILDROOT)/wzskcmbd/CrdWzskLiv -I=$(BUILDROOT)/wzskcmbd/CrdWzskOgr -I=$(BUILDROOT)/wzskcmbd/CrdWzskObj -I=$(BUILDROOT)/wzskcmbd/CrdWzskSes -I=$(BUILDROOT)/wzskcmbd/CrdWzskSht -I=$(BUILDROOT)/wzskcmbd/CrdWzskFil
 INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
 PCHS = Wzskcmbd.h.gch
@@ -28,7 +28,7 @@ LIBPATH += -L=$(LIBROOT)/wzskcmbd
 LIBPATH += -L=${WHIZSDKROOT}/lib -L=/usr/lib
 LIBPATH += -L=/lib
 
-LIBS = -lcrdwzskusg -lcrdwzskusr -lcrdwzskprs -lcrdwzskscf -lcrdwzsknav -lcrdwzskllv -lcrdwzskliv -lcrdwzskogr -lcrdwzskobj -lcrdwzskses -lcrdwzsksht -lcrdwzskfil
+LIBS = -lcrdwzsknav -lcrdwzskusg -lcrdwzskusr -lcrdwzskprs -lcrdwzskscf -lcrdwzskllv -lcrdwzskliv -lcrdwzskogr -lcrdwzskobj -lcrdwzskses -lcrdwzsksht -lcrdwzskfil
 LIBS += -liexwzsk -lvecwzsk -ldbswzsk
 LIBS += -lezdevwskd -lmicrohttpd -lpng -lsbecore_lite -lsbecore_mon
 LIBS += -ldbecore -lsbecore_plus -lsqlite3

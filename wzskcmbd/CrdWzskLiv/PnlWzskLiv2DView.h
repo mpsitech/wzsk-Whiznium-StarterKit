@@ -16,8 +16,8 @@
 #include <png.h>
 // IP include.cust --- IEND
 
-#include "JobWzskIprCorner.h"
 #include "JobWzskIprTrace.h"
+#include "JobWzskIprCorner.h"
 #include "JobWzskActServo.h"
 #include "JobWzskActLaser.h"
 #include "JobWzskActExposure.h"
@@ -505,8 +505,8 @@ public:
 
 	Sbecore::Feed feedFPupPvm;
 
-	JobWzskIprCorner* iprcorner;
 	JobWzskIprTrace* iprtrace;
+	JobWzskIprCorner* iprcorner;
 	JobWzskActServo* actservo;
 	JobWzskActLaser* actlaser;
 	JobWzskActExposure* actexposure;
@@ -560,11 +560,11 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskShrdatChgFromActlaser(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskStgChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskSgeChgFromActservo(DbsWzsk* dbswzsk);
 	bool handleCallWzskShrdatChgFromIprtrace(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskShrdatChgFromIprcorner(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromActlaser(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskShrdatChgFromActexposure(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskShrdatChgFromAcqptcloud(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskResultNew(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const std::string& srefInv);

@@ -21,11 +21,11 @@
 #include "CrdWzskOgr.h"
 #include "CrdWzskLiv.h"
 #include "CrdWzskLlv.h"
-#include "CrdWzskNav.h"
 #include "CrdWzskScf.h"
 #include "CrdWzskPrs.h"
 #include "CrdWzskUsr.h"
 #include "CrdWzskUsg.h"
+#include "CrdWzskNav.h"
 
 #define StatShrSessWzsk SessWzsk::StatShr
 
@@ -98,11 +98,11 @@ public:
 	std::map<Sbecore::ubigint, JobWzsk*> crdogrs;
 	std::map<Sbecore::ubigint, JobWzsk*> crdlivs;
 	std::map<Sbecore::ubigint, JobWzsk*> crdllvs;
-	CrdWzskNav* crdnav;
 	std::map<Sbecore::ubigint, JobWzsk*> crdscfs;
 	std::map<Sbecore::ubigint, JobWzsk*> crdprss;
 	std::map<Sbecore::ubigint, JobWzsk*> crdusrs;
 	std::map<Sbecore::ubigint, JobWzsk*> crdusgs;
+	CrdWzskNav* crdnav;
 
 	std::map<Sbecore::ubigint,Sbecore::uint> usgaccs;
 

@@ -39,16 +39,16 @@ PnlWzskUsrRec::PnlWzskUsrRec(
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
 	pnlmnusergroup = NULL;
-	pnl1nsession = NULL;
 	pnlaaccess = NULL;
+	pnl1nsession = NULL;
 	pnldetail = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	// IP constructor.cust2 --- INSERT
 
-	xchg->addClstn(VecWzskVCall::CALLWZSKUSR_PRSEQ, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKUSR_USGEQ, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKUSR_PRSEQ, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -257,10 +257,10 @@ void PnlWzskUsrRec::handleCall(
 		) {
 	if (call->ixVCall == VecWzskVCall::CALLWZSKUSRUPD_REFEQ) {
 		call->abort = handleCallWzskUsrUpd_refEq(dbswzsk, call->jref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSR_PRSEQ) {
-		call->abort = handleCallWzskUsr_prsEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSR_USGEQ) {
 		call->abort = handleCallWzskUsr_usgEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSR_PRSEQ) {
+		call->abort = handleCallWzskUsr_prsEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
 	};
 };
 
@@ -273,17 +273,6 @@ bool PnlWzskUsrRec::handleCallWzskUsrUpd_refEq(
 	return retval;
 };
 
-bool PnlWzskUsrRec::handleCallWzskUsr_prsEq(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-			, const ubigint refInv
-			, bool& boolvalRet
-		) {
-	bool retval = false;
-	boolvalRet = (recUsr.refWzskMPerson == refInv); // IP handleCallWzskUsr_prsEq --- LINE
-	return retval;
-};
-
 bool PnlWzskUsrRec::handleCallWzskUsr_usgEq(
 			DbsWzsk* dbswzsk
 			, const ubigint jrefTrig
@@ -292,5 +281,16 @@ bool PnlWzskUsrRec::handleCallWzskUsr_usgEq(
 		) {
 	bool retval = false;
 	boolvalRet = (recUsr.refWzskMUsergroup == refInv); // IP handleCallWzskUsr_usgEq --- LINE
+	return retval;
+};
+
+bool PnlWzskUsrRec::handleCallWzskUsr_prsEq(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+			, const ubigint refInv
+			, bool& boolvalRet
+		) {
+	bool retval = false;
+	boolvalRet = (recUsr.refWzskMPerson == refInv); // IP handleCallWzskUsr_prsEq --- LINE
 	return retval;
 };

@@ -44,8 +44,8 @@ CrdWzskLlv::CrdWzskLlv(
 	pnllaser = NULL;
 	pnlttable = NULL;
 	pnlcamera = NULL;
-	pnltermuvbdvk = NULL;
 	pnltermmcvevp = NULL;
+	pnltermuvbdvk = NULL;
 	pnltermicicle = NULL;
 	pnltermclnxevb = NULL;
 	pnltermarty = NULL;
@@ -59,8 +59,8 @@ CrdWzskLlv::CrdWzskLlv(
 	pnllaser = new PnlWzskLlvLaser(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlttable = new PnlWzskLlvTtable(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlcamera = new PnlWzskLlvCamera(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnltermuvbdvk = new PnlWzskLlvTermUvbdvk(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnltermmcvevp = new PnlWzskLlvTermMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnltermuvbdvk = new PnlWzskLlvTermUvbdvk(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnltermicicle = new PnlWzskLlvTermIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnltermclnxevb = new PnlWzskLlvTermClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnltermarty = new PnlWzskLlvTermArty(xchg, dbswzsk, jref, ixWzskVLocale);

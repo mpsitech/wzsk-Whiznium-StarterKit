@@ -14,8 +14,8 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskOgrSup1NObjgroup.h"
 #include "PnlWzskOgr1NObject.h"
+#include "PnlWzskOgrSup1NObjgroup.h"
 #include "PnlWzskOgrDetail.h"
 
 #define VecVWzskOgrRecDo PnlWzskOgrRec::VecVDo
@@ -177,8 +177,8 @@ public:
 	ContInf continf;
 	StatShr statshr;
 
-	PnlWzskOgrSup1NObjgroup* pnlsup1nobjgroup;
 	PnlWzskOgr1NObject* pnl1nobject;
+	PnlWzskOgrSup1NObjgroup* pnlsup1nobjgroup;
 	PnlWzskOgrDetail* pnldetail;
 
 	WzskMObjgroup recOgr;

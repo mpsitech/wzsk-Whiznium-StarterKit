@@ -14,8 +14,8 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskShtList.h"
 #include "PnlWzskShtHeadbar.h"
+#include "PnlWzskShtList.h"
 #include "PnlWzskShtRec.h"
 
 #define VecVWzskShtDo CrdWzskSht::VecVDo
@@ -196,8 +196,8 @@ public:
 	Sbecore::Feed feedFMcbAlert;
 	Sbecore::Feed feedFSge;
 
-	PnlWzskShtList* pnllist;
 	PnlWzskShtHeadbar* pnlheadbar;
+	PnlWzskShtList* pnllist;
 	PnlWzskShtRec* pnlrec;
 
 	// IP vars.cust --- INSERT

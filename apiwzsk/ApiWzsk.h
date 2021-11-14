@@ -10,10 +10,10 @@
 #ifndef APIWZSK_H
 #define APIWZSK_H
 
-#define WZSK_VERSION "1.0.8"
+#define WZSK_VERSION "1.0.9"
 #define WZSK_VERSION_MAJOR 1
 #define WZSK_VERSION_MINOR 0
-#define WZSK_VERSION_SUB 8
+#define WZSK_VERSION_SUB 9
 
 #include "ApiWzsk_blks.h"
 

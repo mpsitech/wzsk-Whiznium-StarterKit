@@ -2,7 +2,7 @@
 # make file for Wzsk combined daemon, release wzskcmbd_riscv_mpsi (jack cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 2 Nov 2021
+# date created: 14 Nov 2021
 # IP header --- ABOVE
 
 include Makefile.inc
@@ -14,7 +14,7 @@ LINK = ${TCHROOT}/riscv64-oe-linux-g++
 LINKFLAGS = --sysroot=/home/mpsitech/emb/icicle/wzsk/sdk/sysroots/riscv64-oe-linux
 
 INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
-INCPATH += -I=$(BUILDROOT)/wzskcmbd/CrdWzskUsg -I=$(BUILDROOT)/wzskcmbd/CrdWzskUsr -I=$(BUILDROOT)/wzskcmbd/CrdWzskPrs -I=$(BUILDROOT)/wzskcmbd/CrdWzskScf -I=$(BUILDROOT)/wzskcmbd/CrdWzskNav -I=$(BUILDROOT)/wzskcmbd/CrdWzskLlv -I=$(BUILDROOT)/wzskcmbd/CrdWzskLiv -I=$(BUILDROOT)/wzskcmbd/CrdWzskOgr -I=$(BUILDROOT)/wzskcmbd/CrdWzskObj -I=$(BUILDROOT)/wzskcmbd/CrdWzskSes -I=$(BUILDROOT)/wzskcmbd/CrdWzskSht -I=$(BUILDROOT)/wzskcmbd/CrdWzskFil
+INCPATH += -I=$(BUILDROOT)/wzskcmbd/CrdWzskNav -I=$(BUILDROOT)/wzskcmbd/CrdWzskUsg -I=$(BUILDROOT)/wzskcmbd/CrdWzskUsr -I=$(BUILDROOT)/wzskcmbd/CrdWzskPrs -I=$(BUILDROOT)/wzskcmbd/CrdWzskScf -I=$(BUILDROOT)/wzskcmbd/CrdWzskLlv -I=$(BUILDROOT)/wzskcmbd/CrdWzskLiv -I=$(BUILDROOT)/wzskcmbd/CrdWzskOgr -I=$(BUILDROOT)/wzskcmbd/CrdWzskObj -I=$(BUILDROOT)/wzskcmbd/CrdWzskSes -I=$(BUILDROOT)/wzskcmbd/CrdWzskSht -I=$(BUILDROOT)/wzskcmbd/CrdWzskFil
 INCPATH += -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/atomic/any_platform_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/file/linux_windows -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/library/linux_windows -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/locks/any_platform_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/ref_count/any_platform_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/tcpip/windows_linux_sockets_select_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/thread_pool/any_platform_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/timers/any_platform_polled -I=${UASDKROOT}/SDK_Source/interface/common/portable/address_space -I=${UASDKROOT}/SDK_Source/interface/common/portable/address_space/helpers -I=${UASDKROOT}/SDK_Source/interface/common/portable/data_types -I=${UASDKROOT}/SDK_Source/interface/common/portable/data_types/helper -I=${UASDKROOT}/SDK_Source/interface/common/portable/miscellaneous -I=${UASDKROOT}/SDK_Source/interface/common/portable/smart_pointers -I=${UASDKROOT}/SDK_Source/interface/common/portable/ua_messages -I=${UASDKROOT}/SDK_Source/interface/server/platform_specific/server_class/windows_linux_st -I=${UASDKROOT}/SDK_Source/interface/server/portable -I=${UASDKROOT}/SDK_Source/internals -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
 PCHS = Wzskcmbd.h.gch
@@ -29,7 +29,7 @@ LIBPATH += -L=$(LIBROOT)/wzskcmbd
 LIBPATH += -L=${WHIZSDKROOT}/lib -L=/usr/lib
 LIBPATH += -L=/lib
 
-LIBS = -lcrdwzskusg -lcrdwzskusr -lcrdwzskprs -lcrdwzskscf -lcrdwzsknav -lcrdwzskllv -lcrdwzskliv -lcrdwzskogr -lcrdwzskobj -lcrdwzskses -lcrdwzsksht -lcrdwzskfil
+LIBS = -lcrdwzsknav -lcrdwzskusg -lcrdwzskusr -lcrdwzskprs -lcrdwzskscf -lcrdwzskllv -lcrdwzskliv -lcrdwzskogr -lcrdwzskobj -lcrdwzskses -lcrdwzsksht -lcrdwzskfil
 LIBS += -liexwzsk -lvecwzsk -ldbswzsk
 LIBS += -lezdevwskd -lmicrohttpd -lopcua -lpng -lsbecore_lite -lsbecore_mon
 LIBS += -ldbecore -lsbecore_plus -lsqlite3

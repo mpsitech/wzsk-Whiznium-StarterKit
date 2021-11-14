@@ -50,7 +50,7 @@
 		<Si sref="hGrrd">768</Si>
 	</StgWzskFramegeo>
 	<StgWzskGlobal>
-		<Si sref="srefIxWzskVTarget"></Si>
+		<Si sref="srefIxWzskVTarget">icicle</Si>
 	</StgWzskGlobal>
 	<StgWzskPath>
 		<Si sref="acvpath">${WHIZROOT}/acv/wzsk</Si>

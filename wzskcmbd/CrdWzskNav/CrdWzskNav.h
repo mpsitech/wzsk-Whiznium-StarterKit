@@ -14,10 +14,10 @@
 
 // IP include.cust --- INSERT
 
+#include "PnlWzskNavPre.h"
 #include "PnlWzskNavGlry.h"
 #include "PnlWzskNavOp.h"
 #include "PnlWzskNavAdmin.h"
-#include "PnlWzskNavPre.h"
 #include "PnlWzskNavHeadbar.h"
 #include "DlgWzskNavLoaini.h"
 
@@ -288,10 +288,10 @@ public:
 	Sbecore::Feed feedFMcbAlert;
 	Sbecore::Feed feedFSge;
 
+	PnlWzskNavPre* pnlpre;
 	PnlWzskNavGlry* pnlglry;
 	PnlWzskNavOp* pnlop;
 	PnlWzskNavAdmin* pnladmin;
-	PnlWzskNavPre* pnlpre;
 	PnlWzskNavHeadbar* pnlheadbar;
 	DlgWzskNavLoaini* dlgloaini;
 

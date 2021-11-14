@@ -15,8 +15,8 @@
 // IP include.cust --- INSERT
 
 #include "PnlWzskUsrMNUsergroup.h"
-#include "PnlWzskUsr1NSession.h"
 #include "PnlWzskUsrAAccess.h"
+#include "PnlWzskUsr1NSession.h"
 #include "PnlWzskUsrDetail.h"
 
 #define VecVWzskUsrRecDo PnlWzskUsrRec::VecVDo
@@ -181,8 +181,8 @@ public:
 	StatShr statshr;
 
 	PnlWzskUsrMNUsergroup* pnlmnusergroup;
-	PnlWzskUsr1NSession* pnl1nsession;
 	PnlWzskUsrAAccess* pnlaaccess;
+	PnlWzskUsr1NSession* pnl1nsession;
 	PnlWzskUsrDetail* pnldetail;
 
 	WzskMUser recUsr;
@@ -218,8 +218,8 @@ public:
 
 private:
 	bool handleCallWzskUsrUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
-	bool handleCallWzskUsr_prsEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
 	bool handleCallWzskUsr_usgEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
+	bool handleCallWzskUsr_prsEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
 
 };
 

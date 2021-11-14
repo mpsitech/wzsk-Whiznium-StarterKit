@@ -1,4 +1,4 @@
-IexWznmGbl v0.9.29
+IexWznmGbl v1.1.7
 ImeIMError.sref	Title
 gpio	GPIO subsystem: &msg;
 pwm	PWM subsystem: &msg;
@@ -57,10 +57,14 @@ lin	VecWzskVTarget		apdfed;filfed
 ImeIMVector.end
 ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
 cmbeng;eng	cmbeng;eng	StgWzskCamera
-	ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	Defval	Comment
-	0	var	hpix	float	1.4
-	0	var	f	float	3.78	USB type A has 2.00
-	0	var	fn	float	3
+	ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
+	0	var	hpix	float		1.4
+	0	var	f	float
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+			3.78
+		wzskcmbd_ubuntu	2.00
+		ImeIJAMBlockItem.end
+	0	var	fn	float		3
 	ImeIAMBlockItem.end
 cmbeng;eng	cmbeng;eng	StgWzskFramegeo
 	ImeICAMBlockItem.iref
@@ -68,22 +72,79 @@ cmbeng;eng	cmbeng;eng	StgWzskFramegeo
 	2
 	3
 	ImeICAMBlockItem.end
-	ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	Defval	Comment
-	1	var	wAcq	uint	2592
-	1	var	hAcq	uint	1944
-	1	var	whAcq	uint	5038848	wAcq * hAcq
-	2	var	x0Rgb	uint	16
-	2	var	wRgb	uint	1280
-	2	var	y0Rgb	uint	12
-	2	var	hRgb	uint	960
-	3	var	x0Grrd	uint	272
-	3	var	wGrrd	uint	1024
-	3	var	y0Grrd	uint	204
-	3	var	hGrrd	uint	768
+	ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
+	1	var	wAcq	uint
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+			2592
+		wzskcmbd_ubuntu	1600
+		ImeIJAMBlockItem.end
+	1	var	hAcq	uint
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+			1944
+		wzskcmbd_ubuntu	1200
+		ImeIJAMBlockItem.end
+	1	var	whAcq	uint		wAcq * hAcq
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+			5038848
+		wzskcmbd_ubuntu	1920000
+		ImeIJAMBlockItem.end
+	2	var	x0Rgb	uint
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+			16
+		wzskcmbd_ubuntu	0
+		ImeIJAMBlockItem.end
+	2	var	wRgb	uint
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+			1280
+		wzskcmbd_ubuntu	800
+		ImeIJAMBlockItem.end
+	2	var	y0Rgb	uint
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+			12
+		wzskcmbd_ubuntu	0
+		ImeIJAMBlockItem.end
+	2	var	hRgb	uint
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+			960
+		wzskcmbd_ubuntu	600
+		ImeIJAMBlockItem.end
+	3	var	x0Grrd	uint
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+			272
+		wzskcmbd_ubuntu	0
+		ImeIJAMBlockItem.end
+	3	var	wGrrd	uint
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+			1024
+		wzskcmbd_ubuntu	800
+		ImeIJAMBlockItem.end
+	3	var	y0Grrd	uint
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+			204
+		wzskcmbd_ubuntu	0
+		ImeIJAMBlockItem.end
+	3	var	hGrrd	uint
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+			768
+		wzskcmbd_ubuntu	600
+		ImeIJAMBlockItem.end
 	ImeIAMBlockItem.end
 cmbeng;eng	cmbeng;eng	StgWzskGlobal
-	ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	Defval	Comment
-	0	var	ixWzskVTarget	vecsref
+	ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
+	0	var	ixWzskVTarget	vecsref	VecWzskVTarget
+		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
+		wzskcmbd_mcv		mcvevp
+		wzskcmbd_plnx		arty
+		wzskcmbd_riscv		icicle
+		wzskcmbd_tdx		apalis
+		wzskcmbd_ubuntu		ws
+		// IP stgglobal.mpsi --- IBEGIN
+		wzskcmbd_mcv_mpsi		mcvevp
+		wzskcmbd_plnx_mpsi		arty
+		wzskcmbd_riscv_mpsi		icicle
+		wzskcmbd_tdx_mpsi		apalis
+		// IP stgglobal.mpsi --- IEND
+		ImeIJAMBlockItem.end
 	ImeIAMBlockItem.end
 ImeIMBlock.end
 ImeIMCapability.srefTplRefWznmMCapability	sref	Title

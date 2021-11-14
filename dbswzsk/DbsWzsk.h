@@ -10,10 +10,10 @@
 #ifndef DBSWZSK_H
 #define DBSWZSK_H
 
-#define WZSK_VERSION "1.0.8"
+#define WZSK_VERSION "1.0.9"
 #define WZSK_VERSION_MAJOR 1
 #define WZSK_VERSION_MINOR 0
-#define WZSK_VERSION_SUB 8
+#define WZSK_VERSION_SUB 9
 
 #include <sbecore/Types.h>
 
@@ -100,11 +100,11 @@ public:
 	class VecVCard {
 
 	public:
-		static const Sbecore::uint CRDWZSKUSG = 1;
-		static const Sbecore::uint CRDWZSKUSR = 2;
-		static const Sbecore::uint CRDWZSKPRS = 3;
-		static const Sbecore::uint CRDWZSKSCF = 4;
-		static const Sbecore::uint CRDWZSKNAV = 5;
+		static const Sbecore::uint CRDWZSKNAV = 1;
+		static const Sbecore::uint CRDWZSKUSG = 2;
+		static const Sbecore::uint CRDWZSKUSR = 3;
+		static const Sbecore::uint CRDWZSKPRS = 4;
+		static const Sbecore::uint CRDWZSKSCF = 5;
 		static const Sbecore::uint CRDWZSKLLV = 6;
 		static const Sbecore::uint CRDWZSKLIV = 7;
 		static const Sbecore::uint CRDWZSKOGR = 8;

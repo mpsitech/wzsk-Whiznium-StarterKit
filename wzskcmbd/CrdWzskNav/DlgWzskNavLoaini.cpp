@@ -149,23 +149,23 @@ void DlgWzskNavLoaini::refresh(
 	muteRefresh = true;
 
 	StatShr oldStatshr(statshr);
-	ContIac oldContiac(contiac);
 	ContInf oldContinf(continf);
+	ContIac oldContiac(contiac);
 
 	// IP refresh --- BEGIN
 	// statshr
 	statshr.ButDneActive = evalButDneActive(dbswzsk);
 
-	// contiac
-	contiac.numFDse = ixVDit;
-
 	// continf
 	continf.numFSge = ixVSge;
 
+	// contiac
+	contiac.numFDse = ixVDit;
+
 	// IP refresh --- END
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
-	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
+	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
 
 	refreshIfi(dbswzsk, moditems);
 	refreshImp(dbswzsk, moditems);
@@ -229,9 +229,9 @@ void DlgWzskNavLoaini::handleRequest(
 		req->filename = handleDownload(dbswzsk);
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
-		if (ixVSge == VecVSge::IMPIDLE) handleTimerInSgeImpidle(dbswzsk, req->sref);
+		if (ixVSge == VecVSge::PRSIDLE) handleTimerInSgePrsidle(dbswzsk, req->sref);
+		else if (ixVSge == VecVSge::IMPIDLE) handleTimerInSgeImpidle(dbswzsk, req->sref);
 		else if ((req->sref == "mon") && (ixVSge == VecVSge::IMPORT)) handleTimerWithSrefMonInSgeImport(dbswzsk);
-		else if (ixVSge == VecVSge::PRSIDLE) handleTimerInSgePrsidle(dbswzsk, req->sref);
 	};
 };
 
@@ -321,6 +321,13 @@ string DlgWzskNavLoaini::handleDownload(
 	return(""); // IP handleDownload --- LINE
 };
 
+void DlgWzskNavLoaini::handleTimerInSgePrsidle(
+			DbsWzsk* dbswzsk
+			, const string& sref
+		) {
+	changeStage(dbswzsk, nextIxVSgeSuccess);
+};
+
 void DlgWzskNavLoaini::handleTimerInSgeImpidle(
 			DbsWzsk* dbswzsk
 			, const string& sref
@@ -333,13 +340,6 @@ void DlgWzskNavLoaini::handleTimerWithSrefMonInSgeImport(
 		) {
 	wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
 	refreshWithDpchEng(dbswzsk); // IP handleTimerWithSrefMonInSgeImport --- ILINE
-};
-
-void DlgWzskNavLoaini::handleTimerInSgePrsidle(
-			DbsWzsk* dbswzsk
-			, const string& sref
-		) {
-	changeStage(dbswzsk, nextIxVSgeSuccess);
 };
 
 void DlgWzskNavLoaini::changeStage(

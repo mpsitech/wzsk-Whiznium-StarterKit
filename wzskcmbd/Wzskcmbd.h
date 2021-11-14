@@ -269,7 +269,7 @@ public:
 
 public:
 	float hpix;
-	float f; // USB type A has 2.00
+	float f;
 	float fn;
 
 public:
@@ -388,7 +388,7 @@ public:
 public:
 	Sbecore::uint wAcq;
 	Sbecore::uint hAcq;
-	Sbecore::uint whAcq; // wAcq * hAcq
+	Sbecore::uint whAcq;
 
 	Sbecore::uint x0Rgb;
 	Sbecore::uint wRgb;
@@ -416,7 +416,7 @@ public:
 	static const Sbecore::uint IXWZSKVTARGET = 1;
 
 public:
-	StgWzskGlobal(const Sbecore::uint ixWzskVTarget = 0);
+	StgWzskGlobal(const Sbecore::uint ixWzskVTarget = VecWzskVTarget::MCVEVP);
 
 public:
 	Sbecore::uint ixWzskVTarget;
