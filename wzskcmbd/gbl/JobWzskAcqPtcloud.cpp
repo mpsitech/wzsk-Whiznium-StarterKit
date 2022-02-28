@@ -87,8 +87,8 @@ JobWzskAcqPtcloud::JobWzskAcqPtcloud(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	iprtrace = NULL;
 	actservo = NULL;
+	iprtrace = NULL;
 
 	// IP constructor.cust1 --- IBEGIN
 	ixRiSrc = 0; ixRiSrc--;
@@ -97,15 +97,15 @@ JobWzskAcqPtcloud::JobWzskAcqPtcloud(
 
 	// IP constructor.spec1 --- INSERT
 
-	if (srvNotCli) iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 	if (srvNotCli) actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
+	if (srvNotCli) iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 
 	// IP constructor.spec2 --- INSERT
 
-	if (srvNotCli) xchg->addClstn(VecWzskVCall::CALLWZSKSGECHG, jref, Clstn::VecVJobmask::SPEC, actservo->jref, false, Arg(), VecVSge::TURN, Clstn::VecVJactype::LOCK);
 	if (srvNotCli) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, iprtrace->jref, false, Arg(), VecVSge::ACQUIRE, Clstn::VecVJactype::LOCK);
+	if (srvNotCli) xchg->addClstn(VecWzskVCall::CALLWZSKSGECHG, jref, Clstn::VecVJobmask::SPEC, actservo->jref, false, Arg(), VecVSge::TURN, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -251,21 +251,11 @@ void JobWzskAcqPtcloud::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if ((call->ixVCall == VecWzskVCall::CALLWZSKSGECHG) && (call->jref == actservo->jref) && (ixVSge == VecVSge::TURN)) {
-		call->abort = handleCallWzskSgeChgFromActservoInSgeTurn(dbswzsk);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && (call->jref == iprtrace->jref) && (ixVSge == VecVSge::ACQUIRE)) {
+	if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && (call->jref == iprtrace->jref) && (ixVSge == VecVSge::ACQUIRE)) {
 		call->abort = handleCallWzskResultNewFromIprtraceInSgeAcquire(dbswzsk, call->argInv.ix, call->argInv.sref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSGECHG) && (call->jref == actservo->jref) && (ixVSge == VecVSge::TURN)) {
+		call->abort = handleCallWzskSgeChgFromActservoInSgeTurn(dbswzsk);
 	};
-};
-
-bool JobWzskAcqPtcloud::handleCallWzskSgeChgFromActservoInSgeTurn(
-			DbsWzsk* dbswzsk
-		) {
-	bool retval = false;
-	// IP handleCallWzskSgeChgFromActservoInSgeTurn --- IBEGIN
-	if (actservo->ixVSge == JobWzskActServo::VecVSge::IDLE) changeStage(dbswzsk, VecVSge::ACQUIRE);
-	// IP handleCallWzskSgeChgFromActservoInSgeTurn --- IEND
-	return retval;
 };
 
 bool JobWzskAcqPtcloud::handleCallWzskResultNewFromIprtraceInSgeAcquire(
@@ -280,6 +270,16 @@ bool JobWzskAcqPtcloud::handleCallWzskResultNewFromIprtraceInSgeAcquire(
 
 	changeStage(dbswzsk, VecVSge::PRCIDLE);
 	// IP handleCallWzskResultNewFromIprtraceInSgeAcquire --- IEND
+	return retval;
+};
+
+bool JobWzskAcqPtcloud::handleCallWzskSgeChgFromActservoInSgeTurn(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = false;
+	// IP handleCallWzskSgeChgFromActservoInSgeTurn --- IBEGIN
+	if (actservo->ixVSge == JobWzskActServo::VecVSge::IDLE) changeStage(dbswzsk, VecVSge::ACQUIRE);
+	// IP handleCallWzskSgeChgFromActservoInSgeTurn --- IEND
 	return retval;
 };
 

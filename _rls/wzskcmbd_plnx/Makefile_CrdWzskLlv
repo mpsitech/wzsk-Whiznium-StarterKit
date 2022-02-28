@@ -2,7 +2,7 @@
 # make file for CrdWzskLlv card job handler, release wzskcmbd_plnx (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 14 Nov 2021
+# date created: 28 Feb 2022
 # IP header --- ABOVE
 
 include ../Makefile.inc
@@ -16,7 +16,7 @@ STATLIBFLAGS = rcs
 INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
 INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
-OBJS = CrdWzskLlv.o PnlWzskLlvLaser.o PnlWzskLlvTtable.o PnlWzskLlvCamera.o PnlWzskLlvTermMcvevp.o PnlWzskLlvTermUvbdvk.o PnlWzskLlvTermIcicle.o PnlWzskLlvTermClnxevb.o PnlWzskLlvTermArty.o PnlWzskLlvHeadbar.o
+OBJS = CrdWzskLlv.o PnlWzskLlvHeadbar.o PnlWzskLlvTermArty.o PnlWzskLlvTermClnxevb.o PnlWzskLlvTermIcicle.o PnlWzskLlvTermMcvevp.o PnlWzskLlvTermUvbdvk.o PnlWzskLlvCamera.o PnlWzskLlvTtable.o PnlWzskLlvLaser.o
 
 LIB = libcrdwzskllv
 

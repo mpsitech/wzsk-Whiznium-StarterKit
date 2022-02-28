@@ -14,8 +14,8 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskIprTrace.h"
 #include "JobWzskActServo.h"
+#include "JobWzskIprTrace.h"
 
 #define VecVJobWzskAcqPtcloudMethod JobWzskAcqPtcloud::VecVMethod
 #define VecVJobWzskAcqPtcloudSge JobWzskAcqPtcloud::VecVSge
@@ -170,8 +170,8 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
-	JobWzskIprTrace* iprtrace;
 	JobWzskActServo* actservo;
+	JobWzskIprTrace* iprtrace;
 
 	// IP vars.spec --- INSERT
 
@@ -218,8 +218,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskSgeChgFromActservoInSgeTurn(DbsWzsk* dbswzsk);
 	bool handleCallWzskResultNewFromIprtraceInSgeAcquire(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskSgeChgFromActservoInSgeTurn(DbsWzsk* dbswzsk);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

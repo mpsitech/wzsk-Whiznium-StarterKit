@@ -18,11 +18,12 @@
 #include <sys/ioctl.h>
 // IP include.cust --- IEND
 
-#include "JobWzskSrcUvbdvk.h"
-#include "JobWzskSrcMcvevp.h"
-#include "JobWzskSrcIcicle.h"
-#include "JobWzskSrcClnxevb.h"
 #include "JobWzskSrcArty.h"
+#include "JobWzskSrcClnxevb.h"
+#include "JobWzskSrcIcicle.h"
+#include "JobWzskSrcMcvevp.h"
+#include "JobWzskSrcUvbdvk.h"
+#include "JobWzskSrcUzediocc.h"
 
 #define VecVJobWzskActLaserMethod JobWzskActLaser::VecVMethod
 #define VecVJobWzskActLaserVar JobWzskActLaser::VecVVar
@@ -144,11 +145,12 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
-	JobWzskSrcUvbdvk* srcuvbdvk;
-	JobWzskSrcMcvevp* srcmcvevp;
-	JobWzskSrcIcicle* srcicicle;
-	JobWzskSrcClnxevb* srcclnxevb;
 	JobWzskSrcArty* srcarty;
+	JobWzskSrcClnxevb* srcclnxevb;
+	JobWzskSrcIcicle* srcicicle;
+	JobWzskSrcMcvevp* srcmcvevp;
+	JobWzskSrcUvbdvk* srcuvbdvk;
+	JobWzskSrcUzediocc* srcuzediocc;
 
 	// IP vars.spec --- INSERT
 

@@ -14,9 +14,9 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskIprCorner.h"
-#include "JobWzskIprAngle.h"
 #include "JobWzskActServo.h"
+#include "JobWzskIprAngle.h"
+#include "JobWzskIprCorner.h"
 
 #define VecVDlgWzskScfTtablecoordDit DlgWzskScfTtablecoord::VecVDit
 #define VecVDlgWzskScfTtablecoordDo DlgWzskScfTtablecoord::VecVDo
@@ -258,9 +258,9 @@ public:
 	Sbecore::Feed feedFDse;
 	Sbecore::Feed feedFSge;
 
-	JobWzskIprCorner* iprcorner;
-	JobWzskIprAngle* iprangle;
 	JobWzskActServo* actservo;
+	JobWzskIprAngle* iprangle;
+	JobWzskIprCorner* iprcorner;
 
 	Sbecore::uint ixVDit;
 

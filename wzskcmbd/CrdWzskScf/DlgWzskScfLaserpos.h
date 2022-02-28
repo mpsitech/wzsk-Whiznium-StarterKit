@@ -14,8 +14,8 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskIprTrace.h"
 #include "JobWzskActLaser.h"
+#include "JobWzskIprTrace.h"
 
 #define VecVDlgWzskScfLaserposDit DlgWzskScfLaserpos::VecVDit
 #define VecVDlgWzskScfLaserposDo DlgWzskScfLaserpos::VecVDo
@@ -257,8 +257,8 @@ public:
 	Sbecore::Feed feedFDse;
 	Sbecore::Feed feedFSge;
 
-	JobWzskIprTrace* iprtrace;
 	JobWzskActLaser* actlaser;
+	JobWzskIprTrace* iprtrace;
 
 	Sbecore::uint ixVDit;
 

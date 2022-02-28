@@ -1,0 +1,307 @@
+<template>
+	<v-container class="py-6" fill-height fluid>
+		<v-card class="pa-3 mx-auto" min-width="600">
+			<v-card-title>
+			 <div class="mx-auto my-3 text-center">{{CptVersion}}</div>
+			</v-card-title>
+
+			<v-card-text>
+				<v-row>
+					<v-col cols="6"/>
+					<v-col cols="6">
+						<v-select
+							v-model="fiFPupLocale"
+							:items="FeedFPupLocale"
+							:label="tag.CptLocale"
+							v-on:change="handlePupLocaleChange"
+						>
+							<template v-slot:selection="{item}">{{item.tit1}}</template>
+							<template v-slot:item="{item}">{{item.tit1}}</template>
+						</v-select>
+					</v-col>
+				</v-row>
+
+				<v-text-field
+					v-model="TxfUsername"
+					:label="tag.CptLoginUsername"
+				/>
+
+				<v-text-field
+					v-model="TxfPassword"
+					:label="Tag.CptLoginPassword"
+					:type="TxfPasswordShow ? 'text' : 'password'"
+					:append-icon="TxfPasswordShow ? 'mdi-eye' : 'mdi-eye-off'"
+					v-on:keyup.enter="handleTxfPasswordEnter"
+					@click:append="TxfPasswordShow = !TxfPasswordShow"
+				/>
+
+				<div v-if="CptMessageAvail" class="pa-1 my-3" :class="CptMessageClass">{{CptMessage}}</div>
+
+				<div class="my-6">
+					<v-btn
+						block
+						class="primary"
+						v-on:click="handleLogin"
+					>
+						{{tag.ButLoginLogin}}
+					</v-btn>
+				</div>
+			</v-card-text>
+		</v-card>
+	</v-container>
+</template>
+
+<script>
+	import axios from 'axios'
+
+	import Wzsk from '../../scripts/Wzsk';
+
+	const dpch = axios.create({
+		baseURL: window.location.protocol + "//" + window.location.hostname + ":" + Wzsk.appsrvport() + "/dpch"
+	})
+
+	function getFiBySref(feed, sref) {
+		for (var i = 0; i < feed.length; i++) if (feed[i].sref == sref) return feed[i];
+	}
+
+	export default {
+		name: 'CrdWzskStart',
+
+		props: {
+			srefIxVSge_initial: String
+		},
+
+		beforeMount() {
+			this.fiFSge = getFiBySref(this.FeedFSge, this.srefIxVSge_initial);
+		},
+
+		methods: {
+
+			handleLogin: function() {
+				const dpchapp = {
+					"DpchAppRootWzskLogin": {
+						"scrJref": "",
+						"username": this.TxfUsername,
+						"password": this.TxfPassword,
+						"m2mNotReg": false
+					}
+				};
+				
+				const data = "json=" + encodeURIComponent(JSON.stringify(dpchapp));
+
+				var vm = this;
+
+				dpch.post('', data).then(function (response) {
+					const dpcheng = response.data.DpchEngWzskConfirm;
+
+					if (dpcheng.accepted) {
+						//console.log("CrdWzskStart.handleLogin() login accepted");
+
+						vm.fiFSge = getFiBySref(vm.FeedFSge, "acc");
+
+						vm.initSess(dpcheng.scrJref);
+
+					} else {
+						//console.log("CrdWzskStart.handleLogin() login denied");
+
+						vm.fiFSge = getFiBySref(vm.FeedFSge, "dny");
+					}
+
+				}).catch(function (error) {
+					console.log("CrdWzskStart.handleLogin() error: " + error);
+				});
+			},
+
+			initSess: function(scrJrefSess) {
+				const dpchapp = {
+					"DpchAppWzskInit": {
+						"scrJref": scrJrefSess
+					}
+				}
+
+				const data = "json=" + encodeURIComponent(JSON.stringify(dpchapp));
+
+				var vm = this;
+
+				dpch.post('', data).then(function (response) {
+					const dpcheng = response.data.DpchEngSessWzskData;
+
+					vm.$emit("login", {scrJrefSess: scrJrefSess, scrJrefCrdnav: dpcheng.StatShrSessWzsk.scrJrefCrdnav});
+
+				}).catch(function (error) {
+					console.log("CrdWzskStart.initSess() error: " + error);
+				});
+			},
+
+			handlePupLocaleChange: function() {
+				this.numFPupLocale = this.fiFPupLocale.num; // changes FeedFPupLocale
+
+				for (var i = 0; i < this.FeedFPupLocale.length; i++)
+					if (this.FeedFPupLocale[i].num == this.numFPupLocale) {
+						this.fiFPupLocale = this.FeedFPupLocale[i];
+						break;
+					}
+
+				//console.log("CrdWzskStart.handlePupLocaleChange() new locale is " + this.fiFPupLocale.sref);
+			},
+
+			handleTxfPasswordEnter: function() {
+				this.handleLogin()
+			}
+		},
+
+		computed: {
+			CptVersion() {
+				return(Wzsk.title + " v" + Wzsk.version);
+			},
+
+			FeedFPupLocale() {
+				/*
+				*/
+				if (this.numFPupLocale == 1) return this.FeedFPupLocales.enus;
+				if (this.numFPupLocale == 2) return this.FeedFPupLocales.dech;
+				/*
+				*/
+				return null;
+			},
+
+			tag() {
+				/*
+				*/
+				if (this.numFPupLocale == 1) return this.tags.enus;
+				if (this.numFPupLocale == 2) return this.tags.dech;
+				/*
+				*/
+				return null;
+			},
+
+			CptMessageAvail() {
+				return(this.fiFSge.sref != "idle");
+			},
+
+			CptMessageClass() {
+				if (this.fiFSge.sref == "acc") return "success";
+				else if (this.fiFSge.sref == "dny") return "error";
+				return "info";
+			},
+
+			CptMessage() {
+				if (this.fiFSge.sref == "acc") return this.Tag.CptSuccess;
+				else if (this.fiFSge.sref == "dny") return this.Tag.CptFailureMessage;
+				else if (this.fiFSge.sref == "term") return this.Tag.CptLogoutMessage;
+				return "CptMessage";
+			}
+
+		},
+
+		data: () => ({
+			fiFSge: null,
+
+			TxfUsername: "",
+
+			TxfPassword: "",
+			TxfPasswordShow: false,
+
+			numFPupLocale: 1,
+
+			/*
+			*/
+			fiFPupLocale: {
+				num: 1,
+				sref: "enus",
+				tit1: "English (United States)"
+			},
+
+			FeedFPupLocales: {
+				enus: [
+					{
+						num: 1,
+						sref: "enus",
+						tit1: "English (United States)"
+					},
+					{
+						num: 2,
+						sref: "dech",
+						tit1: "German (Switzerland)"
+					}
+				],
+				dech: [
+					{
+						num: 1,
+						sref: "enus",
+						tit1: "Englisch (Vereinigte Staaten)"
+					},
+					{
+						num: 2,
+						sref: "dech",
+						tit1: "Deutsch (Schweiz)"
+					}
+				]
+			},
+			/*
+			*/
+
+			tags: {
+				/*
+				*/
+				enus: {
+					ButFailureBack: "Back",
+					ButLoginLogin: "Log in",
+					ButLoginReset: "Reset",
+					ButLogoutLogin: "Login screen",
+					ButSuccessBack: "Back",
+					ButSuccessNewsess: "Start new session",
+					ButSuccessSuspsessResume: "Resume",
+					CptFailure: "Error",
+					CptFailureMessage: "Login failed.",
+					CptLogin: "Login",
+					CptLoginPassword: "Password",
+					CptLoginUsername: "User name",
+					CptLogout: "Logout",
+					CptLogoutMessage: "Your session has been terminated.",
+					CptSuccess: "Login successful",
+					CptSuccessSuspsess: "Suspended sessions"
+				},
+				dech: {
+					ButFailureBack: "Zur\u00fcck",
+					ButLoginLogin: "Anmelden",
+					ButLoginReset: "Zur\u00fccksetzen",
+					ButLogoutLogin: "Anmeldefenster",
+					ButSuccessBack: "Zur\u00fcck",
+					ButSuccessNewsess: "Neue Sitzung starten",
+					ButSuccessSuspsessResume: "Fortsetzen",
+					CptFailure: "Fehler",
+					CptFailureMessage: "Anmeldung fehlgeschlagen.",
+					CptLogin: "Anmeldung",
+					CptLoginPassword: "Passwort",
+					CptLoginUsername: "Benutzername",
+					CptLogout: "Abmeldung",
+					CptLogoutMessage: "Ihre Sitzung wurde beendet.",
+					CptSuccess: "Anmeldung erfolgreich",
+					CptSuccessSuspsess: "Unterbrochene Sitzungen"
+				}
+				/*
+				*/
+			},
+
+			FeedFSge: [
+				{
+					num: 1,
+					sref: "idle"
+				},
+				{
+					num: 2,
+					sref: "acc"
+				},
+				{
+					num: 3,
+					sref: "dny"
+				},
+				{
+					num: 4,
+					sref: "term"
+				}
+			]
+		})
+	}
+</script>

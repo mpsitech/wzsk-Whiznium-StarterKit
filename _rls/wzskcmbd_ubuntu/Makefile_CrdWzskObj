@@ -2,7 +2,7 @@
 # make file for CrdWzskObj card job handler, release wzskcmbd_ubuntu
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 14 Nov 2021
+# date created: 28 Feb 2022
 # IP header --- ABOVE
 
 include ../Makefile.inc
@@ -16,7 +16,7 @@ STATLIBFLAGS = rcs
 INCPATH = -I$(BUILDROOT)/dbswzsk -I$(BUILDROOT)/wzskcmbd/VecWzsk -I$(BUILDROOT)/wzskcmbd/IexWzsk -I$(BUILDROOT)/wzskcmbd
 INCPATH += -I${WHIZSDKROOT}/build -I${WHIZSDKROOT}/build/ezdevwskd -I/usr/include -I/usr/include/jsoncpp -I/usr/include/libxml2
 
-OBJS = CrdWzskObj.o PnlWzskObjHeadbar.o PnlWzskObjList.o QryWzskObjList.o PnlWzskObjRec.o PnlWzskObjRef1NFile.o QryWzskObjRef1NFile.o PnlWzskObj1NShot.o QryWzskObj1NShot.o PnlWzskObjDetail.o DlgWzskObjNew.o
+OBJS = CrdWzskObj.o DlgWzskObjNew.o PnlWzskObjRec.o PnlWzskObjDetail.o PnlWzskObj1NShot.o QryWzskObj1NShot.o PnlWzskObjRef1NFile.o QryWzskObjRef1NFile.o PnlWzskObjHeadbar.o PnlWzskObjList.o QryWzskObjList.o
 
 LIB = libcrdwzskobj
 

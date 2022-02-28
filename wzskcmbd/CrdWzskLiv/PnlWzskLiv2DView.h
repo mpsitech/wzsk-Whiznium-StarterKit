@@ -16,13 +16,13 @@
 #include <png.h>
 // IP include.cust --- IEND
 
-#include "JobWzskIprTrace.h"
-#include "JobWzskIprCorner.h"
-#include "JobWzskActServo.h"
-#include "JobWzskActLaser.h"
-#include "JobWzskActExposure.h"
-#include "JobWzskAcqPtcloud.h"
 #include "JobWzskAcqPreview.h"
+#include "JobWzskAcqPtcloud.h"
+#include "JobWzskActExposure.h"
+#include "JobWzskActLaser.h"
+#include "JobWzskActServo.h"
+#include "JobWzskIprCorner.h"
+#include "JobWzskIprTrace.h"
 
 #define VecVWzskLiv2DViewDo PnlWzskLiv2DView::VecVDo
 
@@ -505,13 +505,13 @@ public:
 
 	Sbecore::Feed feedFPupPvm;
 
-	JobWzskIprTrace* iprtrace;
-	JobWzskIprCorner* iprcorner;
-	JobWzskActServo* actservo;
-	JobWzskActLaser* actlaser;
-	JobWzskActExposure* actexposure;
-	JobWzskAcqPtcloud* acqptcloud;
 	JobWzskAcqPreview* acqpreview;
+	JobWzskAcqPtcloud* acqptcloud;
+	JobWzskActExposure* actexposure;
+	JobWzskActLaser* actlaser;
+	JobWzskActServo* actservo;
+	JobWzskIprCorner* iprcorner;
+	JobWzskIprTrace* iprtrace;
 
 	// IP vars.cust --- IBEGIN
 	bool initdoneAlign;
@@ -560,15 +560,15 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskStgChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
-	bool handleCallWzskSgeChgFromActservo(DbsWzsk* dbswzsk);
-	bool handleCallWzskShrdatChgFromIprtrace(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
-	bool handleCallWzskShrdatChgFromIprcorner(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
-	bool handleCallWzskShrdatChgFromActlaser(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
-	bool handleCallWzskShrdatChgFromActexposure(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
-	bool handleCallWzskShrdatChgFromAcqptcloud(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
-	bool handleCallWzskResultNew(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskClaimChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskResultNew(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromAcqptcloud(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromActexposure(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromActlaser(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromIprcorner(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromIprtrace(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskSgeChgFromActservo(DbsWzsk* dbswzsk);
+	bool handleCallWzskStgChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 };
 

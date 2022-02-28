@@ -9,8 +9,8 @@ For more information, type 'rtiddsgen -help' at a command shell
 or consult the RTI Connext manual.
 */
 
-#ifndef DdsWzsk_509372572_hpp
-#define DdsWzsk_509372572_hpp
+#ifndef DdsWzsk_509373000_hpp
+#define DdsWzsk_509373000_hpp
 
 #include <iosfwd>
 
@@ -252,6 +252,258 @@ struct stringvec_AliasTag_t {};
 typedef std::string vecsref;
 struct vecsref_AliasTag_t {};
 namespace DdsJobWzskSrcSysinfo {
+
+    class NDDSUSERDllExport currCh0VoltCh0 {
+      public:
+        currCh0VoltCh0();
+
+        currCh0VoltCh0(
+            const ::rti::core::bounded_sequence< float, 60 >& currCh0,
+            const ::rti::core::bounded_sequence< float, 60 >& voltCh0);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        currCh0VoltCh0 (currCh0VoltCh0&&) = default;
+        currCh0VoltCh0& operator=(currCh0VoltCh0&&) = default;
+        currCh0VoltCh0& operator=(const currCh0VoltCh0&) = default;
+        currCh0VoltCh0(const currCh0VoltCh0&) = default;
+        #else
+        currCh0VoltCh0(currCh0VoltCh0&& other_) OMG_NOEXCEPT;  
+        currCh0VoltCh0& operator=(currCh0VoltCh0&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        ::rti::core::bounded_sequence< float, 60 >& currCh0() OMG_NOEXCEPT {
+            return m_currCh0_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& currCh0() const OMG_NOEXCEPT {
+            return m_currCh0_;
+        }
+
+        void currCh0(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_currCh0_ = value;
+        }
+
+        ::rti::core::bounded_sequence< float, 60 >& voltCh0() OMG_NOEXCEPT {
+            return m_voltCh0_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& voltCh0() const OMG_NOEXCEPT {
+            return m_voltCh0_;
+        }
+
+        void voltCh0(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_voltCh0_ = value;
+        }
+
+        bool operator == (const currCh0VoltCh0& other_) const;
+        bool operator != (const currCh0VoltCh0& other_) const;
+
+        void swap(currCh0VoltCh0& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        ::rti::core::bounded_sequence< float, 60 > m_currCh0_;
+        ::rti::core::bounded_sequence< float, 60 > m_voltCh0_;
+
+    };
+
+    inline void swap(currCh0VoltCh0& a, currCh0VoltCh0& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const currCh0VoltCh0& sample);
+
+    class NDDSUSERDllExport currCh1VoltCh1 {
+      public:
+        currCh1VoltCh1();
+
+        currCh1VoltCh1(
+            const ::rti::core::bounded_sequence< float, 60 >& currCh1,
+            const ::rti::core::bounded_sequence< float, 60 >& voltCh1);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        currCh1VoltCh1 (currCh1VoltCh1&&) = default;
+        currCh1VoltCh1& operator=(currCh1VoltCh1&&) = default;
+        currCh1VoltCh1& operator=(const currCh1VoltCh1&) = default;
+        currCh1VoltCh1(const currCh1VoltCh1&) = default;
+        #else
+        currCh1VoltCh1(currCh1VoltCh1&& other_) OMG_NOEXCEPT;  
+        currCh1VoltCh1& operator=(currCh1VoltCh1&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        ::rti::core::bounded_sequence< float, 60 >& currCh1() OMG_NOEXCEPT {
+            return m_currCh1_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& currCh1() const OMG_NOEXCEPT {
+            return m_currCh1_;
+        }
+
+        void currCh1(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_currCh1_ = value;
+        }
+
+        ::rti::core::bounded_sequence< float, 60 >& voltCh1() OMG_NOEXCEPT {
+            return m_voltCh1_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& voltCh1() const OMG_NOEXCEPT {
+            return m_voltCh1_;
+        }
+
+        void voltCh1(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_voltCh1_ = value;
+        }
+
+        bool operator == (const currCh1VoltCh1& other_) const;
+        bool operator != (const currCh1VoltCh1& other_) const;
+
+        void swap(currCh1VoltCh1& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        ::rti::core::bounded_sequence< float, 60 > m_currCh1_;
+        ::rti::core::bounded_sequence< float, 60 > m_voltCh1_;
+
+    };
+
+    inline void swap(currCh1VoltCh1& a, currCh1VoltCh1& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const currCh1VoltCh1& sample);
+
+    class NDDSUSERDllExport currCh2VoltCh2 {
+      public:
+        currCh2VoltCh2();
+
+        currCh2VoltCh2(
+            const ::rti::core::bounded_sequence< float, 60 >& currCh2,
+            const ::rti::core::bounded_sequence< float, 60 >& voltCh2);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        currCh2VoltCh2 (currCh2VoltCh2&&) = default;
+        currCh2VoltCh2& operator=(currCh2VoltCh2&&) = default;
+        currCh2VoltCh2& operator=(const currCh2VoltCh2&) = default;
+        currCh2VoltCh2(const currCh2VoltCh2&) = default;
+        #else
+        currCh2VoltCh2(currCh2VoltCh2&& other_) OMG_NOEXCEPT;  
+        currCh2VoltCh2& operator=(currCh2VoltCh2&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        ::rti::core::bounded_sequence< float, 60 >& currCh2() OMG_NOEXCEPT {
+            return m_currCh2_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& currCh2() const OMG_NOEXCEPT {
+            return m_currCh2_;
+        }
+
+        void currCh2(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_currCh2_ = value;
+        }
+
+        ::rti::core::bounded_sequence< float, 60 >& voltCh2() OMG_NOEXCEPT {
+            return m_voltCh2_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& voltCh2() const OMG_NOEXCEPT {
+            return m_voltCh2_;
+        }
+
+        void voltCh2(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_voltCh2_ = value;
+        }
+
+        bool operator == (const currCh2VoltCh2& other_) const;
+        bool operator != (const currCh2VoltCh2& other_) const;
+
+        void swap(currCh2VoltCh2& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        ::rti::core::bounded_sequence< float, 60 > m_currCh2_;
+        ::rti::core::bounded_sequence< float, 60 > m_voltCh2_;
+
+    };
+
+    inline void swap(currCh2VoltCh2& a, currCh2VoltCh2& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const currCh2VoltCh2& sample);
+
+    class NDDSUSERDllExport currCh3VoltCh3 {
+      public:
+        currCh3VoltCh3();
+
+        currCh3VoltCh3(
+            const ::rti::core::bounded_sequence< float, 60 >& currCh3,
+            const ::rti::core::bounded_sequence< float, 60 >& voltCh3);
+
+        #ifdef RTI_CXX11_RVALUE_REFERENCES
+        #ifndef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+        currCh3VoltCh3 (currCh3VoltCh3&&) = default;
+        currCh3VoltCh3& operator=(currCh3VoltCh3&&) = default;
+        currCh3VoltCh3& operator=(const currCh3VoltCh3&) = default;
+        currCh3VoltCh3(const currCh3VoltCh3&) = default;
+        #else
+        currCh3VoltCh3(currCh3VoltCh3&& other_) OMG_NOEXCEPT;  
+        currCh3VoltCh3& operator=(currCh3VoltCh3&&  other_) OMG_NOEXCEPT;
+        #endif
+        #endif 
+
+        ::rti::core::bounded_sequence< float, 60 >& currCh3() OMG_NOEXCEPT {
+            return m_currCh3_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& currCh3() const OMG_NOEXCEPT {
+            return m_currCh3_;
+        }
+
+        void currCh3(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_currCh3_ = value;
+        }
+
+        ::rti::core::bounded_sequence< float, 60 >& voltCh3() OMG_NOEXCEPT {
+            return m_voltCh3_;
+        }
+
+        const ::rti::core::bounded_sequence< float, 60 >& voltCh3() const OMG_NOEXCEPT {
+            return m_voltCh3_;
+        }
+
+        void voltCh3(const ::rti::core::bounded_sequence< float, 60 >& value) {
+            m_voltCh3_ = value;
+        }
+
+        bool operator == (const currCh3VoltCh3& other_) const;
+        bool operator != (const currCh3VoltCh3& other_) const;
+
+        void swap(currCh3VoltCh3& other_) OMG_NOEXCEPT ;
+
+      private:
+
+        ::rti::core::bounded_sequence< float, 60 > m_currCh3_;
+        ::rti::core::bounded_sequence< float, 60 > m_voltCh3_;
+
+    };
+
+    inline void swap(currCh3VoltCh3& a, currCh3VoltCh3& b)  OMG_NOEXCEPT 
+    {
+        a.swap(b);
+    }
+
+    NDDSUSERDllExport std::ostream& operator<<(std::ostream& o, const currCh3VoltCh3& sample);
 
     class NDDSUSERDllExport loadAllLoadCore0LoadCore1LoadCore2LoadCore3 {
       public:
@@ -3480,6 +3732,150 @@ namespace dds {
         };
 
         template<>
+        struct topic_type_name< DdsJobWzskSrcSysinfo::currCh0VoltCh0 > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskSrcSysinfo::currCh0VoltCh0";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskSrcSysinfo::currCh0VoltCh0 > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskSrcSysinfo::currCh0VoltCh0 > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskSrcSysinfo::currCh0VoltCh0& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskSrcSysinfo::currCh0VoltCh0& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskSrcSysinfo::currCh0VoltCh0& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskSrcSysinfo::currCh0VoltCh0& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskSrcSysinfo::currCh1VoltCh1 > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskSrcSysinfo::currCh1VoltCh1";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskSrcSysinfo::currCh1VoltCh1 > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskSrcSysinfo::currCh1VoltCh1 > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskSrcSysinfo::currCh1VoltCh1& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskSrcSysinfo::currCh1VoltCh1& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskSrcSysinfo::currCh1VoltCh1& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskSrcSysinfo::currCh1VoltCh1& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskSrcSysinfo::currCh2VoltCh2 > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskSrcSysinfo::currCh2VoltCh2";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskSrcSysinfo::currCh2VoltCh2 > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskSrcSysinfo::currCh2VoltCh2 > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskSrcSysinfo::currCh2VoltCh2& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskSrcSysinfo::currCh2VoltCh2& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskSrcSysinfo::currCh2VoltCh2& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskSrcSysinfo::currCh2VoltCh2& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
+        struct topic_type_name< DdsJobWzskSrcSysinfo::currCh3VoltCh3 > {
+            NDDSUSERDllExport static std::string value() {
+                return "DdsJobWzskSrcSysinfo::currCh3VoltCh3";
+            }
+        };
+
+        template<>
+        struct is_topic_type< DdsJobWzskSrcSysinfo::currCh3VoltCh3 > : public ::dds::core::true_type {};
+
+        template<>
+        struct topic_type_support< DdsJobWzskSrcSysinfo::currCh3VoltCh3 > {
+            NDDSUSERDllExport 
+            static void register_type(
+                ::dds::domain::DomainParticipant& participant,
+                const std::string & type_name);
+
+            NDDSUSERDllExport 
+            static std::vector<char>& to_cdr_buffer(
+                std::vector<char>& buffer, 
+                const DdsJobWzskSrcSysinfo::currCh3VoltCh3& sample,
+                ::dds::core::policy::DataRepresentationId representation 
+                = ::dds::core::policy::DataRepresentation::auto_id());
+
+            NDDSUSERDllExport 
+            static void from_cdr_buffer(DdsJobWzskSrcSysinfo::currCh3VoltCh3& sample, const std::vector<char>& buffer);
+            NDDSUSERDllExport 
+            static void reset_sample(DdsJobWzskSrcSysinfo::currCh3VoltCh3& sample);
+
+            NDDSUSERDllExport 
+            static void allocate_sample(DdsJobWzskSrcSysinfo::currCh3VoltCh3& sample, int, int);
+
+            static const ::rti::topic::TypePluginKind::type type_plugin_kind = 
+            ::rti::topic::TypePluginKind::STL;
+        };
+
+        template<>
         struct topic_type_name< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 > {
             NDDSUSERDllExport static std::string value() {
                 return "DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3";
@@ -5394,6 +5790,62 @@ namespace rti {
 
         #ifndef NDDS_STANDALONE_TYPE
         template<>
+        struct dynamic_type< DdsJobWzskSrcSysinfo::currCh0VoltCh0 > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskSrcSysinfo::currCh0VoltCh0 > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskSrcSysinfo::currCh1VoltCh1 > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskSrcSysinfo::currCh1VoltCh1 > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskSrcSysinfo::currCh2VoltCh2 > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskSrcSysinfo::currCh2VoltCh2 > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
+        struct dynamic_type< DdsJobWzskSrcSysinfo::currCh3VoltCh3 > {
+            typedef ::dds::core::xtypes::StructType type;
+            NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
+        };
+        #endif
+
+        template <>
+        struct extensibility< DdsJobWzskSrcSysinfo::currCh3VoltCh3 > {
+            static const ::dds::core::xtypes::ExtensibilityKind::type kind =
+            ::dds::core::xtypes::ExtensibilityKind::EXTENSIBLE;                
+        };
+
+        #ifndef NDDS_STANDALONE_TYPE
+        template<>
         struct dynamic_type< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 > {
             typedef ::dds::core::xtypes::StructType type;
             NDDSUSERDllExport static const ::dds::core::xtypes::StructType& get();
@@ -6102,5 +6554,5 @@ namespace rti {
 #define NDDSUSERDllExport
 #endif
 
-#endif // DdsWzsk_509372572_hpp
+#endif // DdsWzsk_509373000_hpp
 

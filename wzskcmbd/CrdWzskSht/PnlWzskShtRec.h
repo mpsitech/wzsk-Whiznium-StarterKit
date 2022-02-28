@@ -14,9 +14,9 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskShtRef1NFile.h"
-#include "PnlWzskShtAPar.h"
 #include "PnlWzskShtDetail.h"
+#include "PnlWzskShtAPar.h"
+#include "PnlWzskShtRef1NFile.h"
 
 #define VecVWzskShtRecDo PnlWzskShtRec::VecVDo
 
@@ -177,9 +177,9 @@ public:
 	ContInf continf;
 	StatShr statshr;
 
-	PnlWzskShtRef1NFile* pnlref1nfile;
-	PnlWzskShtAPar* pnlapar;
 	PnlWzskShtDetail* pnldetail;
+	PnlWzskShtAPar* pnlapar;
+	PnlWzskShtRef1NFile* pnlref1nfile;
 
 	WzskMShot recSht;
 
@@ -213,9 +213,9 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskShtUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
-	bool handleCallWzskSht_sesEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
 	bool handleCallWzskSht_objEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
+	bool handleCallWzskSht_sesEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
+	bool handleCallWzskShtUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 };
 

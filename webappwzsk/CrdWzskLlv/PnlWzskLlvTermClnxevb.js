@@ -83,17 +83,25 @@ function refreshBD(bNotD) {
 
 	// IP refreshBD.vars --- END
 
-	// IP refreshBD --- BEGIN
+	// IP refreshBD --- RBEGIN
 	refreshButicon(hdrdoc, "ButClaim", "icon/claim", ButClaimActive, retrieveCi(srcdoc, "ContInfWzskLlvTermClnxevb", "ButClaimOn") == "true");
 	refreshTxt(contcontdoc, "TxtCst", retrieveCi(srcdoc, "ContInfWzskLlvTermClnxevb", "TxtCst"));
 
 	refreshPup(contcontdoc, srcdoc, "PupCmd", "", "FeedFPupCmd", retrieveCi(srcdoc, "ContIacWzskLlvTermClnxevb", "numFPupCmd"), true, false);
 
+	//
+	var myelem;
+
+	myelem = contcontdoc.getElementById("TxtDat");
+	refreshTxtt(contcontdoc, "TxtDat", retrieveCi(srcdoc, "ContInfWzskLlvTermClnxevb", "TxtDatLog"));
+	myelem.scrollTop = myelem.scrollHeight;
+	//
+
 	refreshTxft(contcontdoc, "TxfCsq", retrieveCi(srcdoc, "ContIacWzskLlvTermClnxevb", "TxfCsq"), true, false, true);
 
 	refreshBut(contcontdoc, "ButSmt", ButSmtActive, false);
 
-	// IP refreshBD --- END
+	// IP refreshBD --- REND
 
 	getCrdwnd().changeHeight("TermClnxevb", height+31);
 	doc.getElementById("tdSide").setAttribute("height", "" + (height+31));

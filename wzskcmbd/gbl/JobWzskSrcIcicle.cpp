@@ -177,7 +177,7 @@ bool JobWzskSrcIcicle::getAngle(
 	try {
 		shrdat.hw.step->getInfo(tixVState, _angle);
 
-		angle = ((float) _angle) * 360.0/4096.0;
+		angle = ((float) _angle) * 360.0/1000.0;
 
 		success = true;
 
@@ -203,19 +203,19 @@ bool JobWzskSrcIcicle::moveto(
 	while (angle_imd >= 360.0) angle_imd -= 360.0;
 	while (angle_imd < 0.0) angle_imd += 360.0;
 
-	angle = lround(4096.0 * angle_imd/360.0);
-	if (angle == 4096) angle = 0;
+	angle = lround(1000.0 * angle_imd/360.0);
+	if (angle == 1000) angle = 0;
 
-	// rotational speed is 1 / (4096 * Tstep * 1e-4s)
-	float Tstep_imd = 1.0 / (4096.0 * omega * 1e-4);
+	// rotational speed is 1 / (1000 * Tstep * 2e-4s)
+	float Tstep_imd = 1.0 / (1000.0 * omega * 2e-4);
 
-	if (Tstep_imd < 50.0) Tstep = 50;
+	if (Tstep_imd < 25.0) Tstep = 25;
 	else if (Tstep_imd > 255.0) Tstep = 255;
 	else Tstep = lround(Tstep_imd);
 
 	try {
 		shrdat.hw.step->moveto(angle, Tstep);
-		_angle = 360.0 * ((float) angle) / 4096.0; // fix target to raster
+		_angle = 360.0 * ((float) angle) / 1000.0; // fix target to raster
 
 		success = true;
 
@@ -235,10 +235,10 @@ bool JobWzskSrcIcicle::setStep(
 
 	uint8_t Tstep;
 
-	// rotational speed is 1 / (4096 * Tstep * 1e-4s)
-	float Tstep_imd = 1.0 / (4096.0 * omega * 1e-4);
+	// rotational speed is 1 / (1000 * Tstep * 2e-4s)
+	float Tstep_imd = 1.0 / (1000.0 * omega * 2e-4);
 
-	if (Tstep_imd < 50.0) Tstep = 50;
+	if (Tstep_imd < 25.0) Tstep = 25;
 	else if (Tstep_imd > 255.0) Tstep = 255;
 	else Tstep = lround(Tstep_imd);
 

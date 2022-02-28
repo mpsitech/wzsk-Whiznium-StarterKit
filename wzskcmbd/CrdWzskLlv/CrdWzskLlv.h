@@ -14,15 +14,15 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskLlvLaser.h"
-#include "PnlWzskLlvTtable.h"
-#include "PnlWzskLlvCamera.h"
+#include "PnlWzskLlvHeadbar.h"
+#include "PnlWzskLlvTermArty.h"
+#include "PnlWzskLlvTermClnxevb.h"
+#include "PnlWzskLlvTermIcicle.h"
 #include "PnlWzskLlvTermMcvevp.h"
 #include "PnlWzskLlvTermUvbdvk.h"
-#include "PnlWzskLlvTermIcicle.h"
-#include "PnlWzskLlvTermClnxevb.h"
-#include "PnlWzskLlvTermArty.h"
-#include "PnlWzskLlvHeadbar.h"
+#include "PnlWzskLlvCamera.h"
+#include "PnlWzskLlvTtable.h"
+#include "PnlWzskLlvLaser.h"
 
 #define VecVWzskLlvDo CrdWzskLlv::VecVDo
 #define VecVWzskLlvSge CrdWzskLlv::VecVSge
@@ -228,15 +228,15 @@ public:
 	Sbecore::Feed feedFMcbAlert;
 	Sbecore::Feed feedFSge;
 
-	PnlWzskLlvLaser* pnllaser;
-	PnlWzskLlvTtable* pnlttable;
-	PnlWzskLlvCamera* pnlcamera;
+	PnlWzskLlvHeadbar* pnlheadbar;
+	PnlWzskLlvTermArty* pnltermarty;
+	PnlWzskLlvTermClnxevb* pnltermclnxevb;
+	PnlWzskLlvTermIcicle* pnltermicicle;
 	PnlWzskLlvTermMcvevp* pnltermmcvevp;
 	PnlWzskLlvTermUvbdvk* pnltermuvbdvk;
-	PnlWzskLlvTermIcicle* pnltermicicle;
-	PnlWzskLlvTermClnxevb* pnltermclnxevb;
-	PnlWzskLlvTermArty* pnltermarty;
-	PnlWzskLlvHeadbar* pnlheadbar;
+	PnlWzskLlvCamera* pnlcamera;
+	PnlWzskLlvTtable* pnlttable;
+	PnlWzskLlvLaser* pnllaser;
 
 	// IP vars.cust --- INSERT
 

@@ -60,7 +60,7 @@
 					<!-- IP trDat - RBEGIN -->
 					<td height="200"></td>
 					<td id="tdDat" colspan="10" height="200">
-						<textarea id="TxtDat" style="resitze:none;font-size:10px;font-family:Monospace;font-weight:normal;width:685px;background-color:#000000;color:#ffffff;border-width:0px;" rows="16" cols="120" type="text" value="TxtDatLog" readonly="readonly"/>
+						<textarea id="TxtDat" style="resize:none;font-size:10px;font-family:Monospace;font-weight:normal;width:685px;background-color:#000000;color:#ffffff;border-width:0px;" rows="16" cols="120" type="text" value="TxtDatLog" readonly="readonly"/>
 					</td>
 					<!-- IP trDat - REND -->
 				</tr>

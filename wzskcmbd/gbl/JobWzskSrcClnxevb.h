@@ -75,7 +75,15 @@ public:
 
 	public:
 
-		// IP Shrdat.vars.cust --- INSERT
+		// IP Shrdat.vars.cust --- IBEGIN
+		UntWskdCleb hw;
+
+		bool excdump;
+		bool verbose;
+
+		// 10kHz clock source offset
+		double t0;
+		// IP Shrdat.vars.cust --- IEND
 
 	public:
 		void init(XchgWzsk* xchg, DbsWzsk* dbswzsk);
@@ -95,7 +103,43 @@ public:
 	// IP vars.cust --- INSERT
 
 public:
-	// IP cust --- INSERT
+	// IP cust --- IBEGIN
+	/**
+		* Claim (full: ClaimJobWzskSrcClnxevb)
+		*/
+	class Claim : public Sbecore::Claim {
+
+	public:
+		Claim(const bool retractable = true, const bool all = false, const bool laser = false, const bool step = false);
+
+	public:
+		bool all;
+		bool laser; // uses laser_set
+		bool step; // uses step_*
+	};
+
+	// - high-level methods
+
+	// stepper motor
+	bool getAngle(float& angle);
+	bool moveto(float& _angle, const float omega);
+	bool setStep(const bool rng, const bool ccwNotCw, const float omega);
+
+	// 10kHz clock source
+	double tkstToT(const uint32_t tkst);
+
+	// - EzdevWskd methods available to the outside
+
+	// laser
+	bool laser_set(const uint16_t l, const uint16_t r);
+
+	// step
+	bool step_zero();
+
+	// tkclksrc
+	bool tkclksrc_getTkst(uint32_t& tkst);
+
+	// IP cust --- IEND
 
 public:
 	// IP spec --- INSERT

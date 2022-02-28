@@ -43,10 +43,10 @@ CrdWzskObj::CrdWzskObj(
 	feedFSge.tag = "FeedFSge";
 	VecVSge::fillFeed(feedFSge);
 
+	dlgnew = NULL;
+	pnlrec = NULL;
 	pnlheadbar = NULL;
 	pnllist = NULL;
-	pnlrec = NULL;
-	dlgnew = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -55,9 +55,9 @@ CrdWzskObj::CrdWzskObj(
 	// initialize according to ref
 	changeRef(dbswzsk, jref, ((ref + 1) == 0) ? 0 : ref, false);
 
+	pnlrec = new PnlWzskObjRec(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlheadbar = new PnlWzskObjHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnllist = new PnlWzskObjList(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlrec = new PnlWzskObjRec(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 
@@ -75,9 +75,9 @@ CrdWzskObj::CrdWzskObj(
 
 	changeStage(dbswzsk, VecVSge::IDLE);
 
-	xchg->addClstn(VecWzskVCall::CALLWZSKREFPRESET, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKSTATCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKDLGCLOSE, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKSTATCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKREFPRESET, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -260,13 +260,39 @@ void CrdWzskObj::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKREFPRESET) {
-		call->abort = handleCallWzskRefPreSet(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref);
+	if (call->ixVCall == VecWzskVCall::CALLWZSKDLGCLOSE) {
+		call->abort = handleCallWzskDlgClose(dbswzsk, call->jref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSTATCHG) {
 		call->abort = handleCallWzskStatChg(dbswzsk, call->jref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKDLGCLOSE) {
-		call->abort = handleCallWzskDlgClose(dbswzsk, call->jref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKREFPRESET) {
+		call->abort = handleCallWzskRefPreSet(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref);
 	};
+};
+
+bool CrdWzskObj::handleCallWzskDlgClose(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+
+	if (dlgnew) {
+		delete dlgnew;
+		dlgnew = NULL;
+		statshr.jrefDlgnew = 0;
+
+		xchg->submitDpch(getNewDpchEng({DpchEngData::STATSHR}));
+	};
+
+	return retval;
+};
+
+bool CrdWzskObj::handleCallWzskStatChg(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+	if (jrefTrig == pnlrec->jref) if ((pnllist->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD) && (pnlrec->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD)) pnllist->minimize(dbswzsk, true);
+	return retval;
 };
 
 bool CrdWzskObj::handleCallWzskRefPreSet(
@@ -286,32 +312,6 @@ bool CrdWzskObj::handleCallWzskRefPreSet(
 			pnllist->minimize(dbswzsk, true);
 			pnlrec->regularize(dbswzsk, true);
 		};
-	};
-
-	return retval;
-};
-
-bool CrdWzskObj::handleCallWzskStatChg(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-	if (jrefTrig == pnlrec->jref) if ((pnllist->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD) && (pnlrec->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD)) pnllist->minimize(dbswzsk, true);
-	return retval;
-};
-
-bool CrdWzskObj::handleCallWzskDlgClose(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-
-	if (dlgnew) {
-		delete dlgnew;
-		dlgnew = NULL;
-		statshr.jrefDlgnew = 0;
-
-		xchg->submitDpch(getNewDpchEng({DpchEngData::STATSHR}));
 	};
 
 	return retval;

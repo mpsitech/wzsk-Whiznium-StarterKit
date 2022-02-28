@@ -333,7 +333,7 @@ void PnlWzskNavAdmin::Tag::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		me["Cpt"] = "Administration module";
+		me["Cpt"] = "Administration";
 		me["CptUsg"] = "user groups";
 		me["CptUsr"] = "users";
 		me["CptPrs"] = "persons";
@@ -361,7 +361,7 @@ void PnlWzskNavAdmin::Tag::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Administration module");
+			writeStringAttr(wr, itemtag, "sref", "Cpt", "Administration");
 			writeStringAttr(wr, itemtag, "sref", "CptUsg", "user groups");
 			writeStringAttr(wr, itemtag, "sref", "CptUsr", "users");
 			writeStringAttr(wr, itemtag, "sref", "CptPrs", "persons");

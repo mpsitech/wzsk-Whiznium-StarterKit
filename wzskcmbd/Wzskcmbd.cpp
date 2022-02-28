@@ -518,12 +518,14 @@ set<uint> StgWzskAppearance::diff(
 StgWzskAppsrv::StgWzskAppsrv(
 			const usmallint port
 			, const bool https
+			, const string& cors
 		) :
 			Block()
 		{
 	this->port = port;
 	this->https = https;
-	mask = {PORT, HTTPS};
+	this->cors = cors;
+	mask = {PORT, HTTPS, CORS};
 };
 
 bool StgWzskAppsrv::readXML(
@@ -545,6 +547,7 @@ bool StgWzskAppsrv::readXML(
 	if (basefound) {
 		if (extractUsmallintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "port", port)) add(PORT);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "https", https)) add(HTTPS);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "cors", cors)) add(CORS);
 	};
 
 	return basefound;
@@ -564,6 +567,7 @@ void StgWzskAppsrv::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeUsmallintAttr(wr, itemtag, "sref", "port", port);
 		writeBoolAttr(wr, itemtag, "sref", "https", https);
+		writeStringAttr(wr, itemtag, "sref", "cors", cors);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -574,6 +578,7 @@ set<uint> StgWzskAppsrv::comm(
 
 	if (port == comp->port) insert(items, PORT);
 	if (https == comp->https) insert(items, HTTPS);
+	if (cors == comp->cors) insert(items, CORS);
 
 	return(items);
 };
@@ -586,7 +591,7 @@ set<uint> StgWzskAppsrv::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {PORT, HTTPS};
+	diffitems = {PORT, HTTPS, CORS};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -1385,15 +1390,15 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrAbt(
 	continf.TxtCpt = StrMod::cap(continf.TxtCpt);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		continf.TxtMsg1 = "Whiznium StarterKit version v1.0.9 released on 14-11-2021";
+		continf.TxtMsg1 = "Whiznium StarterKit version v1.0.11 released on 28-2-2022";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
-		continf.TxtMsg4 = "contributors: -";
+		continf.TxtMsg4 = "contributors: Alexander Wirthmueller";
 		continf.TxtMsg6 = "libraries: ezdevwskd 0.1.26 and png 1.6.36";
 		continf.TxtMsg8 = "Whiznium StarterKit is computer vision software which powers MPSI's tabletop 3D laser scanner that represents the primary on-boarding vehicle for Whiznium.";
 	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		continf.TxtMsg1 = "Whiznium StarterKit Version v1.0.9 ver\\u00f6ffentlicht am 14-11-2021";
+		continf.TxtMsg1 = "Whiznium StarterKit Version v1.0.11 ver\\u00f6ffentlicht am 28-2-2022";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
-		continf.TxtMsg4 = "Mitwirkende: -";
+		continf.TxtMsg4 = "Mitwirkende: Alexander Wirthmueller";
 		continf.TxtMsg6 = "Programmbibliotheken: ezdevwskd 0.1.26 und png 1.6.36";
 		continf.TxtMsg8 = "Whiznium StarterKit ist Computer-Vision Software, welche MPSI's kompakten 3D-Laserscanner (prim\\u00e4res Onboarding-Werkzeug f\\u00fcr Whiznium) ansteuert.";
 	};
@@ -2105,16 +2110,16 @@ void StmgrWzsk::handleCall(
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKPRSUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKPRSSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSESUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSESMENU);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSESSTD);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSESMENU);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHTUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSHTSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSGUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKUSGSTD);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKGROUP);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKUSGSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSRUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKUSRSTD);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOWNER);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKUSRSTD);
 	};
 
 	for (auto it = icsWzskVStub.begin(); it != icsWzskVStub.end(); it++) {
@@ -2333,6 +2338,7 @@ XchgWzskcmbd::XchgWzskcmbd() :
 	csjobinfos[VecWzskVJob::JOBWZSKSRCMCVEVP] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCMCVEVP);
 	csjobinfos[VecWzskVJob::JOBWZSKSRCSYSINFO] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCSYSINFO);
 	csjobinfos[VecWzskVJob::JOBWZSKSRCUVBDVK] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCUVBDVK);
+	csjobinfos[VecWzskVJob::JOBWZSKSRCUZEDIOCC] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCUZEDIOCC);
 	csjobinfos[VecWzskVJob::JOBWZSKSRCV4L2] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCV4L2);
 
 #if defined(SBECORE_DDS)
@@ -2374,7 +2380,7 @@ void XchgWzskcmbd::startMon() {
 	Clstn* clstn = NULL;
 	Preset* preset = NULL;
 
-	mon.start("Whiznium StarterKit v1.0.9", stgwzskpath.monpath);
+	mon.start("Whiznium StarterKit v1.0.11", stgwzskpath.monpath);
 
 	rwmJobs.rlock("XchgWzskcmbd", "startMon");
 	for (auto it = jobs.begin(); it != jobs.end(); it++) {

@@ -10,6 +10,7 @@
 	<StgWzskAppsrv>
 		<Si sref="port">13100</Si>
 		<Si sref="https">false</Si>
+		<Si sref="cors"></Si>
 	</StgWzskAppsrv>
 	<StgWzskCamera>
 		<Si sref="hpix">1.4</Si>
@@ -120,6 +121,9 @@
 	<StgJobWzskSrcUvbdvk>
 		<Si sref="path">/dev/ttyUSB0</Si>
 	</StgJobWzskSrcUvbdvk>
+	<StgJobWzskSrcUzediocc>
+		<Si sref="path">/dev/uzediocc</Si>
+	</StgJobWzskSrcUzediocc>
 	<StgJobWzskSrcV4l2>
 		<Si sref="path">/dev/video1</Si>
 		<Si sref="YUV422NotYUV420">false</Si>

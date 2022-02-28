@@ -209,8 +209,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskSesUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskSes_usrEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
+	bool handleCallWzskSesUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 };
 

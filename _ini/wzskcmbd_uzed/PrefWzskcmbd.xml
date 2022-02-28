@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PrefWzskcmbd>
+	<StgWzskAppearance>
+		<Si sref="histlength">20</Si>
+		<Si sref="suspsess">true</Si>
+		<Si sref="sesstterm">0</Si>
+		<Si sref="sesstwarn">0</Si>
+		<Si sref="roottterm">0</Si>
+	</StgWzskAppearance>
+	<StgWzskAppsrv>
+		<Si sref="port">13100</Si>
+		<Si sref="https">false</Si>
+		<Si sref="cors"></Si>
+	</StgWzskAppsrv>
+	<StgWzskCamera>
+		<Si sref="hpix">1.4</Si>
+		<Si sref="f">3.78</Si>
+		<Si sref="fn">3</Si>
+	</StgWzskCamera>
+	<StgWzskcmbd>
+		<Si sref="jobprcn">4</Si>
+		<Si sref="opprcn">1</Si>
+		<Si sref="appsrv">true</Si>
+		<Si sref="ddspub">true</Si>
+		<Si sref="uasrv">true</Si>
+	</StgWzskcmbd>
+	<StgWzskDatabase>
+		<Si sref="srefIxDbsVDbstype">lite</Si>
+		<Si sref="dbspath">./DbsWzsk.sql</Si>
+		<Si sref="dbsname">DbsWzsk</Si>
+		<Si sref="username">default</Si>
+		<Si sref="password">asdf1234</Si>
+		<Si sref="ip">127.0.0.1</Si>
+		<Si sref="port">3306</Si>
+	</StgWzskDatabase>
+	<StgWzskDdspub>
+		<Si sref="username"></Si>
+		<Si sref="password"></Si>
+	</StgWzskDdspub>
+	<StgWzskFramegeo>
+		<Si sref="wAcq">2592</Si>
+		<Si sref="hAcq">1944</Si>
+		<Si sref="whAcq">5038848</Si>
+		<Si sref="x0Rgb">16</Si>
+		<Si sref="wRgb">1280</Si>
+		<Si sref="y0Rgb">12</Si>
+		<Si sref="hRgb">960</Si>
+		<Si sref="x0Grrd">272</Si>
+		<Si sref="wGrrd">1024</Si>
+		<Si sref="y0Grrd">204</Si>
+		<Si sref="hGrrd">768</Si>
+	</StgWzskFramegeo>
+	<StgWzskGlobal>
+		<Si sref="srefIxWzskVTarget">uzediocc</Si>
+	</StgWzskGlobal>
+	<StgWzskPath>
+		<Si sref="acvpath">${WHIZROOT}/acv/wzsk</Si>
+		<Si sref="keypath"></Si>
+		<Si sref="monpath">${WHIZROOT}/mon/wzsk</Si>
+		<Si sref="tmppath">${WHIZROOT}/tmp/wzsk</Si>
+		<Si sref="webpath">${WHIZROOT}/web/appwzsk</Si>
+		<Si sref="helpurl">/wzsk</Si>
+	</StgWzskPath>
+	<StgWzskUasrv>
+		<Si sref="profile">./EmbeddedProfile_StandardNodes.xml</Si>
+		<Si sref="port">4840</Si>
+		<Si sref="cycle">100</Si>
+		<Si sref="maxbrowse">1000</Si>
+		<Si sref="maxmon">10000</Si>
+	</StgWzskUasrv>
+	<StgJobWzskAcqPtcloud>
+		<Si sref="dLasback">0.03</Si>
+		<Si sref="dLeft">0.2</Si>
+		<Si sref="dRight">0.2</Si>
+	</StgJobWzskAcqPtcloud>
+	<StgJobWzskActLaser>
+		<Si sref="pathGpio">/dev/gpiochip5</Si>
+		<Si sref="lineoffsetLeft">10</Si>
+		<Si sref="lineoffsetRight">9</Si>
+		<Si sref="pathSpi">/dev/spidev0.0</Si>
+		<Si sref="leftMin">164</Si>
+		<Si sref="leftMax">245</Si>
+		<Si sref="rightMin">164</Si>
+		<Si sref="rightMax">245</Si>
+	</StgJobWzskActLaser>
+	<StgJobWzskActServo>
+		<Si sref="pathroot">/sys/class/pwm/pwmchip</Si>
+		<Si sref="halfstepNotTorque">false</Si>
+		<Si sref="omega">0.025</Si>
+	</StgJobWzskActServo>
+	<StgJobWzskIprCorner>
+		<Si sref="linNotLog">false</Si>
+		<Si sref="roiNotFull">false</Si>
+		<Si sref="flgPerRowMax">50</Si>
+	</StgJobWzskIprCorner>
+	<StgJobWzskIprTrace>
+		<Si sref="v4l2RdNotDelta">false</Si>
+		<Si sref="roiNotFull">false</Si>
+		<Si sref="flgPerRowMax">10</Si>
+		<Si sref="leftOnNotOff">true</Si>
+		<Si sref="rightOnNotOff">true</Si>
+	</StgJobWzskIprTrace>
+	<StgJobWzskSrcArty>
+		<Si sref="path">/dev/arty</Si>
+	</StgJobWzskSrcArty>
+	<StgJobWzskSrcClnxevb>
+		<Si sref="path">/dev/ttyUSB0</Si>
+	</StgJobWzskSrcClnxevb>
+	<StgJobWzskSrcIcicle>
+		<Si sref="path">/dev/icicle</Si>
+	</StgJobWzskSrcIcicle>
+	<StgJobWzskSrcMcvevp>
+		<Si sref="path">/dev/mcvevp</Si>
+	</StgJobWzskSrcMcvevp>
+	<StgJobWzskSrcSysinfo>
+		<Si sref="pathrootCurrVolt">/var/lib/collectd/icicle-kit-es/sensors-microchip,pac1934</Si>
+		<Si sref="pathStat">/proc/stat</Si>
+		<Si sref="pathThermal">/sys/class/thermal/thermal_zone0/temp</Si>
+		<Si sref="pathrootXadc">/sys/bus/platform/drivers/xadc/f8007100.adc/iio:device0/in_temp0</Si>
+	</StgJobWzskSrcSysinfo>
+	<StgJobWzskSrcUvbdvk>
+		<Si sref="path">/dev/ttyUSB0</Si>
+	</StgJobWzskSrcUvbdvk>
+	<StgJobWzskSrcUzediocc>
+		<Si sref="path">/dev/uzediocc</Si>
+	</StgJobWzskSrcUzediocc>
+	<StgJobWzskSrcV4l2>
+		<Si sref="path">/dev/video1</Si>
+		<Si sref="YUV422NotYUV420">false</Si>
+	</StgJobWzskSrcV4l2>
+</PrefWzskcmbd>

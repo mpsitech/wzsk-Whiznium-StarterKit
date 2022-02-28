@@ -318,7 +318,6 @@ CrdWzskLiv
 		ins	1	cpt	0	hdr	void		0	app	Cpt	void
 			ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title
 			ins	enus	System monitor
-			ins	dech	System\u009fberwachung
 			ImeIJMControlTitle2.end
 		ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
 		ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
@@ -743,7 +742,6 @@ CrdWzskScf
 		ins	1	cpt	0	hdr	void		0	app	Cpt	void
 			ImeIJMControlTitle2.srefIxWznmVIop	srefX1RefWznmMLocale	Title
 			ins	enus	Connections
-			ins	dech	Anschl\u009fsse
 			ImeIJMControlTitle2.end
 		ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
 		ins	3	but	0	side	void		0	shr	ButMinimize	void							icon

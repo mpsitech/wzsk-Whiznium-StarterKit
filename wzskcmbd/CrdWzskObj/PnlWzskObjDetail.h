@@ -270,8 +270,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskObjUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskObj_ogrEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
+	bool handleCallWzskObjUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 };
 

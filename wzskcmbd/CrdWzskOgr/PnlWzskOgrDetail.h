@@ -294,9 +294,9 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskOgrJtitMod_ogrEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
-	bool handleCallWzskOgrUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskOgr_supEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
+	bool handleCallWzskOgrUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskOgrJtitMod_ogrEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 };
 

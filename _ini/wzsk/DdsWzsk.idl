@@ -3,7 +3,7 @@
 	* Wzsk DDS publisher interface description for RTI Code Generator
 	* \copyright (C) 2018-2020 MPSI Technologies GmbH
 	* \author Alexander Wirthmueller (auto-generation)
-	* \date created: 14 Nov 2021
+	* \date created: 28 Feb 2022
   */
 // IP header --- ABOVE
 
@@ -31,37 +31,192 @@ struct DdsDoublemat {
 typedef string<65536> stringvec;
 typedef string<50> vecsref;
 
-module DdsJobWzskSrcSysinfo {
-	struct currCh0VoltCh0 {
-		sequence<float, 60> currCh0;
-		sequence<float, 60> voltCh0;
+module DdsJobWzskAcqPreview {
+	struct gray {
+		sequence<octet, 49152> _gray;
 	};
 
-	struct currCh1VoltCh1 {
-		sequence<float, 60> currCh1;
-		sequence<float, 60> voltCh1;
+	struct redGreenBlue {
+		sequence<octet, 19200> red;
+		sequence<octet, 19200> green;
+		sequence<octet, 19200> blue;
+	};
+};
+
+module DdsJobWzskAcqPtcloud {
+	struct setDeltaTheta_req {
+		float deltaTheta;
 	};
 
-	struct currCh2VoltCh2 {
-		sequence<float, 60> currCh2;
-		sequence<float, 60> voltCh2;
+	struct setDeltaTheta_reply {
+		boolean success;
 	};
 
-	struct currCh3VoltCh3 {
-		sequence<float, 60> currCh3;
-		sequence<float, 60> voltCh3;
+	struct setDWork_req {
+		float dWork;
 	};
 
-	struct loadAllLoadCore0LoadCore1LoadCore2LoadCore3 {
-		sequence<float, 60> loadAll;
-		sequence<float, 60> loadCore0;
-		sequence<float, 60> loadCore1;
-		sequence<float, 60> loadCore2;
-		sequence<float, 60> loadCore3;
+	struct setDWork_reply {
+		boolean success;
 	};
 
-	struct temp {
-		sequence<float, 60> _temp;
+	struct deltaTheta {
+		float _deltaTheta;
+	};
+
+	struct dWork {
+		float _dWork;
+	};
+
+	struct xYZ {
+		sequence<float, 72000> x;
+		sequence<float, 72000> y;
+		sequence<float, 72000> z;
+	};
+};
+
+module DdsJobWzskActExposure {
+	struct setExposure_req {
+		boolean autoNotManual;
+		float Texp;
+	};
+
+	struct setExposure_reply {
+		boolean success;
+	};
+
+	struct setFocus_req {
+		float focus;
+	};
+
+	struct setFocus_reply {
+		boolean success;
+	};
+
+	struct autoNotManualTexp {
+		boolean autoNotManual;
+		float Texp;
+	};
+
+	struct focus {
+		float _focus;
+	};
+};
+
+module DdsJobWzskActLaser {
+	struct setLeft_req {
+		float left;
+	};
+
+	struct setLeft_reply {
+		boolean success;
+	};
+
+	struct setRight_req {
+		float right;
+	};
+
+	struct setRight_reply {
+		boolean success;
+	};
+
+	struct leftRight {
+		float left;
+		float right;
+	};
+};
+
+module DdsJobWzskActServo {
+	struct moveto_req {
+		float target;
+	};
+
+	struct moveto_reply {
+		boolean success;
+	};
+
+	struct stop_req {
+		boolean dummy;
+	};
+
+	struct stop_reply {
+		boolean success;
+	};
+
+	struct turn_req {
+		boolean ccwNotCw;
+	};
+
+	struct turn_reply {
+		boolean success;
+	};
+
+	struct zero_req {
+		boolean dummy;
+	};
+
+	struct zero_reply {
+		boolean success;
+	};
+
+	struct angleTarget {
+		float angle;
+		float target;
+	};
+};
+
+module DdsJobWzskIprCorner {
+	struct setNTarget_req {
+		usmallint NTarget;
+	};
+
+	struct setNTarget_reply {
+		boolean success;
+	};
+
+	struct setRoi_req {
+		int roiAx;
+		int roiAy;
+		int roiBx;
+		int roiBy;
+		int roiCx;
+		int roiCy;
+		int roiDx;
+		int roiDy;
+	};
+
+	struct setRoi_reply {
+		boolean success;
+	};
+
+	struct setRoiNotFull_req {
+		boolean roiNotFull;
+	};
+
+	struct setRoiNotFull_reply {
+		boolean success;
+	};
+
+	struct NTarget {
+		usmallint _NTarget;
+	};
+
+	struct roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy {
+		int roiAx;
+		int roiAy;
+		int roiBx;
+		int roiBy;
+		int roiCx;
+		int roiCy;
+		int roiDx;
+		int roiDy;
+	};
+
+	struct flgShiftScoreMinScoreMax {
+		sequence<boolean, 786432> flg;
+		utinyint shift;
+		utinyint scoreMin;
+		utinyint scoreMax;
 	};
 };
 
@@ -125,191 +280,36 @@ module DdsJobWzskIprTrace {
 	};
 };
 
-module DdsJobWzskIprCorner {
-	struct setNTarget_req {
-		usmallint NTarget;
+module DdsJobWzskSrcSysinfo {
+	struct currCh0VoltCh0 {
+		sequence<float, 60> currCh0;
+		sequence<float, 60> voltCh0;
 	};
 
-	struct setNTarget_reply {
-		boolean success;
+	struct currCh1VoltCh1 {
+		sequence<float, 60> currCh1;
+		sequence<float, 60> voltCh1;
 	};
 
-	struct setRoi_req {
-		int roiAx;
-		int roiAy;
-		int roiBx;
-		int roiBy;
-		int roiCx;
-		int roiCy;
-		int roiDx;
-		int roiDy;
+	struct currCh2VoltCh2 {
+		sequence<float, 60> currCh2;
+		sequence<float, 60> voltCh2;
 	};
 
-	struct setRoi_reply {
-		boolean success;
+	struct currCh3VoltCh3 {
+		sequence<float, 60> currCh3;
+		sequence<float, 60> voltCh3;
 	};
 
-	struct setRoiNotFull_req {
-		boolean roiNotFull;
+	struct loadAllLoadCore0LoadCore1LoadCore2LoadCore3 {
+		sequence<float, 60> loadAll;
+		sequence<float, 60> loadCore0;
+		sequence<float, 60> loadCore1;
+		sequence<float, 60> loadCore2;
+		sequence<float, 60> loadCore3;
 	};
 
-	struct setRoiNotFull_reply {
-		boolean success;
-	};
-
-	struct NTarget {
-		usmallint _NTarget;
-	};
-
-	struct roiAxRoiAyRoiBxRoiByRoiCxRoiCyRoiDxRoiDy {
-		int roiAx;
-		int roiAy;
-		int roiBx;
-		int roiBy;
-		int roiCx;
-		int roiCy;
-		int roiDx;
-		int roiDy;
-	};
-
-	struct flgShiftScoreMinScoreMax {
-		sequence<boolean, 786432> flg;
-		utinyint shift;
-		utinyint scoreMin;
-		utinyint scoreMax;
-	};
-};
-
-module DdsJobWzskActServo {
-	struct moveto_req {
-		float target;
-	};
-
-	struct moveto_reply {
-		boolean success;
-	};
-
-	struct stop_req {
-		boolean dummy;
-	};
-
-	struct stop_reply {
-		boolean success;
-	};
-
-	struct turn_req {
-		boolean ccwNotCw;
-	};
-
-	struct turn_reply {
-		boolean success;
-	};
-
-	struct zero_req {
-		boolean dummy;
-	};
-
-	struct zero_reply {
-		boolean success;
-	};
-
-	struct angleTarget {
-		float angle;
-		float target;
-	};
-};
-
-module DdsJobWzskActLaser {
-	struct setLeft_req {
-		float left;
-	};
-
-	struct setLeft_reply {
-		boolean success;
-	};
-
-	struct setRight_req {
-		float right;
-	};
-
-	struct setRight_reply {
-		boolean success;
-	};
-
-	struct leftRight {
-		float left;
-		float right;
-	};
-};
-
-module DdsJobWzskActExposure {
-	struct setExposure_req {
-		boolean autoNotManual;
-		float Texp;
-	};
-
-	struct setExposure_reply {
-		boolean success;
-	};
-
-	struct setFocus_req {
-		float focus;
-	};
-
-	struct setFocus_reply {
-		boolean success;
-	};
-
-	struct autoNotManualTexp {
-		boolean autoNotManual;
-		float Texp;
-	};
-
-	struct focus {
-		float _focus;
-	};
-};
-
-module DdsJobWzskAcqPtcloud {
-	struct setDeltaTheta_req {
-		float deltaTheta;
-	};
-
-	struct setDeltaTheta_reply {
-		boolean success;
-	};
-
-	struct setDWork_req {
-		float dWork;
-	};
-
-	struct setDWork_reply {
-		boolean success;
-	};
-
-	struct deltaTheta {
-		float _deltaTheta;
-	};
-
-	struct dWork {
-		float _dWork;
-	};
-
-	struct xYZ {
-		sequence<float, 72000> x;
-		sequence<float, 72000> y;
-		sequence<float, 72000> z;
-	};
-};
-
-module DdsJobWzskAcqPreview {
-	struct gray {
-		sequence<octet, 49152> _gray;
-	};
-
-	struct redGreenBlue {
-		sequence<octet, 19200> red;
-		sequence<octet, 19200> green;
-		sequence<octet, 19200> blue;
+	struct temp {
+		sequence<float, 60> _temp;
 	};
 };

@@ -186,7 +186,7 @@ void PnlWzskLivSysmon::Tag::writeJSON(
 		me["CptPltTot"] = "total";
 		me["CptPltCor"] = "core";
 	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "System\\u009fberwachung";
+		me["Cpt"] = "System monitor";
 		me["CptCtp"] = "CPU-Temperatur [\\u00b0C]";
 		me["CptPltTme"] = "Zeit [s]";
 		me["CptPltCld"] = "CPU-Last [\\u0025]";
@@ -216,7 +216,7 @@ void PnlWzskLivSysmon::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "CptPltTot", "total");
 			writeStringAttr(wr, itemtag, "sref", "CptPltCor", "core");
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "System\\u009fberwachung");
+			writeStringAttr(wr, itemtag, "sref", "Cpt", "System monitor");
 			writeStringAttr(wr, itemtag, "sref", "CptCtp", "CPU-Temperatur [\\u00b0C]");
 			writeStringAttr(wr, itemtag, "sref", "CptPltTme", "Zeit [s]");
 			writeStringAttr(wr, itemtag, "sref", "CptPltCld", "CPU-Last [\\u0025]");

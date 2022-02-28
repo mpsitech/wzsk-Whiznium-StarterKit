@@ -44,8 +44,8 @@ PnlWzskShtDetail::PnlWzskShtDetail(
 
 	// IP constructor.cust2 --- INSERT
 
-	xchg->addClstn(VecWzskVCall::CALLWZSKSHT_SESEQ, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSHT_OBJEQ, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKSHT_SESEQ, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -270,21 +270,23 @@ void PnlWzskShtDetail::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKSHTUPD_REFEQ) {
-		call->abort = handleCallWzskShtUpd_refEq(dbswzsk, call->jref);
+	if (call->ixVCall == VecWzskVCall::CALLWZSKSHT_OBJEQ) {
+		call->abort = handleCallWzskSht_objEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHT_SESEQ) {
 		call->abort = handleCallWzskSht_sesEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHT_OBJEQ) {
-		call->abort = handleCallWzskSht_objEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHTUPD_REFEQ) {
+		call->abort = handleCallWzskShtUpd_refEq(dbswzsk, call->jref);
 	};
 };
 
-bool PnlWzskShtDetail::handleCallWzskShtUpd_refEq(
+bool PnlWzskShtDetail::handleCallWzskSht_objEq(
 			DbsWzsk* dbswzsk
 			, const ubigint jrefTrig
+			, const ubigint refInv
+			, bool& boolvalRet
 		) {
 	bool retval = false;
-	// IP handleCallWzskShtUpd_refEq --- INSERT
+	boolvalRet = (recSht.refWzskMObject == refInv); // IP handleCallWzskSht_objEq --- LINE
 	return retval;
 };
 
@@ -299,13 +301,11 @@ bool PnlWzskShtDetail::handleCallWzskSht_sesEq(
 	return retval;
 };
 
-bool PnlWzskShtDetail::handleCallWzskSht_objEq(
+bool PnlWzskShtDetail::handleCallWzskShtUpd_refEq(
 			DbsWzsk* dbswzsk
 			, const ubigint jrefTrig
-			, const ubigint refInv
-			, bool& boolvalRet
 		) {
 	bool retval = false;
-	boolvalRet = (recSht.refWzskMObject == refInv); // IP handleCallWzskSht_objEq --- LINE
+	// IP handleCallWzskShtUpd_refEq --- INSERT
 	return retval;
 };

@@ -14,10 +14,11 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskSrcMcvevp.h"
-#include "JobWzskSrcIcicle.h"
-#include "JobWzskSrcClnxevb.h"
 #include "JobWzskSrcArty.h"
+#include "JobWzskSrcClnxevb.h"
+#include "JobWzskSrcIcicle.h"
+#include "JobWzskSrcMcvevp.h"
+#include "JobWzskSrcUzediocc.h"
 
 #define VecVJobWzskAcqFpgaflgSge JobWzskAcqFpgaflg::VecVSge
 
@@ -117,10 +118,11 @@ public:
 public:
 	static Shrdat shrdat;
 
-	JobWzskSrcMcvevp* srcmcvevp;
-	JobWzskSrcIcicle* srcicicle;
-	JobWzskSrcClnxevb* srcclnxevb;
 	JobWzskSrcArty* srcarty;
+	JobWzskSrcClnxevb* srcclnxevb;
+	JobWzskSrcIcicle* srcicicle;
+	JobWzskSrcMcvevp* srcmcvevp;
+	JobWzskSrcUzediocc* srcuzediocc;
 
 	// IP vars.spec --- INSERT
 

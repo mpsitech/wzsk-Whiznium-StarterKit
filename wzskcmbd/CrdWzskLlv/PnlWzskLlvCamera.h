@@ -14,8 +14,8 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskActExposure.h"
 #include "JobWzskAcqPreview.h"
+#include "JobWzskActExposure.h"
 
 #define VecVWzskLlvCameraDo PnlWzskLlvCamera::VecVDo
 
@@ -281,8 +281,8 @@ public:
 
 	Sbecore::Feed feedFPupMde;
 
-	JobWzskActExposure* actexposure;
 	JobWzskAcqPreview* acqpreview;
+	JobWzskActExposure* actexposure;
 
 	// IP vars.cust --- INSERT
 
@@ -314,9 +314,9 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskShrdatChgFromActexposure(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
-	bool handleCallWzskResultNewFromAcqpreview(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskClaimChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskResultNewFromAcqpreview(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskShrdatChgFromActexposure(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 
 };
 

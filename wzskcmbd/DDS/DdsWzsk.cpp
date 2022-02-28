@@ -161,6 +161,242 @@ std::ostream& operator << (std::ostream& o,const DdsDoublemat& sample)
 
 namespace DdsJobWzskSrcSysinfo {
 
+    // ---- currCh0VoltCh0: 
+
+    currCh0VoltCh0::currCh0VoltCh0()  {
+    }   
+
+    currCh0VoltCh0::currCh0VoltCh0 (
+        const ::rti::core::bounded_sequence< float, 60 >& currCh0,
+        const ::rti::core::bounded_sequence< float, 60 >& voltCh0)
+        :
+            m_currCh0_( currCh0 ),
+            m_voltCh0_( voltCh0 ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    currCh0VoltCh0::currCh0VoltCh0(currCh0VoltCh0&& other_) OMG_NOEXCEPT  :m_currCh0_ (std::move(other_.m_currCh0_))
+    ,
+    m_voltCh0_ (std::move(other_.m_voltCh0_))
+    {
+    } 
+
+    currCh0VoltCh0& currCh0VoltCh0::operator=(currCh0VoltCh0&&  other_) OMG_NOEXCEPT {
+        currCh0VoltCh0 tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void currCh0VoltCh0::swap(currCh0VoltCh0& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_currCh0_, other_.m_currCh0_);
+        swap(m_voltCh0_, other_.m_voltCh0_);
+    }  
+
+    bool currCh0VoltCh0::operator == (const currCh0VoltCh0& other_) const {
+        if (m_currCh0_ != other_.m_currCh0_) {
+            return false;
+        }
+        if (m_voltCh0_ != other_.m_voltCh0_) {
+            return false;
+        }
+        return true;
+    }
+    bool currCh0VoltCh0::operator != (const currCh0VoltCh0& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const currCh0VoltCh0& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "currCh0: " << sample.currCh0()<<", ";
+        o << "voltCh0: " << sample.voltCh0() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- currCh1VoltCh1: 
+
+    currCh1VoltCh1::currCh1VoltCh1()  {
+    }   
+
+    currCh1VoltCh1::currCh1VoltCh1 (
+        const ::rti::core::bounded_sequence< float, 60 >& currCh1,
+        const ::rti::core::bounded_sequence< float, 60 >& voltCh1)
+        :
+            m_currCh1_( currCh1 ),
+            m_voltCh1_( voltCh1 ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    currCh1VoltCh1::currCh1VoltCh1(currCh1VoltCh1&& other_) OMG_NOEXCEPT  :m_currCh1_ (std::move(other_.m_currCh1_))
+    ,
+    m_voltCh1_ (std::move(other_.m_voltCh1_))
+    {
+    } 
+
+    currCh1VoltCh1& currCh1VoltCh1::operator=(currCh1VoltCh1&&  other_) OMG_NOEXCEPT {
+        currCh1VoltCh1 tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void currCh1VoltCh1::swap(currCh1VoltCh1& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_currCh1_, other_.m_currCh1_);
+        swap(m_voltCh1_, other_.m_voltCh1_);
+    }  
+
+    bool currCh1VoltCh1::operator == (const currCh1VoltCh1& other_) const {
+        if (m_currCh1_ != other_.m_currCh1_) {
+            return false;
+        }
+        if (m_voltCh1_ != other_.m_voltCh1_) {
+            return false;
+        }
+        return true;
+    }
+    bool currCh1VoltCh1::operator != (const currCh1VoltCh1& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const currCh1VoltCh1& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "currCh1: " << sample.currCh1()<<", ";
+        o << "voltCh1: " << sample.voltCh1() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- currCh2VoltCh2: 
+
+    currCh2VoltCh2::currCh2VoltCh2()  {
+    }   
+
+    currCh2VoltCh2::currCh2VoltCh2 (
+        const ::rti::core::bounded_sequence< float, 60 >& currCh2,
+        const ::rti::core::bounded_sequence< float, 60 >& voltCh2)
+        :
+            m_currCh2_( currCh2 ),
+            m_voltCh2_( voltCh2 ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    currCh2VoltCh2::currCh2VoltCh2(currCh2VoltCh2&& other_) OMG_NOEXCEPT  :m_currCh2_ (std::move(other_.m_currCh2_))
+    ,
+    m_voltCh2_ (std::move(other_.m_voltCh2_))
+    {
+    } 
+
+    currCh2VoltCh2& currCh2VoltCh2::operator=(currCh2VoltCh2&&  other_) OMG_NOEXCEPT {
+        currCh2VoltCh2 tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void currCh2VoltCh2::swap(currCh2VoltCh2& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_currCh2_, other_.m_currCh2_);
+        swap(m_voltCh2_, other_.m_voltCh2_);
+    }  
+
+    bool currCh2VoltCh2::operator == (const currCh2VoltCh2& other_) const {
+        if (m_currCh2_ != other_.m_currCh2_) {
+            return false;
+        }
+        if (m_voltCh2_ != other_.m_voltCh2_) {
+            return false;
+        }
+        return true;
+    }
+    bool currCh2VoltCh2::operator != (const currCh2VoltCh2& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const currCh2VoltCh2& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "currCh2: " << sample.currCh2()<<", ";
+        o << "voltCh2: " << sample.voltCh2() ;
+        o <<"]";
+        return o;
+    }
+
+    // ---- currCh3VoltCh3: 
+
+    currCh3VoltCh3::currCh3VoltCh3()  {
+    }   
+
+    currCh3VoltCh3::currCh3VoltCh3 (
+        const ::rti::core::bounded_sequence< float, 60 >& currCh3,
+        const ::rti::core::bounded_sequence< float, 60 >& voltCh3)
+        :
+            m_currCh3_( currCh3 ),
+            m_voltCh3_( voltCh3 ) {
+    }
+
+    #ifdef RTI_CXX11_RVALUE_REFERENCES
+    #ifdef RTI_CXX11_NO_IMPLICIT_MOVE_OPERATIONS
+    currCh3VoltCh3::currCh3VoltCh3(currCh3VoltCh3&& other_) OMG_NOEXCEPT  :m_currCh3_ (std::move(other_.m_currCh3_))
+    ,
+    m_voltCh3_ (std::move(other_.m_voltCh3_))
+    {
+    } 
+
+    currCh3VoltCh3& currCh3VoltCh3::operator=(currCh3VoltCh3&&  other_) OMG_NOEXCEPT {
+        currCh3VoltCh3 tmp(std::move(other_));
+        swap(tmp); 
+        return *this;
+    }
+    #endif
+    #endif   
+
+    void currCh3VoltCh3::swap(currCh3VoltCh3& other_)  OMG_NOEXCEPT 
+    {
+        using std::swap;
+        swap(m_currCh3_, other_.m_currCh3_);
+        swap(m_voltCh3_, other_.m_voltCh3_);
+    }  
+
+    bool currCh3VoltCh3::operator == (const currCh3VoltCh3& other_) const {
+        if (m_currCh3_ != other_.m_currCh3_) {
+            return false;
+        }
+        if (m_voltCh3_ != other_.m_voltCh3_) {
+            return false;
+        }
+        return true;
+    }
+    bool currCh3VoltCh3::operator != (const currCh3VoltCh3& other_) const {
+        return !this->operator ==(other_);
+    }
+
+    std::ostream& operator << (std::ostream& o,const currCh3VoltCh3& sample)
+    {
+        ::rti::util::StreamFlagSaver flag_saver (o);
+        o <<"[";
+        o << "currCh3: " << sample.currCh3()<<", ";
+        o << "voltCh3: " << sample.voltCh3() ;
+        o <<"]";
+        return o;
+    }
+
     // ---- loadAllLoadCore0LoadCore1LoadCore2LoadCore3: 
 
     loadAllLoadCore0LoadCore1LoadCore2LoadCore3::loadAllLoadCore0LoadCore1LoadCore2LoadCore3()  {
@@ -4924,6 +5160,754 @@ namespace rti {
             return static_cast<const ::dds::core::xtypes::AliasType&>(
                 ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
                     *(native_type_code< vecsref_AliasTag_t >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskSrcSysinfo::currCh0VoltCh0 > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode currCh0VoltCh0_g_tc_currCh0_sequence;
+                static DDS_TypeCode currCh0VoltCh0_g_tc_voltCh0_sequence;
+
+                static DDS_TypeCode_Member currCh0VoltCh0_g_tc_members[2]=
+                {
+
+                    {
+                        (char *)"currCh0",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"voltCh0",/* Member name */
+                        {
+                            1,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode currCh0VoltCh0_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskSrcSysinfo::currCh0VoltCh0", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        2, /* Number of members */
+                        currCh0VoltCh0_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for currCh0VoltCh0*/
+
+                if (is_initialized) {
+                    return &currCh0VoltCh0_g_tc;
+                }
+
+                currCh0VoltCh0_g_tc_currCh0_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+                currCh0VoltCh0_g_tc_voltCh0_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+
+                currCh0VoltCh0_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                currCh0VoltCh0_g_tc_currCh0_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                currCh0VoltCh0_g_tc_voltCh0_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                currCh0VoltCh0_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)& currCh0VoltCh0_g_tc_currCh0_sequence;
+                currCh0VoltCh0_g_tc_members[1]._representation._typeCode = (RTICdrTypeCode *)& currCh0VoltCh0_g_tc_voltCh0_sequence;
+
+                /* Initialize the values for member annotations. */
+
+                currCh0VoltCh0_g_tc._data._sampleAccessInfo = sample_access_info();
+                currCh0VoltCh0_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &currCh0VoltCh0_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskSrcSysinfo::currCh0VoltCh0 *sample;
+
+                static RTIXCdrMemberAccessInfo currCh0VoltCh0_g_memberAccessInfos[2] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo currCh0VoltCh0_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &currCh0VoltCh0_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskSrcSysinfo::currCh0VoltCh0);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                currCh0VoltCh0_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->currCh0() - (char *)sample);
+
+                currCh0VoltCh0_g_memberAccessInfos[1].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->voltCh0() - (char *)sample);
+
+                currCh0VoltCh0_g_sampleAccessInfo.memberAccessInfos = 
+                currCh0VoltCh0_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskSrcSysinfo::currCh0VoltCh0);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        currCh0VoltCh0_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        currCh0VoltCh0_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                currCh0VoltCh0_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                currCh0VoltCh0_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskSrcSysinfo::currCh0VoltCh0 >;
+
+                currCh0VoltCh0_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &currCh0VoltCh0_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin currCh0VoltCh0_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &currCh0VoltCh0_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskSrcSysinfo::currCh0VoltCh0 >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskSrcSysinfo::currCh0VoltCh0 >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskSrcSysinfo::currCh1VoltCh1 > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode currCh1VoltCh1_g_tc_currCh1_sequence;
+                static DDS_TypeCode currCh1VoltCh1_g_tc_voltCh1_sequence;
+
+                static DDS_TypeCode_Member currCh1VoltCh1_g_tc_members[2]=
+                {
+
+                    {
+                        (char *)"currCh1",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"voltCh1",/* Member name */
+                        {
+                            1,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode currCh1VoltCh1_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskSrcSysinfo::currCh1VoltCh1", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        2, /* Number of members */
+                        currCh1VoltCh1_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for currCh1VoltCh1*/
+
+                if (is_initialized) {
+                    return &currCh1VoltCh1_g_tc;
+                }
+
+                currCh1VoltCh1_g_tc_currCh1_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+                currCh1VoltCh1_g_tc_voltCh1_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+
+                currCh1VoltCh1_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                currCh1VoltCh1_g_tc_currCh1_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                currCh1VoltCh1_g_tc_voltCh1_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                currCh1VoltCh1_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)& currCh1VoltCh1_g_tc_currCh1_sequence;
+                currCh1VoltCh1_g_tc_members[1]._representation._typeCode = (RTICdrTypeCode *)& currCh1VoltCh1_g_tc_voltCh1_sequence;
+
+                /* Initialize the values for member annotations. */
+
+                currCh1VoltCh1_g_tc._data._sampleAccessInfo = sample_access_info();
+                currCh1VoltCh1_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &currCh1VoltCh1_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskSrcSysinfo::currCh1VoltCh1 *sample;
+
+                static RTIXCdrMemberAccessInfo currCh1VoltCh1_g_memberAccessInfos[2] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo currCh1VoltCh1_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &currCh1VoltCh1_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskSrcSysinfo::currCh1VoltCh1);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                currCh1VoltCh1_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->currCh1() - (char *)sample);
+
+                currCh1VoltCh1_g_memberAccessInfos[1].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->voltCh1() - (char *)sample);
+
+                currCh1VoltCh1_g_sampleAccessInfo.memberAccessInfos = 
+                currCh1VoltCh1_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskSrcSysinfo::currCh1VoltCh1);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        currCh1VoltCh1_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        currCh1VoltCh1_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                currCh1VoltCh1_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                currCh1VoltCh1_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskSrcSysinfo::currCh1VoltCh1 >;
+
+                currCh1VoltCh1_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &currCh1VoltCh1_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin currCh1VoltCh1_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &currCh1VoltCh1_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskSrcSysinfo::currCh1VoltCh1 >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskSrcSysinfo::currCh1VoltCh1 >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskSrcSysinfo::currCh2VoltCh2 > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode currCh2VoltCh2_g_tc_currCh2_sequence;
+                static DDS_TypeCode currCh2VoltCh2_g_tc_voltCh2_sequence;
+
+                static DDS_TypeCode_Member currCh2VoltCh2_g_tc_members[2]=
+                {
+
+                    {
+                        (char *)"currCh2",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"voltCh2",/* Member name */
+                        {
+                            1,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode currCh2VoltCh2_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskSrcSysinfo::currCh2VoltCh2", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        2, /* Number of members */
+                        currCh2VoltCh2_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for currCh2VoltCh2*/
+
+                if (is_initialized) {
+                    return &currCh2VoltCh2_g_tc;
+                }
+
+                currCh2VoltCh2_g_tc_currCh2_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+                currCh2VoltCh2_g_tc_voltCh2_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+
+                currCh2VoltCh2_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                currCh2VoltCh2_g_tc_currCh2_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                currCh2VoltCh2_g_tc_voltCh2_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                currCh2VoltCh2_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)& currCh2VoltCh2_g_tc_currCh2_sequence;
+                currCh2VoltCh2_g_tc_members[1]._representation._typeCode = (RTICdrTypeCode *)& currCh2VoltCh2_g_tc_voltCh2_sequence;
+
+                /* Initialize the values for member annotations. */
+
+                currCh2VoltCh2_g_tc._data._sampleAccessInfo = sample_access_info();
+                currCh2VoltCh2_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &currCh2VoltCh2_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskSrcSysinfo::currCh2VoltCh2 *sample;
+
+                static RTIXCdrMemberAccessInfo currCh2VoltCh2_g_memberAccessInfos[2] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo currCh2VoltCh2_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &currCh2VoltCh2_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskSrcSysinfo::currCh2VoltCh2);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                currCh2VoltCh2_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->currCh2() - (char *)sample);
+
+                currCh2VoltCh2_g_memberAccessInfos[1].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->voltCh2() - (char *)sample);
+
+                currCh2VoltCh2_g_sampleAccessInfo.memberAccessInfos = 
+                currCh2VoltCh2_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskSrcSysinfo::currCh2VoltCh2);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        currCh2VoltCh2_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        currCh2VoltCh2_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                currCh2VoltCh2_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                currCh2VoltCh2_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskSrcSysinfo::currCh2VoltCh2 >;
+
+                currCh2VoltCh2_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &currCh2VoltCh2_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin currCh2VoltCh2_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &currCh2VoltCh2_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskSrcSysinfo::currCh2VoltCh2 >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskSrcSysinfo::currCh2VoltCh2 >::get())));
+        }
+
+        #ifndef NDDS_STANDALONE_TYPE
+
+        template<>
+        struct native_type_code< DdsJobWzskSrcSysinfo::currCh3VoltCh3 > {
+            static DDS_TypeCode * get()
+            {
+                using namespace ::rti::topic::interpreter;
+
+                static RTIBool is_initialized = RTI_FALSE;
+
+                static DDS_TypeCode currCh3VoltCh3_g_tc_currCh3_sequence;
+                static DDS_TypeCode currCh3VoltCh3_g_tc_voltCh3_sequence;
+
+                static DDS_TypeCode_Member currCh3VoltCh3_g_tc_members[2]=
+                {
+
+                    {
+                        (char *)"currCh3",/* Member name */
+                        {
+                            0,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }, 
+                    {
+                        (char *)"voltCh3",/* Member name */
+                        {
+                            1,/* Representation ID */
+                            DDS_BOOLEAN_FALSE,/* Is a pointer? */
+                            -1, /* Bitfield bits */
+                            NULL/* Member type code is assigned later */
+                        },
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        RTI_CDR_REQUIRED_MEMBER, /* Is a key? */
+                        DDS_PUBLIC_MEMBER,/* Member visibility */
+                        1,
+                        NULL, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER
+                    }
+                };
+
+                static DDS_TypeCode currCh3VoltCh3_g_tc =
+                {{
+                        DDS_TK_STRUCT, /* Kind */
+                        DDS_BOOLEAN_FALSE, /* Ignored */
+                        -1, /*Ignored*/
+                        (char *)"DdsJobWzskSrcSysinfo::currCh3VoltCh3", /* Name */
+                        NULL, /* Ignored */      
+                        0, /* Ignored */
+                        0, /* Ignored */
+                        NULL, /* Ignored */
+                        2, /* Number of members */
+                        currCh3VoltCh3_g_tc_members, /* Members */
+                        DDS_VM_NONE, /* Ignored */
+                        RTICdrTypeCodeAnnotations_INITIALIZER,
+                        DDS_BOOLEAN_TRUE, /* _isCopyable */
+                        NULL, /* _sampleAccessInfo: assigned later */
+                        NULL /* _typePlugin: assigned later */
+                    }}; /* Type code for currCh3VoltCh3*/
+
+                if (is_initialized) {
+                    return &currCh3VoltCh3_g_tc;
+                }
+
+                currCh3VoltCh3_g_tc_currCh3_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+                currCh3VoltCh3_g_tc_voltCh3_sequence = initialize_sequence_typecode< ::rti::core::bounded_sequence< float, 60 > >((60));
+
+                currCh3VoltCh3_g_tc._data._annotations._allowedDataRepresentationMask = 5;
+
+                currCh3VoltCh3_g_tc_currCh3_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                currCh3VoltCh3_g_tc_voltCh3_sequence._data._typeCode = (RTICdrTypeCode *)&DDS_g_tc_float;
+                currCh3VoltCh3_g_tc_members[0]._representation._typeCode = (RTICdrTypeCode *)& currCh3VoltCh3_g_tc_currCh3_sequence;
+                currCh3VoltCh3_g_tc_members[1]._representation._typeCode = (RTICdrTypeCode *)& currCh3VoltCh3_g_tc_voltCh3_sequence;
+
+                /* Initialize the values for member annotations. */
+
+                currCh3VoltCh3_g_tc._data._sampleAccessInfo = sample_access_info();
+                currCh3VoltCh3_g_tc._data._typePlugin = type_plugin_info();    
+
+                is_initialized = RTI_TRUE;
+
+                return &currCh3VoltCh3_g_tc;
+            }
+
+            static RTIXCdrSampleAccessInfo * sample_access_info()
+            {
+                static RTIBool is_initialized = RTI_FALSE;
+
+                DdsJobWzskSrcSysinfo::currCh3VoltCh3 *sample;
+
+                static RTIXCdrMemberAccessInfo currCh3VoltCh3_g_memberAccessInfos[2] =
+                {RTIXCdrMemberAccessInfo_INITIALIZER};
+
+                static RTIXCdrSampleAccessInfo currCh3VoltCh3_g_sampleAccessInfo = 
+                RTIXCdrSampleAccessInfo_INITIALIZER;
+
+                if (is_initialized) {
+                    return (RTIXCdrSampleAccessInfo*) &currCh3VoltCh3_g_sampleAccessInfo;
+                }
+
+                RTIXCdrHeap_allocateStruct(
+                    &sample, 
+                    DdsJobWzskSrcSysinfo::currCh3VoltCh3);
+                if (sample == NULL) {
+                    return NULL;
+                }
+
+                currCh3VoltCh3_g_memberAccessInfos[0].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->currCh3() - (char *)sample);
+
+                currCh3VoltCh3_g_memberAccessInfos[1].bindingMemberValueOffset[0] = 
+                (RTIXCdrUnsignedLong) ((char *)&sample->voltCh3() - (char *)sample);
+
+                currCh3VoltCh3_g_sampleAccessInfo.memberAccessInfos = 
+                currCh3VoltCh3_g_memberAccessInfos;
+
+                {
+                    size_t candidateTypeSize = sizeof(DdsJobWzskSrcSysinfo::currCh3VoltCh3);
+
+                    if (candidateTypeSize > RTIXCdrUnsignedLong_MAX) {
+                        currCh3VoltCh3_g_sampleAccessInfo.typeSize[0] =
+                        RTIXCdrUnsignedLong_MAX;
+                    } else {
+                        currCh3VoltCh3_g_sampleAccessInfo.typeSize[0] =
+                        (RTIXCdrUnsignedLong) candidateTypeSize;
+                    }
+                }
+
+                currCh3VoltCh3_g_sampleAccessInfo.useGetMemberValueOnlyWithRef =
+                RTI_XCDR_TRUE;
+
+                currCh3VoltCh3_g_sampleAccessInfo.getMemberValuePointerFcn = 
+                interpreter::get_aggregation_value_pointer< DdsJobWzskSrcSysinfo::currCh3VoltCh3 >;
+
+                currCh3VoltCh3_g_sampleAccessInfo.languageBinding = 
+                RTI_XCDR_TYPE_BINDING_CPP_11_STL ;
+
+                RTIXCdrHeap_freeStruct(sample);
+                is_initialized = RTI_TRUE;
+                return (RTIXCdrSampleAccessInfo*) &currCh3VoltCh3_g_sampleAccessInfo;
+            }
+
+            static RTIXCdrTypePlugin * type_plugin_info()
+            {
+                static RTIXCdrTypePlugin currCh3VoltCh3_g_typePlugin = 
+                {
+                    NULL, /* serialize */
+                    NULL, /* serialize_key */
+                    NULL, /* deserialize_sample */
+                    NULL, /* deserialize_key_sample */
+                    NULL, /* skip */
+                    NULL, /* get_serialized_sample_size */
+                    NULL, /* get_serialized_sample_max_size_ex */
+                    NULL, /* get_serialized_key_max_size_ex */
+                    NULL, /* get_serialized_sample_min_size */
+                    NULL, /* serialized_sample_to_key */
+                    NULL,
+                    NULL,
+                    NULL,
+                    NULL
+                };
+
+                return &currCh3VoltCh3_g_typePlugin;
+            }
+        }; // native_type_code
+        #endif
+
+        const ::dds::core::xtypes::StructType& dynamic_type< DdsJobWzskSrcSysinfo::currCh3VoltCh3 >::get()
+        {
+            return static_cast<const ::dds::core::xtypes::StructType&>(
+                ::rti::core::native_conversions::cast_from_native< ::dds::core::xtypes::DynamicType >(
+                    *(native_type_code< DdsJobWzskSrcSysinfo::currCh3VoltCh3 >::get())));
         }
 
         #ifndef NDDS_STANDALONE_TYPE
@@ -14443,6 +15427,278 @@ namespace dds {
             RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
 
             ::rti::topic::allocate_sample(sample.vec(),  100, -1);
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh0VoltCh0 >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskSrcSysinfo::currCh0VoltCh0Plugin_new,
+                DdsJobWzskSrcSysinfo::currCh0VoltCh0Plugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskSrcSysinfo::currCh0VoltCh0 >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskSrcSysinfo::currCh0VoltCh0& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = currCh0VoltCh0Plugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = currCh0VoltCh0Plugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh0VoltCh0 >::from_cdr_buffer(DdsJobWzskSrcSysinfo::currCh0VoltCh0& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = currCh0VoltCh0Plugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskSrcSysinfo::currCh0VoltCh0 from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh0VoltCh0 >::reset_sample(DdsJobWzskSrcSysinfo::currCh0VoltCh0& sample) 
+        {
+            ::rti::topic::reset_sample(sample.currCh0());
+            ::rti::topic::reset_sample(sample.voltCh0());
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh0VoltCh0 >::allocate_sample(DdsJobWzskSrcSysinfo::currCh0VoltCh0& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+            ::rti::topic::allocate_sample(sample.currCh0(),  60, -1);
+            ::rti::topic::allocate_sample(sample.voltCh0(),  60, -1);
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh1VoltCh1 >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskSrcSysinfo::currCh1VoltCh1Plugin_new,
+                DdsJobWzskSrcSysinfo::currCh1VoltCh1Plugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskSrcSysinfo::currCh1VoltCh1 >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskSrcSysinfo::currCh1VoltCh1& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = currCh1VoltCh1Plugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = currCh1VoltCh1Plugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh1VoltCh1 >::from_cdr_buffer(DdsJobWzskSrcSysinfo::currCh1VoltCh1& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = currCh1VoltCh1Plugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskSrcSysinfo::currCh1VoltCh1 from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh1VoltCh1 >::reset_sample(DdsJobWzskSrcSysinfo::currCh1VoltCh1& sample) 
+        {
+            ::rti::topic::reset_sample(sample.currCh1());
+            ::rti::topic::reset_sample(sample.voltCh1());
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh1VoltCh1 >::allocate_sample(DdsJobWzskSrcSysinfo::currCh1VoltCh1& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+            ::rti::topic::allocate_sample(sample.currCh1(),  60, -1);
+            ::rti::topic::allocate_sample(sample.voltCh1(),  60, -1);
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh2VoltCh2 >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskSrcSysinfo::currCh2VoltCh2Plugin_new,
+                DdsJobWzskSrcSysinfo::currCh2VoltCh2Plugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskSrcSysinfo::currCh2VoltCh2 >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskSrcSysinfo::currCh2VoltCh2& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = currCh2VoltCh2Plugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = currCh2VoltCh2Plugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh2VoltCh2 >::from_cdr_buffer(DdsJobWzskSrcSysinfo::currCh2VoltCh2& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = currCh2VoltCh2Plugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskSrcSysinfo::currCh2VoltCh2 from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh2VoltCh2 >::reset_sample(DdsJobWzskSrcSysinfo::currCh2VoltCh2& sample) 
+        {
+            ::rti::topic::reset_sample(sample.currCh2());
+            ::rti::topic::reset_sample(sample.voltCh2());
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh2VoltCh2 >::allocate_sample(DdsJobWzskSrcSysinfo::currCh2VoltCh2& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+            ::rti::topic::allocate_sample(sample.currCh2(),  60, -1);
+            ::rti::topic::allocate_sample(sample.voltCh2(),  60, -1);
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh3VoltCh3 >:: register_type(
+            ::dds::domain::DomainParticipant& participant,
+            const std::string& type_name) 
+        {
+
+            ::rti::domain::register_type_plugin(
+                participant,
+                type_name,
+                DdsJobWzskSrcSysinfo::currCh3VoltCh3Plugin_new,
+                DdsJobWzskSrcSysinfo::currCh3VoltCh3Plugin_delete);
+        }
+
+        std::vector<char>& topic_type_support< DdsJobWzskSrcSysinfo::currCh3VoltCh3 >::to_cdr_buffer(
+            std::vector<char>& buffer, 
+            const DdsJobWzskSrcSysinfo::currCh3VoltCh3& sample,
+            ::dds::core::policy::DataRepresentationId representation)
+        {
+            // First get the length of the buffer
+            unsigned int length = 0;
+            RTIBool ok = currCh3VoltCh3Plugin_serialize_to_cdr_buffer(
+                NULL, 
+                &length,
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to calculate cdr buffer size");
+
+            // Create a vector with that size and copy the cdr buffer into it
+            buffer.resize(length);
+            ok = currCh3VoltCh3Plugin_serialize_to_cdr_buffer(
+                &buffer[0], 
+                &length, 
+                &sample,
+                representation);
+            ::rti::core::check_return_code(
+                ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+                "Failed to copy cdr buffer");
+
+            return buffer;
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh3VoltCh3 >::from_cdr_buffer(DdsJobWzskSrcSysinfo::currCh3VoltCh3& sample, 
+        const std::vector<char>& buffer)
+        {
+
+            RTIBool ok  = currCh3VoltCh3Plugin_deserialize_from_cdr_buffer(
+                &sample, 
+                &buffer[0], 
+                static_cast<unsigned int>(buffer.size()));
+            ::rti::core::check_return_code(ok ? DDS_RETCODE_OK : DDS_RETCODE_ERROR,
+            "Failed to create DdsJobWzskSrcSysinfo::currCh3VoltCh3 from cdr buffer");
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh3VoltCh3 >::reset_sample(DdsJobWzskSrcSysinfo::currCh3VoltCh3& sample) 
+        {
+            ::rti::topic::reset_sample(sample.currCh3());
+            ::rti::topic::reset_sample(sample.voltCh3());
+        }
+
+        void topic_type_support< DdsJobWzskSrcSysinfo::currCh3VoltCh3 >::allocate_sample(DdsJobWzskSrcSysinfo::currCh3VoltCh3& sample, int, int) 
+        {
+            RTIOsapiUtility_unusedParameter(sample); // [[maybe_unused]]
+
+            ::rti::topic::allocate_sample(sample.currCh3(),  60, -1);
+            ::rti::topic::allocate_sample(sample.voltCh3(),  60, -1);
         }
 
         void topic_type_support< DdsJobWzskSrcSysinfo::loadAllLoadCore0LoadCore1LoadCore2LoadCore3 >:: register_type(

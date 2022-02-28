@@ -19,16 +19,16 @@ public class QryWzskObjList {
 		*/
 	public static class VecVOrd {
 
-		public static final int OGR = 1;
-		public static final int TIT = 2;
+		public static final int TIT = 1;
+		public static final int OGR = 2;
 
 		public static int getIx(
 					String sref
 				) {
 			String s = sref.toLowerCase();
 
-			if (s.equals("ogr")) return OGR;
 			if (s.equals("tit")) return TIT;
+			if (s.equals("ogr")) return OGR;
 
 			return 0;
 		};
@@ -36,8 +36,8 @@ public class QryWzskObjList {
 		public static String getSref(
 					int ix
 				) {
-			if (ix == OGR) return("ogr");
 			if (ix == TIT) return("tit");
+			if (ix == OGR) return("ogr");
 
 			return "";
 		};

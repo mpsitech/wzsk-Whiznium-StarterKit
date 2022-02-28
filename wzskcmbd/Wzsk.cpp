@@ -1392,7 +1392,7 @@ void ContInfWzskAlert::writeJSON(
 		) {
 	if (difftag == "") difftag = "ContInfWzskAlert";
 
-	Json::Value& me = sup["DpchEngWzskConfirm"] = Json::Value(Json::objectValue);
+	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	me["TxtCpt"] = TxtCpt;
 	me["TxtMsg1"] = TxtMsg1;

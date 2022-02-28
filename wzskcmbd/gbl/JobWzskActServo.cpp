@@ -117,11 +117,12 @@ JobWzskActServo::JobWzskActServo(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	srcuvbdvk = NULL;
-	srcmcvevp = NULL;
-	srcicicle = NULL;
-	srcclnxevb = NULL;
 	srcarty = NULL;
+	srcclnxevb = NULL;
+	srcicicle = NULL;
+	srcmcvevp = NULL;
+	srcuvbdvk = NULL;
+	srcuzediocc = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -129,6 +130,7 @@ JobWzskActServo::JobWzskActServo(
 
 	// IP constructor.cust2 --- IBEGIN
 	if (srvNotCli) {
+		// all targets except for apalis use DRV8834 and NEMA17-03
 		if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) srcarty = new JobWzskSrcArty(xchg, dbswzsk, jref, ixWzskVLocale);
 		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB) srcclnxevb = new JobWzskSrcClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
 		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) srcicicle = new JobWzskSrcIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
@@ -143,6 +145,7 @@ JobWzskActServo::JobWzskActServo(
 	if (srvNotCli) {
 		// all these disregard claim fulfilled status
 		if (srcarty) srcarty->step_zero();
+		else if (srcclnxevb) srcclnxevb->step_zero();
 		else if (srcicicle) srcicicle->step_zero();
 		else if (srcuvbdvk) srcuvbdvk->step_zero();
 	};
@@ -186,6 +189,7 @@ void JobWzskActServo::updateAngle(
 		};
 
 	} else if (srcarty) srcarty->getAngle(shrdat.angle);
+	else if (srcclnxevb) srcclnxevb->getAngle(shrdat.angle);
 	else if (srcicicle) srcicicle->getAngle(shrdat.angle);
 	else if (srcuvbdvk) srcuvbdvk->getAngle(shrdat.angle);
 
@@ -219,7 +223,7 @@ void JobWzskActServo::stopGpio() {
 
 bool JobWzskActServo::moveto(
 			DbsWzsk* dbswzsk
-			, const float target // in \u00a1
+			, const float target // in deg
 		) {
 	bool retval = true;
 
@@ -335,6 +339,7 @@ bool JobWzskActServo::zero(
 	// IP zero --- IBEGIN
 	if (ixVSge == VecVSge::IDLE) {
 		if (srcarty) srcarty->step_zero();
+		else if (srcclnxevb) srcclnxevb->step_zero();
 		else if (srcicicle) srcicicle->step_zero();
 		else if (srcuvbdvk) srcuvbdvk->step_zero();
 
@@ -387,8 +392,8 @@ void JobWzskActServo::handleRequest(
 		};
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
-		if ((req->sref == "callback") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefCallbackInSgeMove(dbswzsk);
-		else if ((req->sref == "mon") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefMonInSgeMove(dbswzsk);
+		if ((req->sref == "mon") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefMonInSgeMove(dbswzsk);
+		else if ((req->sref == "callback") && (ixVSge == VecVSge::MOVE)) handleTimerWithSrefCallbackInSgeMove(dbswzsk);
 	};
 };
 
@@ -400,17 +405,17 @@ bool JobWzskActServo::handleTest(
 	return retval;
 };
 
-void JobWzskActServo::handleTimerWithSrefCallbackInSgeMove(
-			DbsWzsk* dbswzsk
-		) {
-	changeStage(dbswzsk, ixVSge);
-};
-
 void JobWzskActServo::handleTimerWithSrefMonInSgeMove(
 			DbsWzsk* dbswzsk
 		) {
 	wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
 	// IP handleTimerWithSrefMonInSgeMove --- INSERT
+	changeStage(dbswzsk, ixVSge);
+};
+
+void JobWzskActServo::handleTimerWithSrefCallbackInSgeMove(
+			DbsWzsk* dbswzsk
+		) {
 	changeStage(dbswzsk, ixVSge);
 };
 
@@ -606,6 +611,10 @@ uint JobWzskActServo::enterSgeMove(
 				if ((delta == -360.0) || (delta == 360.0)) srcarty->setStep(true, (delta == -360.0), stg.omega);
 				else srcarty->moveto(shrdat.target, stg.omega);
 
+			} else if (srcclnxevb) {
+				if ((delta == -360.0) || (delta == 360.0)) srcclnxevb->setStep(true, (delta == -360.0), stg.omega);
+				else srcclnxevb->moveto(shrdat.target, stg.omega);
+
 			} else if (srcicicle) {
 				if ((delta == -360.0) || (delta == 360.0)) srcicicle->setStep(true, (delta == -360.0), stg.omega);
 				else srcicicle->moveto(shrdat.target, stg.omega);
@@ -636,6 +645,7 @@ void JobWzskActServo::leaveSgeMove(
 
 	if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) stopGpio();
 	else if (srcarty) srcarty->setStep(false, false, 0.0);
+	else if (srcclnxevb) srcclnxevb->setStep(false, false, 0.0);
 	else if (srcicicle) srcicicle->setStep(false, false, 0.0);
 	else if (srcuvbdvk) srcuvbdvk->setStep(false, false, 0.0);
 	// IP leaveSgeMove --- IEND
@@ -682,20 +692,26 @@ bool JobWzskActServo::handleClaim(
 
 		xchg->getCsjobClaim(srcarty, stepTakenNotAvailable, stepFulfilled);
 
+	} else if (srcclnxevb) {
+		// add or remove "step" claim with srcclnxevb
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcclnxevb);
+		else xchg->addCsjobClaim(dbswzsk, srcclnxevb, new JobWzskSrcClnxevb::Claim(false, false, false, true));
+
+		xchg->getCsjobClaim(srcclnxevb, stepTakenNotAvailable, stepFulfilled);
+
 	} else if (srcicicle) {
 		// add or remove "step" claim with srcicicle
 		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcicicle);
 		else xchg->addCsjobClaim(dbswzsk, srcicicle, new JobWzskSrcIcicle::Claim(false, false, false, false, false, true));
 
-		xchg->getCsjobClaim(srcarty, stepTakenNotAvailable, stepFulfilled);
-
+		xchg->getCsjobClaim(srcicicle, stepTakenNotAvailable, stepFulfilled);
 
 	} else if (srcuvbdvk) {
 		// add or remove "step" claim with srcuvbdvk
 		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcuvbdvk);
 		else xchg->addCsjobClaim(dbswzsk, srcuvbdvk, new JobWzskSrcUvbdvk::Claim(false, false, false, true));
 
-		xchg->getCsjobClaim(srcarty, stepTakenNotAvailable, stepFulfilled);
+		xchg->getCsjobClaim(srcuvbdvk, stepTakenNotAvailable, stepFulfilled);
 
 	} else stepFulfilled = true;
 

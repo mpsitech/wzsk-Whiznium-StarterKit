@@ -428,11 +428,11 @@ public:
 		void writeXML(const Sbecore::uint ixWzskVLocale, xmlTextWriter* wr);
 	};
 
-	bool evalButDneActive(DbsWzsk* dbswzsk);
+	bool evalIfiUldActive(DbsWzsk* dbswzsk);
 	bool evalImpButRunActive(DbsWzsk* dbswzsk);
 	bool evalImpButStoActive(DbsWzsk* dbswzsk);
 	bool evalLfiDldActive(DbsWzsk* dbswzsk);
-	bool evalIfiUldActive(DbsWzsk* dbswzsk);
+	bool evalButDneActive(DbsWzsk* dbswzsk);
 
 public:
 	DlgWzskNavLoaini(XchgWzsk* xchg, DbsWzsk* dbswzsk, const Sbecore::ubigint jrefSup, const Sbecore::uint ixWzskVLocale);

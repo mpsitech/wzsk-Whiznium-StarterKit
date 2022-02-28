@@ -134,8 +134,8 @@ JobWzskAcqPreview::JobWzskAcqPreview(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	srcv4l2 = NULL;
 	acqfpgapvw = NULL;
+	srcv4l2 = NULL;
 
 	// IP constructor.cust1 --- IBEGIN
 	ixRiSrc = 0; ixRiSrc--;
@@ -158,8 +158,8 @@ JobWzskAcqPreview::JobWzskAcqPreview(
 
 	// IP constructor.spec2 --- INSERT
 
-	if (srvNotCli) if (srcv4l2) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, srcv4l2->jref, false, Arg(), VecVSge::READY, Clstn::VecVJactype::TRY);
 	if (srvNotCli) if (acqfpgapvw) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, acqfpgapvw->jref, false, Arg(), VecVSge::READY, Clstn::VecVJactype::TRY);
+	if (srvNotCli) if (srcv4l2) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, srcv4l2->jref, false, Arg(), VecVSge::READY, Clstn::VecVJactype::TRY);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -532,36 +532,11 @@ void JobWzskAcqPreview::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (srcv4l2) if (call->jref == srcv4l2->jref) match = true; return match;}()) && (ixVSge == VecVSge::READY)) {
-		call->abort = handleCallWzskResultNewFromSrcv4l2InSgeReady(dbswzsk, call->argInv.ix, call->argInv.sref);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (acqfpgapvw) if (call->jref == acqfpgapvw->jref) match = true; return match;}()) && (ixVSge == VecVSge::READY)) {
+	if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (acqfpgapvw) if (call->jref == acqfpgapvw->jref) match = true; return match;}()) && (ixVSge == VecVSge::READY)) {
 		call->abort = handleCallWzskResultNewFromAcqfpgapvwInSgeReady(dbswzsk, call->argInv.ix, call->argInv.sref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (srcv4l2) if (call->jref == srcv4l2->jref) match = true; return match;}()) && (ixVSge == VecVSge::READY)) {
+		call->abort = handleCallWzskResultNewFromSrcv4l2InSgeReady(dbswzsk, call->argInv.ix, call->argInv.sref);
 	};
-};
-
-bool JobWzskAcqPreview::handleCallWzskResultNewFromSrcv4l2InSgeReady(
-			DbsWzsk* dbswzsk
-			, const uint ixInv
-			, const string& srefInv
-		) {
-	bool retval = false;
-	// IP handleCallWzskResultNewFromSrcv4l2InSgeReady --- IBEGIN
-
-	// prepare for all currently claimed preview modes
-	if (shrdat.bingray) shrdat.resultBingray.dequeue(ixRiBingray);
-	if (shrdat.binreddom) shrdat.resultBinreddom.dequeue(ixRiBinreddom);
-	if (shrdat.binrgb) shrdat.resultBinrgb.dequeue(ixRiBinrgb);
-	if (shrdat.rawgray) shrdat.resultRawgray.dequeue(ixRiRawgray);
-	if (shrdat.rawrgb) shrdat.resultRawrgb.dequeue(ixRiRawrgb);
-
-	if ( (ixRiBingray != shrdat.resultBingray.size()) || (ixRiBinreddom != shrdat.resultBinreddom.size()) || (ixRiBinrgb != shrdat.resultBinrgb.size()) || (ixRiRawgray != shrdat.resultRawgray.size()) || (ixRiRawrgb != shrdat.resultRawrgb.size()) ) {
-		srcv4l2->shrdat.resultAcq.lock(jref, ixInv);
-		ixRiSrc = ixInv;
-
-		changeStage(dbswzsk, VecVSge::PRCIDLE);
-	};
-	// IP handleCallWzskResultNewFromSrcv4l2InSgeReady --- IEND
-	return retval;
 };
 
 bool JobWzskAcqPreview::handleCallWzskResultNewFromAcqfpgapvwInSgeReady(
@@ -586,6 +561,31 @@ bool JobWzskAcqPreview::handleCallWzskResultNewFromAcqfpgapvwInSgeReady(
 		changeStage(dbswzsk, VecVSge::PRCIDLE);
 	};
 	// IP handleCallWzskResultNewFromAcqfpgapvwInSgeReady --- IEND
+	return retval;
+};
+
+bool JobWzskAcqPreview::handleCallWzskResultNewFromSrcv4l2InSgeReady(
+			DbsWzsk* dbswzsk
+			, const uint ixInv
+			, const string& srefInv
+		) {
+	bool retval = false;
+	// IP handleCallWzskResultNewFromSrcv4l2InSgeReady --- IBEGIN
+
+	// prepare for all currently claimed preview modes
+	if (shrdat.bingray) shrdat.resultBingray.dequeue(ixRiBingray);
+	if (shrdat.binreddom) shrdat.resultBinreddom.dequeue(ixRiBinreddom);
+	if (shrdat.binrgb) shrdat.resultBinrgb.dequeue(ixRiBinrgb);
+	if (shrdat.rawgray) shrdat.resultRawgray.dequeue(ixRiRawgray);
+	if (shrdat.rawrgb) shrdat.resultRawrgb.dequeue(ixRiRawrgb);
+
+	if ( (ixRiBingray != shrdat.resultBingray.size()) || (ixRiBinreddom != shrdat.resultBinreddom.size()) || (ixRiBinrgb != shrdat.resultBinrgb.size()) || (ixRiRawgray != shrdat.resultRawgray.size()) || (ixRiRawrgb != shrdat.resultRawrgb.size()) ) {
+		srcv4l2->shrdat.resultAcq.lock(jref, ixInv);
+		ixRiSrc = ixInv;
+
+		changeStage(dbswzsk, VecVSge::PRCIDLE);
+	};
+	// IP handleCallWzskResultNewFromSrcv4l2InSgeReady --- IEND
 	return retval;
 };
 

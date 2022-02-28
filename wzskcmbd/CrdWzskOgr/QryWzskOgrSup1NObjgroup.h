@@ -127,8 +127,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskOgrMod_supEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskStubChgFromSelf(DbsWzsk* dbswzsk);
+	bool handleCallWzskOgrMod_supEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 };
 

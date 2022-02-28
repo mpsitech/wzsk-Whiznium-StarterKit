@@ -40,22 +40,22 @@ PnlWzskLlvCamera::PnlWzskLlvCamera(
 	feedFPupMde.tag = "FeedFPupMde";
 	VecWzskVPvwmode::fillFeed(ixWzskVLocale, feedFPupMde);
 
-	actexposure = NULL;
 	acqpreview = NULL;
+	actexposure = NULL;
 
 	feedFPupMde[VecWzskVPvwmode::BINREDDOM]->Avail = ((xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) || (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS)); // IP constructor.cust1 --- ILINE
 
-	actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqpreview = new JobWzskAcqPreview(xchg, dbswzsk, jref, ixWzskVLocale);
+	actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
-	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, actexposure->jref, false, Arg(), 0, Clstn::VecVJactype::TRY);
-	xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, acqpreview->jref, false, Arg(), 0, Clstn::VecVJactype::TRY);
 	xchg->addClstn(VecWzskVCall::CALLWZSKCLAIMCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, acqpreview->jref, false, Arg(), 0, Clstn::VecVJactype::TRY);
+	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::SPEC, actexposure->jref, false, Arg(), 0, Clstn::VecVJactype::TRY);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -296,27 +296,26 @@ void PnlWzskLlvCamera::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == actexposure->jref)) {
-		call->abort = handleCallWzskShrdatChgFromActexposure(dbswzsk, call->argInv.ix, call->argInv.sref);
+	if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
+		call->abort = handleCallWzskClaimChg(dbswzsk, call->jref);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && (call->jref == acqpreview->jref)) {
 		call->abort = handleCallWzskResultNewFromAcqpreview(dbswzsk, call->argInv.ix, call->argInv.sref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
-		call->abort = handleCallWzskClaimChg(dbswzsk, call->jref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) && (call->jref == actexposure->jref)) {
+		call->abort = handleCallWzskShrdatChgFromActexposure(dbswzsk, call->argInv.ix, call->argInv.sref);
 	};
 };
 
-bool PnlWzskLlvCamera::handleCallWzskShrdatChgFromActexposure(
+bool PnlWzskLlvCamera::handleCallWzskClaimChg(
 			DbsWzsk* dbswzsk
-			, const uint ixInv
-			, const string& srefInv
+			, const ubigint jrefTrig
 		) {
 	bool retval = false;
-	// IP handleCallWzskShrdatChgFromActexposure --- IBEGIN
+	// IP handleCallWzskClaimChg --- IBEGIN
 	set<uint> moditems;
 
 	refresh(dbswzsk, moditems);
 	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	// IP handleCallWzskShrdatChgFromActexposure --- IEND
+	// IP handleCallWzskClaimChg --- IEND
 	return retval;
 };
 
@@ -383,16 +382,17 @@ bool PnlWzskLlvCamera::handleCallWzskResultNewFromAcqpreview(
 	return retval;
 };
 
-bool PnlWzskLlvCamera::handleCallWzskClaimChg(
+bool PnlWzskLlvCamera::handleCallWzskShrdatChgFromActexposure(
 			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
+			, const uint ixInv
+			, const string& srefInv
 		) {
 	bool retval = false;
-	// IP handleCallWzskClaimChg --- IBEGIN
+	// IP handleCallWzskShrdatChgFromActexposure --- IBEGIN
 	set<uint> moditems;
 
 	refresh(dbswzsk, moditems);
 	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	// IP handleCallWzskClaimChg --- IEND
+	// IP handleCallWzskShrdatChgFromActexposure --- IEND
 	return retval;
 };

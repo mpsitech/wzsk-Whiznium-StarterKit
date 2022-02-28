@@ -332,9 +332,9 @@ void PnlWzskLlvTermMcvevp::Tag::writeJSON(
 		me["Cpt"] = "Terminal";
 		me["CptCst"] = "Verbindungsstatus";
 		me["HdgDio"] = "Ein-/ausgehende Daten";
-		me["HdgCex"] = "Befehlsausf\\\\u009fhrung";
+		me["HdgCex"] = "Befehlsausf\\\\u00fchrung";
 		me["CptCmd"] = "Befehl";
-		me["ButApd"] = "Hinzuf\\\\u009fgen";
+		me["ButApd"] = "Hinzuf\\\\u00fcgen";
 		me["CptCsq"] = "Befehlsfolge";
 		me["ButSmt"] = "Absenden";
 	};
@@ -366,9 +366,9 @@ void PnlWzskLlvTermMcvevp::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Terminal");
 			writeStringAttr(wr, itemtag, "sref", "CptCst", "Verbindungsstatus");
 			writeStringAttr(wr, itemtag, "sref", "HdgDio", "Ein-/ausgehende Daten");
-			writeStringAttr(wr, itemtag, "sref", "HdgCex", "Befehlsausf\\\\u009fhrung");
+			writeStringAttr(wr, itemtag, "sref", "HdgCex", "Befehlsausf\\\\u00fchrung");
 			writeStringAttr(wr, itemtag, "sref", "CptCmd", "Befehl");
-			writeStringAttr(wr, itemtag, "sref", "ButApd", "Hinzuf\\\\u009fgen");
+			writeStringAttr(wr, itemtag, "sref", "ButApd", "Hinzuf\\\\u00fcgen");
 			writeStringAttr(wr, itemtag, "sref", "CptCsq", "Befehlsfolge");
 			writeStringAttr(wr, itemtag, "sref", "ButSmt", "Absenden");
 		};

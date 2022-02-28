@@ -1,0 +1,38 @@
+# file Makefile
+# make file for CrdWzskPrs card job handler, release wzskcmbd_uzed (ubuntu cross-compilation)
+# copyright: (C) 2016-2020 MPSI Technologies GmbH
+# author: Alexander Wirthmueller (auto-generation)
+# date created: 28 Feb 2022
+# IP header --- ABOVE
+
+include ../Makefile.inc
+
+CPP = 
+CPPFLAGS = --sysroot=${SYSROOT} -DWZSKCMBD
+
+STATLIB = 
+STATLIBFLAGS = rcs
+
+INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
+INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
+
+OBJS = CrdWzskPrs.o PnlWzskPrsRec.o PnlWzskPrsDetail.o PnlWzskPrsADetail.o QryWzskPrsADetail.o PnlWzskPrsHeadbar.o PnlWzskPrsList.o QryWzskPrsList.o
+
+LIB = libcrdwzskprs
+
+.SUFFIXES: .cpp
+
+.cpp.o :
+	$(CPP) $(CPPFLAGS) $(INCPATH) -o $@ -c $<
+
+all:	$(LIB)
+
+$(LIB):	$(OBJS)
+	$(STATLIB) $(STATLIBFLAGS) $(LIB).a $(OBJS)
+	rm -f *.o
+
+install:
+	mv $(LIB).a ${SYSROOT}$(LIBROOT)/wzskcmbd/
+
+clean:
+	rm -f *.o

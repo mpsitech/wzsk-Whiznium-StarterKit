@@ -68,9 +68,9 @@ CrdWzskSes::CrdWzskSes(
 
 	changeStage(dbswzsk, VecVSge::IDLE);
 
-	xchg->addClstn(VecWzskVCall::CALLWZSKREFPRESET, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKSTATCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKDLGCLOSE, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKSTATCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKREFPRESET, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -233,13 +233,31 @@ void CrdWzskSes::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKREFPRESET) {
-		call->abort = handleCallWzskRefPreSet(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref);
+	if (call->ixVCall == VecWzskVCall::CALLWZSKDLGCLOSE) {
+		call->abort = handleCallWzskDlgClose(dbswzsk, call->jref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSTATCHG) {
 		call->abort = handleCallWzskStatChg(dbswzsk, call->jref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKDLGCLOSE) {
-		call->abort = handleCallWzskDlgClose(dbswzsk, call->jref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKREFPRESET) {
+		call->abort = handleCallWzskRefPreSet(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref);
 	};
+};
+
+bool CrdWzskSes::handleCallWzskDlgClose(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+	// IP handleCallWzskDlgClose --- INSERT
+	return retval;
+};
+
+bool CrdWzskSes::handleCallWzskStatChg(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+	if (jrefTrig == pnlrec->jref) if ((pnllist->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD) && (pnlrec->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD)) pnllist->minimize(dbswzsk, true);
+	return retval;
 };
 
 bool CrdWzskSes::handleCallWzskRefPreSet(
@@ -256,24 +274,6 @@ bool CrdWzskSes::handleCallWzskRefPreSet(
 		if (refInv == 0) pnlrec->minimize(dbswzsk, true);
 	};
 
-	return retval;
-};
-
-bool CrdWzskSes::handleCallWzskStatChg(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-	if (jrefTrig == pnlrec->jref) if ((pnllist->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD) && (pnlrec->statshr.ixWzskVExpstate == VecWzskVExpstate::REGD)) pnllist->minimize(dbswzsk, true);
-	return retval;
-};
-
-bool CrdWzskSes::handleCallWzskDlgClose(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-	// IP handleCallWzskDlgClose --- INSERT
 	return retval;
 };
 

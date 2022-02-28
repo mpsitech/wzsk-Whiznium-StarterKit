@@ -57,9 +57,12 @@
 					</td>
 				</tr>
 				<tr id="trDat" class="show">
-					<!-- IP trDat - BEGIN -->
-					<td id="tdDat" height="200" colspan="11"></td>
-					<!-- IP trDat - END -->
+					<!-- IP trDat - RBEGIN -->
+					<td height="200"></td>
+					<td id="tdDat" colspan="10" height="200">
+						<textarea id="TxtDat" style="resize:none;font-size:10px;font-family:Monospace;font-weight:normal;width:685px;background-color:#000000;color:#ffffff;border-width:0px;" rows="16" cols="120" type="text" value="TxtDatLog" readonly="readonly"/>
+					</td>
+					<!-- IP trDat - REND -->
 				</tr>
 				<tr id="tr21" class="show"><td colspan="11" height="3"></td></tr>
 				<tr id="tr22" class="show">

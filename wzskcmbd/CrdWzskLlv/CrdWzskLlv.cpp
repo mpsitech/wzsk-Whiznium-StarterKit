@@ -41,30 +41,30 @@ CrdWzskLlv::CrdWzskLlv(
 	feedFSge.tag = "FeedFSge";
 	VecVSge::fillFeed(feedFSge);
 
-	pnllaser = NULL;
-	pnlttable = NULL;
-	pnlcamera = NULL;
+	pnlheadbar = NULL;
+	pnltermarty = NULL;
+	pnltermclnxevb = NULL;
+	pnltermicicle = NULL;
 	pnltermmcvevp = NULL;
 	pnltermuvbdvk = NULL;
-	pnltermicicle = NULL;
-	pnltermclnxevb = NULL;
-	pnltermarty = NULL;
-	pnlheadbar = NULL;
+	pnlcamera = NULL;
+	pnlttable = NULL;
+	pnllaser = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
-	pnllaser = new PnlWzskLlvLaser(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlttable = new PnlWzskLlvTtable(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlcamera = new PnlWzskLlvCamera(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlheadbar = new PnlWzskLlvHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnltermarty = new PnlWzskLlvTermArty(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnltermclnxevb = new PnlWzskLlvTermClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnltermicicle = new PnlWzskLlvTermIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnltermmcvevp = new PnlWzskLlvTermMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnltermuvbdvk = new PnlWzskLlvTermUvbdvk(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnltermicicle = new PnlWzskLlvTermIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnltermclnxevb = new PnlWzskLlvTermClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnltermarty = new PnlWzskLlvTermArty(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlheadbar = new PnlWzskLlvHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlcamera = new PnlWzskLlvCamera(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlttable = new PnlWzskLlvTtable(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnllaser = new PnlWzskLlvLaser(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 

@@ -1,4 +1,4 @@
-IexWzskIni v1.0.9
+IexWzskIni v1.0.11
 ImeIAVKeylistKey.srefKlsIxWzskVKeylist	sref	Avail	Implied	Title	Comment
 KlstWzskKAMPersonDetailType	eml				
 	ImeIJAVKeylistKey.srefX1WzskVLocale	Title	Comment

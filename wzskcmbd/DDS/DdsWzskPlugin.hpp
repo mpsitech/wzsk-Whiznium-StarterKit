@@ -9,8 +9,8 @@ For more information, type 'rtiddsgen -help' at a command shell
 or consult the RTI Connext manual.
 */
 
-#ifndef DdsWzskPlugin_509372572_h
-#define DdsWzskPlugin_509372572_h
+#ifndef DdsWzskPlugin_509373000_h
+#define DdsWzskPlugin_509373000_h
 
 #include "DdsWzsk.hpp"
 
@@ -1200,6 +1200,630 @@ vecsrefPlugin_get_serialized_key_max_size_for_keyhash(
     unsigned int current_alignment);
 
 namespace DdsJobWzskSrcSysinfo {
+
+    #define currCh0VoltCh0Plugin_get_sample PRESTypePluginDefaultEndpointData_getSample
+
+    #define currCh0VoltCh0Plugin_get_buffer PRESTypePluginDefaultEndpointData_getBuffer 
+    #define currCh0VoltCh0Plugin_return_buffer PRESTypePluginDefaultEndpointData_returnBuffer
+
+    #define currCh0VoltCh0Plugin_create_sample PRESTypePluginDefaultEndpointData_createSample 
+    #define currCh0VoltCh0Plugin_destroy_sample PRESTypePluginDefaultEndpointData_deleteSample 
+
+    /* --------------------------------------------------------------------------------------
+    Support functions:
+    * -------------------------------------------------------------------------------------- */
+
+    NDDSUSERDllExport extern currCh0VoltCh0*
+    currCh0VoltCh0PluginSupport_create_data_w_params(
+        const struct DDS_TypeAllocationParams_t * alloc_params);
+
+    NDDSUSERDllExport extern currCh0VoltCh0*
+    currCh0VoltCh0PluginSupport_create_data_ex(RTIBool allocate_pointers);
+
+    NDDSUSERDllExport extern currCh0VoltCh0*
+    currCh0VoltCh0PluginSupport_create_data(void);
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh0VoltCh0PluginSupport_copy_data(
+        currCh0VoltCh0 *out,
+        const currCh0VoltCh0 *in);
+
+    NDDSUSERDllExport extern void 
+    currCh0VoltCh0PluginSupport_destroy_data_w_params(
+        currCh0VoltCh0 *sample,
+        const struct DDS_TypeDeallocationParams_t * dealloc_params);
+
+    NDDSUSERDllExport extern void 
+    currCh0VoltCh0PluginSupport_destroy_data_ex(
+        currCh0VoltCh0 *sample,RTIBool deallocate_pointers);
+
+    NDDSUSERDllExport extern void 
+    currCh0VoltCh0PluginSupport_destroy_data(
+        currCh0VoltCh0 *sample);
+
+    NDDSUSERDllExport extern void 
+    currCh0VoltCh0PluginSupport_print_data(
+        const currCh0VoltCh0 *sample,
+        const char *desc,
+        unsigned int indent);
+
+    /* ----------------------------------------------------------------------------
+    Callback functions:
+    * ---------------------------------------------------------------------------- */
+
+    NDDSUSERDllExport extern PRESTypePluginParticipantData 
+    currCh0VoltCh0Plugin_on_participant_attached(
+        void *registration_data, 
+        const struct PRESTypePluginParticipantInfo *participant_info,
+        RTIBool top_level_registration, 
+        void *container_plugin_context,
+        RTICdrTypeCode *typeCode);
+
+    NDDSUSERDllExport extern void 
+    currCh0VoltCh0Plugin_on_participant_detached(
+        PRESTypePluginParticipantData participant_data);
+
+    NDDSUSERDllExport extern PRESTypePluginEndpointData 
+    currCh0VoltCh0Plugin_on_endpoint_attached(
+        PRESTypePluginParticipantData participant_data,
+        const struct PRESTypePluginEndpointInfo *endpoint_info,
+        RTIBool top_level_registration, 
+        void *container_plugin_context);
+
+    NDDSUSERDllExport extern void 
+    currCh0VoltCh0Plugin_on_endpoint_detached(
+        PRESTypePluginEndpointData endpoint_data);
+
+    NDDSUSERDllExport extern void    
+    currCh0VoltCh0Plugin_return_sample(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh0VoltCh0 *sample,
+        void *handle);    
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh0VoltCh0Plugin_copy_sample(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh0VoltCh0 *out,
+        const currCh0VoltCh0 *in);
+
+    /* ----------------------------------------------------------------------------
+    (De)Serialize functions:
+    * ------------------------------------------------------------------------- */
+
+    NDDSUSERDllExport extern RTIBool
+    currCh0VoltCh0Plugin_serialize_to_cdr_buffer(
+        char * buffer,
+        unsigned int * length,
+        const currCh0VoltCh0 *sample,
+        ::dds::core::policy::DataRepresentationId representation
+        = ::dds::core::policy::DataRepresentation::xcdr()); 
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh0VoltCh0Plugin_deserialize(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh0VoltCh0 **sample, 
+        RTIBool * drop_sample,
+        struct RTICdrStream *stream,
+        RTIBool deserialize_encapsulation,
+        RTIBool deserialize_sample, 
+        void *endpoint_plugin_qos);
+
+    NDDSUSERDllExport extern RTIBool
+    currCh0VoltCh0Plugin_deserialize_from_cdr_buffer(
+        currCh0VoltCh0 *sample,
+        const char * buffer,
+        unsigned int length);    
+
+    NDDSUSERDllExport extern unsigned int 
+    currCh0VoltCh0Plugin_get_serialized_sample_max_size(
+        PRESTypePluginEndpointData endpoint_data,
+        RTIBool include_encapsulation,
+        RTIEncapsulationId encapsulation_id,
+        unsigned int current_alignment);
+
+    /* --------------------------------------------------------------------------------------
+    Key Management functions:
+    * -------------------------------------------------------------------------------------- */
+    NDDSUSERDllExport extern PRESTypePluginKeyKind 
+    currCh0VoltCh0Plugin_get_key_kind(void);
+
+    NDDSUSERDllExport extern unsigned int 
+    currCh0VoltCh0Plugin_get_serialized_key_max_size(
+        PRESTypePluginEndpointData endpoint_data,
+        RTIBool include_encapsulation,
+        RTIEncapsulationId encapsulation_id,
+        unsigned int current_alignment);
+
+    NDDSUSERDllExport extern unsigned int 
+    currCh0VoltCh0Plugin_get_serialized_key_max_size_for_keyhash(
+        PRESTypePluginEndpointData endpoint_data,
+        RTIEncapsulationId encapsulation_id,
+        unsigned int current_alignment);
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh0VoltCh0Plugin_deserialize_key(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh0VoltCh0 ** sample,
+        RTIBool * drop_sample,
+        struct RTICdrStream *stream,
+        RTIBool deserialize_encapsulation,
+        RTIBool deserialize_key,
+        void *endpoint_plugin_qos);
+
+    /* Plugin Functions */
+    NDDSUSERDllExport extern struct PRESTypePlugin*
+    currCh0VoltCh0Plugin_new(void);
+
+    NDDSUSERDllExport extern void
+    currCh0VoltCh0Plugin_delete(struct PRESTypePlugin *);
+
+    #define currCh1VoltCh1Plugin_get_sample PRESTypePluginDefaultEndpointData_getSample
+
+    #define currCh1VoltCh1Plugin_get_buffer PRESTypePluginDefaultEndpointData_getBuffer 
+    #define currCh1VoltCh1Plugin_return_buffer PRESTypePluginDefaultEndpointData_returnBuffer
+
+    #define currCh1VoltCh1Plugin_create_sample PRESTypePluginDefaultEndpointData_createSample 
+    #define currCh1VoltCh1Plugin_destroy_sample PRESTypePluginDefaultEndpointData_deleteSample 
+
+    /* --------------------------------------------------------------------------------------
+    Support functions:
+    * -------------------------------------------------------------------------------------- */
+
+    NDDSUSERDllExport extern currCh1VoltCh1*
+    currCh1VoltCh1PluginSupport_create_data_w_params(
+        const struct DDS_TypeAllocationParams_t * alloc_params);
+
+    NDDSUSERDllExport extern currCh1VoltCh1*
+    currCh1VoltCh1PluginSupport_create_data_ex(RTIBool allocate_pointers);
+
+    NDDSUSERDllExport extern currCh1VoltCh1*
+    currCh1VoltCh1PluginSupport_create_data(void);
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh1VoltCh1PluginSupport_copy_data(
+        currCh1VoltCh1 *out,
+        const currCh1VoltCh1 *in);
+
+    NDDSUSERDllExport extern void 
+    currCh1VoltCh1PluginSupport_destroy_data_w_params(
+        currCh1VoltCh1 *sample,
+        const struct DDS_TypeDeallocationParams_t * dealloc_params);
+
+    NDDSUSERDllExport extern void 
+    currCh1VoltCh1PluginSupport_destroy_data_ex(
+        currCh1VoltCh1 *sample,RTIBool deallocate_pointers);
+
+    NDDSUSERDllExport extern void 
+    currCh1VoltCh1PluginSupport_destroy_data(
+        currCh1VoltCh1 *sample);
+
+    NDDSUSERDllExport extern void 
+    currCh1VoltCh1PluginSupport_print_data(
+        const currCh1VoltCh1 *sample,
+        const char *desc,
+        unsigned int indent);
+
+    /* ----------------------------------------------------------------------------
+    Callback functions:
+    * ---------------------------------------------------------------------------- */
+
+    NDDSUSERDllExport extern PRESTypePluginParticipantData 
+    currCh1VoltCh1Plugin_on_participant_attached(
+        void *registration_data, 
+        const struct PRESTypePluginParticipantInfo *participant_info,
+        RTIBool top_level_registration, 
+        void *container_plugin_context,
+        RTICdrTypeCode *typeCode);
+
+    NDDSUSERDllExport extern void 
+    currCh1VoltCh1Plugin_on_participant_detached(
+        PRESTypePluginParticipantData participant_data);
+
+    NDDSUSERDllExport extern PRESTypePluginEndpointData 
+    currCh1VoltCh1Plugin_on_endpoint_attached(
+        PRESTypePluginParticipantData participant_data,
+        const struct PRESTypePluginEndpointInfo *endpoint_info,
+        RTIBool top_level_registration, 
+        void *container_plugin_context);
+
+    NDDSUSERDllExport extern void 
+    currCh1VoltCh1Plugin_on_endpoint_detached(
+        PRESTypePluginEndpointData endpoint_data);
+
+    NDDSUSERDllExport extern void    
+    currCh1VoltCh1Plugin_return_sample(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh1VoltCh1 *sample,
+        void *handle);    
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh1VoltCh1Plugin_copy_sample(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh1VoltCh1 *out,
+        const currCh1VoltCh1 *in);
+
+    /* ----------------------------------------------------------------------------
+    (De)Serialize functions:
+    * ------------------------------------------------------------------------- */
+
+    NDDSUSERDllExport extern RTIBool
+    currCh1VoltCh1Plugin_serialize_to_cdr_buffer(
+        char * buffer,
+        unsigned int * length,
+        const currCh1VoltCh1 *sample,
+        ::dds::core::policy::DataRepresentationId representation
+        = ::dds::core::policy::DataRepresentation::xcdr()); 
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh1VoltCh1Plugin_deserialize(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh1VoltCh1 **sample, 
+        RTIBool * drop_sample,
+        struct RTICdrStream *stream,
+        RTIBool deserialize_encapsulation,
+        RTIBool deserialize_sample, 
+        void *endpoint_plugin_qos);
+
+    NDDSUSERDllExport extern RTIBool
+    currCh1VoltCh1Plugin_deserialize_from_cdr_buffer(
+        currCh1VoltCh1 *sample,
+        const char * buffer,
+        unsigned int length);    
+
+    NDDSUSERDllExport extern unsigned int 
+    currCh1VoltCh1Plugin_get_serialized_sample_max_size(
+        PRESTypePluginEndpointData endpoint_data,
+        RTIBool include_encapsulation,
+        RTIEncapsulationId encapsulation_id,
+        unsigned int current_alignment);
+
+    /* --------------------------------------------------------------------------------------
+    Key Management functions:
+    * -------------------------------------------------------------------------------------- */
+    NDDSUSERDllExport extern PRESTypePluginKeyKind 
+    currCh1VoltCh1Plugin_get_key_kind(void);
+
+    NDDSUSERDllExport extern unsigned int 
+    currCh1VoltCh1Plugin_get_serialized_key_max_size(
+        PRESTypePluginEndpointData endpoint_data,
+        RTIBool include_encapsulation,
+        RTIEncapsulationId encapsulation_id,
+        unsigned int current_alignment);
+
+    NDDSUSERDllExport extern unsigned int 
+    currCh1VoltCh1Plugin_get_serialized_key_max_size_for_keyhash(
+        PRESTypePluginEndpointData endpoint_data,
+        RTIEncapsulationId encapsulation_id,
+        unsigned int current_alignment);
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh1VoltCh1Plugin_deserialize_key(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh1VoltCh1 ** sample,
+        RTIBool * drop_sample,
+        struct RTICdrStream *stream,
+        RTIBool deserialize_encapsulation,
+        RTIBool deserialize_key,
+        void *endpoint_plugin_qos);
+
+    /* Plugin Functions */
+    NDDSUSERDllExport extern struct PRESTypePlugin*
+    currCh1VoltCh1Plugin_new(void);
+
+    NDDSUSERDllExport extern void
+    currCh1VoltCh1Plugin_delete(struct PRESTypePlugin *);
+
+    #define currCh2VoltCh2Plugin_get_sample PRESTypePluginDefaultEndpointData_getSample
+
+    #define currCh2VoltCh2Plugin_get_buffer PRESTypePluginDefaultEndpointData_getBuffer 
+    #define currCh2VoltCh2Plugin_return_buffer PRESTypePluginDefaultEndpointData_returnBuffer
+
+    #define currCh2VoltCh2Plugin_create_sample PRESTypePluginDefaultEndpointData_createSample 
+    #define currCh2VoltCh2Plugin_destroy_sample PRESTypePluginDefaultEndpointData_deleteSample 
+
+    /* --------------------------------------------------------------------------------------
+    Support functions:
+    * -------------------------------------------------------------------------------------- */
+
+    NDDSUSERDllExport extern currCh2VoltCh2*
+    currCh2VoltCh2PluginSupport_create_data_w_params(
+        const struct DDS_TypeAllocationParams_t * alloc_params);
+
+    NDDSUSERDllExport extern currCh2VoltCh2*
+    currCh2VoltCh2PluginSupport_create_data_ex(RTIBool allocate_pointers);
+
+    NDDSUSERDllExport extern currCh2VoltCh2*
+    currCh2VoltCh2PluginSupport_create_data(void);
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh2VoltCh2PluginSupport_copy_data(
+        currCh2VoltCh2 *out,
+        const currCh2VoltCh2 *in);
+
+    NDDSUSERDllExport extern void 
+    currCh2VoltCh2PluginSupport_destroy_data_w_params(
+        currCh2VoltCh2 *sample,
+        const struct DDS_TypeDeallocationParams_t * dealloc_params);
+
+    NDDSUSERDllExport extern void 
+    currCh2VoltCh2PluginSupport_destroy_data_ex(
+        currCh2VoltCh2 *sample,RTIBool deallocate_pointers);
+
+    NDDSUSERDllExport extern void 
+    currCh2VoltCh2PluginSupport_destroy_data(
+        currCh2VoltCh2 *sample);
+
+    NDDSUSERDllExport extern void 
+    currCh2VoltCh2PluginSupport_print_data(
+        const currCh2VoltCh2 *sample,
+        const char *desc,
+        unsigned int indent);
+
+    /* ----------------------------------------------------------------------------
+    Callback functions:
+    * ---------------------------------------------------------------------------- */
+
+    NDDSUSERDllExport extern PRESTypePluginParticipantData 
+    currCh2VoltCh2Plugin_on_participant_attached(
+        void *registration_data, 
+        const struct PRESTypePluginParticipantInfo *participant_info,
+        RTIBool top_level_registration, 
+        void *container_plugin_context,
+        RTICdrTypeCode *typeCode);
+
+    NDDSUSERDllExport extern void 
+    currCh2VoltCh2Plugin_on_participant_detached(
+        PRESTypePluginParticipantData participant_data);
+
+    NDDSUSERDllExport extern PRESTypePluginEndpointData 
+    currCh2VoltCh2Plugin_on_endpoint_attached(
+        PRESTypePluginParticipantData participant_data,
+        const struct PRESTypePluginEndpointInfo *endpoint_info,
+        RTIBool top_level_registration, 
+        void *container_plugin_context);
+
+    NDDSUSERDllExport extern void 
+    currCh2VoltCh2Plugin_on_endpoint_detached(
+        PRESTypePluginEndpointData endpoint_data);
+
+    NDDSUSERDllExport extern void    
+    currCh2VoltCh2Plugin_return_sample(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh2VoltCh2 *sample,
+        void *handle);    
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh2VoltCh2Plugin_copy_sample(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh2VoltCh2 *out,
+        const currCh2VoltCh2 *in);
+
+    /* ----------------------------------------------------------------------------
+    (De)Serialize functions:
+    * ------------------------------------------------------------------------- */
+
+    NDDSUSERDllExport extern RTIBool
+    currCh2VoltCh2Plugin_serialize_to_cdr_buffer(
+        char * buffer,
+        unsigned int * length,
+        const currCh2VoltCh2 *sample,
+        ::dds::core::policy::DataRepresentationId representation
+        = ::dds::core::policy::DataRepresentation::xcdr()); 
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh2VoltCh2Plugin_deserialize(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh2VoltCh2 **sample, 
+        RTIBool * drop_sample,
+        struct RTICdrStream *stream,
+        RTIBool deserialize_encapsulation,
+        RTIBool deserialize_sample, 
+        void *endpoint_plugin_qos);
+
+    NDDSUSERDllExport extern RTIBool
+    currCh2VoltCh2Plugin_deserialize_from_cdr_buffer(
+        currCh2VoltCh2 *sample,
+        const char * buffer,
+        unsigned int length);    
+
+    NDDSUSERDllExport extern unsigned int 
+    currCh2VoltCh2Plugin_get_serialized_sample_max_size(
+        PRESTypePluginEndpointData endpoint_data,
+        RTIBool include_encapsulation,
+        RTIEncapsulationId encapsulation_id,
+        unsigned int current_alignment);
+
+    /* --------------------------------------------------------------------------------------
+    Key Management functions:
+    * -------------------------------------------------------------------------------------- */
+    NDDSUSERDllExport extern PRESTypePluginKeyKind 
+    currCh2VoltCh2Plugin_get_key_kind(void);
+
+    NDDSUSERDllExport extern unsigned int 
+    currCh2VoltCh2Plugin_get_serialized_key_max_size(
+        PRESTypePluginEndpointData endpoint_data,
+        RTIBool include_encapsulation,
+        RTIEncapsulationId encapsulation_id,
+        unsigned int current_alignment);
+
+    NDDSUSERDllExport extern unsigned int 
+    currCh2VoltCh2Plugin_get_serialized_key_max_size_for_keyhash(
+        PRESTypePluginEndpointData endpoint_data,
+        RTIEncapsulationId encapsulation_id,
+        unsigned int current_alignment);
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh2VoltCh2Plugin_deserialize_key(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh2VoltCh2 ** sample,
+        RTIBool * drop_sample,
+        struct RTICdrStream *stream,
+        RTIBool deserialize_encapsulation,
+        RTIBool deserialize_key,
+        void *endpoint_plugin_qos);
+
+    /* Plugin Functions */
+    NDDSUSERDllExport extern struct PRESTypePlugin*
+    currCh2VoltCh2Plugin_new(void);
+
+    NDDSUSERDllExport extern void
+    currCh2VoltCh2Plugin_delete(struct PRESTypePlugin *);
+
+    #define currCh3VoltCh3Plugin_get_sample PRESTypePluginDefaultEndpointData_getSample
+
+    #define currCh3VoltCh3Plugin_get_buffer PRESTypePluginDefaultEndpointData_getBuffer 
+    #define currCh3VoltCh3Plugin_return_buffer PRESTypePluginDefaultEndpointData_returnBuffer
+
+    #define currCh3VoltCh3Plugin_create_sample PRESTypePluginDefaultEndpointData_createSample 
+    #define currCh3VoltCh3Plugin_destroy_sample PRESTypePluginDefaultEndpointData_deleteSample 
+
+    /* --------------------------------------------------------------------------------------
+    Support functions:
+    * -------------------------------------------------------------------------------------- */
+
+    NDDSUSERDllExport extern currCh3VoltCh3*
+    currCh3VoltCh3PluginSupport_create_data_w_params(
+        const struct DDS_TypeAllocationParams_t * alloc_params);
+
+    NDDSUSERDllExport extern currCh3VoltCh3*
+    currCh3VoltCh3PluginSupport_create_data_ex(RTIBool allocate_pointers);
+
+    NDDSUSERDllExport extern currCh3VoltCh3*
+    currCh3VoltCh3PluginSupport_create_data(void);
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh3VoltCh3PluginSupport_copy_data(
+        currCh3VoltCh3 *out,
+        const currCh3VoltCh3 *in);
+
+    NDDSUSERDllExport extern void 
+    currCh3VoltCh3PluginSupport_destroy_data_w_params(
+        currCh3VoltCh3 *sample,
+        const struct DDS_TypeDeallocationParams_t * dealloc_params);
+
+    NDDSUSERDllExport extern void 
+    currCh3VoltCh3PluginSupport_destroy_data_ex(
+        currCh3VoltCh3 *sample,RTIBool deallocate_pointers);
+
+    NDDSUSERDllExport extern void 
+    currCh3VoltCh3PluginSupport_destroy_data(
+        currCh3VoltCh3 *sample);
+
+    NDDSUSERDllExport extern void 
+    currCh3VoltCh3PluginSupport_print_data(
+        const currCh3VoltCh3 *sample,
+        const char *desc,
+        unsigned int indent);
+
+    /* ----------------------------------------------------------------------------
+    Callback functions:
+    * ---------------------------------------------------------------------------- */
+
+    NDDSUSERDllExport extern PRESTypePluginParticipantData 
+    currCh3VoltCh3Plugin_on_participant_attached(
+        void *registration_data, 
+        const struct PRESTypePluginParticipantInfo *participant_info,
+        RTIBool top_level_registration, 
+        void *container_plugin_context,
+        RTICdrTypeCode *typeCode);
+
+    NDDSUSERDllExport extern void 
+    currCh3VoltCh3Plugin_on_participant_detached(
+        PRESTypePluginParticipantData participant_data);
+
+    NDDSUSERDllExport extern PRESTypePluginEndpointData 
+    currCh3VoltCh3Plugin_on_endpoint_attached(
+        PRESTypePluginParticipantData participant_data,
+        const struct PRESTypePluginEndpointInfo *endpoint_info,
+        RTIBool top_level_registration, 
+        void *container_plugin_context);
+
+    NDDSUSERDllExport extern void 
+    currCh3VoltCh3Plugin_on_endpoint_detached(
+        PRESTypePluginEndpointData endpoint_data);
+
+    NDDSUSERDllExport extern void    
+    currCh3VoltCh3Plugin_return_sample(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh3VoltCh3 *sample,
+        void *handle);    
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh3VoltCh3Plugin_copy_sample(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh3VoltCh3 *out,
+        const currCh3VoltCh3 *in);
+
+    /* ----------------------------------------------------------------------------
+    (De)Serialize functions:
+    * ------------------------------------------------------------------------- */
+
+    NDDSUSERDllExport extern RTIBool
+    currCh3VoltCh3Plugin_serialize_to_cdr_buffer(
+        char * buffer,
+        unsigned int * length,
+        const currCh3VoltCh3 *sample,
+        ::dds::core::policy::DataRepresentationId representation
+        = ::dds::core::policy::DataRepresentation::xcdr()); 
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh3VoltCh3Plugin_deserialize(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh3VoltCh3 **sample, 
+        RTIBool * drop_sample,
+        struct RTICdrStream *stream,
+        RTIBool deserialize_encapsulation,
+        RTIBool deserialize_sample, 
+        void *endpoint_plugin_qos);
+
+    NDDSUSERDllExport extern RTIBool
+    currCh3VoltCh3Plugin_deserialize_from_cdr_buffer(
+        currCh3VoltCh3 *sample,
+        const char * buffer,
+        unsigned int length);    
+
+    NDDSUSERDllExport extern unsigned int 
+    currCh3VoltCh3Plugin_get_serialized_sample_max_size(
+        PRESTypePluginEndpointData endpoint_data,
+        RTIBool include_encapsulation,
+        RTIEncapsulationId encapsulation_id,
+        unsigned int current_alignment);
+
+    /* --------------------------------------------------------------------------------------
+    Key Management functions:
+    * -------------------------------------------------------------------------------------- */
+    NDDSUSERDllExport extern PRESTypePluginKeyKind 
+    currCh3VoltCh3Plugin_get_key_kind(void);
+
+    NDDSUSERDllExport extern unsigned int 
+    currCh3VoltCh3Plugin_get_serialized_key_max_size(
+        PRESTypePluginEndpointData endpoint_data,
+        RTIBool include_encapsulation,
+        RTIEncapsulationId encapsulation_id,
+        unsigned int current_alignment);
+
+    NDDSUSERDllExport extern unsigned int 
+    currCh3VoltCh3Plugin_get_serialized_key_max_size_for_keyhash(
+        PRESTypePluginEndpointData endpoint_data,
+        RTIEncapsulationId encapsulation_id,
+        unsigned int current_alignment);
+
+    NDDSUSERDllExport extern RTIBool 
+    currCh3VoltCh3Plugin_deserialize_key(
+        PRESTypePluginEndpointData endpoint_data,
+        currCh3VoltCh3 ** sample,
+        RTIBool * drop_sample,
+        struct RTICdrStream *stream,
+        RTIBool deserialize_encapsulation,
+        RTIBool deserialize_key,
+        void *endpoint_plugin_qos);
+
+    /* Plugin Functions */
+    NDDSUSERDllExport extern struct PRESTypePlugin*
+    currCh3VoltCh3Plugin_new(void);
+
+    NDDSUSERDllExport extern void
+    currCh3VoltCh3Plugin_delete(struct PRESTypePlugin *);
 
     #define loadAllLoadCore0LoadCore1LoadCore2LoadCore3Plugin_get_sample PRESTypePluginDefaultEndpointData_getSample
 
@@ -9031,5 +9655,5 @@ namespace DdsJobWzskAcqPreview {
 #define NDDSUSERDllExport
 #endif
 
-#endif /* DdsWzskPlugin_509372572_h */
+#endif /* DdsWzskPlugin_509373000_h */
 

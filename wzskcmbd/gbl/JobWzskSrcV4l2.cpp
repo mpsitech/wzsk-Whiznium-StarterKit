@@ -542,7 +542,7 @@ bool JobWzskSrcV4l2::setCtrl(
 		success = (ioctl(shrdat.fd, VIDIOC_S_CTRL, &ctrl) != -1);
 		if (success) break;
 
-		if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error setting control parameter " + sref + "(" + string(strerror(errno)) + ")"}});
+		if (errno != EINTR) throw WzskException(WzskException::V4L2, {{"msg","error setting control parameter " + sref + " (" + string(strerror(errno)) + ")"}});
 	};
 
 /*
@@ -1403,7 +1403,7 @@ bool JobWzskSrcV4l2::setExposure(
 			const bool autoNotManual
 			, const float _Texp // in s
 		) {
-	bool success;
+	bool success = false;
 
 	// conversion to OV5640 scale same as in JobWzskSrcFpga::camif_setExp()
 	usmallint Texp;
@@ -1414,12 +1414,17 @@ bool JobWzskSrcV4l2::setExposure(
 	else if (Texp_imd > 65535.0) Texp = 65535;
 	else Texp = lround(Texp_imd);
 
-	if (!autoNotManual) {
-		success = setCtrl(V4L2_CID_EXPOSURE_AUTO, "auto exposure type", false, V4L2_EXPOSURE_MANUAL, false);
-		if (success) success = setCtrl(V4L2_CID_EXPOSURE_ABSOLUTE, "exposure time absolute", false, Texp, false);
+	try {
+		if (!autoNotManual) {
+			success = setCtrl(V4L2_CID_EXPOSURE_AUTO, "auto exposure type", false, V4L2_EXPOSURE_MANUAL, false);
+			if (success) success = setCtrl(V4L2_CID_EXPOSURE_ABSOLUTE, "exposure time absolute", false, Texp, false);
 
-	} else {
-		success = setCtrl(V4L2_CID_EXPOSURE_AUTO, "auto exposure type", false, V4L2_EXPOSURE_AUTO, false);
+		} else {
+			success = setCtrl(V4L2_CID_EXPOSURE_AUTO, "auto exposure type", false, V4L2_EXPOSURE_AUTO, false);
+		};
+
+	} catch (WzskException& e) {
+		cout << e.getSquawk(VecWzskVError::getIx, VecWzskVError::getTitle, VecWzskVLocale::ENUS) << endl;
 	};
 
 	return success;
@@ -1428,6 +1433,8 @@ bool JobWzskSrcV4l2::setExposure(
 bool JobWzskSrcV4l2::setFocus(
 			const float _focus // 0 .. 1
 		) {
+	bool success = false;
+
 	// conversion to OV5640 scale same as in JobWzskSrcFpga::camif_setFocus()
 	usmallint focus;
 	
@@ -1435,7 +1442,14 @@ bool JobWzskSrcV4l2::setFocus(
 	else if (_focus > 1.0) focus = 1023;
 	else focus = lround(1023.0 * _focus);
 
-	return setCtrl(V4L2_CID_FOCUS_ABSOLUTE, "focus absolute", false, focus, false);
+	try {
+		success = setCtrl(V4L2_CID_FOCUS_ABSOLUTE, "focus absolute", false, focus, false);
+
+	} catch (WzskException& e) {
+		cout << e.getSquawk(VecWzskVError::getIx, VecWzskVError::getTitle, VecWzskVLocale::ENUS) << endl;
+	};
+
+	return success;
 };
 // IP cust --- IEND
 

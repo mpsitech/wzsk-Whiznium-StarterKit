@@ -2,7 +2,7 @@
 # make file for Wzsk combined daemon, release wzskcmbd_ubuntu
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 14 Nov 2021
+# date created: 28 Feb 2022
 # IP header --- ABOVE
 
 include Makefile.inc
@@ -20,7 +20,7 @@ INCPATH += -I${WHIZSDKROOT}/build -I${WHIZSDKROOT}/build/ezdevwskd -I/usr/includ
 PCHS = Wzskcmbd.h.gch
 
 OBJS = Wzsk.o WzskcmbdAppsrv.o WzskcmbdJobprc.o WzskcmbdOpprc.o Wzskcmbd.o
-OBJS += RootWzsk.o M2msessWzsk.o SessWzsk.o JobWzskAcqFpgaflg.o JobWzskAcqFpgapvw.o JobWzskAcqPreview.o JobWzskAcqPtcloud.o JobWzskActExposure.o JobWzskActLaser.o JobWzskActServo.o JobWzskIprAngle.o JobWzskIprCorner.o JobWzskIprTrace.o JobWzskSrcArty.o JobWzskSrcClnxevb.o JobWzskSrcIcicle.o JobWzskSrcMcvevp.o JobWzskSrcSysinfo.o JobWzskSrcUvbdvk.o JobWzskSrcV4l2.o
+OBJS += RootWzsk.o M2msessWzsk.o SessWzsk.o JobWzskAcqFpgaflg.o JobWzskAcqFpgapvw.o JobWzskAcqPreview.o JobWzskAcqPtcloud.o JobWzskActExposure.o JobWzskActLaser.o JobWzskActServo.o JobWzskIprAngle.o JobWzskIprCorner.o JobWzskIprTrace.o JobWzskSrcArty.o JobWzskSrcClnxevb.o JobWzskSrcIcicle.o JobWzskSrcMcvevp.o JobWzskSrcSysinfo.o JobWzskSrcUvbdvk.o JobWzskSrcUzediocc.o JobWzskSrcV4l2.o
 OBJS += Wzskcmbd_exe.o
 
 LIBPATH = -L$(LIBROOT)

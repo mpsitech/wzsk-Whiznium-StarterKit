@@ -85,7 +85,7 @@ void QryWzskUsrMNUsergroup::rerun(
 	dbswzsk->tblwzskqusrmnusergroup->removeRstByJref(jref);
 
 	sqlstr = "SELECT COUNT(TblWzskRMUserMUsergroup.ref)";
-	sqlstr += " FROM TblWzskMUsergroup, TblWzskRMUserMUsergroup";
+	sqlstr += " FROM TblWzskRMUserMUsergroup, TblWzskMUsergroup";
 	sqlstr += " WHERE TblWzskRMUserMUsergroup.refWzskMUsergroup = TblWzskMUsergroup.ref";
 	sqlstr += " AND TblWzskRMUserMUsergroup.refWzskMUser = " + to_string(preRefUsr) + "";
 	dbswzsk->loadUintBySQL(sqlstr, cnt);
@@ -100,7 +100,7 @@ void QryWzskUsrMNUsergroup::rerun(
 
 	sqlstr = "INSERT INTO TblWzskQUsrMNUsergroup(jref, jnum, mref, ref, ixWzskVUserlevel)";
 	sqlstr += " SELECT " + to_string(jref) + ", 0, TblWzskMUsergroup.ref, TblWzskRMUserMUsergroup.ref, TblWzskRMUserMUsergroup.ixWzskVUserlevel";
-	sqlstr += " FROM TblWzskMUsergroup, TblWzskRMUserMUsergroup";
+	sqlstr += " FROM TblWzskRMUserMUsergroup, TblWzskMUsergroup";
 	sqlstr += " WHERE TblWzskRMUserMUsergroup.refWzskMUsergroup = TblWzskMUsergroup.ref";
 	sqlstr += " AND TblWzskRMUserMUsergroup.refWzskMUser = " + to_string(preRefUsr) + "";
 	sqlstr += " ORDER BY TblWzskMUsergroup.sref ASC";
@@ -282,11 +282,19 @@ void QryWzskUsrMNUsergroup::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKUSRRUSGMOD_USREQ) {
-		call->abort = handleCallWzskUsrRusgMod_usrEq(dbswzsk, call->jref);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSTUBCHG) && (call->jref == jref)) {
+	if ((call->ixVCall == VecWzskVCall::CALLWZSKSTUBCHG) && (call->jref == jref)) {
 		call->abort = handleCallWzskStubChgFromSelf(dbswzsk);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSRRUSGMOD_USREQ) {
+		call->abort = handleCallWzskUsrRusgMod_usrEq(dbswzsk, call->jref);
 	};
+};
+
+bool QryWzskUsrMNUsergroup::handleCallWzskStubChgFromSelf(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = false;
+	// IP handleCallWzskStubChgFromSelf --- INSERT
+	return retval;
 };
 
 bool QryWzskUsrMNUsergroup::handleCallWzskUsrRusgMod_usrEq(
@@ -300,13 +308,5 @@ bool QryWzskUsrMNUsergroup::handleCallWzskUsrRusgMod_usrEq(
 		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
 	};
 
-	return retval;
-};
-
-bool QryWzskUsrMNUsergroup::handleCallWzskStubChgFromSelf(
-			DbsWzsk* dbswzsk
-		) {
-	bool retval = false;
-	// IP handleCallWzskStubChgFromSelf --- INSERT
 	return retval;
 };

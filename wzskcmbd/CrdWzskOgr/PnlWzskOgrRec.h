@@ -14,9 +14,9 @@
 
 // IP include.cust --- INSERT
 
+#include "PnlWzskOgrDetail.h"
 #include "PnlWzskOgr1NObject.h"
 #include "PnlWzskOgrSup1NObjgroup.h"
-#include "PnlWzskOgrDetail.h"
 
 #define VecVWzskOgrRecDo PnlWzskOgrRec::VecVDo
 
@@ -177,9 +177,9 @@ public:
 	ContInf continf;
 	StatShr statshr;
 
+	PnlWzskOgrDetail* pnldetail;
 	PnlWzskOgr1NObject* pnl1nobject;
 	PnlWzskOgrSup1NObjgroup* pnlsup1nobjgroup;
-	PnlWzskOgrDetail* pnldetail;
 
 	WzskMObjgroup recOgr;
 
@@ -213,8 +213,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskOgrUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskOgr_supEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
+	bool handleCallWzskOgrUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 };
 

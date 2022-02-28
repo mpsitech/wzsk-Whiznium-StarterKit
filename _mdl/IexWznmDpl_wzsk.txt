@@ -7,6 +7,7 @@ cmbeng	wzskcmbd	Whiznium Starter Kit combined engine
 	any;yocto;riscv64	wzskcmbd_riscv
 	any;yocto;armv7;tdx	wzskcmbd_tdx
 	any;ubuntu	wzskcmbd_ubuntu
+	any;yocto;armv8;plnx	wzskcmbd_uzed
 	ImeIMRelease.end
 	ImeIRMComponentMLibrary.srefRefWznmMLibrary
 	ezdevwskd
@@ -19,6 +20,12 @@ dbs	dbswzsk	Whiznium Starter Kit database access library
 	any;yocto;riscv64	dbswzsk_riscv
 	any;yocto;armv7;tdx	dbswzsk_tdx
 	any;ubuntu	dbswzsk_ubuntu
+	any;yocto;armv8;plnx	dbswzsk_uzed
+	ImeIMRelease.end
+vueapp	vueappwzsk	Whiznium Starter Kit Vue.js app
+	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
+	any	vueappwzsk_any
+	any;yocto	vueappwzsk_yocto
 	ImeIMRelease.end
 webapp	webappwzsk	Whiznium Starter Kit web app user interface files
 	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment

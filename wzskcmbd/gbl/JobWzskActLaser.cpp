@@ -203,11 +203,12 @@ JobWzskActLaser::JobWzskActLaser(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	srcuvbdvk = NULL;
-	srcmcvevp = NULL;
-	srcicicle = NULL;
-	srcclnxevb = NULL;
 	srcarty = NULL;
+	srcclnxevb = NULL;
+	srcicicle = NULL;
+	srcmcvevp = NULL;
+	srcuvbdvk = NULL;
+	srcuzediocc = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -302,6 +303,7 @@ bool JobWzskActLaser::setLeft(
 		retval = true;
 
 	} else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) retval = srcarty->laser_set(i, pToAbs(true, shrdat.right));
+	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB) retval = srcclnxevb->laser_set(i, pToAbs(true, shrdat.right));
 	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) retval = srcicicle->laser_set(i, pToAbs(true, shrdat.right));
 	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS) retval = srcuvbdvk->laser_set(i, pToAbs(true, shrdat.right));
 
@@ -369,6 +371,7 @@ bool JobWzskActLaser::setRight(
 		retval = true;
 
 	} else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) retval = srcarty->laser_set(pToAbs(false, shrdat.left), i);
+	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB) retval = srcclnxevb->laser_set(pToAbs(false, shrdat.left), i);
 	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) retval = srcicicle->laser_set(pToAbs(false, shrdat.left), i);
 	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS) retval = srcuvbdvk->laser_set(pToAbs(false, shrdat.left), i);
 
@@ -466,12 +469,26 @@ bool JobWzskActLaser::handleClaim(
 
 		xchg->getCsjobClaim(srcarty, laserTakenNotAvailable, laserFulfilled);
 
+	} else if (srcclnxevb) {
+		// add or remove "laser" claim with srcclnxevb
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcclnxevb);
+		else xchg->addCsjobClaim(dbswzsk, srcclnxevb, new JobWzskSrcClnxevb::Claim(false, false, true, false));
+
+		xchg->getCsjobClaim(srcclnxevb, laserTakenNotAvailable, laserFulfilled);
+
 	} else if (srcicicle) {
 		// add or remove "laser" claim with srcicicle
 		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcicicle);
 		else xchg->addCsjobClaim(dbswzsk, srcicicle, new JobWzskSrcIcicle::Claim(false, false, true, false));
 
 		xchg->getCsjobClaim(srcicicle, laserTakenNotAvailable, laserFulfilled);
+
+	} else if (srcuvbdvk) {
+		// add or remove "laser" claim with srcuvbdvk
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcuvbdvk);
+		else xchg->addCsjobClaim(dbswzsk, srcuvbdvk, new JobWzskSrcUvbdvk::Claim(false, false, true, false));
+
+		xchg->getCsjobClaim(srcuvbdvk, laserTakenNotAvailable, laserFulfilled);
 
 	} else laserFulfilled = true;
 

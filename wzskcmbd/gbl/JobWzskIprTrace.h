@@ -20,9 +20,9 @@
 #endif
 // IP include.cust --- IEND
 
-#include "JobWzskSrcV4l2.h"
-#include "JobWzskAcqFpgaflg.h"
 #include "JobWzskActLaser.h"
+#include "JobWzskAcqFpgaflg.h"
+#include "JobWzskSrcV4l2.h"
 
 #define VecVJobWzskIprTraceMethod JobWzskIprTrace::VecVMethod
 #define VecVJobWzskIprTraceSge JobWzskIprTrace::VecVSge
@@ -192,9 +192,9 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
-	JobWzskSrcV4l2* srcv4l2;
-	JobWzskAcqFpgaflg* acqfpgaflg;
 	JobWzskActLaser* actlaser;
+	JobWzskAcqFpgaflg* acqfpgaflg;
+	JobWzskSrcV4l2* srcv4l2;
 
 	// IP vars.spec --- INSERT
 
@@ -245,17 +245,17 @@ public:
 private:
 	bool handleTest(DbsWzsk* dbswzsk);
 
-	void handleTimerInSgePrcidle(DbsWzsk* dbswzsk, const std::string& sref);
 	void handleTimerWithSrefSrcstopInSgeDone(DbsWzsk* dbswzsk);
+	void handleTimerInSgePrcidle(DbsWzsk* dbswzsk, const std::string& sref);
 
 public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(DbsWzsk* dbswzsk);
+	bool handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta(DbsWzsk* dbswzsk, const Sbecore::uint ixInv);
 	bool handleCallWzskResultNewFromSrcv4l2(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(DbsWzsk* dbswzsk);
-	bool handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta(DbsWzsk* dbswzsk, const Sbecore::uint ixInv);
+	bool handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(DbsWzsk* dbswzsk);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

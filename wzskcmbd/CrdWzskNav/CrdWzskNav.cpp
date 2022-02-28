@@ -42,23 +42,23 @@ CrdWzskNav::CrdWzskNav(
 	feedFSge.tag = "FeedFSge";
 	VecVSge::fillFeed(feedFSge);
 
-	pnlpre = NULL;
-	pnlglry = NULL;
-	pnlop = NULL;
-	pnladmin = NULL;
-	pnlheadbar = NULL;
 	dlgloaini = NULL;
+	pnlheadbar = NULL;
+	pnlpre = NULL;
+	pnladmin = NULL;
+	pnlop = NULL;
+	pnlglry = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
-	pnlpre = new PnlWzskNavPre(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlglry = new PnlWzskNavGlry(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlop = new PnlWzskNavOp(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnladmin = new PnlWzskNavAdmin(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlheadbar = new PnlWzskNavHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlpre = new PnlWzskNavPre(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnladmin = new PnlWzskNavAdmin(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlop = new PnlWzskNavOp(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlglry = new PnlWzskNavGlry(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 
