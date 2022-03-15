@@ -1,6 +1,6 @@
 <template>
 	<v-container v-if="initdone">
-		<h1 class="text-5 my-3" style="text-align:center">Low-level access</h1>
+		<h1 class="text-5 my-3" style="text-align:center">Objects</h1>
 	</v-container>
 </template>
 
@@ -27,7 +27,7 @@
 		},
 
 		mounted() {
-			//console.log("&Carsref;.mounted() with scrJref = " + this.scrJref);
+			//console.log("CrdWzskObj.mounted() with scrJref = " + this.scrJref);
 
 			const dpchapp = {
 				"DpchAppWzskInit": {
@@ -41,7 +41,7 @@
 		methods: {
 			mergeDpchEngData: function(dpcheng) {
 				if (dpcheng.ContInfWzskObj) this.continf = dpcheng.ContInfWzskObj;
-				if (dpcheng.FeedFSge) this.FeedFSge = dpcheng.FeedFSge;
+				if (dpcheng.FeedFSge) this.feedFSge = dpcheng.FeedFSge;
 				if (dpcheng.StatAppWzskObj) this.statapp = dpcheng.StatAppWzskObj;
 				if (dpcheng.StatShrWzskObj) this.statshr = dpcheng.StatShrWzskObj;
 				if (dpcheng.TagWzskObj) {
@@ -93,7 +93,7 @@
 
 			continf: null,
 
-			FeedFSge: null,
+			feedFSge: null,
 
 			statapp: null,
 

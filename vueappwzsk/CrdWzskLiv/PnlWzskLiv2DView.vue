@@ -27,10 +27,9 @@
 			<v-select
 				class="my-2"
 				v-model="contapp.fiFPupPvm"
-				:items="FeedFPupPvm"
+				:items="feedFPupPvm"
 				:label='tag.CptPvm'
 				v-on:change="handlePupChange('numFPupPvm', fiFPupPvm)"
-				:disabled="!statshr.PupPvmActive"
 			>
 				<template v-slot:selection="{item}">{{item.tit1}}</template>
 				<template v-slot:item="{item}">{{item.tit1}}</template>
@@ -75,11 +74,12 @@
 				class="my-2"
 				v-model="contiac.ChkAex"
 				v-on:change='updateEng(["contiac"])'
-				:label="tag.ChkAex"
+				:label="tag.CptAex"
 				:disabled="!statshr.ChkAexActive"
 			/>
 
 			<v-slider
+				v-if="statshr.SldExtAvail"
 				class="my-2"
 				v-model="contiac.SldExt"
 				v-on:end='updateEng(["contiac"])'
@@ -126,6 +126,7 @@
 			<v-divider/>
 
 			<v-text-field
+				v-if="statshr.TxtOafAvail"
 				class="my-2"
 				readonly
 				outlined
@@ -203,18 +204,21 @@
 			</v-row>
 
 			<div
+				v-if="statshr.UpdLloAvail"
 				class="my-2"
 			>
 				<!-- IP divLlo - INSERT -->
 			</div>
 
 			<div
+				v-if="statshr.UpdLuoAvail"
 				class="my-2"
 			>
 				<!-- IP divLuo - INSERT -->
 			</div>
 
 			<div
+				v-if="statshr.UpdLmdAvail"
 				class="my-2"
 			>
 				<!-- IP divLmd - INSERT -->
@@ -224,14 +228,14 @@
 				class="my-2"
 				v-model="contiac.ChkLgl"
 				v-on:change='updateEng(["contiac"])'
-				:label="tag.ChkLgl"
+				:label="tag.CptLgl"
 			/>
 
 			<v-checkbox
 				class="my-2"
 				v-model="contiac.ChkLro"
 				v-on:change='updateEng(["contiac"])'
-				:label="tag.ChkLro"
+				:label="tag.CptLro"
 			/>
 
 			<v-row class="my-2">
@@ -276,7 +280,7 @@
 				class="my-2"
 				v-model="contiac.ChkPro"
 				v-on:change='updateEng(["contiac"])'
-				:label="tag.ChkPro"
+				:label="tag.CptPro"
 			/>
 
 			<v-row class="my-2">
@@ -398,6 +402,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
+<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContIacWzskLiv2DView) this.contiac = dpcheng.ContIacWzskLiv2DView;
 				if (dpcheng.ContInfWzskLiv2DView) this.continf = dpcheng.ContInfWzskLiv2DView;
@@ -406,12 +411,12 @@
 				if (dpcheng.TagWzskLiv2DView) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskLiv2DView);
 					this.tag = dpcheng.TagWzskLiv2DView;
-				};
+				}
 
 				if (dpcheng.ContIacWzskLiv2DView) {
-					for (var i = 0; i < this.FeedFPupPvm.length; i++)
-						if (this.FeedFPupPvm[i].num == this.contiac.numFPupPvm) {
-							this.contapp.fiFPupPvm = this.FeedFPupPvm[i];
+					for (var i = 0; i < this.feedFPupPvm.length; i++)
+						if (this.feedFPupPvm[i].num == this.contiac.numFPupPvm) {
+							this.contapp.fiFPupPvm = this.feedFPupPvm[i];
 							break;
 						}
 				}
@@ -433,6 +438,7 @@
 					else this.contapp.ButTcwOn = 1;
 				}
 				/*
+<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 
@@ -456,13 +462,21 @@
 
 			handleDpchEngAlign: function(dpcheng) {
 				/*
-				<!-- IP handleDpchEngAlign - INSERT -->
+				<!-- IP handleDpchEngAlign - BEGIN -->
+				*/
+				console.log("PnlWzskLiv2DView.handleDpchEngAlign()" + dpcheng);
+				/*
+				<!-- IP handleDpchEngAlign - END -->
 				*/
 			},
 
 			handleDpchEngLive: function(dpcheng) {
 				/*
-				<!-- IP handleDpchEngLive - INSERT -->
+				<!-- IP handleDpchEngLive - BEGIN -->
+				*/
+				console.log("PnlWzskLiv2DView.handleDpchEngLive()" + dpcheng);
+				/*
+				<!-- IP handleDpchEngLive - END -->
 				*/
 			},
 			/*

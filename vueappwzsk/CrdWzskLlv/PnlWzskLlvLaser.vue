@@ -28,8 +28,7 @@
 				class="my-2"
 				v-model="contiac.ChkErg"
 				v-on:change='updateEng(["contiac"])'
-				:label="tag.ChkErg"
-				:disabled="!statshr.ChkErgActive"
+				:label="tag.CptErg"
 			/>
 
 			<v-slider
@@ -142,6 +141,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
+<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContIacWzskLlvLaser) this.contiac = dpcheng.ContIacWzskLlvLaser;
 				if (dpcheng.ContInfWzskLlvLaser) this.continf = dpcheng.ContInfWzskLlvLaser;
@@ -149,13 +149,14 @@
 				if (dpcheng.TagWzskLlvLaser) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskLlvLaser);
 					this.tag = dpcheng.TagWzskLlvLaser;
-				};
+				}
 
 				if (dpcheng.ContInfWzskLlvLaser) {
 					if (!this.continf.ButClaimOn) this.contapp.ButClaimOn = 0;
 					else this.contapp.ButClaimOn = 1;
 				}
 				/*
+<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 

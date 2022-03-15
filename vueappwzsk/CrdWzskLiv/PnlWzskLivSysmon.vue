@@ -92,14 +92,16 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
+<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContInfWzskLivSysmon) this.continf = dpcheng.ContInfWzskLivSysmon;
 				if (dpcheng.StatShrWzskLivSysmon) this.statshr = dpcheng.StatShrWzskLivSysmon;
 				if (dpcheng.TagWzskLivSysmon) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskLivSysmon);
 					this.tag = dpcheng.TagWzskLivSysmon;
-				};
+				}
 				/*
+<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 
@@ -123,7 +125,11 @@
 
 			handleDpchEngLive: function(dpcheng) {
 				/*
-				<!-- IP handleDpchEngLive - INSERT -->
+				<!-- IP handleDpchEngLive - BEGIN -->
+				*/
+				console.log("PnlWzskLivSysmon.handleDpchEngLive()" + dpcheng);
+				/*
+				<!-- IP handleDpchEngLive - END -->
 				*/
 			},
 			/*

@@ -250,6 +250,21 @@ bool RootWzsk::authenticate(
 	return valid;
 };
 
+///
+void RootWzsk::termSess(
+			DbsWzsk* dbswzsk
+			, const ubigint jref
+		) {
+	JobWzsk* job = NULL;
+	
+	job = xchg->getJobByJref(jref);
+
+	if (job) {
+		if (job->ixWzskVJob == VecWzskVJob::SESSWZSK) ((SessWzsk*) job)->term(dbswzsk);
+		else if (job->ixWzskVJob == VecWzskVJob::M2MSESSWZSK) ((M2msessWzsk*) job)->term(dbswzsk);
+	};
+};
+
 void RootWzsk::handleRequest(
 			DbsWzsk* dbswzsk
 			, ReqWzsk* req
@@ -342,6 +357,9 @@ bool RootWzsk::handleEraseSess(
 	cout << "\tjob reference: ";
 	cin >> input;
 	iinput = atoi(input.c_str());
+
+///
+	termSess(dbswzsk, iinput);
 
 	if (!eraseSubjobByJref(sesss, iinput)) cout << "\tjob reference doesn't exist!" << endl;
 	else cout << "\tsession erased." << endl;
@@ -489,6 +507,9 @@ bool RootWzsk::handleCallWzskLogout(
 	bool retval = false;
 
 	time_t rawtime;
+
+///
+	termSess(dbswzsk, jrefTrig);
 
 	if (!boolvalInv) {
 		eraseSubjobByJref(sesss, jrefTrig);

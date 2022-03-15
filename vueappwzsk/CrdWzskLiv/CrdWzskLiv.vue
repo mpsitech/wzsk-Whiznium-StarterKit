@@ -1,6 +1,6 @@
 <template>
 	<v-container v-if="initdone">
-		<h1 class="text-5 my-3" style="text-align:center">Low-level access</h1>
+		<h1 class="text-5 my-3" style="text-align:center">Live data</h1>
 		<PnlWzskLiv2DView
 			v-on:request="handleRequest"
 			ref="PnlWzskLiv2DView"
@@ -24,9 +24,9 @@
 
 	/*
 	*/
-	import PnlWzskLiv2DView from 'PnlWzskLiv2DView';
-	import PnlWzskLiv3DView from 'PnlWzskLiv3DView';
-	import PnlWzskLivSysmon from 'PnlWzskLivSysmon';
+	import PnlWzskLiv2DView from './PnlWzskLiv2DView';
+	import PnlWzskLiv3DView from './PnlWzskLiv3DView';
+	import PnlWzskLivSysmon from './PnlWzskLivSysmon';
 	/*
 	*/
 
@@ -48,7 +48,7 @@
 		},
 
 		mounted() {
-			//console.log("&Carsref;.mounted() with scrJref = " + this.scrJref);
+			//console.log("CrdWzskLiv.mounted() with scrJref = " + this.scrJref);
 
 			const dpchapp = {
 				"DpchAppWzskInit": {
@@ -62,7 +62,7 @@
 		methods: {
 			mergeDpchEngData: function(dpcheng) {
 				if (dpcheng.ContInfWzskLiv) this.continf = dpcheng.ContInfWzskLiv;
-				if (dpcheng.FeedFSge) this.FeedFSge = dpcheng.FeedFSge;
+				if (dpcheng.FeedFSge) this.feedFSge = dpcheng.FeedFSge;
 				if (dpcheng.StatAppWzskLiv) this.statapp = dpcheng.StatAppWzskLiv;
 				if (dpcheng.StatShrWzskLiv) this.statshr = dpcheng.StatShrWzskLiv;
 				if (dpcheng.TagWzskLiv) {
@@ -120,7 +120,7 @@
 
 			continf: null,
 
-			FeedFSge: null,
+			feedFSge: null,
 
 			statapp: null,
 

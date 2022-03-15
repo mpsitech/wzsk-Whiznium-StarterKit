@@ -44,7 +44,16 @@
 				class="my-2"
 				style="height:200px"
 			>
-				<!-- IP divDat - INSERT -->
+				<!-- IP divDat - IBEGIN -->
+				<textarea 
+					style="resize:none;font-size:12px;font-family:Monospace;font-weight:normal;width:685px;background-color:#000000;color:#ffffff;border-width:0px;"
+					rows="8"
+					cols="120"
+					type="text"
+					:value="continf.TxtDatLog"
+					readonly="readonly"
+				/>
+				<!-- IP divDat - IEND -->
 			</div>
 
 			<v-divider/>
@@ -57,11 +66,10 @@
 
 			<v-select
 				class="my-2"
-				v-model="contapp.fiFPupCmd"
-				:items="FeedFPupCmd"
+				:v-model="contapp.fiFPupCmd"
+				:items="feedFPupCmd"
 				:label='tag.CptCmd'
-				v-on:change="handlePupChange('numFPupCmd', fiFPupCmd)"
-				:disabled="!statshr.PupCmdActive"
+				v-on:change="handlePupChange('numFPupCmd', contapp.fiFPupCmd)"
 			>
 				<template v-slot:selection="{item}">{{item.tit1}}</template>
 				<template v-slot:item="{item}">{{item.tit1}}</template>
@@ -69,9 +77,8 @@
 
 			<v-text-field
 				class="my-2"
-				v-model="TxfCsq"
+				v-model="contiac.TxfCsq"
 				:label="tag.CptCsq"
-				:disabled="!statshr.TxfCsqActive"
 			/>
 
 			<v-row class="my-2">
@@ -153,20 +160,27 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
+				<!-- IP mergeDpchEngData - RBEGIN -->
 				*/
 				if (dpcheng.ContIacWzskLlvTermUvbdvk) this.contiac = dpcheng.ContIacWzskLlvTermUvbdvk;
-				if (dpcheng.ContInfWzskLlvTermUvbdvk) this.continf = dpcheng.ContInfWzskLlvTermUvbdvk;
-				if (dpcheng.feedFPupCmd) this.feedFPupCmd = dpcheng.feedFPupCmd;
+				if (dpcheng.ContInfWzskLlvTermUvbdvk) {
+					let continf = dpcheng.ContInfWzskLlvTermUvbdvk;
+
+					continf.TxtDatLog = continf.TxtDatLog.replace(/;/g, "\n");
+	
+					this.continf = continf;
+				}
+				if (dpcheng.FeedFPupCmd) this.feedFPupCmd = dpcheng.FeedFPupCmd;
 				if (dpcheng.StatShrWzskLlvTermUvbdvk) this.statshr = dpcheng.StatShrWzskLlvTermUvbdvk;
 				if (dpcheng.TagWzskLlvTermUvbdvk) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskLlvTermUvbdvk);
 					this.tag = dpcheng.TagWzskLlvTermUvbdvk;
-				};
+				}
 
 				if (dpcheng.ContIacWzskLlvTermUvbdvk) {
-					for (var i = 0; i < this.FeedFPupCmd.length; i++)
-						if (this.FeedFPupCmd[i].num == this.contiac.numFPupCmd) {
-							this.contapp.fiFPupCmd = this.FeedFPupCmd[i];
+					for (var i = 0; i < this.feedFPupCmd.length; i++)
+						if (this.feedFPupCmd[i].num == this.contiac.numFPupCmd) {
+							this.contapp.fiFPupCmd = this.feedFPupCmd[i];
 							break;
 						}
 				}
@@ -176,6 +190,7 @@
 					else this.contapp.ButClaimOn = 1;
 				}
 				/*
+				<!-- IP mergeDpchEngData - REND -->
 				*/
 			},
 

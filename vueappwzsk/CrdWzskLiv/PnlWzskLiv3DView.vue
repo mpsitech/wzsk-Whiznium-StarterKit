@@ -96,6 +96,7 @@
 			/>
 
 			<v-text-field
+				v-if="statshr.TxtAoaAvail"
 				class="my-2"
 				readonly
 				outlined
@@ -191,6 +192,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
+<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContIacWzskLiv3DView) this.contiac = dpcheng.ContIacWzskLiv3DView;
 				if (dpcheng.ContInfWzskLiv3DView) this.continf = dpcheng.ContInfWzskLiv3DView;
@@ -199,13 +201,14 @@
 				if (dpcheng.TagWzskLiv3DView) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskLiv3DView);
 					this.tag = dpcheng.TagWzskLiv3DView;
-				};
+				}
 
 				if (dpcheng.ContInfWzskLiv3DView) {
 					if (!this.continf.ButClaimOn) this.contapp.ButClaimOn = 0;
 					else this.contapp.ButClaimOn = 1;
 				}
 				/*
+<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 
@@ -229,7 +232,11 @@
 
 			handleDpchEngLive: function(dpcheng) {
 				/*
-				<!-- IP handleDpchEngLive - INSERT -->
+				<!-- IP handleDpchEngLive - BEGIN -->
+				*/
+				console.log("PnlWzskLiv3DView.handleDpchEngLive()" + dpcheng);
+				/*
+				<!-- IP handleDpchEngLive - END -->
 				*/
 			},
 			/*

@@ -135,6 +135,8 @@ public:
 	void clearQtb(DbsWzsk* dbswzsk);
 
 	bool authenticate(DbsWzsk* dbswzsk, const std::string& username, const std::string& password, Sbecore::ubigint& refWzskMUser);
+///
+	void termSess(DbsWzsk* dbswzsk, const Sbecore::ubigint jref);
 
 public:
 

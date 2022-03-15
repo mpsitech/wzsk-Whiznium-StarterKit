@@ -1,7 +1,7 @@
 export default {
 	title: "Whiznium StarterKit",
 
-	version: "1.0.11",
+	version: "1.0.12",
 
 	appsrvport: function() {
 		if (process.env.NODE_ENV === "development") return "13100"; // IP appsrvport --- LINE

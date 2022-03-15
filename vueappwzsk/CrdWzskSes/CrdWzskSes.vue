@@ -1,6 +1,11 @@
 <template>
 	<v-container v-if="initdone">
-		<h1 class="text-5 my-3" style="text-align:center">Low-level access</h1>
+		<h1 class="text-5 my-3" style="text-align:center">Sessions</h1>
+		<PnlWzskSesList
+			v-on:request="handleRequest"
+			ref="PnlWzskSesList"
+			:scrJref=statshr.scrJrefList
+		/>
 	</v-container>
 </template>
 
@@ -9,6 +14,7 @@
 
 	/*
 	*/
+	import PnlWzskSesList from './PnlWzskSesList';
 	/*
 	*/
 
@@ -22,12 +28,13 @@
 		components: {
 			/*
 			*/
+			PnlWzskSesList
 			/*
 			*/
 		},
 
 		mounted() {
-			//console.log("&Carsref;.mounted() with scrJref = " + this.scrJref);
+			//console.log("CrdWzskSes.mounted() with scrJref = " + this.scrJref);
 
 			const dpchapp = {
 				"DpchAppWzskInit": {
@@ -41,7 +48,7 @@
 		methods: {
 			mergeDpchEngData: function(dpcheng) {
 				if (dpcheng.ContInfWzskSes) this.continf = dpcheng.ContInfWzskSes;
-				if (dpcheng.FeedFSge) this.FeedFSge = dpcheng.FeedFSge;
+				if (dpcheng.FeedFSge) this.feedFSge = dpcheng.FeedFSge;
 				if (dpcheng.StatAppWzskSes) this.statapp = dpcheng.StatAppWzskSes;
 				if (dpcheng.StatShrWzskSes) this.statshr = dpcheng.StatShrWzskSes;
 				if (dpcheng.TagWzskSes) {
@@ -61,6 +68,7 @@
 				} else if (this.initdone) {
 					/*
 					*/
+					if (obj.dpcheng.scrJref == this.statshr.scrJrefList) this.$refs.PnlWzskSesList.handleReply(obj);
 					/*
 					*/
 				}
@@ -79,6 +87,7 @@
 				} else if (this.initdone) {
 					/*
 					*/
+					if (obj.dpcheng.scrJref == this.statshr.scrJrefList) this.$refs.PnlWzskSesList.handleUpdate(obj);
 					/*
 					*/
 				}
@@ -93,7 +102,7 @@
 
 			continf: null,
 
-			FeedFSge: null,
+			feedFSge: null,
 
 			statapp: null,
 

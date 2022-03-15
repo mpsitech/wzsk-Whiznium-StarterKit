@@ -27,10 +27,9 @@
 			<v-select
 				class="my-2"
 				v-model="contapp.fiFPupMde"
-				:items="FeedFPupMde"
+				:items="feedFPupMde"
 				:label='tag.CptMde'
 				v-on:change="handlePupChange('numFPupMde', fiFPupMde)"
-				:disabled="!statshr.PupMdeActive"
 			>
 				<template v-slot:selection="{item}">{{item.tit1}}</template>
 				<template v-slot:item="{item}">{{item.tit1}}</template>
@@ -40,7 +39,9 @@
 				class="my-2"
 				style="height:480px"
 			>
-				<!-- IP divImg - INSERT -->
+				<!-- IP divImg - IBEGIN -->
+				<canvas style="display:block;cursor:pointer" ref="cvs" width="640" height="480">This page needs a web-browser capable of displaying canvasses!</canvas>
+				<!-- IP divImg - IEND -->
 			</div>
 
 			<v-row class="my-2">
@@ -75,11 +76,12 @@
 				class="my-2"
 				v-model="contiac.ChkAex"
 				v-on:change='updateEng(["contiac"])'
-				:label="tag.ChkAex"
+				:label="tag.CptAex"
 				:disabled="!statshr.ChkAexActive"
 			/>
 
 			<v-slider
+				v-if="statshr.SldExtAvail"
 				class="my-2"
 				v-model="contiac.SldExt"
 				v-on:end='updateEng(["contiac"])'
@@ -155,7 +157,98 @@
 
 		methods: {
 			/*
-			<!-- IP cust - INSERT -->
+			<!-- IP cust - IBEGIN -->
+			*/
+			refreshLive: function(mask) {
+				var cvs = this.$refs.cvs;
+				var cvsctx = cvs.getContext("2d");
+
+				var wCvs = cvs.width;
+				var hCvs = cvs.height;
+
+				var scale_old = this.scale;
+
+				var whbase = 0;
+
+				var w, h;
+				var x0, y0;
+
+				var ix, ix2;
+
+				var i, j, k, l;
+
+				// - scaling
+				var d = this.imgdat.data;
+
+				if ( (mask.indexOf("red") != -1) && (mask.indexOf("green") != -1) && (mask.indexOf("blue") != -1) ) {
+					whbase = Math.round(Math.sqrt(this.red.length/12));
+					if (12*whbase*whbase != this.red.length) return;
+
+				} else if (mask.indexOf("gray") != -1) {
+					whbase = Math.round(Math.sqrt(this.gray.length/12));
+					if (12*whbase*whbase != this.gray.length) return;
+				}
+
+				w = 4 * whbase;
+				h = 3 * whbase;
+
+				this.scale = Math.floor(wCvs / w);
+				if (Math.floor(hCvs / h) < this.scale) this.scale = Math.floor(hCvs / h);
+
+				if (this.scale != scale_old) for (i = 0; i < 4*hCvs*wCvs; i++) d[i] = 255;
+
+				x0 = wCvs/2 - (this.scale * w) / 2;
+				y0 = hCvs/2 - (this.scale * h) / 2;
+
+				// - canvas
+				if ( (mask.indexOf("red") != -1) && (mask.indexOf("green") != -1) && (mask.indexOf("blue") != -1) ) {
+					for (i = 0; i < h; i++) {
+						for (j = 0; j < w; j++) {
+							ix = i*w + j;
+							ix2 = 4 * ((y0 + this.scale*i)*wCvs + x0 + this.scale*j);
+
+							for (k = 0; k < this.scale; k++) {
+								for (l = 0; l < this.scale; l++) {
+									d[ix2] = this.red[ix];
+									d[ix2+1] = this.green[ix];
+									d[ix2+2] = this.blue[ix];
+									d[ix2+3] = 255;
+
+									ix2 += 4;
+								}
+
+								ix2 += 4 * (wCvs - this.scale);
+							}
+						}
+					}
+
+				} else if (mask.indexOf("gray") != -1) {
+					for (i = 0; i < h; i++) {
+						for (j = 0; j < w; j++) {
+							ix = i*w + j;
+							ix2 = 4 * ((y0 + this.scale*i)*wCvs + x0 + this.scale*j);
+
+							for (k = 0; k < this.scale; k++) {
+								for (l = 0; l < this.scale; l++) {
+
+									d[ix2] = this.gray[ix];
+									d[ix2+1] = this.gray[ix];
+									d[ix2+2] = this.gray[ix];
+									d[ix2+3] = 255;
+
+									ix2 += 4;
+								}
+
+								ix2 += 4 * (wCvs - this.scale);
+							}
+						}
+					}
+				}
+
+				cvsctx.putImageData(this.imgdat, 0, 0);
+			},
+			/*
+			<!-- IP cust - IEND -->
 			*/
 
 			handleButClick: function(consref) {
@@ -189,20 +282,21 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
+<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContIacWzskLlvCamera) this.contiac = dpcheng.ContIacWzskLlvCamera;
 				if (dpcheng.ContInfWzskLlvCamera) this.continf = dpcheng.ContInfWzskLlvCamera;
-				if (dpcheng.feedFPupMde) this.feedFPupMde = dpcheng.feedFPupMde;
+				if (dpcheng.FeedFPupMde) this.feedFPupMde = dpcheng.FeedFPupMde;
 				if (dpcheng.StatShrWzskLlvCamera) this.statshr = dpcheng.StatShrWzskLlvCamera;
 				if (dpcheng.TagWzskLlvCamera) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskLlvCamera);
 					this.tag = dpcheng.TagWzskLlvCamera;
-				};
+				}
 
 				if (dpcheng.ContIacWzskLlvCamera) {
-					for (var i = 0; i < this.FeedFPupMde.length; i++)
-						if (this.FeedFPupMde[i].num == this.contiac.numFPupMde) {
-							this.contapp.fiFPupMde = this.FeedFPupMde[i];
+					for (var i = 0; i < this.feedFPupMde.length; i++)
+						if (this.feedFPupMde[i].num == this.contiac.numFPupMde) {
+							this.contapp.fiFPupMde = this.feedFPupMde[i];
 							break;
 						}
 				}
@@ -212,6 +306,7 @@
 					else this.contapp.ButClaimOn = 1;
 				}
 				/*
+<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 
@@ -235,7 +330,42 @@
 
 			handleDpchEngLive: function(dpcheng) {
 				/*
-				<!-- IP handleDpchEngLive - INSERT -->
+				<!-- IP handleDpchEngLive - RBEGIN -->
+				*/
+				if (!this.initdone) return;
+
+				if (this.imgdat == null) {
+					let cvs = this.$refs.cvs;
+					this.imgdat = cvs.getContext("2d").createImageData(cvs.width, cvs.height);
+				}
+
+				var mask = [];
+
+				// gray
+				if (dpcheng.gray) {
+					this.gray = Wzsk.parseUtinyintvec(dpcheng.gray);
+					mask.push("gray");
+				}
+
+				// RGB
+				if (dpcheng.red) {
+					this.red = Wzsk.parseUtinyintvec(dpcheng.red);
+					mask.push("red");
+				}
+
+				if (dpcheng.green) {
+					this.green = Wzsk.parseUtinyintvec(dpcheng.green);
+					mask.push("green");
+				}
+
+				if (dpcheng.blue) {
+					this.blue = Wzsk.parseUtinyintvec(dpcheng.blue);
+					mask.push("blue");
+				}
+
+				this.refreshLive(mask);
+				/*
+				<!-- IP handleDpchEngLive - REND -->
 				*/
 			},
 			/*
@@ -278,7 +408,12 @@
 			*/
 			
 			/*
-			<!-- IP data.cust - INSERT -->
+			<!-- IP data.cust - IBEGIN -->
+			*/
+			scale: 1.0,
+			imgdat: null
+			/*
+			<!-- IP data.cust - IEND -->
 			*/
 		})
 	}

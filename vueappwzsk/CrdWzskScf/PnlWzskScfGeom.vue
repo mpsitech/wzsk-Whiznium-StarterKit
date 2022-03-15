@@ -75,13 +75,15 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
+<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.StatShrWzskScfGeom) this.statshr = dpcheng.StatShrWzskScfGeom;
 				if (dpcheng.TagWzskScfGeom) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskScfGeom);
 					this.tag = dpcheng.TagWzskScfGeom;
-				};
+				}
 				/*
+<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 

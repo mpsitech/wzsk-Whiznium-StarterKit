@@ -54,14 +54,14 @@
 
 	/*
 	*/
-	import PnlWzskLlvTermArty from 'PnlWzskLlvTermArty';
-	import PnlWzskLlvTermClnxevb from 'PnlWzskLlvTermClnxevb';
-	import PnlWzskLlvTermIcicle from 'PnlWzskLlvTermIcicle';
-	import PnlWzskLlvTermMcvevp from 'PnlWzskLlvTermMcvevp';
-	import PnlWzskLlvTermUvbdvk from 'PnlWzskLlvTermUvbdvk';
-	import PnlWzskLlvCamera from 'PnlWzskLlvCamera';
-	import PnlWzskLlvTtable from 'PnlWzskLlvTtable';
-	import PnlWzskLlvLaser from 'PnlWzskLlvLaser';
+	import PnlWzskLlvTermArty from './PnlWzskLlvTermArty';
+	import PnlWzskLlvTermClnxevb from './PnlWzskLlvTermClnxevb';
+	import PnlWzskLlvTermIcicle from './PnlWzskLlvTermIcicle';
+	import PnlWzskLlvTermMcvevp from './PnlWzskLlvTermMcvevp';
+	import PnlWzskLlvTermUvbdvk from './PnlWzskLlvTermUvbdvk';
+	import PnlWzskLlvCamera from './PnlWzskLlvCamera';
+	import PnlWzskLlvTtable from './PnlWzskLlvTtable';
+	import PnlWzskLlvLaser from './PnlWzskLlvLaser';
 	/*
 	*/
 
@@ -88,7 +88,7 @@
 		},
 
 		mounted() {
-			//console.log("&Carsref;.mounted() with scrJref = " + this.scrJref);
+			//console.log("CrdWzskLlv.mounted() with scrJref = " + this.scrJref);
 
 			const dpchapp = {
 				"DpchAppWzskInit": {
@@ -102,7 +102,7 @@
 		methods: {
 			mergeDpchEngData: function(dpcheng) {
 				if (dpcheng.ContInfWzskLlv) this.continf = dpcheng.ContInfWzskLlv;
-				if (dpcheng.FeedFSge) this.FeedFSge = dpcheng.FeedFSge;
+				if (dpcheng.FeedFSge) this.feedFSge = dpcheng.FeedFSge;
 				if (dpcheng.StatAppWzskLlv) this.statapp = dpcheng.StatAppWzskLlv;
 				if (dpcheng.StatShrWzskLlv) this.statshr = dpcheng.StatShrWzskLlv;
 				if (dpcheng.TagWzskLlv) {
@@ -170,7 +170,7 @@
 
 			continf: null,
 
-			FeedFSge: null,
+			feedFSge: null,
 
 			statapp: null,
 

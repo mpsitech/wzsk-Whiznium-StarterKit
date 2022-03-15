@@ -58,10 +58,9 @@
 			<v-select
 				class="my-2"
 				v-model="contapp.fiFPupCmd"
-				:items="FeedFPupCmd"
+				:items="feedFPupCmd"
 				:label='tag.CptCmd'
 				v-on:change="handlePupChange('numFPupCmd', fiFPupCmd)"
-				:disabled="!statshr.PupCmdActive"
 			>
 				<template v-slot:selection="{item}">{{item.tit1}}</template>
 				<template v-slot:item="{item}">{{item.tit1}}</template>
@@ -69,9 +68,8 @@
 
 			<v-text-field
 				class="my-2"
-				v-model="TxfCsq"
+				v-model="contiac.TxfCsq"
 				:label="tag.CptCsq"
-				:disabled="!statshr.TxfCsqActive"
 			/>
 
 			<v-row class="my-2">
@@ -153,6 +151,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
+<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContIacWzskLlvTermArty) this.contiac = dpcheng.ContIacWzskLlvTermArty;
 				if (dpcheng.ContInfWzskLlvTermArty) this.continf = dpcheng.ContInfWzskLlvTermArty;
@@ -161,12 +160,12 @@
 				if (dpcheng.TagWzskLlvTermArty) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskLlvTermArty);
 					this.tag = dpcheng.TagWzskLlvTermArty;
-				};
+				}
 
 				if (dpcheng.ContIacWzskLlvTermArty) {
-					for (var i = 0; i < this.FeedFPupCmd.length; i++)
-						if (this.FeedFPupCmd[i].num == this.contiac.numFPupCmd) {
-							this.contapp.fiFPupCmd = this.FeedFPupCmd[i];
+					for (var i = 0; i < this.feedFPupCmd.length; i++)
+						if (this.feedFPupCmd[i].num == this.contiac.numFPupCmd) {
+							this.contapp.fiFPupCmd = this.feedFPupCmd[i];
 							break;
 						}
 				}
@@ -176,6 +175,7 @@
 					else this.contapp.ButClaimOn = 1;
 				}
 				/*
+<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 

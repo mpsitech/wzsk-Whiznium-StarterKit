@@ -1,6 +1,6 @@
 <template>
 	<v-container v-if="initdone">
-		<h1 class="text-5 my-3" style="text-align:center">Low-level access</h1>
+		<h1 class="text-5 my-3" style="text-align:center">System configuration</h1>
 		<PnlWzskScfConn
 			v-on:request="handleRequest"
 			ref="PnlWzskScfConn"
@@ -19,8 +19,8 @@
 
 	/*
 	*/
-	import PnlWzskScfConn from 'PnlWzskScfConn';
-	import PnlWzskScfGeom from 'PnlWzskScfGeom';
+	import PnlWzskScfConn from './PnlWzskScfConn';
+	import PnlWzskScfGeom from './PnlWzskScfGeom';
 	/*
 	*/
 
@@ -41,7 +41,7 @@
 		},
 
 		mounted() {
-			//console.log("&Carsref;.mounted() with scrJref = " + this.scrJref);
+			//console.log("CrdWzskScf.mounted() with scrJref = " + this.scrJref);
 
 			const dpchapp = {
 				"DpchAppWzskInit": {
@@ -55,7 +55,7 @@
 		methods: {
 			mergeDpchEngData: function(dpcheng) {
 				if (dpcheng.ContInfWzskScf) this.continf = dpcheng.ContInfWzskScf;
-				if (dpcheng.FeedFSge) this.FeedFSge = dpcheng.FeedFSge;
+				if (dpcheng.FeedFSge) this.feedFSge = dpcheng.FeedFSge;
 				if (dpcheng.StatAppWzskScf) this.statapp = dpcheng.StatAppWzskScf;
 				if (dpcheng.StatShrWzskScf) this.statshr = dpcheng.StatShrWzskScf;
 				if (dpcheng.TagWzskScf) {
@@ -111,7 +111,7 @@
 
 			continf: null,
 
-			FeedFSge: null,
+			feedFSge: null,
 
 			statapp: null,
 

@@ -1,7 +1,7 @@
-WZSK_VERSION = "1.0.11";
+WZSK_VERSION = "1.0.12";
 WZSK_VERSION_MAJOR = 1;
 WZSK_VERSION_MINOR = 0;
-WZSK_VERSION_SUB = 11;
+WZSK_VERSION_SUB = 12;
 
 function getCrdwnd() {
 	if (window.name == "Crd") return window;

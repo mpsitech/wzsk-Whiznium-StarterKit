@@ -1,7 +1,7 @@
 <template>
 	<div v-if="initdone">
 		<div class="d-flex pa-2 align-center">
-			<img src="../assets/logo.png" height="56" alt="logo" class="mr-1">
+			<img src="../../assets/logo.png" height="56" alt="logo" class="mr-1">
 			<div>
 				<div class="title font-weight-bold text-uppercase primary--text mx-2">{{CptTitle}}</div>
 				<div class="caption grey--text mx-2">{{CptVersion}}</div>
@@ -238,7 +238,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				if (dpcheng.ContInfWzskNav) this.continf = dpcheng.ContInfWzskNav;
-				if (dpcheng.feedFSge) this.feedFSge = dpcheng.feedFSge;
+				if (dpcheng.FeedFSge) this.feedFSge = dpcheng.FeedFSge;
 				if (dpcheng.StatAppWzskNav) this.statapp = dpcheng.StatAppWzskNav;
 				if (dpcheng.StatShrWzskNav) this.statshr = dpcheng.StatShrWzskNav;
 				if (dpcheng.TagWzskNav) {

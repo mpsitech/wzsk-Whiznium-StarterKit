@@ -112,6 +112,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
+<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContIacWzskLlvTtable) this.contiac = dpcheng.ContIacWzskLlvTtable;
 				if (dpcheng.ContInfWzskLlvTtable) this.continf = dpcheng.ContInfWzskLlvTtable;
@@ -119,13 +120,14 @@
 				if (dpcheng.TagWzskLlvTtable) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskLlvTtable);
 					this.tag = dpcheng.TagWzskLlvTtable;
-				};
+				}
 
 				if (dpcheng.ContInfWzskLlvTtable) {
 					if (!this.continf.ButClaimOn) this.contapp.ButClaimOn = 0;
 					else this.contapp.ButClaimOn = 1;
 				}
 				/*
+<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 

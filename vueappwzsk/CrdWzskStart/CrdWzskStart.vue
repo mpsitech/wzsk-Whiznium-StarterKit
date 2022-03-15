@@ -2,7 +2,7 @@
 	<v-container class="py-6" fill-height fluid>
 		<v-card class="pa-3 mx-auto" min-width="600">
 			<v-card-title>
-			 <div class="mx-auto my-3 text-center">{{CptVersion}}</div>
+				<div class="mx-auto my-3 text-center">{{CptVersion}}</div>
 			</v-card-title>
 
 			<v-card-text>
@@ -11,7 +11,7 @@
 					<v-col cols="6">
 						<v-select
 							v-model="fiFPupLocale"
-							:items="FeedFPupLocale"
+							:items="feedFPupLocale"
 							:label="tag.CptLocale"
 							v-on:change="handlePupLocaleChange"
 						>
@@ -28,7 +28,7 @@
 
 				<v-text-field
 					v-model="TxfPassword"
-					:label="Tag.CptLoginPassword"
+					:label="tag.CptLoginPassword"
 					:type="TxfPasswordShow ? 'text' : 'password'"
 					:append-icon="TxfPasswordShow ? 'mdi-eye' : 'mdi-eye-off'"
 					v-on:keyup.enter="handleTxfPasswordEnter"
@@ -72,7 +72,7 @@
 		},
 
 		beforeMount() {
-			this.fiFSge = getFiBySref(this.FeedFSge, this.srefIxVSge_initial);
+			this.fiFSge = getFiBySref(this.feedFSge, this.srefIxVSge_initial);
 		},
 
 		methods: {
@@ -97,14 +97,14 @@
 					if (dpcheng.accepted) {
 						//console.log("CrdWzskStart.handleLogin() login accepted");
 
-						vm.fiFSge = getFiBySref(vm.FeedFSge, "acc");
+						vm.fiFSge = getFiBySref(vm.feedFSge, "acc");
 
 						vm.initSess(dpcheng.scrJref);
 
 					} else {
 						//console.log("CrdWzskStart.handleLogin() login denied");
 
-						vm.fiFSge = getFiBySref(vm.FeedFSge, "dny");
+						vm.fiFSge = getFiBySref(vm.feedFSge, "dny");
 					}
 
 				}).catch(function (error) {
@@ -134,11 +134,11 @@
 			},
 
 			handlePupLocaleChange: function() {
-				this.numFPupLocale = this.fiFPupLocale.num; // changes FeedFPupLocale
+				this.numFPupLocale = this.fiFPupLocale.num; // changes feedFPupLocale
 
-				for (var i = 0; i < this.FeedFPupLocale.length; i++)
-					if (this.FeedFPupLocale[i].num == this.numFPupLocale) {
-						this.fiFPupLocale = this.FeedFPupLocale[i];
+				for (var i = 0; i < this.feedFPupLocale.length; i++)
+					if (this.feedFPupLocale[i].num == this.numFPupLocale) {
+						this.fiFPupLocale = this.feedFPupLocale[i];
 						break;
 					}
 
@@ -155,11 +155,11 @@
 				return(Wzsk.title + " v" + Wzsk.version);
 			},
 
-			FeedFPupLocale() {
+			feedFPupLocale() {
 				/*
 				*/
-				if (this.numFPupLocale == 1) return this.FeedFPupLocales.enus;
-				if (this.numFPupLocale == 2) return this.FeedFPupLocales.dech;
+				if (this.numFPupLocale == 1) return this.feedFPupLocales.enus;
+				if (this.numFPupLocale == 2) return this.feedFPupLocales.dech;
 				/*
 				*/
 				return null;
@@ -186,9 +186,9 @@
 			},
 
 			CptMessage() {
-				if (this.fiFSge.sref == "acc") return this.Tag.CptSuccess;
-				else if (this.fiFSge.sref == "dny") return this.Tag.CptFailureMessage;
-				else if (this.fiFSge.sref == "term") return this.Tag.CptLogoutMessage;
+				if (this.fiFSge.sref == "acc") return this.tag.CptSuccess;
+				else if (this.fiFSge.sref == "dny") return this.tag.CptFailureMessage;
+				else if (this.fiFSge.sref == "term") return this.tag.CptLogoutMessage;
 				return "CptMessage";
 			}
 
@@ -212,7 +212,7 @@
 				tit1: "English (United States)"
 			},
 
-			FeedFPupLocales: {
+			feedFPupLocales: {
 				enus: [
 					{
 						num: 1,
@@ -284,7 +284,7 @@
 				*/
 			},
 
-			FeedFSge: [
+			feedFSge: [
 				{
 					num: 1,
 					sref: "idle"

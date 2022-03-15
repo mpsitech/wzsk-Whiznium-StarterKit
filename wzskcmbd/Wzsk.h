@@ -10,10 +10,10 @@
 #ifndef WZSK_H
 #define WZSK_H
 
-#define WZSK_VERSION "1.0.11"
+#define WZSK_VERSION "1.0.12"
 #define WZSK_VERSION_MAJOR 1
 #define WZSK_VERSION_MINOR 0
-#define WZSK_VERSION_SUB 11
+#define WZSK_VERSION_SUB 12
 
 #include "DevWskd.h" // IP include.cust --- ILINE
 
