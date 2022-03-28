@@ -99,9 +99,9 @@ JobWzskIprTrace::JobWzskIprTrace(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	actlaser = NULL;
-	acqfpgaflg = NULL;
 	srcv4l2 = NULL;
+	acqfpgaflg = NULL;
+	actlaser = NULL;
 
 	// IP constructor.cust1 --- IBEGIN
 	ixRiSrcOn = 0; ixRiSrcOn--;
@@ -124,9 +124,9 @@ JobWzskIprTrace::JobWzskIprTrace(
 	// IP constructor.spec2 --- INSERT
 
 	if (srvNotCli) if (acqfpgaflg) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, acqfpgaflg->jref, false, Arg(0,0,{},"thddelta",0,0.0,false,"",Arg::SREF), 0, Clstn::VecVJactype::LOCK);
-	if (srvNotCli) if (srcv4l2) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, srcv4l2->jref, false, Arg(), 0, Clstn::VecVJactype::TRY);
 	if (srvNotCli) if (acqfpgaflg) xchg->addClstn(VecWzskVCall::CALLWZSKWAITSECOND, jref, Clstn::VecVJobmask::SPEC, acqfpgaflg->jref, false, Arg(), VecVSge::LEFTON, Clstn::VecVJactype::LOCK);
 	if (srvNotCli) if (acqfpgaflg) xchg->addClstn(VecWzskVCall::CALLWZSKWAITSECOND, jref, Clstn::VecVJobmask::SPEC, acqfpgaflg->jref, false, Arg(), VecVSge::RIGHTON, Clstn::VecVJactype::LOCK);
+	if (srvNotCli) if (srcv4l2) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, srcv4l2->jref, false, Arg(), 0, Clstn::VecVJactype::TRY);
 
 	// IP constructor.cust3 --- IBEGIN
 	flg16 = NULL;
@@ -453,8 +453,8 @@ void JobWzskIprTrace::handleRequest(
 		};
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
-		if ((req->sref == "srcstop") && (ixVSge == VecVSge::DONE)) handleTimerWithSrefSrcstopInSgeDone(dbswzsk);
-		else if (ixVSge == VecVSge::PRCIDLE) handleTimerInSgePrcidle(dbswzsk, req->sref);
+		if (ixVSge == VecVSge::PRCIDLE) handleTimerInSgePrcidle(dbswzsk, req->sref);
+		else if ((req->sref == "srcstop") && (ixVSge == VecVSge::DONE)) handleTimerWithSrefSrcstopInSgeDone(dbswzsk);
 	};
 };
 
@@ -466,17 +466,17 @@ bool JobWzskIprTrace::handleTest(
 	return retval;
 };
 
-void JobWzskIprTrace::handleTimerWithSrefSrcstopInSgeDone(
-			DbsWzsk* dbswzsk
-		) {
-	changeStage(dbswzsk, VecVSge::IDLE);
-};
-
 void JobWzskIprTrace::handleTimerInSgePrcidle(
 			DbsWzsk* dbswzsk
 			, const string& sref
 		) {
 	changeStage(dbswzsk, nextIxVSgeSuccess);
+};
+
+void JobWzskIprTrace::handleTimerWithSrefSrcstopInSgeDone(
+			DbsWzsk* dbswzsk
+		) {
+	changeStage(dbswzsk, VecVSge::IDLE);
 };
 
 void JobWzskIprTrace::handleCall(
@@ -485,12 +485,12 @@ void JobWzskIprTrace::handleCall(
 		) {
 	if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (acqfpgaflg) if (call->jref == acqfpgaflg->jref) match = true; return match;}()) && (call->argInv.sref == "thddelta")) {
 		call->abort = handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta(dbswzsk, call->argInv.ix);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (srcv4l2) if (call->jref == srcv4l2->jref) match = true; return match;}())) {
-		call->abort = handleCallWzskResultNewFromSrcv4l2(dbswzsk, call->argInv.ix, call->argInv.sref);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKWAITSECOND) && ([&](){bool match = false; if (acqfpgaflg) if (call->jref == acqfpgaflg->jref) match = true; return match;}()) && (ixVSge == VecVSge::LEFTON)) {
 		call->abort = handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(dbswzsk);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKWAITSECOND) && ([&](){bool match = false; if (acqfpgaflg) if (call->jref == acqfpgaflg->jref) match = true; return match;}()) && (ixVSge == VecVSge::RIGHTON)) {
 		call->abort = handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(dbswzsk);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (srcv4l2) if (call->jref == srcv4l2->jref) match = true; return match;}())) {
+		call->abort = handleCallWzskResultNewFromSrcv4l2(dbswzsk, call->argInv.ix, call->argInv.sref);
 	};
 };
 
@@ -505,6 +505,22 @@ bool JobWzskIprTrace::handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta(
 
 	changeStage(dbswzsk, VecVSge::PRCIDLE);
 	// IP handleCallWzskResultNewFromAcqfpgaflgWithSrefThddelta --- IEND
+	return retval;
+};
+
+bool JobWzskIprTrace::handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = false;
+	changeStage(dbswzsk, VecVSge::LEFTOFF); // IP handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton --- ILINE
+	return retval;
+};
+
+bool JobWzskIprTrace::handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = false;
+	changeStage(dbswzsk, VecVSge::RIGHTOFF); // IP handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton --- ILINE
 	return retval;
 };
 
@@ -536,22 +552,6 @@ bool JobWzskIprTrace::handleCallWzskResultNewFromSrcv4l2(
 		};
 	};
 	// IP handleCallWzskResultNewFromSrcv4l2 --- IEND
-	return retval;
-};
-
-bool JobWzskIprTrace::handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton(
-			DbsWzsk* dbswzsk
-		) {
-	bool retval = false;
-	changeStage(dbswzsk, VecVSge::LEFTOFF); // IP handleCallWzskWaitsecondFromAcqfpgaflgInSgeLefton --- ILINE
-	return retval;
-};
-
-bool JobWzskIprTrace::handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton(
-			DbsWzsk* dbswzsk
-		) {
-	bool retval = false;
-	changeStage(dbswzsk, VecVSge::RIGHTOFF); // IP handleCallWzskWaitsecondFromAcqfpgaflgInSgeRighton --- ILINE
 	return retval;
 };
 

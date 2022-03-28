@@ -20,8 +20,8 @@
 #endif
 // IP include.cust --- IEND
 
-#include "JobWzskAcqFpgapvw.h"
 #include "JobWzskSrcV4l2.h"
+#include "JobWzskAcqFpgapvw.h"
 
 #define VecVJobWzskAcqPreviewSge JobWzskAcqPreview::VecVSge
 #define VecVJobWzskAcqPreviewVar JobWzskAcqPreview::VecVVar
@@ -154,8 +154,8 @@ public:
 public:
 	static Shrdat shrdat;
 
-	JobWzskAcqFpgapvw* acqfpgapvw;
 	JobWzskSrcV4l2* srcv4l2;
+	JobWzskAcqFpgapvw* acqfpgapvw;
 
 	// IP vars.spec --- INSERT
 
@@ -211,8 +211,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskResultNewFromAcqfpgapvwInSgeReady(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 	bool handleCallWzskResultNewFromSrcv4l2InSgeReady(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+	bool handleCallWzskResultNewFromAcqfpgapvwInSgeReady(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

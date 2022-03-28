@@ -41,20 +41,20 @@ CrdWzskLiv::CrdWzskLiv(
 	feedFSge.tag = "FeedFSge";
 	VecVSge::fillFeed(feedFSge);
 
-	pnl2dview = NULL;
-	pnl3dview = NULL;
-	pnlsysmon = NULL;
 	pnlheadbar = NULL;
+	pnlsysmon = NULL;
+	pnl3dview = NULL;
+	pnl2dview = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
-	pnl2dview = new PnlWzskLiv2DView(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnl3dview = new PnlWzskLiv3DView(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlsysmon = new PnlWzskLivSysmon(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlheadbar = new PnlWzskLivHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlsysmon = new PnlWzskLivSysmon(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnl3dview = new PnlWzskLiv3DView(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnl2dview = new PnlWzskLiv2DView(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 

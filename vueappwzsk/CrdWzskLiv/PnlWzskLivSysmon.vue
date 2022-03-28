@@ -92,7 +92,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
-<!-- IP mergeDpchEngData - BEGIN -->
+				<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContInfWzskLivSysmon) this.continf = dpcheng.ContInfWzskLivSysmon;
 				if (dpcheng.StatShrWzskLivSysmon) this.statshr = dpcheng.StatShrWzskLivSysmon;
@@ -101,7 +101,7 @@
 					this.tag = dpcheng.TagWzskLivSysmon;
 				}
 				/*
-<!-- IP mergeDpchEngData - END -->
+				<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 
@@ -138,8 +138,8 @@
 			handleUpdate: function(obj) {
 				/*
 				*/
-				if (obj.srefIxWzskVDpch == "DpchEngWzskLivSysmonData") this.mergeDpchEngData(obj.dpcheng);
-				else if (obj.srefIxWzskVDpch == "DpchEngWzskLivSysmonLive") this.handleDpchEngLive(obj.dpcheng);
+				if (obj.srefIxWzskVDpch == "DpchEngWzskLivSysmonLive") this.handleDpchEngLive(obj.dpcheng);
+				else if (obj.srefIxWzskVDpch == "DpchEngWzskLivSysmonData") this.mergeDpchEngData(obj.dpcheng);
 				/*
 				*/
 			}

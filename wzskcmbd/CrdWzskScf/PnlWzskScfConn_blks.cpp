@@ -116,7 +116,7 @@ void PnlWzskScfConn::Tag::writeJSON(
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["Cpt"] = "Connections";
 	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Connections";
+		me["Cpt"] = "Anschl\\u009fsse";
 	};
 };
 
@@ -136,7 +136,7 @@ void PnlWzskScfConn::Tag::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Connections");
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Connections");
+			writeStringAttr(wr, itemtag, "sref", "Cpt", "Anschl\\u009fsse");
 		};
 	xmlTextWriterEndElement(wr);
 };

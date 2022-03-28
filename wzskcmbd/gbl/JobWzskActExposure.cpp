@@ -68,12 +68,11 @@ JobWzskActExposure::JobWzskActExposure(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	srcarty = NULL;
-	srcclnxevb = NULL;
-	srcicicle = NULL;
-	srcmcvevp = NULL;
-	srcuzediocc = NULL;
 	srcv4l2 = NULL;
+	srcmcvevp = NULL;
+	srcicicle = NULL;
+	srcclnxevb = NULL;
+	srcarty = NULL;
 
 	// IP constructor.cust1 --- INSERT
 

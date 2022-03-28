@@ -1390,13 +1390,13 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrAbt(
 	continf.TxtCpt = StrMod::cap(continf.TxtCpt);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		continf.TxtMsg1 = "Whiznium StarterKit version v1.0.12 released on 6-3-2022";
+		continf.TxtMsg1 = "Whiznium StarterKit version v1.0.13 released on 25-3-2022";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "contributors: Alexander Wirthmueller";
 		continf.TxtMsg6 = "libraries: ezdevwskd 0.1.26 and png 1.6.36";
 		continf.TxtMsg8 = "Whiznium StarterKit is computer vision software which powers MPSI's tabletop 3D laser scanner that represents the primary on-boarding vehicle for Whiznium.";
 	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		continf.TxtMsg1 = "Whiznium StarterKit Version v1.0.12 ver\\u00f6ffentlicht am 6-3-2022";
+		continf.TxtMsg1 = "Whiznium StarterKit Version v1.0.13 ver\\u00f6ffentlicht am 25-3-2022";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "Mitwirkende: Alexander Wirthmueller";
 		continf.TxtMsg6 = "Programmbibliotheken: ezdevwskd 0.1.26 und png 1.6.36";
@@ -2105,8 +2105,8 @@ void StmgrWzsk::handleCall(
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOBJUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOBJSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOGRUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRSTD);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRHSREF);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKPRSUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKPRSSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSESUPD_REFEQ) {
@@ -2115,11 +2115,11 @@ void StmgrWzsk::handleCall(
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHTUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSHTSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSGUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKGROUP);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKUSGSTD);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKGROUP);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSRUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOWNER);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKUSRSTD);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOWNER);
 	};
 
 	for (auto it = icsWzskVStub.begin(); it != icsWzskVStub.end(); it++) {
@@ -2338,7 +2338,6 @@ XchgWzskcmbd::XchgWzskcmbd() :
 	csjobinfos[VecWzskVJob::JOBWZSKSRCMCVEVP] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCMCVEVP);
 	csjobinfos[VecWzskVJob::JOBWZSKSRCSYSINFO] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCSYSINFO);
 	csjobinfos[VecWzskVJob::JOBWZSKSRCUVBDVK] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCUVBDVK);
-	csjobinfos[VecWzskVJob::JOBWZSKSRCUZEDIOCC] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCUZEDIOCC);
 	csjobinfos[VecWzskVJob::JOBWZSKSRCV4L2] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCV4L2);
 
 #if defined(SBECORE_DDS)
@@ -2380,7 +2379,7 @@ void XchgWzskcmbd::startMon() {
 	Clstn* clstn = NULL;
 	Preset* preset = NULL;
 
-	mon.start("Whiznium StarterKit v1.0.12", stgwzskpath.monpath);
+	mon.start("Whiznium StarterKit v1.0.13", stgwzskpath.monpath);
 
 	rwmJobs.rlock("XchgWzskcmbd", "startMon");
 	for (auto it = jobs.begin(); it != jobs.end(); it++) {

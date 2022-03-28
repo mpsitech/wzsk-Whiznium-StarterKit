@@ -68,7 +68,6 @@ Wzskcmbd::Wzskcmbd(
 	JobWzskSrcMcvevp::shrdat.init(xchg, &dbswzsk);
 	JobWzskSrcSysinfo::shrdat.init(xchg, &dbswzsk);
 	JobWzskSrcUvbdvk::shrdat.init(xchg, &dbswzsk);
-	JobWzskSrcUzediocc::shrdat.init(xchg, &dbswzsk);
 	JobWzskSrcV4l2::shrdat.init(xchg, &dbswzsk);
 
 	xchg->shrdatOpprc.init(xchg, &dbswzsk);
@@ -217,7 +216,6 @@ Wzskcmbd::~Wzskcmbd() {
 	JobWzskSrcMcvevp::shrdat.term(xchg);
 	JobWzskSrcSysinfo::shrdat.term(xchg);
 	JobWzskSrcUvbdvk::shrdat.term(xchg);
-	JobWzskSrcUzediocc::shrdat.term(xchg);
 	JobWzskSrcV4l2::shrdat.term(xchg);
 
 	xchg->shrdatJobprc.term(xchg);
@@ -259,7 +257,6 @@ void Wzskcmbd::loadPref() {
 		JobWzskSrcMcvevp::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcSysinfo::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcUvbdvk::stg.readXML(docctx, basexpath, true);
-		JobWzskSrcUzediocc::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcV4l2::stg.readXML(docctx, basexpath, true);
 	};
 
@@ -308,7 +305,6 @@ void Wzskcmbd::storePref() {
 		JobWzskSrcMcvevp::stg.writeXML(wr);
 		JobWzskSrcSysinfo::stg.writeXML(wr);
 		JobWzskSrcUvbdvk::stg.writeXML(wr);
-		JobWzskSrcUzediocc::stg.writeXML(wr);
 		JobWzskSrcV4l2::stg.writeXML(wr);
 	xmlTextWriterEndElement(wr);
 	closewriteFile(wr);
@@ -362,7 +358,6 @@ StgJobWzskSrcIcicle JobWzskSrcIcicle::stg;
 StgJobWzskSrcMcvevp JobWzskSrcMcvevp::stg;
 StgJobWzskSrcSysinfo JobWzskSrcSysinfo::stg;
 StgJobWzskSrcUvbdvk JobWzskSrcUvbdvk::stg;
-StgJobWzskSrcUzediocc JobWzskSrcUzediocc::stg;
 StgJobWzskSrcV4l2 JobWzskSrcV4l2::stg;
 
 /******************************************************************************
@@ -385,7 +380,6 @@ ShrdatJobWzskSrcIcicle JobWzskSrcIcicle::shrdat;
 ShrdatJobWzskSrcMcvevp JobWzskSrcMcvevp::shrdat;
 ShrdatJobWzskSrcSysinfo JobWzskSrcSysinfo::shrdat;
 ShrdatJobWzskSrcUvbdvk JobWzskSrcUvbdvk::shrdat;
-ShrdatJobWzskSrcUzediocc JobWzskSrcUzediocc::shrdat;
 ShrdatJobWzskSrcV4l2 JobWzskSrcV4l2::shrdat;
 
 /******************************************************************************
@@ -637,7 +631,7 @@ int main(
 
 	try {
 		// welcome message
-		cout << "Welcome to Whiznium StarterKit v1.0.12!" << endl;
+		cout << "Welcome to Whiznium StarterKit v1.0.13!" << endl;
 
 		// calls wzskcmbd.init()
 		wzskcmbd = new Wzskcmbd(exedir, clearAll, startMon);

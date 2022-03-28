@@ -101,8 +101,8 @@ JobWzskIprCorner::JobWzskIprCorner(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	acqfpgaflg = NULL;
 	srcv4l2 = NULL;
+	acqfpgaflg = NULL;
 
 	// IP constructor.cust1 --- IBEGIN
 	ixRiSrc = 0; ixRiSrc--;
@@ -677,8 +677,8 @@ void JobWzskIprCorner::handleRequest(
 		};
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
-		if ((req->sref == "srcstop") && (ixVSge == VecVSge::DONE)) handleTimerWithSrefSrcstopInSgeDone(dbswzsk);
-		else if (ixVSge == VecVSge::PRCIDLE) handleTimerInSgePrcidle(dbswzsk, req->sref);
+		if (ixVSge == VecVSge::PRCIDLE) handleTimerInSgePrcidle(dbswzsk, req->sref);
+		else if ((req->sref == "srcstop") && (ixVSge == VecVSge::DONE)) handleTimerWithSrefSrcstopInSgeDone(dbswzsk);
 	};
 };
 
@@ -690,17 +690,17 @@ bool JobWzskIprCorner::handleTest(
 	return retval;
 };
 
-void JobWzskIprCorner::handleTimerWithSrefSrcstopInSgeDone(
-			DbsWzsk* dbswzsk
-		) {
-	changeStage(dbswzsk, VecVSge::IDLE);
-};
-
 void JobWzskIprCorner::handleTimerInSgePrcidle(
 			DbsWzsk* dbswzsk
 			, const string& sref
 		) {
 	changeStage(dbswzsk, nextIxVSgeSuccess);
+};
+
+void JobWzskIprCorner::handleTimerWithSrefSrcstopInSgeDone(
+			DbsWzsk* dbswzsk
+		) {
+	changeStage(dbswzsk, VecVSge::IDLE);
 };
 
 void JobWzskIprCorner::handleCall(

@@ -2,7 +2,7 @@
 # make file for Wzsk API library, release apiwzsk_mac
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 6 Mar 2022
+# date created: 25 Mar 2022
 # IP header --- ABOVE
 
 LIBROOT = ${WHIZSDKROOT}/lib
@@ -13,7 +13,7 @@ CPPFLAGS = -std=c++11 -g -Wall -Os -pthread
 STATLIB = ar
 STATLIBFLAGS = rcs
 
-INCPATH = -I${WHIZSDKROOT}/build -I/usr/local/include -I/usr/local/include/libxml2
+INCPATH = -I${WHIZSDKROOT}/build -I/opt/homebrew/include -I/opt/homebrew/opt/libxml2/include
 
 PCHS = ApiWzsk.h.gch
 

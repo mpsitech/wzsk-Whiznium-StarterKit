@@ -75,7 +75,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
-<!-- IP mergeDpchEngData - BEGIN -->
+				<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.StatShrWzskScfConn) this.statshr = dpcheng.StatShrWzskScfConn;
 				if (dpcheng.TagWzskScfConn) {
@@ -83,7 +83,7 @@
 					this.tag = dpcheng.TagWzskScfConn;
 				}
 				/*
-<!-- IP mergeDpchEngData - END -->
+				<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 

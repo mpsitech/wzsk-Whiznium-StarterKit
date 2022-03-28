@@ -62,7 +62,7 @@
 
 		<v-list-item small disabled dense>
 			<v-list-item-content>
-				<v-list-item-title class="overline">Administration</v-list-item-title>
+				<v-list-item-title class="overline">Administration module</v-list-item-title>
 			</v-list-item-content>
 		</v-list-item>
 
@@ -238,7 +238,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				if (dpcheng.ContInfWzskNav) this.continf = dpcheng.ContInfWzskNav;
-				if (dpcheng.FeedFSge) this.feedFSge = dpcheng.FeedFSge;
+				if (dpcheng.feedFSge) this.feedFSge = dpcheng.feedFSge;
 				if (dpcheng.StatAppWzskNav) this.statapp = dpcheng.StatAppWzskNav;
 				if (dpcheng.StatShrWzskNav) this.statshr = dpcheng.StatShrWzskNav;
 				if (dpcheng.TagWzskNav) {

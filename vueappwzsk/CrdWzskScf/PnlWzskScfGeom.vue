@@ -75,7 +75,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
-<!-- IP mergeDpchEngData - BEGIN -->
+				<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.StatShrWzskScfGeom) this.statshr = dpcheng.StatShrWzskScfGeom;
 				if (dpcheng.TagWzskScfGeom) {
@@ -83,7 +83,7 @@
 					this.tag = dpcheng.TagWzskScfGeom;
 				}
 				/*
-<!-- IP mergeDpchEngData - END -->
+				<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 

@@ -29,7 +29,7 @@
 				v-model="contapp.fiFPupMde"
 				:items="feedFPupMde"
 				:label='tag.CptMde'
-				v-on:change="handlePupChange('numFPupMde', fiFPupMde)"
+				v-on:change="handlePupChange('numFPupMde', contapp.fiFPupMde)"
 			>
 				<template v-slot:selection="{item}">{{item.tit1}}</template>
 				<template v-slot:item="{item}">{{item.tit1}}</template>
@@ -282,11 +282,11 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
-<!-- IP mergeDpchEngData - BEGIN -->
+				<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContIacWzskLlvCamera) this.contiac = dpcheng.ContIacWzskLlvCamera;
 				if (dpcheng.ContInfWzskLlvCamera) this.continf = dpcheng.ContInfWzskLlvCamera;
-				if (dpcheng.FeedFPupMde) this.feedFPupMde = dpcheng.FeedFPupMde;
+				if (dpcheng.feedFPupMde) this.feedFPupMde = dpcheng.feedFPupMde;
 				if (dpcheng.StatShrWzskLlvCamera) this.statshr = dpcheng.StatShrWzskLlvCamera;
 				if (dpcheng.TagWzskLlvCamera) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskLlvCamera);
@@ -306,7 +306,7 @@
 					else this.contapp.ButClaimOn = 1;
 				}
 				/*
-<!-- IP mergeDpchEngData - END -->
+				<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 
@@ -374,8 +374,8 @@
 			handleUpdate: function(obj) {
 				/*
 				*/
-				if (obj.srefIxWzskVDpch == "DpchEngWzskLlvCameraData") this.mergeDpchEngData(obj.dpcheng);
-				else if (obj.srefIxWzskVDpch == "DpchEngWzskLlvCameraLive") this.handleDpchEngLive(obj.dpcheng);
+				if (obj.srefIxWzskVDpch == "DpchEngWzskLlvCameraLive") this.handleDpchEngLive(obj.dpcheng);
+				else if (obj.srefIxWzskVDpch == "DpchEngWzskLlvCameraData") this.mergeDpchEngData(obj.dpcheng);
 				/*
 				*/
 			}

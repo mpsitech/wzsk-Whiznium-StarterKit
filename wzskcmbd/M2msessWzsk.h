@@ -14,14 +14,14 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskAcqPreview.h"
-#include "JobWzskAcqPtcloud.h"
+#include "JobWzskSrcSysinfo.h"
+#include "JobWzskIprTrace.h"
+#include "JobWzskIprCorner.h"
+#include "JobWzskActServo.h"
 #include "JobWzskActExposure.h"
 #include "JobWzskActLaser.h"
-#include "JobWzskActServo.h"
-#include "JobWzskIprCorner.h"
-#include "JobWzskIprTrace.h"
-#include "JobWzskSrcSysinfo.h"
+#include "JobWzskAcqPtcloud.h"
+#include "JobWzskAcqPreview.h"
 
 #define StatShrM2msessWzsk M2msessWzsk::StatShr
 
@@ -99,14 +99,14 @@ public:
 public:
 	StatShr statshr;
 
-	JobWzskAcqPreview* acqpreview;
-	JobWzskAcqPtcloud* acqptcloud;
+	JobWzskSrcSysinfo* srcsysinfo;
+	JobWzskIprTrace* iprtrace;
+	JobWzskIprCorner* iprcorner;
+	JobWzskActServo* actservo;
 	JobWzskActExposure* actexposure;
 	JobWzskActLaser* actlaser;
-	JobWzskActServo* actservo;
-	JobWzskIprCorner* iprcorner;
-	JobWzskIprTrace* iprtrace;
-	JobWzskSrcSysinfo* srcsysinfo;
+	JobWzskAcqPtcloud* acqptcloud;
+	JobWzskAcqPreview* acqpreview;
 
 	std::multimap<Sbecore::featix_t,Sbecore::uint> accs;
 

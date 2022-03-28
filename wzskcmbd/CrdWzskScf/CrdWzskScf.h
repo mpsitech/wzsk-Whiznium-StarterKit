@@ -14,12 +14,12 @@
 
 // IP include.cust --- INSERT
 
+#include "PnlWzskScfHeadbar.h"
+#include "PnlWzskScfGeom.h"
+#include "PnlWzskScfConn.h"
 #include "DlgWzskScfCameramat.h"
 #include "DlgWzskScfTtablecoord.h"
 #include "DlgWzskScfLaserpos.h"
-#include "PnlWzskScfConn.h"
-#include "PnlWzskScfGeom.h"
-#include "PnlWzskScfHeadbar.h"
 
 #define VecVWzskScfDo CrdWzskScf::VecVDo
 #define VecVWzskScfSge CrdWzskScf::VecVSge
@@ -206,12 +206,12 @@ public:
 	Sbecore::Feed feedFMcbAlert;
 	Sbecore::Feed feedFSge;
 
+	PnlWzskScfHeadbar* pnlheadbar;
+	PnlWzskScfGeom* pnlgeom;
+	PnlWzskScfConn* pnlconn;
 	DlgWzskScfCameramat* dlgcameramat;
 	DlgWzskScfTtablecoord* dlgttablecoord;
 	DlgWzskScfLaserpos* dlglaserpos;
-	PnlWzskScfConn* pnlconn;
-	PnlWzskScfGeom* pnlgeom;
-	PnlWzskScfHeadbar* pnlheadbar;
 
 	// IP vars.cust --- INSERT
 

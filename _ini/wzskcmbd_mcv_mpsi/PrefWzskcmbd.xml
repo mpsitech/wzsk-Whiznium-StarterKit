@@ -121,9 +121,6 @@
 	<StgJobWzskSrcUvbdvk>
 		<Si sref="path">/dev/ttyUSB0</Si>
 	</StgJobWzskSrcUvbdvk>
-	<StgJobWzskSrcUzediocc>
-		<Si sref="path">/dev/uzediocc</Si>
-	</StgJobWzskSrcUzediocc>
 	<StgJobWzskSrcV4l2>
 		<Si sref="path">/dev/video1</Si>
 		<Si sref="YUV422NotYUV420">false</Si>

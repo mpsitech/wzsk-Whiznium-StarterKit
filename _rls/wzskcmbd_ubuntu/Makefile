@@ -2,7 +2,7 @@
 # make file for Wzsk combined daemon, release wzskcmbd_ubuntu
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 6 Mar 2022
+# date created: 25 Mar 2022
 # IP header --- ABOVE
 
 include Makefile.inc
@@ -14,13 +14,13 @@ LINK = g++
 LINKFLAGS =
 
 INCPATH = -I$(BUILDROOT)/dbswzsk -I$(BUILDROOT)/wzskcmbd/VecWzsk -I$(BUILDROOT)/wzskcmbd/IexWzsk -I$(BUILDROOT)/wzskcmbd
-INCPATH += -I$(BUILDROOT)/wzskcmbd/CrdWzskNav -I$(BUILDROOT)/wzskcmbd/CrdWzskUsg -I$(BUILDROOT)/wzskcmbd/CrdWzskUsr -I$(BUILDROOT)/wzskcmbd/CrdWzskPrs -I$(BUILDROOT)/wzskcmbd/CrdWzskScf -I$(BUILDROOT)/wzskcmbd/CrdWzskLlv -I$(BUILDROOT)/wzskcmbd/CrdWzskLiv -I$(BUILDROOT)/wzskcmbd/CrdWzskOgr -I$(BUILDROOT)/wzskcmbd/CrdWzskObj -I$(BUILDROOT)/wzskcmbd/CrdWzskSes -I$(BUILDROOT)/wzskcmbd/CrdWzskSht -I$(BUILDROOT)/wzskcmbd/CrdWzskFil
+INCPATH += -I$(BUILDROOT)/wzskcmbd/CrdWzskUsg -I$(BUILDROOT)/wzskcmbd/CrdWzskUsr -I$(BUILDROOT)/wzskcmbd/CrdWzskPrs -I$(BUILDROOT)/wzskcmbd/CrdWzskScf -I$(BUILDROOT)/wzskcmbd/CrdWzskNav -I$(BUILDROOT)/wzskcmbd/CrdWzskLlv -I$(BUILDROOT)/wzskcmbd/CrdWzskLiv -I$(BUILDROOT)/wzskcmbd/CrdWzskOgr -I$(BUILDROOT)/wzskcmbd/CrdWzskObj -I$(BUILDROOT)/wzskcmbd/CrdWzskSes -I$(BUILDROOT)/wzskcmbd/CrdWzskSht -I$(BUILDROOT)/wzskcmbd/CrdWzskFil
 INCPATH += -I${WHIZSDKROOT}/build -I${WHIZSDKROOT}/build/ezdevwskd -I/usr/include -I/usr/include/jsoncpp -I/usr/include/libxml2
 
 PCHS = Wzskcmbd.h.gch
 
 OBJS = Wzsk.o WzskcmbdAppsrv.o WzskcmbdJobprc.o WzskcmbdOpprc.o Wzskcmbd.o
-OBJS += RootWzsk.o M2msessWzsk.o SessWzsk.o JobWzskAcqFpgaflg.o JobWzskAcqFpgapvw.o JobWzskAcqPreview.o JobWzskAcqPtcloud.o JobWzskActExposure.o JobWzskActLaser.o JobWzskActServo.o JobWzskIprAngle.o JobWzskIprCorner.o JobWzskIprTrace.o JobWzskSrcArty.o JobWzskSrcClnxevb.o JobWzskSrcIcicle.o JobWzskSrcMcvevp.o JobWzskSrcSysinfo.o JobWzskSrcUvbdvk.o JobWzskSrcUzediocc.o JobWzskSrcV4l2.o
+OBJS += RootWzsk.o M2msessWzsk.o SessWzsk.o JobWzskAcqFpgaflg.o JobWzskAcqFpgapvw.o JobWzskAcqPreview.o JobWzskAcqPtcloud.o JobWzskActExposure.o JobWzskActLaser.o JobWzskActServo.o JobWzskIprAngle.o JobWzskIprCorner.o JobWzskIprTrace.o JobWzskSrcArty.o JobWzskSrcClnxevb.o JobWzskSrcIcicle.o JobWzskSrcMcvevp.o JobWzskSrcSysinfo.o JobWzskSrcUvbdvk.o JobWzskSrcV4l2.o
 OBJS += Wzskcmbd_exe.o
 
 LIBPATH = -L$(LIBROOT)
@@ -28,7 +28,7 @@ LIBPATH += -L$(LIBROOT)/wzskcmbd
 LIBPATH += -L${WHIZSDKROOT}/lib -L/usr/lib/x86_64-linux-gnu
 LIBPATH += -L/lib/x86_64-linux-gnu
 
-LIBS = -lcrdwzsknav -lcrdwzskusg -lcrdwzskusr -lcrdwzskprs -lcrdwzskscf -lcrdwzskllv -lcrdwzskliv -lcrdwzskogr -lcrdwzskobj -lcrdwzskses -lcrdwzsksht -lcrdwzskfil
+LIBS = -lcrdwzskusg -lcrdwzskusr -lcrdwzskprs -lcrdwzskscf -lcrdwzsknav -lcrdwzskllv -lcrdwzskliv -lcrdwzskogr -lcrdwzskobj -lcrdwzskses -lcrdwzsksht -lcrdwzskfil
 LIBS += -liexwzsk -lvecwzsk -ldbswzsk
 LIBS += -lezdevwskd -lmicrohttpd -lpng -lsbecore_lite -lsbecore_mon
 LIBS += -ldbecore -lsbecore_plus -lsqlite3

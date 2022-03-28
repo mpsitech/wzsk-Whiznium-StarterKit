@@ -21,8 +21,7 @@ namespace VecWzskVTarget {
 	const Sbecore::uint CLNXEVB = 3;
 	const Sbecore::uint ICICLE = 4;
 	const Sbecore::uint MCVEVP = 5;
-	const Sbecore::uint UZEDIOCC = 6;
-	const Sbecore::uint WS = 7;
+	const Sbecore::uint WS = 6;
 
 	Sbecore::uint getIx(const std::string& sref);
 	std::string getSref(const Sbecore::uint ix);

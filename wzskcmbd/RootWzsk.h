@@ -14,26 +14,25 @@
 
 // IP include.cust --- INSERT
 
-#include "SessWzsk.h"
-#include "M2msessWzsk.h"
-#include "JobWzskAcqFpgaflg.h"
-#include "JobWzskAcqFpgapvw.h"
-#include "JobWzskAcqPreview.h"
-#include "JobWzskAcqPtcloud.h"
-#include "JobWzskActExposure.h"
-#include "JobWzskActLaser.h"
-#include "JobWzskActServo.h"
-#include "JobWzskIprAngle.h"
-#include "JobWzskIprCorner.h"
-#include "JobWzskIprTrace.h"
-#include "JobWzskSrcArty.h"
-#include "JobWzskSrcClnxevb.h"
-#include "JobWzskSrcIcicle.h"
-#include "JobWzskSrcMcvevp.h"
-#include "JobWzskSrcSysinfo.h"
-#include "JobWzskSrcUvbdvk.h"
-#include "JobWzskSrcUzediocc.h"
 #include "JobWzskSrcV4l2.h"
+#include "JobWzskSrcUvbdvk.h"
+#include "JobWzskSrcSysinfo.h"
+#include "JobWzskSrcMcvevp.h"
+#include "JobWzskSrcIcicle.h"
+#include "JobWzskSrcClnxevb.h"
+#include "JobWzskSrcArty.h"
+#include "JobWzskIprTrace.h"
+#include "JobWzskIprCorner.h"
+#include "JobWzskIprAngle.h"
+#include "JobWzskActServo.h"
+#include "JobWzskActLaser.h"
+#include "JobWzskActExposure.h"
+#include "JobWzskAcqPtcloud.h"
+#include "JobWzskAcqPreview.h"
+#include "JobWzskAcqFpgapvw.h"
+#include "JobWzskAcqFpgaflg.h"
+#include "M2msessWzsk.h"
+#include "SessWzsk.h"
 
 #define DpchAppRootWzskLogin RootWzsk::DpchAppLogin
 #define DpchEngRootWzskData RootWzsk::DpchEngData
@@ -102,26 +101,25 @@ public:
 
 public:
 
-	std::map<Sbecore::ubigint, JobWzsk*> sesss;
-	std::map<Sbecore::ubigint, JobWzsk*> m2msesss;
-	JobWzskAcqFpgaflg* acqfpgaflg;
-	JobWzskAcqFpgapvw* acqfpgapvw;
-	JobWzskAcqPreview* acqpreview;
-	JobWzskAcqPtcloud* acqptcloud;
-	JobWzskActExposure* actexposure;
-	JobWzskActLaser* actlaser;
-	JobWzskActServo* actservo;
-	JobWzskIprAngle* iprangle;
-	JobWzskIprCorner* iprcorner;
-	JobWzskIprTrace* iprtrace;
-	JobWzskSrcArty* srcarty;
-	JobWzskSrcClnxevb* srcclnxevb;
-	JobWzskSrcIcicle* srcicicle;
-	JobWzskSrcMcvevp* srcmcvevp;
-	JobWzskSrcSysinfo* srcsysinfo;
-	JobWzskSrcUvbdvk* srcuvbdvk;
-	JobWzskSrcUzediocc* srcuzediocc;
 	JobWzskSrcV4l2* srcv4l2;
+	JobWzskSrcUvbdvk* srcuvbdvk;
+	JobWzskSrcSysinfo* srcsysinfo;
+	JobWzskSrcMcvevp* srcmcvevp;
+	JobWzskSrcIcicle* srcicicle;
+	JobWzskSrcClnxevb* srcclnxevb;
+	JobWzskSrcArty* srcarty;
+	JobWzskIprTrace* iprtrace;
+	JobWzskIprCorner* iprcorner;
+	JobWzskIprAngle* iprangle;
+	JobWzskActServo* actservo;
+	JobWzskActLaser* actlaser;
+	JobWzskActExposure* actexposure;
+	JobWzskAcqPtcloud* acqptcloud;
+	JobWzskAcqPreview* acqpreview;
+	JobWzskAcqFpgapvw* acqfpgapvw;
+	JobWzskAcqFpgaflg* acqfpgaflg;
+	std::map<Sbecore::ubigint, JobWzsk*> m2msesss;
+	std::map<Sbecore::ubigint, JobWzsk*> sesss;
 
 	// IP vars.spec --- INSERT
 
@@ -135,7 +133,6 @@ public:
 	void clearQtb(DbsWzsk* dbswzsk);
 
 	bool authenticate(DbsWzsk* dbswzsk, const std::string& username, const std::string& password, Sbecore::ubigint& refWzskMUser);
-///
 	void termSess(DbsWzsk* dbswzsk, const Sbecore::ubigint jref);
 
 public:
@@ -157,9 +154,9 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskLogout(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const bool boolvalInv);
-	bool handleCallWzskSuspsess(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskRefPreSet(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv);
+	bool handleCallWzskSuspsess(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskLogout(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const bool boolvalInv);
 
 };
 

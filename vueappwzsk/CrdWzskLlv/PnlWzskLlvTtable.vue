@@ -112,7 +112,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
-<!-- IP mergeDpchEngData - BEGIN -->
+				<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContIacWzskLlvTtable) this.contiac = dpcheng.ContIacWzskLlvTtable;
 				if (dpcheng.ContInfWzskLlvTtable) this.continf = dpcheng.ContInfWzskLlvTtable;
@@ -127,7 +127,7 @@
 					else this.contapp.ButClaimOn = 1;
 				}
 				/*
-<!-- IP mergeDpchEngData - END -->
+				<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 

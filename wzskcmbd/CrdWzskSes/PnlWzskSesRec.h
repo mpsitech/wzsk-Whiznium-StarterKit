@@ -14,8 +14,8 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskSesDetail.h"
 #include "PnlWzskSes1NShot.h"
+#include "PnlWzskSesDetail.h"
 
 #define VecVWzskSesRecDo PnlWzskSesRec::VecVDo
 
@@ -174,8 +174,8 @@ public:
 	ContInf continf;
 	StatShr statshr;
 
-	PnlWzskSesDetail* pnldetail;
 	PnlWzskSes1NShot* pnl1nshot;
+	PnlWzskSesDetail* pnldetail;
 
 	WzskMSession recSes;
 
@@ -209,8 +209,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskSes_usrEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
 	bool handleCallWzskSesUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskSes_usrEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::ubigint refInv, bool& boolvalRet);
 
 };
 

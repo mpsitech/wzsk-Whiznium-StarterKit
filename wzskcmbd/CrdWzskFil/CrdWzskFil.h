@@ -14,10 +14,10 @@
 
 // IP include.cust --- INSERT
 
-#include "DlgWzskFilDownload.h"
+#include "PnlWzskFilList.h"
 #include "PnlWzskFilRec.h"
 #include "PnlWzskFilHeadbar.h"
-#include "PnlWzskFilList.h"
+#include "DlgWzskFilDownload.h"
 
 #define VecVWzskFilDo CrdWzskFil::VecVDo
 #define VecVWzskFilSge CrdWzskFil::VecVSge
@@ -207,10 +207,10 @@ public:
 	Sbecore::Feed feedFMcbAlert;
 	Sbecore::Feed feedFSge;
 
-	DlgWzskFilDownload* dlgdownload;
+	PnlWzskFilList* pnllist;
 	PnlWzskFilRec* pnlrec;
 	PnlWzskFilHeadbar* pnlheadbar;
-	PnlWzskFilList* pnllist;
+	DlgWzskFilDownload* dlgdownload;
 
 	// IP vars.cust --- INSERT
 
@@ -241,9 +241,9 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskDlgClose(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
-	bool handleCallWzskStatChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskRefPreSet(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv);
+	bool handleCallWzskStatChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskDlgClose(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge, DpchEngWzsk** dpcheng = NULL);

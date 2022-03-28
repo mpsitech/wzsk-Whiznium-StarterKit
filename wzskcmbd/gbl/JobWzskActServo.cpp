@@ -117,12 +117,11 @@ JobWzskActServo::JobWzskActServo(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	srcarty = NULL;
-	srcclnxevb = NULL;
-	srcicicle = NULL;
-	srcmcvevp = NULL;
 	srcuvbdvk = NULL;
-	srcuzediocc = NULL;
+	srcmcvevp = NULL;
+	srcicicle = NULL;
+	srcclnxevb = NULL;
+	srcarty = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -223,7 +222,7 @@ void JobWzskActServo::stopGpio() {
 
 bool JobWzskActServo::moveto(
 			DbsWzsk* dbswzsk
-			, const float target // in deg
+			, const float target // in \u00a1
 		) {
 	bool retval = true;
 

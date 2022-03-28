@@ -2,7 +2,7 @@
 # make file for CrdWzskLiv card job handler, release wzskcmbd_uzed (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 6 Mar 2022
+# date created: 25 Mar 2022
 # IP header --- ABOVE
 
 include ../Makefile.inc
@@ -16,7 +16,7 @@ STATLIBFLAGS = rcs
 INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
 INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
-OBJS = CrdWzskLiv.o PnlWzskLiv2DView.o PnlWzskLiv3DView.o PnlWzskLivSysmon.o PnlWzskLivHeadbar.o
+OBJS = CrdWzskLiv.o PnlWzskLivHeadbar.o PnlWzskLivSysmon.o PnlWzskLiv3DView.o PnlWzskLiv2DView.o
 
 LIB = libcrdwzskliv
 

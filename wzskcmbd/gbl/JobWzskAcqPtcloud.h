@@ -14,8 +14,8 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskActServo.h"
 #include "JobWzskIprTrace.h"
+#include "JobWzskActServo.h"
 
 #define VecVJobWzskAcqPtcloudMethod JobWzskAcqPtcloud::VecVMethod
 #define VecVJobWzskAcqPtcloudSge JobWzskAcqPtcloud::VecVSge
@@ -170,8 +170,8 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
-	JobWzskActServo* actservo;
 	JobWzskIprTrace* iprtrace;
+	JobWzskActServo* actservo;
 
 	// IP vars.spec --- INSERT
 

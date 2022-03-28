@@ -3,7 +3,7 @@
 # checkout script for Wzsk Vue.js UI, release vueappwzsk_yocto
 # copyright: (C) 2022 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 6 Mar 2022
+# date created: 25 Mar 2022
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then

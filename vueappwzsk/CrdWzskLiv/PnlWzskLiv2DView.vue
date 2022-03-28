@@ -29,7 +29,7 @@
 				v-model="contapp.fiFPupPvm"
 				:items="feedFPupPvm"
 				:label='tag.CptPvm'
-				v-on:change="handlePupChange('numFPupPvm', fiFPupPvm)"
+				v-on:change="handlePupChange('numFPupPvm', contapp.fiFPupPvm)"
 			>
 				<template v-slot:selection="{item}">{{item.tit1}}</template>
 				<template v-slot:item="{item}">{{item.tit1}}</template>
@@ -402,7 +402,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
-<!-- IP mergeDpchEngData - BEGIN -->
+				<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContIacWzskLiv2DView) this.contiac = dpcheng.ContIacWzskLiv2DView;
 				if (dpcheng.ContInfWzskLiv2DView) this.continf = dpcheng.ContInfWzskLiv2DView;
@@ -438,7 +438,7 @@
 					else this.contapp.ButTcwOn = 1;
 				}
 				/*
-<!-- IP mergeDpchEngData - END -->
+				<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 
@@ -460,16 +460,6 @@
 			/*
 			*/
 
-			handleDpchEngAlign: function(dpcheng) {
-				/*
-				<!-- IP handleDpchEngAlign - BEGIN -->
-				*/
-				console.log("PnlWzskLiv2DView.handleDpchEngAlign()" + dpcheng);
-				/*
-				<!-- IP handleDpchEngAlign - END -->
-				*/
-			},
-
 			handleDpchEngLive: function(dpcheng) {
 				/*
 				<!-- IP handleDpchEngLive - BEGIN -->
@@ -479,15 +469,25 @@
 				<!-- IP handleDpchEngLive - END -->
 				*/
 			},
+
+			handleDpchEngAlign: function(dpcheng) {
+				/*
+				<!-- IP handleDpchEngAlign - BEGIN -->
+				*/
+				console.log("PnlWzskLiv2DView.handleDpchEngAlign()" + dpcheng);
+				/*
+				<!-- IP handleDpchEngAlign - END -->
+				*/
+			},
 			/*
 			*/
 
 			handleUpdate: function(obj) {
 				/*
 				*/
-				if (obj.srefIxWzskVDpch == "DpchEngWzskLiv2DViewData") this.mergeDpchEngData(obj.dpcheng);
+				if (obj.srefIxWzskVDpch == "DpchEngWzskLiv2DViewLive") this.handleDpchEngLive(obj.dpcheng);
 				else if (obj.srefIxWzskVDpch == "DpchEngWzskLiv2DViewAlign") this.handleDpchEngAlign(obj.dpcheng);
-				else if (obj.srefIxWzskVDpch == "DpchEngWzskLiv2DViewLive") this.handleDpchEngLive(obj.dpcheng);
+				else if (obj.srefIxWzskVDpch == "DpchEngWzskLiv2DViewData") this.mergeDpchEngData(obj.dpcheng);
 				/*
 				*/
 			}

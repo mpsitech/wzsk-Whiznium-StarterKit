@@ -9,8 +9,8 @@ function setInitdone(pnlshort) {
 };
 
 function checkInitdone() {
-	var initdoneHeadbar = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneHeadbar") == "true");
 	var initdoneTermArty = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermArty") == "true");
+	var initdoneHeadbar = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneHeadbar") == "true");
 	var initdoneTermClnxevb = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermClnxevb") == "true");
 	var initdoneTermIcicle = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermIcicle") == "true");
 	var initdoneTermMcvevp = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermMcvevp") == "true");
@@ -19,10 +19,10 @@ function checkInitdone() {
 	var initdoneTtable = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTtable") == "true");
 	var initdoneLaser = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneLaser") == "true");
 
-	if (!initdoneHeadbar) {
-		doc.getElementById("Headbar").src = "./PnlWzskLlvHeadbar.html?scrJref=" + scrJrefHeadbar;
-	} else if (!initdoneTermArty) {
+	if (!initdoneTermArty) {
 		doc.getElementById("TermArty").src = "./PnlWzskLlvTermArty.html?scrJref=" + scrJrefTermArty;
+	} else if (!initdoneHeadbar) {
+		doc.getElementById("Headbar").src = "./PnlWzskLlvHeadbar.html?scrJref=" + scrJrefHeadbar;
 	} else if (!initdoneTermClnxevb) {
 		doc.getElementById("TermClnxevb").src = "./PnlWzskLlvTermClnxevb.html?scrJref=" + scrJrefTermClnxevb;
 	} else if (!initdoneTermIcicle) {
@@ -458,8 +458,8 @@ function handleDpchAppInitReply() {
 				mergeDpchEngData(dom);
 
 				// establish sub-panel scrJref's as global variables, and start sub-panel load sequence
-				scrJrefHeadbar = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefHeadbar");
 				scrJrefTermArty = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermArty");
+				scrJrefHeadbar = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefHeadbar");
 				scrJrefTermClnxevb = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermClnxevb");
 				scrJrefTermIcicle = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermIcicle");
 				scrJrefTermMcvevp = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermMcvevp");

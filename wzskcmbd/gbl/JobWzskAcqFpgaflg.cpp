@@ -108,11 +108,10 @@ JobWzskAcqFpgaflg::JobWzskAcqFpgaflg(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	srcarty = NULL;
-	srcclnxevb = NULL;
-	srcicicle = NULL;
 	srcmcvevp = NULL;
-	srcuzediocc = NULL;
+	srcicicle = NULL;
+	srcclnxevb = NULL;
+	srcarty = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -498,7 +497,7 @@ string JobWzskAcqFpgaflg::getSquawk(
 			else if (ixVSge == VecVSge::RNG) retval = "running";
 		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			if (ixVSge == VecVSge::IDLE) retval = "inaktiv";
-			else if (ixVSge == VecVSge::RNG) retval = "running";
+			else if (ixVSge == VecVSge::RNG) retval = "l\\u008auft";
 		};
 
 	} else {

@@ -14,15 +14,15 @@
 
 // IP include.cust --- INSERT
 
+#include "PnlWzskLlvLaser.h"
+#include "PnlWzskLlvTtable.h"
+#include "PnlWzskLlvCamera.h"
+#include "PnlWzskLlvTermUvbdvk.h"
+#include "PnlWzskLlvTermMcvevp.h"
+#include "PnlWzskLlvTermIcicle.h"
+#include "PnlWzskLlvTermClnxevb.h"
 #include "PnlWzskLlvHeadbar.h"
 #include "PnlWzskLlvTermArty.h"
-#include "PnlWzskLlvTermClnxevb.h"
-#include "PnlWzskLlvTermIcicle.h"
-#include "PnlWzskLlvTermMcvevp.h"
-#include "PnlWzskLlvTermUvbdvk.h"
-#include "PnlWzskLlvCamera.h"
-#include "PnlWzskLlvTtable.h"
-#include "PnlWzskLlvLaser.h"
 
 #define VecVWzskLlvDo CrdWzskLlv::VecVDo
 #define VecVWzskLlvSge CrdWzskLlv::VecVSge
@@ -98,8 +98,8 @@ public:
 	class StatApp {
 
 	public:
-		static void writeJSON(Json::Value& sup, std::string difftag = "", const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneTermArty = false, const bool initdoneTermClnxevb = false, const bool initdoneTermIcicle = false, const bool initdoneTermMcvevp = false, const bool initdoneTermUvbdvk = false, const bool initdoneCamera = false, const bool initdoneTtable = false, const bool initdoneLaser = false);
-		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneTermArty = false, const bool initdoneTermClnxevb = false, const bool initdoneTermIcicle = false, const bool initdoneTermMcvevp = false, const bool initdoneTermUvbdvk = false, const bool initdoneCamera = false, const bool initdoneTtable = false, const bool initdoneLaser = false);
+		static void writeJSON(Json::Value& sup, std::string difftag = "", const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneTermArty = false, const bool initdoneHeadbar = false, const bool initdoneTermClnxevb = false, const bool initdoneTermIcicle = false, const bool initdoneTermMcvevp = false, const bool initdoneTermUvbdvk = false, const bool initdoneCamera = false, const bool initdoneTtable = false, const bool initdoneLaser = false);
+		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneTermArty = false, const bool initdoneHeadbar = false, const bool initdoneTermClnxevb = false, const bool initdoneTermIcicle = false, const bool initdoneTermMcvevp = false, const bool initdoneTermUvbdvk = false, const bool initdoneCamera = false, const bool initdoneTtable = false, const bool initdoneLaser = false);
 	};
 
 	/**
@@ -108,9 +108,9 @@ public:
 	class StatShr : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint JREFHEADBAR = 1;
-		static const Sbecore::uint JREFTERMARTY = 2;
-		static const Sbecore::uint PNLTERMARTYAVAIL = 3;
+		static const Sbecore::uint JREFTERMARTY = 1;
+		static const Sbecore::uint PNLTERMARTYAVAIL = 2;
+		static const Sbecore::uint JREFHEADBAR = 3;
 		static const Sbecore::uint JREFTERMCLNXEVB = 4;
 		static const Sbecore::uint PNLTERMCLNXEVBAVAIL = 5;
 		static const Sbecore::uint JREFTERMICICLE = 6;
@@ -124,12 +124,12 @@ public:
 		static const Sbecore::uint JREFLASER = 14;
 
 	public:
-		StatShr(const Sbecore::ubigint jrefHeadbar = 0, const Sbecore::ubigint jrefTermArty = 0, const bool pnltermartyAvail = false, const Sbecore::ubigint jrefTermClnxevb = 0, const bool pnltermclnxevbAvail = false, const Sbecore::ubigint jrefTermIcicle = 0, const bool pnltermicicleAvail = false, const Sbecore::ubigint jrefTermMcvevp = 0, const bool pnltermmcvevpAvail = false, const Sbecore::ubigint jrefTermUvbdvk = 0, const bool pnltermuvbdvkAvail = false, const Sbecore::ubigint jrefCamera = 0, const Sbecore::ubigint jrefTtable = 0, const Sbecore::ubigint jrefLaser = 0);
+		StatShr(const Sbecore::ubigint jrefTermArty = 0, const bool pnltermartyAvail = false, const Sbecore::ubigint jrefHeadbar = 0, const Sbecore::ubigint jrefTermClnxevb = 0, const bool pnltermclnxevbAvail = false, const Sbecore::ubigint jrefTermIcicle = 0, const bool pnltermicicleAvail = false, const Sbecore::ubigint jrefTermMcvevp = 0, const bool pnltermmcvevpAvail = false, const Sbecore::ubigint jrefTermUvbdvk = 0, const bool pnltermuvbdvkAvail = false, const Sbecore::ubigint jrefCamera = 0, const Sbecore::ubigint jrefTtable = 0, const Sbecore::ubigint jrefLaser = 0);
 
 	public:
-		Sbecore::ubigint jrefHeadbar;
 		Sbecore::ubigint jrefTermArty;
 		bool pnltermartyAvail;
+		Sbecore::ubigint jrefHeadbar;
 		Sbecore::ubigint jrefTermClnxevb;
 		bool pnltermclnxevbAvail;
 		Sbecore::ubigint jrefTermIcicle;
@@ -228,15 +228,15 @@ public:
 	Sbecore::Feed feedFMcbAlert;
 	Sbecore::Feed feedFSge;
 
+	PnlWzskLlvLaser* pnllaser;
+	PnlWzskLlvTtable* pnlttable;
+	PnlWzskLlvCamera* pnlcamera;
+	PnlWzskLlvTermUvbdvk* pnltermuvbdvk;
+	PnlWzskLlvTermMcvevp* pnltermmcvevp;
+	PnlWzskLlvTermIcicle* pnltermicicle;
+	PnlWzskLlvTermClnxevb* pnltermclnxevb;
 	PnlWzskLlvHeadbar* pnlheadbar;
 	PnlWzskLlvTermArty* pnltermarty;
-	PnlWzskLlvTermClnxevb* pnltermclnxevb;
-	PnlWzskLlvTermIcicle* pnltermicicle;
-	PnlWzskLlvTermMcvevp* pnltermmcvevp;
-	PnlWzskLlvTermUvbdvk* pnltermuvbdvk;
-	PnlWzskLlvCamera* pnlcamera;
-	PnlWzskLlvTtable* pnlttable;
-	PnlWzskLlvLaser* pnllaser;
 
 	// IP vars.cust --- INSERT
 

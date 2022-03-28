@@ -2,7 +2,7 @@ IexWznmBui v0.9.27
 ImeIMModule.sref	Title	Comment
 MdlWzskAdmin
 	ImeIJMModule.srefX1RefWznmMLocale	Title	Comment
-	enus	administration
+	enus	administration module
 	dech	Verwaltung
 	ImeIJMModule.end
 	ImeIMCard.srefRefIxVTbl	srefRefUref	sref	Title	Avail	Active

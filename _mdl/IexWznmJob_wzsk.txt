@@ -82,7 +82,7 @@ JobWzskSrcClnxevb	true	true	handles the CrossLink-NX FPGA system
 		0	var	path	string		/dev/ttyUSB0
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
-JobWzskSrcIcicle	true	true	handles the PolarFire SoC FPGA sub-system
+JobWzskSrcIcicle	true	true	handles the PolarFire SOC FPGA sub-system
 	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
 	cmbeng;eng	cmbeng;eng	StgJobWzskSrcIcicle
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
@@ -114,13 +114,6 @@ JobWzskSrcUvbdvk	true	true	handles the UniversalBee MCU system
 	cmbeng;eng	cmbeng;eng	StgJobWzskSrcUvbdvk
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
 		0	var	path	string		/dev/ttyUSB0
-		ImeIAMBlockItem.end
-	ImeIMBlock.end
-JobWzskSrcUzediocc	true	true	handles the Zynq UltraScale+ FPGA sub-system
-	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskSrcUzediocc
-		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	path	string		/dev/uzediocc
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
 JobWzskSrcV4l2	true	true	delivers v4l2 camera frames

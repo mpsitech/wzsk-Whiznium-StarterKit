@@ -3,7 +3,7 @@
 # make script for Wzsk combined daemon, release wzskcmbd_uzed (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 6 Mar 2022
+# date created: 25 Mar 2022
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then
@@ -17,7 +17,7 @@ if [ $? -ne 0 ]; then
 fi
 
 if [ "$1" = "all" ]; then
-	subs=("IexWzsk" "VecWzsk" "CrdWzskNav" "CrdWzskUsg" "CrdWzskUsr" "CrdWzskPrs" "CrdWzskScf" "CrdWzskLlv" "CrdWzskLiv" "CrdWzskOgr" "CrdWzskObj" "CrdWzskSes" "CrdWzskSht" "CrdWzskFil")
+	subs=("IexWzsk" "VecWzsk" "CrdWzskUsg" "CrdWzskUsr" "CrdWzskPrs" "CrdWzskScf" "CrdWzskNav" "CrdWzskLlv" "CrdWzskLiv" "CrdWzskOgr" "CrdWzskObj" "CrdWzskSes" "CrdWzskSht" "CrdWzskFil")
 else
 	subs=("$@")
 fi

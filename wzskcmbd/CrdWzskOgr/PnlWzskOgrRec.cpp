@@ -38,9 +38,9 @@ PnlWzskOgrRec::PnlWzskOgrRec(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	pnldetail = NULL;
-	pnl1nobject = NULL;
 	pnlsup1nobjgroup = NULL;
+	pnl1nobject = NULL;
+	pnldetail = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -249,11 +249,20 @@ void PnlWzskOgrRec::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKOGR_SUPEQ) {
-		call->abort = handleCallWzskOgr_supEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOGRUPD_REFEQ) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKOGRUPD_REFEQ) {
 		call->abort = handleCallWzskOgrUpd_refEq(dbswzsk, call->jref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOGR_SUPEQ) {
+		call->abort = handleCallWzskOgr_supEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
 	};
+};
+
+bool PnlWzskOgrRec::handleCallWzskOgrUpd_refEq(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+	// IP handleCallWzskOgrUpd_refEq --- INSERT
+	return retval;
 };
 
 bool PnlWzskOgrRec::handleCallWzskOgr_supEq(
@@ -264,14 +273,5 @@ bool PnlWzskOgrRec::handleCallWzskOgr_supEq(
 		) {
 	bool retval = false;
 	boolvalRet = (recOgr.supRefWzskMObjgroup == refInv); // IP handleCallWzskOgr_supEq --- LINE
-	return retval;
-};
-
-bool PnlWzskOgrRec::handleCallWzskOgrUpd_refEq(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-	// IP handleCallWzskOgrUpd_refEq --- INSERT
 	return retval;
 };

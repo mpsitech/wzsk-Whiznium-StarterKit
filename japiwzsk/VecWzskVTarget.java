@@ -15,8 +15,7 @@ public class VecWzskVTarget {
 	public static final int CLNXEVB = 3;
 	public static final int ICICLE = 4;
 	public static final int MCVEVP = 5;
-	public static final int UZEDIOCC = 6;
-	public static final int WS = 7;
+	public static final int WS = 6;
 
 	public static int getIx(
 				String sref
@@ -28,7 +27,6 @@ public class VecWzskVTarget {
 		if (s.equals("clnxevb")) return CLNXEVB;
 		if (s.equals("icicle")) return ICICLE;
 		if (s.equals("mcvevp")) return MCVEVP;
-		if (s.equals("uzediocc")) return UZEDIOCC;
 		if (s.equals("ws")) return WS;
 
 		return 0;
@@ -42,7 +40,6 @@ public class VecWzskVTarget {
 		if (ix == CLNXEVB) return("clnxevb");
 		if (ix == ICICLE) return("icicle");
 		if (ix == MCVEVP) return("mcvevp");
-		if (ix == UZEDIOCC) return("uzediocc");
 		if (ix == WS) return("ws");
 
 		return "";

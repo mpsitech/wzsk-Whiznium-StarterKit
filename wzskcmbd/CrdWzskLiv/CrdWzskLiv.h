@@ -14,10 +14,10 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskLiv2DView.h"
-#include "PnlWzskLiv3DView.h"
-#include "PnlWzskLivSysmon.h"
 #include "PnlWzskLivHeadbar.h"
+#include "PnlWzskLivSysmon.h"
+#include "PnlWzskLiv3DView.h"
+#include "PnlWzskLiv2DView.h"
 
 #define VecVWzskLivDo CrdWzskLiv::VecVDo
 #define VecVWzskLivSge CrdWzskLiv::VecVSge
@@ -197,10 +197,10 @@ public:
 	Sbecore::Feed feedFMcbAlert;
 	Sbecore::Feed feedFSge;
 
-	PnlWzskLiv2DView* pnl2dview;
-	PnlWzskLiv3DView* pnl3dview;
-	PnlWzskLivSysmon* pnlsysmon;
 	PnlWzskLivHeadbar* pnlheadbar;
+	PnlWzskLivSysmon* pnlsysmon;
+	PnlWzskLiv3DView* pnl3dview;
+	PnlWzskLiv2DView* pnl2dview;
 
 	// IP vars.cust --- INSERT
 

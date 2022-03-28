@@ -58,7 +58,6 @@ uint VecWzskVJob::getIx(
 	if (s == "jobwzsksrcmcvevp") return JOBWZSKSRCMCVEVP;
 	if (s == "jobwzsksrcsysinfo") return JOBWZSKSRCSYSINFO;
 	if (s == "jobwzsksrcuvbdvk") return JOBWZSKSRCUVBDVK;
-	if (s == "jobwzsksrcuzediocc") return JOBWZSKSRCUZEDIOCC;
 	if (s == "jobwzsksrcv4l2") return JOBWZSKSRCV4L2;
 	if (s == "m2msesswzsk") return M2MSESSWZSK;
 	if (s == "pnlwzskfildetail") return PNLWZSKFILDETAIL;
@@ -193,7 +192,6 @@ string VecWzskVJob::getSref(
 	if (ix == JOBWZSKSRCMCVEVP) return("JobWzskSrcMcvevp");
 	if (ix == JOBWZSKSRCSYSINFO) return("JobWzskSrcSysinfo");
 	if (ix == JOBWZSKSRCUVBDVK) return("JobWzskSrcUvbdvk");
-	if (ix == JOBWZSKSRCUZEDIOCC) return("JobWzskSrcUzediocc");
 	if (ix == JOBWZSKSRCV4L2) return("JobWzskSrcV4l2");
 	if (ix == M2MSESSWZSK) return("M2msessWzsk");
 	if (ix == PNLWZSKFILDETAIL) return("PnlWzskFilDetail");

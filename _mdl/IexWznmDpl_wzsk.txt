@@ -37,8 +37,12 @@ api	apiwzsk	Whiznium Starter Kit API library
 	any;mac	apiwzsk_mac
 	any;ubuntu	apiwzsk_ubuntu
 	ImeIMRelease.end
-japi	japiwzsk	Whiznium Starter Kit Java API library
+japi	japiwzsk	Whiznium Starter Kit Java API package
 	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
 	any	japiwzsk_any
+	ImeIMRelease.end
+sapi	sapiwzsk	Whiznium Starter Kit Swift API package
+	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
+	any	sapiwzsk_any
 	ImeIMRelease.end
 ImeIMComponent.end

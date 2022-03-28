@@ -14,8 +14,8 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskAcqFpgaflg.h"
 #include "JobWzskSrcV4l2.h"
+#include "JobWzskAcqFpgaflg.h"
 
 #define VecVJobWzskIprCornerMethod JobWzskIprCorner::VecVMethod
 #define VecVJobWzskIprCornerSge JobWzskIprCorner::VecVSge
@@ -175,8 +175,8 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
-	JobWzskAcqFpgaflg* acqfpgaflg;
 	JobWzskSrcV4l2* srcv4l2;
+	JobWzskAcqFpgaflg* acqfpgaflg;
 
 	// IP vars.spec --- INSERT
 
@@ -222,8 +222,8 @@ public:
 private:
 	bool handleTest(DbsWzsk* dbswzsk);
 
-	void handleTimerWithSrefSrcstopInSgeDone(DbsWzsk* dbswzsk);
 	void handleTimerInSgePrcidle(DbsWzsk* dbswzsk, const std::string& sref);
+	void handleTimerWithSrefSrcstopInSgeDone(DbsWzsk* dbswzsk);
 
 public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);

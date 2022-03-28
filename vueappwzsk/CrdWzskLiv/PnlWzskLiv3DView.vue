@@ -192,7 +192,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
-<!-- IP mergeDpchEngData - BEGIN -->
+				<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContIacWzskLiv3DView) this.contiac = dpcheng.ContIacWzskLiv3DView;
 				if (dpcheng.ContInfWzskLiv3DView) this.continf = dpcheng.ContInfWzskLiv3DView;
@@ -208,7 +208,7 @@
 					else this.contapp.ButClaimOn = 1;
 				}
 				/*
-<!-- IP mergeDpchEngData - END -->
+				<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 
@@ -245,8 +245,8 @@
 			handleUpdate: function(obj) {
 				/*
 				*/
-				if (obj.srefIxWzskVDpch == "DpchEngWzskLiv3DViewData") this.mergeDpchEngData(obj.dpcheng);
-				else if (obj.srefIxWzskVDpch == "DpchEngWzskLiv3DViewLive") this.handleDpchEngLive(obj.dpcheng);
+				if (obj.srefIxWzskVDpch == "DpchEngWzskLiv3DViewLive") this.handleDpchEngLive(obj.dpcheng);
+				else if (obj.srefIxWzskVDpch == "DpchEngWzskLiv3DViewData") this.mergeDpchEngData(obj.dpcheng);
 				/*
 				*/
 			}

@@ -60,7 +60,7 @@
 				v-model="contapp.fiFPupCmd"
 				:items="feedFPupCmd"
 				:label='tag.CptCmd'
-				v-on:change="handlePupChange('numFPupCmd', fiFPupCmd)"
+				v-on:change="handlePupChange('numFPupCmd', contapp.fiFPupCmd)"
 			>
 				<template v-slot:selection="{item}">{{item.tit1}}</template>
 				<template v-slot:item="{item}">{{item.tit1}}</template>
@@ -151,7 +151,7 @@
 
 			mergeDpchEngData: function(dpcheng) {
 				/*
-<!-- IP mergeDpchEngData - BEGIN -->
+				<!-- IP mergeDpchEngData - BEGIN -->
 				*/
 				if (dpcheng.ContIacWzskLlvTermMcvevp) this.contiac = dpcheng.ContIacWzskLlvTermMcvevp;
 				if (dpcheng.ContInfWzskLlvTermMcvevp) this.continf = dpcheng.ContInfWzskLlvTermMcvevp;
@@ -175,7 +175,7 @@
 					else this.contapp.ButClaimOn = 1;
 				}
 				/*
-<!-- IP mergeDpchEngData - END -->
+				<!-- IP mergeDpchEngData - END -->
 				*/
 			},
 

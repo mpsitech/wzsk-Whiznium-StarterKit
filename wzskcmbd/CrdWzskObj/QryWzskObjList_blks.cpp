@@ -20,8 +20,8 @@ uint QryWzskObjList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "tit") return TIT;
 	if (s == "ogr") return OGR;
+	if (s == "tit") return TIT;
 
 	return(0);
 };
@@ -29,8 +29,8 @@ uint QryWzskObjList::VecVOrd::getIx(
 string QryWzskObjList::VecVOrd::getSref(
 			const uint ix
 		) {
-	if (ix == TIT) return("tit");
 	if (ix == OGR) return("ogr");
+	if (ix == TIT) return("tit");
 
 	return("");
 };

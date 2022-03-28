@@ -103,24 +103,24 @@ void DlgWzskScfCameramat::refresh(
 	if (muteRefresh && !unmute) return;
 	muteRefresh = true;
 
-	ContInf oldContinf(continf);
-	ContIac oldContiac(contiac);
 	StatShr oldStatshr(statshr);
+	ContIac oldContiac(contiac);
+	ContInf oldContinf(continf);
 
 	// IP refresh --- BEGIN
-	// continf
-	continf.numFSge = ixVSge;
+	// statshr
+	statshr.ButDneActive = evalButDneActive(dbswzsk);
 
 	// contiac
 	contiac.numFDse = ixVDit;
 
-	// statshr
-	statshr.ButDneActive = evalButDneActive(dbswzsk);
+	// continf
+	continf.numFSge = ixVSge;
 
 	// IP refresh --- END
-	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
-	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
+	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
+	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 
 	refreshPlh(dbswzsk, moditems);
 

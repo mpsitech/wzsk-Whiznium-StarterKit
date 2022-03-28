@@ -203,12 +203,11 @@ JobWzskActLaser::JobWzskActLaser(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	srcarty = NULL;
-	srcclnxevb = NULL;
-	srcicicle = NULL;
-	srcmcvevp = NULL;
 	srcuvbdvk = NULL;
-	srcuzediocc = NULL;
+	srcmcvevp = NULL;
+	srcicicle = NULL;
+	srcclnxevb = NULL;
+	srcarty = NULL;
 
 	// IP constructor.cust1 --- INSERT
 

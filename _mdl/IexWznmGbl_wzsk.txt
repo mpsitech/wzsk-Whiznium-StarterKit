@@ -52,7 +52,6 @@ lin	VecWzskVTarget		apdfed;filfed
 	clnxevb			Lattice CrossLink-NX evaluation board
 	icicle			Microchip PolarFire Soc Icicle kit
 	mcvevp			Aries Cyclone V evaluation platform
-	uzediocc			Avnet UltrazedEG I/O carrier card
 	ws			Generic Intel x64 workstation
 	ImeIMVectoritem.end
 ImeIMVector.end
@@ -139,7 +138,6 @@ cmbeng;eng	cmbeng;eng	StgWzskGlobal
 		wzskcmbd_riscv		icicle
 		wzskcmbd_tdx		apalis
 		wzskcmbd_ubuntu		ws
-		wzskcmbd_uzed		uzediocc
 		// IP stgglobal.mpsi --- IBEGIN
 		wzskcmbd_mcv_mpsi		mcvevp
 		wzskcmbd_plnx_mpsi		arty

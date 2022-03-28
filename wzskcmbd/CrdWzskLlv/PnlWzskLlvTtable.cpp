@@ -48,8 +48,8 @@ PnlWzskLlvTtable::PnlWzskLlvTtable(
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
-	xchg->addClstn(VecWzskVCall::CALLWZSKCLAIMCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::TRY);
+	xchg->addClstn(VecWzskVCall::CALLWZSKCLAIMCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -235,25 +235,11 @@ void PnlWzskLlvTtable::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
-		call->abort = handleCallWzskClaimChg(dbswzsk, call->jref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) {
 		call->abort = handleCallWzskShrdatChg(dbswzsk, call->jref, call->argInv.ix, call->argInv.sref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
+		call->abort = handleCallWzskClaimChg(dbswzsk, call->jref);
 	};
-};
-
-bool PnlWzskLlvTtable::handleCallWzskClaimChg(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-	// IP handleCallWzskClaimChg --- IBEGIN
-	set<uint> moditems;
-
-	refresh(dbswzsk, moditems);
-	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
-	// IP handleCallWzskClaimChg --- IEND
-	return retval;
 };
 
 bool PnlWzskLlvTtable::handleCallWzskShrdatChg(
@@ -269,5 +255,19 @@ bool PnlWzskLlvTtable::handleCallWzskShrdatChg(
 	refresh(dbswzsk, moditems);
 	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
 	// IP handleCallWzskShrdatChg --- IEND
+	return retval;
+};
+
+bool PnlWzskLlvTtable::handleCallWzskClaimChg(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+	// IP handleCallWzskClaimChg --- IBEGIN
+	set<uint> moditems;
+
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+	// IP handleCallWzskClaimChg --- IEND
 	return retval;
 };

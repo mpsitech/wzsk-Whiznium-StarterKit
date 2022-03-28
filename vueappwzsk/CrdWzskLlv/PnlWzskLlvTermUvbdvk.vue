@@ -66,7 +66,7 @@
 
 			<v-select
 				class="my-2"
-				:v-model="contapp.fiFPupCmd"
+				v-model="contapp.fiFPupCmd"
 				:items="feedFPupCmd"
 				:label='tag.CptCmd'
 				v-on:change="handlePupChange('numFPupCmd', contapp.fiFPupCmd)"

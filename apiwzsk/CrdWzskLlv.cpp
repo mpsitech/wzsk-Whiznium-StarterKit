@@ -135,8 +135,8 @@ CrdWzskLlv::StatApp::StatApp(
 			, const usmallint latency
 			, const string& shortMenu
 			, const uint widthMenu
-			, const bool initdoneHeadbar
 			, const bool initdoneTermArty
+			, const bool initdoneHeadbar
 			, const bool initdoneTermClnxevb
 			, const bool initdoneTermIcicle
 			, const bool initdoneTermMcvevp
@@ -151,8 +151,8 @@ CrdWzskLlv::StatApp::StatApp(
 	this->latency = latency;
 	this->shortMenu = shortMenu;
 	this->widthMenu = widthMenu;
-	this->initdoneHeadbar = initdoneHeadbar;
 	this->initdoneTermArty = initdoneTermArty;
+	this->initdoneHeadbar = initdoneHeadbar;
 	this->initdoneTermClnxevb = initdoneTermClnxevb;
 	this->initdoneTermIcicle = initdoneTermIcicle;
 	this->initdoneTermMcvevp = initdoneTermMcvevp;
@@ -161,7 +161,7 @@ CrdWzskLlv::StatApp::StatApp(
 	this->initdoneTtable = initdoneTtable;
 	this->initdoneLaser = initdoneLaser;
 
-	mask = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONETERMARTY, INITDONETERMCLNXEVB, INITDONETERMICICLE, INITDONETERMMCVEVP, INITDONETERMUVBDVK, INITDONECAMERA, INITDONETTABLE, INITDONELASER};
+	mask = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONETERMARTY, INITDONEHEADBAR, INITDONETERMCLNXEVB, INITDONETERMICICLE, INITDONETERMMCVEVP, INITDONETERMUVBDVK, INITDONECAMERA, INITDONETTABLE, INITDONELASER};
 };
 
 bool CrdWzskLlv::StatApp::readXML(
@@ -190,8 +190,8 @@ bool CrdWzskLlv::StatApp::readXML(
 		if (extractUsmallintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "latency", latency)) add(LATENCY);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "shortMenu", shortMenu)) add(SHORTMENU);
 		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "widthMenu", widthMenu)) add(WIDTHMENU);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneHeadbar", initdoneHeadbar)) add(INITDONEHEADBAR);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermArty", initdoneTermArty)) add(INITDONETERMARTY);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneHeadbar", initdoneHeadbar)) add(INITDONEHEADBAR);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermClnxevb", initdoneTermClnxevb)) add(INITDONETERMCLNXEVB);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermIcicle", initdoneTermIcicle)) add(INITDONETERMICICLE);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermMcvevp", initdoneTermMcvevp)) add(INITDONETERMMCVEVP);
@@ -213,8 +213,8 @@ set<uint> CrdWzskLlv::StatApp::comm(
 	if (latency == comp->latency) insert(items, LATENCY);
 	if (shortMenu == comp->shortMenu) insert(items, SHORTMENU);
 	if (widthMenu == comp->widthMenu) insert(items, WIDTHMENU);
-	if (initdoneHeadbar == comp->initdoneHeadbar) insert(items, INITDONEHEADBAR);
 	if (initdoneTermArty == comp->initdoneTermArty) insert(items, INITDONETERMARTY);
+	if (initdoneHeadbar == comp->initdoneHeadbar) insert(items, INITDONEHEADBAR);
 	if (initdoneTermClnxevb == comp->initdoneTermClnxevb) insert(items, INITDONETERMCLNXEVB);
 	if (initdoneTermIcicle == comp->initdoneTermIcicle) insert(items, INITDONETERMICICLE);
 	if (initdoneTermMcvevp == comp->initdoneTermMcvevp) insert(items, INITDONETERMMCVEVP);
@@ -234,7 +234,7 @@ set<uint> CrdWzskLlv::StatApp::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONETERMARTY, INITDONETERMCLNXEVB, INITDONETERMICICLE, INITDONETERMMCVEVP, INITDONETERMUVBDVK, INITDONECAMERA, INITDONETTABLE, INITDONELASER};
+	diffitems = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONETERMARTY, INITDONEHEADBAR, INITDONETERMCLNXEVB, INITDONETERMICICLE, INITDONETERMMCVEVP, INITDONETERMUVBDVK, INITDONECAMERA, INITDONETTABLE, INITDONELASER};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -245,9 +245,9 @@ set<uint> CrdWzskLlv::StatApp::diff(
  ******************************************************************************/
 
 CrdWzskLlv::StatShr::StatShr(
-			const string& scrJrefHeadbar
-			, const string& scrJrefTermArty
+			const string& scrJrefTermArty
 			, const bool pnltermartyAvail
+			, const string& scrJrefHeadbar
 			, const string& scrJrefTermClnxevb
 			, const bool pnltermclnxevbAvail
 			, const string& scrJrefTermIcicle
@@ -262,9 +262,9 @@ CrdWzskLlv::StatShr::StatShr(
 		) :
 			Block()
 		{
-	this->scrJrefHeadbar = scrJrefHeadbar;
 	this->scrJrefTermArty = scrJrefTermArty;
 	this->pnltermartyAvail = pnltermartyAvail;
+	this->scrJrefHeadbar = scrJrefHeadbar;
 	this->scrJrefTermClnxevb = scrJrefTermClnxevb;
 	this->pnltermclnxevbAvail = pnltermclnxevbAvail;
 	this->scrJrefTermIcicle = scrJrefTermIcicle;
@@ -277,7 +277,7 @@ CrdWzskLlv::StatShr::StatShr(
 	this->scrJrefTtable = scrJrefTtable;
 	this->scrJrefLaser = scrJrefLaser;
 
-	mask = {SCRJREFHEADBAR, SCRJREFTERMARTY, PNLTERMARTYAVAIL, SCRJREFTERMCLNXEVB, PNLTERMCLNXEVBAVAIL, SCRJREFTERMICICLE, PNLTERMICICLEAVAIL, SCRJREFTERMMCVEVP, PNLTERMMCVEVPAVAIL, SCRJREFTERMUVBDVK, PNLTERMUVBDVKAVAIL, SCRJREFCAMERA, SCRJREFTTABLE, SCRJREFLASER};
+	mask = {SCRJREFTERMARTY, PNLTERMARTYAVAIL, SCRJREFHEADBAR, SCRJREFTERMCLNXEVB, PNLTERMCLNXEVBAVAIL, SCRJREFTERMICICLE, PNLTERMICICLEAVAIL, SCRJREFTERMMCVEVP, PNLTERMMCVEVPAVAIL, SCRJREFTERMUVBDVK, PNLTERMUVBDVKAVAIL, SCRJREFCAMERA, SCRJREFTTABLE, SCRJREFLASER};
 };
 
 bool CrdWzskLlv::StatShr::readXML(
@@ -297,9 +297,9 @@ bool CrdWzskLlv::StatShr::readXML(
 	string itemtag = "StatitemShrWzskLlv";
 
 	if (basefound) {
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefHeadbar", scrJrefHeadbar)) add(SCRJREFHEADBAR);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermArty", scrJrefTermArty)) add(SCRJREFTERMARTY);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnltermartyAvail", pnltermartyAvail)) add(PNLTERMARTYAVAIL);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefHeadbar", scrJrefHeadbar)) add(SCRJREFHEADBAR);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermClnxevb", scrJrefTermClnxevb)) add(SCRJREFTERMCLNXEVB);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnltermclnxevbAvail", pnltermclnxevbAvail)) add(PNLTERMCLNXEVBAVAIL);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermIcicle", scrJrefTermIcicle)) add(SCRJREFTERMICICLE);
@@ -321,9 +321,9 @@ set<uint> CrdWzskLlv::StatShr::comm(
 		) {
 	set<uint> items;
 
-	if (scrJrefHeadbar == comp->scrJrefHeadbar) insert(items, SCRJREFHEADBAR);
 	if (scrJrefTermArty == comp->scrJrefTermArty) insert(items, SCRJREFTERMARTY);
 	if (pnltermartyAvail == comp->pnltermartyAvail) insert(items, PNLTERMARTYAVAIL);
+	if (scrJrefHeadbar == comp->scrJrefHeadbar) insert(items, SCRJREFHEADBAR);
 	if (scrJrefTermClnxevb == comp->scrJrefTermClnxevb) insert(items, SCRJREFTERMCLNXEVB);
 	if (pnltermclnxevbAvail == comp->pnltermclnxevbAvail) insert(items, PNLTERMCLNXEVBAVAIL);
 	if (scrJrefTermIcicle == comp->scrJrefTermIcicle) insert(items, SCRJREFTERMICICLE);
@@ -347,7 +347,7 @@ set<uint> CrdWzskLlv::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {SCRJREFHEADBAR, SCRJREFTERMARTY, PNLTERMARTYAVAIL, SCRJREFTERMCLNXEVB, PNLTERMCLNXEVBAVAIL, SCRJREFTERMICICLE, PNLTERMICICLEAVAIL, SCRJREFTERMMCVEVP, PNLTERMMCVEVPAVAIL, SCRJREFTERMUVBDVK, PNLTERMUVBDVKAVAIL, SCRJREFCAMERA, SCRJREFTTABLE, SCRJREFLASER};
+	diffitems = {SCRJREFTERMARTY, PNLTERMARTYAVAIL, SCRJREFHEADBAR, SCRJREFTERMCLNXEVB, PNLTERMCLNXEVBAVAIL, SCRJREFTERMICICLE, PNLTERMICICLEAVAIL, SCRJREFTERMMCVEVP, PNLTERMMCVEVPAVAIL, SCRJREFTERMUVBDVK, PNLTERMUVBDVKAVAIL, SCRJREFCAMERA, SCRJREFTTABLE, SCRJREFLASER};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

@@ -1,11 +1,6 @@
 <template>
 	<v-container v-if="initdone">
 		<h1 class="text-5 my-3" style="text-align:center">Sessions</h1>
-		<PnlWzskSesList
-			v-on:request="handleRequest"
-			ref="PnlWzskSesList"
-			:scrJref=statshr.scrJrefList
-		/>
 	</v-container>
 </template>
 
@@ -14,7 +9,6 @@
 
 	/*
 	*/
-	import PnlWzskSesList from './PnlWzskSesList';
 	/*
 	*/
 
@@ -28,7 +22,6 @@
 		components: {
 			/*
 			*/
-			PnlWzskSesList
 			/*
 			*/
 		},
@@ -68,7 +61,6 @@
 				} else if (this.initdone) {
 					/*
 					*/
-					if (obj.dpcheng.scrJref == this.statshr.scrJrefList) this.$refs.PnlWzskSesList.handleReply(obj);
 					/*
 					*/
 				}
@@ -87,7 +79,6 @@
 				} else if (this.initdone) {
 					/*
 					*/
-					if (obj.dpcheng.scrJref == this.statshr.scrJrefList) this.$refs.PnlWzskSesList.handleUpdate(obj);
 					/*
 					*/
 				}

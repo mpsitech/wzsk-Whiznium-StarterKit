@@ -153,8 +153,8 @@ public class CrdWzskLlv {
 		public static final int LATENCY = 2;
 		public static final int SHORTMENU = 3;
 		public static final int WIDTHMENU = 4;
-		public static final int INITDONEHEADBAR = 5;
-		public static final int INITDONETERMARTY = 6;
+		public static final int INITDONETERMARTY = 5;
+		public static final int INITDONEHEADBAR = 6;
 		public static final int INITDONETERMCLNXEVB = 7;
 		public static final int INITDONETERMICICLE = 8;
 		public static final int INITDONETERMMCVEVP = 9;
@@ -168,8 +168,8 @@ public class CrdWzskLlv {
 					, int latency
 					, String shortMenu
 					, int widthMenu
-					, boolean initdoneHeadbar
 					, boolean initdoneTermArty
+					, boolean initdoneHeadbar
 					, boolean initdoneTermClnxevb
 					, boolean initdoneTermIcicle
 					, boolean initdoneTermMcvevp
@@ -182,8 +182,8 @@ public class CrdWzskLlv {
 			this.latency = latency;
 			this.shortMenu = shortMenu;
 			this.widthMenu = widthMenu;
-			this.initdoneHeadbar = initdoneHeadbar;
 			this.initdoneTermArty = initdoneTermArty;
+			this.initdoneHeadbar = initdoneHeadbar;
 			this.initdoneTermClnxevb = initdoneTermClnxevb;
 			this.initdoneTermIcicle = initdoneTermIcicle;
 			this.initdoneTermMcvevp = initdoneTermMcvevp;
@@ -192,15 +192,15 @@ public class CrdWzskLlv {
 			this.initdoneTtable = initdoneTtable;
 			this.initdoneLaser = initdoneLaser;
 
-			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONETERMARTY, INITDONETERMCLNXEVB, INITDONETERMICICLE, INITDONETERMMCVEVP, INITDONETERMUVBDVK, INITDONECAMERA, INITDONETTABLE, INITDONELASER));
+			mask = new HashSet<Integer>(Arrays.asList(IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONETERMARTY, INITDONEHEADBAR, INITDONETERMCLNXEVB, INITDONETERMICICLE, INITDONETERMMCVEVP, INITDONETERMUVBDVK, INITDONECAMERA, INITDONETTABLE, INITDONELASER));
 		};
 
 		public int ixWzskVReqitmode;
 		public int latency;
 		public String shortMenu;
 		public int widthMenu;
-		public boolean initdoneHeadbar;
 		public boolean initdoneTermArty;
+		public boolean initdoneHeadbar;
 		public boolean initdoneTermClnxevb;
 		public boolean initdoneTermIcicle;
 		public boolean initdoneTermMcvevp;
@@ -228,8 +228,8 @@ public class CrdWzskLlv {
 				latency = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Si", "sref", "latency", mask, LATENCY);
 				shortMenu = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "shortMenu", mask, SHORTMENU);
 				widthMenu = Xmlio.extractIntegerAttrUclc(doc, basexpath, itemtag, "Si", "sref", "widthMenu", mask, WIDTHMENU);
-				initdoneHeadbar = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneHeadbar", mask, INITDONEHEADBAR);
 				initdoneTermArty = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneTermArty", mask, INITDONETERMARTY);
+				initdoneHeadbar = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneHeadbar", mask, INITDONEHEADBAR);
 				initdoneTermClnxevb = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneTermClnxevb", mask, INITDONETERMCLNXEVB);
 				initdoneTermIcicle = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneTermIcicle", mask, INITDONETERMICICLE);
 				initdoneTermMcvevp = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "initdoneTermMcvevp", mask, INITDONETERMMCVEVP);
@@ -253,8 +253,8 @@ public class CrdWzskLlv {
 			if (latency == comp.latency) items.add(LATENCY);
 			if (shortMenu.equals(comp.shortMenu)) items.add(SHORTMENU);
 			if (widthMenu == comp.widthMenu) items.add(WIDTHMENU);
-			if (initdoneHeadbar == comp.initdoneHeadbar) items.add(INITDONEHEADBAR);
 			if (initdoneTermArty == comp.initdoneTermArty) items.add(INITDONETERMARTY);
+			if (initdoneHeadbar == comp.initdoneHeadbar) items.add(INITDONEHEADBAR);
 			if (initdoneTermClnxevb == comp.initdoneTermClnxevb) items.add(INITDONETERMCLNXEVB);
 			if (initdoneTermIcicle == comp.initdoneTermIcicle) items.add(INITDONETERMICICLE);
 			if (initdoneTermMcvevp == comp.initdoneTermMcvevp) items.add(INITDONETERMMCVEVP);
@@ -274,7 +274,7 @@ public class CrdWzskLlv {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONETERMARTY, INITDONETERMCLNXEVB, INITDONETERMICICLE, INITDONETERMMCVEVP, INITDONETERMUVBDVK, INITDONECAMERA, INITDONETTABLE, INITDONELASER));
+			diffitems = new HashSet<Integer>(Arrays.asList(IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONETERMARTY, INITDONEHEADBAR, INITDONETERMCLNXEVB, INITDONETERMICICLE, INITDONETERMMCVEVP, INITDONETERMUVBDVK, INITDONECAMERA, INITDONETTABLE, INITDONELASER));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -287,9 +287,9 @@ public class CrdWzskLlv {
 	  */
 	public class StatShr extends Block {
 
-		public static final int SCRJREFHEADBAR = 1;
-		public static final int SCRJREFTERMARTY = 2;
-		public static final int PNLTERMARTYAVAIL = 3;
+		public static final int SCRJREFTERMARTY = 1;
+		public static final int PNLTERMARTYAVAIL = 2;
+		public static final int SCRJREFHEADBAR = 3;
 		public static final int SCRJREFTERMCLNXEVB = 4;
 		public static final int PNLTERMCLNXEVBAVAIL = 5;
 		public static final int SCRJREFTERMICICLE = 6;
@@ -303,9 +303,9 @@ public class CrdWzskLlv {
 		public static final int SCRJREFLASER = 14;
 
 		public StatShr(
-					String scrJrefHeadbar
-					, String scrJrefTermArty
+					String scrJrefTermArty
 					, boolean pnltermartyAvail
+					, String scrJrefHeadbar
 					, String scrJrefTermClnxevb
 					, boolean pnltermclnxevbAvail
 					, String scrJrefTermIcicle
@@ -318,9 +318,9 @@ public class CrdWzskLlv {
 					, String scrJrefTtable
 					, String scrJrefLaser
 				) {
-			this.scrJrefHeadbar = scrJrefHeadbar;
 			this.scrJrefTermArty = scrJrefTermArty;
 			this.pnltermartyAvail = pnltermartyAvail;
+			this.scrJrefHeadbar = scrJrefHeadbar;
 			this.scrJrefTermClnxevb = scrJrefTermClnxevb;
 			this.pnltermclnxevbAvail = pnltermclnxevbAvail;
 			this.scrJrefTermIcicle = scrJrefTermIcicle;
@@ -333,12 +333,12 @@ public class CrdWzskLlv {
 			this.scrJrefTtable = scrJrefTtable;
 			this.scrJrefLaser = scrJrefLaser;
 
-			mask = new HashSet<Integer>(Arrays.asList(SCRJREFHEADBAR, SCRJREFTERMARTY, PNLTERMARTYAVAIL, SCRJREFTERMCLNXEVB, PNLTERMCLNXEVBAVAIL, SCRJREFTERMICICLE, PNLTERMICICLEAVAIL, SCRJREFTERMMCVEVP, PNLTERMMCVEVPAVAIL, SCRJREFTERMUVBDVK, PNLTERMUVBDVKAVAIL, SCRJREFCAMERA, SCRJREFTTABLE, SCRJREFLASER));
+			mask = new HashSet<Integer>(Arrays.asList(SCRJREFTERMARTY, PNLTERMARTYAVAIL, SCRJREFHEADBAR, SCRJREFTERMCLNXEVB, PNLTERMCLNXEVBAVAIL, SCRJREFTERMICICLE, PNLTERMICICLEAVAIL, SCRJREFTERMMCVEVP, PNLTERMMCVEVPAVAIL, SCRJREFTERMUVBDVK, PNLTERMUVBDVKAVAIL, SCRJREFCAMERA, SCRJREFTTABLE, SCRJREFLASER));
 		};
 
-		public String scrJrefHeadbar;
 		public String scrJrefTermArty;
 		public boolean pnltermartyAvail;
+		public String scrJrefHeadbar;
 		public String scrJrefTermClnxevb;
 		public boolean pnltermclnxevbAvail;
 		public String scrJrefTermIcicle;
@@ -364,9 +364,9 @@ public class CrdWzskLlv {
 			String itemtag = "StatitemShrWzskLlv";
 
 			if (Xmlio.checkXPath(doc, basexpath)) {
-				scrJrefHeadbar = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefHeadbar", mask, SCRJREFHEADBAR);
 				scrJrefTermArty = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefTermArty", mask, SCRJREFTERMARTY);
 				pnltermartyAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "pnltermartyAvail", mask, PNLTERMARTYAVAIL);
+				scrJrefHeadbar = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefHeadbar", mask, SCRJREFHEADBAR);
 				scrJrefTermClnxevb = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefTermClnxevb", mask, SCRJREFTERMCLNXEVB);
 				pnltermclnxevbAvail = Xmlio.extractBooleanAttrUclc(doc, basexpath, itemtag, "Si", "sref", "pnltermclnxevbAvail", mask, PNLTERMCLNXEVBAVAIL);
 				scrJrefTermIcicle = Xmlio.extractStringAttrUclc(doc, basexpath, itemtag, "Si", "sref", "scrJrefTermIcicle", mask, SCRJREFTERMICICLE);
@@ -390,9 +390,9 @@ public class CrdWzskLlv {
 				) {
 			HashSet<Integer> items = new HashSet<Integer>();
 
-			if (scrJrefHeadbar.equals(comp.scrJrefHeadbar)) items.add(SCRJREFHEADBAR);
 			if (scrJrefTermArty.equals(comp.scrJrefTermArty)) items.add(SCRJREFTERMARTY);
 			if (pnltermartyAvail == comp.pnltermartyAvail) items.add(PNLTERMARTYAVAIL);
+			if (scrJrefHeadbar.equals(comp.scrJrefHeadbar)) items.add(SCRJREFHEADBAR);
 			if (scrJrefTermClnxevb.equals(comp.scrJrefTermClnxevb)) items.add(SCRJREFTERMCLNXEVB);
 			if (pnltermclnxevbAvail == comp.pnltermclnxevbAvail) items.add(PNLTERMCLNXEVBAVAIL);
 			if (scrJrefTermIcicle.equals(comp.scrJrefTermIcicle)) items.add(SCRJREFTERMICICLE);
@@ -416,7 +416,7 @@ public class CrdWzskLlv {
 
 			commitems = comm(comp);
 
-			diffitems = new HashSet<Integer>(Arrays.asList(SCRJREFHEADBAR, SCRJREFTERMARTY, PNLTERMARTYAVAIL, SCRJREFTERMCLNXEVB, PNLTERMCLNXEVBAVAIL, SCRJREFTERMICICLE, PNLTERMICICLEAVAIL, SCRJREFTERMMCVEVP, PNLTERMMCVEVPAVAIL, SCRJREFTERMUVBDVK, PNLTERMUVBDVKAVAIL, SCRJREFCAMERA, SCRJREFTTABLE, SCRJREFLASER));
+			diffitems = new HashSet<Integer>(Arrays.asList(SCRJREFTERMARTY, PNLTERMARTYAVAIL, SCRJREFHEADBAR, SCRJREFTERMCLNXEVB, PNLTERMCLNXEVBAVAIL, SCRJREFTERMICICLE, PNLTERMICICLEAVAIL, SCRJREFTERMMCVEVP, PNLTERMMCVEVPAVAIL, SCRJREFTERMUVBDVK, PNLTERMUVBDVKAVAIL, SCRJREFCAMERA, SCRJREFTTABLE, SCRJREFLASER));
 			for (Integer ci: commitems) diffitems.remove(ci);
 
 			return(diffitems);
@@ -567,7 +567,7 @@ public class CrdWzskLlv {
 			continf = new ContInf(0, "");
 			feedFSge = new Feed("FeedFSge");
 			statapp = new StatApp(0, 0, "", 0, false, false, false, false, false, false, false, false, false);
-			statshr = new StatShr("", "", false, "", false, "", false, "", false, "", false, "", "", "");
+			statshr = new StatShr("", false, "", "", false, "", false, "", false, "", false, "", "", "");
 			tag = new Tag("", "");
 		};
 
@@ -612,7 +612,7 @@ public class CrdWzskLlv {
 				continf = new ContInf(0, "");
 				feedFSge = new Feed("FeedFSge");
 				statapp = new StatApp(0, 0, "", 0, false, false, false, false, false, false, false, false, false);
-				statshr = new StatShr("", "", false, "", false, "", false, "", false, "", false, "", "", "");
+				statshr = new StatShr("", false, "", "", false, "", false, "", false, "", false, "", "", "");
 				tag = new Tag("", "");
 			};
 		};

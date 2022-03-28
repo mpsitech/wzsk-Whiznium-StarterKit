@@ -87,8 +87,8 @@ JobWzskAcqPtcloud::JobWzskAcqPtcloud(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	actservo = NULL;
 	iprtrace = NULL;
+	actservo = NULL;
 
 	// IP constructor.cust1 --- IBEGIN
 	ixRiSrc = 0; ixRiSrc--;
@@ -97,8 +97,8 @@ JobWzskAcqPtcloud::JobWzskAcqPtcloud(
 
 	// IP constructor.spec1 --- INSERT
 
-	if (srvNotCli) actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
 	if (srvNotCli) iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
+	if (srvNotCli) actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 

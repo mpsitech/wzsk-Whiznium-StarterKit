@@ -38,8 +38,8 @@ PnlWzskPrsRec::PnlWzskPrsRec(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	pnldetail = NULL;
 	pnladetail = NULL;
+	pnldetail = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
