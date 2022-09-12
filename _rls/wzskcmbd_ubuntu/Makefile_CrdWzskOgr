@@ -2,7 +2,7 @@
 # make file for CrdWzskOgr card job handler, release wzskcmbd_ubuntu
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 25 Mar 2022
+# date created: 12 Sep 2022
 # IP header --- ABOVE
 
 include ../Makefile.inc
@@ -14,7 +14,7 @@ STATLIB = ar
 STATLIBFLAGS = rcs
 
 INCPATH = -I$(BUILDROOT)/dbswzsk -I$(BUILDROOT)/wzskcmbd/VecWzsk -I$(BUILDROOT)/wzskcmbd/IexWzsk -I$(BUILDROOT)/wzskcmbd
-INCPATH += -I${WHIZSDKROOT}/build -I${WHIZSDKROOT}/build/ezdevwskd -I/usr/include -I/usr/include/jsoncpp -I/usr/include/libxml2
+INCPATH += -I${WHIZSDKROOT}/build -I${WHIZSDKROOT}/build/ezdevpmnd -I${WHIZSDKROOT}/build/ezdevwskd -I/usr/include -I/usr/include/jsoncpp -I/usr/include/libxml2
 
 OBJS = CrdWzskOgr.o PnlWzskOgrList.o QryWzskOgrList.o PnlWzskOgrHeadbar.o PnlWzskOgrRec.o PnlWzskOgrSup1NObjgroup.o QryWzskOgrSup1NObjgroup.o PnlWzskOgr1NObject.o QryWzskOgr1NObject.o PnlWzskOgrDetail.o DlgWzskOgrNew.o
 
@@ -29,7 +29,6 @@ all:	$(LIB)
 
 $(LIB):	$(OBJS)
 	$(STATLIB) $(STATLIBFLAGS) $(LIB).a $(OBJS)
-	rm -f *.o
 
 install:
 	mv $(LIB).a $(LIBROOT)/wzskcmbd/

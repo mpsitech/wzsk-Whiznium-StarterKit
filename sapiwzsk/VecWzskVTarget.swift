@@ -19,7 +19,8 @@ public struct VecWzskVTarget {
 	public static let CLNXEVB: Int = 3
 	public static let ICICLE: Int = 4
 	public static let MCVEVP: Int = 5
-	public static let WS: Int = 6
+	public static let MERCBB: Int = 6
+	public static let WS: Int = 7
 
 	public static func getIx(
 				_ sref: String
@@ -31,6 +32,7 @@ public struct VecWzskVTarget {
 		if s == "clnxevb" {return CLNXEVB}
 		if s == "icicle" {return ICICLE}
 		if s == "mcvevp" {return MCVEVP}
+		if s == "mercbb" {return MERCBB}
 		if s == "ws" {return WS}
 
 		return 0
@@ -44,6 +46,7 @@ public struct VecWzskVTarget {
 		if ix == CLNXEVB {return "clnxevb"}
 		if ix == ICICLE {return "icicle"}
 		if ix == MCVEVP {return "mcvevp"}
+		if ix == MERCBB {return "mercbb"}
 		if ix == WS {return "ws"}
 
 		return ""

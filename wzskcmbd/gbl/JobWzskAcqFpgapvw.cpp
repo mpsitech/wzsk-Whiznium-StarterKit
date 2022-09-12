@@ -111,10 +111,11 @@ JobWzskAcqFpgapvw::JobWzskAcqFpgapvw(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
+	srcmercbb = NULL;
 	srcmcvevp = NULL;
 	srcicicle = NULL;
-	srcarty = NULL;
 	srcclnxevb = NULL;
+	srcarty = NULL;
 
 	// IP constructor.cust1 --- INSERT
 

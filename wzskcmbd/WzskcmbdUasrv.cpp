@@ -194,6 +194,21 @@ void WzskcmbdUasrv::Session::Initialise(
 				xchg->addClstnUasrv(statshr.jrefActservo, "angleTarget", true);
 			};
 		};
+		if (statshr.jrefActlaser != 0) {
+			insert(jobaccs, VecWzskVJob::JOBWZSKACTLASER);
+
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActlaser, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft")] = ixAcc;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActlaser, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight", ixAcc);
+			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight")] = ixAcc;
+
+			ixVFeatgroups[statshr.jrefActlaser] = VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR;
+			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActlaser, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, "leftRight", ixAcc);
+			if (ixAcc != 0) {
+				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, "leftRight")] = ixAcc;
+				xchg->addClstnUasrv(statshr.jrefActlaser, "leftRight", true);
+			};
+		};
 		if (statshr.jrefActexposure != 0) {
 			insert(jobaccs, VecWzskVJob::JOBWZSKACTEXPOSURE);
 
@@ -212,21 +227,6 @@ void WzskcmbdUasrv::Session::Initialise(
 			if (ixAcc != 0) {
 				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "focus")] = ixAcc;
 				xchg->addClstnUasrv(statshr.jrefActexposure, "focus", true);
-			};
-		};
-		if (statshr.jrefActlaser != 0) {
-			insert(jobaccs, VecWzskVJob::JOBWZSKACTLASER);
-
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActlaser, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft", ixAcc);
-			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft")] = ixAcc;
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActlaser, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight", ixAcc);
-			if (ixAcc != 0) accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight")] = ixAcc;
-
-			ixVFeatgroups[statshr.jrefActlaser] = VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR;
-			xchg->triggerIxSrefToIxCall(NULL, VecWzskVCall::CALLWZSKACCESS, statshr.jrefActlaser, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, "leftRight", ixAcc);
-			if (ixAcc != 0) {
-				accs[featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, "leftRight")] = ixAcc;
-				xchg->addClstnUasrv(statshr.jrefActlaser, "leftRight", true);
 			};
 		};
 		if (statshr.jrefAcqptcloud != 0) {
@@ -469,8 +469,8 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 		if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRTRACEMETHOD) jref = session->statshr.jrefIprtrace;
 		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKIPRCORNERMETHOD) jref = session->statshr.jrefIprcorner;
 		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTSERVOMETHOD) jref = session->statshr.jrefActservo;
-		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD) jref = session->statshr.jrefActexposure;
 		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD) jref = session->statshr.jrefActlaser;
+		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD) jref = session->statshr.jrefActexposure;
 		else if (ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD) jref = session->statshr.jrefAcqptcloud;
 	} else {
 		return OpcUa_BadSessionIdInvalid;
@@ -765,6 +765,54 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 				result->StatusCode() = OpcUa_Good;
 			};
 
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD) && (srefIxVMethod == "setLeft")) {
+			if (requestParameters->InputArguments().Size() == 1) {
+				IntrusivePtr_t<const Float_t> left_inv_UA;
+				float left_inv;
+
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), left_inv_UA);
+				left_inv = left_inv_UA->Value();
+
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft",
+							{&left_inv},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
+
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD) && (srefIxVMethod == "setRight")) {
+			if (requestParameters->InputArguments().Size() == 1) {
+				IntrusivePtr_t<const Float_t> right_inv_UA;
+				float right_inv;
+
+				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), right_inv_UA);
+				right_inv = right_inv_UA->Value();
+
+				bool success_ret;
+				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
+
+				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight",
+							{&right_inv},
+							{&success_ret});
+
+				result.reset(new SafeRefCount_t<CallMethodResult_t>());
+				result->OutputArguments().Initialise(1);
+
+				success_ret_UA->Value(success_ret);
+				success_ret_UA->CopyTo((result->OutputArguments())[0]);
+
+				result->StatusCode() = OpcUa_Good;
+			};
+
 		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD) && (srefIxVMethod == "setExposure")) {
 			if (requestParameters->InputArguments().Size() == 2) {
 				IntrusivePtr_t<const Boolean_t> autoNotManual_inv_UA;
@@ -806,54 +854,6 @@ Status_t WzskcmbdUasrv::MethodHandler::CallMethodBegin(
 
 				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setFocus",
 							{&focus_inv},
-							{&success_ret});
-
-				result.reset(new SafeRefCount_t<CallMethodResult_t>());
-				result->OutputArguments().Initialise(1);
-
-				success_ret_UA->Value(success_ret);
-				success_ret_UA->CopyTo((result->OutputArguments())[0]);
-
-				result->StatusCode() = OpcUa_Good;
-			};
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD) && (srefIxVMethod == "setLeft")) {
-			if (requestParameters->InputArguments().Size() == 1) {
-				IntrusivePtr_t<const Float_t> left_inv_UA;
-				float left_inv;
-
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), left_inv_UA);
-				left_inv = left_inv_UA->Value();
-
-				bool success_ret;
-				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
-
-				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft",
-							{&left_inv},
-							{&success_ret});
-
-				result.reset(new SafeRefCount_t<CallMethodResult_t>());
-				result->OutputArguments().Initialise(1);
-
-				success_ret_UA->Value(success_ret);
-				success_ret_UA->CopyTo((result->OutputArguments())[0]);
-
-				result->StatusCode() = OpcUa_Good;
-			};
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD) && (srefIxVMethod == "setRight")) {
-			if (requestParameters->InputArguments().Size() == 1) {
-				IntrusivePtr_t<const Float_t> right_inv_UA;
-				float right_inv;
-
-				AddressSpaceUtilities_t::CastInputArgument(*(requestParameters->InputArguments()[0]), right_inv_UA);
-				right_inv = right_inv_UA->Value();
-
-				bool success_ret;
-				IntrusivePtr_t<Boolean_t> success_ret_UA = new SafeRefCount_t<Boolean_t>();
-
-				runMethod(jref, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight",
-							{&right_inv},
 							{&success_ret});
 
 				result.reset(new SafeRefCount_t<CallMethodResult_t>());
@@ -1397,6 +1397,26 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 
 			JobWzskActServo::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
+		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR) && (srefIxVVar == "leftRight")) {
+			JobWzskActLaser::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
+			if (setSourceTimestamp) {
+				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
+				*(dataValue->SourceTimestamp()) = timestamps[it->second];
+			};
+
+			if (subvar == "left") {
+				IntrusivePtr_t<Float_t> left = new SafeRefCount_t<Float_t>();
+				*left = JobWzskActLaser::shrdat.left;
+				dataValue->Value() = left;
+			} else if (subvar == "right") {
+				IntrusivePtr_t<Float_t> right = new SafeRefCount_t<Float_t>();
+				*right = JobWzskActLaser::shrdat.right;
+				dataValue->Value() = right;
+			};
+
+			JobWzskActLaser::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
+
 		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR) && (srefIxVVar == "autoNotManualTexp")) {
 			JobWzskActExposure::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
@@ -1432,26 +1452,6 @@ Status_t WzskcmbdUasrv::ValueAttributeReaderWriter::ReadValueAttribute(
 			};
 
 			JobWzskActExposure::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR) && (srefIxVVar == "leftRight")) {
-			JobWzskActLaser::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
-
-			if (setSourceTimestamp) {
-				dataValue->SourceTimestamp() = new SafeRefCount_t<DateTime_t>();
-				*(dataValue->SourceTimestamp()) = timestamps[it->second];
-			};
-
-			if (subvar == "left") {
-				IntrusivePtr_t<Float_t> left = new SafeRefCount_t<Float_t>();
-				*left = JobWzskActLaser::shrdat.left;
-				dataValue->Value() = left;
-			} else if (subvar == "right") {
-				IntrusivePtr_t<Float_t> right = new SafeRefCount_t<Float_t>();
-				*right = JobWzskActLaser::shrdat.right;
-				dataValue->Value() = right;
-			};
-
-			JobWzskActLaser::shrdat.runlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
 
 		 } else if ((ixWzskVFeatgroup == VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR) && (srefIxVVar == "deltaTheta")) {
 			JobWzskAcqPtcloud::shrdat.rlockAccess("WzskcmbdUasrv::ValueAttributeReaderWriter", "ReadValueAttribute");
@@ -2015,6 +2015,30 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 
 	fAS_addVar(VecWzskVJob::JOBWZSKACTSERVO, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOVAR , "angleTarget", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
+	fAS_addJobFolder(VecWzskVJob::JOBWZSKACTLASER, addressSpace, objectsFolder, jobFolder);
+
+	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
+	srefsParsInv[0] = "left"; opcUaIdsParsInv[0] = OpcUaId_Float;
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
+	fAS_addMethod(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD , "setLeft", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
+	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
+	srefsParsInv[0] = "right"; opcUaIdsParsInv[0] = OpcUaId_Float;
+
+	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
+	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
+
+	fAS_addMethod(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD , "setRight", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
+
+	srefsSubvars.resize(2); icsVVartypeSubvars.resize(2);
+	srefsSubvars[0] = "left"; icsVVartypeSubvars[0] = VecVVartype::FLOAT;
+	srefsSubvars[1] = "right"; icsVVartypeSubvars[1] = VecVVartype::FLOAT;
+
+	fAS_addVar(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR , "leftRight", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
+
 	fAS_addJobFolder(VecWzskVJob::JOBWZSKACTEXPOSURE, addressSpace, objectsFolder, jobFolder);
 
 	srefsParsInv.resize(2); opcUaIdsParsInv.resize(2);
@@ -2044,30 +2068,6 @@ Status_t WzskcmbdUasrv::fillAddressSpace(
 	srefsSubvars[0] = "focus"; icsVVartypeSubvars[0] = VecVVartype::FLOAT;
 
 	fAS_addVar(VecWzskVJob::JOBWZSKACTEXPOSURE, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR , "focus", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
-
-	fAS_addJobFolder(VecWzskVJob::JOBWZSKACTLASER, addressSpace, objectsFolder, jobFolder);
-
-	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
-	srefsParsInv[0] = "left"; opcUaIdsParsInv[0] = OpcUaId_Float;
-
-	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
-	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
-
-	fAS_addMethod(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD , "setLeft", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
-
-	srefsParsInv.resize(1); opcUaIdsParsInv.resize(1);
-	srefsParsInv[0] = "right"; opcUaIdsParsInv[0] = OpcUaId_Float;
-
-	srefsParsRet.resize(1); opcUaIdsParsRet.resize(1);
-	srefsParsRet[0] = "success"; opcUaIdsParsRet[0] = OpcUaId_Boolean;
-
-	fAS_addMethod(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD , "setRight", methodHandler, addressSpace, jobFolder, srefsParsInv, opcUaIdsParsInv, srefsParsRet, opcUaIdsParsRet);
-
-	srefsSubvars.resize(2); icsVVartypeSubvars.resize(2);
-	srefsSubvars[0] = "left"; icsVVartypeSubvars[0] = VecVVartype::FLOAT;
-	srefsSubvars[1] = "right"; icsVVartypeSubvars[1] = VecVVartype::FLOAT;
-
-	fAS_addVar(VecWzskVJob::JOBWZSKACTLASER, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR , "leftRight", readerWriter, addressSpace, jobFolder, srefsSubvars, icsVVartypeSubvars);
 
 	fAS_addJobFolder(VecWzskVJob::JOBWZSKACQPTCLOUD, addressSpace, objectsFolder, jobFolder);
 

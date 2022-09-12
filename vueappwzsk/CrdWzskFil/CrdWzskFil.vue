@@ -1,6 +1,16 @@
 <template>
 	<v-container v-if="initdone">
-		<h1 class="text-5 my-3" style="text-align:center">Files</h1>
+		<PnlWzskFilList
+			v-on:request="handleRequest"
+			ref="PnlWzskFilList"
+			:scrJref=statshr.scrJrefList
+		/>
+		<PnlWzskFilRec
+			v-on:crdopen="handleCrdopen"
+			v-on:request="handleRequest"
+			ref="PnlWzskFilRec"
+			:scrJref=statshr.scrJrefRec
+		/>
 	</v-container>
 </template>
 
@@ -9,7 +19,13 @@
 
 	/*
 	*/
+	import PnlWzskFilList from './PnlWzskFilList';
+	import PnlWzskFilRec from './PnlWzskFilRec';
 	/*
+	*/
+
+	/*
+	<!-- IP import.cust - INSERT -->
 	*/
 
 	export default {
@@ -22,6 +38,8 @@
 		components: {
 			/*
 			*/
+			PnlWzskFilList,
+			PnlWzskFilRec
 			/*
 			*/
 		},
@@ -39,15 +57,52 @@
 		},
 
 		methods: {
+			/*
+			<!-- IP cust - INSERT -->
+			*/
+
 			mergeDpchEngData: function(dpcheng) {
+				/*
+				*/
+				var dlgopen = false;
+				var dlgclose = false;
+
+				var srefDlg = "";
+				var scrJrefDlg = "";
+
 				if (dpcheng.ContInfWzskFil) this.continf = dpcheng.ContInfWzskFil;
 				if (dpcheng.FeedFSge) this.feedFSge = dpcheng.FeedFSge;
 				if (dpcheng.StatAppWzskFil) this.statapp = dpcheng.StatAppWzskFil;
-				if (dpcheng.StatShrWzskFil) this.statshr = dpcheng.StatShrWzskFil;
+				if (dpcheng.StatShrWzskFil) {
+					if (this.statshr != null) {
+						dlgopen = (dpcheng.StatShrWzskFil.scrJrefDlgdownload != "");
+						dlgclose = (this.statshr.scrJrefDlgdownload != "");
+						if (dlgopen && dlgclose) {
+							dlgopen = false;
+							dlgclose = false;
+						}
+						if (dlgopen) {
+							if (dpcheng.StatShrWzskFil.scrJrefDlgdownload != "") {
+								srefDlg = "DlgWzskFilDownload";
+								scrJrefDlg = dpcheng.StatShrWzskFil.scrJrefDlgdownload;
+							}
+						}
+					}
+					this.statshr = dpcheng.StatShrWzskFil;
+				}
 				if (dpcheng.TagWzskFil) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskFil);
 					this.tag = dpcheng.TagWzskFil;
 				}
+
+				if (dlgopen) this.$emit("dlgopen", {srefDlg: srefDlg, scrJrefDlg: scrJrefDlg});
+				else if (dlgclose) this.$emit("dlgclose");
+				/*
+				*/
+			},
+
+			handleCrdopen: function(obj) {
+				this.$emit("crdopen", obj)
 			},
 
 			handleRequest: function(obj) {
@@ -55,12 +110,14 @@
 			},
 
 			handleReply: function(obj) {
-				if (obj.dpcheng.scrJref == this.scrJref) {
+				if (obj.scrJref == this.scrJref) {
 					if (obj.then == "handleDpchAppInitReply") this.handleDpchAppInitReply(obj.dpcheng);
 
 				} else if (this.initdone) {
 					/*
 					*/
+					if (obj.scrJref == this.statshr.scrJrefList) this.$refs.PnlWzskFilList.handleReply(obj);
+					else this.$refs.PnlWzskFilRec.handleReply(obj);
 					/*
 					*/
 				}
@@ -73,24 +130,34 @@
 			},
 
 			handleUpdate: function(obj) {
+				var processed = false;
+
 				if (obj.dpcheng.scrJref == this.scrJref) {
 					if (obj.srefIxWzskVDpch == "DpchEngWzskFilData") this.mergeDpchEngData(obj.dpcheng);
+					processed = true;
 
 				} else if (this.initdone) {
 					/*
 					*/
+					if (obj.dpcheng.scrJref == this.statshr.scrJrefList) {
+						this.$refs.PnlWzskFilList.handleUpdate(obj);
+						processed = true;
+					} else processed = this.$refs.PnlWzskFilRec.handleUpdate(obj);
 					/*
 					*/
 				}
-			},
-		},
 
-		computed: {
+				//if (!processed) console.log("got a '" + obj.srefIxWzskVDpch + "' from job with scrJref " + obj.dpcheng.scrJref);
+
+				return processed
+			},
 		},
 
 		data: () => ({
 			initdone: false,
 
+			/*
+			*/
 			continf: null,
 
 			feedFSge: null,
@@ -99,7 +166,13 @@
 
 			statshr: null,
 
-			tag: null
+			tag: null,
+			/*
+			*/
+			
+			/*
+			<!-- IP data.cust - INSERT -->
+			*/
 		})
 	}
 </script>

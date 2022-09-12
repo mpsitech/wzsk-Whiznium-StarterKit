@@ -1,31 +1,58 @@
 <template>
-	<v-card v-if=initdone class="pa-3 my-3 mx-auto" elevation="4">
+	<v-card v-if="initdone" class="pa-3 my-3 mx-auto" elevation="3">
 		<v-card-title>
 			<v-row>
-				<v-col cols="11">
+				<v-col cols="8">
 					<div>{{tag.Cpt}}</div>
 				</v-col>
-				<v-col align="end">
-					<v-btn-toggle v-model="contapp.ButClaimOn">
-						<v-btn
-							fab
-							small
-							light
-							color="primary"
-							v-on:click="handleButClick('ButClaimClick')"
-							:value="1"
-							:disabled="!statshr.ButClaimActive"
-						>
-							<v-icon color="white">{{contapp.ButClaimOn ? 'mdi-cog' : 'mdi-cog-off'}}</v-icon>
-						</v-btn>
-					</v-btn-toggle>
+				<v-col cols="4" align="end">
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='regd'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButClaimClick')"
+						:value="1"
+						:disabled="!statshr.ButClaimActive"
+					>
+						<v-icon color="white">{{contapp.ButClaimOn ? 'mdi-cog' : 'mdi-cog-off'}}</v-icon>
+					</v-btn>
+					&#160;&#160;
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='mind'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButRegularizeClick')"
+						:value="1"
+					>
+						<v-icon color="white">mdi-plus-circle</v-icon>
+					</v-btn>
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='regd'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButMinimizeClick')"
+						:value="1"
+					>
+						<v-icon color="white">mdi-minus-circle</v-icon>
+					</v-btn>
 				</v-col>
 			</v-row>
 		</v-card-title>
 
-		<v-card-text>
+		<v-card-text
+			v-if="statshr.srefIxWzskVExpstate=='regd'"
+		>
 			<v-select
-				class="my-2"
+				class="my-1"
 				v-model="contapp.fiFPupMde"
 				:items="feedFPupMde"
 				:label='tag.CptMde'
@@ -36,7 +63,7 @@
 			</v-select>
 
 			<div
-				class="my-2"
+				class="my-1"
 				style="height:480px"
 			>
 				<!-- IP divImg - IBEGIN -->
@@ -44,26 +71,26 @@
 				<!-- IP divImg - IEND -->
 			</div>
 
-			<v-row class="my-2">
+			<v-row class="my-1">
 				<v-col>
 					<v-btn
+						v-on:click="handleButClick('ButPlayClick')"
+						:disabled="!statshr.ButPlayActive"
 						fab
 						small
 						light
 						color="primary"
-						v-on:click="handleButClick('ButPlayClick')"
-						:disabled="!statshr.ButPlayActive"
 					>
 						<v-icon color="white">mdi-play</v-icon>
 					</v-btn>
 					&#160;
 					<v-btn
+						v-on:click="handleButClick('ButStopClick')"
+						:disabled="!statshr.ButStopActive"
 						fab
 						small
 						light
 						color="primary"
-						v-on:click="handleButClick('ButStopClick')"
-						:disabled="!statshr.ButStopActive"
 					>
 						<v-icon color="white">mdi-stop</v-icon>
 					</v-btn>
@@ -73,7 +100,7 @@
 			<v-divider/>
 
 			<v-checkbox
-				class="my-2"
+				class="my-1"
 				v-model="contiac.ChkAex"
 				v-on:change='updateEng(["contiac"])'
 				:label="tag.CptAex"
@@ -82,7 +109,7 @@
 
 			<v-slider
 				v-if="statshr.SldExtAvail"
-				class="my-2"
+				class="my-1"
 				v-model="contiac.SldExt"
 				v-on:end='updateEng(["contiac"])'
 				:label="tag.CptExt"
@@ -104,7 +131,7 @@
 			</v-slider>
 
 			<v-slider
-				class="my-2"
+				class="my-1"
 				v-model="contiac.SldFcs"
 				v-on:end='updateEng(["contiac"])'
 				:label="tag.CptFcs"
@@ -286,21 +313,19 @@
 				*/
 				if (dpcheng.ContIacWzskLlvCamera) this.contiac = dpcheng.ContIacWzskLlvCamera;
 				if (dpcheng.ContInfWzskLlvCamera) this.continf = dpcheng.ContInfWzskLlvCamera;
-				if (dpcheng.feedFPupMde) this.feedFPupMde = dpcheng.feedFPupMde;
+				if (dpcheng.FeedFPupMde) this.feedFPupMde = dpcheng.FeedFPupMde;
 				if (dpcheng.StatShrWzskLlvCamera) this.statshr = dpcheng.StatShrWzskLlvCamera;
 				if (dpcheng.TagWzskLlvCamera) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskLlvCamera);
 					this.tag = dpcheng.TagWzskLlvCamera;
 				}
-
 				if (dpcheng.ContIacWzskLlvCamera) {
-					for (var i = 0; i < this.feedFPupMde.length; i++)
+					for (let i = 0; i < this.feedFPupMde.length; i++)
 						if (this.feedFPupMde[i].num == this.contiac.numFPupMde) {
 							this.contapp.fiFPupMde = this.feedFPupMde[i];
 							break;
 						}
 				}
-
 				if (dpcheng.ContInfWzskLlvCamera) {
 					if (!this.continf.ButClaimOn) this.contapp.ButClaimOn = 0;
 					else this.contapp.ButClaimOn = 1;
@@ -328,44 +353,13 @@
 			/*
 			*/
 
-			handleDpchEngLive: function(dpcheng) {
+			handleDpchEngWzskLlvCameraLive: function(dpcheng) {
 				/*
-				<!-- IP handleDpchEngLive - RBEGIN -->
+				<!-- IP handleDpchEngWzskLlvCameraLive - BEGIN -->
 				*/
-				if (!this.initdone) return;
-
-				if (this.imgdat == null) {
-					let cvs = this.$refs.cvs;
-					this.imgdat = cvs.getContext("2d").createImageData(cvs.width, cvs.height);
-				}
-
-				var mask = [];
-
-				// gray
-				if (dpcheng.gray) {
-					this.gray = Wzsk.parseUtinyintvec(dpcheng.gray);
-					mask.push("gray");
-				}
-
-				// RGB
-				if (dpcheng.red) {
-					this.red = Wzsk.parseUtinyintvec(dpcheng.red);
-					mask.push("red");
-				}
-
-				if (dpcheng.green) {
-					this.green = Wzsk.parseUtinyintvec(dpcheng.green);
-					mask.push("green");
-				}
-
-				if (dpcheng.blue) {
-					this.blue = Wzsk.parseUtinyintvec(dpcheng.blue);
-					mask.push("blue");
-				}
-
-				this.refreshLive(mask);
+				console.log("PnlWzskLlvCamera.handleDpchEngWzskLlvCameraLive()" + dpcheng);
 				/*
-				<!-- IP handleDpchEngLive - REND -->
+				<!-- IP handleDpchEngWzskLlvCameraLive - END -->
 				*/
 			},
 			/*
@@ -374,7 +368,7 @@
 			handleUpdate: function(obj) {
 				/*
 				*/
-				if (obj.srefIxWzskVDpch == "DpchEngWzskLlvCameraLive") this.handleDpchEngLive(obj.dpcheng);
+				if (obj.srefIxWzskVDpch == "DpchEngWzskLlvCameraLive") this.handleDpchEngWzskLlvCameraLive(obj.dpcheng);
 				else if (obj.srefIxWzskVDpch == "DpchEngWzskLlvCameraData") this.mergeDpchEngData(obj.dpcheng);
 				/*
 				*/
@@ -389,12 +383,6 @@
 
 			/*
 			*/
-			contapp: {
-				fiFPupMde: null,
-
-				ButClaimOn: 0,
-			},
-
 			contiac: null,
 
 			continf: null,
@@ -404,6 +392,13 @@
 			statshr: null,
 
 			tag: null,
+
+			contapp: {
+				fiFPupMde: null,
+
+				ButClaimOn: 0,
+
+			},
 			/*
 			*/
 			

@@ -203,6 +203,7 @@ JobWzskActLaser::JobWzskActLaser(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
+	srcmercbb = NULL;
 	srcuvbdvk = NULL;
 	srcmcvevp = NULL;
 	srcicicle = NULL;

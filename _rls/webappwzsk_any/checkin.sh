@@ -3,7 +3,7 @@
 # checkin script for Wzsk web-based UI, release webappwzsk_any
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 25 Mar 2022
+# date created: 12 Sep 2022
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then
@@ -14,5 +14,7 @@ fi
 export set REPROOT=${WHIZDEVROOT}/rep
 
 cp -r * $REPROOT/wzsk/webappwzsk/
+mv $REPROOT/wzsk/webappwzsk/favicon.ico $REPROOT/wzsk/webappwzsk/iconwzsk/
+touch $REPROOT/wzsk/webappwzsk/iconwzsk/"IP folder --- KEEP"
 
 rm $REPROOT/wzsk/webappwzsk/checkin.sh

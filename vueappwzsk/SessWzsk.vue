@@ -3,15 +3,21 @@
 		<v-navigation-drawer app floating width="350" class="elevation-1">
 			<CrdWzskNav
 				v-on:crdopen="handleCrdopen"
+				v-on:dlgopen="handleDlgopen"
+				v-on:dlgclose="handleDlgclose"
 				v-on:request="handleRequestFromCrdnav"
 				ref="CrdWzskNav"
 				:scrJref=scrJrefCrdnav
 			/>
 		</v-navigation-drawer>
 		<component
+			:key="srefCrd"
 			v-bind:is="content"
 			v-on:crdopen="handleCrdopen"
+			v-on:dlgopen="handleDlgopen"
+			v-on:dlgclose="handleDlgclose"
 			v-on:request="handleRequestFromCrd"
+			v-on:upload="handleUpload"
 			ref="content"
 			:scrJref=scrJrefCrd
 		/>
@@ -47,6 +53,21 @@
 				</v-card-actions>
 			</v-card>
 		</v-dialog>
+		<v-dialog
+			v-model="dialog"
+			v-if="dialog"
+			persistent
+			width="1200"
+		>
+			<component
+				:key="srefDlg"
+				v-bind:is="dialog"
+				v-on:upload="handleUpload"
+				v-on:request="handleRequestFromDlg"
+				ref="dialog"
+				:scrJref=scrJrefDlg
+			/>
+		</v-dialog>
 	</v-layout>
 </template>
 
@@ -55,29 +76,36 @@
 
 	import Wzsk from '../scripts/Wzsk';
 
-	import CrdWzskNav from './CrdWzskNav/CrdWzskNav';
 	/*
 	*/
+	import CrdWzskNav from './CrdWzskNav/CrdWzskNav';
+	import DlgWzskNavLoaini from './CrdWzskNav/DlgWzskNavLoaini';
 	import CrdWzskUsg from './CrdWzskUsg/CrdWzskUsg';
 	import CrdWzskUsr from './CrdWzskUsr/CrdWzskUsr';
 	import CrdWzskPrs from './CrdWzskPrs/CrdWzskPrs';
 	import CrdWzskScf from './CrdWzskScf/CrdWzskScf';
+	import DlgWzskScfCameramat from './CrdWzskScf/DlgWzskScfCameramat';
+	import DlgWzskScfLaserpos from './CrdWzskScf/DlgWzskScfLaserpos';
+	import DlgWzskScfTtablecoord from './CrdWzskScf/DlgWzskScfTtablecoord';
 	import CrdWzskLlv from './CrdWzskLlv/CrdWzskLlv';
 	import CrdWzskLiv from './CrdWzskLiv/CrdWzskLiv';
 	import CrdWzskOgr from './CrdWzskOgr/CrdWzskOgr';
+	import DlgWzskOgrNew from './CrdWzskOgr/DlgWzskOgrNew';
 	import CrdWzskObj from './CrdWzskObj/CrdWzskObj';
+	import DlgWzskObjNew from './CrdWzskObj/DlgWzskObjNew';
 	import CrdWzskSes from './CrdWzskSes/CrdWzskSes';
 	import CrdWzskSht from './CrdWzskSht/CrdWzskSht';
 	import CrdWzskFil from './CrdWzskFil/CrdWzskFil';
+	import DlgWzskFilDownload from './CrdWzskFil/DlgWzskFilDownload';
 	/*
 	*/
 
 	const dpch = axios.create({
-		baseURL: window.location.protocol + "//" + window.location.hostname + ":" + Wzsk.appsrvport() + "/dpch"
+		baseURL: window.location.protocol + "//" + Wzsk.hostname() + ":" + Wzsk.appsrvport() + "/dpch"
 	})
 
 	const notify = axios.create({
-		baseURL: window.location.protocol + "//" + window.location.hostname + ":" + Wzsk.appsrvport() + "/notify/json"
+		baseURL: window.location.protocol + "//" + Wzsk.hostname() + ":" + Wzsk.appsrvport() + "/notify/json"
 	})
 
 	export default {
@@ -92,20 +120,27 @@
 		},
 
 		components: {
-			CrdWzskNav,
 			/*
 			*/
+			CrdWzskNav,
+			DlgWzskNavLoaini,
 			CrdWzskUsg,
 			CrdWzskUsr,
 			CrdWzskPrs,
 			CrdWzskScf,
+			DlgWzskScfCameramat,
+			DlgWzskScfLaserpos,
+			DlgWzskScfTtablecoord,
 			CrdWzskLlv,
 			CrdWzskLiv,
 			CrdWzskOgr,
+			DlgWzskOgrNew,
 			CrdWzskObj,
+			DlgWzskObjNew,
 			CrdWzskSes,
 			CrdWzskSht,
-			CrdWzskFil
+			CrdWzskFil,
+			DlgWzskFilDownload
 			/*
 			*/
 		},
@@ -204,6 +239,8 @@
 				this.handleRequest({scrJref: this.alert.scrJref, dpchapp: dpchapp, then: ""}, false);
 
 				this.alert = null;
+
+				this.$refs.CrdWzskNav.handleAlrdlgclose();
 			},
 
 			handleCrdopen: function(obj) {
@@ -218,6 +255,8 @@
 
 						this.content = obj.srefCrd;
 
+						this.$refs.CrdWzskNav.handleCrdopen(obj)
+
 					} else {
 						//console.log("SessWzsk.handleCrdopen() new card in new tab");
 
@@ -228,28 +267,67 @@
 				}
 			},
 
+			handleDlgopen: function(obj) {
+				if (obj.srefDlg != this.dialog) {
+					this.srefDlg = obj.srefDlg;
+					this.scrJrefDlg = obj.scrJrefDlg;
+
+					this.dialog = obj.srefDlg;
+				}
+			},
+
+			handleDlgclose: function() {
+				this.srefDlg = "";
+				this.scrJrefDlg = "";
+
+				this.dialog = null;
+
+				this.$refs.CrdWzskNav.handleAlrdlgclose();
+			},
+
 			handleRequestFromCrdnav: function(obj) {
-				this.handleRequest(obj, false);
+				this.handleRequest(obj, false, false);
 			},
 
 			handleRequestFromCrd: function(obj) {
-				this.handleRequest(obj, true);
+				this.handleRequest(obj, false, true);
 			},
 
-			handleRequest: function(obj, srcCrdNotCrdnav) {
+			handleRequestFromDlg: function(obj) {
+				this.handleRequest(obj, true, false);
+			},
+
+			handleRequest: function(obj, srcDlgNotCrd, srcCrdNotCrdnav) {
 				const data = "json=" + encodeURIComponent(JSON.stringify(obj.dpchapp));
 
 				var vm = this;
 
 				dpch.post('', data).then(function (response) {
+					const scrJref = obj.dpchapp[Object.keys(obj.dpchapp)[0]].scrJref;
 					const srefIxWzskVDpch = Object.keys(response.data)[0];
 					const dpcheng = response.data[srefIxWzskVDpch];
 
-					const target = (srcCrdNotCrdnav) ? vm.$refs.content : vm.$refs.CrdWzskNav;
-					if (target) target.handleReply({srefIxWzskVDpch: srefIxWzskVDpch, dpcheng: dpcheng, then: obj.then});
+					const target = (srcDlgNotCrd) ? vm.$refs.dialog : (srcCrdNotCrdnav) ? vm.$refs.content : vm.$refs.CrdWzskNav;
+					if (target) {
+						target.handleReply({scrJref: scrJref, srefIxWzskVDpch: srefIxWzskVDpch, dpcheng: dpcheng, then: obj.then});
+						if (dpcheng.scrJref == vm.scrJrefCrd) {
+							if (target != vm.$refs.CrdWzskNav) vm.$refs.CrdWzskNav.handleUpdate({srefIxWzskVDpch: srefIxWzskVDpch, dpcheng: dpcheng});
+							else if (vm.$refs.content) if (target != vm.$refs.content) vm.$refs.content.handleUpdate({srefIxWzskVDpch: srefIxWzskVDpch, dpcheng: dpcheng});
+						}
+					}
 
 				}).catch(function (error) {
 					console.log("SessWzsk.handleRequest() error: " + error);
+				});
+			},
+
+			handleUpload: function(obj) {
+				var formData = new FormData()
+
+				formData.append("file", obj.file, obj.file.name);
+
+				axios.post(window.location.protocol + "//" + Wzsk.hostname() + ":" + Wzsk.appsrvport() + "/upload/" + obj.scrJref, formData).catch(function (error) {
+					console.log("SessWzsk.handleUpload() error: " + error);
 				});
 			},
 
@@ -272,7 +350,12 @@
 							}
 
 					} else if (srefIxWzskVDpch == "DpchEngWzskAlert") vm.showAlert(dpcheng);
-					else if (dpcheng.scrJref != vm.scrJrefCrdnav) vm.$refs.content.handleUpdate({srefIxWzskVDpch: srefIxWzskVDpch, dpcheng: dpcheng});
+					else {
+						var processed = false;
+						const target = (dpcheng.scrJref == vm.scrJrefDlg) ? vm.$refs.dialog : (dpcheng.scrJref != vm.scrJrefCrdnav) ? vm.$refs.content : vm.$refs.CrdWzskNav;
+						processed = target.handleUpdate({srefIxWzskVDpch: srefIxWzskVDpch, dpcheng: dpcheng});
+						if (!processed || (dpcheng.scrJref == vm.scrJrefCrd)) vm.$refs.CrdWzskNav.handleUpdate({srefIxWzskVDpch: srefIxWzskVDpch, dpcheng: dpcheng});
+					}
 
 					if (iterate) vm.iterateNotify();
 
@@ -287,8 +370,11 @@
 
 			srefCrd: "",
 			scrJrefCrd: "",
+			scrJrefDlg: "",
 
-			alert: null
+			alert: null,
+
+			dialog: null
 		})
 	}
 </script>

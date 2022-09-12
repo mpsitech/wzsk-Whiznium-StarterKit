@@ -19,8 +19,8 @@ public class QryWzskUsrList {
 		*/
 	public static class VecVOrd {
 
-		public static final int STE = 1;
-		public static final int USG = 2;
+		public static final int USG = 1;
+		public static final int STE = 2;
 		public static final int SRF = 3;
 		public static final int PRS = 4;
 		public static final int OWN = 5;
@@ -31,8 +31,8 @@ public class QryWzskUsrList {
 				) {
 			String s = sref.toLowerCase();
 
-			if (s.equals("ste")) return STE;
 			if (s.equals("usg")) return USG;
+			if (s.equals("ste")) return STE;
 			if (s.equals("srf")) return SRF;
 			if (s.equals("prs")) return PRS;
 			if (s.equals("own")) return OWN;
@@ -44,8 +44,8 @@ public class QryWzskUsrList {
 		public static String getSref(
 					int ix
 				) {
-			if (ix == STE) return("ste");
 			if (ix == USG) return("usg");
+			if (ix == STE) return("ste");
 			if (ix == SRF) return("srf");
 			if (ix == PRS) return("prs");
 			if (ix == OWN) return("own");

@@ -281,15 +281,14 @@ string PnlWzskPrsRec::DpchAppDo::getSrefsMask() {
 };
 
 void PnlWzskPrsRec::DpchAppDo::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["DpchAppWzskPrsRecDo"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["DpchAppWzskPrsRecDo"];}();
 
 	basefound = (me != Json::nullValue);
 

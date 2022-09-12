@@ -2,7 +2,7 @@
 # make file for Wzsk database access library, release dbswzsk_tdx (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 25 Mar 2022
+# date created: 12 Sep 2022
 # IP header --- ABOVE
 
 LIBROOT = ${SYSROOT}${WHIZSDKROOT}/lib
@@ -35,7 +35,6 @@ all:	$(LIB)
 
 $(LIB):	$(PCHS) $(OBJS)
 	$(STATLIB) $(STATLIBFLAGS) $(LIB).a $(OBJS)
-	rm -f *.o
 
 install:
 	mv $(LIB).a $(LIBROOT)/

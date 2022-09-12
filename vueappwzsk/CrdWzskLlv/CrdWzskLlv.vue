@@ -46,6 +46,18 @@
 			ref="PnlWzskLlvLaser"
 			:scrJref=statshr.scrJrefLaser
 		/>
+		<PnlWzskLlvTermPwmonuart
+			v-if="statshr.pnltermpwmonuartAvail"
+			v-on:request="handleRequest"
+			ref="PnlWzskLlvTermPwmonuart"
+			:scrJref=statshr.scrJrefTermPwmonuart
+		/>
+		<PnlWzskLlvTermPwmonusb
+			v-if="statshr.pnltermpwmonusbAvail"
+			v-on:request="handleRequest"
+			ref="PnlWzskLlvTermPwmonusb"
+			:scrJref=statshr.scrJrefTermPwmonusb
+		/>
 	</v-container>
 </template>
 
@@ -62,7 +74,13 @@
 	import PnlWzskLlvCamera from './PnlWzskLlvCamera';
 	import PnlWzskLlvTtable from './PnlWzskLlvTtable';
 	import PnlWzskLlvLaser from './PnlWzskLlvLaser';
+	import PnlWzskLlvTermPwmonuart from './PnlWzskLlvTermPwmonuart';
+	import PnlWzskLlvTermPwmonusb from './PnlWzskLlvTermPwmonusb';
 	/*
+	*/
+
+	/*
+	<!-- IP import.cust - INSERT -->
 	*/
 
 	export default {
@@ -82,7 +100,9 @@
 			PnlWzskLlvTermUvbdvk,
 			PnlWzskLlvCamera,
 			PnlWzskLlvTtable,
-			PnlWzskLlvLaser
+			PnlWzskLlvLaser,
+			PnlWzskLlvTermPwmonuart,
+			PnlWzskLlvTermPwmonusb
 			/*
 			*/
 		},
@@ -100,7 +120,13 @@
 		},
 
 		methods: {
+			/*
+			<!-- IP cust - INSERT -->
+			*/
+
 			mergeDpchEngData: function(dpcheng) {
+				/*
+				*/
 				if (dpcheng.ContInfWzskLlv) this.continf = dpcheng.ContInfWzskLlv;
 				if (dpcheng.FeedFSge) this.feedFSge = dpcheng.FeedFSge;
 				if (dpcheng.StatAppWzskLlv) this.statapp = dpcheng.StatAppWzskLlv;
@@ -109,6 +135,12 @@
 					Wzsk.unescapeBlock(dpcheng.TagWzskLlv);
 					this.tag = dpcheng.TagWzskLlv;
 				}
+				/*
+				*/
+			},
+
+			handleCrdopen: function(obj) {
+				this.$emit("crdopen", obj)
 			},
 
 			handleRequest: function(obj) {
@@ -116,20 +148,23 @@
 			},
 
 			handleReply: function(obj) {
-				if (obj.dpcheng.scrJref == this.scrJref) {
+				if (obj.scrJref == this.scrJref) {
 					if (obj.then == "handleDpchAppInitReply") this.handleDpchAppInitReply(obj.dpcheng);
 
 				} else if (this.initdone) {
 					/*
 					*/
-					if (obj.dpcheng.scrJref == this.statshr.scrJrefTermArty) this.$refs.PnlWzskLlvTermArty.handleReply(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermClnxevb) this.$refs.PnlWzskLlvTermClnxevb.handleReply(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermIcicle) this.$refs.PnlWzskLlvTermIcicle.handleReply(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermMcvevp) this.$refs.PnlWzskLlvTermMcvevp.handleReply(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermUvbdvk) this.$refs.PnlWzskLlvTermUvbdvk.handleReply(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefCamera) this.$refs.PnlWzskLlvCamera.handleReply(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefTtable) this.$refs.PnlWzskLlvTtable.handleReply(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefLaser) this.$refs.PnlWzskLlvLaser.handleReply(obj);
+					if (obj.scrJref == this.statshr.scrJrefTermArty) this.$refs.PnlWzskLlvTermArty.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefTermClnxevb) this.$refs.PnlWzskLlvTermClnxevb.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefTermIcicle) this.$refs.PnlWzskLlvTermIcicle.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefTermMcvevp) this.$refs.PnlWzskLlvTermMcvevp.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefTermUvbdvk) this.$refs.PnlWzskLlvTermUvbdvk.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefCamera) this.$refs.PnlWzskLlvCamera.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefTtable) this.$refs.PnlWzskLlvTtable.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefLaser) this.$refs.PnlWzskLlvLaser.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefTermPwmonuart) this.$refs.PnlWzskLlvTermPwmonuart.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefTermPwmonusb) this.$refs.PnlWzskLlvTermPwmonusb.handleReply(obj);
+					else console.log("got a '" + obj.srefIxWzskVDpch + "' from job with scrJref " + obj.dpcheng.scrJref);
 					/*
 					*/
 				}
@@ -142,32 +177,61 @@
 			},
 
 			handleUpdate: function(obj) {
+				var processed = false;
+
 				if (obj.dpcheng.scrJref == this.scrJref) {
 					if (obj.srefIxWzskVDpch == "DpchEngWzskLlvData") this.mergeDpchEngData(obj.dpcheng);
+					processed = true;
 
 				} else if (this.initdone) {
 					/*
 					*/
-					if (obj.dpcheng.scrJref == this.statshr.scrJrefTermArty) this.$refs.PnlWzskLlvTermArty.handleUpdate(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermClnxevb) this.$refs.PnlWzskLlvTermClnxevb.handleUpdate(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermIcicle) this.$refs.PnlWzskLlvTermIcicle.handleUpdate(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermMcvevp) this.$refs.PnlWzskLlvTermMcvevp.handleUpdate(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermUvbdvk) this.$refs.PnlWzskLlvTermUvbdvk.handleUpdate(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefCamera) this.$refs.PnlWzskLlvCamera.handleUpdate(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefTtable) this.$refs.PnlWzskLlvTtable.handleUpdate(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefLaser) this.$refs.PnlWzskLlvLaser.handleUpdate(obj);
+					if (obj.dpcheng.scrJref == this.statshr.scrJrefTermArty) {
+						this.$refs.PnlWzskLlvTermArty.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermClnxevb) {
+						this.$refs.PnlWzskLlvTermClnxevb.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermIcicle) {
+						this.$refs.PnlWzskLlvTermIcicle.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermMcvevp) {
+						this.$refs.PnlWzskLlvTermMcvevp.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermUvbdvk) {
+						this.$refs.PnlWzskLlvTermUvbdvk.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefCamera) {
+						this.$refs.PnlWzskLlvCamera.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTtable) {
+						this.$refs.PnlWzskLlvTtable.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefLaser) {
+						this.$refs.PnlWzskLlvLaser.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermPwmonuart) {
+						this.$refs.PnlWzskLlvTermPwmonuart.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermPwmonusb) {
+						this.$refs.PnlWzskLlvTermPwmonusb.handleUpdate(obj);
+						processed = true;
+					}
 					/*
 					*/
 				}
-			},
-		},
 
-		computed: {
+				//if (!processed) console.log("got a '" + obj.srefIxWzskVDpch + "' from job with scrJref " + obj.dpcheng.scrJref);
+
+				return processed
+			},
 		},
 
 		data: () => ({
 			initdone: false,
 
+			/*
+			*/
 			continf: null,
 
 			feedFSge: null,
@@ -176,7 +240,13 @@
 
 			statshr: null,
 
-			tag: null
+			tag: null,
+			/*
+			*/
+			
+			/*
+			<!-- IP data.cust - INSERT -->
+			*/
 		})
 	}
 </script>

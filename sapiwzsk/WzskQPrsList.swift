@@ -39,7 +39,7 @@ public class WzskQPrsList {
 		self.emlVal = emlVal
 	}
 
-	public var jnum: Int = 0
+	public var jnum: Int
 	public var stubGrp: String
 	public var stubOwn: String
 	public var Title: String

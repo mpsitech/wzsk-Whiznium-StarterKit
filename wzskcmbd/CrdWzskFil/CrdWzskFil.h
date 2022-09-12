@@ -15,8 +15,8 @@
 // IP include.cust --- INSERT
 
 #include "PnlWzskFilList.h"
-#include "PnlWzskFilRec.h"
 #include "PnlWzskFilHeadbar.h"
+#include "PnlWzskFilRec.h"
 #include "DlgWzskFilDownload.h"
 
 #define VecVWzskFilDo CrdWzskFil::VecVDo
@@ -159,7 +159,7 @@ public:
 	public:
 		std::string getSrefsMask();
 
-		void readJSON(Json::Value& sup, bool addbasetag = false);
+		void readJSON(const Json::Value& sup, bool addbasetag = false);
 		void readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
 	};
 
@@ -208,8 +208,8 @@ public:
 	Sbecore::Feed feedFSge;
 
 	PnlWzskFilList* pnllist;
-	PnlWzskFilRec* pnlrec;
 	PnlWzskFilHeadbar* pnlheadbar;
+	PnlWzskFilRec* pnlrec;
 	DlgWzskFilDownload* dlgdownload;
 
 	// IP vars.cust --- INSERT

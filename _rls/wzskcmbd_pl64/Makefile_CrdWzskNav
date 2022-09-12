@@ -1,0 +1,37 @@
+# file Makefile
+# make file for CrdWzskNav card job handler, release wzskcmbd_pl64 (ubuntu cross-compilation)
+# copyright: (C) 2016-2020 MPSI Technologies GmbH
+# author: Alexander Wirthmueller (auto-generation)
+# date created: 12 Sep 2022
+# IP header --- ABOVE
+
+include ../Makefile.inc
+
+CPP = ${TCHROOT}/aarch64-xilinx-linux-g++
+CPPFLAGS = --sysroot=${SYSROOT} --sysroot=${SYSROOT} -std=c++11 -march=armv8-a -mtune=cortex-a53 -g -Wall -Os -pthread -DWZSKCMBD
+
+STATLIB = ${TCHROOT}/aarch64-xilinx-linux-ar
+STATLIBFLAGS = rcs
+
+INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
+INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevpmnd -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
+
+OBJS = CrdWzskNav.o PnlWzskNavGlry.o PnlWzskNavAdmin.o PnlWzskNavOp.o PnlWzskNavHeadbar.o PnlWzskNavPre.o DlgWzskNavLoaini.o
+
+LIB = libcrdwzsknav
+
+.SUFFIXES: .cpp
+
+.cpp.o :
+	$(CPP) $(CPPFLAGS) $(INCPATH) -o $@ -c $<
+
+all:	$(LIB)
+
+$(LIB):	$(OBJS)
+	$(STATLIB) $(STATLIBFLAGS) $(LIB).a $(OBJS)
+
+install:
+	mv $(LIB).a ${SYSROOT}$(LIBROOT)/wzskcmbd/
+
+clean:
+	rm -f *.o

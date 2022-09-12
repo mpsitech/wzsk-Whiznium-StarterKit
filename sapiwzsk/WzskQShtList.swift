@@ -27,7 +27,7 @@ public class WzskQShtList {
 		self.ftmStart = ftmStart
 	}
 
-	public var jnum: Int = 0
+	public var jnum: Int
 	public var stubRefWzskMSession: String
 	public var stubRefWzskMObject: String
 	public var ftmStart: String

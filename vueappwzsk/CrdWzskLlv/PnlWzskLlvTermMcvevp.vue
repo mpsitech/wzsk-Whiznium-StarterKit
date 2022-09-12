@@ -1,31 +1,58 @@
 <template>
-	<v-card v-if=initdone class="pa-3 my-3 mx-auto" elevation="4">
+	<v-card v-if="initdone" class="pa-3 my-3 mx-auto" elevation="3">
 		<v-card-title>
 			<v-row>
-				<v-col cols="11">
+				<v-col cols="8">
 					<div>{{tag.Cpt}}</div>
 				</v-col>
-				<v-col align="end">
-					<v-btn-toggle v-model="contapp.ButClaimOn">
-						<v-btn
-							fab
-							small
-							light
-							color="primary"
-							v-on:click="handleButClick('ButClaimClick')"
-							:value="1"
-							:disabled="!statshr.ButClaimActive"
-						>
-							<v-icon color="white">{{contapp.ButClaimOn ? 'mdi-cog' : 'mdi-cog-off'}}</v-icon>
-						</v-btn>
-					</v-btn-toggle>
+				<v-col cols="4" align="end">
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='regd'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButClaimClick')"
+						:value="1"
+						:disabled="!statshr.ButClaimActive"
+					>
+						<v-icon color="white">{{contapp.ButClaimOn ? 'mdi-cog' : 'mdi-cog-off'}}</v-icon>
+					</v-btn>
+					&#160;&#160;
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='mind'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButRegularizeClick')"
+						:value="1"
+					>
+						<v-icon color="white">mdi-plus-circle</v-icon>
+					</v-btn>
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='regd'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButMinimizeClick')"
+						:value="1"
+					>
+						<v-icon color="white">mdi-minus-circle</v-icon>
+					</v-btn>
 				</v-col>
 			</v-row>
 		</v-card-title>
 
-		<v-card-text>
+		<v-card-text
+			v-if="statshr.srefIxWzskVExpstate=='regd'"
+		>
 			<v-text-field
-				class="my-2"
+				class="my-1"
 				readonly
 				outlined
 				v-model="continf.TxtCst"
@@ -35,13 +62,13 @@
 			<v-divider/>
 
 			<h3
-				class="text-5 my-2"
+				class="text-5 my-1"
 			>
 				{{tag.HdgDio}}
 			</h3>
 
 			<div
-				class="my-2"
+				class="my-1"
 				style="height:200px"
 			>
 				<!-- IP divDat - INSERT -->
@@ -50,13 +77,13 @@
 			<v-divider/>
 
 			<h3
-				class="text-5 my-2"
+				class="text-5 my-1"
 			>
 				{{tag.HdgCex}}
 			</h3>
 
 			<v-select
-				class="my-2"
+				class="my-1"
 				v-model="contapp.fiFPupCmd"
 				:items="feedFPupCmd"
 				:label='tag.CptCmd'
@@ -67,18 +94,18 @@
 			</v-select>
 
 			<v-text-field
-				class="my-2"
+				class="my-1"
 				v-model="contiac.TxfCsq"
 				:label="tag.CptCsq"
 			/>
 
-			<v-row class="my-2">
+			<v-row class="my-1">
 				<v-col>
 					<v-btn
-						class="my-2"
-						color="primary"
 						v-on:click="handleButClick('ButSmtClick')"
 						:disabled="!statshr.ButSmtActive"
+						class="my-1"
+						color="primary"
 					>
 						{{tag.ButSmt}}
 					</v-btn>
@@ -155,21 +182,19 @@
 				*/
 				if (dpcheng.ContIacWzskLlvTermMcvevp) this.contiac = dpcheng.ContIacWzskLlvTermMcvevp;
 				if (dpcheng.ContInfWzskLlvTermMcvevp) this.continf = dpcheng.ContInfWzskLlvTermMcvevp;
-				if (dpcheng.feedFPupCmd) this.feedFPupCmd = dpcheng.feedFPupCmd;
+				if (dpcheng.FeedFPupCmd) this.feedFPupCmd = dpcheng.FeedFPupCmd;
 				if (dpcheng.StatShrWzskLlvTermMcvevp) this.statshr = dpcheng.StatShrWzskLlvTermMcvevp;
 				if (dpcheng.TagWzskLlvTermMcvevp) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskLlvTermMcvevp);
 					this.tag = dpcheng.TagWzskLlvTermMcvevp;
 				}
-
 				if (dpcheng.ContIacWzskLlvTermMcvevp) {
-					for (var i = 0; i < this.feedFPupCmd.length; i++)
+					for (let i = 0; i < this.feedFPupCmd.length; i++)
 						if (this.feedFPupCmd[i].num == this.contiac.numFPupCmd) {
 							this.contapp.fiFPupCmd = this.feedFPupCmd[i];
 							break;
 						}
 				}
-
 				if (dpcheng.ContInfWzskLlvTermMcvevp) {
 					if (!this.continf.ButClaimOn) this.contapp.ButClaimOn = 0;
 					else this.contapp.ButClaimOn = 1;
@@ -216,12 +241,6 @@
 
 			/*
 			*/
-			contapp: {
-				fiFPupCmd: null,
-
-				ButClaimOn: 0,
-			},
-
 			contiac: null,
 
 			continf: null,
@@ -231,6 +250,13 @@
 			statshr: null,
 
 			tag: null,
+
+			contapp: {
+				fiFPupCmd: null,
+
+				ButClaimOn: 0,
+
+			},
 			/*
 			*/
 			

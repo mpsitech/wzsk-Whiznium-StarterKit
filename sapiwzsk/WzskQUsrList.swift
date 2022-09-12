@@ -43,7 +43,7 @@ public class WzskQUsrList {
 		self.titIxWzskVUserlevel = titIxWzskVUserlevel
 	}
 
-	public var jnum: Int = 0
+	public var jnum: Int
 	public var stubGrp: String
 	public var stubOwn: String
 	public var stubRefWzskMPerson: String

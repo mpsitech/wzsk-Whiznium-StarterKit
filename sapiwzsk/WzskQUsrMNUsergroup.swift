@@ -27,7 +27,7 @@ public class WzskQUsrMNUsergroup {
 		self.titIxWzskVUserlevel = titIxWzskVUserlevel
 	}
 
-	public var jnum: Int = 0
+	public var jnum: Int
 	public var stubMref: String
 	public var srefIxWzskVUserlevel: String
 	public var titIxWzskVUserlevel: String

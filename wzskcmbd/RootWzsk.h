@@ -16,17 +16,20 @@
 
 #include "JobWzskSrcV4l2.h"
 #include "JobWzskSrcUvbdvk.h"
+#include "JobWzskSrcPwmonusb.h"
 #include "JobWzskSrcSysinfo.h"
+#include "JobWzskSrcPwmonuart.h"
+#include "JobWzskSrcMercbb.h"
 #include "JobWzskSrcMcvevp.h"
 #include "JobWzskSrcIcicle.h"
 #include "JobWzskSrcClnxevb.h"
-#include "JobWzskSrcArty.h"
 #include "JobWzskIprTrace.h"
+#include "JobWzskSrcArty.h"
 #include "JobWzskIprCorner.h"
 #include "JobWzskIprAngle.h"
 #include "JobWzskActServo.h"
-#include "JobWzskActLaser.h"
 #include "JobWzskActExposure.h"
+#include "JobWzskActLaser.h"
 #include "JobWzskAcqPtcloud.h"
 #include "JobWzskAcqPreview.h"
 #include "JobWzskAcqFpgapvw.h"
@@ -67,7 +70,7 @@ public:
 	public:
 		std::string getSrefsMask();
 
-		void readJSON(Json::Value& sup, bool addbasetag = false);
+		void readJSON(const Json::Value& sup, bool addbasetag = false);
 		void readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
 	};
 
@@ -103,17 +106,20 @@ public:
 
 	JobWzskSrcV4l2* srcv4l2;
 	JobWzskSrcUvbdvk* srcuvbdvk;
+	JobWzskSrcPwmonusb* srcpwmonusb;
 	JobWzskSrcSysinfo* srcsysinfo;
+	JobWzskSrcPwmonuart* srcpwmonuart;
+	JobWzskSrcMercbb* srcmercbb;
 	JobWzskSrcMcvevp* srcmcvevp;
 	JobWzskSrcIcicle* srcicicle;
 	JobWzskSrcClnxevb* srcclnxevb;
-	JobWzskSrcArty* srcarty;
 	JobWzskIprTrace* iprtrace;
+	JobWzskSrcArty* srcarty;
 	JobWzskIprCorner* iprcorner;
 	JobWzskIprAngle* iprangle;
 	JobWzskActServo* actservo;
-	JobWzskActLaser* actlaser;
 	JobWzskActExposure* actexposure;
+	JobWzskActLaser* actlaser;
 	JobWzskAcqPtcloud* acqptcloud;
 	JobWzskAcqPreview* acqpreview;
 	JobWzskAcqFpgapvw* acqfpgapvw;
@@ -154,8 +160,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskRefPreSet(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv);
 	bool handleCallWzskSuspsess(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskRefPreSet(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv);
 	bool handleCallWzskLogout(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const bool boolvalInv);
 
 };

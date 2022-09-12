@@ -24,6 +24,10 @@
 	/*
 	*/
 
+	/*
+	<!-- IP import.cust - INSERT -->
+	*/
+
 	export default {
 		name: 'CrdWzskScf',
 
@@ -53,15 +57,58 @@
 		},
 
 		methods: {
+			/*
+			<!-- IP cust - INSERT -->
+			*/
+
 			mergeDpchEngData: function(dpcheng) {
+				/*
+				*/
+				var dlgopen = false;
+				var dlgclose = false;
+
+				var srefDlg = "";
+				var scrJrefDlg = "";
+
 				if (dpcheng.ContInfWzskScf) this.continf = dpcheng.ContInfWzskScf;
 				if (dpcheng.FeedFSge) this.feedFSge = dpcheng.FeedFSge;
 				if (dpcheng.StatAppWzskScf) this.statapp = dpcheng.StatAppWzskScf;
-				if (dpcheng.StatShrWzskScf) this.statshr = dpcheng.StatShrWzskScf;
+				if (dpcheng.StatShrWzskScf) {
+					if (this.statshr != null) {
+						dlgopen = ((dpcheng.StatShrWzskScf.scrJrefDlgcameramat != "") || (dpcheng.StatShrWzskScf.scrJrefDlglaserpos != "") || (dpcheng.StatShrWzskScf.scrJrefDlgttablecoord != ""));
+						dlgclose = ((this.statshr.scrJrefDlgcameramat != "") || (this.statshr.scrJrefDlglaserpos != "") || (this.statshr.scrJrefDlgttablecoord != ""));
+						if (dlgopen && dlgclose) {
+							dlgopen = false;
+							dlgclose = false;
+						}
+						if (dlgopen) {
+							if (dpcheng.StatShrWzskScf.scrJrefDlgcameramat != "") {
+								srefDlg = "DlgWzskScfCameramat";
+								scrJrefDlg = dpcheng.StatShrWzskScf.scrJrefDlgcameramat;
+							} else if (dpcheng.StatShrWzskScf.scrJrefDlglaserpos != "") {
+								srefDlg = "DlgWzskScfLaserpos";
+								scrJrefDlg = dpcheng.StatShrWzskScf.scrJrefDlglaserpos;
+							} else if (dpcheng.StatShrWzskScf.scrJrefDlgttablecoord != "") {
+								srefDlg = "DlgWzskScfTtablecoord";
+								scrJrefDlg = dpcheng.StatShrWzskScf.scrJrefDlgttablecoord;
+							}
+						}
+					}
+					this.statshr = dpcheng.StatShrWzskScf;
+				}
 				if (dpcheng.TagWzskScf) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskScf);
 					this.tag = dpcheng.TagWzskScf;
 				}
+
+				if (dlgopen) this.$emit("dlgopen", {srefDlg: srefDlg, scrJrefDlg: scrJrefDlg});
+				else if (dlgclose) this.$emit("dlgclose");
+				/*
+				*/
+			},
+
+			handleCrdopen: function(obj) {
+				this.$emit("crdopen", obj)
 			},
 
 			handleRequest: function(obj) {
@@ -69,14 +116,15 @@
 			},
 
 			handleReply: function(obj) {
-				if (obj.dpcheng.scrJref == this.scrJref) {
+				if (obj.scrJref == this.scrJref) {
 					if (obj.then == "handleDpchAppInitReply") this.handleDpchAppInitReply(obj.dpcheng);
 
 				} else if (this.initdone) {
 					/*
 					*/
-					if (obj.dpcheng.scrJref == this.statshr.scrJrefConn) this.$refs.PnlWzskScfConn.handleReply(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefGeom) this.$refs.PnlWzskScfGeom.handleReply(obj);
+					if (obj.scrJref == this.statshr.scrJrefConn) this.$refs.PnlWzskScfConn.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefGeom) this.$refs.PnlWzskScfGeom.handleReply(obj);
+					else console.log("got a '" + obj.srefIxWzskVDpch + "' from job with scrJref " + obj.dpcheng.scrJref);
 					/*
 					*/
 				}
@@ -89,26 +137,37 @@
 			},
 
 			handleUpdate: function(obj) {
+				var processed = false;
+
 				if (obj.dpcheng.scrJref == this.scrJref) {
 					if (obj.srefIxWzskVDpch == "DpchEngWzskScfData") this.mergeDpchEngData(obj.dpcheng);
+					processed = true;
 
 				} else if (this.initdone) {
 					/*
 					*/
-					if (obj.dpcheng.scrJref == this.statshr.scrJrefConn) this.$refs.PnlWzskScfConn.handleUpdate(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefGeom) this.$refs.PnlWzskScfGeom.handleUpdate(obj);
+					if (obj.dpcheng.scrJref == this.statshr.scrJrefConn) {
+						this.$refs.PnlWzskScfConn.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefGeom) {
+						this.$refs.PnlWzskScfGeom.handleUpdate(obj);
+						processed = true;
+					}
 					/*
 					*/
 				}
-			},
-		},
 
-		computed: {
+				//if (!processed) console.log("got a '" + obj.srefIxWzskVDpch + "' from job with scrJref " + obj.dpcheng.scrJref);
+
+				return processed
+			},
 		},
 
 		data: () => ({
 			initdone: false,
 
+			/*
+			*/
 			continf: null,
 
 			feedFSge: null,
@@ -117,7 +176,13 @@
 
 			statshr: null,
 
-			tag: null
+			tag: null,
+			/*
+			*/
+			
+			/*
+			<!-- IP data.cust - INSERT -->
+			*/
 		})
 	}
 </script>

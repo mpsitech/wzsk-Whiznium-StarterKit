@@ -41,6 +41,8 @@ CrdWzskLlv::CrdWzskLlv(
 	feedFSge.tag = "FeedFSge";
 	VecVSge::fillFeed(feedFSge);
 
+	pnltermpwmonusb = NULL;
+	pnltermpwmonuart = NULL;
 	pnllaser = NULL;
 	pnlttable = NULL;
 	pnlcamera = NULL;
@@ -48,14 +50,16 @@ CrdWzskLlv::CrdWzskLlv(
 	pnltermmcvevp = NULL;
 	pnltermicicle = NULL;
 	pnltermclnxevb = NULL;
-	pnlheadbar = NULL;
 	pnltermarty = NULL;
+	pnlheadbar = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
+	pnltermpwmonusb = new PnlWzskLlvTermPwmonusb(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnltermpwmonuart = new PnlWzskLlvTermPwmonuart(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnllaser = new PnlWzskLlvLaser(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlttable = new PnlWzskLlvTtable(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlcamera = new PnlWzskLlvCamera(xchg, dbswzsk, jref, ixWzskVLocale);
@@ -63,13 +67,13 @@ CrdWzskLlv::CrdWzskLlv(
 	pnltermmcvevp = new PnlWzskLlvTermMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnltermicicle = new PnlWzskLlvTermIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnltermclnxevb = new PnlWzskLlvTermClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlheadbar = new PnlWzskLlvHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnltermarty = new PnlWzskLlvTermArty(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlheadbar = new PnlWzskLlvHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 
-	statshr.jrefTermArty = pnltermarty->jref;
 	statshr.jrefHeadbar = pnlheadbar->jref;
+	statshr.jrefTermArty = pnltermarty->jref;
 	statshr.jrefTermClnxevb = pnltermclnxevb->jref;
 	statshr.jrefTermIcicle = pnltermicicle->jref;
 	statshr.jrefTermMcvevp = pnltermmcvevp->jref;
@@ -77,6 +81,8 @@ CrdWzskLlv::CrdWzskLlv(
 	statshr.jrefCamera = pnlcamera->jref;
 	statshr.jrefTtable = pnlttable->jref;
 	statshr.jrefLaser = pnllaser->jref;
+	statshr.jrefTermPwmonuart = pnltermpwmonuart->jref;
+	statshr.jrefTermPwmonusb = pnltermpwmonusb->jref;
 
 	changeStage(dbswzsk, VecVSge::IDLE);
 
@@ -133,6 +139,8 @@ void CrdWzskLlv::refresh(
 	statshr.pnltermicicleAvail = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE);
 	statshr.pnltermmcvevpAvail = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::MCVEVP);
 	statshr.pnltermuvbdvkAvail = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS);
+	statshr.pnltermpwmonuartAvail = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS);
+	statshr.pnltermpwmonusbAvail = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB);
 
 	// IP refresh --- REND
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);

@@ -20,8 +20,8 @@ uint QryWzskUsrList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "ste") return STE;
 	if (s == "usg") return USG;
+	if (s == "ste") return STE;
 	if (s == "srf") return SRF;
 	if (s == "prs") return PRS;
 	if (s == "own") return OWN;
@@ -33,8 +33,8 @@ uint QryWzskUsrList::VecVOrd::getIx(
 string QryWzskUsrList::VecVOrd::getSref(
 			const uint ix
 		) {
-	if (ix == STE) return("ste");
 	if (ix == USG) return("usg");
+	if (ix == STE) return("ste");
 	if (ix == SRF) return("srf");
 	if (ix == PRS) return("prs");
 	if (ix == OWN) return("own");
@@ -189,15 +189,14 @@ QryWzskUsrList::StgIac::StgIac(
 };
 
 bool QryWzskUsrList::StgIac::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["StgIacQryWzskUsrList"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["StgIacQryWzskUsrList"];}();
 
 	basefound = (me != Json::nullValue);
 

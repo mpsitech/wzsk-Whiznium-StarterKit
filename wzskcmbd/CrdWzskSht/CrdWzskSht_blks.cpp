@@ -338,15 +338,14 @@ string CrdWzskSht::DpchAppDo::getSrefsMask() {
 };
 
 void CrdWzskSht::DpchAppDo::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["DpchAppWzskShtDo"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["DpchAppWzskShtDo"];}();
 
 	basefound = (me != Json::nullValue);
 

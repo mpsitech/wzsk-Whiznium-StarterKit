@@ -154,8 +154,8 @@ void QryWzskObjList::rerun_orderSQL(
 			string& sqlstr
 			, const uint preIxOrd
 		) {
-	if (preIxOrd == VecVOrd::OGR) sqlstr += " ORDER BY TblWzskMObject.refWzskMObjgroup ASC";
-	else if (preIxOrd == VecVOrd::TIT) sqlstr += " ORDER BY TblWzskMObject.Title ASC";
+	if (preIxOrd == VecVOrd::TIT) sqlstr += " ORDER BY TblWzskMObject.Title ASC";
+	else if (preIxOrd == VecVOrd::OGR) sqlstr += " ORDER BY TblWzskMObject.refWzskMObjgroup ASC";
 };
 
 void QryWzskObjList::fetch(

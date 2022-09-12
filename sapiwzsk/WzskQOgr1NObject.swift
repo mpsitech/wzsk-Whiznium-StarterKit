@@ -23,7 +23,7 @@ public class WzskQOgr1NObject {
 		self.stubRef = stubRef
 	}
 
-	public var jnum: Int = 0
+	public var jnum: Int
 	public var stubRef: String
 
 	public func readXML(

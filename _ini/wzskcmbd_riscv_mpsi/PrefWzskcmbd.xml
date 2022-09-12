@@ -112,6 +112,15 @@
 	<StgJobWzskSrcMcvevp>
 		<Si sref="path">/dev/mcvevp</Si>
 	</StgJobWzskSrcMcvevp>
+	<StgJobWzskSrcMercbb>
+		<Si sref="path">/dev/mercbb</Si>
+	</StgJobWzskSrcMercbb>
+	<StgJobWzskSrcPwmonuart>
+		<Si sref="path">/dev/ttyUSB0</Si>
+	</StgJobWzskSrcPwmonuart>
+	<StgJobWzskSrcPwmonusb>
+		<Si sref="path">/dev/ttyUSB0</Si>
+	</StgJobWzskSrcPwmonusb>
 	<StgJobWzskSrcSysinfo>
 		<Si sref="pathrootCurrVolt">/var/lib/collectd/icicle-kit-es/sensors-microchip,pac1934</Si>
 		<Si sref="pathStat">/proc/stat</Si>

@@ -1,14 +1,43 @@
 <template>
-	<v-card v-if=initdone class="pa-3 my-3 mx-auto" elevation="4">
+	<v-card v-if="initdone" class="pa-3 my-3 mx-auto" elevation="3">
 		<v-card-title>
 			<v-row>
-				<v-col cols="12">
+				<v-col cols="8">
 					<div>{{tag.Cpt}}</div>
+				</v-col>
+				<v-col cols="4" align="end">
+					&#160;&#160;
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='mind'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButRegularizeClick')"
+						:value="1"
+					>
+						<v-icon color="white">mdi-plus-circle</v-icon>
+					</v-btn>
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='regd'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButMinimizeClick')"
+						:value="1"
+					>
+						<v-icon color="white">mdi-minus-circle</v-icon>
+					</v-btn>
 				</v-col>
 			</v-row>
 		</v-card-title>
 
-		<v-card-text>
+		<v-card-text
+			v-if="statshr.srefIxWzskVExpstate=='regd'"
+		>
 		</v-card-text>
 	</v-card>
 </template>
@@ -53,12 +82,6 @@
 				};
 
 				this.$emit("request", {scrJref: this.scrJref, dpchapp: dpchapp, then: "handleDpchAppDataDoReply"});
-			},
-
-			handlePupChange: function(cisref, fi) {
-				this.contiac[cisref] = fi.num;
-
-				this.updateEng(["contiac"]);
 			},
 
 			updateEng: function(mask) {

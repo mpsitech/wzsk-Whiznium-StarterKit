@@ -128,6 +128,7 @@ JobWzskAcqFpgaflg
 	JobWzskSrcClnxevb	srcclnxevb	false	cust
 	JobWzskSrcIcicle	srcicicle	false	cust
 	JobWzskSrcMcvevp	srcmcvevp	false	cust
+	JobWzskSrcMercbb	srcmercbb	false	cust
 	ImeIRMJobMJob.end
 JobWzskAcqFpgapvw
 	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
@@ -159,6 +160,7 @@ JobWzskAcqFpgapvw
 	JobWzskSrcClnxevb	srcclnxevb	false	cust
 	JobWzskSrcIcicle	srcicicle	false	cust
 	JobWzskSrcMcvevp	srcmcvevp	false	cust
+	JobWzskSrcMercbb	srcmercbb	false	cust
 	ImeIRMJobMJob.end
 JobWzskAcqPreview
 	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
@@ -318,6 +320,7 @@ JobWzskActExposure
 	JobWzskSrcClnxevb	srcclnxevb	false	cust
 	JobWzskSrcIcicle	srcicicle	false	cust
 	JobWzskSrcMcvevp	srcmcvevp	false	cust
+	JobWzskSrcMercbb	srcmercbb	false	cust
 	JobWzskSrcV4l2	srcv4l2	false	cust
 	ImeIRMJobMJob.end
 JobWzskActLaser
@@ -347,6 +350,7 @@ JobWzskActLaser
 	JobWzskSrcIcicle	srcicicle	false	cust
 	JobWzskSrcMcvevp	srcmcvevp	false	cust
 	JobWzskSrcUvbdvk	srcuvbdvk	false	cust
+	JobWzskSrcMercbb	srcmercbb	false	cust
 	ImeIRMJobMJob.end
 JobWzskActServo
 	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
@@ -360,7 +364,7 @@ JobWzskActServo
 		ImeIMSquawk.end
 	othwc	move	250000
 		ImeIMSquawk.Title	Example
-			moving towards angle 90\u00a1
+			moving towards angle 90deg
 			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
 			enus	moving
 			dech	Bewegung
@@ -373,7 +377,7 @@ JobWzskActServo
 	ImeIMMethod.sref	Execsrv	Comment
 	moveto	true
 		ImeIAMMethodInvpar.sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Comment
-		target	float			in \u00a1
+		target	float			in deg
 		ImeIAMMethodInvpar.end
 	stop	true
 	turn	true
@@ -386,8 +390,8 @@ JobWzskActServo
 	1
 	ImeICAMJobVar.end
 	ImeIAMJobVar.irefRefWznmCAMJobVar	sref	srefIxWznmVVartype	srefRefWznmMVector	Length	Shr	Comment
-	1	angle	float			true	in \u00a1
-	1	target	float			true	in \u00a1
+	1	angle	float			true	in deg
+	1	target	float			true	in deg
 	ImeIAMJobVar.end
 	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
 	JobWzskSrcArty	srcarty	false	cust
@@ -395,6 +399,7 @@ JobWzskActServo
 	JobWzskSrcIcicle	srcicicle	false	cust
 	JobWzskSrcMcvevp	srcmcvevp	false	cust
 	JobWzskSrcUvbdvk	srcuvbdvk	false	cust
+	JobWzskSrcMercbb	srcmercbb	false	cust
 	ImeIRMJobMJob.end
 JobWzskIprAngle
 	ImeIAMJobCmd.sref	Comment
@@ -722,6 +727,78 @@ JobWzskSrcMcvevp
 	stopRxtxdump
 	test
 	ImeIAMJobCmd.end
+JobWzskSrcMercbb
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	nc
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	not connected
+			dech	nicht verbunden
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	ready
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	ready
+			dech	bereit
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	startRxtxdump
+	stopRxtxdump
+	test
+	ImeIAMJobCmd.end
+JobWzskSrcPwmonuart
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	nc
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	not connected
+			dech	nicht verbunden
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	ready
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	ready
+			dech	bereit
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	startRxtxdump
+	stopRxtxdump
+	test
+	ImeIAMJobCmd.end
+JobWzskSrcPwmonusb
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	nc
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	not connected
+			dech	nicht verbunden
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	other	ready
+		ImeIMSquawk.Title	Example
+		
+			ImeIJMSquawkTitle.srefX1RefWznmMLocale	Title
+			enus	ready
+			dech	bereit
+			ImeIJMSquawkTitle.end
+		ImeIMSquawk.end
+	ImeIMStage.end
+	ImeIAMJobCmd.sref	Comment
+	startRxtxdump
+	stopRxtxdump
+	test
+	ImeIAMJobCmd.end
 JobWzskSrcSysinfo
 	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
 	other	idle
@@ -767,6 +844,10 @@ JobWzskSrcSysinfo
 	5	loadCore3	floatvec		60	true
 	0	temp	floatvec		60	true
 	ImeIAMJobVar.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	srefIxVConstract
+	JobWzskSrcPwmonuart	srcpwmonuart	false	cust
+	JobWzskSrcPwmonusb	srcpwmonusb	false	cust
+	ImeIRMJobMJob.end
 JobWzskSrcUvbdvk
 	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
 	other	nc

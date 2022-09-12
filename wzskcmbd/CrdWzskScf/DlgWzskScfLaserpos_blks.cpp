@@ -126,15 +126,14 @@ DlgWzskScfLaserpos::ContIac::ContIac(
 };
 
 bool DlgWzskScfLaserpos::ContIac::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["ContIacDlgWzskScfLaserpos"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["ContIacDlgWzskScfLaserpos"];}();
 
 	basefound = (me != Json::nullValue);
 
@@ -451,15 +450,14 @@ string DlgWzskScfLaserpos::DpchAppData::getSrefsMask() {
 };
 
 void DlgWzskScfLaserpos::DpchAppData::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["DpchAppDlgWzskScfLaserposData"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["DpchAppDlgWzskScfLaserposData"];}();
 
 	basefound = (me != Json::nullValue);
 
@@ -521,15 +519,14 @@ string DlgWzskScfLaserpos::DpchAppDo::getSrefsMask() {
 };
 
 void DlgWzskScfLaserpos::DpchAppDo::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["DpchAppDlgWzskScfLaserposDo"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["DpchAppDlgWzskScfLaserposDo"];}();
 
 	basefound = (me != Json::nullValue);
 

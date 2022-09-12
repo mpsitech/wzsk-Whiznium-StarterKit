@@ -15,6 +15,7 @@
 // IP include.cust --- INSERT
 
 #include "JobWzskSrcV4l2.h"
+#include "JobWzskSrcMercbb.h"
 #include "JobWzskSrcMcvevp.h"
 #include "JobWzskSrcIcicle.h"
 #include "JobWzskSrcClnxevb.h"
@@ -93,6 +94,7 @@ public:
 	static Shrdat shrdat;
 
 	JobWzskSrcV4l2* srcv4l2;
+	JobWzskSrcMercbb* srcmercbb;
 	JobWzskSrcMcvevp* srcmcvevp;
 	JobWzskSrcIcicle* srcicicle;
 	JobWzskSrcClnxevb* srcclnxevb;

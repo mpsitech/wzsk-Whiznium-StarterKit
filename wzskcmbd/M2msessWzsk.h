@@ -18,8 +18,8 @@
 #include "JobWzskIprTrace.h"
 #include "JobWzskIprCorner.h"
 #include "JobWzskActServo.h"
-#include "JobWzskActExposure.h"
 #include "JobWzskActLaser.h"
+#include "JobWzskActExposure.h"
 #include "JobWzskAcqPtcloud.h"
 #include "JobWzskAcqPreview.h"
 
@@ -103,8 +103,8 @@ public:
 	JobWzskIprTrace* iprtrace;
 	JobWzskIprCorner* iprcorner;
 	JobWzskActServo* actservo;
-	JobWzskActExposure* actexposure;
 	JobWzskActLaser* actlaser;
+	JobWzskActExposure* actexposure;
 	JobWzskAcqPtcloud* acqptcloud;
 	JobWzskAcqPreview* acqpreview;
 

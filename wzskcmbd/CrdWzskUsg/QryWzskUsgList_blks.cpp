@@ -20,8 +20,8 @@ uint QryWzskUsgList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "srf") return SRF;
 	if (s == "own") return OWN;
+	if (s == "srf") return SRF;
 	if (s == "grp") return GRP;
 
 	return(0);
@@ -30,8 +30,8 @@ uint QryWzskUsgList::VecVOrd::getIx(
 string QryWzskUsgList::VecVOrd::getSref(
 			const uint ix
 		) {
-	if (ix == SRF) return("srf");
 	if (ix == OWN) return("own");
+	if (ix == SRF) return("srf");
 	if (ix == GRP) return("grp");
 
 	return("");
@@ -183,15 +183,14 @@ QryWzskUsgList::StgIac::StgIac(
 };
 
 bool QryWzskUsgList::StgIac::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["StgIacQryWzskUsgList"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["StgIacQryWzskUsgList"];}();
 
 	basefound = (me != Json::nullValue);
 

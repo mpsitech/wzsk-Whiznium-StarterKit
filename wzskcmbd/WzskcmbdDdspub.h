@@ -44,11 +44,11 @@ namespace WzskcmbdDdspub {
 		rti::request::Replier<DdsJobWzskActServo::turn_req,DdsJobWzskActServo::turn_reply>* replierJobWzskActServo_turn;
 		rti::request::Replier<DdsJobWzskActServo::zero_req,DdsJobWzskActServo::zero_reply>* replierJobWzskActServo_zero;
 
-		rti::request::Replier<DdsJobWzskActExposure::setExposure_req,DdsJobWzskActExposure::setExposure_reply>* replierJobWzskActExposure_setExposure;
-		rti::request::Replier<DdsJobWzskActExposure::setFocus_req,DdsJobWzskActExposure::setFocus_reply>* replierJobWzskActExposure_setFocus;
-
 		rti::request::Replier<DdsJobWzskActLaser::setLeft_req,DdsJobWzskActLaser::setLeft_reply>* replierJobWzskActLaser_setLeft;
 		rti::request::Replier<DdsJobWzskActLaser::setRight_req,DdsJobWzskActLaser::setRight_reply>* replierJobWzskActLaser_setRight;
+
+		rti::request::Replier<DdsJobWzskActExposure::setExposure_req,DdsJobWzskActExposure::setExposure_reply>* replierJobWzskActExposure_setExposure;
+		rti::request::Replier<DdsJobWzskActExposure::setFocus_req,DdsJobWzskActExposure::setFocus_reply>* replierJobWzskActExposure_setFocus;
 
 		rti::request::Replier<DdsJobWzskAcqPtcloud::setDeltaTheta_req,DdsJobWzskAcqPtcloud::setDeltaTheta_reply>* replierJobWzskAcqPtcloud_setDeltaTheta;
 		rti::request::Replier<DdsJobWzskAcqPtcloud::setDWork_req,DdsJobWzskAcqPtcloud::setDWork_reply>* replierJobWzskAcqPtcloud_setDWork;
@@ -120,6 +120,10 @@ namespace WzskcmbdDdspub {
 		dds::pub::DataWriter<DdsJobWzskActServo::angleTarget>* writerJobWzskActServo_angleTarget;
 		DdsJobWzskActServo::angleTarget* JobWzskActServo_angleTarget;
 
+		dds::topic::Topic<DdsJobWzskActLaser::leftRight>* topicJobWzskActLaser_leftRight;
+		dds::pub::DataWriter<DdsJobWzskActLaser::leftRight>* writerJobWzskActLaser_leftRight;
+		DdsJobWzskActLaser::leftRight* JobWzskActLaser_leftRight;
+
 		dds::topic::Topic<DdsJobWzskActExposure::autoNotManualTexp>* topicJobWzskActExposure_autoNotManualTexp;
 		dds::pub::DataWriter<DdsJobWzskActExposure::autoNotManualTexp>* writerJobWzskActExposure_autoNotManualTexp;
 		DdsJobWzskActExposure::autoNotManualTexp* JobWzskActExposure_autoNotManualTexp;
@@ -127,10 +131,6 @@ namespace WzskcmbdDdspub {
 		dds::topic::Topic<DdsJobWzskActExposure::focus>* topicJobWzskActExposure_focus;
 		dds::pub::DataWriter<DdsJobWzskActExposure::focus>* writerJobWzskActExposure_focus;
 		DdsJobWzskActExposure::focus* JobWzskActExposure_focus;
-
-		dds::topic::Topic<DdsJobWzskActLaser::leftRight>* topicJobWzskActLaser_leftRight;
-		dds::pub::DataWriter<DdsJobWzskActLaser::leftRight>* writerJobWzskActLaser_leftRight;
-		DdsJobWzskActLaser::leftRight* JobWzskActLaser_leftRight;
 
 		dds::topic::Topic<DdsJobWzskAcqPtcloud::deltaTheta>* topicJobWzskAcqPtcloud_deltaTheta;
 		dds::pub::DataWriter<DdsJobWzskAcqPtcloud::deltaTheta>* writerJobWzskAcqPtcloud_deltaTheta;

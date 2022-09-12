@@ -56,15 +56,14 @@ PnlWzskLiv3DView::ContIac::ContIac(
 };
 
 bool PnlWzskLiv3DView::ContIac::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["ContIacWzskLiv3DView"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["ContIacWzskLiv3DView"];}();
 
 	basefound = (me != Json::nullValue);
 
@@ -473,15 +472,14 @@ string PnlWzskLiv3DView::DpchAppData::getSrefsMask() {
 };
 
 void PnlWzskLiv3DView::DpchAppData::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["DpchAppWzskLiv3DViewData"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["DpchAppWzskLiv3DViewData"];}();
 
 	basefound = (me != Json::nullValue);
 
@@ -543,15 +541,14 @@ string PnlWzskLiv3DView::DpchAppDo::getSrefsMask() {
 };
 
 void PnlWzskLiv3DView::DpchAppDo::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["DpchAppWzskLiv3DViewDo"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["DpchAppWzskLiv3DViewDo"];}();
 
 	basefound = (me != Json::nullValue);
 

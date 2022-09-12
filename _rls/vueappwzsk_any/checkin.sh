@@ -3,7 +3,7 @@
 # checkin script for Wzsk Vue.js UI, release vueappwzsk_any
 # copyright: (C) 2022 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 25 Mar 2022
+# date created: 12 Sep 2022
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then
@@ -16,7 +16,9 @@ export set REPROOT=${WHIZDEVROOT}/rep
 cp AppWzsk.vue $REPROOT/wzsk/vueappwzsk/
 cp main.js $REPROOT/wzsk/vueappwzsk/
 
-cp -r assets $REPROOT/wzsk/vueappwzsk/
+cp assets/* $REPROOT/wzsk/vueappwzsk/assets/
+cp ../public/favicon.ico $REPROOT/wzsk/vueappwzsk/assets/
+touch $REPROOT/wzsk/vueappwzsk/assets/"IP folder --- KEEP"
 
 cp -r components/* $REPROOT/wzsk/vueappwzsk/
 

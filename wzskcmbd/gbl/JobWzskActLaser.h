@@ -18,6 +18,7 @@
 #include <sys/ioctl.h>
 // IP include.cust --- IEND
 
+#include "JobWzskSrcMercbb.h"
 #include "JobWzskSrcUvbdvk.h"
 #include "JobWzskSrcMcvevp.h"
 #include "JobWzskSrcIcicle.h"
@@ -144,6 +145,7 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
+	JobWzskSrcMercbb* srcmercbb;
 	JobWzskSrcUvbdvk* srcuvbdvk;
 	JobWzskSrcMcvevp* srcmcvevp;
 	JobWzskSrcIcicle* srcicicle;

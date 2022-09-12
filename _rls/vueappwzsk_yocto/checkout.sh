@@ -3,7 +3,7 @@
 # checkout script for Wzsk Vue.js UI, release vueappwzsk_yocto
 # copyright: (C) 2022 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 25 Mar 2022
+# date created: 12 Sep 2022
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then
@@ -20,7 +20,10 @@ cp checkin.sh $WEBROOT/vueappwzsk/src
 cp ../../vueappwzsk/AppWzsk.vue $WEBROOT/vueappwzsk/src/
 cp ../../vueappwzsk/main.js $WEBROOT/vueappwzsk/src/
 
-cp -r ../../vueappwzsk/assets $WEBROOT/vueappwzsk/src/
+mkdir $WEBROOT/vueappwzsk/src/assets
+
+cp ../../vueappwzsk/assets/* $WEBROOT/vueappwzsk/src/assets/
+cp ../../vueappwzsk/assets/favicon.ico $WEBROOT/vueappwzsk/public/
 
 mkdir $WEBROOT/vueappwzsk/src/components
 

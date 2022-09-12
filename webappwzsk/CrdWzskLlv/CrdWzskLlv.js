@@ -9,8 +9,8 @@ function setInitdone(pnlshort) {
 };
 
 function checkInitdone() {
-	var initdoneTermArty = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermArty") == "true");
 	var initdoneHeadbar = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneHeadbar") == "true");
+	var initdoneTermArty = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermArty") == "true");
 	var initdoneTermClnxevb = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermClnxevb") == "true");
 	var initdoneTermIcicle = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermIcicle") == "true");
 	var initdoneTermMcvevp = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermMcvevp") == "true");
@@ -18,11 +18,13 @@ function checkInitdone() {
 	var initdoneCamera = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneCamera") == "true");
 	var initdoneTtable = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTtable") == "true");
 	var initdoneLaser = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneLaser") == "true");
+	var initdoneTermPwmonuart = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermPwmonuart") == "true");
+	var initdoneTermPwmonusb = (retrieveSi(srcdoc, "StatAppWzskLlv", "initdoneTermPwmonusb") == "true");
 
-	if (!initdoneTermArty) {
-		doc.getElementById("TermArty").src = "./PnlWzskLlvTermArty.html?scrJref=" + scrJrefTermArty;
-	} else if (!initdoneHeadbar) {
+	if (!initdoneHeadbar) {
 		doc.getElementById("Headbar").src = "./PnlWzskLlvHeadbar.html?scrJref=" + scrJrefHeadbar;
+	} else if (!initdoneTermArty) {
+		doc.getElementById("TermArty").src = "./PnlWzskLlvTermArty.html?scrJref=" + scrJrefTermArty;
 	} else if (!initdoneTermClnxevb) {
 		doc.getElementById("TermClnxevb").src = "./PnlWzskLlvTermClnxevb.html?scrJref=" + scrJrefTermClnxevb;
 	} else if (!initdoneTermIcicle) {
@@ -37,6 +39,10 @@ function checkInitdone() {
 		doc.getElementById("Ttable").src = "./PnlWzskLlvTtable.html?scrJref=" + scrJrefTtable;
 	} else if (!initdoneLaser) {
 		doc.getElementById("Laser").src = "./PnlWzskLlvLaser.html?scrJref=" + scrJrefLaser;
+	} else if (!initdoneTermPwmonuart) {
+		doc.getElementById("TermPwmonuart").src = "./PnlWzskLlvTermPwmonuart.html?scrJref=" + scrJrefTermPwmonuart;
+	} else if (!initdoneTermPwmonusb) {
+		doc.getElementById("TermPwmonusb").src = "./PnlWzskLlvTermPwmonusb.html?scrJref=" + scrJrefTermPwmonusb;
 	} else {
 		doc.initdone = true;
 		window.onfocus = resumeNotify;
@@ -73,6 +79,8 @@ function getHeight() {
 	height += 10 + parseInt(doc.getElementById("tdCamera").getAttribute("height")) + 8;
 	height += 10 + parseInt(doc.getElementById("tdTtable").getAttribute("height")) + 8;
 	height += 10 + parseInt(doc.getElementById("tdLaser").getAttribute("height")) + 8;
+	if (doc.getElementById("trTermPwmonuart").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdTermPwmonuart").getAttribute("height")) + 8;
+	if (doc.getElementById("trTermPwmonusb").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdTermPwmonusb").getAttribute("height")) + 8;
 
 	height += 5;
 
@@ -353,6 +361,12 @@ function changeHeight(pnlshort, height) {
 	} else if (pnlshort == "Laser") {
 		doc.getElementById("tdLaser").setAttribute("height", "" + height);
 		doc.getElementById("Laser").setAttribute("height", "" + height);
+	} else if (pnlshort == "TermPwmonuart") {
+		doc.getElementById("tdTermPwmonuart").setAttribute("height", "" + height);
+		doc.getElementById("TermPwmonuart").setAttribute("height", "" + height);
+	} else if (pnlshort == "TermPwmonusb") {
+		doc.getElementById("tdTermPwmonusb").setAttribute("height", "" + height);
+		doc.getElementById("TermPwmonusb").setAttribute("height", "" + height);
 	};
 
 	if (divPnldshld) divPnldshld.setAttribute("style", "height:" + getHeight() + "px;");
@@ -367,12 +381,16 @@ function refresh() {
 	var pnltermicicleAvail = (retrieveSi(srcdoc, "StatShrWzskLlv", "pnltermicicleAvail") == "true");
 	var pnltermmcvevpAvail = (retrieveSi(srcdoc, "StatShrWzskLlv", "pnltermmcvevpAvail") == "true");
 	var pnltermuvbdvkAvail = (retrieveSi(srcdoc, "StatShrWzskLlv", "pnltermuvbdvkAvail") == "true");
+	var pnltermpwmonuartAvail = (retrieveSi(srcdoc, "StatShrWzskLlv", "pnltermpwmonuartAvail") == "true");
+	var pnltermpwmonusbAvail = (retrieveSi(srcdoc, "StatShrWzskLlv", "pnltermpwmonusbAvail") == "true");
 
 	setPnlAvail("TermArty", pnltermartyAvail);
 	setPnlAvail("TermClnxevb", pnltermclnxevbAvail);
 	setPnlAvail("TermIcicle", pnltermicicleAvail);
 	setPnlAvail("TermMcvevp", pnltermmcvevpAvail);
 	setPnlAvail("TermUvbdvk", pnltermuvbdvkAvail);
+	setPnlAvail("TermPwmonuart", pnltermpwmonuartAvail);
+	setPnlAvail("TermPwmonusb", pnltermpwmonusbAvail);
 };
 
 // --- event handlers
@@ -440,6 +458,10 @@ function handleDpchEngSub(_scrJref, dom, dpch) {
 		doc.getElementById("Ttable").contentWindow.handleDpchEng(dom, dpch);
 	} else if (_scrJref == scrJrefLaser) {
 		doc.getElementById("Laser").contentWindow.handleDpchEng(dom, dpch);
+	} else if (_scrJref == scrJrefTermPwmonuart) {
+		doc.getElementById("TermPwmonuart").contentWindow.handleDpchEng(dom, dpch);
+	} else if (_scrJref == scrJrefTermPwmonusb) {
+		doc.getElementById("TermPwmonusb").contentWindow.handleDpchEng(dom, dpch);
 
 	} else {
 		// alert("got a '" + dpch + "' from job with scrJref " + _scrJref);
@@ -458,8 +480,8 @@ function handleDpchAppInitReply() {
 				mergeDpchEngData(dom);
 
 				// establish sub-panel scrJref's as global variables, and start sub-panel load sequence
-				scrJrefTermArty = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermArty");
 				scrJrefHeadbar = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefHeadbar");
+				scrJrefTermArty = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermArty");
 				scrJrefTermClnxevb = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermClnxevb");
 				scrJrefTermIcicle = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermIcicle");
 				scrJrefTermMcvevp = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermMcvevp");
@@ -467,6 +489,8 @@ function handleDpchAppInitReply() {
 				scrJrefCamera = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefCamera");
 				scrJrefTtable = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTtable");
 				scrJrefLaser = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefLaser");
+				scrJrefTermPwmonuart = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermPwmonuart");
+				scrJrefTermPwmonusb = retrieveSi(srcdoc, "StatShrWzskLlv", "scrJrefTermPwmonusb");
 
 				scrJrefPnld = "";
 

@@ -56,15 +56,14 @@ PnlWzskLlvLaser::ContIac::ContIac(
 };
 
 bool PnlWzskLlvLaser::ContIac::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["ContIacWzskLlvLaser"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["ContIacWzskLlvLaser"];}();
 
 	basefound = (me != Json::nullValue);
 
@@ -399,15 +398,14 @@ string PnlWzskLlvLaser::DpchAppData::getSrefsMask() {
 };
 
 void PnlWzskLlvLaser::DpchAppData::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["DpchAppWzskLlvLaserData"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["DpchAppWzskLlvLaserData"];}();
 
 	basefound = (me != Json::nullValue);
 
@@ -469,15 +467,14 @@ string PnlWzskLlvLaser::DpchAppDo::getSrefsMask() {
 };
 
 void PnlWzskLlvLaser::DpchAppDo::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["DpchAppWzskLlvLaserDo"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["DpchAppWzskLlvLaserDo"];}();
 
 	basefound = (me != Json::nullValue);
 

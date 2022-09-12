@@ -19,22 +19,22 @@ public class QryWzskFilList {
 		*/
 	public class VecVOrd {
 
-		public static let REU: Int = 1
-		public static let GRP: Int = 2
-		public static let OWN: Int = 3
-		public static let FNM: Int = 4
-		public static let RET: Int = 5
+		public static let GRP: Int = 1
+		public static let OWN: Int = 2
+		public static let FNM: Int = 3
+		public static let RET: Int = 4
+		public static let REU: Int = 5
 
 		public static func getIx(
 					_ sref: String
 				) -> Int {
 			let s: String = sref.lowercased()
 
-			if s == "reu" {return REU}
 			if s == "grp" {return GRP}
 			if s == "own" {return OWN}
 			if s == "fnm" {return FNM}
 			if s == "ret" {return RET}
+			if s == "reu" {return REU}
 
 			return 0
 		}
@@ -42,11 +42,11 @@ public class QryWzskFilList {
 		public static func getSref(
 					_ ix: Int
 				) -> String {
-			if ix == REU {return "reu"}
 			if ix == GRP {return "grp"}
 			if ix == OWN {return "own"}
 			if ix == FNM {return "fnm"}
 			if ix == RET {return "ret"}
+			if ix == REU {return "reu"}
 
 			return ""
 		}

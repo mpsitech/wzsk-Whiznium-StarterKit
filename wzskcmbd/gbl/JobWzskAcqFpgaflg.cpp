@@ -108,6 +108,7 @@ JobWzskAcqFpgaflg::JobWzskAcqFpgaflg(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
+	srcmercbb = NULL;
 	srcmcvevp = NULL;
 	srcicicle = NULL;
 	srcclnxevb = NULL;

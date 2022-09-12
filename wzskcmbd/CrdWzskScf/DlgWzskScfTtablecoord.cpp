@@ -44,16 +44,16 @@ DlgWzskScfTtablecoord::DlgWzskScfTtablecoord(
 	VecVSge::fillFeed(feedFSge);
 
 	iprcorner = NULL;
-	actservo = NULL;
 	iprangle = NULL;
+	actservo = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	ixVDit = VecVDit::PLH;
 
 	iprcorner = new JobWzskIprCorner(xchg, dbswzsk, jref, ixWzskVLocale);
-	actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
 	iprangle = new JobWzskIprAngle(xchg, dbswzsk, jref, ixWzskVLocale);
+	actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 

@@ -30,6 +30,10 @@
 	/*
 	*/
 
+	/*
+	<!-- IP import.cust - INSERT -->
+	*/
+
 	export default {
 		name: 'CrdWzskLiv',
 
@@ -60,7 +64,13 @@
 		},
 
 		methods: {
+			/*
+			<!-- IP cust - INSERT -->
+			*/
+
 			mergeDpchEngData: function(dpcheng) {
+				/*
+				*/
 				if (dpcheng.ContInfWzskLiv) this.continf = dpcheng.ContInfWzskLiv;
 				if (dpcheng.FeedFSge) this.feedFSge = dpcheng.FeedFSge;
 				if (dpcheng.StatAppWzskLiv) this.statapp = dpcheng.StatAppWzskLiv;
@@ -69,6 +79,12 @@
 					Wzsk.unescapeBlock(dpcheng.TagWzskLiv);
 					this.tag = dpcheng.TagWzskLiv;
 				}
+				/*
+				*/
+			},
+
+			handleCrdopen: function(obj) {
+				this.$emit("crdopen", obj)
 			},
 
 			handleRequest: function(obj) {
@@ -76,15 +92,16 @@
 			},
 
 			handleReply: function(obj) {
-				if (obj.dpcheng.scrJref == this.scrJref) {
+				if (obj.scrJref == this.scrJref) {
 					if (obj.then == "handleDpchAppInitReply") this.handleDpchAppInitReply(obj.dpcheng);
 
 				} else if (this.initdone) {
 					/*
 					*/
-					if (obj.dpcheng.scrJref == this.statshr.scrJref2DView) this.$refs.PnlWzskLiv2DView.handleReply(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJref3DView) this.$refs.PnlWzskLiv3DView.handleReply(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefSysmon) this.$refs.PnlWzskLivSysmon.handleReply(obj);
+					if (obj.scrJref == this.statshr.scrJref2DView) this.$refs.PnlWzskLiv2DView.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJref3DView) this.$refs.PnlWzskLiv3DView.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefSysmon) this.$refs.PnlWzskLivSysmon.handleReply(obj);
+					else console.log("got a '" + obj.srefIxWzskVDpch + "' from job with scrJref " + obj.dpcheng.scrJref);
 					/*
 					*/
 				}
@@ -97,27 +114,40 @@
 			},
 
 			handleUpdate: function(obj) {
+				var processed = false;
+
 				if (obj.dpcheng.scrJref == this.scrJref) {
 					if (obj.srefIxWzskVDpch == "DpchEngWzskLivData") this.mergeDpchEngData(obj.dpcheng);
+					processed = true;
 
 				} else if (this.initdone) {
 					/*
 					*/
-					if (obj.dpcheng.scrJref == this.statshr.scrJref2DView) this.$refs.PnlWzskLiv2DView.handleUpdate(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJref3DView) this.$refs.PnlWzskLiv3DView.handleUpdate(obj);
-					else if (obj.dpcheng.scrJref == this.statshr.scrJrefSysmon) this.$refs.PnlWzskLivSysmon.handleUpdate(obj);
+					if (obj.dpcheng.scrJref == this.statshr.scrJref2DView) {
+						this.$refs.PnlWzskLiv2DView.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJref3DView) {
+						this.$refs.PnlWzskLiv3DView.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefSysmon) {
+						this.$refs.PnlWzskLivSysmon.handleUpdate(obj);
+						processed = true;
+					}
 					/*
 					*/
 				}
-			},
-		},
 
-		computed: {
+				//if (!processed) console.log("got a '" + obj.srefIxWzskVDpch + "' from job with scrJref " + obj.dpcheng.scrJref);
+
+				return processed
+			},
 		},
 
 		data: () => ({
 			initdone: false,
 
+			/*
+			*/
 			continf: null,
 
 			feedFSge: null,
@@ -126,7 +156,13 @@
 
 			statshr: null,
 
-			tag: null
+			tag: null,
+			/*
+			*/
+			
+			/*
+			<!-- IP data.cust - INSERT -->
+			*/
 		})
 	}
 </script>

@@ -69,6 +69,7 @@ JobWzskActExposure::JobWzskActExposure(
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
 	srcv4l2 = NULL;
+	srcmercbb = NULL;
 	srcmcvevp = NULL;
 	srcicicle = NULL;
 	srcclnxevb = NULL;

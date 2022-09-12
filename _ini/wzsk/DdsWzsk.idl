@@ -3,7 +3,7 @@
 	* Wzsk DDS publisher interface description for RTI Code Generator
 	* \copyright (C) 2018-2020 MPSI Technologies GmbH
 	* \author Alexander Wirthmueller (auto-generation)
-	* \date created: 25 Mar 2022
+	* \date created: 12 Sep 2022
   */
 // IP header --- ABOVE
 
@@ -219,6 +219,29 @@ module DdsJobWzskActServo {
 	};
 };
 
+module DdsJobWzskActLaser {
+	struct setLeft_req {
+		float left;
+	};
+
+	struct setLeft_reply {
+		boolean success;
+	};
+
+	struct setRight_req {
+		float right;
+	};
+
+	struct setRight_reply {
+		boolean success;
+	};
+
+	struct leftRight {
+		float left;
+		float right;
+	};
+};
+
 module DdsJobWzskActExposure {
 	struct setExposure_req {
 		boolean autoNotManual;
@@ -244,29 +267,6 @@ module DdsJobWzskActExposure {
 
 	struct focus {
 		float _focus;
-	};
-};
-
-module DdsJobWzskActLaser {
-	struct setLeft_req {
-		float left;
-	};
-
-	struct setLeft_reply {
-		boolean success;
-	};
-
-	struct setRight_req {
-		float right;
-	};
-
-	struct setRight_reply {
-		boolean success;
-	};
-
-	struct leftRight {
-		float left;
-		float right;
 	};
 };
 

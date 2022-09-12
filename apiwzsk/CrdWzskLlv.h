@@ -85,8 +85,8 @@ namespace CrdWzskLlv {
 		static const Sbecore::uint LATENCY = 2;
 		static const Sbecore::uint SHORTMENU = 3;
 		static const Sbecore::uint WIDTHMENU = 4;
-		static const Sbecore::uint INITDONETERMARTY = 5;
-		static const Sbecore::uint INITDONEHEADBAR = 6;
+		static const Sbecore::uint INITDONEHEADBAR = 5;
+		static const Sbecore::uint INITDONETERMARTY = 6;
 		static const Sbecore::uint INITDONETERMCLNXEVB = 7;
 		static const Sbecore::uint INITDONETERMICICLE = 8;
 		static const Sbecore::uint INITDONETERMMCVEVP = 9;
@@ -94,17 +94,19 @@ namespace CrdWzskLlv {
 		static const Sbecore::uint INITDONECAMERA = 11;
 		static const Sbecore::uint INITDONETTABLE = 12;
 		static const Sbecore::uint INITDONELASER = 13;
+		static const Sbecore::uint INITDONETERMPWMONUART = 14;
+		static const Sbecore::uint INITDONETERMPWMONUSB = 15;
 
 	public:
-		StatApp(const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneTermArty = false, const bool initdoneHeadbar = false, const bool initdoneTermClnxevb = false, const bool initdoneTermIcicle = false, const bool initdoneTermMcvevp = false, const bool initdoneTermUvbdvk = false, const bool initdoneCamera = false, const bool initdoneTtable = false, const bool initdoneLaser = false);
+		StatApp(const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneTermArty = false, const bool initdoneTermClnxevb = false, const bool initdoneTermIcicle = false, const bool initdoneTermMcvevp = false, const bool initdoneTermUvbdvk = false, const bool initdoneCamera = false, const bool initdoneTtable = false, const bool initdoneLaser = false, const bool initdoneTermPwmonuart = false, const bool initdoneTermPwmonusb = false);
 
 	public:
 		Sbecore::uint ixWzskVReqitmode;
 		Sbecore::usmallint latency;
 		std::string shortMenu;
 		Sbecore::uint widthMenu;
-		bool initdoneTermArty;
 		bool initdoneHeadbar;
+		bool initdoneTermArty;
 		bool initdoneTermClnxevb;
 		bool initdoneTermIcicle;
 		bool initdoneTermMcvevp;
@@ -112,6 +114,8 @@ namespace CrdWzskLlv {
 		bool initdoneCamera;
 		bool initdoneTtable;
 		bool initdoneLaser;
+		bool initdoneTermPwmonuart;
+		bool initdoneTermPwmonusb;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -125,9 +129,9 @@ namespace CrdWzskLlv {
 	class StatShr : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint SCRJREFTERMARTY = 1;
-		static const Sbecore::uint PNLTERMARTYAVAIL = 2;
-		static const Sbecore::uint SCRJREFHEADBAR = 3;
+		static const Sbecore::uint SCRJREFHEADBAR = 1;
+		static const Sbecore::uint SCRJREFTERMARTY = 2;
+		static const Sbecore::uint PNLTERMARTYAVAIL = 3;
 		static const Sbecore::uint SCRJREFTERMCLNXEVB = 4;
 		static const Sbecore::uint PNLTERMCLNXEVBAVAIL = 5;
 		static const Sbecore::uint SCRJREFTERMICICLE = 6;
@@ -139,14 +143,18 @@ namespace CrdWzskLlv {
 		static const Sbecore::uint SCRJREFCAMERA = 12;
 		static const Sbecore::uint SCRJREFTTABLE = 13;
 		static const Sbecore::uint SCRJREFLASER = 14;
+		static const Sbecore::uint SCRJREFTERMPWMONUART = 15;
+		static const Sbecore::uint PNLTERMPWMONUARTAVAIL = 16;
+		static const Sbecore::uint SCRJREFTERMPWMONUSB = 17;
+		static const Sbecore::uint PNLTERMPWMONUSBAVAIL = 18;
 
 	public:
-		StatShr(const std::string& scrJrefTermArty = "", const bool pnltermartyAvail = false, const std::string& scrJrefHeadbar = "", const std::string& scrJrefTermClnxevb = "", const bool pnltermclnxevbAvail = false, const std::string& scrJrefTermIcicle = "", const bool pnltermicicleAvail = false, const std::string& scrJrefTermMcvevp = "", const bool pnltermmcvevpAvail = false, const std::string& scrJrefTermUvbdvk = "", const bool pnltermuvbdvkAvail = false, const std::string& scrJrefCamera = "", const std::string& scrJrefTtable = "", const std::string& scrJrefLaser = "");
+		StatShr(const std::string& scrJrefHeadbar = "", const std::string& scrJrefTermArty = "", const bool pnltermartyAvail = false, const std::string& scrJrefTermClnxevb = "", const bool pnltermclnxevbAvail = false, const std::string& scrJrefTermIcicle = "", const bool pnltermicicleAvail = false, const std::string& scrJrefTermMcvevp = "", const bool pnltermmcvevpAvail = false, const std::string& scrJrefTermUvbdvk = "", const bool pnltermuvbdvkAvail = false, const std::string& scrJrefCamera = "", const std::string& scrJrefTtable = "", const std::string& scrJrefLaser = "", const std::string& scrJrefTermPwmonuart = "", const bool pnltermpwmonuartAvail = false, const std::string& scrJrefTermPwmonusb = "", const bool pnltermpwmonusbAvail = false);
 
 	public:
+		std::string scrJrefHeadbar;
 		std::string scrJrefTermArty;
 		bool pnltermartyAvail;
-		std::string scrJrefHeadbar;
 		std::string scrJrefTermClnxevb;
 		bool pnltermclnxevbAvail;
 		std::string scrJrefTermIcicle;
@@ -158,6 +166,10 @@ namespace CrdWzskLlv {
 		std::string scrJrefCamera;
 		std::string scrJrefTtable;
 		std::string scrJrefLaser;
+		std::string scrJrefTermPwmonuart;
+		bool pnltermpwmonuartAvail;
+		std::string scrJrefTermPwmonusb;
+		bool pnltermpwmonusbAvail;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);

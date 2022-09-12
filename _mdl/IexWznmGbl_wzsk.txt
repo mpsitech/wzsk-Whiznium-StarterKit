@@ -52,6 +52,7 @@ lin	VecWzskVTarget		apdfed;filfed
 	clnxevb			Lattice CrossLink-NX evaluation board
 	icicle			Microchip PolarFire Soc Icicle kit
 	mcvevp			Aries Cyclone V evaluation platform
+	mercbb			enclustra Mercury+ on base board
 	ws			Generic Intel x64 workstation
 	ImeIMVectoritem.end
 ImeIMVector.end
@@ -138,11 +139,13 @@ cmbeng;eng	cmbeng;eng	StgWzskGlobal
 		wzskcmbd_riscv		icicle
 		wzskcmbd_tdx		apalis
 		wzskcmbd_ubuntu		ws
+		wzskcmbd_pl64		mercbb
 		// IP stgglobal.mpsi --- IBEGIN
 		wzskcmbd_mcv_mpsi		mcvevp
 		wzskcmbd_plnx_mpsi		arty
 		wzskcmbd_riscv_mpsi		icicle
 		wzskcmbd_tdx_mpsi		apalis
+		wzskcmbd_pl64_mpsi		mercbb
 		// IP stgglobal.mpsi --- IEND
 		ImeIJAMBlockItem.end
 	ImeIAMBlockItem.end
@@ -176,5 +179,15 @@ dbeterm	PnlWzskLlvTermUvbdvk
 	ImeIAMCapabilityPar.x1SrefKKey	Val
 	carNum	5
 	unt	UntWskdUbdk
+	ImeIAMCapabilityPar.end
+dbeterm	PnlWzskLlvTermPwmonuart
+	ImeIAMCapabilityPar.x1SrefKKey	Val
+	carNum	6
+	unt	UntPmndUdua
+	ImeIAMCapabilityPar.end
+dbeterm	PnlWzskLlvTermPwmonusb
+	ImeIAMCapabilityPar.x1SrefKKey	Val
+	carNum	7
+	unt	UntPmndUbdk
 	ImeIAMCapabilityPar.end
 ImeIMCapability.end

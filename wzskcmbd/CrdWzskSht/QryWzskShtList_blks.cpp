@@ -21,8 +21,8 @@ uint QryWzskShtList::VecVOrd::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "sta") return STA;
-	if (s == "ses") return SES;
 	if (s == "obj") return OBJ;
+	if (s == "ses") return SES;
 
 	return(0);
 };
@@ -31,8 +31,8 @@ string QryWzskShtList::VecVOrd::getSref(
 			const uint ix
 		) {
 	if (ix == STA) return("sta");
-	if (ix == SES) return("ses");
 	if (ix == OBJ) return("obj");
+	if (ix == SES) return("ses");
 
 	return("");
 };
@@ -183,15 +183,14 @@ QryWzskShtList::StgIac::StgIac(
 };
 
 bool QryWzskShtList::StgIac::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["StgIacQryWzskShtList"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["StgIacQryWzskShtList"];}();
 
 	basefound = (me != Json::nullValue);
 

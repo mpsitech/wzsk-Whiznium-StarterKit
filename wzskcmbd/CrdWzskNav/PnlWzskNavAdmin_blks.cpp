@@ -64,15 +64,14 @@ PnlWzskNavAdmin::ContIac::ContIac(
 };
 
 bool PnlWzskNavAdmin::ContIac::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["ContIacWzskNavAdmin"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["ContIacWzskNavAdmin"];}();
 
 	basefound = (me != Json::nullValue);
 
@@ -333,7 +332,7 @@ void PnlWzskNavAdmin::Tag::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		me["Cpt"] = "Administration module";
+		me["Cpt"] = "Administration";
 		me["CptUsg"] = "user groups";
 		me["CptUsr"] = "users";
 		me["CptPrs"] = "persons";
@@ -361,7 +360,7 @@ void PnlWzskNavAdmin::Tag::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Administration module");
+			writeStringAttr(wr, itemtag, "sref", "Cpt", "Administration");
 			writeStringAttr(wr, itemtag, "sref", "CptUsg", "user groups");
 			writeStringAttr(wr, itemtag, "sref", "CptUsr", "users");
 			writeStringAttr(wr, itemtag, "sref", "CptPrs", "persons");
@@ -398,15 +397,14 @@ string PnlWzskNavAdmin::DpchAppData::getSrefsMask() {
 };
 
 void PnlWzskNavAdmin::DpchAppData::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["DpchAppWzskNavAdminData"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["DpchAppWzskNavAdminData"];}();
 
 	basefound = (me != Json::nullValue);
 
@@ -468,15 +466,14 @@ string PnlWzskNavAdmin::DpchAppDo::getSrefsMask() {
 };
 
 void PnlWzskNavAdmin::DpchAppDo::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["DpchAppWzskNavAdminDo"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["DpchAppWzskNavAdminDo"];}();
 
 	basefound = (me != Json::nullValue);
 

@@ -27,7 +27,7 @@ public class WzskQUsgList {
 		self.sref = sref
 	}
 
-	public var jnum: Int = 0
+	public var jnum: Int
 	public var stubGrp: String
 	public var stubOwn: String
 	public var sref: String

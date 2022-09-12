@@ -105,10 +105,10 @@ public class StgWzskapi: Block {
 	* ApiWzsk
 	*/
 public struct ApiWzsk {
-	public let WZSK_VERSION: String = "1.0.13"
+	public let WZSK_VERSION: String = "1.0.16"
 	public let WZSK_VERSION_MAJOR: Int = 1
 	public let WZSK_VERSION_MINOR: Int = 0
-	public let WZSK_VERSION_SUB: Int = 13
+	public let WZSK_VERSION_SUB: Int = 16
 
 	public init() {}
 
@@ -157,6 +157,8 @@ public struct ApiWzsk {
 		else if ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMCLNXEVBDATA {dpcheng = PnlWzskLlvTermClnxevb.DpchEngData()}
 		else if ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMICICLEDATA {dpcheng = PnlWzskLlvTermIcicle.DpchEngData()}
 		else if ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMMCVEVPDATA {dpcheng = PnlWzskLlvTermMcvevp.DpchEngData()}
+		else if ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMPWMONUARTDATA {dpcheng = PnlWzskLlvTermPwmonuart.DpchEngData()}
+		else if ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMPWMONUSBDATA {dpcheng = PnlWzskLlvTermPwmonusb.DpchEngData()}
 		else if ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMUVBDVKDATA {dpcheng = PnlWzskLlvTermUvbdvk.DpchEngData()}
 		else if ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTTABLEDATA {dpcheng = PnlWzskLlvTtable.DpchEngData()}
 		else if ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKNAVADMINDATA {dpcheng = PnlWzskNavAdmin.DpchEngData()}

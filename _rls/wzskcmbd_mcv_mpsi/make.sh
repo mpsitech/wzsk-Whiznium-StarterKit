@@ -3,7 +3,7 @@
 # make script for Wzsk combined daemon, release wzskcmbd_mcv_mpsi (jack cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 25 Mar 2022
+# date created: 12 Sep 2022
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then
@@ -11,33 +11,44 @@ if [ -z ${WHIZROOT+x} ]; then
 	exit 1
 fi
 
-make Wzskcmbd.h.gch
-if [ $? -ne 0 ]; then
-	exit
-fi
-
-if [ "$1" = "all" ]; then
-	subs=("IexWzsk" "VecWzsk" "CrdWzskUsg" "CrdWzskUsr" "CrdWzskPrs" "CrdWzskScf" "CrdWzskNav" "CrdWzskLlv" "CrdWzskLiv" "CrdWzskOgr" "CrdWzskObj" "CrdWzskSes" "CrdWzskSht" "CrdWzskFil")
+if [ "$1" = "all" ] || [ "$1" = "clean" ]; then
+	subs=("IexWzsk" "VecWzsk" "CrdWzskNav" "CrdWzskUsg" "CrdWzskUsr" "CrdWzskPrs" "CrdWzskScf" "CrdWzskLlv" "CrdWzskLiv" "CrdWzskOgr" "CrdWzskObj" "CrdWzskSes" "CrdWzskSht" "CrdWzskFil")
 else
 	subs=("$@")
 fi
 
-for var in "${subs[@]}"
-do
-	cd "$var"
+if [ "$1" = "clean" ]; then
+	for var in "${subs[@]}"
+	do
+		cd "$var"
+		make clean
+		cd ..
+	done
+
+	make clean
+else
+	make Wzskcmbd.h.gch
+	if [ $? -ne 0 ]; then
+		exit
+	fi
+
+	for var in "${subs[@]}"
+	do
+		cd "$var"
+		make -j8
+		if [ $? -ne 0 ]; then
+			exit
+		fi
+		make install
+		cd ..
+	done
+
 	make -j8
 	if [ $? -ne 0 ]; then
 		exit
 	fi
+
 	make install
-	cd ..
-done
 
-make -j8
-if [ $? -ne 0 ]; then
-	exit
+	rm Wzskcmbd.h.gch
 fi
-
-make install
-
-rm Wzskcmbd.h.gch

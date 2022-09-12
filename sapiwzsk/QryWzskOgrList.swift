@@ -19,18 +19,18 @@ public class QryWzskOgrList {
 		*/
 	public class VecVOrd {
 
-		public static let SUP: Int = 1
+		public static let SRF: Int = 1
 		public static let TIT: Int = 2
-		public static let SRF: Int = 3
+		public static let SUP: Int = 3
 
 		public static func getIx(
 					_ sref: String
 				) -> Int {
 			let s: String = sref.lowercased()
 
-			if s == "sup" {return SUP}
-			if s == "tit" {return TIT}
 			if s == "srf" {return SRF}
+			if s == "tit" {return TIT}
+			if s == "sup" {return SUP}
 
 			return 0
 		}
@@ -38,9 +38,9 @@ public class QryWzskOgrList {
 		public static func getSref(
 					_ ix: Int
 				) -> String {
-			if ix == SUP {return "sup"}
-			if ix == TIT {return "tit"}
 			if ix == SRF {return "srf"}
+			if ix == TIT {return "tit"}
+			if ix == SUP {return "sup"}
 
 			return ""
 		}

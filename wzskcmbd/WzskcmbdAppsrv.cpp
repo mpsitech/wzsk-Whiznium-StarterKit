@@ -91,7 +91,7 @@ MHD_Result WzskcmbdAppsrv::MhdCallback(
 
 		if (strcmp(method, "OPTIONS") == 0) {
 			if (ss.size() >= 1) if (ss[0] == "") {
-				if ((ss[1] == "dpch") || (ss[1] == "notify") || (ss[1] == "poll")) ixVBasetype = ReqWzsk::VecVBasetype::PREFLIGHT;
+				if ((ss[1] == "dpch") || (ss[1] == "notify") || (ss[1] == "poll") || (ss[1] == "upload")) ixVBasetype = ReqWzsk::VecVBasetype::PREFLIGHT;
 			};
 
 		} else if (strcmp(method, "GET") == 0) {
@@ -527,15 +527,11 @@ MHD_Result WzskcmbdAppsrv::MhdCallback(
 						if (req->ixVState != ReqWzsk::VecVState::REPLY) req->cReady.wait("WzskcmbdAppsrv", "MhdCallback[3]");
 						req->cReady.unlockMutex("WzskcmbdAppsrv", "MhdCallback[4]");
 
-						if (req->reply) {
-							response = MHD_create_response_from_buffer(req->replylen, req->reply, MHD_RESPMEM_PERSISTENT);
-							retval = MHD_queue_response(connection, MHD_HTTP_OK, response);
-							MHD_destroy_response(response);
-						} else {
-							response = MHD_create_response_from_buffer(strlen(empty), (void*) empty, MHD_RESPMEM_PERSISTENT);
-							retval = MHD_queue_response(connection, MHD_HTTP_OK, response);
-							MHD_destroy_response(response);
-						};
+						if (req->reply) response = MHD_create_response_from_buffer(req->replylen, req->reply, MHD_RESPMEM_PERSISTENT);
+						else response = MHD_create_response_from_buffer(strlen(empty), (void*) empty, MHD_RESPMEM_PERSISTENT);
+						if (xchg->stgwzskappsrv.cors != "") MHD_add_response_header(response, MHD_HTTP_HEADER_ACCESS_CONTROL_ALLOW_ORIGIN, xchg->stgwzskappsrv.cors.c_str());
+						retval = MHD_queue_response(connection, MHD_HTTP_OK, response);
+						MHD_destroy_response(response);
 					};
 
 					if (!valid) {
@@ -729,7 +725,7 @@ uint WzskcmbdAppsrv::readDpchApp(
 	xmlDoc* doc = NULL;
 	xmlXPathContext* docctx = NULL;
 
-	istringstream str;
+	Json::Reader reader;
 	Json::Value root;
 	Json::Value::Members members;
 
@@ -865,6 +861,18 @@ uint WzskcmbdAppsrv::readDpchApp(
 			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVTERMMCVEVPDO) {
 				req->dpchapp = new PnlWzskLlvTermMcvevp::DpchAppDo();
 				((PnlWzskLlvTermMcvevp::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVTERMPWMONUARTDATA) {
+				req->dpchapp = new PnlWzskLlvTermPwmonuart::DpchAppData();
+				((PnlWzskLlvTermPwmonuart::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVTERMPWMONUARTDO) {
+				req->dpchapp = new PnlWzskLlvTermPwmonuart::DpchAppDo();
+				((PnlWzskLlvTermPwmonuart::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVTERMPWMONUSBDATA) {
+				req->dpchapp = new PnlWzskLlvTermPwmonusb::DpchAppData();
+				((PnlWzskLlvTermPwmonusb::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVTERMPWMONUSBDO) {
+				req->dpchapp = new PnlWzskLlvTermPwmonusb::DpchAppDo();
+				((PnlWzskLlvTermPwmonusb::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
 			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVTERMUVBDVKDATA) {
 				req->dpchapp = new PnlWzskLlvTermUvbdvk::DpchAppData();
 				((PnlWzskLlvTermUvbdvk::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);
@@ -1123,8 +1131,7 @@ uint WzskcmbdAppsrv::readDpchApp(
 	
 	} else {
 		try {
-			str.rdbuf()->pubsetbuf(req->request, req->requestlen);
-			str >> root;
+			reader.parse(string(req->request), root);
 
 			members = root.getMemberNames();
 			if (members.size() == 1) ixWzskVDpch = VecWzskVDpch::getIx(members[0]);
@@ -1255,6 +1262,18 @@ uint WzskcmbdAppsrv::readDpchApp(
 			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVTERMMCVEVPDO) {
 				req->dpchapp = new PnlWzskLlvTermMcvevp::DpchAppDo();
 				((PnlWzskLlvTermMcvevp::DpchAppDo*) (req->dpchapp))->readJSON(root, true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVTERMPWMONUARTDATA) {
+				req->dpchapp = new PnlWzskLlvTermPwmonuart::DpchAppData();
+				((PnlWzskLlvTermPwmonuart::DpchAppData*) (req->dpchapp))->readJSON(root, true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVTERMPWMONUARTDO) {
+				req->dpchapp = new PnlWzskLlvTermPwmonuart::DpchAppDo();
+				((PnlWzskLlvTermPwmonuart::DpchAppDo*) (req->dpchapp))->readJSON(root, true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVTERMPWMONUSBDATA) {
+				req->dpchapp = new PnlWzskLlvTermPwmonusb::DpchAppData();
+				((PnlWzskLlvTermPwmonusb::DpchAppData*) (req->dpchapp))->readJSON(root, true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVTERMPWMONUSBDO) {
+				req->dpchapp = new PnlWzskLlvTermPwmonusb::DpchAppDo();
+				((PnlWzskLlvTermPwmonusb::DpchAppDo*) (req->dpchapp))->readJSON(root, true);
 			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKLLVTERMUVBDVKDATA) {
 				req->dpchapp = new PnlWzskLlvTermUvbdvk::DpchAppData();
 				((PnlWzskLlvTermUvbdvk::DpchAppData*) (req->dpchapp))->readJSON(root, true);

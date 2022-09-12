@@ -43,10 +43,10 @@ CrdWzskNav::CrdWzskNav(
 	VecVSge::fillFeed(feedFSge);
 
 	pnlglry = NULL;
-	pnlop = NULL;
 	pnladmin = NULL;
-	pnlpre = NULL;
+	pnlop = NULL;
 	pnlheadbar = NULL;
+	pnlpre = NULL;
 	dlgloaini = NULL;
 
 	// IP constructor.cust1 --- INSERT
@@ -55,10 +55,10 @@ CrdWzskNav::CrdWzskNav(
 	refresh(dbswzsk, moditems);
 
 	pnlglry = new PnlWzskNavGlry(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlop = new PnlWzskNavOp(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnladmin = new PnlWzskNavAdmin(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlpre = new PnlWzskNavPre(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlop = new PnlWzskNavOp(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlheadbar = new PnlWzskNavHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlpre = new PnlWzskNavPre(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 

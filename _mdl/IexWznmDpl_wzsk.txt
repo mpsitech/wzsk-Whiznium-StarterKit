@@ -7,9 +7,10 @@ cmbeng	wzskcmbd	Whiznium Starter Kit combined engine
 	any;yocto;riscv64	wzskcmbd_riscv
 	any;yocto;armv7;tdx	wzskcmbd_tdx
 	any;ubuntu	wzskcmbd_ubuntu
-	any;yocto;armv8;plnx	wzskcmbd_uzed
+	any;yocto;armv8;pl64	wzskcmbd_pl64
 	ImeIMRelease.end
 	ImeIRMComponentMLibrary.srefRefWznmMLibrary
+	ezdevpmnd
 	ezdevwskd
 	png
 	ImeIRMComponentMLibrary.end
@@ -20,7 +21,7 @@ dbs	dbswzsk	Whiznium Starter Kit database access library
 	any;yocto;riscv64	dbswzsk_riscv
 	any;yocto;armv7;tdx	dbswzsk_tdx
 	any;ubuntu	dbswzsk_ubuntu
-	any;yocto;armv8;plnx	dbswzsk_uzed
+	any;yocto;armv8;pl64	dbswzsk_pl64
 	ImeIMRelease.end
 vueapp	vueappwzsk	Whiznium Starter Kit Vue.js app
 	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
@@ -41,8 +42,8 @@ japi	japiwzsk	Whiznium Starter Kit Java API package
 	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
 	any	japiwzsk_any
 	ImeIMRelease.end
-sapi	sapiwzsk	Whiznium Starter Kit Swift API package
+swapi	swapiwzsk	Whiznium Starter Kit Swift API package
 	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
-	any	sapiwzsk_any
+	any	swapiwzsk_any
 	ImeIMRelease.end
 ImeIMComponent.end

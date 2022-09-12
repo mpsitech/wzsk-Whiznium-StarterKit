@@ -19,18 +19,18 @@ public class QryWzskShtList {
 		*/
 	public class VecVOrd {
 
-		public static let STA: Int = 1
-		public static let SES: Int = 2
-		public static let OBJ: Int = 3
+		public static let SES: Int = 1
+		public static let OBJ: Int = 2
+		public static let STA: Int = 3
 
 		public static func getIx(
 					_ sref: String
 				) -> Int {
 			let s: String = sref.lowercased()
 
-			if s == "sta" {return STA}
 			if s == "ses" {return SES}
 			if s == "obj" {return OBJ}
+			if s == "sta" {return STA}
 
 			return 0
 		}
@@ -38,9 +38,9 @@ public class QryWzskShtList {
 		public static func getSref(
 					_ ix: Int
 				) -> String {
-			if ix == STA {return "sta"}
 			if ix == SES {return "ses"}
 			if ix == OBJ {return "obj"}
+			if ix == STA {return "sta"}
 
 			return ""
 		}

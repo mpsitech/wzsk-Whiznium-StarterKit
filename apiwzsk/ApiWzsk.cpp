@@ -232,6 +232,12 @@ uint ApiWzsk::readDpchEng(
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMMCVEVPDATA) {
 			*dpcheng = new PnlWzskLlvTermMcvevp::DpchEngData();
 			((PnlWzskLlvTermMcvevp::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMPWMONUARTDATA) {
+			*dpcheng = new PnlWzskLlvTermPwmonuart::DpchEngData();
+			((PnlWzskLlvTermPwmonuart::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMPWMONUSBDATA) {
+			*dpcheng = new PnlWzskLlvTermPwmonusb::DpchEngData();
+			((PnlWzskLlvTermPwmonusb::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMUVBDVKDATA) {
 			*dpcheng = new PnlWzskLlvTermUvbdvk::DpchEngData();
 			((PnlWzskLlvTermUvbdvk::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);

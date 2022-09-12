@@ -27,7 +27,7 @@ public class WzskQPrsADetail {
 		self.Val = Val
 	}
 
-	public var jnum: Int = 0
+	public var jnum: Int
 	public var x1SrefKType: String
 	public var titX1SrefKType: String
 	public var Val: String

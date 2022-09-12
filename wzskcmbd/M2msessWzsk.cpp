@@ -44,8 +44,8 @@ M2msessWzsk::M2msessWzsk(
 	iprtrace = NULL;
 	iprcorner = NULL;
 	actservo = NULL;
-	actexposure = NULL;
 	actlaser = NULL;
+	actexposure = NULL;
 	acqptcloud = NULL;
 	acqpreview = NULL;
 
@@ -128,6 +128,15 @@ M2msessWzsk::M2msessWzsk(
 	if (!adm) {
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTSERVOVAR, "angleTarget", urus, refWzskMUser, ixWzskWAccessBase);
 	};
+	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, adm, urus, refWzskMUser);
+	if (!adm) {
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft", urus, refWzskMUser, ixWzskWAccessBase);
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight", urus, refWzskMUser, ixWzskWAccessBase);
+	};
+	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, adm, urus, refWzskMUser);
+	if (!adm) {
+		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, "leftRight", urus, refWzskMUser, ixWzskWAccessBase);
+	};
 	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, adm, urus, refWzskMUser);
 	if (!adm) {
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "setExposure", urus, refWzskMUser, ixWzskWAccessBase);
@@ -137,15 +146,6 @@ M2msessWzsk::M2msessWzsk(
 	if (!adm) {
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "autoNotManualTexp", urus, refWzskMUser, ixWzskWAccessBase);
 		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "focus", urus, refWzskMUser, ixWzskWAccessBase);
-	};
-	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, adm, urus, refWzskMUser);
-	if (!adm) {
-		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setLeft", urus, refWzskMUser, ixWzskWAccessBase);
-		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "setRight", urus, refWzskMUser, ixWzskWAccessBase);
-	};
-	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, adm, urus, refWzskMUser);
-	if (!adm) {
-		addAcc(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, "leftRight", urus, refWzskMUser, ixWzskWAccessBase);
 	};
 	ixWzskWAccessBase = addAccBase(dbswzsk, VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, adm, urus, refWzskMUser);
 	if (!adm) {
@@ -181,13 +181,13 @@ M2msessWzsk::M2msessWzsk(
 		actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
 		statshr.jrefActservo = actservo->jref;
 	};
-	if ( (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "")) != accs.end()) || (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "")) != accs.end()) ) {
-		actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
-		statshr.jrefActexposure = actexposure->jref;
-	};
 	if ( (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERMETHOD, "")) != accs.end()) || (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTLASERVAR, "")) != accs.end()) ) {
 		actlaser = new JobWzskActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
 		statshr.jrefActlaser = actlaser->jref;
+	};
+	if ( (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREMETHOD, "")) != accs.end()) || (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACTEXPOSUREVAR, "")) != accs.end()) ) {
+		actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
+		statshr.jrefActexposure = actexposure->jref;
 	};
 	if ( (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDMETHOD, "")) != accs.end()) || (accs.find(featix_t(VecWzskVFeatgroup::VECVJOBWZSKACQPTCLOUDVAR, "")) != accs.end()) ) {
 		acqptcloud = new JobWzskAcqPtcloud(xchg, dbswzsk, jref, ixWzskVLocale);

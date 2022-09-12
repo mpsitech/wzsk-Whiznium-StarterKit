@@ -149,15 +149,14 @@ QryWzskObjRef1NFile::StgIac::StgIac(
 };
 
 bool QryWzskObjRef1NFile::StgIac::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["StgIacQryWzskObjRef1NFile"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["StgIacQryWzskObjRef1NFile"];}();
 
 	basefound = (me != Json::nullValue);
 

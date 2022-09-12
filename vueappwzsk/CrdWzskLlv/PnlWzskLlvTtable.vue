@@ -1,31 +1,58 @@
 <template>
-	<v-card v-if=initdone class="pa-3 my-3 mx-auto" elevation="4">
+	<v-card v-if="initdone" class="pa-3 my-3 mx-auto" elevation="3">
 		<v-card-title>
 			<v-row>
-				<v-col cols="11">
+				<v-col cols="8">
 					<div>{{tag.Cpt}}</div>
 				</v-col>
-				<v-col align="end">
-					<v-btn-toggle v-model="contapp.ButClaimOn">
-						<v-btn
-							fab
-							small
-							light
-							color="primary"
-							v-on:click="handleButClick('ButClaimClick')"
-							:value="1"
-							:disabled="!statshr.ButClaimActive"
-						>
-							<v-icon color="white">{{contapp.ButClaimOn ? 'mdi-cog' : 'mdi-cog-off'}}</v-icon>
-						</v-btn>
-					</v-btn-toggle>
+				<v-col cols="4" align="end">
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='regd'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButClaimClick')"
+						:value="1"
+						:disabled="!statshr.ButClaimActive"
+					>
+						<v-icon color="white">{{contapp.ButClaimOn ? 'mdi-cog' : 'mdi-cog-off'}}</v-icon>
+					</v-btn>
+					&#160;&#160;
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='mind'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButRegularizeClick')"
+						:value="1"
+					>
+						<v-icon color="white">mdi-plus-circle</v-icon>
+					</v-btn>
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='regd'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButMinimizeClick')"
+						:value="1"
+					>
+						<v-icon color="white">mdi-minus-circle</v-icon>
+					</v-btn>
 				</v-col>
 			</v-row>
 		</v-card-title>
 
-		<v-card-text>
+		<v-card-text
+			v-if="statshr.srefIxWzskVExpstate=='regd'"
+		>
 			<v-slider
-				class="my-2"
+				class="my-1"
 				v-model="contiac.SldTrg"
 				v-on:end='updateEng(["contiac"])'
 				:label="tag.CptTrg"
@@ -92,12 +119,6 @@
 				this.$emit("request", {scrJref: this.scrJref, dpchapp: dpchapp, then: "handleDpchAppDataDoReply"});
 			},
 
-			handlePupChange: function(cisref, fi) {
-				this.contiac[cisref] = fi.num;
-
-				this.updateEng(["contiac"]);
-			},
-
 			updateEng: function(mask) {
 				var dpchapp = {
 					"scrJref": this.scrJref
@@ -121,7 +142,6 @@
 					Wzsk.unescapeBlock(dpcheng.TagWzskLlvTtable);
 					this.tag = dpcheng.TagWzskLlvTtable;
 				}
-
 				if (dpcheng.ContInfWzskLlvTtable) {
 					if (!this.continf.ButClaimOn) this.contapp.ButClaimOn = 0;
 					else this.contapp.ButClaimOn = 1;
@@ -168,10 +188,6 @@
 
 			/*
 			*/
-			contapp: {
-				ButClaimOn: 0,
-			},
-
 			contiac: null,
 
 			continf: null,
@@ -179,6 +195,11 @@
 			statshr: null,
 
 			tag: null,
+
+			contapp: {
+				ButClaimOn: 0,
+
+			},
 			/*
 			*/
 			

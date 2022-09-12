@@ -19,18 +19,18 @@ public class QryWzskPrsList {
 		*/
 	public class VecVOrd {
 
-		public static let LNM: Int = 1
+		public static let GRP: Int = 1
 		public static let OWN: Int = 2
-		public static let GRP: Int = 3
+		public static let LNM: Int = 3
 
 		public static func getIx(
 					_ sref: String
 				) -> Int {
 			let s: String = sref.lowercased()
 
-			if s == "lnm" {return LNM}
-			if s == "own" {return OWN}
 			if s == "grp" {return GRP}
+			if s == "own" {return OWN}
+			if s == "lnm" {return LNM}
 
 			return 0
 		}
@@ -38,9 +38,9 @@ public class QryWzskPrsList {
 		public static func getSref(
 					_ ix: Int
 				) -> String {
-			if ix == LNM {return "lnm"}
-			if ix == OWN {return "own"}
 			if ix == GRP {return "grp"}
+			if ix == OWN {return "own"}
+			if ix == LNM {return "lnm"}
 
 			return ""
 		}

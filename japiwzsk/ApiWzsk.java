@@ -23,10 +23,10 @@ import sbecore.*;
 
 public class ApiWzsk {
 
-	public static final String WZSK_VERSION = "1.0.13";
+	public static final String WZSK_VERSION = "1.0.17";
 	public static final int WZSK_VERSION_MAJOR = 1;
 	public static final int WZSK_VERSION_MINOR = 0;
-	public static final int WZSK_VERSION_SUB = 13;
+	public static final int WZSK_VERSION_SUB = 17;
 
 	public static DpchEngWzsk readDpchEng(
 				String s
@@ -77,6 +77,8 @@ public class ApiWzsk {
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMCLNXEVBDATA) dpcheng = (new PnlWzskLlvTermClnxevb()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMICICLEDATA) dpcheng = (new PnlWzskLlvTermIcicle()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMMCVEVPDATA) dpcheng = (new PnlWzskLlvTermMcvevp()).new DpchEngData();
+			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMPWMONUARTDATA) dpcheng = (new PnlWzskLlvTermPwmonuart()).new DpchEngData();
+			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMPWMONUSBDATA) dpcheng = (new PnlWzskLlvTermPwmonusb()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTERMUVBDVKDATA) dpcheng = (new PnlWzskLlvTermUvbdvk()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKLLVTTABLEDATA) dpcheng = (new PnlWzskLlvTtable()).new DpchEngData();
 			else if (ixWzskVDpch == VecWzskVDpch.DPCHENGWZSKNAVADMINDATA) dpcheng = (new PnlWzskNavAdmin()).new DpchEngData();

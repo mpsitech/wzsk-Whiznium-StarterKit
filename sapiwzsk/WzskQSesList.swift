@@ -29,7 +29,7 @@ public class WzskQSesList {
 		self.Ip = Ip
 	}
 
-	public var jnum: Int = 0
+	public var jnum: Int
 	public var stubRefWzskMUser: String
 	public var ftmStart: String
 	public var ftmStop: String

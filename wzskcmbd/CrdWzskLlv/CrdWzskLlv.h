@@ -14,6 +14,8 @@
 
 // IP include.cust --- INSERT
 
+#include "PnlWzskLlvTermPwmonusb.h"
+#include "PnlWzskLlvTermPwmonuart.h"
 #include "PnlWzskLlvLaser.h"
 #include "PnlWzskLlvTtable.h"
 #include "PnlWzskLlvCamera.h"
@@ -21,8 +23,8 @@
 #include "PnlWzskLlvTermMcvevp.h"
 #include "PnlWzskLlvTermIcicle.h"
 #include "PnlWzskLlvTermClnxevb.h"
-#include "PnlWzskLlvHeadbar.h"
 #include "PnlWzskLlvTermArty.h"
+#include "PnlWzskLlvHeadbar.h"
 
 #define VecVWzskLlvDo CrdWzskLlv::VecVDo
 #define VecVWzskLlvSge CrdWzskLlv::VecVSge
@@ -98,8 +100,8 @@ public:
 	class StatApp {
 
 	public:
-		static void writeJSON(Json::Value& sup, std::string difftag = "", const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneTermArty = false, const bool initdoneHeadbar = false, const bool initdoneTermClnxevb = false, const bool initdoneTermIcicle = false, const bool initdoneTermMcvevp = false, const bool initdoneTermUvbdvk = false, const bool initdoneCamera = false, const bool initdoneTtable = false, const bool initdoneLaser = false);
-		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneTermArty = false, const bool initdoneHeadbar = false, const bool initdoneTermClnxevb = false, const bool initdoneTermIcicle = false, const bool initdoneTermMcvevp = false, const bool initdoneTermUvbdvk = false, const bool initdoneCamera = false, const bool initdoneTtable = false, const bool initdoneLaser = false);
+		static void writeJSON(Json::Value& sup, std::string difftag = "", const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneTermArty = false, const bool initdoneTermClnxevb = false, const bool initdoneTermIcicle = false, const bool initdoneTermMcvevp = false, const bool initdoneTermUvbdvk = false, const bool initdoneCamera = false, const bool initdoneTtable = false, const bool initdoneLaser = false, const bool initdoneTermPwmonuart = false, const bool initdoneTermPwmonusb = false);
+		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneTermArty = false, const bool initdoneTermClnxevb = false, const bool initdoneTermIcicle = false, const bool initdoneTermMcvevp = false, const bool initdoneTermUvbdvk = false, const bool initdoneCamera = false, const bool initdoneTtable = false, const bool initdoneLaser = false, const bool initdoneTermPwmonuart = false, const bool initdoneTermPwmonusb = false);
 	};
 
 	/**
@@ -108,9 +110,9 @@ public:
 	class StatShr : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint JREFTERMARTY = 1;
-		static const Sbecore::uint PNLTERMARTYAVAIL = 2;
-		static const Sbecore::uint JREFHEADBAR = 3;
+		static const Sbecore::uint JREFHEADBAR = 1;
+		static const Sbecore::uint JREFTERMARTY = 2;
+		static const Sbecore::uint PNLTERMARTYAVAIL = 3;
 		static const Sbecore::uint JREFTERMCLNXEVB = 4;
 		static const Sbecore::uint PNLTERMCLNXEVBAVAIL = 5;
 		static const Sbecore::uint JREFTERMICICLE = 6;
@@ -122,14 +124,18 @@ public:
 		static const Sbecore::uint JREFCAMERA = 12;
 		static const Sbecore::uint JREFTTABLE = 13;
 		static const Sbecore::uint JREFLASER = 14;
+		static const Sbecore::uint JREFTERMPWMONUART = 15;
+		static const Sbecore::uint PNLTERMPWMONUARTAVAIL = 16;
+		static const Sbecore::uint JREFTERMPWMONUSB = 17;
+		static const Sbecore::uint PNLTERMPWMONUSBAVAIL = 18;
 
 	public:
-		StatShr(const Sbecore::ubigint jrefTermArty = 0, const bool pnltermartyAvail = false, const Sbecore::ubigint jrefHeadbar = 0, const Sbecore::ubigint jrefTermClnxevb = 0, const bool pnltermclnxevbAvail = false, const Sbecore::ubigint jrefTermIcicle = 0, const bool pnltermicicleAvail = false, const Sbecore::ubigint jrefTermMcvevp = 0, const bool pnltermmcvevpAvail = false, const Sbecore::ubigint jrefTermUvbdvk = 0, const bool pnltermuvbdvkAvail = false, const Sbecore::ubigint jrefCamera = 0, const Sbecore::ubigint jrefTtable = 0, const Sbecore::ubigint jrefLaser = 0);
+		StatShr(const Sbecore::ubigint jrefHeadbar = 0, const Sbecore::ubigint jrefTermArty = 0, const bool pnltermartyAvail = false, const Sbecore::ubigint jrefTermClnxevb = 0, const bool pnltermclnxevbAvail = false, const Sbecore::ubigint jrefTermIcicle = 0, const bool pnltermicicleAvail = false, const Sbecore::ubigint jrefTermMcvevp = 0, const bool pnltermmcvevpAvail = false, const Sbecore::ubigint jrefTermUvbdvk = 0, const bool pnltermuvbdvkAvail = false, const Sbecore::ubigint jrefCamera = 0, const Sbecore::ubigint jrefTtable = 0, const Sbecore::ubigint jrefLaser = 0, const Sbecore::ubigint jrefTermPwmonuart = 0, const bool pnltermpwmonuartAvail = false, const Sbecore::ubigint jrefTermPwmonusb = 0, const bool pnltermpwmonusbAvail = false);
 
 	public:
+		Sbecore::ubigint jrefHeadbar;
 		Sbecore::ubigint jrefTermArty;
 		bool pnltermartyAvail;
-		Sbecore::ubigint jrefHeadbar;
 		Sbecore::ubigint jrefTermClnxevb;
 		bool pnltermclnxevbAvail;
 		Sbecore::ubigint jrefTermIcicle;
@@ -141,6 +147,10 @@ public:
 		Sbecore::ubigint jrefCamera;
 		Sbecore::ubigint jrefTtable;
 		Sbecore::ubigint jrefLaser;
+		Sbecore::ubigint jrefTermPwmonuart;
+		bool pnltermpwmonuartAvail;
+		Sbecore::ubigint jrefTermPwmonusb;
+		bool pnltermpwmonusbAvail;
 
 	public:
 		void writeJSON(Json::Value& sup, std::string difftag = "");
@@ -177,7 +187,7 @@ public:
 	public:
 		std::string getSrefsMask();
 
-		void readJSON(Json::Value& sup, bool addbasetag = false);
+		void readJSON(const Json::Value& sup, bool addbasetag = false);
 		void readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
 	};
 
@@ -216,6 +226,8 @@ public:
 	bool evalPnltermicicleAvail(DbsWzsk* dbswzsk);
 	bool evalPnltermmcvevpAvail(DbsWzsk* dbswzsk);
 	bool evalPnltermuvbdvkAvail(DbsWzsk* dbswzsk);
+	bool evalPnltermpwmonuartAvail(DbsWzsk* dbswzsk);
+	bool evalPnltermpwmonusbAvail(DbsWzsk* dbswzsk);
 
 public:
 	CrdWzskLlv(XchgWzsk* xchg, DbsWzsk* dbswzsk, const Sbecore::ubigint jrefSup, const Sbecore::uint ixWzskVLocale);
@@ -228,6 +240,8 @@ public:
 	Sbecore::Feed feedFMcbAlert;
 	Sbecore::Feed feedFSge;
 
+	PnlWzskLlvTermPwmonusb* pnltermpwmonusb;
+	PnlWzskLlvTermPwmonuart* pnltermpwmonuart;
 	PnlWzskLlvLaser* pnllaser;
 	PnlWzskLlvTtable* pnlttable;
 	PnlWzskLlvCamera* pnlcamera;
@@ -235,8 +249,8 @@ public:
 	PnlWzskLlvTermMcvevp* pnltermmcvevp;
 	PnlWzskLlvTermIcicle* pnltermicicle;
 	PnlWzskLlvTermClnxevb* pnltermclnxevb;
-	PnlWzskLlvHeadbar* pnlheadbar;
 	PnlWzskLlvTermArty* pnltermarty;
+	PnlWzskLlvHeadbar* pnlheadbar;
 
 	// IP vars.cust --- INSERT
 

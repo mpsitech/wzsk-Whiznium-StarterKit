@@ -104,18 +104,6 @@ void QryWzskFilList::rerun(
 
 	if (preIxPre == VecWzskVPreset::PREWZSKREFOBJ) {
 		sqlstr = "SELECT COUNT(TblWzskMFile.ref)";
-		sqlstr += " FROM TblWzskMFile, TblWzskQSelect";
-		sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
-		sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
-		sqlstr += " AND " + [preNoadm,preOwner](){if (preNoadm) return("TblWzskMFile.own = " + to_string(preOwner) + ""); else return(string("1"));}() + "";
-		sqlstr += " AND TblWzskMFile.refIxVTbl = " + to_string(VecWzskVMFileRefTbl::OBJ);
-		sqlstr += " AND TblWzskMFile.refUref = " + to_string(preRefObj) + "";
-		rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
-		dbswzsk->loadUintBySQL(sqlstr, cnt);
-		cnts.push_back(cnt); lims.push_back(0); ofss.push_back(0);
-		cntsum += cnt;
-
-		sqlstr = "SELECT COUNT(TblWzskMFile.ref)";
 		sqlstr += " FROM TblWzskMFile, TblWzskQSelect, TblWzskMShot";
 		sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
 		sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
@@ -123,6 +111,18 @@ void QryWzskFilList::rerun(
 		sqlstr += " AND TblWzskMFile.refIxVTbl = " + to_string(VecWzskVMFileRefTbl::SHT);
 		sqlstr += " AND TblWzskMFile.refUref = TblWzskMShot.ref";
 		sqlstr += " AND TblWzskMShot.refWzskMObject = " + to_string(preRefObj) + "";
+		rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
+		dbswzsk->loadUintBySQL(sqlstr, cnt);
+		cnts.push_back(cnt); lims.push_back(0); ofss.push_back(0);
+		cntsum += cnt;
+
+		sqlstr = "SELECT COUNT(TblWzskMFile.ref)";
+		sqlstr += " FROM TblWzskMFile, TblWzskQSelect";
+		sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
+		sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
+		sqlstr += " AND " + [preNoadm,preOwner](){if (preNoadm) return("TblWzskMFile.own = " + to_string(preOwner) + ""); else return(string("1"));}() + "";
+		sqlstr += " AND TblWzskMFile.refIxVTbl = " + to_string(VecWzskVMFileRefTbl::OBJ);
+		sqlstr += " AND TblWzskMFile.refUref = " + to_string(preRefObj) + "";
 		rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
 		dbswzsk->loadUintBySQL(sqlstr, cnt);
 		cnts.push_back(cnt); lims.push_back(0); ofss.push_back(0);
@@ -168,18 +168,6 @@ void QryWzskFilList::rerun(
 
 	if (preIxPre == VecWzskVPreset::PREWZSKREFOBJ) {
 		rerun_baseSQL(sqlstr);
-		sqlstr += " FROM TblWzskMFile, TblWzskQSelect";
-		sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
-		sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
-		sqlstr += " AND " + [preNoadm,preOwner](){if (preNoadm) return("TblWzskMFile.own = " + to_string(preOwner) + ""); else return(string("1"));}() + "";
-		sqlstr += " AND TblWzskMFile.refIxVTbl = " + to_string(VecWzskVMFileRefTbl::OBJ);
-		sqlstr += " AND TblWzskMFile.refUref = " + to_string(preRefObj) + "";
-		rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
-		rerun_orderSQL(sqlstr, preIxOrd);
-		sqlstr += " LIMIT " + to_string(lims[0]) + " OFFSET " + to_string(ofss[0]);
-		dbswzsk->executeQuery(sqlstr);
-
-		rerun_baseSQL(sqlstr);
 		sqlstr += " FROM TblWzskMFile, TblWzskQSelect, TblWzskMShot";
 		sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
 		sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
@@ -187,6 +175,18 @@ void QryWzskFilList::rerun(
 		sqlstr += " AND TblWzskMFile.refIxVTbl = " + to_string(VecWzskVMFileRefTbl::SHT);
 		sqlstr += " AND TblWzskMFile.refUref = TblWzskMShot.ref";
 		sqlstr += " AND TblWzskMShot.refWzskMObject = " + to_string(preRefObj) + "";
+		rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
+		rerun_orderSQL(sqlstr, preIxOrd);
+		sqlstr += " LIMIT " + to_string(lims[0]) + " OFFSET " + to_string(ofss[0]);
+		dbswzsk->executeQuery(sqlstr);
+
+		rerun_baseSQL(sqlstr);
+		sqlstr += " FROM TblWzskMFile, TblWzskQSelect";
+		sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
+		sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
+		sqlstr += " AND " + [preNoadm,preOwner](){if (preNoadm) return("TblWzskMFile.own = " + to_string(preOwner) + ""); else return(string("1"));}() + "";
+		sqlstr += " AND TblWzskMFile.refIxVTbl = " + to_string(VecWzskVMFileRefTbl::OBJ);
+		sqlstr += " AND TblWzskMFile.refUref = " + to_string(preRefObj) + "";
 		rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
 		rerun_orderSQL(sqlstr, preIxOrd);
 		sqlstr += " LIMIT " + to_string(lims[1]) + " OFFSET " + to_string(ofss[1]);
@@ -274,11 +274,11 @@ void QryWzskFilList::rerun_orderSQL(
 			string& sqlstr
 			, const uint preIxOrd
 		) {
-	if (preIxOrd == VecVOrd::REU) sqlstr += " ORDER BY TblWzskMFile.refUref ASC";
-	else if (preIxOrd == VecVOrd::GRP) sqlstr += " ORDER BY TblWzskMFile.grp ASC";
-	else if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMFile.own ASC";
+	if (preIxOrd == VecVOrd::RET) sqlstr += " ORDER BY TblWzskMFile.refIxVTbl ASC";
+	else if (preIxOrd == VecVOrd::REU) sqlstr += " ORDER BY TblWzskMFile.refUref ASC";
 	else if (preIxOrd == VecVOrd::FNM) sqlstr += " ORDER BY TblWzskMFile.Filename ASC";
-	else if (preIxOrd == VecVOrd::RET) sqlstr += " ORDER BY TblWzskMFile.refIxVTbl ASC";
+	else if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMFile.own ASC";
+	else if (preIxOrd == VecVOrd::GRP) sqlstr += " ORDER BY TblWzskMFile.grp ASC";
 };
 
 void QryWzskFilList::fetch(
@@ -310,10 +310,10 @@ void QryWzskFilList::fetch(
 			rec->stubOwn = StubWzsk::getStubOwner(dbswzsk, rec->own, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
 			rec->srefRefIxVTbl = VecWzskVMFileRefTbl::getSref(rec->refIxVTbl);
 			rec->titRefIxVTbl = VecWzskVMFileRefTbl::getTitle(rec->refIxVTbl, ixWzskVLocale);
-			if (rec->refIxVTbl == VecWzskVMFileRefTbl::SHT) {
-				rec->stubRefUref = StubWzsk::getStubShtStd(dbswzsk, rec->refUref, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
-			} else if (rec->refIxVTbl == VecWzskVMFileRefTbl::OBJ) {
+			if (rec->refIxVTbl == VecWzskVMFileRefTbl::OBJ) {
 				rec->stubRefUref = StubWzsk::getStubObjStd(dbswzsk, rec->refUref, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
+			} else if (rec->refIxVTbl == VecWzskVMFileRefTbl::SHT) {
+				rec->stubRefUref = StubWzsk::getStubShtStd(dbswzsk, rec->refUref, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
 			} else rec->stubRefUref = "-";
 			rec->titOsrefKContent = dbswzsk->getKlstTitleBySref(VecWzskVKeylist::KLSTWZSKKMFILECONTENT, rec->osrefKContent, ixWzskVLocale);
 			rec->titSrefKMimetype = dbswzsk->getKlstTitleBySref(VecWzskVKeylist::KLSTWZSKKMFILEMIMETYPE, rec->srefKMimetype, ixWzskVLocale);
@@ -471,27 +471,13 @@ void QryWzskFilList::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKFILUPD_REFEQ) {
-		call->abort = handleCallWzskFilUpd_refEq(dbswzsk, call->jref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKFILMOD) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKFILMOD) {
 		call->abort = handleCallWzskFilMod(dbswzsk, call->jref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKFILUPD_REFEQ) {
+		call->abort = handleCallWzskFilUpd_refEq(dbswzsk, call->jref);
 	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSTUBCHG) && (call->jref == jref)) {
 		call->abort = handleCallWzskStubChgFromSelf(dbswzsk);
 	};
-};
-
-bool QryWzskFilList::handleCallWzskFilUpd_refEq(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-		) {
-	bool retval = false;
-
-	if (ixWzskVQrystate != VecWzskVQrystate::OOD) {
-		ixWzskVQrystate = VecWzskVQrystate::OOD;
-		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
-	};
-
-	return retval;
 };
 
 bool QryWzskFilList::handleCallWzskFilMod(
@@ -502,6 +488,20 @@ bool QryWzskFilList::handleCallWzskFilMod(
 
 	if ((ixWzskVQrystate == VecWzskVQrystate::UTD) || (ixWzskVQrystate == VecWzskVQrystate::SLM)) {
 		ixWzskVQrystate = VecWzskVQrystate::MNR;
+		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
+	};
+
+	return retval;
+};
+
+bool QryWzskFilList::handleCallWzskFilUpd_refEq(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+
+	if (ixWzskVQrystate != VecWzskVQrystate::OOD) {
+		ixWzskVQrystate = VecWzskVQrystate::OOD;
 		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
 	};
 

@@ -153,8 +153,8 @@ public class CrdWzskLlv {
 		public static let LATENCY: Int = 2
 		public static let SHORTMENU: Int = 3
 		public static let WIDTHMENU: Int = 4
-		public static let INITDONETERMARTY: Int = 5
-		public static let INITDONEHEADBAR: Int = 6
+		public static let INITDONEHEADBAR: Int = 5
+		public static let INITDONETERMARTY: Int = 6
 		public static let INITDONETERMCLNXEVB: Int = 7
 		public static let INITDONETERMICICLE: Int = 8
 		public static let INITDONETERMMCVEVP: Int = 9
@@ -162,14 +162,16 @@ public class CrdWzskLlv {
 		public static let INITDONECAMERA: Int = 11
 		public static let INITDONETTABLE: Int = 12
 		public static let INITDONELASER: Int = 13
+		public static let INITDONETERMPWMONUART: Int = 14
+		public static let INITDONETERMPWMONUSB: Int = 15
 
 		public init(
 					_ ixWzskVReqitmode: Int = 0
 					, _ latency: Int = 0
 					, _ shortMenu: String = ""
 					, _ widthMenu: Int = 0
-					, _ initdoneTermArty: Bool = false
 					, _ initdoneHeadbar: Bool = false
+					, _ initdoneTermArty: Bool = false
 					, _ initdoneTermClnxevb: Bool = false
 					, _ initdoneTermIcicle: Bool = false
 					, _ initdoneTermMcvevp: Bool = false
@@ -177,13 +179,15 @@ public class CrdWzskLlv {
 					, _ initdoneCamera: Bool = false
 					, _ initdoneTtable: Bool = false
 					, _ initdoneLaser: Bool = false
+					, _ initdoneTermPwmonuart: Bool = false
+					, _ initdoneTermPwmonusb: Bool = false
 				) {
 			self.ixWzskVReqitmode = ixWzskVReqitmode
 			self.latency = latency
 			self.shortMenu = shortMenu
 			self.widthMenu = widthMenu
-			self.initdoneTermArty = initdoneTermArty
 			self.initdoneHeadbar = initdoneHeadbar
+			self.initdoneTermArty = initdoneTermArty
 			self.initdoneTermClnxevb = initdoneTermClnxevb
 			self.initdoneTermIcicle = initdoneTermIcicle
 			self.initdoneTermMcvevp = initdoneTermMcvevp
@@ -191,18 +195,20 @@ public class CrdWzskLlv {
 			self.initdoneCamera = initdoneCamera
 			self.initdoneTtable = initdoneTtable
 			self.initdoneLaser = initdoneLaser
+			self.initdoneTermPwmonuart = initdoneTermPwmonuart
+			self.initdoneTermPwmonusb = initdoneTermPwmonusb
 
 			super.init()
 
-			mask = [StatApp.IXWZSKVREQITMODE, StatApp.LATENCY, StatApp.SHORTMENU, StatApp.WIDTHMENU, StatApp.INITDONETERMARTY, StatApp.INITDONEHEADBAR, StatApp.INITDONETERMCLNXEVB, StatApp.INITDONETERMICICLE, StatApp.INITDONETERMMCVEVP, StatApp.INITDONETERMUVBDVK, StatApp.INITDONECAMERA, StatApp.INITDONETTABLE, StatApp.INITDONELASER]
+			mask = [StatApp.IXWZSKVREQITMODE, StatApp.LATENCY, StatApp.SHORTMENU, StatApp.WIDTHMENU, StatApp.INITDONEHEADBAR, StatApp.INITDONETERMARTY, StatApp.INITDONETERMCLNXEVB, StatApp.INITDONETERMICICLE, StatApp.INITDONETERMMCVEVP, StatApp.INITDONETERMUVBDVK, StatApp.INITDONECAMERA, StatApp.INITDONETTABLE, StatApp.INITDONELASER, StatApp.INITDONETERMPWMONUART, StatApp.INITDONETERMPWMONUSB]
 		}
 
 		public var ixWzskVReqitmode: Int
 		public var latency: Int
 		public var shortMenu: String
 		public var widthMenu: Int
-		public var initdoneTermArty: Bool
 		public var initdoneHeadbar: Bool
+		public var initdoneTermArty: Bool
 		public var initdoneTermClnxevb: Bool
 		public var initdoneTermIcicle: Bool
 		public var initdoneTermMcvevp: Bool
@@ -210,6 +216,8 @@ public class CrdWzskLlv {
 		public var initdoneCamera: Bool
 		public var initdoneTtable: Bool
 		public var initdoneLaser: Bool
+		public var initdoneTermPwmonuart: Bool
+		public var initdoneTermPwmonusb: Bool
 
 		public func readXML(
 					_ doc: XMLDocument
@@ -234,8 +242,8 @@ public class CrdWzskLlv {
 				latency = Xmlio.extractIntAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "latency", &mask, StatApp.LATENCY)
 				shortMenu = Xmlio.extractStringAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "shortMenu", &mask, StatApp.SHORTMENU)
 				widthMenu = Xmlio.extractIntAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "widthMenu", &mask, StatApp.WIDTHMENU)
-				initdoneTermArty = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "initdoneTermArty", &mask, StatApp.INITDONETERMARTY)
 				initdoneHeadbar = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "initdoneHeadbar", &mask, StatApp.INITDONEHEADBAR)
+				initdoneTermArty = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "initdoneTermArty", &mask, StatApp.INITDONETERMARTY)
 				initdoneTermClnxevb = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "initdoneTermClnxevb", &mask, StatApp.INITDONETERMCLNXEVB)
 				initdoneTermIcicle = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "initdoneTermIcicle", &mask, StatApp.INITDONETERMICICLE)
 				initdoneTermMcvevp = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "initdoneTermMcvevp", &mask, StatApp.INITDONETERMMCVEVP)
@@ -243,6 +251,8 @@ public class CrdWzskLlv {
 				initdoneCamera = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "initdoneCamera", &mask, StatApp.INITDONECAMERA)
 				initdoneTtable = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "initdoneTtable", &mask, StatApp.INITDONETTABLE)
 				initdoneLaser = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "initdoneLaser", &mask, StatApp.INITDONELASER)
+				initdoneTermPwmonuart = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "initdoneTermPwmonuart", &mask, StatApp.INITDONETERMPWMONUART)
+				initdoneTermPwmonusb = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "initdoneTermPwmonusb", &mask, StatApp.INITDONETERMPWMONUSB)
 			}
 
 			return valid
@@ -257,8 +267,8 @@ public class CrdWzskLlv {
 			if latency == comp.latency {items.insert(StatApp.LATENCY)}
 			if shortMenu == comp.shortMenu {items.insert(StatApp.SHORTMENU)}
 			if widthMenu == comp.widthMenu {items.insert(StatApp.WIDTHMENU)}
-			if initdoneTermArty == comp.initdoneTermArty {items.insert(StatApp.INITDONETERMARTY)}
 			if initdoneHeadbar == comp.initdoneHeadbar {items.insert(StatApp.INITDONEHEADBAR)}
+			if initdoneTermArty == comp.initdoneTermArty {items.insert(StatApp.INITDONETERMARTY)}
 			if initdoneTermClnxevb == comp.initdoneTermClnxevb {items.insert(StatApp.INITDONETERMCLNXEVB)}
 			if initdoneTermIcicle == comp.initdoneTermIcicle {items.insert(StatApp.INITDONETERMICICLE)}
 			if initdoneTermMcvevp == comp.initdoneTermMcvevp {items.insert(StatApp.INITDONETERMMCVEVP)}
@@ -266,6 +276,8 @@ public class CrdWzskLlv {
 			if initdoneCamera == comp.initdoneCamera {items.insert(StatApp.INITDONECAMERA)}
 			if initdoneTtable == comp.initdoneTtable {items.insert(StatApp.INITDONETTABLE)}
 			if initdoneLaser == comp.initdoneLaser {items.insert(StatApp.INITDONELASER)}
+			if initdoneTermPwmonuart == comp.initdoneTermPwmonuart {items.insert(StatApp.INITDONETERMPWMONUART)}
+			if initdoneTermPwmonusb == comp.initdoneTermPwmonusb {items.insert(StatApp.INITDONETERMPWMONUSB)}
 
 			return items
 		}
@@ -274,7 +286,7 @@ public class CrdWzskLlv {
 					_ comp: StatApp
 				) -> Set<Int> {
 			let commitems: Set<Int> = comm(comp)
-			var diffitems: Set<Int> = [StatApp.IXWZSKVREQITMODE, StatApp.LATENCY, StatApp.SHORTMENU, StatApp.WIDTHMENU, StatApp.INITDONETERMARTY, StatApp.INITDONEHEADBAR, StatApp.INITDONETERMCLNXEVB, StatApp.INITDONETERMICICLE, StatApp.INITDONETERMMCVEVP, StatApp.INITDONETERMUVBDVK, StatApp.INITDONECAMERA, StatApp.INITDONETTABLE, StatApp.INITDONELASER]
+			var diffitems: Set<Int> = [StatApp.IXWZSKVREQITMODE, StatApp.LATENCY, StatApp.SHORTMENU, StatApp.WIDTHMENU, StatApp.INITDONEHEADBAR, StatApp.INITDONETERMARTY, StatApp.INITDONETERMCLNXEVB, StatApp.INITDONETERMICICLE, StatApp.INITDONETERMMCVEVP, StatApp.INITDONETERMUVBDVK, StatApp.INITDONECAMERA, StatApp.INITDONETTABLE, StatApp.INITDONELASER, StatApp.INITDONETERMPWMONUART, StatApp.INITDONETERMPWMONUSB]
 
 			for ci in commitems {diffitems.remove(ci)}
 
@@ -288,9 +300,9 @@ public class CrdWzskLlv {
 	  */
 	public class StatShr: Block {
 
-		public static let SCRJREFTERMARTY: Int = 1
-		public static let PNLTERMARTYAVAIL: Int = 2
-		public static let SCRJREFHEADBAR: Int = 3
+		public static let SCRJREFHEADBAR: Int = 1
+		public static let SCRJREFTERMARTY: Int = 2
+		public static let PNLTERMARTYAVAIL: Int = 3
 		public static let SCRJREFTERMCLNXEVB: Int = 4
 		public static let PNLTERMCLNXEVBAVAIL: Int = 5
 		public static let SCRJREFTERMICICLE: Int = 6
@@ -302,11 +314,15 @@ public class CrdWzskLlv {
 		public static let SCRJREFCAMERA: Int = 12
 		public static let SCRJREFTTABLE: Int = 13
 		public static let SCRJREFLASER: Int = 14
+		public static let SCRJREFTERMPWMONUART: Int = 15
+		public static let PNLTERMPWMONUARTAVAIL: Int = 16
+		public static let SCRJREFTERMPWMONUSB: Int = 17
+		public static let PNLTERMPWMONUSBAVAIL: Int = 18
 
 		public init(
-					_ scrJrefTermArty: String = ""
+					_ scrJrefHeadbar: String = ""
+					, _ scrJrefTermArty: String = ""
 					, _ pnltermartyAvail: Bool = false
-					, _ scrJrefHeadbar: String = ""
 					, _ scrJrefTermClnxevb: String = ""
 					, _ pnltermclnxevbAvail: Bool = false
 					, _ scrJrefTermIcicle: String = ""
@@ -318,10 +334,14 @@ public class CrdWzskLlv {
 					, _ scrJrefCamera: String = ""
 					, _ scrJrefTtable: String = ""
 					, _ scrJrefLaser: String = ""
+					, _ scrJrefTermPwmonuart: String = ""
+					, _ pnltermpwmonuartAvail: Bool = false
+					, _ scrJrefTermPwmonusb: String = ""
+					, _ pnltermpwmonusbAvail: Bool = false
 				) {
+			self.scrJrefHeadbar = scrJrefHeadbar
 			self.scrJrefTermArty = scrJrefTermArty
 			self.pnltermartyAvail = pnltermartyAvail
-			self.scrJrefHeadbar = scrJrefHeadbar
 			self.scrJrefTermClnxevb = scrJrefTermClnxevb
 			self.pnltermclnxevbAvail = pnltermclnxevbAvail
 			self.scrJrefTermIcicle = scrJrefTermIcicle
@@ -333,15 +353,19 @@ public class CrdWzskLlv {
 			self.scrJrefCamera = scrJrefCamera
 			self.scrJrefTtable = scrJrefTtable
 			self.scrJrefLaser = scrJrefLaser
+			self.scrJrefTermPwmonuart = scrJrefTermPwmonuart
+			self.pnltermpwmonuartAvail = pnltermpwmonuartAvail
+			self.scrJrefTermPwmonusb = scrJrefTermPwmonusb
+			self.pnltermpwmonusbAvail = pnltermpwmonusbAvail
 
 			super.init()
 
-			mask = [StatShr.SCRJREFTERMARTY, StatShr.PNLTERMARTYAVAIL, StatShr.SCRJREFHEADBAR, StatShr.SCRJREFTERMCLNXEVB, StatShr.PNLTERMCLNXEVBAVAIL, StatShr.SCRJREFTERMICICLE, StatShr.PNLTERMICICLEAVAIL, StatShr.SCRJREFTERMMCVEVP, StatShr.PNLTERMMCVEVPAVAIL, StatShr.SCRJREFTERMUVBDVK, StatShr.PNLTERMUVBDVKAVAIL, StatShr.SCRJREFCAMERA, StatShr.SCRJREFTTABLE, StatShr.SCRJREFLASER]
+			mask = [StatShr.SCRJREFHEADBAR, StatShr.SCRJREFTERMARTY, StatShr.PNLTERMARTYAVAIL, StatShr.SCRJREFTERMCLNXEVB, StatShr.PNLTERMCLNXEVBAVAIL, StatShr.SCRJREFTERMICICLE, StatShr.PNLTERMICICLEAVAIL, StatShr.SCRJREFTERMMCVEVP, StatShr.PNLTERMMCVEVPAVAIL, StatShr.SCRJREFTERMUVBDVK, StatShr.PNLTERMUVBDVKAVAIL, StatShr.SCRJREFCAMERA, StatShr.SCRJREFTTABLE, StatShr.SCRJREFLASER, StatShr.SCRJREFTERMPWMONUART, StatShr.PNLTERMPWMONUARTAVAIL, StatShr.SCRJREFTERMPWMONUSB, StatShr.PNLTERMPWMONUSBAVAIL]
 		}
 
+		public var scrJrefHeadbar: String
 		public var scrJrefTermArty: String
 		public var pnltermartyAvail: Bool
-		public var scrJrefHeadbar: String
 		public var scrJrefTermClnxevb: String
 		public var pnltermclnxevbAvail: Bool
 		public var scrJrefTermIcicle: String
@@ -353,6 +377,10 @@ public class CrdWzskLlv {
 		public var scrJrefCamera: String
 		public var scrJrefTtable: String
 		public var scrJrefLaser: String
+		public var scrJrefTermPwmonuart: String
+		public var pnltermpwmonuartAvail: Bool
+		public var scrJrefTermPwmonusb: String
+		public var pnltermpwmonusbAvail: Bool
 
 		public func readXML(
 					_ doc: XMLDocument
@@ -370,9 +398,9 @@ public class CrdWzskLlv {
 			let itemtag: String = "StatitemShrWzskLlv"
 
 			if valid {
+				scrJrefHeadbar = Xmlio.extractStringAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "scrJrefHeadbar", &mask, StatShr.SCRJREFHEADBAR)
 				scrJrefTermArty = Xmlio.extractStringAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "scrJrefTermArty", &mask, StatShr.SCRJREFTERMARTY)
 				pnltermartyAvail = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "pnltermartyAvail", &mask, StatShr.PNLTERMARTYAVAIL)
-				scrJrefHeadbar = Xmlio.extractStringAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "scrJrefHeadbar", &mask, StatShr.SCRJREFHEADBAR)
 				scrJrefTermClnxevb = Xmlio.extractStringAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "scrJrefTermClnxevb", &mask, StatShr.SCRJREFTERMCLNXEVB)
 				pnltermclnxevbAvail = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "pnltermclnxevbAvail", &mask, StatShr.PNLTERMCLNXEVBAVAIL)
 				scrJrefTermIcicle = Xmlio.extractStringAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "scrJrefTermIcicle", &mask, StatShr.SCRJREFTERMICICLE)
@@ -384,6 +412,10 @@ public class CrdWzskLlv {
 				scrJrefCamera = Xmlio.extractStringAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "scrJrefCamera", &mask, StatShr.SCRJREFCAMERA)
 				scrJrefTtable = Xmlio.extractStringAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "scrJrefTtable", &mask, StatShr.SCRJREFTTABLE)
 				scrJrefLaser = Xmlio.extractStringAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "scrJrefLaser", &mask, StatShr.SCRJREFLASER)
+				scrJrefTermPwmonuart = Xmlio.extractStringAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "scrJrefTermPwmonuart", &mask, StatShr.SCRJREFTERMPWMONUART)
+				pnltermpwmonuartAvail = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "pnltermpwmonuartAvail", &mask, StatShr.PNLTERMPWMONUARTAVAIL)
+				scrJrefTermPwmonusb = Xmlio.extractStringAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "scrJrefTermPwmonusb", &mask, StatShr.SCRJREFTERMPWMONUSB)
+				pnltermpwmonusbAvail = Xmlio.extractBoolAttrUclc(doc, basexpath!, itemtag, "Ci", "sref", "pnltermpwmonusbAvail", &mask, StatShr.PNLTERMPWMONUSBAVAIL)
 			}
 
 			return valid
@@ -394,9 +426,9 @@ public class CrdWzskLlv {
 				) -> Set<Int> {
 			var items: Set<Int> = []
 
+			if scrJrefHeadbar == comp.scrJrefHeadbar {items.insert(StatShr.SCRJREFHEADBAR)}
 			if scrJrefTermArty == comp.scrJrefTermArty {items.insert(StatShr.SCRJREFTERMARTY)}
 			if pnltermartyAvail == comp.pnltermartyAvail {items.insert(StatShr.PNLTERMARTYAVAIL)}
-			if scrJrefHeadbar == comp.scrJrefHeadbar {items.insert(StatShr.SCRJREFHEADBAR)}
 			if scrJrefTermClnxevb == comp.scrJrefTermClnxevb {items.insert(StatShr.SCRJREFTERMCLNXEVB)}
 			if pnltermclnxevbAvail == comp.pnltermclnxevbAvail {items.insert(StatShr.PNLTERMCLNXEVBAVAIL)}
 			if scrJrefTermIcicle == comp.scrJrefTermIcicle {items.insert(StatShr.SCRJREFTERMICICLE)}
@@ -408,6 +440,10 @@ public class CrdWzskLlv {
 			if scrJrefCamera == comp.scrJrefCamera {items.insert(StatShr.SCRJREFCAMERA)}
 			if scrJrefTtable == comp.scrJrefTtable {items.insert(StatShr.SCRJREFTTABLE)}
 			if scrJrefLaser == comp.scrJrefLaser {items.insert(StatShr.SCRJREFLASER)}
+			if scrJrefTermPwmonuart == comp.scrJrefTermPwmonuart {items.insert(StatShr.SCRJREFTERMPWMONUART)}
+			if pnltermpwmonuartAvail == comp.pnltermpwmonuartAvail {items.insert(StatShr.PNLTERMPWMONUARTAVAIL)}
+			if scrJrefTermPwmonusb == comp.scrJrefTermPwmonusb {items.insert(StatShr.SCRJREFTERMPWMONUSB)}
+			if pnltermpwmonusbAvail == comp.pnltermpwmonusbAvail {items.insert(StatShr.PNLTERMPWMONUSBAVAIL)}
 
 			return items
 		}
@@ -416,7 +452,7 @@ public class CrdWzskLlv {
 					_ comp: StatShr
 				) -> Set<Int> {
 			let commitems: Set<Int> = comm(comp)
-			var diffitems: Set<Int> = [StatShr.SCRJREFTERMARTY, StatShr.PNLTERMARTYAVAIL, StatShr.SCRJREFHEADBAR, StatShr.SCRJREFTERMCLNXEVB, StatShr.PNLTERMCLNXEVBAVAIL, StatShr.SCRJREFTERMICICLE, StatShr.PNLTERMICICLEAVAIL, StatShr.SCRJREFTERMMCVEVP, StatShr.PNLTERMMCVEVPAVAIL, StatShr.SCRJREFTERMUVBDVK, StatShr.PNLTERMUVBDVKAVAIL, StatShr.SCRJREFCAMERA, StatShr.SCRJREFTTABLE, StatShr.SCRJREFLASER]
+			var diffitems: Set<Int> = [StatShr.SCRJREFHEADBAR, StatShr.SCRJREFTERMARTY, StatShr.PNLTERMARTYAVAIL, StatShr.SCRJREFTERMCLNXEVB, StatShr.PNLTERMCLNXEVBAVAIL, StatShr.SCRJREFTERMICICLE, StatShr.PNLTERMICICLEAVAIL, StatShr.SCRJREFTERMMCVEVP, StatShr.PNLTERMMCVEVPAVAIL, StatShr.SCRJREFTERMUVBDVK, StatShr.PNLTERMUVBDVKAVAIL, StatShr.SCRJREFCAMERA, StatShr.SCRJREFTTABLE, StatShr.SCRJREFLASER, StatShr.SCRJREFTERMPWMONUART, StatShr.PNLTERMPWMONUARTAVAIL, StatShr.SCRJREFTERMPWMONUSB, StatShr.PNLTERMPWMONUSBAVAIL]
 
 			for ci in commitems {diffitems.remove(ci)}
 

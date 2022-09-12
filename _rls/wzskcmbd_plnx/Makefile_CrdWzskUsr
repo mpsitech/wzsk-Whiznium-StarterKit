@@ -2,7 +2,7 @@
 # make file for CrdWzskUsr card job handler, release wzskcmbd_plnx (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 25 Mar 2022
+# date created: 12 Sep 2022
 # IP header --- ABOVE
 
 include ../Makefile.inc
@@ -14,9 +14,9 @@ STATLIB = ${TCHROOT}/arm-xilinx-linux-gnueabi-ar
 STATLIBFLAGS = rcs
 
 INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
-INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
+INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevpmnd -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
-OBJS = CrdWzskUsr.o PnlWzskUsrList.o QryWzskUsrList.o PnlWzskUsrHeadbar.o PnlWzskUsrRec.o PnlWzskUsrMNUsergroup.o QryWzskUsrMNUsergroup.o PnlWzskUsr1NSession.o QryWzskUsr1NSession.o PnlWzskUsrAAccess.o QryWzskUsrAAccess.o PnlWzskUsrDetail.o
+OBJS = CrdWzskUsr.o PnlWzskUsrList.o QryWzskUsrList.o PnlWzskUsrRec.o PnlWzskUsrMNUsergroup.o QryWzskUsrMNUsergroup.o PnlWzskUsr1NSession.o QryWzskUsr1NSession.o PnlWzskUsrAAccess.o QryWzskUsrAAccess.o PnlWzskUsrDetail.o PnlWzskUsrHeadbar.o
 
 LIB = libcrdwzskusr
 
@@ -29,7 +29,6 @@ all:	$(LIB)
 
 $(LIB):	$(OBJS)
 	$(STATLIB) $(STATLIBFLAGS) $(LIB).a $(OBJS)
-	rm -f *.o
 
 install:
 	mv $(LIB).a ${SYSROOT}$(LIBROOT)/wzskcmbd/

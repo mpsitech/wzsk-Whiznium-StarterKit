@@ -15,10 +15,10 @@
 // IP include.cust --- INSERT
 
 #include "PnlWzskNavGlry.h"
-#include "PnlWzskNavOp.h"
 #include "PnlWzskNavAdmin.h"
-#include "PnlWzskNavPre.h"
+#include "PnlWzskNavOp.h"
 #include "PnlWzskNavHeadbar.h"
+#include "PnlWzskNavPre.h"
 #include "DlgWzskNavLoaini.h"
 
 #define VecVWzskNavDo CrdWzskNav::VecVDo
@@ -221,7 +221,7 @@ public:
 	public:
 		std::string getSrefsMask();
 
-		void readJSON(Json::Value& sup, bool addbasetag = false);
+		void readJSON(const Json::Value& sup, bool addbasetag = false);
 		void readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
 	};
 
@@ -289,10 +289,10 @@ public:
 	Sbecore::Feed feedFSge;
 
 	PnlWzskNavGlry* pnlglry;
-	PnlWzskNavOp* pnlop;
 	PnlWzskNavAdmin* pnladmin;
-	PnlWzskNavPre* pnlpre;
+	PnlWzskNavOp* pnlop;
 	PnlWzskNavHeadbar* pnlheadbar;
+	PnlWzskNavPre* pnlpre;
 	DlgWzskNavLoaini* dlgloaini;
 
 	// IP vars.cust --- INSERT

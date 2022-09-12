@@ -14,6 +14,9 @@
 
 // IP include.cust --- INSERT
 
+#include "JobWzskSrcPwmonusb.h"
+#include "JobWzskSrcPwmonuart.h"
+
 #define VecVJobWzskSrcSysinfoSge JobWzskSrcSysinfo::VecVSge
 #define VecVJobWzskSrcSysinfoVar JobWzskSrcSysinfo::VecVVar
 
@@ -146,6 +149,9 @@ public:
 public:
 	static Stg stg;
 	static Shrdat shrdat;
+
+	JobWzskSrcPwmonusb* srcpwmonusb;
+	JobWzskSrcPwmonuart* srcpwmonuart;
 
 	// IP vars.spec --- INSERT
 

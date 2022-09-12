@@ -122,8 +122,8 @@ JobWzskIprCorner::JobWzskIprCorner(
 
 	// IP constructor.spec2 --- INSERT
 
-	if (srvNotCli) if (acqfpgaflg) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, acqfpgaflg->jref, false, Arg(0,0,{},"corner",0,0.0,false,"",Arg::SREF), VecVSge::READY, Clstn::VecVJactype::TRY);
 	if (srvNotCli) if (srcv4l2) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, srcv4l2->jref, false, Arg(), VecVSge::READY, Clstn::VecVJactype::TRY);
+	if (srvNotCli) if (acqfpgaflg) xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, acqfpgaflg->jref, false, Arg(0,0,{},"corner",0,0.0,false,"",Arg::SREF), VecVSge::READY, Clstn::VecVJactype::TRY);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -707,25 +707,11 @@ void JobWzskIprCorner::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (acqfpgaflg) if (call->jref == acqfpgaflg->jref) match = true; return match;}()) && (call->argInv.sref == "corner") && (ixVSge == VecVSge::READY)) {
-		call->abort = handleCallWzskResultNewFromAcqfpgaflgWithSrefCornerInSgeReady(dbswzsk, call->argInv.ix);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (srcv4l2) if (call->jref == srcv4l2->jref) match = true; return match;}()) && (ixVSge == VecVSge::READY)) {
+	if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (srcv4l2) if (call->jref == srcv4l2->jref) match = true; return match;}()) && (ixVSge == VecVSge::READY)) {
 		call->abort = handleCallWzskResultNewFromSrcv4l2InSgeReady(dbswzsk, call->argInv.ix, call->argInv.sref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && ([&](){bool match = false; if (acqfpgaflg) if (call->jref == acqfpgaflg->jref) match = true; return match;}()) && (call->argInv.sref == "corner") && (ixVSge == VecVSge::READY)) {
+		call->abort = handleCallWzskResultNewFromAcqfpgaflgWithSrefCornerInSgeReady(dbswzsk, call->argInv.ix);
 	};
-};
-
-bool JobWzskIprCorner::handleCallWzskResultNewFromAcqfpgaflgWithSrefCornerInSgeReady(
-			DbsWzsk* dbswzsk
-			, const uint ixInv
-		) {
-	bool retval = false;
-	// IP handleCallWzskResultNewFromAcqfpgaflgWithSrefCornerInSgeReady --- IBEGIN
-	acqfpgaflg->shrdat.resultFlg.lock(jref, ixInv);
-	ixRiSrc = ixInv;
-
-	changeStage(dbswzsk, VecVSge::PRCIDLE);
-	// IP handleCallWzskResultNewFromAcqfpgaflgWithSrefCornerInSgeReady --- IEND
-	return retval;
 };
 
 bool JobWzskIprCorner::handleCallWzskResultNewFromSrcv4l2InSgeReady(
@@ -740,6 +726,20 @@ bool JobWzskIprCorner::handleCallWzskResultNewFromSrcv4l2InSgeReady(
 
 	changeStage(dbswzsk, VecVSge::PRCIDLE);
 	// IP handleCallWzskResultNewFromSrcv4l2InSgeReady --- IEND
+	return retval;
+};
+
+bool JobWzskIprCorner::handleCallWzskResultNewFromAcqfpgaflgWithSrefCornerInSgeReady(
+			DbsWzsk* dbswzsk
+			, const uint ixInv
+		) {
+	bool retval = false;
+	// IP handleCallWzskResultNewFromAcqfpgaflgWithSrefCornerInSgeReady --- IBEGIN
+	acqfpgaflg->shrdat.resultFlg.lock(jref, ixInv);
+	ixRiSrc = ixInv;
+
+	changeStage(dbswzsk, VecVSge::PRCIDLE);
+	// IP handleCallWzskResultNewFromAcqfpgaflgWithSrefCornerInSgeReady --- IEND
 	return retval;
 };
 

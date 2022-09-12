@@ -14,11 +14,12 @@
 
 // IP include.cust --- INSERT
 
+#include "JobWzskSrcMercbb.h"
 #include "JobWzskSrcUvbdvk.h"
 #include "JobWzskSrcMcvevp.h"
 #include "JobWzskSrcIcicle.h"
-#include "JobWzskSrcClnxevb.h"
 #include "JobWzskSrcArty.h"
+#include "JobWzskSrcClnxevb.h"
 
 #define VecVJobWzskActServoMethod JobWzskActServo::VecVMethod
 #define VecVJobWzskActServoSge JobWzskActServo::VecVSge
@@ -117,8 +118,8 @@ public:
 		Shrdat();
 
 	public:
-		float angle; // in \u00a1
-		float target; // in \u00a1
+		float angle; // in deg
+		float target; // in deg
 
 		// IP Shrdat.vars.cust --- IBEGIN
 		bool ccwNotCw;
@@ -141,11 +142,12 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
+	JobWzskSrcMercbb* srcmercbb;
 	JobWzskSrcUvbdvk* srcuvbdvk;
 	JobWzskSrcMcvevp* srcmcvevp;
 	JobWzskSrcIcicle* srcicicle;
-	JobWzskSrcClnxevb* srcclnxevb;
 	JobWzskSrcArty* srcarty;
+	JobWzskSrcClnxevb* srcclnxevb;
 
 	// IP vars.spec --- INSERT
 

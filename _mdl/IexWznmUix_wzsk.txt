@@ -375,6 +375,8 @@ CrdWzskLlv
 	retrupd			PnlWzskLlvTermIcicle		custom()
 	retrupd			PnlWzskLlvTermMcvevp		custom()
 	retrupd			PnlWzskLlvTermUvbdvk		custom()
+	retrupd			PnlWzskLlvTermPwmonuart		custom()
+	retrupd			PnlWzskLlvTermPwmonusb		custom()
 	ins	form	6	PnlWzskLlvCamera	false
 		ImeICControl2.iref
 		1

@@ -1,56 +1,83 @@
 <template>
-	<v-card v-if=initdone class="pa-3 my-3 mx-auto" elevation="4">
+	<v-card v-if="initdone" class="pa-3 my-3 mx-auto" elevation="3">
 		<v-card-title>
 			<v-row>
-				<v-col cols="11">
+				<v-col cols="8">
 					<div>{{tag.Cpt}}</div>
 				</v-col>
-				<v-col align="end">
-					<v-btn-toggle v-model="contapp.ButClaimOn">
-						<v-btn
-							fab
-							small
-							light
-							color="primary"
-							v-on:click="handleButClick('ButClaimClick')"
-							:value="1"
-							:disabled="!statshr.ButClaimActive"
-						>
-							<v-icon color="white">{{contapp.ButClaimOn ? 'mdi-cog' : 'mdi-cog-off'}}</v-icon>
-						</v-btn>
-					</v-btn-toggle>
+				<v-col cols="4" align="end">
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='regd'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButClaimClick')"
+						:value="1"
+						:disabled="!statshr.ButClaimActive"
+					>
+						<v-icon color="white">{{contapp.ButClaimOn ? 'mdi-cog' : 'mdi-cog-off'}}</v-icon>
+					</v-btn>
+					&#160;&#160;
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='mind'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButRegularizeClick')"
+						:value="1"
+					>
+						<v-icon color="white">mdi-plus-circle</v-icon>
+					</v-btn>
+					&#160;
+					<v-btn
+						v-if="statshr.srefIxWzskVExpstate=='regd'"
+						fab
+						small
+						light
+						color="primary"
+						v-on:click="handleButClick('ButMinimizeClick')"
+						:value="1"
+					>
+						<v-icon color="white">mdi-minus-circle</v-icon>
+					</v-btn>
 				</v-col>
 			</v-row>
 		</v-card-title>
 
-		<v-card-text>
+		<v-card-text
+			v-if="statshr.srefIxWzskVExpstate=='regd'"
+		>
 			<div
-				class="my-2"
+				class="my-1"
 				style="height:500px"
 			>
 				<!-- IP divTre - INSERT -->
 			</div>
 
-			<v-row class="my-2">
+			<v-row class="my-1">
 				<v-col>
 					<v-btn
+						v-on:click="handleButClick('ButPlayClick')"
+						:disabled="!statshr.ButPlayActive"
 						fab
 						small
 						light
 						color="primary"
-						v-on:click="handleButClick('ButPlayClick')"
-						:disabled="!statshr.ButPlayActive"
 					>
 						<v-icon color="white">mdi-play</v-icon>
 					</v-btn>
 					&#160;
 					<v-btn
+						v-on:click="handleButClick('ButStopClick')"
+						:disabled="!statshr.ButStopActive"
 						fab
 						small
 						light
 						color="primary"
-						v-on:click="handleButClick('ButStopClick')"
-						:disabled="!statshr.ButStopActive"
 					>
 						<v-icon color="white">mdi-stop</v-icon>
 					</v-btn>
@@ -60,13 +87,13 @@
 			<v-divider/>
 
 			<h3
-				class="text-5 my-2"
+				class="text-5 my-1"
 			>
 				{{tag.HdgAcq}}
 			</h3>
 
 			<v-slider
-				class="my-2"
+				class="my-1"
 				v-model="contiac.SldAin"
 				v-on:end='updateEng(["contiac"])'
 				:label="tag.CptAin"
@@ -88,7 +115,7 @@
 			</v-slider>
 
 			<v-text-field
-				class="my-2"
+				class="my-1"
 				readonly
 				outlined
 				v-model="continf.TxtAst"
@@ -97,29 +124,29 @@
 
 			<v-text-field
 				v-if="statshr.TxtAoaAvail"
-				class="my-2"
+				class="my-1"
 				readonly
 				outlined
 				v-model="continf.TxtAoa"
 				:label="tag.CptAoa"
 			/>
 
-			<v-row class="my-2">
+			<v-row class="my-1">
 				<v-col>
 					<v-btn
-						class="my-2"
-						color="primary"
 						v-on:click="handleButClick('ButAsrClick')"
 						:disabled="!statshr.ButAsrActive"
+						class="my-1"
+						color="primary"
 					>
 						{{tag.ButAsr}}
 					</v-btn>
 					&#160;
 					<v-btn
-						class="my-2"
-						color="primary"
 						v-on:click="handleButClick('ButAirClick')"
 						:disabled="!statshr.ButAirActive"
+						class="my-1"
+						color="primary"
 					>
 						{{tag.ButAir}}
 					</v-btn>
@@ -172,12 +199,6 @@
 				this.$emit("request", {scrJref: this.scrJref, dpchapp: dpchapp, then: "handleDpchAppDataDoReply"});
 			},
 
-			handlePupChange: function(cisref, fi) {
-				this.contiac[cisref] = fi.num;
-
-				this.updateEng(["contiac"]);
-			},
-
 			updateEng: function(mask) {
 				var dpchapp = {
 					"scrJref": this.scrJref
@@ -202,7 +223,6 @@
 					Wzsk.unescapeBlock(dpcheng.TagWzskLiv3DView);
 					this.tag = dpcheng.TagWzskLiv3DView;
 				}
-
 				if (dpcheng.ContInfWzskLiv3DView) {
 					if (!this.continf.ButClaimOn) this.contapp.ButClaimOn = 0;
 					else this.contapp.ButClaimOn = 1;
@@ -230,13 +250,13 @@
 			/*
 			*/
 
-			handleDpchEngLive: function(dpcheng) {
+			handleDpchEngWzskLiv3DViewLive: function(dpcheng) {
 				/*
-				<!-- IP handleDpchEngLive - BEGIN -->
+				<!-- IP handleDpchEngWzskLiv3DViewLive - BEGIN -->
 				*/
-				console.log("PnlWzskLiv3DView.handleDpchEngLive()" + dpcheng);
+				console.log("PnlWzskLiv3DView.handleDpchEngWzskLiv3DViewLive()" + dpcheng);
 				/*
-				<!-- IP handleDpchEngLive - END -->
+				<!-- IP handleDpchEngWzskLiv3DViewLive - END -->
 				*/
 			},
 			/*
@@ -245,7 +265,7 @@
 			handleUpdate: function(obj) {
 				/*
 				*/
-				if (obj.srefIxWzskVDpch == "DpchEngWzskLiv3DViewLive") this.handleDpchEngLive(obj.dpcheng);
+				if (obj.srefIxWzskVDpch == "DpchEngWzskLiv3DViewLive") this.handleDpchEngWzskLiv3DViewLive(obj.dpcheng);
 				else if (obj.srefIxWzskVDpch == "DpchEngWzskLiv3DViewData") this.mergeDpchEngData(obj.dpcheng);
 				/*
 				*/
@@ -260,10 +280,6 @@
 
 			/*
 			*/
-			contapp: {
-				ButClaimOn: 0,
-			},
-
 			contiac: null,
 
 			continf: null,
@@ -273,6 +289,11 @@
 			statshr: null,
 
 			tag: null,
+
+			contapp: {
+				ButClaimOn: 0,
+
+			},
 			/*
 			*/
 			

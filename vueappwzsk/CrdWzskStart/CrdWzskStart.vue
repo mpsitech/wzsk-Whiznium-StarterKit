@@ -57,7 +57,7 @@
 	import Wzsk from '../../scripts/Wzsk';
 
 	const dpch = axios.create({
-		baseURL: window.location.protocol + "//" + window.location.hostname + ":" + Wzsk.appsrvport() + "/dpch"
+		baseURL: window.location.protocol + "//" + Wzsk.hostname() + ":" + Wzsk.appsrvport() + "/dpch"
 	})
 
 	function getFiBySref(feed, sref) {

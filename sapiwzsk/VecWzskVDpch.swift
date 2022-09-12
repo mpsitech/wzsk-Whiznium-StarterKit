@@ -50,192 +50,198 @@ public struct VecWzskVDpch {
 	public static let DPCHENGWZSKLLVTERMCLNXEVBDATA: Int = 34
 	public static let DPCHENGWZSKLLVTERMICICLEDATA: Int = 35
 	public static let DPCHENGWZSKLLVTERMMCVEVPDATA: Int = 36
-	public static let DPCHENGWZSKLLVTERMUVBDVKDATA: Int = 37
-	public static let DPCHENGWZSKLLVTTABLEDATA: Int = 38
-	public static let DPCHENGWZSKNAVADMINDATA: Int = 39
-	public static let DPCHENGWZSKNAVDATA: Int = 40
-	public static let DPCHENGWZSKNAVGLRYDATA: Int = 41
-	public static let DPCHENGWZSKNAVHEADBARDATA: Int = 42
-	public static let DPCHENGWZSKNAVOPDATA: Int = 43
-	public static let DPCHENGWZSKNAVPREDATA: Int = 44
-	public static let DPCHENGWZSKOBJ1NSHOTDATA: Int = 45
-	public static let DPCHENGWZSKOBJDATA: Int = 46
-	public static let DPCHENGWZSKOBJDETAILDATA: Int = 47
-	public static let DPCHENGWZSKOBJHEADBARDATA: Int = 48
-	public static let DPCHENGWZSKOBJLISTDATA: Int = 49
-	public static let DPCHENGWZSKOBJRECDATA: Int = 50
-	public static let DPCHENGWZSKOBJREF1NFILEDATA: Int = 51
-	public static let DPCHENGWZSKOGR1NOBJECTDATA: Int = 52
-	public static let DPCHENGWZSKOGRDATA: Int = 53
-	public static let DPCHENGWZSKOGRDETAILDATA: Int = 54
-	public static let DPCHENGWZSKOGRHEADBARDATA: Int = 55
-	public static let DPCHENGWZSKOGRLISTDATA: Int = 56
-	public static let DPCHENGWZSKOGRRECDATA: Int = 57
-	public static let DPCHENGWZSKOGRSUP1NOBJGROUPDATA: Int = 58
-	public static let DPCHENGWZSKPRSADETAILDATA: Int = 59
-	public static let DPCHENGWZSKPRSDATA: Int = 60
-	public static let DPCHENGWZSKPRSDETAILDATA: Int = 61
-	public static let DPCHENGWZSKPRSHEADBARDATA: Int = 62
-	public static let DPCHENGWZSKPRSLISTDATA: Int = 63
-	public static let DPCHENGWZSKPRSRECDATA: Int = 64
-	public static let DPCHENGWZSKSCFCONNDATA: Int = 65
-	public static let DPCHENGWZSKSCFDATA: Int = 66
-	public static let DPCHENGWZSKSCFGEOMDATA: Int = 67
-	public static let DPCHENGWZSKSCFHEADBARDATA: Int = 68
-	public static let DPCHENGWZSKSES1NSHOTDATA: Int = 69
-	public static let DPCHENGWZSKSESDATA: Int = 70
-	public static let DPCHENGWZSKSESDETAILDATA: Int = 71
-	public static let DPCHENGWZSKSESHEADBARDATA: Int = 72
-	public static let DPCHENGWZSKSESLISTDATA: Int = 73
-	public static let DPCHENGWZSKSESRECDATA: Int = 74
-	public static let DPCHENGWZSKSHTAPARDATA: Int = 75
-	public static let DPCHENGWZSKSHTDATA: Int = 76
-	public static let DPCHENGWZSKSHTDETAILDATA: Int = 77
-	public static let DPCHENGWZSKSHTHEADBARDATA: Int = 78
-	public static let DPCHENGWZSKSHTLISTDATA: Int = 79
-	public static let DPCHENGWZSKSHTRECDATA: Int = 80
-	public static let DPCHENGWZSKSHTREF1NFILEDATA: Int = 81
-	public static let DPCHENGWZSKSUSPEND: Int = 82
-	public static let DPCHENGWZSKUSGAACCESSDATA: Int = 83
-	public static let DPCHENGWZSKUSGDATA: Int = 84
-	public static let DPCHENGWZSKUSGDETAILDATA: Int = 85
-	public static let DPCHENGWZSKUSGHEADBARDATA: Int = 86
-	public static let DPCHENGWZSKUSGLISTDATA: Int = 87
-	public static let DPCHENGWZSKUSGMNUSERDATA: Int = 88
-	public static let DPCHENGWZSKUSGRECDATA: Int = 89
-	public static let DPCHENGWZSKUSR1NSESSIONDATA: Int = 90
-	public static let DPCHENGWZSKUSRAACCESSDATA: Int = 91
-	public static let DPCHENGWZSKUSRDATA: Int = 92
-	public static let DPCHENGWZSKUSRDETAILDATA: Int = 93
-	public static let DPCHENGWZSKUSRHEADBARDATA: Int = 94
-	public static let DPCHENGWZSKUSRLISTDATA: Int = 95
-	public static let DPCHENGWZSKUSRMNUSERGROUPDATA: Int = 96
-	public static let DPCHENGWZSKUSRRECDATA: Int = 97
-	public static let DPCHAPPDLGWZSKFILDOWNLOADDO: Int = 98
-	public static let DPCHAPPDLGWZSKNAVLOAINIDATA: Int = 99
-	public static let DPCHAPPDLGWZSKNAVLOAINIDO: Int = 100
-	public static let DPCHAPPDLGWZSKOBJNEWDATA: Int = 101
-	public static let DPCHAPPDLGWZSKOBJNEWDO: Int = 102
-	public static let DPCHAPPDLGWZSKOGRNEWDATA: Int = 103
-	public static let DPCHAPPDLGWZSKOGRNEWDO: Int = 104
-	public static let DPCHAPPDLGWZSKSCFCAMERAMATDATA: Int = 105
-	public static let DPCHAPPDLGWZSKSCFCAMERAMATDO: Int = 106
-	public static let DPCHAPPDLGWZSKSCFLASERPOSDATA: Int = 107
-	public static let DPCHAPPDLGWZSKSCFLASERPOSDO: Int = 108
-	public static let DPCHAPPDLGWZSKSCFTTABLECOORDDATA: Int = 109
-	public static let DPCHAPPDLGWZSKSCFTTABLECOORDDO: Int = 110
-	public static let DPCHAPPROOTWZSKLOGIN: Int = 111
-	public static let DPCHAPPWZSKALERT: Int = 112
-	public static let DPCHAPPWZSKFILDETAILDATA: Int = 113
-	public static let DPCHAPPWZSKFILDETAILDO: Int = 114
-	public static let DPCHAPPWZSKFILDO: Int = 115
-	public static let DPCHAPPWZSKFILLISTDATA: Int = 116
-	public static let DPCHAPPWZSKFILLISTDO: Int = 117
-	public static let DPCHAPPWZSKFILRECDO: Int = 118
-	public static let DPCHAPPWZSKINIT: Int = 119
-	public static let DPCHAPPWZSKLIV2DVIEWALIGN: Int = 120
-	public static let DPCHAPPWZSKLIV2DVIEWDATA: Int = 121
-	public static let DPCHAPPWZSKLIV2DVIEWDO: Int = 122
-	public static let DPCHAPPWZSKLIV3DVIEWDATA: Int = 123
-	public static let DPCHAPPWZSKLIV3DVIEWDO: Int = 124
-	public static let DPCHAPPWZSKLIVDO: Int = 125
-	public static let DPCHAPPWZSKLIVSYSMONDO: Int = 126
-	public static let DPCHAPPWZSKLLVCAMERADATA: Int = 127
-	public static let DPCHAPPWZSKLLVCAMERADO: Int = 128
-	public static let DPCHAPPWZSKLLVDO: Int = 129
-	public static let DPCHAPPWZSKLLVLASERDATA: Int = 130
-	public static let DPCHAPPWZSKLLVLASERDO: Int = 131
-	public static let DPCHAPPWZSKLLVTERMARTYDATA: Int = 132
-	public static let DPCHAPPWZSKLLVTERMARTYDO: Int = 133
-	public static let DPCHAPPWZSKLLVTERMCLNXEVBDATA: Int = 134
-	public static let DPCHAPPWZSKLLVTERMCLNXEVBDO: Int = 135
-	public static let DPCHAPPWZSKLLVTERMICICLEDATA: Int = 136
-	public static let DPCHAPPWZSKLLVTERMICICLEDO: Int = 137
-	public static let DPCHAPPWZSKLLVTERMMCVEVPDATA: Int = 138
-	public static let DPCHAPPWZSKLLVTERMMCVEVPDO: Int = 139
-	public static let DPCHAPPWZSKLLVTERMUVBDVKDATA: Int = 140
-	public static let DPCHAPPWZSKLLVTERMUVBDVKDO: Int = 141
-	public static let DPCHAPPWZSKLLVTTABLEDATA: Int = 142
-	public static let DPCHAPPWZSKLLVTTABLEDO: Int = 143
-	public static let DPCHAPPWZSKNAVADMINDATA: Int = 144
-	public static let DPCHAPPWZSKNAVADMINDO: Int = 145
-	public static let DPCHAPPWZSKNAVDO: Int = 146
-	public static let DPCHAPPWZSKNAVGLRYDATA: Int = 147
-	public static let DPCHAPPWZSKNAVGLRYDO: Int = 148
-	public static let DPCHAPPWZSKNAVOPDO: Int = 149
-	public static let DPCHAPPWZSKNAVPREDO: Int = 150
-	public static let DPCHAPPWZSKOBJ1NSHOTDATA: Int = 151
-	public static let DPCHAPPWZSKOBJ1NSHOTDO: Int = 152
-	public static let DPCHAPPWZSKOBJDETAILDATA: Int = 153
-	public static let DPCHAPPWZSKOBJDETAILDO: Int = 154
-	public static let DPCHAPPWZSKOBJDO: Int = 155
-	public static let DPCHAPPWZSKOBJLISTDATA: Int = 156
-	public static let DPCHAPPWZSKOBJLISTDO: Int = 157
-	public static let DPCHAPPWZSKOBJRECDO: Int = 158
-	public static let DPCHAPPWZSKOBJREF1NFILEDATA: Int = 159
-	public static let DPCHAPPWZSKOBJREF1NFILEDO: Int = 160
-	public static let DPCHAPPWZSKOGR1NOBJECTDATA: Int = 161
-	public static let DPCHAPPWZSKOGR1NOBJECTDO: Int = 162
-	public static let DPCHAPPWZSKOGRDETAILDATA: Int = 163
-	public static let DPCHAPPWZSKOGRDETAILDO: Int = 164
-	public static let DPCHAPPWZSKOGRDO: Int = 165
-	public static let DPCHAPPWZSKOGRLISTDATA: Int = 166
-	public static let DPCHAPPWZSKOGRLISTDO: Int = 167
-	public static let DPCHAPPWZSKOGRRECDO: Int = 168
-	public static let DPCHAPPWZSKOGRSUP1NOBJGROUPDATA: Int = 169
-	public static let DPCHAPPWZSKOGRSUP1NOBJGROUPDO: Int = 170
-	public static let DPCHAPPWZSKPRSADETAILDATA: Int = 171
-	public static let DPCHAPPWZSKPRSADETAILDO: Int = 172
-	public static let DPCHAPPWZSKPRSDETAILDATA: Int = 173
-	public static let DPCHAPPWZSKPRSDETAILDO: Int = 174
-	public static let DPCHAPPWZSKPRSDO: Int = 175
-	public static let DPCHAPPWZSKPRSLISTDATA: Int = 176
-	public static let DPCHAPPWZSKPRSLISTDO: Int = 177
-	public static let DPCHAPPWZSKPRSRECDO: Int = 178
-	public static let DPCHAPPWZSKRESUME: Int = 179
-	public static let DPCHAPPWZSKSCFCONNDO: Int = 180
-	public static let DPCHAPPWZSKSCFDO: Int = 181
-	public static let DPCHAPPWZSKSCFGEOMDO: Int = 182
-	public static let DPCHAPPWZSKSES1NSHOTDATA: Int = 183
-	public static let DPCHAPPWZSKSES1NSHOTDO: Int = 184
-	public static let DPCHAPPWZSKSESDETAILDATA: Int = 185
-	public static let DPCHAPPWZSKSESDETAILDO: Int = 186
-	public static let DPCHAPPWZSKSESDO: Int = 187
-	public static let DPCHAPPWZSKSESLISTDATA: Int = 188
-	public static let DPCHAPPWZSKSESLISTDO: Int = 189
-	public static let DPCHAPPWZSKSESRECDO: Int = 190
-	public static let DPCHAPPWZSKSHTAPARDATA: Int = 191
-	public static let DPCHAPPWZSKSHTAPARDO: Int = 192
-	public static let DPCHAPPWZSKSHTDETAILDATA: Int = 193
-	public static let DPCHAPPWZSKSHTDETAILDO: Int = 194
-	public static let DPCHAPPWZSKSHTDO: Int = 195
-	public static let DPCHAPPWZSKSHTLISTDATA: Int = 196
-	public static let DPCHAPPWZSKSHTLISTDO: Int = 197
-	public static let DPCHAPPWZSKSHTRECDO: Int = 198
-	public static let DPCHAPPWZSKSHTREF1NFILEDATA: Int = 199
-	public static let DPCHAPPWZSKSHTREF1NFILEDO: Int = 200
-	public static let DPCHAPPWZSKUSGAACCESSDATA: Int = 201
-	public static let DPCHAPPWZSKUSGAACCESSDO: Int = 202
-	public static let DPCHAPPWZSKUSGDETAILDATA: Int = 203
-	public static let DPCHAPPWZSKUSGDETAILDO: Int = 204
-	public static let DPCHAPPWZSKUSGDO: Int = 205
-	public static let DPCHAPPWZSKUSGLISTDATA: Int = 206
-	public static let DPCHAPPWZSKUSGLISTDO: Int = 207
-	public static let DPCHAPPWZSKUSGMNUSERDATA: Int = 208
-	public static let DPCHAPPWZSKUSGMNUSERDO: Int = 209
-	public static let DPCHAPPWZSKUSGRECDO: Int = 210
-	public static let DPCHAPPWZSKUSR1NSESSIONDATA: Int = 211
-	public static let DPCHAPPWZSKUSR1NSESSIONDO: Int = 212
-	public static let DPCHAPPWZSKUSRAACCESSDATA: Int = 213
-	public static let DPCHAPPWZSKUSRAACCESSDO: Int = 214
-	public static let DPCHAPPWZSKUSRDETAILDATA: Int = 215
-	public static let DPCHAPPWZSKUSRDETAILDO: Int = 216
-	public static let DPCHAPPWZSKUSRDO: Int = 217
-	public static let DPCHAPPWZSKUSRLISTDATA: Int = 218
-	public static let DPCHAPPWZSKUSRLISTDO: Int = 219
-	public static let DPCHAPPWZSKUSRMNUSERGROUPDATA: Int = 220
-	public static let DPCHAPPWZSKUSRMNUSERGROUPDO: Int = 221
-	public static let DPCHAPPWZSKUSRRECDO: Int = 222
+	public static let DPCHENGWZSKLLVTERMPWMONUARTDATA: Int = 37
+	public static let DPCHENGWZSKLLVTERMPWMONUSBDATA: Int = 38
+	public static let DPCHENGWZSKLLVTERMUVBDVKDATA: Int = 39
+	public static let DPCHENGWZSKLLVTTABLEDATA: Int = 40
+	public static let DPCHENGWZSKNAVADMINDATA: Int = 41
+	public static let DPCHENGWZSKNAVDATA: Int = 42
+	public static let DPCHENGWZSKNAVGLRYDATA: Int = 43
+	public static let DPCHENGWZSKNAVHEADBARDATA: Int = 44
+	public static let DPCHENGWZSKNAVOPDATA: Int = 45
+	public static let DPCHENGWZSKNAVPREDATA: Int = 46
+	public static let DPCHENGWZSKOBJ1NSHOTDATA: Int = 47
+	public static let DPCHENGWZSKOBJDATA: Int = 48
+	public static let DPCHENGWZSKOBJDETAILDATA: Int = 49
+	public static let DPCHENGWZSKOBJHEADBARDATA: Int = 50
+	public static let DPCHENGWZSKOBJLISTDATA: Int = 51
+	public static let DPCHENGWZSKOBJRECDATA: Int = 52
+	public static let DPCHENGWZSKOBJREF1NFILEDATA: Int = 53
+	public static let DPCHENGWZSKOGR1NOBJECTDATA: Int = 54
+	public static let DPCHENGWZSKOGRDATA: Int = 55
+	public static let DPCHENGWZSKOGRDETAILDATA: Int = 56
+	public static let DPCHENGWZSKOGRHEADBARDATA: Int = 57
+	public static let DPCHENGWZSKOGRLISTDATA: Int = 58
+	public static let DPCHENGWZSKOGRRECDATA: Int = 59
+	public static let DPCHENGWZSKOGRSUP1NOBJGROUPDATA: Int = 60
+	public static let DPCHENGWZSKPRSADETAILDATA: Int = 61
+	public static let DPCHENGWZSKPRSDATA: Int = 62
+	public static let DPCHENGWZSKPRSDETAILDATA: Int = 63
+	public static let DPCHENGWZSKPRSHEADBARDATA: Int = 64
+	public static let DPCHENGWZSKPRSLISTDATA: Int = 65
+	public static let DPCHENGWZSKPRSRECDATA: Int = 66
+	public static let DPCHENGWZSKSCFCONNDATA: Int = 67
+	public static let DPCHENGWZSKSCFDATA: Int = 68
+	public static let DPCHENGWZSKSCFGEOMDATA: Int = 69
+	public static let DPCHENGWZSKSCFHEADBARDATA: Int = 70
+	public static let DPCHENGWZSKSES1NSHOTDATA: Int = 71
+	public static let DPCHENGWZSKSESDATA: Int = 72
+	public static let DPCHENGWZSKSESDETAILDATA: Int = 73
+	public static let DPCHENGWZSKSESHEADBARDATA: Int = 74
+	public static let DPCHENGWZSKSESLISTDATA: Int = 75
+	public static let DPCHENGWZSKSESRECDATA: Int = 76
+	public static let DPCHENGWZSKSHTAPARDATA: Int = 77
+	public static let DPCHENGWZSKSHTDATA: Int = 78
+	public static let DPCHENGWZSKSHTDETAILDATA: Int = 79
+	public static let DPCHENGWZSKSHTHEADBARDATA: Int = 80
+	public static let DPCHENGWZSKSHTLISTDATA: Int = 81
+	public static let DPCHENGWZSKSHTRECDATA: Int = 82
+	public static let DPCHENGWZSKSHTREF1NFILEDATA: Int = 83
+	public static let DPCHENGWZSKSUSPEND: Int = 84
+	public static let DPCHENGWZSKUSGAACCESSDATA: Int = 85
+	public static let DPCHENGWZSKUSGDATA: Int = 86
+	public static let DPCHENGWZSKUSGDETAILDATA: Int = 87
+	public static let DPCHENGWZSKUSGHEADBARDATA: Int = 88
+	public static let DPCHENGWZSKUSGLISTDATA: Int = 89
+	public static let DPCHENGWZSKUSGMNUSERDATA: Int = 90
+	public static let DPCHENGWZSKUSGRECDATA: Int = 91
+	public static let DPCHENGWZSKUSR1NSESSIONDATA: Int = 92
+	public static let DPCHENGWZSKUSRAACCESSDATA: Int = 93
+	public static let DPCHENGWZSKUSRDATA: Int = 94
+	public static let DPCHENGWZSKUSRDETAILDATA: Int = 95
+	public static let DPCHENGWZSKUSRHEADBARDATA: Int = 96
+	public static let DPCHENGWZSKUSRLISTDATA: Int = 97
+	public static let DPCHENGWZSKUSRMNUSERGROUPDATA: Int = 98
+	public static let DPCHENGWZSKUSRRECDATA: Int = 99
+	public static let DPCHAPPDLGWZSKFILDOWNLOADDO: Int = 100
+	public static let DPCHAPPDLGWZSKNAVLOAINIDATA: Int = 101
+	public static let DPCHAPPDLGWZSKNAVLOAINIDO: Int = 102
+	public static let DPCHAPPDLGWZSKOBJNEWDATA: Int = 103
+	public static let DPCHAPPDLGWZSKOBJNEWDO: Int = 104
+	public static let DPCHAPPDLGWZSKOGRNEWDATA: Int = 105
+	public static let DPCHAPPDLGWZSKOGRNEWDO: Int = 106
+	public static let DPCHAPPDLGWZSKSCFCAMERAMATDATA: Int = 107
+	public static let DPCHAPPDLGWZSKSCFCAMERAMATDO: Int = 108
+	public static let DPCHAPPDLGWZSKSCFLASERPOSDATA: Int = 109
+	public static let DPCHAPPDLGWZSKSCFLASERPOSDO: Int = 110
+	public static let DPCHAPPDLGWZSKSCFTTABLECOORDDATA: Int = 111
+	public static let DPCHAPPDLGWZSKSCFTTABLECOORDDO: Int = 112
+	public static let DPCHAPPROOTWZSKLOGIN: Int = 113
+	public static let DPCHAPPWZSKALERT: Int = 114
+	public static let DPCHAPPWZSKFILDETAILDATA: Int = 115
+	public static let DPCHAPPWZSKFILDETAILDO: Int = 116
+	public static let DPCHAPPWZSKFILDO: Int = 117
+	public static let DPCHAPPWZSKFILLISTDATA: Int = 118
+	public static let DPCHAPPWZSKFILLISTDO: Int = 119
+	public static let DPCHAPPWZSKFILRECDO: Int = 120
+	public static let DPCHAPPWZSKINIT: Int = 121
+	public static let DPCHAPPWZSKLIV2DVIEWALIGN: Int = 122
+	public static let DPCHAPPWZSKLIV2DVIEWDATA: Int = 123
+	public static let DPCHAPPWZSKLIV2DVIEWDO: Int = 124
+	public static let DPCHAPPWZSKLIV3DVIEWDATA: Int = 125
+	public static let DPCHAPPWZSKLIV3DVIEWDO: Int = 126
+	public static let DPCHAPPWZSKLIVDO: Int = 127
+	public static let DPCHAPPWZSKLIVSYSMONDO: Int = 128
+	public static let DPCHAPPWZSKLLVCAMERADATA: Int = 129
+	public static let DPCHAPPWZSKLLVCAMERADO: Int = 130
+	public static let DPCHAPPWZSKLLVDO: Int = 131
+	public static let DPCHAPPWZSKLLVLASERDATA: Int = 132
+	public static let DPCHAPPWZSKLLVLASERDO: Int = 133
+	public static let DPCHAPPWZSKLLVTERMARTYDATA: Int = 134
+	public static let DPCHAPPWZSKLLVTERMARTYDO: Int = 135
+	public static let DPCHAPPWZSKLLVTERMCLNXEVBDATA: Int = 136
+	public static let DPCHAPPWZSKLLVTERMCLNXEVBDO: Int = 137
+	public static let DPCHAPPWZSKLLVTERMICICLEDATA: Int = 138
+	public static let DPCHAPPWZSKLLVTERMICICLEDO: Int = 139
+	public static let DPCHAPPWZSKLLVTERMMCVEVPDATA: Int = 140
+	public static let DPCHAPPWZSKLLVTERMMCVEVPDO: Int = 141
+	public static let DPCHAPPWZSKLLVTERMPWMONUARTDATA: Int = 142
+	public static let DPCHAPPWZSKLLVTERMPWMONUARTDO: Int = 143
+	public static let DPCHAPPWZSKLLVTERMPWMONUSBDATA: Int = 144
+	public static let DPCHAPPWZSKLLVTERMPWMONUSBDO: Int = 145
+	public static let DPCHAPPWZSKLLVTERMUVBDVKDATA: Int = 146
+	public static let DPCHAPPWZSKLLVTERMUVBDVKDO: Int = 147
+	public static let DPCHAPPWZSKLLVTTABLEDATA: Int = 148
+	public static let DPCHAPPWZSKLLVTTABLEDO: Int = 149
+	public static let DPCHAPPWZSKNAVADMINDATA: Int = 150
+	public static let DPCHAPPWZSKNAVADMINDO: Int = 151
+	public static let DPCHAPPWZSKNAVDO: Int = 152
+	public static let DPCHAPPWZSKNAVGLRYDATA: Int = 153
+	public static let DPCHAPPWZSKNAVGLRYDO: Int = 154
+	public static let DPCHAPPWZSKNAVOPDO: Int = 155
+	public static let DPCHAPPWZSKNAVPREDO: Int = 156
+	public static let DPCHAPPWZSKOBJ1NSHOTDATA: Int = 157
+	public static let DPCHAPPWZSKOBJ1NSHOTDO: Int = 158
+	public static let DPCHAPPWZSKOBJDETAILDATA: Int = 159
+	public static let DPCHAPPWZSKOBJDETAILDO: Int = 160
+	public static let DPCHAPPWZSKOBJDO: Int = 161
+	public static let DPCHAPPWZSKOBJLISTDATA: Int = 162
+	public static let DPCHAPPWZSKOBJLISTDO: Int = 163
+	public static let DPCHAPPWZSKOBJRECDO: Int = 164
+	public static let DPCHAPPWZSKOBJREF1NFILEDATA: Int = 165
+	public static let DPCHAPPWZSKOBJREF1NFILEDO: Int = 166
+	public static let DPCHAPPWZSKOGR1NOBJECTDATA: Int = 167
+	public static let DPCHAPPWZSKOGR1NOBJECTDO: Int = 168
+	public static let DPCHAPPWZSKOGRDETAILDATA: Int = 169
+	public static let DPCHAPPWZSKOGRDETAILDO: Int = 170
+	public static let DPCHAPPWZSKOGRDO: Int = 171
+	public static let DPCHAPPWZSKOGRLISTDATA: Int = 172
+	public static let DPCHAPPWZSKOGRLISTDO: Int = 173
+	public static let DPCHAPPWZSKOGRRECDO: Int = 174
+	public static let DPCHAPPWZSKOGRSUP1NOBJGROUPDATA: Int = 175
+	public static let DPCHAPPWZSKOGRSUP1NOBJGROUPDO: Int = 176
+	public static let DPCHAPPWZSKPRSADETAILDATA: Int = 177
+	public static let DPCHAPPWZSKPRSADETAILDO: Int = 178
+	public static let DPCHAPPWZSKPRSDETAILDATA: Int = 179
+	public static let DPCHAPPWZSKPRSDETAILDO: Int = 180
+	public static let DPCHAPPWZSKPRSDO: Int = 181
+	public static let DPCHAPPWZSKPRSLISTDATA: Int = 182
+	public static let DPCHAPPWZSKPRSLISTDO: Int = 183
+	public static let DPCHAPPWZSKPRSRECDO: Int = 184
+	public static let DPCHAPPWZSKRESUME: Int = 185
+	public static let DPCHAPPWZSKSCFCONNDO: Int = 186
+	public static let DPCHAPPWZSKSCFDO: Int = 187
+	public static let DPCHAPPWZSKSCFGEOMDO: Int = 188
+	public static let DPCHAPPWZSKSES1NSHOTDATA: Int = 189
+	public static let DPCHAPPWZSKSES1NSHOTDO: Int = 190
+	public static let DPCHAPPWZSKSESDETAILDATA: Int = 191
+	public static let DPCHAPPWZSKSESDETAILDO: Int = 192
+	public static let DPCHAPPWZSKSESDO: Int = 193
+	public static let DPCHAPPWZSKSESLISTDATA: Int = 194
+	public static let DPCHAPPWZSKSESLISTDO: Int = 195
+	public static let DPCHAPPWZSKSESRECDO: Int = 196
+	public static let DPCHAPPWZSKSHTAPARDATA: Int = 197
+	public static let DPCHAPPWZSKSHTAPARDO: Int = 198
+	public static let DPCHAPPWZSKSHTDETAILDATA: Int = 199
+	public static let DPCHAPPWZSKSHTDETAILDO: Int = 200
+	public static let DPCHAPPWZSKSHTDO: Int = 201
+	public static let DPCHAPPWZSKSHTLISTDATA: Int = 202
+	public static let DPCHAPPWZSKSHTLISTDO: Int = 203
+	public static let DPCHAPPWZSKSHTRECDO: Int = 204
+	public static let DPCHAPPWZSKSHTREF1NFILEDATA: Int = 205
+	public static let DPCHAPPWZSKSHTREF1NFILEDO: Int = 206
+	public static let DPCHAPPWZSKUSGAACCESSDATA: Int = 207
+	public static let DPCHAPPWZSKUSGAACCESSDO: Int = 208
+	public static let DPCHAPPWZSKUSGDETAILDATA: Int = 209
+	public static let DPCHAPPWZSKUSGDETAILDO: Int = 210
+	public static let DPCHAPPWZSKUSGDO: Int = 211
+	public static let DPCHAPPWZSKUSGLISTDATA: Int = 212
+	public static let DPCHAPPWZSKUSGLISTDO: Int = 213
+	public static let DPCHAPPWZSKUSGMNUSERDATA: Int = 214
+	public static let DPCHAPPWZSKUSGMNUSERDO: Int = 215
+	public static let DPCHAPPWZSKUSGRECDO: Int = 216
+	public static let DPCHAPPWZSKUSR1NSESSIONDATA: Int = 217
+	public static let DPCHAPPWZSKUSR1NSESSIONDO: Int = 218
+	public static let DPCHAPPWZSKUSRAACCESSDATA: Int = 219
+	public static let DPCHAPPWZSKUSRAACCESSDO: Int = 220
+	public static let DPCHAPPWZSKUSRDETAILDATA: Int = 221
+	public static let DPCHAPPWZSKUSRDETAILDO: Int = 222
+	public static let DPCHAPPWZSKUSRDO: Int = 223
+	public static let DPCHAPPWZSKUSRLISTDATA: Int = 224
+	public static let DPCHAPPWZSKUSRLISTDO: Int = 225
+	public static let DPCHAPPWZSKUSRMNUSERGROUPDATA: Int = 226
+	public static let DPCHAPPWZSKUSRMNUSERGROUPDO: Int = 227
+	public static let DPCHAPPWZSKUSRRECDO: Int = 228
 
 	public static func getIx(
 				_ sref: String
@@ -278,6 +284,8 @@ public struct VecWzskVDpch {
 		if s == "dpchengwzskllvtermclnxevbdata" {return DPCHENGWZSKLLVTERMCLNXEVBDATA}
 		if s == "dpchengwzskllvtermicicledata" {return DPCHENGWZSKLLVTERMICICLEDATA}
 		if s == "dpchengwzskllvtermmcvevpdata" {return DPCHENGWZSKLLVTERMMCVEVPDATA}
+		if s == "dpchengwzskllvtermpwmonuartdata" {return DPCHENGWZSKLLVTERMPWMONUARTDATA}
+		if s == "dpchengwzskllvtermpwmonusbdata" {return DPCHENGWZSKLLVTERMPWMONUSBDATA}
 		if s == "dpchengwzskllvtermuvbdvkdata" {return DPCHENGWZSKLLVTERMUVBDVKDATA}
 		if s == "dpchengwzskllvttabledata" {return DPCHENGWZSKLLVTTABLEDATA}
 		if s == "dpchengwzsknavadmindata" {return DPCHENGWZSKNAVADMINDATA}
@@ -381,6 +389,10 @@ public struct VecWzskVDpch {
 		if s == "dpchappwzskllvtermicicledo" {return DPCHAPPWZSKLLVTERMICICLEDO}
 		if s == "dpchappwzskllvtermmcvevpdata" {return DPCHAPPWZSKLLVTERMMCVEVPDATA}
 		if s == "dpchappwzskllvtermmcvevpdo" {return DPCHAPPWZSKLLVTERMMCVEVPDO}
+		if s == "dpchappwzskllvtermpwmonuartdata" {return DPCHAPPWZSKLLVTERMPWMONUARTDATA}
+		if s == "dpchappwzskllvtermpwmonuartdo" {return DPCHAPPWZSKLLVTERMPWMONUARTDO}
+		if s == "dpchappwzskllvtermpwmonusbdata" {return DPCHAPPWZSKLLVTERMPWMONUSBDATA}
+		if s == "dpchappwzskllvtermpwmonusbdo" {return DPCHAPPWZSKLLVTERMPWMONUSBDO}
 		if s == "dpchappwzskllvtermuvbdvkdata" {return DPCHAPPWZSKLLVTERMUVBDVKDATA}
 		if s == "dpchappwzskllvtermuvbdvkdo" {return DPCHAPPWZSKLLVTERMUVBDVKDO}
 		if s == "dpchappwzskllvttabledata" {return DPCHAPPWZSKLLVTTABLEDATA}
@@ -507,6 +519,8 @@ public struct VecWzskVDpch {
 	if (ix == DPCHENGWZSKLLVTERMCLNXEVBDATA) {return "DpchEngWzskLlvTermClnxevbData"}
 	if (ix == DPCHENGWZSKLLVTERMICICLEDATA) {return "DpchEngWzskLlvTermIcicleData"}
 	if (ix == DPCHENGWZSKLLVTERMMCVEVPDATA) {return "DpchEngWzskLlvTermMcvevpData"}
+	if (ix == DPCHENGWZSKLLVTERMPWMONUARTDATA) {return "DpchEngWzskLlvTermPwmonuartData"}
+	if (ix == DPCHENGWZSKLLVTERMPWMONUSBDATA) {return "DpchEngWzskLlvTermPwmonusbData"}
 	if (ix == DPCHENGWZSKLLVTERMUVBDVKDATA) {return "DpchEngWzskLlvTermUvbdvkData"}
 	if (ix == DPCHENGWZSKLLVTTABLEDATA) {return "DpchEngWzskLlvTtableData"}
 	if (ix == DPCHENGWZSKNAVADMINDATA) {return "DpchEngWzskNavAdminData"}
@@ -610,6 +624,10 @@ public struct VecWzskVDpch {
 	if (ix == DPCHAPPWZSKLLVTERMICICLEDO) {return "DpchAppWzskLlvTermIcicleDo"}
 	if (ix == DPCHAPPWZSKLLVTERMMCVEVPDATA) {return "DpchAppWzskLlvTermMcvevpData"}
 	if (ix == DPCHAPPWZSKLLVTERMMCVEVPDO) {return "DpchAppWzskLlvTermMcvevpDo"}
+	if (ix == DPCHAPPWZSKLLVTERMPWMONUARTDATA) {return "DpchAppWzskLlvTermPwmonuartData"}
+	if (ix == DPCHAPPWZSKLLVTERMPWMONUARTDO) {return "DpchAppWzskLlvTermPwmonuartDo"}
+	if (ix == DPCHAPPWZSKLLVTERMPWMONUSBDATA) {return "DpchAppWzskLlvTermPwmonusbData"}
+	if (ix == DPCHAPPWZSKLLVTERMPWMONUSBDO) {return "DpchAppWzskLlvTermPwmonusbDo"}
 	if (ix == DPCHAPPWZSKLLVTERMUVBDVKDATA) {return "DpchAppWzskLlvTermUvbdvkData"}
 	if (ix == DPCHAPPWZSKLLVTERMUVBDVKDO) {return "DpchAppWzskLlvTermUvbdvkDo"}
 	if (ix == DPCHAPPWZSKLLVTTABLEDATA) {return "DpchAppWzskLlvTtableData"}

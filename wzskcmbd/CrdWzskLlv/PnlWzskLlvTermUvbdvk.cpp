@@ -302,11 +302,11 @@ void PnlWzskLlvTermUvbdvk::handleDpchAppDoButSmtClick(
 		insert(moditems, DpchEngData::CONTIAC);
 
 		for (unsigned int i = 0; i < ss.size(); i++) {
-			Wzsk::parseCmd(hw, ss[i], cmd);
+			hw.parseCmd(ss[i], cmd);
 
 			if (cmd) {
 				s = cmd->getInvText(true, &truncated);
-				hist.push_back(Wzsk::getCmdsref(hw, 256 * cmd->tixVController + cmd->tixVCommand) + "(" + s + ")");
+				hist.push_back(hw.getCmdsref(256 * cmd->tixVController + cmd->tixVCommand) + "(" + s + ")");
 
 				hw.clearHist();
 				hw.runCmd(cmd);

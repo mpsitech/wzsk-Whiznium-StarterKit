@@ -57,6 +57,8 @@ uint VecWzskVDpch::getIx(
 	if (s == "dpchengwzskllvtermclnxevbdata") return DPCHENGWZSKLLVTERMCLNXEVBDATA;
 	if (s == "dpchengwzskllvtermicicledata") return DPCHENGWZSKLLVTERMICICLEDATA;
 	if (s == "dpchengwzskllvtermmcvevpdata") return DPCHENGWZSKLLVTERMMCVEVPDATA;
+	if (s == "dpchengwzskllvtermpwmonuartdata") return DPCHENGWZSKLLVTERMPWMONUARTDATA;
+	if (s == "dpchengwzskllvtermpwmonusbdata") return DPCHENGWZSKLLVTERMPWMONUSBDATA;
 	if (s == "dpchengwzskllvtermuvbdvkdata") return DPCHENGWZSKLLVTERMUVBDVKDATA;
 	if (s == "dpchengwzskllvttabledata") return DPCHENGWZSKLLVTTABLEDATA;
 	if (s == "dpchengwzsknavadmindata") return DPCHENGWZSKNAVADMINDATA;
@@ -160,6 +162,10 @@ uint VecWzskVDpch::getIx(
 	if (s == "dpchappwzskllvtermicicledo") return DPCHAPPWZSKLLVTERMICICLEDO;
 	if (s == "dpchappwzskllvtermmcvevpdata") return DPCHAPPWZSKLLVTERMMCVEVPDATA;
 	if (s == "dpchappwzskllvtermmcvevpdo") return DPCHAPPWZSKLLVTERMMCVEVPDO;
+	if (s == "dpchappwzskllvtermpwmonuartdata") return DPCHAPPWZSKLLVTERMPWMONUARTDATA;
+	if (s == "dpchappwzskllvtermpwmonuartdo") return DPCHAPPWZSKLLVTERMPWMONUARTDO;
+	if (s == "dpchappwzskllvtermpwmonusbdata") return DPCHAPPWZSKLLVTERMPWMONUSBDATA;
+	if (s == "dpchappwzskllvtermpwmonusbdo") return DPCHAPPWZSKLLVTERMPWMONUSBDO;
 	if (s == "dpchappwzskllvtermuvbdvkdata") return DPCHAPPWZSKLLVTERMUVBDVKDATA;
 	if (s == "dpchappwzskllvtermuvbdvkdo") return DPCHAPPWZSKLLVTERMUVBDVKDO;
 	if (s == "dpchappwzskllvttabledata") return DPCHAPPWZSKLLVTTABLEDATA;
@@ -286,6 +292,8 @@ string VecWzskVDpch::getSref(
 	if (ix == DPCHENGWZSKLLVTERMCLNXEVBDATA) return("DpchEngWzskLlvTermClnxevbData");
 	if (ix == DPCHENGWZSKLLVTERMICICLEDATA) return("DpchEngWzskLlvTermIcicleData");
 	if (ix == DPCHENGWZSKLLVTERMMCVEVPDATA) return("DpchEngWzskLlvTermMcvevpData");
+	if (ix == DPCHENGWZSKLLVTERMPWMONUARTDATA) return("DpchEngWzskLlvTermPwmonuartData");
+	if (ix == DPCHENGWZSKLLVTERMPWMONUSBDATA) return("DpchEngWzskLlvTermPwmonusbData");
 	if (ix == DPCHENGWZSKLLVTERMUVBDVKDATA) return("DpchEngWzskLlvTermUvbdvkData");
 	if (ix == DPCHENGWZSKLLVTTABLEDATA) return("DpchEngWzskLlvTtableData");
 	if (ix == DPCHENGWZSKNAVADMINDATA) return("DpchEngWzskNavAdminData");
@@ -389,6 +397,10 @@ string VecWzskVDpch::getSref(
 	if (ix == DPCHAPPWZSKLLVTERMICICLEDO) return("DpchAppWzskLlvTermIcicleDo");
 	if (ix == DPCHAPPWZSKLLVTERMMCVEVPDATA) return("DpchAppWzskLlvTermMcvevpData");
 	if (ix == DPCHAPPWZSKLLVTERMMCVEVPDO) return("DpchAppWzskLlvTermMcvevpDo");
+	if (ix == DPCHAPPWZSKLLVTERMPWMONUARTDATA) return("DpchAppWzskLlvTermPwmonuartData");
+	if (ix == DPCHAPPWZSKLLVTERMPWMONUARTDO) return("DpchAppWzskLlvTermPwmonuartDo");
+	if (ix == DPCHAPPWZSKLLVTERMPWMONUSBDATA) return("DpchAppWzskLlvTermPwmonusbData");
+	if (ix == DPCHAPPWZSKLLVTERMPWMONUSBDO) return("DpchAppWzskLlvTermPwmonusbDo");
 	if (ix == DPCHAPPWZSKLLVTERMUVBDVKDATA) return("DpchAppWzskLlvTermUvbdvkData");
 	if (ix == DPCHAPPWZSKLLVTERMUVBDVKDO) return("DpchAppWzskLlvTermUvbdvkDo");
 	if (ix == DPCHAPPWZSKLLVTTABLEDATA) return("DpchAppWzskLlvTtableData");

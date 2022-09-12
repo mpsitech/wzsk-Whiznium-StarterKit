@@ -84,6 +84,9 @@ JobWzskSrcSysinfo::JobWzskSrcSysinfo(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
+	srcpwmonusb = NULL;
+	srcpwmonuart = NULL;
+
 	// IP constructor.cust1 --- INSERT
 
 	// IP constructor.spec1 --- INSERT

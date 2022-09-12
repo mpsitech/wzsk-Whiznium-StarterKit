@@ -66,6 +66,9 @@ Wzskcmbd::Wzskcmbd(
 	JobWzskSrcClnxevb::shrdat.init(xchg, &dbswzsk);
 	JobWzskSrcIcicle::shrdat.init(xchg, &dbswzsk);
 	JobWzskSrcMcvevp::shrdat.init(xchg, &dbswzsk);
+	JobWzskSrcMercbb::shrdat.init(xchg, &dbswzsk);
+	JobWzskSrcPwmonuart::shrdat.init(xchg, &dbswzsk);
+	JobWzskSrcPwmonusb::shrdat.init(xchg, &dbswzsk);
 	JobWzskSrcSysinfo::shrdat.init(xchg, &dbswzsk);
 	JobWzskSrcUvbdvk::shrdat.init(xchg, &dbswzsk);
 	JobWzskSrcV4l2::shrdat.init(xchg, &dbswzsk);
@@ -214,6 +217,9 @@ Wzskcmbd::~Wzskcmbd() {
 	JobWzskSrcClnxevb::shrdat.term(xchg);
 	JobWzskSrcIcicle::shrdat.term(xchg);
 	JobWzskSrcMcvevp::shrdat.term(xchg);
+	JobWzskSrcMercbb::shrdat.term(xchg);
+	JobWzskSrcPwmonuart::shrdat.term(xchg);
+	JobWzskSrcPwmonusb::shrdat.term(xchg);
 	JobWzskSrcSysinfo::shrdat.term(xchg);
 	JobWzskSrcUvbdvk::shrdat.term(xchg);
 	JobWzskSrcV4l2::shrdat.term(xchg);
@@ -255,6 +261,9 @@ void Wzskcmbd::loadPref() {
 		JobWzskSrcClnxevb::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcIcicle::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcMcvevp::stg.readXML(docctx, basexpath, true);
+		JobWzskSrcMercbb::stg.readXML(docctx, basexpath, true);
+		JobWzskSrcPwmonuart::stg.readXML(docctx, basexpath, true);
+		JobWzskSrcPwmonusb::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcSysinfo::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcUvbdvk::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcV4l2::stg.readXML(docctx, basexpath, true);
@@ -303,6 +312,9 @@ void Wzskcmbd::storePref() {
 		JobWzskSrcClnxevb::stg.writeXML(wr);
 		JobWzskSrcIcicle::stg.writeXML(wr);
 		JobWzskSrcMcvevp::stg.writeXML(wr);
+		JobWzskSrcMercbb::stg.writeXML(wr);
+		JobWzskSrcPwmonuart::stg.writeXML(wr);
+		JobWzskSrcPwmonusb::stg.writeXML(wr);
 		JobWzskSrcSysinfo::stg.writeXML(wr);
 		JobWzskSrcUvbdvk::stg.writeXML(wr);
 		JobWzskSrcV4l2::stg.writeXML(wr);
@@ -356,6 +368,9 @@ StgJobWzskSrcArty JobWzskSrcArty::stg;
 StgJobWzskSrcClnxevb JobWzskSrcClnxevb::stg;
 StgJobWzskSrcIcicle JobWzskSrcIcicle::stg;
 StgJobWzskSrcMcvevp JobWzskSrcMcvevp::stg;
+StgJobWzskSrcMercbb JobWzskSrcMercbb::stg;
+StgJobWzskSrcPwmonuart JobWzskSrcPwmonuart::stg;
+StgJobWzskSrcPwmonusb JobWzskSrcPwmonusb::stg;
 StgJobWzskSrcSysinfo JobWzskSrcSysinfo::stg;
 StgJobWzskSrcUvbdvk JobWzskSrcUvbdvk::stg;
 StgJobWzskSrcV4l2 JobWzskSrcV4l2::stg;
@@ -378,6 +393,9 @@ ShrdatJobWzskSrcArty JobWzskSrcArty::shrdat;
 ShrdatJobWzskSrcClnxevb JobWzskSrcClnxevb::shrdat;
 ShrdatJobWzskSrcIcicle JobWzskSrcIcicle::shrdat;
 ShrdatJobWzskSrcMcvevp JobWzskSrcMcvevp::shrdat;
+ShrdatJobWzskSrcMercbb JobWzskSrcMercbb::shrdat;
+ShrdatJobWzskSrcPwmonuart JobWzskSrcPwmonuart::shrdat;
+ShrdatJobWzskSrcPwmonusb JobWzskSrcPwmonusb::shrdat;
 ShrdatJobWzskSrcSysinfo JobWzskSrcSysinfo::shrdat;
 ShrdatJobWzskSrcUvbdvk JobWzskSrcUvbdvk::shrdat;
 ShrdatJobWzskSrcV4l2 JobWzskSrcV4l2::shrdat;
@@ -631,7 +649,7 @@ int main(
 
 	try {
 		// welcome message
-		cout << "Welcome to Whiznium StarterKit v1.0.13!" << endl;
+		cout << "Welcome to Whiznium StarterKit v1.0.17!" << endl;
 
 		// calls wzskcmbd.init()
 		wzskcmbd = new Wzskcmbd(exedir, clearAll, startMon);

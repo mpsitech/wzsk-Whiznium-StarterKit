@@ -18,6 +18,8 @@
 </template>
 
 <script>
+	import Wzsk from './scripts/Wzsk';
+
 	import CrdWzskStart from './components/CrdWzskStart/CrdWzskStart';
 	import SessWzsk from './components/SessWzsk';
 
@@ -30,6 +32,8 @@
 		},
 
 		beforeMount() {
+			document.title = Wzsk.title + " v" + Wzsk.version;
+
 			// possible keys: scrJrefSess, scrJrefCrdnav, srefCrd, scrJrefCrd
 			const params = new URLSearchParams(window.location.search);
 			//params.forEach(function(value, key) {console.log(key + ": " + value)});

@@ -27,7 +27,7 @@ public class WzskQShtAPar {
 		self.Val = Val
 	}
 
-	public var jnum: Int = 0
+	public var jnum: Int
 	public var x1SrefKKey: String
 	public var titX1SrefKKey: String
 	public var Val: String

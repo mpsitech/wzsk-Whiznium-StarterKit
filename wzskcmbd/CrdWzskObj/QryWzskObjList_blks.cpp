@@ -20,8 +20,8 @@ uint QryWzskObjList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "ogr") return OGR;
 	if (s == "tit") return TIT;
+	if (s == "ogr") return OGR;
 
 	return(0);
 };
@@ -29,8 +29,8 @@ uint QryWzskObjList::VecVOrd::getIx(
 string QryWzskObjList::VecVOrd::getSref(
 			const uint ix
 		) {
-	if (ix == OGR) return("ogr");
 	if (ix == TIT) return("tit");
+	if (ix == OGR) return("ogr");
 
 	return("");
 };
@@ -181,15 +181,14 @@ QryWzskObjList::StgIac::StgIac(
 };
 
 bool QryWzskObjList::StgIac::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["StgIacQryWzskObjList"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["StgIacQryWzskObjList"];}();
 
 	basefound = (me != Json::nullValue);
 

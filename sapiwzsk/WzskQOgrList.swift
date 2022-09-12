@@ -27,7 +27,7 @@ public class WzskQOgrList {
 		self.stubSupRefWzskMObjgroup = stubSupRefWzskMObjgroup
 	}
 
-	public var jnum: Int = 0
+	public var jnum: Int
 	public var sref: String
 	public var Title: String
 	public var stubSupRefWzskMObjgroup: String

@@ -56,6 +56,9 @@ uint VecWzskVJob::getIx(
 	if (s == "jobwzsksrcclnxevb") return JOBWZSKSRCCLNXEVB;
 	if (s == "jobwzsksrcicicle") return JOBWZSKSRCICICLE;
 	if (s == "jobwzsksrcmcvevp") return JOBWZSKSRCMCVEVP;
+	if (s == "jobwzsksrcmercbb") return JOBWZSKSRCMERCBB;
+	if (s == "jobwzsksrcpwmonuart") return JOBWZSKSRCPWMONUART;
+	if (s == "jobwzsksrcpwmonusb") return JOBWZSKSRCPWMONUSB;
 	if (s == "jobwzsksrcsysinfo") return JOBWZSKSRCSYSINFO;
 	if (s == "jobwzsksrcuvbdvk") return JOBWZSKSRCUVBDVK;
 	if (s == "jobwzsksrcv4l2") return JOBWZSKSRCV4L2;
@@ -75,6 +78,8 @@ uint VecWzskVJob::getIx(
 	if (s == "pnlwzskllvtermclnxevb") return PNLWZSKLLVTERMCLNXEVB;
 	if (s == "pnlwzskllvtermicicle") return PNLWZSKLLVTERMICICLE;
 	if (s == "pnlwzskllvtermmcvevp") return PNLWZSKLLVTERMMCVEVP;
+	if (s == "pnlwzskllvtermpwmonuart") return PNLWZSKLLVTERMPWMONUART;
+	if (s == "pnlwzskllvtermpwmonusb") return PNLWZSKLLVTERMPWMONUSB;
 	if (s == "pnlwzskllvtermuvbdvk") return PNLWZSKLLVTERMUVBDVK;
 	if (s == "pnlwzskllvttable") return PNLWZSKLLVTTABLE;
 	if (s == "pnlwzsknavadmin") return PNLWZSKNAVADMIN;
@@ -190,6 +195,9 @@ string VecWzskVJob::getSref(
 	if (ix == JOBWZSKSRCCLNXEVB) return("JobWzskSrcClnxevb");
 	if (ix == JOBWZSKSRCICICLE) return("JobWzskSrcIcicle");
 	if (ix == JOBWZSKSRCMCVEVP) return("JobWzskSrcMcvevp");
+	if (ix == JOBWZSKSRCMERCBB) return("JobWzskSrcMercbb");
+	if (ix == JOBWZSKSRCPWMONUART) return("JobWzskSrcPwmonuart");
+	if (ix == JOBWZSKSRCPWMONUSB) return("JobWzskSrcPwmonusb");
 	if (ix == JOBWZSKSRCSYSINFO) return("JobWzskSrcSysinfo");
 	if (ix == JOBWZSKSRCUVBDVK) return("JobWzskSrcUvbdvk");
 	if (ix == JOBWZSKSRCV4L2) return("JobWzskSrcV4l2");
@@ -209,6 +217,8 @@ string VecWzskVJob::getSref(
 	if (ix == PNLWZSKLLVTERMCLNXEVB) return("PnlWzskLlvTermClnxevb");
 	if (ix == PNLWZSKLLVTERMICICLE) return("PnlWzskLlvTermIcicle");
 	if (ix == PNLWZSKLLVTERMMCVEVP) return("PnlWzskLlvTermMcvevp");
+	if (ix == PNLWZSKLLVTERMPWMONUART) return("PnlWzskLlvTermPwmonuart");
+	if (ix == PNLWZSKLLVTERMPWMONUSB) return("PnlWzskLlvTermPwmonusb");
 	if (ix == PNLWZSKLLVTERMUVBDVK) return("PnlWzskLlvTermUvbdvk");
 	if (ix == PNLWZSKLLVTTABLE) return("PnlWzskLlvTtable");
 	if (ix == PNLWZSKNAVADMIN) return("PnlWzskNavAdmin");

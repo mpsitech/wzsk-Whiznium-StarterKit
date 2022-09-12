@@ -27,6 +27,7 @@ uint VecWzskVTarget::getIx(
 	if (s == "clnxevb") return CLNXEVB;
 	if (s == "icicle") return ICICLE;
 	if (s == "mcvevp") return MCVEVP;
+	if (s == "mercbb") return MERCBB;
 	if (s == "ws") return WS;
 
 	return(0);
@@ -40,6 +41,7 @@ string VecWzskVTarget::getSref(
 	if (ix == CLNXEVB) return("clnxevb");
 	if (ix == ICICLE) return("icicle");
 	if (ix == MCVEVP) return("mcvevp");
+	if (ix == MERCBB) return("mercbb");
 	if (ix == WS) return("ws");
 
 	return("");
@@ -55,6 +57,7 @@ string VecWzskVTarget::getTitle(
 		if (ix == CLNXEVB) return("Lattice CrossLink-NX evaluation board");
 		if (ix == ICICLE) return("Microchip PolarFire Soc Icicle kit");
 		if (ix == MCVEVP) return("Aries Cyclone V evaluation platform");
+		if (ix == MERCBB) return("enclustra Mercury+ on base board");
 		if (ix == WS) return("Generic Intel x64 workstation");
 		return(getSref(ix));
 	} else if (ixWzskVLocale == 2) {
@@ -78,5 +81,5 @@ void VecWzskVTarget::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 6; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
+	for (unsigned int i = 1; i <= 7; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
 };

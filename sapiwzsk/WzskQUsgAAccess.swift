@@ -31,7 +31,7 @@ public class WzskQUsgAAccess {
 		self.titsIxWzskWAccess = titsIxWzskWAccess
 	}
 
-	public var jnum: Int = 0
+	public var jnum: Int
 	public var srefX1IxWzskVFeatgroup: String
 	public var titX1IxWzskVFeatgroup: String
 	public var x2FeaSrefUix: String

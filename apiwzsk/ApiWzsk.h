@@ -10,10 +10,10 @@
 #ifndef APIWZSK_H
 #define APIWZSK_H
 
-#define WZSK_VERSION "1.0.13"
+#define WZSK_VERSION "1.0.17"
 #define WZSK_VERSION_MAJOR 1
 #define WZSK_VERSION_MINOR 0
-#define WZSK_VERSION_SUB 13
+#define WZSK_VERSION_SUB 17
 
 #include "ApiWzsk_blks.h"
 
@@ -74,6 +74,8 @@
 #include "PnlWzskLlvTermClnxevb.h"
 #include "PnlWzskLlvTermIcicle.h"
 #include "PnlWzskLlvTermMcvevp.h"
+#include "PnlWzskLlvTermPwmonuart.h"
+#include "PnlWzskLlvTermPwmonusb.h"
 #include "PnlWzskLlvTermUvbdvk.h"
 #include "PnlWzskLlvTtable.h"
 #include "PnlWzskNavAdmin.h"

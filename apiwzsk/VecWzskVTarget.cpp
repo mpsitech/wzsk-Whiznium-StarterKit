@@ -27,6 +27,7 @@ uint VecWzskVTarget::getIx(
 	if (s == "clnxevb") return CLNXEVB;
 	if (s == "icicle") return ICICLE;
 	if (s == "mcvevp") return MCVEVP;
+	if (s == "mercbb") return MERCBB;
 	if (s == "ws") return WS;
 
 	return(0);
@@ -40,6 +41,7 @@ string VecWzskVTarget::getSref(
 	if (ix == CLNXEVB) return("clnxevb");
 	if (ix == ICICLE) return("icicle");
 	if (ix == MCVEVP) return("mcvevp");
+	if (ix == MERCBB) return("mercbb");
 	if (ix == WS) return("ws");
 
 	return("");

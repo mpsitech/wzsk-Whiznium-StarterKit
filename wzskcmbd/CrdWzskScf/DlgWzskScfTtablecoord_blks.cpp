@@ -126,15 +126,14 @@ DlgWzskScfTtablecoord::ContIac::ContIac(
 };
 
 bool DlgWzskScfTtablecoord::ContIac::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["ContIacDlgWzskScfTtablecoord"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["ContIacDlgWzskScfTtablecoord"];}();
 
 	basefound = (me != Json::nullValue);
 
@@ -451,15 +450,14 @@ string DlgWzskScfTtablecoord::DpchAppData::getSrefsMask() {
 };
 
 void DlgWzskScfTtablecoord::DpchAppData::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["DpchAppDlgWzskScfTtablecoordData"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["DpchAppDlgWzskScfTtablecoordData"];}();
 
 	basefound = (me != Json::nullValue);
 
@@ -521,15 +519,14 @@ string DlgWzskScfTtablecoord::DpchAppDo::getSrefsMask() {
 };
 
 void DlgWzskScfTtablecoord::DpchAppDo::readJSON(
-			Json::Value& sup
+			const Json::Value& sup
 			, bool addbasetag
 		) {
 	clear();
 
 	bool basefound;
 
-	Json::Value& me = sup;
-	if (addbasetag) me = sup["DpchAppDlgWzskScfTtablecoordDo"];
+	const Json::Value& me = [&]{if (!addbasetag) return sup; return sup["DpchAppDlgWzskScfTtablecoordDo"];}();
 
 	basefound = (me != Json::nullValue);
 
