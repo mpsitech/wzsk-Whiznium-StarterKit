@@ -2,8 +2,8 @@
 	* \file WzskHistRMUserUniversal.cpp
 	* database access for table TblWzskHistRMUserUniversal (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -26,17 +26,17 @@ WzskHistRMUserUniversal::WzskHistRMUserUniversal(
 			, const uint preIxWzskVMaintable
 			, const ubigint preUref
 			, const uint start
-		) {
-
-	this->ref = ref;
-	this->refWzskMUser = refWzskMUser;
-	this->unvIxWzskVMaintable = unvIxWzskVMaintable;
-	this->unvUref = unvUref;
-	this->ixWzskVCard = ixWzskVCard;
-	this->ixWzskVPreset = ixWzskVPreset;
-	this->preIxWzskVMaintable = preIxWzskVMaintable;
-	this->preUref = preUref;
-	this->start = start;
+		) :
+			ref(ref)
+			, refWzskMUser(refWzskMUser)
+			, unvIxWzskVMaintable(unvIxWzskVMaintable)
+			, unvUref(unvUref)
+			, ixWzskVCard(ixWzskVCard)
+			, ixWzskVPreset(ixWzskVPreset)
+			, preIxWzskVMaintable(preIxWzskVMaintable)
+			, preUref(preUref)
+			, start(start)
+		{
 };
 
 bool WzskHistRMUserUniversal::operator==(

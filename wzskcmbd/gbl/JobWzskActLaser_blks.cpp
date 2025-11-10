@@ -2,8 +2,8 @@
 	* \file JobWzskActLaser_blks.cpp
 	* job handler for job JobWzskActLaser (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -78,26 +78,18 @@ void JobWzskActLaser::VecVVar::fillFeed(
  ******************************************************************************/
 
 JobWzskActLaser::Stg::Stg(
-			const string& pathGpio
-			, const utinyint lineoffsetLeft
-			, const utinyint lineoffsetRight
-			, const string& pathSpi
-			, const usmallint leftMin
+			const usmallint leftMin
 			, const usmallint leftMax
 			, const usmallint rightMin
 			, const usmallint rightMax
 		) :
 			Block()
+			, leftMin(leftMin)
+			, leftMax(leftMax)
+			, rightMin(rightMin)
+			, rightMax(rightMax)
 		{
-	this->pathGpio = pathGpio;
-	this->lineoffsetLeft = lineoffsetLeft;
-	this->lineoffsetRight = lineoffsetRight;
-	this->pathSpi = pathSpi;
-	this->leftMin = leftMin;
-	this->leftMax = leftMax;
-	this->rightMin = rightMin;
-	this->rightMax = rightMax;
-	mask = {PATHGPIO, LINEOFFSETLEFT, LINEOFFSETRIGHT, PATHSPI, LEFTMIN, LEFTMAX, RIGHTMIN, RIGHTMAX};
+	mask = {LEFTMIN, LEFTMAX, RIGHTMIN, RIGHTMAX};
 };
 
 bool JobWzskActLaser::Stg::readXML(
@@ -117,10 +109,6 @@ bool JobWzskActLaser::Stg::readXML(
 	string itemtag = "StgitemJobWzskActLaser";
 
 	if (basefound) {
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pathGpio", pathGpio)) add(PATHGPIO);
-		if (extractUtinyintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "lineoffsetLeft", lineoffsetLeft)) add(LINEOFFSETLEFT);
-		if (extractUtinyintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "lineoffsetRight", lineoffsetRight)) add(LINEOFFSETRIGHT);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pathSpi", pathSpi)) add(PATHSPI);
 		if (extractUsmallintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "leftMin", leftMin)) add(LEFTMIN);
 		if (extractUsmallintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "leftMax", leftMax)) add(LEFTMAX);
 		if (extractUsmallintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "rightMin", rightMin)) add(RIGHTMIN);
@@ -142,10 +130,6 @@ void JobWzskActLaser::Stg::writeXML(
 	else itemtag = "StgitemJobWzskActLaser";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeStringAttr(wr, itemtag, "sref", "pathGpio", pathGpio);
-		writeUtinyintAttr(wr, itemtag, "sref", "lineoffsetLeft", lineoffsetLeft);
-		writeUtinyintAttr(wr, itemtag, "sref", "lineoffsetRight", lineoffsetRight);
-		writeStringAttr(wr, itemtag, "sref", "pathSpi", pathSpi);
 		writeUsmallintAttr(wr, itemtag, "sref", "leftMin", leftMin);
 		writeUsmallintAttr(wr, itemtag, "sref", "leftMax", leftMax);
 		writeUsmallintAttr(wr, itemtag, "sref", "rightMin", rightMin);
@@ -158,10 +142,6 @@ set<uint> JobWzskActLaser::Stg::comm(
 		) {
 	set<uint> items;
 
-	if (pathGpio == comp->pathGpio) insert(items, PATHGPIO);
-	if (lineoffsetLeft == comp->lineoffsetLeft) insert(items, LINEOFFSETLEFT);
-	if (lineoffsetRight == comp->lineoffsetRight) insert(items, LINEOFFSETRIGHT);
-	if (pathSpi == comp->pathSpi) insert(items, PATHSPI);
 	if (leftMin == comp->leftMin) insert(items, LEFTMIN);
 	if (leftMax == comp->leftMax) insert(items, LEFTMAX);
 	if (rightMin == comp->rightMin) insert(items, RIGHTMIN);
@@ -178,7 +158,7 @@ set<uint> JobWzskActLaser::Stg::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {PATHGPIO, LINEOFFSETLEFT, LINEOFFSETRIGHT, PATHSPI, LEFTMIN, LEFTMAX, RIGHTMIN, RIGHTMAX};
+	diffitems = {LEFTMIN, LEFTMAX, RIGHTMIN, RIGHTMAX};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

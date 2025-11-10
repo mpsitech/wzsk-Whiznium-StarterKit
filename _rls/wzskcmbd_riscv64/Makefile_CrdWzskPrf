@@ -1,0 +1,37 @@
+# file Makefile
+# make file for CrdWzskPrf card job handler, release wzskcmbd_riscv64 (ubuntu cross-compilation)
+# copyright: (C) 2016-2020 MPSI Technologies GmbH
+# author: Alexander Wirthmueller (auto-generation)
+# date created: 12 Oct 2025
+# IP header --- ABOVE
+
+include ../Makefile.inc
+
+CPP = ${TCHROOT}/riscv64-oe-linux-g++
+CPPFLAGS = --sysroot=${SYSROOT} -std=c++11 -fstack-protector-strong -g -Wall -Os -pthread -DWZSKCMBD
+
+STATLIB = ${TCHROOT}/riscv64-oe-linux-ar
+STATLIBFLAGS = rcs
+
+INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
+INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
+
+OBJS = CrdWzskPrf.o PnlWzskPrfHeadbar.o PnlWzskPrfDaemon.o PnlWzskPrfGlobal.o PnlWzskPrfAcqCorner.o PnlWzskPrfAcqPreview.o PnlWzskPrfAcqTrace.o PnlWzskPrfActLaser.o PnlWzskPrfActVistorot.o PnlWzskPrfSrcDcvsp.o PnlWzskPrfSrcSysinfo.o PnlWzskPrfSrcTivsp.o PnlWzskPrfSrcZuvsp.o
+
+LIB = libcrdwzskprf
+
+.SUFFIXES: .cpp
+
+.cpp.o :
+	$(CPP) $(CPPFLAGS) $(INCPATH) -o $@ -c $<
+
+all:	$(LIB)
+
+$(LIB):	$(OBJS)
+	$(STATLIB) $(STATLIBFLAGS) $(LIB).a $(OBJS)
+
+install:
+	mv $(LIB).a ${SYSROOT}$(LIBROOT)/wzskcmbd/
+
+clean:
+	rm -f *.o

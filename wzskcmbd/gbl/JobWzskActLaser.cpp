@@ -2,8 +2,8 @@
 	* \file JobWzskActLaser.cpp
 	* job handler for job JobWzskActLaser (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -16,6 +16,7 @@
 #include "JobWzskActLaser.h"
 
 #include "JobWzskActLaser_blks.cpp"
+#include "JobWzskActLaser_evals.cpp"
 
 using namespace std;
 using namespace Sbecore;
@@ -40,153 +41,13 @@ void JobWzskActLaser::Shrdat::init(
 			XchgWzsk* xchg
 			, DbsWzsk* dbswzsk
 		) {
-	// IP Shrdat.init --- IBEGIN
-	left = 0.0;
-	right = 0.0;
-
-	int fd;
-
-	int res;
-
-	string path;
-
-	gpiohandle_data data;
-
-	if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) {
-		// configure GPIO
-		path = stg.pathGpio;
-
-		fd = open(path.c_str(), 0);
-		if (fd < 0) throw WzskException(WzskException::GPIO, {{"msg","error opening device at " + path}});
-
-		memset(&reqGpio, 0, sizeof(reqGpio));
-
-		reqGpio.lines = 2;
-		reqGpio.lineoffsets[0] = stg.lineoffsetLeft; // skixora v1.1: GPIO6_IO10 ; old system: (6-1)*32 + 10 = 170
-		reqGpio.lineoffsets[1] = stg.lineoffsetRight; // skixora v1.1: GPIO6_IO9 ; old system: (6-1)*32 + 9 = 169
-		reqGpio.default_values[0] = 1;
-		reqGpio.default_values[1] = 1;
-		reqGpio.flags = GPIOHANDLE_REQUEST_OUTPUT;
-		strcpy(reqGpio.consumer_label, "Wzsk");
-
-		res = ioctl(fd, GPIO_GET_LINEHANDLE_IOCTL, &reqGpio);
-		if (res < 0) throw WzskException(WzskException::GPIO, {{"msg","error getting lines handle"}});
-
-		data.values[0] = 1;
-		data.values[1] = 1;
-
-		res = ioctl(reqGpio.fd, GPIOHANDLE_SET_LINE_VALUES_IOCTL, &data);
-		if (res < 0) throw WzskException(WzskException::GPIO, {{"msg","error setting initial lines state"}});
-
-	/*
-		// debug
-		gpiochip_info info;
-		gpioline_info linfo;
-		
-		res = ioctl(fd, GPIO_GET_CHIPINFO_IOCTL, &info);
-		if (res < 0) throw WzskException(WzskException::GPIO, {{"msg","error getting device info"}});
-		
-		cout << "name: " << info.name << ", label: " << info.label << ", lines: " << info.lines << endl;
-
-		for (int i = 0; i < info.lines; i++) {
-			memset(&linfo, 0, sizeof(linfo));
-
-			linfo.line_offset = i;
-
-			res = ioctl(fd, GPIO_GET_CHIPINFO_IOCTL, &info);
-			if (res < 0) throw WzskException(WzskException::GPIO, {{"msg","error getting line info for line " + to_string(i)}});
-
-			cout << "\t" << i << ": ";
-			if (linfo.name) cout << linfo.name << ", ";
-			if (linfo.consumer) cout << linfo.consumer << ", ";
-			cout << linfo.flags << endl;
-		};
-	*/
-
-		close(fd);
-
-		// open and configure spidev
-		const unsigned char mode = SPI_MODE_1; // CPOL=0, CPHA=1
-		const unsigned char bits = 8;
-		const unsigned int bps = 8000000;
-
-		path = stg.pathSpi;
-
-		fdSpi = open(path.c_str(), O_RDWR);
-		if (fdSpi < 0) throw WzskException(WzskException::SPIDEV, {{"msg","error opening device at " + path}});
-
-		res = ioctl(fdSpi, SPI_IOC_WR_MODE, &mode);
-		if (res < 0) throw WzskException(WzskException::SPIDEV, {{"msg","error setting device mode"}});
-
-		res = ioctl(fdSpi, SPI_IOC_RD_MODE, &mode);
-		if (res < 0) throw WzskException(WzskException::SPIDEV, {{"msg","error setting device mode"}});
-
-		res = ioctl(fdSpi, SPI_IOC_WR_BITS_PER_WORD, &bits);
-		if (res < 0) throw WzskException(WzskException::SPIDEV, {{"msg","error setting bits per word"}});
-
-		res = ioctl(fdSpi, SPI_IOC_RD_BITS_PER_WORD, &bits);
-		if (res < 0) throw WzskException(WzskException::SPIDEV, {{"msg","error setting bits per word"}});
-
-		res = ioctl(fdSpi, SPI_IOC_WR_MAX_SPEED_HZ, &bps);
-		if (res < 0) throw WzskException(WzskException::SPIDEV, {{"msg","error setting speed"}});
-
-		res = ioctl(fdSpi, SPI_IOC_RD_MAX_SPEED_HZ, &bps);
-		if (res < 0) throw WzskException(WzskException::SPIDEV, {{"msg","error setting speed"}});
-
-		memset(&xferSpi, 0, sizeof(xferSpi));
-
-		xferSpi.len = lenSpi;
-		xferSpi.rx_buf = (unsigned long) rxbufSpi;
-		xferSpi.tx_buf = (unsigned long) txbufSpi;
-		xferSpi.bits_per_word = bits;
-		xferSpi.speed_hz = bps;
-		xferSpi.delay_usecs = 0;
-		xferSpi.cs_change = 0;
-		xferSpi.pad = 0;
-		
-		// DAC initialization (L&R at the same time)
-		data.values[0] = 0;
-		data.values[1] = 0;
-
-		res = ioctl(reqGpio.fd, GPIOHANDLE_SET_LINE_VALUES_IOCTL, &data);
-		if (res < 0) throw WzskException(WzskException::GPIO, {{"msg","error setting lines state"}});
-
-		txbufSpi[0] = 0xF0;
-		txbufSpi[1] = 0x00;
-
-		res = ioctl(fdSpi, SPI_IOC_MESSAGE(1), &xferSpi);
-		if (res < 0) throw WzskException(WzskException::SPIDEV, {{"msg","error setting DAC output configuration"}});
-
-		data.values[0] = 1;
-		data.values[1] = 1;
-		
-		res = ioctl(reqGpio.fd, GPIOHANDLE_SET_LINE_VALUES_IOCTL, &data);
-		if (res < 0) throw WzskException(WzskException::GPIO, {{"msg","error setting lines state"}});
-
-		// wait for 8µs
-		timespec deltat;
-		deltat.tv_sec = 0;
-		deltat.tv_nsec = 8000;
-
-		nanosleep(&deltat, NULL);
-
-	} else {
-		reqGpio.fd = 0;
-		fdSpi = 0;
-	};
-	// IP Shrdat.init --- IEND
+	// IP Shrdat.init --- INSERT
 };
 
 void JobWzskActLaser::Shrdat::term(
 			XchgWzsk* xchg
 		) {
-	// IP Shrdat.term --- IBEGIN
-	// close GPIO
-	if (reqGpio.fd) close(reqGpio.fd);
-
-	// close spidev
-	if (fdSpi) close(fdSpi);
-	// IP Shrdat.term --- IEND
+	// IP Shrdat.term --- INSERT
 };
 
 /******************************************************************************
@@ -203,26 +64,19 @@ JobWzskActLaser::JobWzskActLaser(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	srcmercbb = NULL;
-	srcuvbdvk = NULL;
-	srcmcvevp = NULL;
-	srcicicle = NULL;
-	srcclnxevb = NULL;
-	srcarty = NULL;
+	srcdcvsp = NULL;
+	srctivsp = NULL;
+	srczuvsp = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	// IP constructor.spec1 --- INSERT
 
-	// IP constructor.cust2 --- IBEGIN
-	if (srvNotCli) {
-		if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) srcarty = new JobWzskSrcArty(xchg, dbswzsk, jref, ixWzskVLocale);
-		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB) srcclnxevb = new JobWzskSrcClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
-		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) srcicicle = new JobWzskSrcIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
-		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::MCVEVP) srcmcvevp = new JobWzskSrcMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
-		else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS) srcuvbdvk = new JobWzskSrcUvbdvk(xchg, dbswzsk, jref, ixWzskVLocale);
-	};
-	// IP constructor.cust2 --- IEND
+	if (srvNotCli) if (evalSrcdcvspConstr(dbswzsk)) srcdcvsp = new JobWzskSrcDcvsp(xchg, dbswzsk, jref, ixWzskVLocale);
+	if (srvNotCli) if (evalSrctivspConstr(dbswzsk)) srctivsp = new JobWzskSrcTivsp(xchg, dbswzsk, jref, ixWzskVLocale);
+	if (srvNotCli) if (evalSrczuvspConstr(dbswzsk)) srczuvsp = new JobWzskSrcZuvsp(xchg, dbswzsk, jref, ixWzskVLocale);
+
+	// IP constructor.cust2 --- INSERT
 
 	// IP constructor.spec2 --- INSERT
 
@@ -250,7 +104,6 @@ usmallint JobWzskActLaser::pToAbs(
 	if (!rightNotLeft) return(stg.leftMin + lround(p * ((float) (stg.leftMax - stg.leftMin))));
 	else return(stg.rightMin + lround(p * ((float) (stg.rightMax - stg.rightMin))));
 };
-
 // IP cust --- IEND
 
 // IP spec --- INSERT
@@ -275,37 +128,9 @@ bool JobWzskActLaser::setLeft(
 	// IP setLeft --- IBEGIN
 	int res;
 
-	gpiohandle_data data;
-
 	usmallint i = pToAbs(false, left);
 
-	if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) {
-		retval = false;
-
-		data.values[0] = 0;
-		data.values[1] = 1;
-
-		res = ioctl(shrdat.reqGpio.fd, GPIOHANDLE_SET_LINE_VALUES_IOCTL, &data);
-		if (res < 0) throw WzskException(WzskException::GPIO, {{"msg","error setting lines state"}});
-
-		shrdat.txbufSpi[0] = 0x0F & (i >> 6);
-		shrdat.txbufSpi[1] = 0xFC & (i << 2);
-
-		res = ioctl(shrdat.fdSpi, SPI_IOC_MESSAGE(1), &shrdat.xferSpi);
-		if (res < 0) throw WzskException(WzskException::SPIDEV, {{"msg","error setting left laser intensity"}});
-
-		data.values[0] = 1;
-		data.values[1] = 1;
-
-		res = ioctl(shrdat.reqGpio.fd, GPIOHANDLE_SET_LINE_VALUES_IOCTL, &data);
-		if (res < 0) throw WzskException(WzskException::GPIO, {{"msg","error setting lines state"}});
-
-		retval = true;
-
-	} else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) retval = srcarty->laser_set(i, pToAbs(true, shrdat.right));
-	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB) retval = srcclnxevb->laser_set(i, pToAbs(true, shrdat.right));
-	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) retval = srcicicle->laser_set(i, pToAbs(true, shrdat.right));
-	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS) retval = srcuvbdvk->laser_set(i, pToAbs(true, shrdat.right));
+	if (srczuvsp) retval = srczuvsp->laser_set(pToAbs(false, shrdat.left), i);
 
 	if (retval) {
 		shrdat.wlockAccess(jref, "setLeft");
@@ -343,37 +168,9 @@ bool JobWzskActLaser::setRight(
 	// IP setRight --- IBEGIN
 	int res;
 
-	gpiohandle_data data;
-
 	usmallint i = pToAbs(true, right);
 
-	if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) {
-		retval = false;
-
-		data.values[0] = 1;
-		data.values[1] = 0;
-
-		res = ioctl(shrdat.reqGpio.fd, GPIOHANDLE_SET_LINE_VALUES_IOCTL, &data);
-		if (res < 0) throw WzskException(WzskException::GPIO, {{"msg","error setting lines state"}});
-
-		shrdat.txbufSpi[0] = 0x0F & (i >> 6);
-		shrdat.txbufSpi[1] = 0xFC & (i << 2);
-
-		res = ioctl(shrdat.fdSpi, SPI_IOC_MESSAGE(1), &shrdat.xferSpi);
-		if (res < 0) throw WzskException(WzskException::SPIDEV, {{"msg","error setting right laser intensity"}});
-
-		data.values[0] = 1;
-		data.values[1] = 1;
-
-		res = ioctl(shrdat.reqGpio.fd, GPIOHANDLE_SET_LINE_VALUES_IOCTL, &data);
-		if (res < 0) throw WzskException(WzskException::GPIO, {{"msg","error setting lines state"}});
-
-		retval = true;
-
-	} else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) retval = srcarty->laser_set(pToAbs(false, shrdat.left), i);
-	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB) retval = srcclnxevb->laser_set(pToAbs(false, shrdat.left), i);
-	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE) retval = srcicicle->laser_set(pToAbs(false, shrdat.left), i);
-	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS) retval = srcuvbdvk->laser_set(pToAbs(false, shrdat.left), i);
+	if (srczuvsp) retval = srczuvsp->laser_set(pToAbs(true, shrdat.right), i);
 
 	if (retval) {
 		shrdat.wlockAccess(jref, "setRight");
@@ -399,9 +196,6 @@ void JobWzskActLaser::handleRequest(
 		reqCmd = req;
 
 		if (req->cmd == "cmdset") {
-			cout << "\ttest" << endl;
-		} else if (req->cmd == "test") {
-			req->retain = handleTest(dbswzsk);
 
 		} else {
 			cout << "\tinvalid command!" << endl;
@@ -418,14 +212,6 @@ void JobWzskActLaser::handleRequest(
 			*((bool*) (req->method->parsRet[0])) = setRight(dbswzsk, *((const float*) (req->method->parsInv[0])));
 		};
 	};
-};
-
-bool JobWzskActLaser::handleTest(
-			DbsWzsk* dbswzsk
-		) {
-	bool retval = false;
-	// IP handleTest --- INSERT
-	return retval;
 };
 
 bool JobWzskActLaser::handleClaim(
@@ -462,33 +248,14 @@ bool JobWzskActLaser::handleClaim(
 		};
 	};
 
-	if (srcarty) {
-		// add or remove "laser" claim with srcarty
-		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcarty);
-		else xchg->addCsjobClaim(dbswzsk, srcarty, new JobWzskSrcArty::Claim(false, false, true, false));
+	if (srczuvsp) {
+		// add or remove "laser" claim with srczuvsp
+		//if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srczuvsp);
+		//else xchg->addCsjobClaim(dbswzsk, srczuvsp, new Wzsk::ClaimFull(false, false, true, false));
 
-		xchg->getCsjobClaim(srcarty, laserTakenNotAvailable, laserFulfilled);
+		//xchg->getCsjobClaim(srczuvsp, laserTakenNotAvailable, laserFulfilled);
 
-	} else if (srcclnxevb) {
-		// add or remove "laser" claim with srcclnxevb
-		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcclnxevb);
-		else xchg->addCsjobClaim(dbswzsk, srcclnxevb, new JobWzskSrcClnxevb::Claim(false, false, true, false));
-
-		xchg->getCsjobClaim(srcclnxevb, laserTakenNotAvailable, laserFulfilled);
-
-	} else if (srcicicle) {
-		// add or remove "laser" claim with srcicicle
-		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcicicle);
-		else xchg->addCsjobClaim(dbswzsk, srcicicle, new JobWzskSrcIcicle::Claim(false, false, true, false));
-
-		xchg->getCsjobClaim(srcicicle, laserTakenNotAvailable, laserFulfilled);
-
-	} else if (srcuvbdvk) {
-		// add or remove "laser" claim with srcuvbdvk
-		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcuvbdvk);
-		else xchg->addCsjobClaim(dbswzsk, srcuvbdvk, new JobWzskSrcUvbdvk::Claim(false, false, true, false));
-
-		xchg->getCsjobClaim(srcuvbdvk, laserTakenNotAvailable, laserFulfilled);
+		laserFulfilled = true;
 
 	} else laserFulfilled = true;
 

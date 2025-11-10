@@ -2,8 +2,8 @@
 	* \file PnlWzskFilList.h
 	* job handler for job PnlWzskFilList (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -80,17 +80,13 @@ public:
 	class ContInf : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint TXTFOR = 1;
-		static const Sbecore::uint TXTPRE = 2;
-		static const Sbecore::uint BUTFILTERON = 3;
-		static const Sbecore::uint NUMFCSIQST = 4;
+		static const Sbecore::uint BUTFILTERON = 1;
+		static const Sbecore::uint NUMFCSIQST = 2;
 
 	public:
-		ContInf(const std::string& TxtFor = "", const std::string& TxtPre = "", const bool ButFilterOn = false, const Sbecore::uint numFCsiQst = 1);
+		ContInf(const bool ButFilterOn = false, const Sbecore::uint numFCsiQst = 1);
 
 	public:
-		std::string TxtFor;
-		std::string TxtPre;
 		bool ButFilterOn;
 		Sbecore::uint numFCsiQst;
 

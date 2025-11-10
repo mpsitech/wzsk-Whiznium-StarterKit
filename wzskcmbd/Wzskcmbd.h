@@ -2,8 +2,8 @@
 	* \file Wzskcmbd.h
 	* inter-thread exchange object for Wzsk combined daemon (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -203,35 +203,6 @@ public:
 };
 
 /**
-	* StgWzskAppearance
-	*/
-class StgWzskAppearance : public Sbecore::Block {
-
-public:
-	static const Sbecore::uint HISTLENGTH = 1;
-	static const Sbecore::uint SUSPSESS = 2;
-	static const Sbecore::uint SESSTTERM = 3;
-	static const Sbecore::uint SESSTWARN = 4;
-	static const Sbecore::uint ROOTTTERM = 5;
-
-public:
-	StgWzskAppearance(const Sbecore::usmallint histlength = 20, const bool suspsess = true, const Sbecore::uint sesstterm = 0, const Sbecore::uint sesstwarn = 0, const Sbecore::uint roottterm = 0);
-
-public:
-	Sbecore::usmallint histlength;
-	bool suspsess;
-	Sbecore::uint sesstterm;
-	Sbecore::uint sesstwarn;
-	Sbecore::uint roottterm;
-
-public:
-	bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
-	void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
-	std::set<Sbecore::uint> comm(const StgWzskAppearance* comp);
-	std::set<Sbecore::uint> diff(const StgWzskAppearance* comp);
-};
-
-/**
 	* StgWzskAppsrv
 	*/
 class StgWzskAppsrv : public Sbecore::Block {
@@ -257,6 +228,35 @@ public:
 };
 
 /**
+	* StgWzskBehavior
+	*/
+class StgWzskBehavior : public Sbecore::Block {
+
+public:
+	static const Sbecore::uint HISTLENGTH = 1;
+	static const Sbecore::uint SUSPSESS = 2;
+	static const Sbecore::uint SESSTTERM = 3;
+	static const Sbecore::uint SESSTWARN = 4;
+	static const Sbecore::uint ROOTTTERM = 5;
+
+public:
+	StgWzskBehavior(const Sbecore::usmallint histlength = 20, const bool suspsess = true, const Sbecore::uint sesstterm = 0, const Sbecore::uint sesstwarn = 0, const Sbecore::uint roottterm = 0);
+
+public:
+	Sbecore::usmallint histlength;
+	bool suspsess;
+	Sbecore::uint sesstterm;
+	Sbecore::uint sesstwarn;
+	Sbecore::uint roottterm;
+
+public:
+	bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
+	void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
+	std::set<Sbecore::uint> comm(const StgWzskBehavior* comp);
+	std::set<Sbecore::uint> diff(const StgWzskBehavior* comp);
+};
+
+/**
 	* StgWzskCamera
 	*/
 class StgWzskCamera : public Sbecore::Block {
@@ -265,14 +265,19 @@ public:
 	static const Sbecore::uint HPIX = 1;
 	static const Sbecore::uint F = 2;
 	static const Sbecore::uint FN = 3;
+	static const Sbecore::uint NCOLRAW = 4;
+	static const Sbecore::uint NROWRAW = 5;
 
 public:
-	StgWzskCamera(const float hpix = 1.4, const float f = 3.78, const float fn = 3);
+	StgWzskCamera(const float hpix = 1.4, const float f = 3.78, const float fn = 3, const Sbecore::uint NColRaw = 2592, const Sbecore::uint NRowRaw = 1944);
 
 public:
 	float hpix;
 	float f;
 	float fn;
+
+	Sbecore::uint NColRaw;
+	Sbecore::uint NRowRaw;
 
 public:
 	bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -367,49 +372,6 @@ public:
 };
 
 /**
-	* StgWzskFramegeo
-	*/
-class StgWzskFramegeo : public Sbecore::Block {
-
-public:
-	static const Sbecore::uint WACQ = 1;
-	static const Sbecore::uint HACQ = 2;
-	static const Sbecore::uint WHACQ = 3;
-	static const Sbecore::uint X0RGB = 4;
-	static const Sbecore::uint WRGB = 5;
-	static const Sbecore::uint Y0RGB = 6;
-	static const Sbecore::uint HRGB = 7;
-	static const Sbecore::uint X0GRRD = 8;
-	static const Sbecore::uint WGRRD = 9;
-	static const Sbecore::uint Y0GRRD = 10;
-	static const Sbecore::uint HGRRD = 11;
-
-public:
-	StgWzskFramegeo(const Sbecore::uint wAcq = 2592, const Sbecore::uint hAcq = 1944, const Sbecore::uint whAcq = 5038848, const Sbecore::uint x0Rgb = 16, const Sbecore::uint wRgb = 1280, const Sbecore::uint y0Rgb = 12, const Sbecore::uint hRgb = 960, const Sbecore::uint x0Grrd = 272, const Sbecore::uint wGrrd = 1024, const Sbecore::uint y0Grrd = 204, const Sbecore::uint hGrrd = 768);
-
-public:
-	Sbecore::uint wAcq;
-	Sbecore::uint hAcq;
-	Sbecore::uint whAcq;
-
-	Sbecore::uint x0Rgb;
-	Sbecore::uint wRgb;
-	Sbecore::uint y0Rgb;
-	Sbecore::uint hRgb;
-
-	Sbecore::uint x0Grrd;
-	Sbecore::uint wGrrd;
-	Sbecore::uint y0Grrd;
-	Sbecore::uint hGrrd;
-
-public:
-	bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
-	void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
-	std::set<Sbecore::uint> comm(const StgWzskFramegeo* comp);
-	std::set<Sbecore::uint> diff(const StgWzskFramegeo* comp);
-};
-
-/**
 	* StgWzskGlobal
 	*/
 class StgWzskGlobal : public Sbecore::Block {
@@ -418,7 +380,7 @@ public:
 	static const Sbecore::uint IXWZSKVTARGET = 1;
 
 public:
-	StgWzskGlobal(const Sbecore::uint ixWzskVTarget = VecWzskVTarget::MCVEVP);
+	StgWzskGlobal(const Sbecore::uint ixWzskVTarget = VecWzskVTarget::ZUDVK);
 
 public:
 	Sbecore::uint ixWzskVTarget;
@@ -876,13 +838,12 @@ public:
 	~XchgWzskcmbd();
 
 public:
-	StgWzskAppearance stgwzskappearance;
 	StgWzskAppsrv stgwzskappsrv;
+	StgWzskBehavior stgwzskbehavior;
 	StgWzskCamera stgwzskcamera;
 	StgWzskcmbd stgwzskcmbd;
 	StgWzskDatabase stgwzskdatabase;
 	StgWzskDdspub stgwzskddspub;
-	StgWzskFramegeo stgwzskframegeo;
 	StgWzskGlobal stgwzskglobal;
 	StgWzskPath stgwzskpath;
 	StgWzskUasrv stgwzskuasrv;

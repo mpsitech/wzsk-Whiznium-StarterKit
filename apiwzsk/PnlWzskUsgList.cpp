@@ -2,8 +2,8 @@
 	* \file PnlWzskUsgList.cpp
 	* API code for job PnlWzskUsgList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -53,9 +53,8 @@ PnlWzskUsgList::ContIac::ContIac(
 			const uint numFTos
 		) :
 			Block()
+			, numFTos(numFTos)
 		{
-	this->numFTos = numFTos;
-
 	mask = {NUMFTOS};
 };
 
@@ -131,10 +130,9 @@ PnlWzskUsgList::ContInf::ContInf(
 			, const uint numFCsiQst
 		) :
 			Block()
+			, ButFilterOn(ButFilterOn)
+			, numFCsiQst(numFCsiQst)
 		{
-	this->ButFilterOn = ButFilterOn;
-	this->numFCsiQst = numFCsiQst;
-
 	mask = {BUTFILTERON, NUMFCSIQST};
 };
 
@@ -196,10 +194,9 @@ PnlWzskUsgList::StatShr::StatShr(
 			, const bool ButDeleteActive
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, ButDeleteActive(ButDeleteActive)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->ButDeleteActive = ButDeleteActive;
-
 	mask = {IXWZSKVEXPSTATE, BUTDELETEACTIVE};
 };
 
@@ -267,11 +264,10 @@ PnlWzskUsgList::StgIac::StgIac(
 			, const uint TcoSrfWidth
 		) :
 			Block()
+			, TcoGrpWidth(TcoGrpWidth)
+			, TcoOwnWidth(TcoOwnWidth)
+			, TcoSrfWidth(TcoSrfWidth)
 		{
-	this->TcoGrpWidth = TcoGrpWidth;
-	this->TcoOwnWidth = TcoOwnWidth;
-	this->TcoSrfWidth = TcoSrfWidth;
-
 	mask = {TCOGRPWIDTH, TCOOWNWIDTH, TCOSRFWIDTH};
 };
 
@@ -360,17 +356,16 @@ PnlWzskUsgList::Tag::Tag(
 			, const string& TcoSrf
 		) :
 			Block()
+			, Cpt(Cpt)
+			, TxtRecord1(TxtRecord1)
+			, TxtRecord2(TxtRecord2)
+			, Trs(Trs)
+			, TxtShowing1(TxtShowing1)
+			, TxtShowing2(TxtShowing2)
+			, TcoGrp(TcoGrp)
+			, TcoOwn(TcoOwn)
+			, TcoSrf(TcoSrf)
 		{
-	this->Cpt = Cpt;
-	this->TxtRecord1 = TxtRecord1;
-	this->TxtRecord2 = TxtRecord2;
-	this->Trs = Trs;
-	this->TxtShowing1 = TxtShowing1;
-	this->TxtShowing2 = TxtShowing2;
-	this->TcoGrp = TcoGrp;
-	this->TcoOwn = TcoOwn;
-	this->TcoSrf = TcoSrf;
-
 	mask = {CPT, TXTRECORD1, TXTRECORD2, TRS, TXTSHOWING1, TXTSHOWING2, TCOGRP, TCOOWN, TCOSRF};
 };
 
@@ -462,11 +457,11 @@ PnlWzskUsgList::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKUSGLISTDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string PnlWzskUsgList::DpchAppDo::getSrefsMask() {

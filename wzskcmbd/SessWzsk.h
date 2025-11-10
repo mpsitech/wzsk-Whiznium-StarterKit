@@ -2,8 +2,8 @@
 	* \file SessWzsk.h
 	* job handler for job SessWzsk (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -14,18 +14,15 @@
 
 // IP include.cust --- INSERT
 
-#include "CrdWzskFil.h"
-#include "CrdWzskSht.h"
-#include "CrdWzskSes.h"
-#include "CrdWzskObj.h"
-#include "CrdWzskOgr.h"
-#include "CrdWzskLiv.h"
-#include "CrdWzskLlv.h"
-#include "CrdWzskScf.h"
-#include "CrdWzskPrs.h"
-#include "CrdWzskUsr.h"
-#include "CrdWzskUsg.h"
 #include "CrdWzskNav.h"
+#include "CrdWzskUsg.h"
+#include "CrdWzskUsr.h"
+#include "CrdWzskPrs.h"
+#include "CrdWzskPrf.h"
+#include "CrdWzskLlv.h"
+#include "CrdWzskVtr.h"
+#include "CrdWzskHwc.h"
+#include "CrdWzskFil.h"
 
 #define StatShrSessWzsk SessWzsk::StatShr
 
@@ -91,18 +88,15 @@ public:
 public:
 	StatShr statshr;
 
-	std::map<Sbecore::ubigint, JobWzsk*> crdfils;
-	std::map<Sbecore::ubigint, JobWzsk*> crdshts;
-	std::map<Sbecore::ubigint, JobWzsk*> crdsess;
-	std::map<Sbecore::ubigint, JobWzsk*> crdobjs;
-	std::map<Sbecore::ubigint, JobWzsk*> crdogrs;
-	std::map<Sbecore::ubigint, JobWzsk*> crdlivs;
-	std::map<Sbecore::ubigint, JobWzsk*> crdllvs;
-	std::map<Sbecore::ubigint, JobWzsk*> crdscfs;
-	std::map<Sbecore::ubigint, JobWzsk*> crdprss;
-	std::map<Sbecore::ubigint, JobWzsk*> crdusrs;
-	std::map<Sbecore::ubigint, JobWzsk*> crdusgs;
 	CrdWzskNav* crdnav;
+	std::map<Sbecore::ubigint, JobWzsk*> crdusgs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdusrs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdprss;
+	std::map<Sbecore::ubigint, JobWzsk*> crdprfs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdllvs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdvtrs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdhwcs;
+	std::map<Sbecore::ubigint, JobWzsk*> crdfils;
 
 	std::map<Sbecore::ubigint,Sbecore::uint> usgaccs;
 
@@ -121,8 +115,6 @@ public:
 	void eraseCrd(std::map<Sbecore::ubigint, JobWzsk*>& subjobs);
 
 	Sbecore::uint checkCrdActive(const Sbecore::uint ixWzskVCard);
-	Sbecore::uint evalCrdshtActive();
-	Sbecore::uint evalCrdfilActive();
 
 	Sbecore::uint checkCrdaccess(const Sbecore::uint ixWzskVCard);
 	void getIxCrdacc(DbsWzsk* dbswzsk, const Sbecore::uint ixWzskVCard, const bool adm, ListWzskRMUserMUsergroup& urus, const Sbecore::ubigint refWzskMUser, Sbecore::uint& ixWzskWAccess);
@@ -142,27 +134,21 @@ public:
 
 private:
 	bool handleCreateCrdfil(DbsWzsk* dbswzsk);
-	bool handleCreateCrdliv(DbsWzsk* dbswzsk);
+	bool handleCreateCrdhwc(DbsWzsk* dbswzsk);
 	bool handleCreateCrdllv(DbsWzsk* dbswzsk);
-	bool handleCreateCrdobj(DbsWzsk* dbswzsk);
-	bool handleCreateCrdogr(DbsWzsk* dbswzsk);
+	bool handleCreateCrdprf(DbsWzsk* dbswzsk);
 	bool handleCreateCrdprs(DbsWzsk* dbswzsk);
-	bool handleCreateCrdscf(DbsWzsk* dbswzsk);
-	bool handleCreateCrdses(DbsWzsk* dbswzsk);
-	bool handleCreateCrdsht(DbsWzsk* dbswzsk);
 	bool handleCreateCrdusg(DbsWzsk* dbswzsk);
 	bool handleCreateCrdusr(DbsWzsk* dbswzsk);
+	bool handleCreateCrdvtr(DbsWzsk* dbswzsk);
 	bool handleEraseCrdfil(DbsWzsk* dbswzsk);
-	bool handleEraseCrdliv(DbsWzsk* dbswzsk);
+	bool handleEraseCrdhwc(DbsWzsk* dbswzsk);
 	bool handleEraseCrdllv(DbsWzsk* dbswzsk);
-	bool handleEraseCrdobj(DbsWzsk* dbswzsk);
-	bool handleEraseCrdogr(DbsWzsk* dbswzsk);
+	bool handleEraseCrdprf(DbsWzsk* dbswzsk);
 	bool handleEraseCrdprs(DbsWzsk* dbswzsk);
-	bool handleEraseCrdscf(DbsWzsk* dbswzsk);
-	bool handleEraseCrdses(DbsWzsk* dbswzsk);
-	bool handleEraseCrdsht(DbsWzsk* dbswzsk);
 	bool handleEraseCrdusg(DbsWzsk* dbswzsk);
 	bool handleEraseCrdusr(DbsWzsk* dbswzsk);
+	bool handleEraseCrdvtr(DbsWzsk* dbswzsk);
 
 	void handleDpchAppWzskInit(DbsWzsk* dbswzsk, DpchAppWzskInit* dpchappwzskinit, DpchEngWzsk** dpcheng);
 
@@ -170,12 +156,12 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskRefPreSet(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv);
-	bool handleCallWzskRecaccess(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, Sbecore::uint& ixRet);
-	bool handleCallWzskLog(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv, const int intvalInv);
-	bool handleCallWzskCrdOpen(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv, const int intvalInv, Sbecore::ubigint& refRet);
-	bool handleCallWzskCrdClose(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv);
 	bool handleCallWzskCrdActive(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, Sbecore::uint& ixRet);
+	bool handleCallWzskCrdClose(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv);
+	bool handleCallWzskCrdOpen(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv, const int intvalInv, Sbecore::ubigint& refRet);
+	bool handleCallWzskLog(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv, const int intvalInv);
+	bool handleCallWzskRecaccess(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, Sbecore::uint& ixRet);
+	bool handleCallWzskRefPreSet(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv);
 
 };
 

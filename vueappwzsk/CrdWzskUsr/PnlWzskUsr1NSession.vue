@@ -27,31 +27,6 @@
 						small
 						light
 						color="primary"
-						v-on:click="handleButCrdopenClick('ButViewClick')"
-						:value="1"
-						:disabled="!statshr.ButViewActive"
-					>
-						<v-icon color="white">mdi-book-arrow-up</v-icon>
-					</v-btn>
-					&#160;&#160;
-					<v-btn
-						v-if="statapp.srefIxWzskVExpstate=='regd'"
-						fab
-						small
-						light
-						color="primary"
-						v-on:click="handleButCrdopenClick('ButNewClick')"
-						:value="1"
-					>
-						<v-icon color="white">mdi-file-plus</v-icon>
-					</v-btn>
-					&#160;
-					<v-btn
-						v-if="statapp.srefIxWzskVExpstate=='regd'"
-						fab
-						small
-						light
-						color="primary"
 						v-on:click="handleButClick('ButDeleteClick')"
 						:value="1"
 						:disabled="!statshr.ButDeleteActive"
@@ -177,17 +152,6 @@
 				*/
 			},
 
-				handleButCrdopenClick: function(ctlsref) {
-				const dpchapp = {
-					"DpchAppWzskUsr1NSessionDo": {
-						"scrJref": this.scrJref,
-						"srefIxVDo": ctlsref
-					}
-				};
-
-				this.$emit("request", {scrJref: this.scrJref, dpchapp: dpchapp, then: "handleDpchAppDoCrdopenReply"});
-			},
-
 			handleSelect: function(obj) {
 				var stgiacqry = this.stgiacqry;
 
@@ -269,7 +233,6 @@
 			handleReply: function(obj) {
 				if (obj.then == "handleDpchAppInitReply") this.handleDpchAppInitReply(obj.dpcheng);
 				else if (obj.then == "handleDpchAppDataDoReply") this.handleDpchAppDataDoReply(obj.srefIxWzskVDpch, obj.dpcheng);
-				else if (obj.then == "handleDpchAppDoCrdopenReply") this.handleDpchAppDoCrdopenReply(obj.srefIxWzskVDpch, obj.dpcheng);
 			},
 
 			handleDpchAppInitReply: function(dpcheng) {
@@ -280,12 +243,6 @@
 
 			handleDpchAppDataDoReply: function(srefIxWzskVDpch, dpcheng) {
 				if (srefIxWzskVDpch == "DpchEngWzskUsr1NSessionData") this.mergeDpchEngData(dpcheng);
-			},
-
-			handleDpchAppDoCrdopenReply: function(srefIxWzskVDpch, dpcheng) {
-				if (srefIxWzskVDpch == "DpchEngWzskConfirm")
-					if (dpcheng.accepted)
-						this.$emit("crdopen", {srefCrd: dpcheng.sref, scrJrefCrd: dpcheng.scrJref, newtabNotInplace: false});
 			},
 
 			/*

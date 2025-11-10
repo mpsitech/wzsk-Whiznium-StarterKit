@@ -2,8 +2,8 @@
 	* \file PnlWzskUsgMNUser_blks.cpp
 	* job handler for job PnlWzskUsgMNUser (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -47,9 +47,8 @@ PnlWzskUsgMNUser::ContInf::ContInf(
 			const uint numFCsiQst
 		) :
 			Block()
+			, numFCsiQst(numFCsiQst)
 		{
-	this->numFCsiQst = numFCsiQst;
-
 	mask = {NUMFCSIQST};
 };
 
@@ -61,7 +60,7 @@ void PnlWzskUsgMNUser::ContInf::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFCsiQst"] = numFCsiQst;
+	me["numFCsiQst"] = (Json::Value::UInt) numFCsiQst;
 };
 
 void PnlWzskUsgMNUser::ContInf::writeXML(
@@ -149,13 +148,12 @@ PnlWzskUsgMNUser::StatShr::StatShr(
 			, const bool ButSubActive
 		) :
 			Block()
+			, ButViewAvail(ButViewAvail)
+			, ButViewActive(ButViewActive)
+			, ButAddAvail(ButAddAvail)
+			, ButSubAvail(ButSubAvail)
+			, ButSubActive(ButSubActive)
 		{
-	this->ButViewAvail = ButViewAvail;
-	this->ButViewActive = ButViewActive;
-	this->ButAddAvail = ButAddAvail;
-	this->ButSubAvail = ButSubAvail;
-	this->ButSubActive = ButSubActive;
-
 	mask = {BUTVIEWAVAIL, BUTVIEWACTIVE, BUTADDAVAIL, BUTSUBAVAIL, BUTSUBACTIVE};
 };
 
@@ -231,9 +229,9 @@ PnlWzskUsgMNUser::StgIac::StgIac(
 			, const uint TcoUlvWidth
 		) :
 			Block()
+			, TcoMrefWidth(TcoMrefWidth)
+			, TcoUlvWidth(TcoUlvWidth)
 		{
-	this->TcoMrefWidth = TcoMrefWidth;
-	this->TcoUlvWidth = TcoUlvWidth;
 	mask = {TCOMREFWIDTH, TCOULVWIDTH};
 };
 
@@ -289,8 +287,8 @@ void PnlWzskUsgMNUser::StgIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["TcoMrefWidth"] = TcoMrefWidth;
-	me["TcoUlvWidth"] = TcoUlvWidth;
+	me["TcoMrefWidth"] = (Json::Value::UInt) TcoMrefWidth;
+	me["TcoUlvWidth"] = (Json::Value::UInt) TcoUlvWidth;
 };
 
 void PnlWzskUsgMNUser::StgIac::writeXML(
@@ -352,10 +350,6 @@ void PnlWzskUsgMNUser::Tag::writeJSON(
 		me["Cpt"] = "Users";
 		me["TcoMref"] = "User";
 		me["TcoUlv"] = "User level";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Benutzer";
-		me["TcoMref"] = "Benutzer";
-		me["TcoUlv"] = "Benutzerebene";
 	};
 	me["TxtRecord1"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale));
 	me["TxtRecord2"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale));
@@ -381,10 +375,6 @@ void PnlWzskUsgMNUser::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Users");
 			writeStringAttr(wr, itemtag, "sref", "TcoMref", "User");
 			writeStringAttr(wr, itemtag, "sref", "TcoUlv", "User level");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Benutzer");
-			writeStringAttr(wr, itemtag, "sref", "TcoMref", "Benutzer");
-			writeStringAttr(wr, itemtag, "sref", "TcoUlv", "Benutzerebene");
 		};
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord1", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord2", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale)));

@@ -159,7 +159,6 @@
 				/*
 				*/
 				if (this.numFPupLocale == 1) return this.feedFPupLocales.enus;
-				if (this.numFPupLocale == 2) return this.feedFPupLocales.dech;
 				/*
 				*/
 				return null;
@@ -169,7 +168,6 @@
 				/*
 				*/
 				if (this.numFPupLocale == 1) return this.tags.enus;
-				if (this.numFPupLocale == 2) return this.tags.dech;
 				/*
 				*/
 				return null;
@@ -218,23 +216,6 @@
 						num: 1,
 						sref: "enus",
 						tit1: "English (United States)"
-					},
-					{
-						num: 2,
-						sref: "dech",
-						tit1: "German (Switzerland)"
-					}
-				],
-				dech: [
-					{
-						num: 1,
-						sref: "enus",
-						tit1: "Englisch (Vereinigte Staaten)"
-					},
-					{
-						num: 2,
-						sref: "dech",
-						tit1: "Deutsch (Schweiz)"
 					}
 				]
 			},
@@ -261,24 +242,6 @@
 					CptLogoutMessage: "Your session has been terminated.",
 					CptSuccess: "Login successful",
 					CptSuccessSuspsess: "Suspended sessions"
-				},
-				dech: {
-					ButFailureBack: "Zur\u00fcck",
-					ButLoginLogin: "Anmelden",
-					ButLoginReset: "Zur\u00fccksetzen",
-					ButLogoutLogin: "Anmeldefenster",
-					ButSuccessBack: "Zur\u00fcck",
-					ButSuccessNewsess: "Neue Sitzung starten",
-					ButSuccessSuspsessResume: "Fortsetzen",
-					CptFailure: "Fehler",
-					CptFailureMessage: "Anmeldung fehlgeschlagen.",
-					CptLogin: "Anmeldung",
-					CptLoginPassword: "Passwort",
-					CptLoginUsername: "Benutzername",
-					CptLogout: "Abmeldung",
-					CptLogoutMessage: "Ihre Sitzung wurde beendet.",
-					CptSuccess: "Anmeldung erfolgreich",
-					CptSuccessSuspsess: "Unterbrochene Sitzungen"
 				}
 				/*
 				*/

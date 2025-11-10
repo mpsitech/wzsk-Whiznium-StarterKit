@@ -2,8 +2,8 @@
 	* \file DbsWzsk_vecs.cpp
 	* C++ wrapper for database DbsWzsk (implementation of vectors)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -24,13 +24,10 @@ uint DbsWzsk::VecVCard::getIx(
 	if (s == "crdwzskusg") return CRDWZSKUSG;
 	if (s == "crdwzskusr") return CRDWZSKUSR;
 	if (s == "crdwzskprs") return CRDWZSKPRS;
-	if (s == "crdwzskscf") return CRDWZSKSCF;
+	if (s == "crdwzskprf") return CRDWZSKPRF;
 	if (s == "crdwzskllv") return CRDWZSKLLV;
-	if (s == "crdwzskliv") return CRDWZSKLIV;
-	if (s == "crdwzskogr") return CRDWZSKOGR;
-	if (s == "crdwzskobj") return CRDWZSKOBJ;
-	if (s == "crdwzskses") return CRDWZSKSES;
-	if (s == "crdwzsksht") return CRDWZSKSHT;
+	if (s == "crdwzskvtr") return CRDWZSKVTR;
+	if (s == "crdwzskhwc") return CRDWZSKHWC;
 	if (s == "crdwzskfil") return CRDWZSKFIL;
 
 	return(0);
@@ -43,13 +40,10 @@ string DbsWzsk::VecVCard::getSref(
 	if (ix == CRDWZSKUSG) return("CrdWzskUsg");
 	if (ix == CRDWZSKUSR) return("CrdWzskUsr");
 	if (ix == CRDWZSKPRS) return("CrdWzskPrs");
-	if (ix == CRDWZSKSCF) return("CrdWzskScf");
+	if (ix == CRDWZSKPRF) return("CrdWzskPrf");
 	if (ix == CRDWZSKLLV) return("CrdWzskLlv");
-	if (ix == CRDWZSKLIV) return("CrdWzskLiv");
-	if (ix == CRDWZSKOGR) return("CrdWzskOgr");
-	if (ix == CRDWZSKOBJ) return("CrdWzskObj");
-	if (ix == CRDWZSKSES) return("CrdWzskSes");
-	if (ix == CRDWZSKSHT) return("CrdWzskSht");
+	if (ix == CRDWZSKVTR) return("CrdWzskVtr");
+	if (ix == CRDWZSKHWC) return("CrdWzskHwc");
 	if (ix == CRDWZSKFIL) return("CrdWzskFil");
 
 	return("");
@@ -63,28 +57,12 @@ string DbsWzsk::VecVCard::getTitle(
 		if (ix == CRDWZSKUSG) return("user groups");
 		if (ix == CRDWZSKUSR) return("users");
 		if (ix == CRDWZSKPRS) return("persons");
-		if (ix == CRDWZSKSCF) return("system configuration");
+		if (ix == CRDWZSKPRF) return("preferences");
 		if (ix == CRDWZSKLLV) return("low-level access");
-		if (ix == CRDWZSKLIV) return("live data");
-		if (ix == CRDWZSKOGR) return("object groups");
-		if (ix == CRDWZSKOBJ) return("objects");
-		if (ix == CRDWZSKSES) return("sessions");
-		if (ix == CRDWZSKSHT) return("shots");
+		if (ix == CRDWZSKVTR) return("vision-to-rotary");
+		if (ix == CRDWZSKHWC) return("HDR wavelet classification");
 		if (ix == CRDWZSKFIL) return("files");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == CRDWZSKUSG) return("Benutzergruppen");
-		if (ix == CRDWZSKUSR) return("Benutzer");
-		if (ix == CRDWZSKPRS) return("Personen");
-		if (ix == CRDWZSKSCF) return("Systemkonfiguration");
-		if (ix == CRDWZSKLLV) return("Low-level Zugriff");
-		if (ix == CRDWZSKLIV) return("Livedaten");
-		if (ix == CRDWZSKOGR) return("Objektgruppen");
-		if (ix == CRDWZSKOBJ) return("Objekte");
-		if (ix == CRDWZSKSES) return("Sitzungen");
-		if (ix == CRDWZSKSHT) return("Aufnahmen");
-		if (ix == CRDWZSKFIL) return("Dateien");
-		return(getTitle(ix, 1));
 	};
 
 	return("");
@@ -96,7 +74,7 @@ void DbsWzsk::VecVCard::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 12; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
+	for (unsigned int i = 1; i <= 9; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
 };
 
 /******************************************************************************
@@ -140,26 +118,6 @@ uint DbsWzsk::VecVControl::getIx(
 	if (s == "pnlwzskprslist.tcoeml") return PNLWZSKPRSLIST_TCOEML;
 	if (s == "pnlwzskprsadetail.tcotyp") return PNLWZSKPRSADETAIL_TCOTYP;
 	if (s == "pnlwzskprsadetail.tcoval") return PNLWZSKPRSADETAIL_TCOVAL;
-	if (s == "pnlwzskogrlist.tcosrf") return PNLWZSKOGRLIST_TCOSRF;
-	if (s == "pnlwzskogrlist.tcotit") return PNLWZSKOGRLIST_TCOTIT;
-	if (s == "pnlwzskogrlist.tcosup") return PNLWZSKOGRLIST_TCOSUP;
-	if (s == "pnlwzskogr1nobject.tcoref") return PNLWZSKOGR1NOBJECT_TCOREF;
-	if (s == "pnlwzskogrsup1nobjgroup.tcoref") return PNLWZSKOGRSUP1NOBJGROUP_TCOREF;
-	if (s == "pnlwzskobjlist.tcotit") return PNLWZSKOBJLIST_TCOTIT;
-	if (s == "pnlwzskobjlist.tcoogr") return PNLWZSKOBJLIST_TCOOGR;
-	if (s == "pnlwzskobj1nshot.tcoref") return PNLWZSKOBJ1NSHOT_TCOREF;
-	if (s == "pnlwzskobjref1nfile.tcoref") return PNLWZSKOBJREF1NFILE_TCOREF;
-	if (s == "pnlwzskseslist.tcousr") return PNLWZSKSESLIST_TCOUSR;
-	if (s == "pnlwzskseslist.tcosta") return PNLWZSKSESLIST_TCOSTA;
-	if (s == "pnlwzskseslist.tcosto") return PNLWZSKSESLIST_TCOSTO;
-	if (s == "pnlwzskseslist.tcoip") return PNLWZSKSESLIST_TCOIP;
-	if (s == "pnlwzskses1nshot.tcoref") return PNLWZSKSES1NSHOT_TCOREF;
-	if (s == "pnlwzskshtlist.tcoses") return PNLWZSKSHTLIST_TCOSES;
-	if (s == "pnlwzskshtlist.tcoobj") return PNLWZSKSHTLIST_TCOOBJ;
-	if (s == "pnlwzskshtlist.tcosta") return PNLWZSKSHTLIST_TCOSTA;
-	if (s == "pnlwzskshtapar.tcokey") return PNLWZSKSHTAPAR_TCOKEY;
-	if (s == "pnlwzskshtapar.tcoval") return PNLWZSKSHTAPAR_TCOVAL;
-	if (s == "pnlwzskshtref1nfile.tcoref") return PNLWZSKSHTREF1NFILE_TCOREF;
 	if (s == "pnlwzskfillist.tcogrp") return PNLWZSKFILLIST_TCOGRP;
 	if (s == "pnlwzskfillist.tcoown") return PNLWZSKFILLIST_TCOOWN;
 	if (s == "pnlwzskfillist.tcofnm") return PNLWZSKFILLIST_TCOFNM;
@@ -207,26 +165,6 @@ string DbsWzsk::VecVControl::getSref(
 	if (ix == PNLWZSKPRSLIST_TCOEML) return("PnlWzskPrsList.TcoEml");
 	if (ix == PNLWZSKPRSADETAIL_TCOTYP) return("PnlWzskPrsADetail.TcoTyp");
 	if (ix == PNLWZSKPRSADETAIL_TCOVAL) return("PnlWzskPrsADetail.TcoVal");
-	if (ix == PNLWZSKOGRLIST_TCOSRF) return("PnlWzskOgrList.TcoSrf");
-	if (ix == PNLWZSKOGRLIST_TCOTIT) return("PnlWzskOgrList.TcoTit");
-	if (ix == PNLWZSKOGRLIST_TCOSUP) return("PnlWzskOgrList.TcoSup");
-	if (ix == PNLWZSKOGR1NOBJECT_TCOREF) return("PnlWzskOgr1NObject.TcoRef");
-	if (ix == PNLWZSKOGRSUP1NOBJGROUP_TCOREF) return("PnlWzskOgrSup1NObjgroup.TcoRef");
-	if (ix == PNLWZSKOBJLIST_TCOTIT) return("PnlWzskObjList.TcoTit");
-	if (ix == PNLWZSKOBJLIST_TCOOGR) return("PnlWzskObjList.TcoOgr");
-	if (ix == PNLWZSKOBJ1NSHOT_TCOREF) return("PnlWzskObj1NShot.TcoRef");
-	if (ix == PNLWZSKOBJREF1NFILE_TCOREF) return("PnlWzskObjRef1NFile.TcoRef");
-	if (ix == PNLWZSKSESLIST_TCOUSR) return("PnlWzskSesList.TcoUsr");
-	if (ix == PNLWZSKSESLIST_TCOSTA) return("PnlWzskSesList.TcoSta");
-	if (ix == PNLWZSKSESLIST_TCOSTO) return("PnlWzskSesList.TcoSto");
-	if (ix == PNLWZSKSESLIST_TCOIP) return("PnlWzskSesList.TcoIp");
-	if (ix == PNLWZSKSES1NSHOT_TCOREF) return("PnlWzskSes1NShot.TcoRef");
-	if (ix == PNLWZSKSHTLIST_TCOSES) return("PnlWzskShtList.TcoSes");
-	if (ix == PNLWZSKSHTLIST_TCOOBJ) return("PnlWzskShtList.TcoObj");
-	if (ix == PNLWZSKSHTLIST_TCOSTA) return("PnlWzskShtList.TcoSta");
-	if (ix == PNLWZSKSHTAPAR_TCOKEY) return("PnlWzskShtAPar.TcoKey");
-	if (ix == PNLWZSKSHTAPAR_TCOVAL) return("PnlWzskShtAPar.TcoVal");
-	if (ix == PNLWZSKSHTREF1NFILE_TCOREF) return("PnlWzskShtRef1NFile.TcoRef");
 	if (ix == PNLWZSKFILLIST_TCOGRP) return("PnlWzskFilList.TcoGrp");
 	if (ix == PNLWZSKFILLIST_TCOOWN) return("PnlWzskFilList.TcoOwn");
 	if (ix == PNLWZSKFILLIST_TCOFNM) return("PnlWzskFilList.TcoFnm");
@@ -249,19 +187,15 @@ uint DbsWzsk::VecVFeatgroup::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "vecwzskvcard") return VECWZSKVCARD;
-	if (s == "vecvjobwzskacqpreviewvar") return VECVJOBWZSKACQPREVIEWVAR;
-	if (s == "vecvjobwzskacqptcloudmethod") return VECVJOBWZSKACQPTCLOUDMETHOD;
-	if (s == "vecvjobwzskacqptcloudvar") return VECVJOBWZSKACQPTCLOUDVAR;
-	if (s == "vecvjobwzskactexposuremethod") return VECVJOBWZSKACTEXPOSUREMETHOD;
-	if (s == "vecvjobwzskactexposurevar") return VECVJOBWZSKACTEXPOSUREVAR;
+	if (s == "vecvjobwzskacqcornermethod") return VECVJOBWZSKACQCORNERMETHOD;
+	if (s == "vecvjobwzskacqcornervar") return VECVJOBWZSKACQCORNERVAR;
+	if (s == "vecvjobwzskacqtracemethod") return VECVJOBWZSKACQTRACEMETHOD;
+	if (s == "vecvjobwzskacqtracevar") return VECVJOBWZSKACQTRACEVAR;
 	if (s == "vecvjobwzskactlasermethod") return VECVJOBWZSKACTLASERMETHOD;
 	if (s == "vecvjobwzskactlaservar") return VECVJOBWZSKACTLASERVAR;
-	if (s == "vecvjobwzskactservomethod") return VECVJOBWZSKACTSERVOMETHOD;
-	if (s == "vecvjobwzskactservovar") return VECVJOBWZSKACTSERVOVAR;
-	if (s == "vecvjobwzskiprcornermethod") return VECVJOBWZSKIPRCORNERMETHOD;
-	if (s == "vecvjobwzskiprcornervar") return VECVJOBWZSKIPRCORNERVAR;
-	if (s == "vecvjobwzskiprtracemethod") return VECVJOBWZSKIPRTRACEMETHOD;
-	if (s == "vecvjobwzskiprtracevar") return VECVJOBWZSKIPRTRACEVAR;
+	if (s == "vecvjobwzskactrotarymethod") return VECVJOBWZSKACTROTARYMETHOD;
+	if (s == "vecvjobwzskactrotaryvar") return VECVJOBWZSKACTROTARYVAR;
+	if (s == "vecvjobwzsksrcfpgainfovar") return VECVJOBWZSKSRCFPGAINFOVAR;
 	if (s == "vecvjobwzsksrcsysinfovar") return VECVJOBWZSKSRCSYSINFOVAR;
 
 	return(0);
@@ -271,19 +205,15 @@ string DbsWzsk::VecVFeatgroup::getSref(
 			const uint ix
 		) {
 	if (ix == VECWZSKVCARD) return("VecWzskVCard");
-	if (ix == VECVJOBWZSKACQPREVIEWVAR) return("VecVJobWzskAcqPreviewVar");
-	if (ix == VECVJOBWZSKACQPTCLOUDMETHOD) return("VecVJobWzskAcqPtcloudMethod");
-	if (ix == VECVJOBWZSKACQPTCLOUDVAR) return("VecVJobWzskAcqPtcloudVar");
-	if (ix == VECVJOBWZSKACTEXPOSUREMETHOD) return("VecVJobWzskActExposureMethod");
-	if (ix == VECVJOBWZSKACTEXPOSUREVAR) return("VecVJobWzskActExposureVar");
+	if (ix == VECVJOBWZSKACQCORNERMETHOD) return("VecVJobWzskAcqCornerMethod");
+	if (ix == VECVJOBWZSKACQCORNERVAR) return("VecVJobWzskAcqCornerVar");
+	if (ix == VECVJOBWZSKACQTRACEMETHOD) return("VecVJobWzskAcqTraceMethod");
+	if (ix == VECVJOBWZSKACQTRACEVAR) return("VecVJobWzskAcqTraceVar");
 	if (ix == VECVJOBWZSKACTLASERMETHOD) return("VecVJobWzskActLaserMethod");
 	if (ix == VECVJOBWZSKACTLASERVAR) return("VecVJobWzskActLaserVar");
-	if (ix == VECVJOBWZSKACTSERVOMETHOD) return("VecVJobWzskActServoMethod");
-	if (ix == VECVJOBWZSKACTSERVOVAR) return("VecVJobWzskActServoVar");
-	if (ix == VECVJOBWZSKIPRCORNERMETHOD) return("VecVJobWzskIprCornerMethod");
-	if (ix == VECVJOBWZSKIPRCORNERVAR) return("VecVJobWzskIprCornerVar");
-	if (ix == VECVJOBWZSKIPRTRACEMETHOD) return("VecVJobWzskIprTraceMethod");
-	if (ix == VECVJOBWZSKIPRTRACEVAR) return("VecVJobWzskIprTraceVar");
+	if (ix == VECVJOBWZSKACTROTARYMETHOD) return("VecVJobWzskActRotaryMethod");
+	if (ix == VECVJOBWZSKACTROTARYVAR) return("VecVJobWzskActRotaryVar");
+	if (ix == VECVJOBWZSKSRCFPGAINFOVAR) return("VecVJobWzskSrcFpgainfoVar");
 	if (ix == VECVJOBWZSKSRCSYSINFOVAR) return("VecVJobWzskSrcSysinfoVar");
 
 	return("");
@@ -295,38 +225,17 @@ string DbsWzsk::VecVFeatgroup::getTitle(
 		) {
 	if (ixWzskVLocale == 1) {
 		if (ix == VECWZSKVCARD) return("card");
-		if (ix == VECVJOBWZSKACQPREVIEWVAR) return("JobWzskAcqPreview variable");
-		if (ix == VECVJOBWZSKACQPTCLOUDMETHOD) return("JobWzskAcqPtcloud method");
-		if (ix == VECVJOBWZSKACQPTCLOUDVAR) return("JobWzskAcqPtcloud variable");
-		if (ix == VECVJOBWZSKACTEXPOSUREMETHOD) return("JobWzskActExposure method");
-		if (ix == VECVJOBWZSKACTEXPOSUREVAR) return("JobWzskActExposure variable");
+		if (ix == VECVJOBWZSKACQCORNERMETHOD) return("JobWzskAcqCorner method");
+		if (ix == VECVJOBWZSKACQCORNERVAR) return("JobWzskAcqCorner variable");
+		if (ix == VECVJOBWZSKACQTRACEMETHOD) return("JobWzskAcqTrace method");
+		if (ix == VECVJOBWZSKACQTRACEVAR) return("JobWzskAcqTrace variable");
 		if (ix == VECVJOBWZSKACTLASERMETHOD) return("JobWzskActLaser method");
 		if (ix == VECVJOBWZSKACTLASERVAR) return("JobWzskActLaser variable");
-		if (ix == VECVJOBWZSKACTSERVOMETHOD) return("JobWzskActServo method");
-		if (ix == VECVJOBWZSKACTSERVOVAR) return("JobWzskActServo variable");
-		if (ix == VECVJOBWZSKIPRCORNERMETHOD) return("JobWzskIprCorner method");
-		if (ix == VECVJOBWZSKIPRCORNERVAR) return("JobWzskIprCorner variable");
-		if (ix == VECVJOBWZSKIPRTRACEMETHOD) return("JobWzskIprTrace method");
-		if (ix == VECVJOBWZSKIPRTRACEVAR) return("JobWzskIprTrace variable");
+		if (ix == VECVJOBWZSKACTROTARYMETHOD) return("JobWzskActRotary method");
+		if (ix == VECVJOBWZSKACTROTARYVAR) return("JobWzskActRotary variable");
+		if (ix == VECVJOBWZSKSRCFPGAINFOVAR) return("JobWzskSrcFpgainfo variable");
 		if (ix == VECVJOBWZSKSRCSYSINFOVAR) return("JobWzskSrcSysinfo variable");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == VECWZSKVCARD) return("Karte");
-		if (ix == VECVJOBWZSKACQPREVIEWVAR) return("JobWzskAcqPreview Variable");
-		if (ix == VECVJOBWZSKACQPTCLOUDMETHOD) return("JobWzskAcqPtcloud Methode");
-		if (ix == VECVJOBWZSKACQPTCLOUDVAR) return("JobWzskAcqPtcloud Variable");
-		if (ix == VECVJOBWZSKACTEXPOSUREMETHOD) return("JobWzskActExposure Methode");
-		if (ix == VECVJOBWZSKACTEXPOSUREVAR) return("JobWzskActExposure Variable");
-		if (ix == VECVJOBWZSKACTLASERMETHOD) return("JobWzskActLaser Methode");
-		if (ix == VECVJOBWZSKACTLASERVAR) return("JobWzskActLaser Variable");
-		if (ix == VECVJOBWZSKACTSERVOMETHOD) return("JobWzskActServo Methode");
-		if (ix == VECVJOBWZSKACTSERVOVAR) return("JobWzskActServo Variable");
-		if (ix == VECVJOBWZSKIPRCORNERMETHOD) return("JobWzskIprCorner Methode");
-		if (ix == VECVJOBWZSKIPRCORNERVAR) return("JobWzskIprCorner Variable");
-		if (ix == VECVJOBWZSKIPRTRACEMETHOD) return("JobWzskIprTrace Methode");
-		if (ix == VECVJOBWZSKIPRTRACEVAR) return("JobWzskIprTrace Variable");
-		if (ix == VECVJOBWZSKSRCSYSINFOVAR) return("JobWzskSrcSysinfo Variable");
-		return(getTitle(ix, 1));
 	};
 
 	return("");
@@ -338,7 +247,7 @@ void DbsWzsk::VecVFeatgroup::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 15; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
+	for (unsigned int i = 1; i <= 11; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
 };
 
 /******************************************************************************
@@ -351,7 +260,6 @@ uint DbsWzsk::VecVKeylist::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "klstwzskkampersondetailtype") return KLSTWZSKKAMPERSONDETAILTYPE;
-	if (s == "klstwzskkamshotparkey") return KLSTWZSKKAMSHOTPARKEY;
 	if (s == "klstwzskkmfilecontent") return KLSTWZSKKMFILECONTENT;
 	if (s == "klstwzskkmfilemimetype") return KLSTWZSKKMFILEMIMETYPE;
 
@@ -362,7 +270,6 @@ string DbsWzsk::VecVKeylist::getSref(
 			const uint ix
 		) {
 	if (ix == KLSTWZSKKAMPERSONDETAILTYPE) return("KlstWzskKAMPersonDetailType");
-	if (ix == KLSTWZSKKAMSHOTPARKEY) return("KlstWzskKAMShotParKey");
 	if (ix == KLSTWZSKKMFILECONTENT) return("KlstWzskKMFileContent");
 	if (ix == KLSTWZSKKMFILEMIMETYPE) return("KlstWzskKMFileMimetype");
 
@@ -375,16 +282,9 @@ string DbsWzsk::VecVKeylist::getTitle(
 		) {
 	if (ixWzskVLocale == 1) {
 		if (ix == KLSTWZSKKAMPERSONDETAILTYPE) return("type");
-		if (ix == KLSTWZSKKAMSHOTPARKEY) return("key");
 		if (ix == KLSTWZSKKMFILECONTENT) return("content");
 		if (ix == KLSTWZSKKMFILEMIMETYPE) return("MIME type");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == KLSTWZSKKAMPERSONDETAILTYPE) return("Typ");
-		if (ix == KLSTWZSKKAMSHOTPARKEY) return("Schl\\u00fcssel");
-		if (ix == KLSTWZSKKMFILECONTENT) return("Inhalt");
-		if (ix == KLSTWZSKKMFILEMIMETYPE) return("MIME-Typ");
-		return(getTitle(ix, 1));
 	};
 
 	return("");
@@ -424,7 +324,6 @@ uint DbsWzsk::VecVLocale::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "enus") return ENUS;
-	if (s == "dech") return DECH;
 
 	return(0);
 };
@@ -433,7 +332,6 @@ string DbsWzsk::VecVLocale::getSref(
 			const uint ix
 		) {
 	if (ix == ENUS) return("enus");
-	if (ix == DECH) return("dech");
 
 	return("");
 };
@@ -444,12 +342,7 @@ string DbsWzsk::VecVLocale::getTitle(
 		) {
 	if (ixWzskVLocale == 1) {
 		if (ix == ENUS) return("English (United States)");
-		if (ix == DECH) return("German (Switzerland)");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == ENUS) return("Englisch (Vereinigte Staaten)");
-		if (ix == DECH) return("Deutsch (Schweiz)");
-		return(getTitle(ix, 1));
 	};
 
 	return("");
@@ -461,7 +354,7 @@ void DbsWzsk::VecVLocale::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 2; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
+	for (unsigned int i = 1; i <= 1; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
 };
 
 /******************************************************************************
@@ -499,11 +392,8 @@ uint DbsWzsk::VecVMaintable::getIx(
 
 	if (s == "void") return VOID;
 	if (s == "tblwzskmfile") return TBLWZSKMFILE;
-	if (s == "tblwzskmobject") return TBLWZSKMOBJECT;
-	if (s == "tblwzskmobjgroup") return TBLWZSKMOBJGROUP;
 	if (s == "tblwzskmperson") return TBLWZSKMPERSON;
 	if (s == "tblwzskmsession") return TBLWZSKMSESSION;
-	if (s == "tblwzskmshot") return TBLWZSKMSHOT;
 	if (s == "tblwzskmuser") return TBLWZSKMUSER;
 	if (s == "tblwzskmusergroup") return TBLWZSKMUSERGROUP;
 
@@ -515,11 +405,8 @@ string DbsWzsk::VecVMaintable::getSref(
 		) {
 	if (ix == VOID) return("void");
 	if (ix == TBLWZSKMFILE) return("TblWzskMFile");
-	if (ix == TBLWZSKMOBJECT) return("TblWzskMObject");
-	if (ix == TBLWZSKMOBJGROUP) return("TblWzskMObjgroup");
 	if (ix == TBLWZSKMPERSON) return("TblWzskMPerson");
 	if (ix == TBLWZSKMSESSION) return("TblWzskMSession");
-	if (ix == TBLWZSKMSHOT) return("TblWzskMShot");
 	if (ix == TBLWZSKMUSER) return("TblWzskMUser");
 	if (ix == TBLWZSKMUSERGROUP) return("TblWzskMUsergroup");
 
@@ -533,25 +420,11 @@ string DbsWzsk::VecVMaintable::getTitle(
 	if (ixWzskVLocale == 1) {
 		if (ix == VOID) return("none");
 		if (ix == TBLWZSKMFILE) return("file");
-		if (ix == TBLWZSKMOBJECT) return("object");
-		if (ix == TBLWZSKMOBJGROUP) return("object group");
 		if (ix == TBLWZSKMPERSON) return("person");
 		if (ix == TBLWZSKMSESSION) return("session");
-		if (ix == TBLWZSKMSHOT) return("shot");
 		if (ix == TBLWZSKMUSER) return("user");
 		if (ix == TBLWZSKMUSERGROUP) return("user group");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == VOID) return("kein");
-		if (ix == TBLWZSKMFILE) return("Datei");
-		if (ix == TBLWZSKMOBJECT) return("Objekt");
-		if (ix == TBLWZSKMOBJGROUP) return("Objektgruppe");
-		if (ix == TBLWZSKMPERSON) return("Person");
-		if (ix == TBLWZSKMSESSION) return("Sitzung");
-		if (ix == TBLWZSKMSHOT) return("Aufnahme");
-		if (ix == TBLWZSKMUSER) return("Benutzer");
-		if (ix == TBLWZSKMUSERGROUP) return("Benutzergruppe");
-		return(getTitle(ix, 1));
 	};
 
 	return("");
@@ -563,7 +436,7 @@ void DbsWzsk::VecVMaintable::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 9; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
+	for (unsigned int i = 1; i <= 6; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
 };
 
 /******************************************************************************
@@ -617,16 +490,13 @@ uint DbsWzsk::VecVPreset::getIx(
 	if (s == "prewzskgroup") return PREWZSKGROUP;
 	if (s == "prewzskip") return PREWZSKIP;
 	if (s == "prewzskixcrdaccfil") return PREWZSKIXCRDACCFIL;
-	if (s == "prewzskixcrdaccliv") return PREWZSKIXCRDACCLIV;
+	if (s == "prewzskixcrdacchwc") return PREWZSKIXCRDACCHWC;
 	if (s == "prewzskixcrdaccllv") return PREWZSKIXCRDACCLLV;
-	if (s == "prewzskixcrdaccobj") return PREWZSKIXCRDACCOBJ;
-	if (s == "prewzskixcrdaccogr") return PREWZSKIXCRDACCOGR;
+	if (s == "prewzskixcrdaccprf") return PREWZSKIXCRDACCPRF;
 	if (s == "prewzskixcrdaccprs") return PREWZSKIXCRDACCPRS;
-	if (s == "prewzskixcrdaccscf") return PREWZSKIXCRDACCSCF;
-	if (s == "prewzskixcrdaccses") return PREWZSKIXCRDACCSES;
-	if (s == "prewzskixcrdaccsht") return PREWZSKIXCRDACCSHT;
 	if (s == "prewzskixcrdaccusg") return PREWZSKIXCRDACCUSG;
 	if (s == "prewzskixcrdaccusr") return PREWZSKIXCRDACCUSR;
+	if (s == "prewzskixcrdaccvtr") return PREWZSKIXCRDACCVTR;
 	if (s == "prewzskixlcl") return PREWZSKIXLCL;
 	if (s == "prewzskixord") return PREWZSKIXORD;
 	if (s == "prewzskixpre") return PREWZSKIXPRE;
@@ -634,32 +504,18 @@ uint DbsWzsk::VecVPreset::getIx(
 	if (s == "prewzskjrefnotify") return PREWZSKJREFNOTIFY;
 	if (s == "prewzskjrefsess") return PREWZSKJREFSESS;
 	if (s == "prewzsknoadm") return PREWZSKNOADM;
-	if (s == "prewzskobjlist.ogr") return PREWZSKOBJLIST_OGR;
-	if (s == "prewzskobjlist.tit") return PREWZSKOBJLIST_TIT;
-	if (s == "prewzskogrlist.srf") return PREWZSKOGRLIST_SRF;
-	if (s == "prewzskogrlist.sup") return PREWZSKOGRLIST_SUP;
-	if (s == "prewzskogrlist.tit") return PREWZSKOGRLIST_TIT;
 	if (s == "prewzskowner") return PREWZSKOWNER;
 	if (s == "prewzskprsadetail.x1") return PREWZSKPRSADETAIL_X1;
 	if (s == "prewzskprslist.grp") return PREWZSKPRSLIST_GRP;
 	if (s == "prewzskprslist.lnm") return PREWZSKPRSLIST_LNM;
 	if (s == "prewzskprslist.own") return PREWZSKPRSLIST_OWN;
 	if (s == "prewzskreffil") return PREWZSKREFFIL;
-	if (s == "prewzskrefobj") return PREWZSKREFOBJ;
-	if (s == "prewzskrefogr") return PREWZSKREFOGR;
 	if (s == "prewzskrefprs") return PREWZSKREFPRS;
 	if (s == "prewzskrefsel") return PREWZSKREFSEL;
 	if (s == "prewzskrefses") return PREWZSKREFSES;
-	if (s == "prewzskrefsht") return PREWZSKREFSHT;
 	if (s == "prewzskrefusg") return PREWZSKREFUSG;
 	if (s == "prewzskrefusr") return PREWZSKREFUSR;
-	if (s == "prewzskseslist.sta") return PREWZSKSESLIST_STA;
-	if (s == "prewzskseslist.usr") return PREWZSKSESLIST_USR;
 	if (s == "prewzsksess") return PREWZSKSESS;
-	if (s == "prewzskshtapar.x1") return PREWZSKSHTAPAR_X1;
-	if (s == "prewzskshtlist.obj") return PREWZSKSHTLIST_OBJ;
-	if (s == "prewzskshtlist.ses") return PREWZSKSHTLIST_SES;
-	if (s == "prewzskshtlist.sta") return PREWZSKSHTLIST_STA;
 	if (s == "prewzsksuspsess") return PREWZSKSUSPSESS;
 	if (s == "prewzsksysdate") return PREWZSKSYSDATE;
 	if (s == "prewzsksysstamp") return PREWZSKSYSSTAMP;
@@ -695,16 +551,13 @@ string DbsWzsk::VecVPreset::getSref(
 	if (ix == PREWZSKGROUP) return("PreWzskGroup");
 	if (ix == PREWZSKIP) return("PreWzskIp");
 	if (ix == PREWZSKIXCRDACCFIL) return("PreWzskIxCrdaccFil");
-	if (ix == PREWZSKIXCRDACCLIV) return("PreWzskIxCrdaccLiv");
+	if (ix == PREWZSKIXCRDACCHWC) return("PreWzskIxCrdaccHwc");
 	if (ix == PREWZSKIXCRDACCLLV) return("PreWzskIxCrdaccLlv");
-	if (ix == PREWZSKIXCRDACCOBJ) return("PreWzskIxCrdaccObj");
-	if (ix == PREWZSKIXCRDACCOGR) return("PreWzskIxCrdaccOgr");
+	if (ix == PREWZSKIXCRDACCPRF) return("PreWzskIxCrdaccPrf");
 	if (ix == PREWZSKIXCRDACCPRS) return("PreWzskIxCrdaccPrs");
-	if (ix == PREWZSKIXCRDACCSCF) return("PreWzskIxCrdaccScf");
-	if (ix == PREWZSKIXCRDACCSES) return("PreWzskIxCrdaccSes");
-	if (ix == PREWZSKIXCRDACCSHT) return("PreWzskIxCrdaccSht");
 	if (ix == PREWZSKIXCRDACCUSG) return("PreWzskIxCrdaccUsg");
 	if (ix == PREWZSKIXCRDACCUSR) return("PreWzskIxCrdaccUsr");
+	if (ix == PREWZSKIXCRDACCVTR) return("PreWzskIxCrdaccVtr");
 	if (ix == PREWZSKIXLCL) return("PreWzskIxLcl");
 	if (ix == PREWZSKIXORD) return("PreWzskIxOrd");
 	if (ix == PREWZSKIXPRE) return("PreWzskIxPre");
@@ -712,32 +565,18 @@ string DbsWzsk::VecVPreset::getSref(
 	if (ix == PREWZSKJREFNOTIFY) return("PreWzskJrefNotify");
 	if (ix == PREWZSKJREFSESS) return("PreWzskJrefSess");
 	if (ix == PREWZSKNOADM) return("PreWzskNoadm");
-	if (ix == PREWZSKOBJLIST_OGR) return("PreWzskObjList.ogr");
-	if (ix == PREWZSKOBJLIST_TIT) return("PreWzskObjList.tit");
-	if (ix == PREWZSKOGRLIST_SRF) return("PreWzskOgrList.srf");
-	if (ix == PREWZSKOGRLIST_SUP) return("PreWzskOgrList.sup");
-	if (ix == PREWZSKOGRLIST_TIT) return("PreWzskOgrList.tit");
 	if (ix == PREWZSKOWNER) return("PreWzskOwner");
 	if (ix == PREWZSKPRSADETAIL_X1) return("PreWzskPrsADetail.x1");
 	if (ix == PREWZSKPRSLIST_GRP) return("PreWzskPrsList.grp");
 	if (ix == PREWZSKPRSLIST_LNM) return("PreWzskPrsList.lnm");
 	if (ix == PREWZSKPRSLIST_OWN) return("PreWzskPrsList.own");
 	if (ix == PREWZSKREFFIL) return("PreWzskRefFil");
-	if (ix == PREWZSKREFOBJ) return("PreWzskRefObj");
-	if (ix == PREWZSKREFOGR) return("PreWzskRefOgr");
 	if (ix == PREWZSKREFPRS) return("PreWzskRefPrs");
 	if (ix == PREWZSKREFSEL) return("PreWzskRefSel");
 	if (ix == PREWZSKREFSES) return("PreWzskRefSes");
-	if (ix == PREWZSKREFSHT) return("PreWzskRefSht");
 	if (ix == PREWZSKREFUSG) return("PreWzskRefUsg");
 	if (ix == PREWZSKREFUSR) return("PreWzskRefUsr");
-	if (ix == PREWZSKSESLIST_STA) return("PreWzskSesList.sta");
-	if (ix == PREWZSKSESLIST_USR) return("PreWzskSesList.usr");
 	if (ix == PREWZSKSESS) return("PreWzskSess");
-	if (ix == PREWZSKSHTAPAR_X1) return("PreWzskShtAPar.x1");
-	if (ix == PREWZSKSHTLIST_OBJ) return("PreWzskShtList.obj");
-	if (ix == PREWZSKSHTLIST_SES) return("PreWzskShtList.ses");
-	if (ix == PREWZSKSHTLIST_STA) return("PreWzskShtList.sta");
 	if (ix == PREWZSKSUSPSESS) return("PreWzskSuspsess");
 	if (ix == PREWZSKSYSDATE) return("PreWzskSysdate");
 	if (ix == PREWZSKSYSSTAMP) return("PreWzskSysstamp");
@@ -767,25 +606,11 @@ string DbsWzsk::VecVPreset::getTitle(
 	if (ixWzskVLocale == 1) {
 		if (ix == VOID) return("none");
 		if (ix == PREWZSKREFFIL) return("file");
-		if (ix == PREWZSKREFOBJ) return("object");
-		if (ix == PREWZSKREFOGR) return("object group");
 		if (ix == PREWZSKREFPRS) return("person");
 		if (ix == PREWZSKREFSES) return("session");
-		if (ix == PREWZSKREFSHT) return("shot");
 		if (ix == PREWZSKREFUSG) return("user group");
 		if (ix == PREWZSKREFUSR) return("user");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == VOID) return("kein");
-		if (ix == PREWZSKREFFIL) return("Datei");
-		if (ix == PREWZSKREFOBJ) return("Objekt");
-		if (ix == PREWZSKREFOGR) return("Objektgruppe");
-		if (ix == PREWZSKREFPRS) return("Person");
-		if (ix == PREWZSKREFSES) return("Sitzung");
-		if (ix == PREWZSKREFSHT) return("Aufnahme");
-		if (ix == PREWZSKREFUSG) return("Benutzergruppe");
-		if (ix == PREWZSKREFUSR) return("Benutzer");
-		return(getTitle(ix, 1));
 	};
 
 	return("");
@@ -826,11 +651,6 @@ string DbsWzsk::VecVRecaccess::getTitle(
 		if (ix == NONE) return("none");
 		if (ix == VIEW) return("view");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == FULL) return("voll");
-		if (ix == NONE) return("kein");
-		if (ix == VIEW) return("anschauen");
-		return(getTitle(ix, 1));
 	};
 
 	return("");
@@ -883,12 +703,6 @@ string DbsWzsk::VecVUserlevel::getTitle(
 		if (ix == REG) return("regular user");
 		if (ix == VTOR) return("visitor");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == ADM) return("Administrator");
-		if (ix == GADM) return("Gruppenadministrator");
-		if (ix == REG) return("regul\\u00e4rer Benutzer");
-		if (ix == VTOR) return("Besucher");
-		return(getTitle(ix, 1));
 	};
 
 	return("");
@@ -932,9 +746,6 @@ string DbsWzsk::VecVValuelist::getTitle(
 	if (ixWzskVLocale == 1) {
 		if (ix == VLSTWZSKUMPERSONTITLE) return("title");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == VLSTWZSKUMPERSONTITLE) return("Anrede");
-		return(getTitle(ix, 1));
 	};
 
 	return("");
@@ -993,11 +804,6 @@ string DbsWzsk::VecWAccess::getTitle(
 		if (ix == EXEC) return("execute");
 		if (ix == VIEW) return("view");
 		return(getSrefs(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == EDIT) return("\\u00e4ndern");
-		if (ix == EXEC) return("ausf\\u00fchren");
-		if (ix == VIEW) return("anschauen");
-		return(getTitle(ix, 1));
 	};
 
 	return("");

@@ -2,25 +2,25 @@
 # make file for Wzsk combined daemon, release wzskcmbd_pl64 (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 12 Sep 2022
+# date created: 12 Oct 2025
 # IP header --- ABOVE
 
 include Makefile.inc
 
 CPP = ${TCHROOT}/aarch64-xilinx-linux-g++
-CPPFLAGS = --sysroot=${SYSROOT} --sysroot=${SYSROOT} -std=c++11 -march=armv8-a -mtune=cortex-a53 -g -Wall -Os -pthread -DWZSKCMBD
+CPPFLAGS = --sysroot=${SYSROOT} -std=c++11 -march=armv8-a -mtune=cortex-a53 -g -Wall -Os -pthread -DWZSKCMBD
 
-LINK = 
+LINK = ${TCHROOT}/aarch64-xilinx-linux-g++
 LINKFLAGS = --sysroot=${SYSROOT}
 
 INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
-INCPATH += -I=$(BUILDROOT)/wzskcmbd/CrdWzskNav -I=$(BUILDROOT)/wzskcmbd/CrdWzskUsg -I=$(BUILDROOT)/wzskcmbd/CrdWzskUsr -I=$(BUILDROOT)/wzskcmbd/CrdWzskPrs -I=$(BUILDROOT)/wzskcmbd/CrdWzskScf -I=$(BUILDROOT)/wzskcmbd/CrdWzskLlv -I=$(BUILDROOT)/wzskcmbd/CrdWzskLiv -I=$(BUILDROOT)/wzskcmbd/CrdWzskOgr -I=$(BUILDROOT)/wzskcmbd/CrdWzskObj -I=$(BUILDROOT)/wzskcmbd/CrdWzskSes -I=$(BUILDROOT)/wzskcmbd/CrdWzskSht -I=$(BUILDROOT)/wzskcmbd/CrdWzskFil
-INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevpmnd -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
+INCPATH += -I=$(BUILDROOT)/wzskcmbd/CrdWzskNav -I=$(BUILDROOT)/wzskcmbd/CrdWzskUsg -I=$(BUILDROOT)/wzskcmbd/CrdWzskUsr -I=$(BUILDROOT)/wzskcmbd/CrdWzskPrs -I=$(BUILDROOT)/wzskcmbd/CrdWzskPrf -I=$(BUILDROOT)/wzskcmbd/CrdWzskLlv -I=$(BUILDROOT)/wzskcmbd/CrdWzskVtr -I=$(BUILDROOT)/wzskcmbd/CrdWzskHwc -I=$(BUILDROOT)/wzskcmbd/CrdWzskFil
+INCPATH += -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
 PCHS = Wzskcmbd.h.gch
 
 OBJS = Wzsk.o WzskcmbdAppsrv.o WzskcmbdJobprc.o WzskcmbdOpprc.o Wzskcmbd.o
-OBJS += RootWzsk.o M2msessWzsk.o SessWzsk.o JobWzskAcqFpgaflg.o JobWzskAcqFpgapvw.o JobWzskAcqPreview.o JobWzskAcqPtcloud.o JobWzskActExposure.o JobWzskActLaser.o JobWzskActServo.o JobWzskIprAngle.o JobWzskIprCorner.o JobWzskIprTrace.o JobWzskSrcArty.o JobWzskSrcClnxevb.o JobWzskSrcIcicle.o JobWzskSrcMcvevp.o JobWzskSrcMercbb.o JobWzskSrcPwmonuart.o JobWzskSrcPwmonusb.o JobWzskSrcSysinfo.o JobWzskSrcUvbdvk.o JobWzskSrcV4l2.o
+OBJS += RootWzsk.o M2msessWzsk.o SessWzsk.o JobWzskAcqCorner.o JobWzskAcqHdr.o JobWzskAcqMemtrack.o JobWzskAcqPreview.o JobWzskAcqTrace.o JobWzskAcqVtrtrack.o JobWzskActLaser.o JobWzskActRotary.o JobWzskActVistorot.o JobWzskPrcAngle.o JobWzskPrcWavelet.o JobWzskSrcDcvsp.o JobWzskSrcFpgainfo.o JobWzskSrcSysinfo.o JobWzskSrcTivsp.o JobWzskSrcZuvsp.o
 OBJS += Wzskcmbd_exe.o
 
 LIBPATH = -L=$(LIBROOT)
@@ -28,10 +28,11 @@ LIBPATH += -L=$(LIBROOT)/wzskcmbd
 LIBPATH += -L=${WHIZSDKROOT}/lib -L=/usr/lib
 LIBPATH += -L=/lib
 
-LIBS = -lcrdwzsknav -lcrdwzskusg -lcrdwzskusr -lcrdwzskprs -lcrdwzskscf -lcrdwzskllv -lcrdwzskliv -lcrdwzskogr -lcrdwzskobj -lcrdwzskses -lcrdwzsksht -lcrdwzskfil
+LIBS = -lcrdwzsknav -lcrdwzskusg -lcrdwzskusr -lcrdwzskprs -lcrdwzskprf -lcrdwzskllv -lcrdwzskvtr -lcrdwzskhwc -lcrdwzskfil
 LIBS += -liexwzsk -lvecwzsk -ldbswzsk
-LIBS += -lezdevpmnd -lezdevwskd -lmicrohttpd -lpng -lsbecore_lite -lsbecore_mon
-LIBS += -ldbecore -lsbecore_plus -lsqlite3
+LIBS += -lezdevwskd -lmicrohttpd -lsbecore_lite -lsbecore_mon
+LIBS += -ldbecore -lsqlite3
+LIBS += -lsbecore_plus
 LIBS += -lsbecore
 LIBS += -ljsoncpp -lxml2
 LIBS += -lpthread

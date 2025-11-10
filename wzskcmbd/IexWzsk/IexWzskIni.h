@@ -2,8 +2,8 @@
 	* \file IexWzskIni.h
 	* data blocks and readers/writers for import/export complex IexWzskIni (declarations)
 	* \copyright (C) 2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -33,10 +33,6 @@
 #define ImeitemIWzskIniAVValuelistVal IexWzskIni::ImeitemIAVValuelistVal
 #define ImeIWzskIniAVValuelistVal IexWzskIni::ImeIAVValuelistVal
 #define VecWImeIWzskIniAVValuelistValIel IexWzskIni::ImeIAVValuelistVal::VecWIel
-
-#define ImeitemIWzskIniMFile IexWzskIni::ImeitemIMFile
-#define ImeIWzskIniMFile IexWzskIni::ImeIMFile
-#define VecWImeIWzskIniMFileIel IexWzskIni::ImeIMFile::VecWIel
 
 #define ImeitemIWzskIniAMUsergroupAccess IexWzskIni::ImeitemIAMUsergroupAccess
 #define ImeIWzskIniAMUsergroupAccess IexWzskIni::ImeIAMUsergroupAccess
@@ -84,10 +80,9 @@ namespace IexWzskIni {
 		static const Sbecore::uint IMEIJAVKEYLISTKEY = 6;
 		static const Sbecore::uint IMEIJMPERSONLASTNAME = 7;
 		static const Sbecore::uint IMEIJMUSERSTATE = 8;
-		static const Sbecore::uint IMEIMFILE = 9;
-		static const Sbecore::uint IMEIMPERSON = 10;
-		static const Sbecore::uint IMEIMUSER = 11;
-		static const Sbecore::uint IMEIMUSERGROUP = 12;
+		static const Sbecore::uint IMEIMPERSON = 9;
+		static const Sbecore::uint IMEIMUSER = 10;
+		static const Sbecore::uint IMEIMUSERGROUP = 11;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -332,66 +327,6 @@ namespace IexWzskIni {
 
 	public:
 		std::vector<ImeitemIAVValuelistVal*> nodes;
-
-	public:
-		void clear();
-
-		void readTxt(Sbecore::Txtrd& txtrd);
-		void readXML(xmlXPathContext* docctx, std::string basexpath);
-
-		void writeTxt(std::fstream& outfile);
-		void writeXML(xmlTextWriter* wr, const bool shorttags = true);
-	};
-
-	/**
-		* ImeitemIMFile (full: ImeitemIWzskIniMFile)
-		*/
-	class ImeitemIMFile : public WzskMFile {
-
-	public:
-		ImeitemIMFile(const std::string& osrefKContent = "", const std::string& Filename = "", const std::string& srefKMimetype = "", const std::string& Comment = "");
-		ImeitemIMFile(DbsWzsk* dbswzsk, const Sbecore::ubigint ref);
-
-	public:
-		Sbecore::uint lineno;
-		Sbecore::uint ixWIelValid;
-
-	public:
-		void readTxt(Sbecore::Txtrd& txtrd);
-		void readXML(xmlXPathContext* docctx, const std::string& basexpath);
-
-		void writeTxt(std::fstream& outfile);
-		void writeXML(xmlTextWriter* wr, const Sbecore::uint num, const bool shorttags = true);
-	};
-
-	/**
-		* ImeIMFile (full: ImeIWzskIniMFile)
-		*/
-	class ImeIMFile {
-
-	public:
-		/**
-			* VecWIel (full: VecWImeIWzskIniMFileIel)
-			*/
-		class VecWIel {
-
-		public:
-			static const Sbecore::uint OSREFKCONTENT = 1;
-			static const Sbecore::uint FILENAME = 2;
-			static const Sbecore::uint SREFKMIMETYPE = 4;
-			static const Sbecore::uint COMMENT = 8;
-
-			static Sbecore::uint getIx(const std::string& srefs);
-			static void getIcs(const Sbecore::uint ix, std::set<Sbecore::uint>& ics);
-			static std::string getSrefs(const Sbecore::uint ix);
-		};
-
-	public:
-		ImeIMFile();
-		~ImeIMFile();
-
-	public:
-		std::vector<ImeitemIMFile*> nodes;
 
 	public:
 		void clear();
@@ -838,14 +773,14 @@ namespace IexWzskIni {
 		void writeXML(xmlTextWriter* wr, const bool shorttags = true);
 	};
 
-	void parseFromFile(const std::string& fullpath, const bool xmlNotTxt, const std::string& rectpath, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMFile& imeimfile, ImeIMUsergroup& imeimusergroup);
-	void exportToFile(const std::string& fullpath, const bool xmlNotTxt, const bool shorttags, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMFile& imeimfile, ImeIMUsergroup& imeimusergroup);
+	void parseFromFile(const std::string& fullpath, const bool xmlNotTxt, const std::string& rectpath, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMUsergroup& imeimusergroup);
+	void exportToFile(const std::string& fullpath, const bool xmlNotTxt, const bool shorttags, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMUsergroup& imeimusergroup);
 
-	void readTxt(Sbecore::Txtrd& txtrd, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMFile& imeimfile, ImeIMUsergroup& imeimusergroup);
-	void readXML(xmlXPathContext* docctx, std::string basexpath, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMFile& imeimfile, ImeIMUsergroup& imeimusergroup);
+	void readTxt(Sbecore::Txtrd& txtrd, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMUsergroup& imeimusergroup);
+	void readXML(xmlXPathContext* docctx, std::string basexpath, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMUsergroup& imeimusergroup);
 
-	void writeTxt(std::fstream& outfile, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMFile& imeimfile, ImeIMUsergroup& imeimusergroup);
-	void writeXML(xmlTextWriter* wr, const bool shorttags, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMFile& imeimfile, ImeIMUsergroup& imeimusergroup);
+	void writeTxt(std::fstream& outfile, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMUsergroup& imeimusergroup);
+	void writeXML(xmlTextWriter* wr, const bool shorttags, ImeIAVControlPar& imeiavcontrolpar, ImeIAVKeylistKey& imeiavkeylistkey, ImeIAVValuelistVal& imeiavvaluelistval, ImeIMUsergroup& imeimusergroup);
 
 	std::map<Sbecore::uint,Sbecore::uint> icsWzskVIopInsAll();
 	Sbecore::uint getIxWzskVIop(const std::map<Sbecore::uint,Sbecore::uint>& icsWzskVIop, const Sbecore::uint ixVIme, Sbecore::uint& ixWzskVIop);

@@ -2,8 +2,8 @@
 	* \file PnlWzskNavHeadbar_evals.cpp
 	* job handler for job PnlWzskNavHeadbar (implementation of availability/activation evaluation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -14,7 +14,7 @@ using namespace Xmlio;
 bool PnlWzskNavHeadbar::evalMenCrdAvail(
 			DbsWzsk* dbswzsk
 		) {
-	// MspCrd1Avail()|MspCrd2Avail()|MspCrd3Avail()
+	// MspCrd1Avail()|MspCrd2Avail()
 
 	vector<bool> args;
 	bool a, b;
@@ -23,11 +23,6 @@ bool PnlWzskNavHeadbar::evalMenCrdAvail(
 	args.push_back(a);
 	a = false; a = evalMspCrd2Avail(dbswzsk);
 	args.push_back(a);
-	a = false; a = evalMspCrd3Avail(dbswzsk);
-	args.push_back(a);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a || b);
 	b = args.back(); args.pop_back();
 	a = args.back(); args.pop_back();
 	args.push_back(a || b);
@@ -38,7 +33,7 @@ bool PnlWzskNavHeadbar::evalMenCrdAvail(
 bool PnlWzskNavHeadbar::evalMspCrd1Avail(
 			DbsWzsk* dbswzsk
 		) {
-	// MitCrdUsgAvail()|MitCrdUsrAvail()|MitCrdPrsAvail()|MitCrdScfAvail()
+	// MitCrdUsgAvail()|MitCrdUsrAvail()|MitCrdPrsAvail()|MitCrdPrfAvail()
 
 	vector<bool> args;
 	bool a, b;
@@ -49,7 +44,7 @@ bool PnlWzskNavHeadbar::evalMspCrd1Avail(
 	args.push_back(a);
 	a = false; a = evalMitCrdPrsAvail(dbswzsk);
 	args.push_back(a);
-	a = false; a = evalMitCrdScfAvail(dbswzsk);
+	a = false; a = evalMitCrdPrfAvail(dbswzsk);
 	args.push_back(a);
 	b = args.back(); args.pop_back();
 	a = args.back(); args.pop_back();
@@ -106,15 +101,15 @@ bool PnlWzskNavHeadbar::evalMitCrdPrsAvail(
 	return(args.back());
 };
 
-bool PnlWzskNavHeadbar::evalMitCrdScfAvail(
+bool PnlWzskNavHeadbar::evalMitCrdPrfAvail(
 			DbsWzsk* dbswzsk
 		) {
-	// pre.ixCrdaccScf()
+	// pre.ixCrdaccPrf()
 
 	vector<bool> args;
 	bool a;
 
-	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCSCF, jref) != 0);
+	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCPRF, jref) != 0);
 	args.push_back(a);
 
 	return(args.back());
@@ -123,15 +118,25 @@ bool PnlWzskNavHeadbar::evalMitCrdScfAvail(
 bool PnlWzskNavHeadbar::evalMspCrd2Avail(
 			DbsWzsk* dbswzsk
 		) {
-	// MitCrdLlvAvail()|MitCrdLivAvail()
+	// MitCrdLlvAvail()|MitCrdVtrAvail()|MitCrdHwcAvail()|MitCrdFilAvail()
 
 	vector<bool> args;
 	bool a, b;
 
 	a = false; a = evalMitCrdLlvAvail(dbswzsk);
 	args.push_back(a);
-	a = false; a = evalMitCrdLivAvail(dbswzsk);
+	a = false; a = evalMitCrdVtrAvail(dbswzsk);
 	args.push_back(a);
+	a = false; a = evalMitCrdHwcAvail(dbswzsk);
+	args.push_back(a);
+	a = false; a = evalMitCrdFilAvail(dbswzsk);
+	args.push_back(a);
+	b = args.back(); args.pop_back();
+	a = args.back(); args.pop_back();
+	args.push_back(a || b);
+	b = args.back(); args.pop_back();
+	a = args.back(); args.pop_back();
+	args.push_back(a || b);
 	b = args.back(); args.pop_back();
 	a = args.back(); args.pop_back();
 	args.push_back(a || b);
@@ -153,105 +158,29 @@ bool PnlWzskNavHeadbar::evalMitCrdLlvAvail(
 	return(args.back());
 };
 
-bool PnlWzskNavHeadbar::evalMitCrdLivAvail(
+bool PnlWzskNavHeadbar::evalMitCrdVtrAvail(
 			DbsWzsk* dbswzsk
 		) {
-	// pre.ixCrdaccLiv()
+	// pre.ixCrdaccVtr()
 
 	vector<bool> args;
 	bool a;
 
-	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCLIV, jref) != 0);
+	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCVTR, jref) != 0);
 	args.push_back(a);
 
 	return(args.back());
 };
 
-bool PnlWzskNavHeadbar::evalMspCrd3Avail(
+bool PnlWzskNavHeadbar::evalMitCrdHwcAvail(
 			DbsWzsk* dbswzsk
 		) {
-	// MitCrdOgrAvail()|MitCrdObjAvail()|MitCrdSesAvail()|MitCrdShtAvail()|MitCrdFilAvail()
-
-	vector<bool> args;
-	bool a, b;
-
-	a = false; a = evalMitCrdOgrAvail(dbswzsk);
-	args.push_back(a);
-	a = false; a = evalMitCrdObjAvail(dbswzsk);
-	args.push_back(a);
-	a = false; a = evalMitCrdSesAvail(dbswzsk);
-	args.push_back(a);
-	a = false; a = evalMitCrdShtAvail(dbswzsk);
-	args.push_back(a);
-	a = false; a = evalMitCrdFilAvail(dbswzsk);
-	args.push_back(a);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a || b);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a || b);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a || b);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a || b);
-
-	return(args.back());
-};
-
-bool PnlWzskNavHeadbar::evalMitCrdOgrAvail(
-			DbsWzsk* dbswzsk
-		) {
-	// pre.ixCrdaccOgr()
+	// pre.ixCrdaccHwc()
 
 	vector<bool> args;
 	bool a;
 
-	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCOGR, jref) != 0);
-	args.push_back(a);
-
-	return(args.back());
-};
-
-bool PnlWzskNavHeadbar::evalMitCrdObjAvail(
-			DbsWzsk* dbswzsk
-		) {
-	// pre.ixCrdaccObj()
-
-	vector<bool> args;
-	bool a;
-
-	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCOBJ, jref) != 0);
-	args.push_back(a);
-
-	return(args.back());
-};
-
-bool PnlWzskNavHeadbar::evalMitCrdSesAvail(
-			DbsWzsk* dbswzsk
-		) {
-	// pre.ixCrdaccSes()
-
-	vector<bool> args;
-	bool a;
-
-	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCSES, jref) != 0);
-	args.push_back(a);
-
-	return(args.back());
-};
-
-bool PnlWzskNavHeadbar::evalMitCrdShtAvail(
-			DbsWzsk* dbswzsk
-		) {
-	// pre.ixCrdaccSht()
-
-	vector<bool> args;
-	bool a;
-
-	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCSHT, jref) != 0);
+	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCHWC, jref) != 0);
 	args.push_back(a);
 
 	return(args.back());

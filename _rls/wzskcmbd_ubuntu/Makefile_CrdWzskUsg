@@ -2,7 +2,7 @@
 # make file for CrdWzskUsg card job handler, release wzskcmbd_ubuntu
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 12 Sep 2022
+# date created: 12 Oct 2025
 # IP header --- ABOVE
 
 include ../Makefile.inc
@@ -14,9 +14,9 @@ STATLIB = ar
 STATLIBFLAGS = rcs
 
 INCPATH = -I$(BUILDROOT)/dbswzsk -I$(BUILDROOT)/wzskcmbd/VecWzsk -I$(BUILDROOT)/wzskcmbd/IexWzsk -I$(BUILDROOT)/wzskcmbd
-INCPATH += -I${WHIZSDKROOT}/build -I${WHIZSDKROOT}/build/ezdevpmnd -I${WHIZSDKROOT}/build/ezdevwskd -I/usr/include -I/usr/include/jsoncpp -I/usr/include/libxml2
+INCPATH += -I${WHIZSDKROOT}/build -I${WHIZSDKROOT}/build/ezdevwskd -I/usr/include -I/usr/include/jsoncpp -I/usr/include/libxml2
 
-OBJS = CrdWzskUsg.o PnlWzskUsgList.o QryWzskUsgList.o PnlWzskUsgHeadbar.o PnlWzskUsgRec.o PnlWzskUsgMNUser.o QryWzskUsgMNUser.o PnlWzskUsgAAccess.o QryWzskUsgAAccess.o PnlWzskUsgDetail.o
+OBJS = CrdWzskUsg.o PnlWzskUsgRec.o PnlWzskUsgDetail.o PnlWzskUsgAAccess.o QryWzskUsgAAccess.o PnlWzskUsgMNUser.o QryWzskUsgMNUser.o PnlWzskUsgHeadbar.o PnlWzskUsgList.o QryWzskUsgList.o
 
 LIB = libcrdwzskusg
 

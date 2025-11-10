@@ -2,8 +2,8 @@
 	* \file WzskQFilList.cpp
 	* API code for table TblWzskQFilList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -29,20 +29,21 @@ WzskQFilList::WzskQFilList(
 			, const string titOsrefKContent
 			, const string srefKMimetype
 			, const string titSrefKMimetype
-			, const usmallint Size
-		) {
-	this->jnum = jnum;
-	this->stubGrp = stubGrp;
-	this->stubOwn = stubOwn;
-	this->Filename = Filename;
-	this->srefRefIxVTbl = srefRefIxVTbl;
-	this->titRefIxVTbl = titRefIxVTbl;
-	this->stubRefUref = stubRefUref;
-	this->osrefKContent = osrefKContent;
-	this->titOsrefKContent = titOsrefKContent;
-	this->srefKMimetype = srefKMimetype;
-	this->titSrefKMimetype = titSrefKMimetype;
-	this->Size = Size;
+			, const uint Size
+		) :
+			jnum(jnum)
+			, stubGrp(stubGrp)
+			, stubOwn(stubOwn)
+			, Filename(Filename)
+			, srefRefIxVTbl(srefRefIxVTbl)
+			, titRefIxVTbl(titRefIxVTbl)
+			, stubRefUref(stubRefUref)
+			, osrefKContent(osrefKContent)
+			, titOsrefKContent(titOsrefKContent)
+			, srefKMimetype(srefKMimetype)
+			, titSrefKMimetype(titSrefKMimetype)
+			, Size(Size)
+		{
 };
 
 bool WzskQFilList::readXML(
@@ -68,7 +69,7 @@ bool WzskQFilList::readXML(
 		extractStringUclc(docctx, basexpath, "titOsrefKContent", "cnt2", titOsrefKContent);
 		extractStringUclc(docctx, basexpath, "srefKMimetype", "mim", srefKMimetype);
 		extractStringUclc(docctx, basexpath, "titSrefKMimetype", "mim2", titSrefKMimetype);
-		extractUsmallintUclc(docctx, basexpath, "Size", "siz", Size);
+		extractUintUclc(docctx, basexpath, "Size", "siz", Size);
 	};
 
 	return basefound;

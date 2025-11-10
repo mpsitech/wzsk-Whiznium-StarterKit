@@ -2,8 +2,8 @@
 	* \file WzskQSelect.cpp
 	* Dbs and XML wrapper for table TblWzskQSelect (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -23,12 +23,13 @@ WzskQSelect::WzskQSelect(
 			, const uint jnum
 			, const uint ix
 			, const ubigint ref
-		) {
-	this->qref = qref;
-	this->jref = jref;
-	this->jnum = jnum;
-	this->ix = ix;
-	this->ref = ref;
+		) :
+			qref(qref)
+			, jref(jref)
+			, jnum(jnum)
+			, ix(ix)
+			, ref(ref)
+		{
 };
 
 void WzskQSelect::writeJSON(

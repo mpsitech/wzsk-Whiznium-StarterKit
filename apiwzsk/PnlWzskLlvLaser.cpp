@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvLaser.cpp
 	* API code for job PnlWzskLlvLaser (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -49,11 +49,10 @@ PnlWzskLlvLaser::ContIac::ContIac(
 			, const double SldLri
 		) :
 			Block()
+			, ChkErg(ChkErg)
+			, SldLle(SldLle)
+			, SldLri(SldLri)
 		{
-	this->ChkErg = ChkErg;
-	this->SldLle = SldLle;
-	this->SldLri = SldLri;
-
 	mask = {CHKERG, SLDLLE, SLDLRI};
 };
 
@@ -134,9 +133,8 @@ PnlWzskLlvLaser::ContInf::ContInf(
 			const bool ButClaimOn
 		) :
 			Block()
+			, ButClaimOn(ButClaimOn)
 		{
-	this->ButClaimOn = ButClaimOn;
-
 	mask = {BUTCLAIMON};
 };
 
@@ -202,16 +200,15 @@ PnlWzskLlvLaser::StatShr::StatShr(
 			, const double SldLriMax
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, ButClaimActive(ButClaimActive)
+			, SldLleActive(SldLleActive)
+			, SldLleMin(SldLleMin)
+			, SldLleMax(SldLleMax)
+			, SldLriActive(SldLriActive)
+			, SldLriMin(SldLriMin)
+			, SldLriMax(SldLriMax)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->ButClaimActive = ButClaimActive;
-	this->SldLleActive = SldLleActive;
-	this->SldLleMin = SldLleMin;
-	this->SldLleMax = SldLleMax;
-	this->SldLriActive = SldLriActive;
-	this->SldLriMin = SldLriMin;
-	this->SldLriMax = SldLriMax;
-
 	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDLLEACTIVE, SLDLLEMIN, SLDLLEMAX, SLDLRIACTIVE, SLDLRIMIN, SLDLRIMAX};
 };
 
@@ -292,12 +289,11 @@ PnlWzskLlvLaser::Tag::Tag(
 			, const string& CptLri
 		) :
 			Block()
+			, Cpt(Cpt)
+			, CptErg(CptErg)
+			, CptLle(CptLle)
+			, CptLri(CptLri)
 		{
-	this->Cpt = Cpt;
-	this->CptErg = CptErg;
-	this->CptLle = CptLle;
-	this->CptLri = CptLri;
-
 	mask = {CPT, CPTERG, CPTLLE, CPTLRI};
 };
 
@@ -376,11 +372,11 @@ PnlWzskLlvLaser::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKLLVLASERDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string PnlWzskLlvLaser::DpchAppDo::getSrefsMask() {

@@ -2,8 +2,8 @@
 	* \file WzskQUsrList.cpp
 	* Dbs and XML wrapper for table TblWzskQUsrList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -40,29 +40,30 @@ WzskQUsrList::WzskQUsrList(
 			, const uint ixWzskVUserlevel
 			, const string srefIxWzskVUserlevel
 			, const string titIxWzskVUserlevel
-		) {
-	this->qref = qref;
-	this->jref = jref;
-	this->jnum = jnum;
-	this->ref = ref;
-	this->grp = grp;
-	this->stubGrp = stubGrp;
-	this->own = own;
-	this->stubOwn = stubOwn;
-	this->refWzskMPerson = refWzskMPerson;
-	this->stubRefWzskMPerson = stubRefWzskMPerson;
-	this->sref = sref;
-	this->refWzskMUsergroup = refWzskMUsergroup;
-	this->stubRefWzskMUsergroup = stubRefWzskMUsergroup;
-	this->ixVState = ixVState;
-	this->srefIxVState = srefIxVState;
-	this->titIxVState = titIxVState;
-	this->ixWzskVLocale = ixWzskVLocale;
-	this->srefIxWzskVLocale = srefIxWzskVLocale;
-	this->titIxWzskVLocale = titIxWzskVLocale;
-	this->ixWzskVUserlevel = ixWzskVUserlevel;
-	this->srefIxWzskVUserlevel = srefIxWzskVUserlevel;
-	this->titIxWzskVUserlevel = titIxWzskVUserlevel;
+		) :
+			qref(qref)
+			, jref(jref)
+			, jnum(jnum)
+			, ref(ref)
+			, grp(grp)
+			, stubGrp(stubGrp)
+			, own(own)
+			, stubOwn(stubOwn)
+			, refWzskMPerson(refWzskMPerson)
+			, stubRefWzskMPerson(stubRefWzskMPerson)
+			, sref(sref)
+			, refWzskMUsergroup(refWzskMUsergroup)
+			, stubRefWzskMUsergroup(stubRefWzskMUsergroup)
+			, ixVState(ixVState)
+			, srefIxVState(srefIxVState)
+			, titIxVState(titIxVState)
+			, ixWzskVLocale(ixWzskVLocale)
+			, srefIxWzskVLocale(srefIxWzskVLocale)
+			, titIxWzskVLocale(titIxWzskVLocale)
+			, ixWzskVUserlevel(ixWzskVUserlevel)
+			, srefIxWzskVUserlevel(srefIxWzskVUserlevel)
+			, titIxWzskVUserlevel(titIxWzskVUserlevel)
+		{
 };
 
 void WzskQUsrList::writeJSON(

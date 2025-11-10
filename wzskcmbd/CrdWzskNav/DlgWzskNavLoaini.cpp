@@ -2,8 +2,8 @@
 	* \file DlgWzskNavLoaini.cpp
 	* job handler for job DlgWzskNavLoaini (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -105,8 +105,8 @@ void DlgWzskNavLoaini::refreshImp(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
-	StatShrImp oldStatshrimp(statshrimp);
 	ContInfImp oldContinfimp(continfimp);
+	StatShrImp oldStatshrimp(statshrimp);
 
 	// IP refreshImp --- RBEGIN
 	// continfimp
@@ -117,27 +117,26 @@ void DlgWzskNavLoaini::refreshImp(
 	statshrimp.ButStoActive = evalImpButStoActive(dbswzsk);
 
 	// IP refreshImp --- REND
-	if (statshrimp.diff(&oldStatshrimp).size() != 0) insert(moditems, DpchEngData::STATSHRIMP);
 	if (continfimp.diff(&oldContinfimp).size() != 0) insert(moditems, DpchEngData::CONTINFIMP);
+	if (statshrimp.diff(&oldStatshrimp).size() != 0) insert(moditems, DpchEngData::STATSHRIMP);
 };
 
 void DlgWzskNavLoaini::refreshLfi(
 			DbsWzsk* dbswzsk
 			, set<uint>& moditems
 		) {
-	ContInfLfi oldContinflfi(continflfi);
 	StatShrLfi oldStatshrlfi(statshrlfi);
+	ContInfLfi oldContinflfi(continflfi);
 
-	// IP refreshLfi --- RBEGIN
+	// IP refreshLfi --- BEGIN
 	// statshrlfi
 	statshrlfi.DldActive = evalLfiDldActive(dbswzsk);
 
 	// continflfi
-	continflfi.Dld = "log.txt";
 
-	// IP refreshLfi --- REND
-	if (continflfi.diff(&oldContinflfi).size() != 0) insert(moditems, DpchEngData::CONTINFLFI);
+	// IP refreshLfi --- END
 	if (statshrlfi.diff(&oldStatshrlfi).size() != 0) insert(moditems, DpchEngData::STATSHRLFI);
+	if (continflfi.diff(&oldContinflfi).size() != 0) insert(moditems, DpchEngData::CONTINFLFI);
 };
 
 void DlgWzskNavLoaini::refresh(
@@ -148,24 +147,24 @@ void DlgWzskNavLoaini::refresh(
 	if (muteRefresh && !unmute) return;
 	muteRefresh = true;
 
-	StatShr oldStatshr(statshr);
 	ContInf oldContinf(continf);
 	ContIac oldContiac(contiac);
+	StatShr oldStatshr(statshr);
 
 	// IP refresh --- BEGIN
-	// statshr
-	statshr.ButDneActive = evalButDneActive(dbswzsk);
-
 	// continf
 	continf.numFSge = ixVSge;
 
 	// contiac
 	contiac.numFDse = ixVDit;
 
+	// statshr
+	statshr.ButDneActive = evalButDneActive(dbswzsk);
+
 	// IP refresh --- END
-	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
+	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 
 	refreshIfi(dbswzsk, moditems);
 	refreshImp(dbswzsk, moditems);
@@ -229,9 +228,9 @@ void DlgWzskNavLoaini::handleRequest(
 		req->filename = handleDownload(dbswzsk);
 
 	} else if (req->ixVBasetype == ReqWzsk::VecVBasetype::TIMER) {
-		if (ixVSge == VecVSge::IMPIDLE) handleTimerInSgeImpidle(dbswzsk, req->sref);
+		if (ixVSge == VecVSge::PRSIDLE) handleTimerInSgePrsidle(dbswzsk, req->sref);
+		else if (ixVSge == VecVSge::IMPIDLE) handleTimerInSgeImpidle(dbswzsk, req->sref);
 		else if ((req->sref == "mon") && (ixVSge == VecVSge::IMPORT)) handleTimerWithSrefMonInSgeImport(dbswzsk);
-		else if (ixVSge == VecVSge::PRSIDLE) handleTimerInSgePrsidle(dbswzsk, req->sref);
 	};
 };
 
@@ -321,6 +320,13 @@ string DlgWzskNavLoaini::handleDownload(
 	return(""); // IP handleDownload --- LINE
 };
 
+void DlgWzskNavLoaini::handleTimerInSgePrsidle(
+			DbsWzsk* dbswzsk
+			, const string& sref
+		) {
+	changeStage(dbswzsk, nextIxVSgeSuccess);
+};
+
 void DlgWzskNavLoaini::handleTimerInSgeImpidle(
 			DbsWzsk* dbswzsk
 			, const string& sref
@@ -333,13 +339,6 @@ void DlgWzskNavLoaini::handleTimerWithSrefMonInSgeImport(
 		) {
 	wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
 	refreshWithDpchEng(dbswzsk); // IP handleTimerWithSrefMonInSgeImport --- ILINE
-};
-
-void DlgWzskNavLoaini::handleTimerInSgePrsidle(
-			DbsWzsk* dbswzsk
-			, const string& sref
-		) {
-	changeStage(dbswzsk, nextIxVSgeSuccess);
 };
 
 void DlgWzskNavLoaini::changeStage(
@@ -390,13 +389,7 @@ string DlgWzskNavLoaini::getSquawk(
 	string retval;
 	// IP getSquawk --- RBEGIN
 	if ( (ixVSge == VecVSge::PARSE) || (ixVSge == VecVSge::ALRWZSKPER) || (ixVSge == VecVSge::PRSDONE) || (ixVSge == VecVSge::IMPORT) || (ixVSge == VecVSge::ALRWZSKIER) ) {
-		if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			if (ixVSge == VecVSge::PARSE) retval = "lese Initialisierungsdaten ein";
-			else if (ixVSge == VecVSge::ALRWZSKPER) retval = "Fehler beim Einlesen";
-			else if (ixVSge == VecVSge::PRSDONE) retval = "Initialisierungsdaten eingelesen";
-			else if (ixVSge == VecVSge::IMPORT) retval = "importiere Initialisierungsdaten (" + to_string(iex->impcnt) + " Datens\\u00e4tze hinzugef\\u00fcgt)";
-			else if (ixVSge == VecVSge::ALRWZSKIER) retval = "Fehler beim Importieren";
-		} else if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			if (ixVSge == VecVSge::PARSE) retval = "parsing initialization data";
 			else if (ixVSge == VecVSge::ALRWZSKPER) retval = "parse error";
 			else if (ixVSge == VecVSge::PRSDONE) retval = "initialization data parsed";

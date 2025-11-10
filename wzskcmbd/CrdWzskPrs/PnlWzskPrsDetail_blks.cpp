@@ -2,8 +2,8 @@
 	* \file PnlWzskPrsDetail_blks.cpp
 	* job handler for job PnlWzskPrsDetail (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -50,16 +50,15 @@ PnlWzskPrsDetail::ContIac::ContIac(
 			, const string& TxfSal
 		) :
 			Block()
+			, TxfTit(TxfTit)
+			, TxfFnm(TxfFnm)
+			, numFPupJ(numFPupJ)
+			, numsFLstDrv(numsFLstDrv)
+			, numFPupSex(numFPupSex)
+			, TxfTel(TxfTel)
+			, TxfEml(TxfEml)
+			, TxfSal(TxfSal)
 		{
-	this->TxfTit = TxfTit;
-	this->TxfFnm = TxfFnm;
-	this->numFPupJ = numFPupJ;
-	this->numsFLstDrv = numsFLstDrv;
-	this->numFPupSex = numFPupSex;
-	this->TxfTel = TxfTel;
-	this->TxfEml = TxfEml;
-	this->TxfSal = TxfSal;
-
 	mask = {TXFTIT, TXFFNM, NUMFPUPJ, NUMSFLSTDRV, NUMFPUPSEX, TXFTEL, TXFEML, TXFSAL};
 };
 
@@ -129,9 +128,9 @@ void PnlWzskPrsDetail::ContIac::writeJSON(
 
 	me["TxfTit"] = TxfTit;
 	me["TxfFnm"] = TxfFnm;
-	me["numFPupJ"] = numFPupJ;
+	me["numFPupJ"] = (Json::Value::UInt) numFPupJ;
 	Jsonio::writeUintvec(me, "numsFLstDrv", numsFLstDrv);
-	me["numFPupSex"] = numFPupSex;
+	me["numFPupSex"] = (Json::Value::UInt) numFPupSex;
 	me["TxfTel"] = TxfTel;
 	me["TxfEml"] = TxfEml;
 	me["TxfSal"] = TxfSal;
@@ -200,10 +199,9 @@ PnlWzskPrsDetail::ContInf::ContInf(
 			, const string& TxtDrv
 		) :
 			Block()
+			, TxtLnm(TxtLnm)
+			, TxtDrv(TxtDrv)
 		{
-	this->TxtLnm = TxtLnm;
-	this->TxtDrv = TxtDrv;
-
 	mask = {TXTLNM, TXTDRV};
 };
 
@@ -278,7 +276,7 @@ void PnlWzskPrsDetail::StatApp::writeJSON(
 
 	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
 	me["LstDrvAlt"] = LstDrvAlt;
-	me["LstDrvNumFirstdisp"] = LstDrvNumFirstdisp;
+	me["LstDrvNumFirstdisp"] = (Json::Value::UInt) LstDrvNumFirstdisp;
 };
 
 void PnlWzskPrsDetail::StatApp::writeXML(
@@ -321,20 +319,19 @@ PnlWzskPrsDetail::StatShr::StatShr(
 			, const bool TxfSalActive
 		) :
 			Block()
+			, ButSaveAvail(ButSaveAvail)
+			, ButSaveActive(ButSaveActive)
+			, TxfTitActive(TxfTitActive)
+			, TxfFnmActive(TxfFnmActive)
+			, PupJActive(PupJActive)
+			, ButJEditAvail(ButJEditAvail)
+			, TxtLnmActive(TxtLnmActive)
+			, LstDrvActive(LstDrvActive)
+			, PupSexActive(PupSexActive)
+			, TxfTelActive(TxfTelActive)
+			, TxfEmlActive(TxfEmlActive)
+			, TxfSalActive(TxfSalActive)
 		{
-	this->ButSaveAvail = ButSaveAvail;
-	this->ButSaveActive = ButSaveActive;
-	this->TxfTitActive = TxfTitActive;
-	this->TxfFnmActive = TxfFnmActive;
-	this->PupJActive = PupJActive;
-	this->ButJEditAvail = ButJEditAvail;
-	this->TxtLnmActive = TxtLnmActive;
-	this->LstDrvActive = LstDrvActive;
-	this->PupSexActive = PupSexActive;
-	this->TxfTelActive = TxfTelActive;
-	this->TxfEmlActive = TxfEmlActive;
-	this->TxfSalActive = TxfSalActive;
-
 	mask = {BUTSAVEAVAIL, BUTSAVEACTIVE, TXFTITACTIVE, TXFFNMACTIVE, PUPJACTIVE, BUTJEDITAVAIL, TXTLNMACTIVE, LSTDRVACTIVE, PUPSEXACTIVE, TXFTELACTIVE, TXFEMLACTIVE, TXFSALACTIVE};
 };
 
@@ -444,15 +441,6 @@ void PnlWzskPrsDetail::Tag::writeJSON(
 		me["CptTel"] = "phone";
 		me["CptEml"] = "e-mail";
 		me["CptSal"] = "salutation";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["CptTit"] = "Title";
-		me["CptFnm"] = "Vorname";
-		me["CptLnm"] = "Nachname";
-		me["CptDrv"] = "";
-		me["CptSex"] = "sex";
-		me["CptTel"] = "Telefon";
-		me["CptEml"] = "E-Mail";
-		me["CptSal"] = "Briefanrede";
 	};
 	me["Cpt"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DETAIL, ixWzskVLocale));
 };
@@ -479,15 +467,6 @@ void PnlWzskPrsDetail::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "CptTel", "phone");
 			writeStringAttr(wr, itemtag, "sref", "CptEml", "e-mail");
 			writeStringAttr(wr, itemtag, "sref", "CptSal", "salutation");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "CptTit", "Title");
-			writeStringAttr(wr, itemtag, "sref", "CptFnm", "Vorname");
-			writeStringAttr(wr, itemtag, "sref", "CptLnm", "Nachname");
-			writeStringAttr(wr, itemtag, "sref", "CptDrv", "");
-			writeStringAttr(wr, itemtag, "sref", "CptSex", "sex");
-			writeStringAttr(wr, itemtag, "sref", "CptTel", "Telefon");
-			writeStringAttr(wr, itemtag, "sref", "CptEml", "E-Mail");
-			writeStringAttr(wr, itemtag, "sref", "CptSal", "Briefanrede");
 		};
 		writeStringAttr(wr, itemtag, "sref", "Cpt", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DETAIL, ixWzskVLocale)));
 	xmlTextWriterEndElement(wr);

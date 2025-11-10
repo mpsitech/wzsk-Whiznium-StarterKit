@@ -2,23 +2,20 @@
 	* \file Wzsk.h
 	* Wzsk global functionality (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
 #ifndef WZSK_H
 #define WZSK_H
 
-#define WZSK_VERSION "1.0.17"
+#define WZSK_VERSION "1.2.6"
 #define WZSK_VERSION_MAJOR 1
-#define WZSK_VERSION_MINOR 0
-#define WZSK_VERSION_SUB 17
+#define WZSK_VERSION_MINOR 2
+#define WZSK_VERSION_SUB 6
 
-// IP include.cust --- IBEGIN
-#include "DevPmnd.h"
-#include "DevWskd.h"
-// IP include.cust --- IEND
+#include "DevWskd.h" // IP include.cust --- ILINE
 
 #include <fstream>
 #include <iostream>
@@ -38,10 +35,8 @@
 #include "VecWzskVMimetype.h"
 #include "VecWzskVOpengtype.h"
 #include "VecWzskVOppack.h"
-#include "VecWzskVPvwmode.h"
 #include "VecWzskVQrystate.h"
 #include "VecWzskVReqitmode.h"
-#include "VecWzskVSqrgrp.h"
 #include "VecWzskVStub.h"
 #include "VecWzskVTag.h"
 #include "VecWzskVTarget.h"
@@ -100,14 +95,9 @@ namespace Tmp {
 	*/
 namespace Wzsk {
 	// IP gbl --- IBEGIN
-	void getFlgWh(unsigned int& w, unsigned int& h);
-
-	void bitmapToXy(unsigned char* src, const bool src16Not8, const unsigned int width, const unsigned int height, std::vector<int>& xs, std::vector<int>& ys, const unsigned int cntPerRowMax, const bool roi, const std::vector<int>& xsRoi, const std::vector<int>& ysRoi, const bool rot180, const bool append);
-
-	void getPvwWh(const Sbecore::uint ixWzskVTarget, const Sbecore::uint ixWzskVPvwmode, unsigned int& w, unsigned int& h);
-	bool getPvwRawNotBin(const Sbecore::uint ixWzskVPvwmode);
-	bool getPvwGrayNotRgb(const Sbecore::uint ixWzskVPvwmode);
-	uint getIxWzskVPvwmode(const bool rawNotBin, const bool grayNotRgb);
+	void parseCmd(UntWskd& unt, std::string s, Dbecore::Cmd*& cmd);
+	Sbecore::uint getCmdix(UntWskd& unt, const std::string& cmdsref);
+	std::string getCmdsref(UntWskd& unt, const Sbecore::uint cmdix);
 
 	double getNow();
 	// IP gbl --- IEND
@@ -129,14 +119,10 @@ namespace StubWzsk {
 
 	std::string getStubFilStd(DbsWzsk* dbswzsk, const Sbecore::ubigint ref, const Sbecore::uint ixWzskVLocale = VecWzskVLocale::ENUS, const Sbecore::uint ixVNonetype = Sbecore::Stub::VecVNonetype::DASH, Sbecore::Stcch* stcch = NULL, Sbecore::stcchitemref_t* strefSub = NULL, const bool refresh = false);
 	std::string getStubGroup(DbsWzsk* dbswzsk, const Sbecore::ubigint ref, const Sbecore::uint ixWzskVLocale = VecWzskVLocale::ENUS, const Sbecore::uint ixVNonetype = Sbecore::Stub::VecVNonetype::DASH, Sbecore::Stcch* stcch = NULL, Sbecore::stcchitemref_t* strefSub = NULL, const bool refresh = false);
-	std::string getStubObjStd(DbsWzsk* dbswzsk, const Sbecore::ubigint ref, const Sbecore::uint ixWzskVLocale = VecWzskVLocale::ENUS, const Sbecore::uint ixVNonetype = Sbecore::Stub::VecVNonetype::DASH, Sbecore::Stcch* stcch = NULL, Sbecore::stcchitemref_t* strefSub = NULL, const bool refresh = false);
-	std::string getStubOgrHsref(DbsWzsk* dbswzsk, const Sbecore::ubigint ref, const Sbecore::uint ixWzskVLocale = VecWzskVLocale::ENUS, const Sbecore::uint ixVNonetype = Sbecore::Stub::VecVNonetype::DASH, Sbecore::Stcch* stcch = NULL, Sbecore::stcchitemref_t* strefSub = NULL, const bool refresh = false);
-	std::string getStubOgrStd(DbsWzsk* dbswzsk, const Sbecore::ubigint ref, const Sbecore::uint ixWzskVLocale = VecWzskVLocale::ENUS, const Sbecore::uint ixVNonetype = Sbecore::Stub::VecVNonetype::DASH, Sbecore::Stcch* stcch = NULL, Sbecore::stcchitemref_t* strefSub = NULL, const bool refresh = false);
 	std::string getStubOwner(DbsWzsk* dbswzsk, const Sbecore::ubigint ref, const Sbecore::uint ixWzskVLocale = VecWzskVLocale::ENUS, const Sbecore::uint ixVNonetype = Sbecore::Stub::VecVNonetype::DASH, Sbecore::Stcch* stcch = NULL, Sbecore::stcchitemref_t* strefSub = NULL, const bool refresh = false);
 	std::string getStubPrsStd(DbsWzsk* dbswzsk, const Sbecore::ubigint ref, const Sbecore::uint ixWzskVLocale = VecWzskVLocale::ENUS, const Sbecore::uint ixVNonetype = Sbecore::Stub::VecVNonetype::DASH, Sbecore::Stcch* stcch = NULL, Sbecore::stcchitemref_t* strefSub = NULL, const bool refresh = false);
 	std::string getStubSesMenu(DbsWzsk* dbswzsk, const Sbecore::ubigint ref, const Sbecore::uint ixWzskVLocale = VecWzskVLocale::ENUS, const Sbecore::uint ixVNonetype = Sbecore::Stub::VecVNonetype::DASH, Sbecore::Stcch* stcch = NULL, Sbecore::stcchitemref_t* strefSub = NULL, const bool refresh = false);
 	std::string getStubSesStd(DbsWzsk* dbswzsk, const Sbecore::ubigint ref, const Sbecore::uint ixWzskVLocale = VecWzskVLocale::ENUS, const Sbecore::uint ixVNonetype = Sbecore::Stub::VecVNonetype::DASH, Sbecore::Stcch* stcch = NULL, Sbecore::stcchitemref_t* strefSub = NULL, const bool refresh = false);
-	std::string getStubShtStd(DbsWzsk* dbswzsk, const Sbecore::ubigint ref, const Sbecore::uint ixWzskVLocale = VecWzskVLocale::ENUS, const Sbecore::uint ixVNonetype = Sbecore::Stub::VecVNonetype::DASH, Sbecore::Stcch* stcch = NULL, Sbecore::stcchitemref_t* strefSub = NULL, const bool refresh = false);
 	std::string getStubUsgStd(DbsWzsk* dbswzsk, const Sbecore::ubigint ref, const Sbecore::uint ixWzskVLocale = VecWzskVLocale::ENUS, const Sbecore::uint ixVNonetype = Sbecore::Stub::VecVNonetype::DASH, Sbecore::Stcch* stcch = NULL, Sbecore::stcchitemref_t* strefSub = NULL, const bool refresh = false);
 	std::string getStubUsrStd(DbsWzsk* dbswzsk, const Sbecore::ubigint ref, const Sbecore::uint ixWzskVLocale = VecWzskVLocale::ENUS, const Sbecore::uint ixVNonetype = Sbecore::Stub::VecVNonetype::DASH, Sbecore::Stcch* stcch = NULL, Sbecore::stcchitemref_t* strefSub = NULL, const bool refresh = false);
 };
@@ -147,10 +133,6 @@ namespace StubWzsk {
 class WzskException : public Sbecore::SbeException {
 
 public:
-	static const Sbecore::uint GPIO = 1001;
-	static const Sbecore::uint PWM = 1002;
-	static const Sbecore::uint SPIDEV = 1003;
-	static const Sbecore::uint V4L2 = 1004;
 
 public:
 	WzskException(const Sbecore::uint ix, const std::map<std::string,std::string>& vals);

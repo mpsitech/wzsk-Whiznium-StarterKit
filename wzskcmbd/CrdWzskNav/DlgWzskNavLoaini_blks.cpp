@@ -2,8 +2,8 @@
 	* \file DlgWzskNavLoaini_blks.cpp
 	* job handler for job DlgWzskNavLoaini (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -46,11 +46,6 @@ string DlgWzskNavLoaini::VecVDit::getTitle(
 		if (ix == IMP) return("Import");
 		if (ix == LFI) return("Log file");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == IFI) return("Initialisierungsdatei");
-		if (ix == IMP) return("Importieren");
-		if (ix == LFI) return("Protokoll");
-		return(getTitle(ix, 1));
 	};
 
 	return("");
@@ -165,9 +160,8 @@ DlgWzskNavLoaini::ContIac::ContIac(
 			const uint numFDse
 		) :
 			Block()
+			, numFDse(numFDse)
 		{
-	this->numFDse = numFDse;
-
 	mask = {NUMFDSE};
 };
 
@@ -221,7 +215,7 @@ void DlgWzskNavLoaini::ContIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFDse"] = numFDse;
+	me["numFDse"] = (Json::Value::UInt) numFDse;
 };
 
 void DlgWzskNavLoaini::ContIac::writeXML(
@@ -272,9 +266,8 @@ DlgWzskNavLoaini::ContInf::ContInf(
 			const uint numFSge
 		) :
 			Block()
+			, numFSge(numFSge)
 		{
-	this->numFSge = numFSge;
-
 	mask = {NUMFSGE};
 };
 
@@ -286,7 +279,7 @@ void DlgWzskNavLoaini::ContInf::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFSge"] = numFSge;
+	me["numFSge"] = (Json::Value::UInt) numFSge;
 };
 
 void DlgWzskNavLoaini::ContInf::writeXML(
@@ -337,9 +330,8 @@ DlgWzskNavLoaini::ContInfImp::ContInfImp(
 			const string& TxtPrg
 		) :
 			Block()
+			, TxtPrg(TxtPrg)
 		{
-	this->TxtPrg = TxtPrg;
-
 	mask = {TXTPRG};
 };
 
@@ -402,9 +394,8 @@ DlgWzskNavLoaini::ContInfLfi::ContInfLfi(
 			const string& Dld
 		) :
 			Block()
+			, Dld(Dld)
 		{
-	this->Dld = Dld;
-
 	mask = {DLD};
 };
 
@@ -504,9 +495,8 @@ DlgWzskNavLoaini::StatShr::StatShr(
 			const bool ButDneActive
 		) :
 			Block()
+			, ButDneActive(ButDneActive)
 		{
-	this->ButDneActive = ButDneActive;
-
 	mask = {BUTDNEACTIVE};
 };
 
@@ -569,9 +559,8 @@ DlgWzskNavLoaini::StatShrIfi::StatShrIfi(
 			const bool UldActive
 		) :
 			Block()
+			, UldActive(UldActive)
 		{
-	this->UldActive = UldActive;
-
 	mask = {ULDACTIVE};
 };
 
@@ -635,10 +624,9 @@ DlgWzskNavLoaini::StatShrImp::StatShrImp(
 			, const bool ButStoActive
 		) :
 			Block()
+			, ButRunActive(ButRunActive)
+			, ButStoActive(ButStoActive)
 		{
-	this->ButRunActive = ButRunActive;
-	this->ButStoActive = ButStoActive;
-
 	mask = {BUTRUNACTIVE, BUTSTOACTIVE};
 };
 
@@ -704,9 +692,8 @@ DlgWzskNavLoaini::StatShrLfi::StatShrLfi(
 			const bool DldActive
 		) :
 			Block()
+			, DldActive(DldActive)
 		{
-	this->DldActive = DldActive;
-
 	mask = {DLDACTIVE};
 };
 
@@ -775,7 +762,6 @@ void DlgWzskNavLoaini::Tag::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 	};
 	me["Cpt"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::LOAINI, ixWzskVLocale));
 	me["ButDne"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DONE, ixWzskVLocale));
@@ -795,7 +781,6 @@ void DlgWzskNavLoaini::Tag::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 		};
 		writeStringAttr(wr, itemtag, "sref", "Cpt", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::LOAINI, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "ButDne", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DONE, ixWzskVLocale)));
@@ -816,7 +801,6 @@ void DlgWzskNavLoaini::TagIfi::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 	};
 	me["Uld"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::UPLOAD, ixWzskVLocale));
 	me["Cpt"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::FILENAME, ixWzskVLocale));
@@ -836,7 +820,6 @@ void DlgWzskNavLoaini::TagIfi::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 		};
 		writeStringAttr(wr, itemtag, "sref", "Uld", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::UPLOAD, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "Cpt", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::FILENAME, ixWzskVLocale)));
@@ -857,7 +840,6 @@ void DlgWzskNavLoaini::TagImp::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 	};
 	me["CptPrg"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::PROGRESS, ixWzskVLocale));
 	me["ButRun"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::RUN, ixWzskVLocale));
@@ -878,7 +860,6 @@ void DlgWzskNavLoaini::TagImp::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 		};
 		writeStringAttr(wr, itemtag, "sref", "CptPrg", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::PROGRESS, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "ButRun", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::RUN, ixWzskVLocale)));
@@ -900,7 +881,6 @@ void DlgWzskNavLoaini::TagLfi::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 	};
 	me["Dld"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DOWNLOAD, ixWzskVLocale));
 };
@@ -919,7 +899,6 @@ void DlgWzskNavLoaini::TagLfi::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 		};
 		writeStringAttr(wr, itemtag, "sref", "Dld", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DOWNLOAD, ixWzskVLocale)));
 	xmlTextWriterEndElement(wr);

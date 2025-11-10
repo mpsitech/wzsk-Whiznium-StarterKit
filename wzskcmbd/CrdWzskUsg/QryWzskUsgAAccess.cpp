@@ -2,8 +2,8 @@
 	* \file QryWzskUsgAAccess.cpp
 	* job handler for job QryWzskUsgAAccess (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -316,11 +316,19 @@ void QryWzskUsgAAccess::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKUSGAACCMOD_USGEQ) {
-		call->abort = handleCallWzskUsgAaccMod_usgEq(dbswzsk, call->jref);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSTUBCHG) && (call->jref == jref)) {
+	if ((call->ixVCall == VecWzskVCall::CALLWZSKSTUBCHG) && (call->jref == jref)) {
 		call->abort = handleCallWzskStubChgFromSelf(dbswzsk);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSGAACCMOD_USGEQ) {
+		call->abort = handleCallWzskUsgAaccMod_usgEq(dbswzsk, call->jref);
 	};
+};
+
+bool QryWzskUsgAAccess::handleCallWzskStubChgFromSelf(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = false;
+	// IP handleCallWzskStubChgFromSelf --- INSERT
+	return retval;
 };
 
 bool QryWzskUsgAAccess::handleCallWzskUsgAaccMod_usgEq(
@@ -334,13 +342,5 @@ bool QryWzskUsgAAccess::handleCallWzskUsgAaccMod_usgEq(
 		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
 	};
 
-	return retval;
-};
-
-bool QryWzskUsgAAccess::handleCallWzskStubChgFromSelf(
-			DbsWzsk* dbswzsk
-		) {
-	bool retval = false;
-	// IP handleCallWzskStubChgFromSelf --- INSERT
 	return retval;
 };

@@ -2,8 +2,8 @@
 	* \file JobWzskSrcSysinfo.cpp
 	* job handler for job JobWzskSrcSysinfo (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -83,9 +83,6 @@ JobWzskSrcSysinfo::JobWzskSrcSysinfo(
 			CsjobWzsk(xchg, VecWzskVJob::JOBWZSKSRCSYSINFO, jrefSup, ixWzskVLocale)
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
-
-	srcpwmonusb = NULL;
-	srcpwmonuart = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -197,24 +194,15 @@ void JobWzskSrcSysinfo::getLoad() {
 	infile.close();
 };
 
-void JobWzskSrcSysinfo::getTempThermal() {
-	float f;
-	
-	f = getValFromFile(stg.pathThermal);
-
-	for (unsigned int i = shrdat.temp.size() - 1; i > 0; i--) shrdat.temp[i] = shrdat.temp[i-1];
-	shrdat.temp[0] = 1e-3 * f;
-};
-
-void JobWzskSrcSysinfo::getTempXadc() {
+void JobWzskSrcSysinfo::getTemp() {
 	float f;
 
 	if (shrdat.tempScale == 0.0) {
-		shrdat.tempOffset = getValFromFile(stg.pathrootXadc + "_offset");
-		shrdat.tempScale = getValFromFile(stg.pathrootXadc + "_scale");
+		shrdat.tempOffset = getValFromFile(stg.pathrootThermal + "_offset");
+		shrdat.tempScale = getValFromFile(stg.pathrootThermal + "_scale");
 	};
 
-	f = (getValFromFile(stg.pathrootXadc + "_raw") + shrdat.tempOffset) * shrdat.tempScale;
+	f = (getValFromFile(stg.pathrootThermal + "_raw") + shrdat.tempOffset) * shrdat.tempScale;
 
 	for (unsigned int i = shrdat.temp.size() - 1; i > 0; i--) shrdat.temp[i] = shrdat.temp[i-1];
 	shrdat.temp[0] = 1e-3 * f;
@@ -316,9 +304,6 @@ string JobWzskSrcSysinfo::getSquawk(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			if (ixVSge == VecVSge::IDLE) retval = "idle";
 			else if (ixVSge == VecVSge::RUN) retval = "running";
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			if (ixVSge == VecVSge::IDLE) retval = "inaktiv";
-			else if (ixVSge == VecVSge::RUN) retval = "aktiv";
 		};
 
 	} else {
@@ -360,8 +345,7 @@ uint JobWzskSrcSysinfo::enterSgeRun(
 	getLoad();
 
 	// update temperature information
-	if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS) getTempThermal();
-	else if (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY) getTempXadc();
+	getTemp();
 
 	shrdat.wunlockAccess(jref, "enterSgeRun");
 

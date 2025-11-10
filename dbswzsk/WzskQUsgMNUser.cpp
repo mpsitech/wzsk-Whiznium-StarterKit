@@ -2,8 +2,8 @@
 	* \file WzskQUsgMNUser.cpp
 	* Dbs and XML wrapper for table TblWzskQUsgMNUser (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -27,16 +27,17 @@ WzskQUsgMNUser::WzskQUsgMNUser(
 			, const uint ixWzskVUserlevel
 			, const string srefIxWzskVUserlevel
 			, const string titIxWzskVUserlevel
-		) {
-	this->qref = qref;
-	this->jref = jref;
-	this->jnum = jnum;
-	this->mref = mref;
-	this->stubMref = stubMref;
-	this->ref = ref;
-	this->ixWzskVUserlevel = ixWzskVUserlevel;
-	this->srefIxWzskVUserlevel = srefIxWzskVUserlevel;
-	this->titIxWzskVUserlevel = titIxWzskVUserlevel;
+		) :
+			qref(qref)
+			, jref(jref)
+			, jnum(jnum)
+			, mref(mref)
+			, stubMref(stubMref)
+			, ref(ref)
+			, ixWzskVUserlevel(ixWzskVUserlevel)
+			, srefIxWzskVUserlevel(srefIxWzskVUserlevel)
+			, titIxWzskVUserlevel(titIxWzskVUserlevel)
+		{
 };
 
 void WzskQUsgMNUser::writeJSON(

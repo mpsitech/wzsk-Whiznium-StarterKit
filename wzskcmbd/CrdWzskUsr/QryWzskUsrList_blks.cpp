@@ -2,8 +2,8 @@
 	* \file QryWzskUsrList_blks.cpp
 	* job handler for job QryWzskUsrList (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -20,12 +20,12 @@ uint QryWzskUsrList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
+	if (s == "grp") return GRP;
+	if (s == "own") return OWN;
+	if (s == "prs") return PRS;
+	if (s == "srf") return SRF;
 	if (s == "usg") return USG;
 	if (s == "ste") return STE;
-	if (s == "srf") return SRF;
-	if (s == "prs") return PRS;
-	if (s == "own") return OWN;
-	if (s == "grp") return GRP;
 
 	return(0);
 };
@@ -33,12 +33,12 @@ uint QryWzskUsrList::VecVOrd::getIx(
 string QryWzskUsrList::VecVOrd::getSref(
 			const uint ix
 		) {
+	if (ix == GRP) return("grp");
+	if (ix == OWN) return("own");
+	if (ix == PRS) return("prs");
+	if (ix == SRF) return("srf");
 	if (ix == USG) return("usg");
 	if (ix == STE) return("ste");
-	if (ix == SRF) return("srf");
-	if (ix == PRS) return("prs");
-	if (ix == OWN) return("own");
-	if (ix == GRP) return("grp");
 
 	return("");
 };
@@ -67,10 +67,10 @@ void QryWzskUsrList::StatApp::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["firstcol"] = firstcol;
-	me["jnumFirstdisp"] = jnumFirstdisp;
-	me["ncol"] = ncol;
-	me["ndisp"] = ndisp;
+	me["firstcol"] = (Json::Value::UInt) firstcol;
+	me["jnumFirstdisp"] = (Json::Value::UInt) jnumFirstdisp;
+	me["ncol"] = (Json::Value::UInt) ncol;
+	me["ndisp"] = (Json::Value::UInt) ndisp;
 };
 
 void QryWzskUsrList::StatApp::writeXML(
@@ -106,11 +106,10 @@ QryWzskUsrList::StatShr::StatShr(
 			, const uint nload
 		) :
 			Block()
+			, ntot(ntot)
+			, jnumFirstload(jnumFirstload)
+			, nload(nload)
 		{
-	this->ntot = ntot;
-	this->jnumFirstload = jnumFirstload;
-	this->nload = nload;
-
 	mask = {NTOT, JNUMFIRSTLOAD, NLOAD};
 };
 
@@ -122,9 +121,9 @@ void QryWzskUsrList::StatShr::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["ntot"] = ntot;
-	me["jnumFirstload"] = jnumFirstload;
-	me["nload"] = nload;
+	me["ntot"] = (Json::Value::UInt) ntot;
+	me["jnumFirstload"] = (Json::Value::UInt) jnumFirstload;
+	me["nload"] = (Json::Value::UInt) nload;
 };
 
 void QryWzskUsrList::StatShr::writeXML(
@@ -181,10 +180,10 @@ QryWzskUsrList::StgIac::StgIac(
 			, const uint nload
 		) :
 			Block()
+			, jnum(jnum)
+			, jnumFirstload(jnumFirstload)
+			, nload(nload)
 		{
-	this->jnum = jnum;
-	this->jnumFirstload = jnumFirstload;
-	this->nload = nload;
 	mask = {JNUM, JNUMFIRSTLOAD, NLOAD};
 };
 
@@ -242,9 +241,9 @@ void QryWzskUsrList::StgIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["jnum"] = jnum;
-	me["jnumFirstload"] = jnumFirstload;
-	me["nload"] = nload;
+	me["jnum"] = (Json::Value::UInt) jnum;
+	me["jnumFirstload"] = (Json::Value::UInt) jnumFirstload;
+	me["nload"] = (Json::Value::UInt) nload;
 };
 
 void QryWzskUsrList::StgIac::writeXML(

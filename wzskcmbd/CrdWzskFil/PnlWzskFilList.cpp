@@ -2,8 +2,8 @@
 	* \file PnlWzskFilList.cpp
 	* job handler for job PnlWzskFilList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -106,16 +106,6 @@ void PnlWzskFilList::refresh(
 	// IP refresh --- BEGIN
 	// continf
 	continf.numFCsiQst = feedFCsiQst.getNumByIx(qry->ixWzskVQrystate);
-
-	uint ixPre = xchg->getIxPreset(VecWzskVPreset::PREWZSKIXPRE, jref);
-	if ((ixPre != 0) && (ixPre != VecWzskVPreset::VOID)) {
-		continf.TxtFor = VecWzskVPreset::getTitle(ixPre, ixWzskVLocale);
-
-		if (ixPre == VecWzskVPreset::PREWZSKREFOBJ) continf.TxtPre = StubWzsk::getStubObjStd(dbswzsk, xchg->getRefPreset(ixPre, jref), ixWzskVLocale, Stub::VecVNonetype::FULL);
-
-	} else {
-		continf.TxtFor = "";
-	};
 
 	// contiac
 	contiac.numFTos = xchg->getIxPreset(VecWzskVPreset::PREWZSKIXORD, jref);
@@ -257,7 +247,7 @@ void PnlWzskFilList::handleDpchAppDataContiac(
 	diffitems = _contiac->diff(&contiac);
 
 	if (has(diffitems, ContIac::NUMFTOS)) {
-		if ((_contiac->numFTos >= QryWzskFilList::VecVOrd::RET) && (_contiac->numFTos <= QryWzskFilList::VecVOrd::GRP)) {
+		if ((_contiac->numFTos >= QryWzskFilList::VecVOrd::GRP) && (_contiac->numFTos <= QryWzskFilList::VecVOrd::REU)) {
 			muteRefresh = true;
 
 			xchg->addIxPreset(VecWzskVPreset::PREWZSKIXORD, jref, _contiac->numFTos);

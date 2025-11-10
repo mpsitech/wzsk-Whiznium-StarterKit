@@ -2,8 +2,8 @@
 	* \file PnlWzskPrsList.h
 	* API code for job PnlWzskPrsList (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -130,7 +130,7 @@ namespace PnlWzskPrsList {
 		static const Sbecore::uint TCOEMLWIDTH = 8;
 
 	public:
-		StgIac(const Sbecore::uint TcoGrpWidth = 80, const Sbecore::uint TcoOwnWidth = 80, const Sbecore::uint TcoTitWidth = 60, const Sbecore::uint TcoFnmWidth = 100, const Sbecore::uint TcoLnmWidth = 120, const Sbecore::uint TcoSexWidth = 60, const Sbecore::uint TcoTelWidth = 100, const Sbecore::uint TcoEmlWidth = 100);
+		StgIac(const Sbecore::uint TcoGrpWidth = 100, const Sbecore::uint TcoOwnWidth = 100, const Sbecore::uint TcoTitWidth = 100, const Sbecore::uint TcoFnmWidth = 100, const Sbecore::uint TcoLnmWidth = 100, const Sbecore::uint TcoSexWidth = 100, const Sbecore::uint TcoTelWidth = 100, const Sbecore::uint TcoEmlWidth = 100);
 
 	public:
 		Sbecore::uint TcoGrpWidth;

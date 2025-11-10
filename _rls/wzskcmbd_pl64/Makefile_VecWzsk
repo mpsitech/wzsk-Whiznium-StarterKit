@@ -2,20 +2,20 @@
 # make file for Wzsk system vectors, release wzskcmbd_pl64 (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 12 Sep 2022
+# date created: 12 Oct 2025
 # IP header --- ABOVE
 
 include ../Makefile.inc
 
 CPP = ${TCHROOT}/aarch64-xilinx-linux-g++
-CPPFLAGS = --sysroot=${SYSROOT} --sysroot=${SYSROOT} -std=c++11 -march=armv8-a -mtune=cortex-a53 -g -Wall -Os -pthread
+CPPFLAGS = --sysroot=${SYSROOT} -std=c++11 -march=armv8-a -mtune=cortex-a53 -g -Wall -Os -pthread
 
 STATLIB = ${TCHROOT}/aarch64-xilinx-linux-ar
 STATLIBFLAGS = rcs
 
-INCPATH = -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevpmnd -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
+INCPATH = -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
-OBJS = VecWzskVCall.o VecWzskVDpch.o VecWzskVError.o VecWzskVExpstate.o VecWzskVIop.o VecWzskVJob.o VecWzskVMimetype.o VecWzskVOpengtype.o VecWzskVOppack.o VecWzskVPvwmode.o VecWzskVQrystate.o VecWzskVReqitmode.o VecWzskVSqrgrp.o VecWzskVStub.o VecWzskVTag.o VecWzskVTarget.o
+OBJS = VecWzskVCall.o VecWzskVDpch.o VecWzskVError.o VecWzskVExpstate.o VecWzskVIop.o VecWzskVJob.o VecWzskVMimetype.o VecWzskVOpengtype.o VecWzskVOppack.o VecWzskVQrystate.o VecWzskVReqitmode.o VecWzskVStub.o VecWzskVTag.o VecWzskVTarget.o
 
 LIB = libvecwzsk
 

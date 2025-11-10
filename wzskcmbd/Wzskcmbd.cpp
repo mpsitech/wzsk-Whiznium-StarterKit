@@ -2,8 +2,8 @@
 	* \file Wzskcmbd.cpp
 	* inter-thread exchange object for Wzsk combined daemon (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -189,9 +189,8 @@ DpchEngWzsk::DpchEngWzsk(
 			, const ubigint jref
 		) :
 			DpchWzsk(ixWzskVDpch)
+			, jref(jref)
 		{
-	this->jref = jref;
-
 	mask = {JREF};
 };
 
@@ -337,11 +336,9 @@ DpchEngWzskConfirm::DpchEngWzskConfirm(
 			, const set<uint>& mask
 		) :
 			DpchEngWzsk(VecWzskVDpch::DPCHENGWZSKCONFIRM, jref)
+			, accepted(accepted)
+			, sref(sref)
 		{
-	this->accepted = accepted;
-	this->jref = jref;
-	this->sref = sref;
-
 	if (find(mask, ALL)) this->mask = {ACCEPTED, JREF, SREF};
 	else this->mask = mask;
 };
@@ -414,102 +411,6 @@ DpchEngWzskSuspend::DpchEngWzskSuspend(
 };
 
 /******************************************************************************
- class StgWzskAppearance
- ******************************************************************************/
-
-StgWzskAppearance::StgWzskAppearance(
-			const usmallint histlength
-			, const bool suspsess
-			, const uint sesstterm
-			, const uint sesstwarn
-			, const uint roottterm
-		) :
-			Block()
-		{
-	this->histlength = histlength;
-	this->suspsess = suspsess;
-	this->sesstterm = sesstterm;
-	this->sesstwarn = sesstwarn;
-	this->roottterm = roottterm;
-	mask = {HISTLENGTH, SUSPSESS, SESSTTERM, SESSTWARN, ROOTTTERM};
-};
-
-bool StgWzskAppearance::readXML(
-			xmlXPathContext* docctx
-			, string basexpath
-			, bool addbasetag
-		) {
-	clear();
-
-	bool basefound;
-
-	if (addbasetag)
-		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "StgWzskAppearance");
-	else
-		basefound = checkXPath(docctx, basexpath);
-
-	string itemtag = "StgitemWzskAppearance";
-
-	if (basefound) {
-		if (extractUsmallintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "histlength", histlength)) add(HISTLENGTH);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "suspsess", suspsess)) add(SUSPSESS);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "sesstterm", sesstterm)) add(SESSTTERM);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "sesstwarn", sesstwarn)) add(SESSTWARN);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "roottterm", roottterm)) add(ROOTTTERM);
-	};
-
-	return basefound;
-};
-
-void StgWzskAppearance::writeXML(
-			xmlTextWriter* wr
-			, string difftag
-			, bool shorttags
-		) {
-	if (difftag.length() == 0) difftag = "StgWzskAppearance";
-
-	string itemtag;
-	if (shorttags) itemtag = "Si";
-	else itemtag = "StgitemWzskAppearance";
-
-	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeUsmallintAttr(wr, itemtag, "sref", "histlength", histlength);
-		writeBoolAttr(wr, itemtag, "sref", "suspsess", suspsess);
-		writeUintAttr(wr, itemtag, "sref", "sesstterm", sesstterm);
-		writeUintAttr(wr, itemtag, "sref", "sesstwarn", sesstwarn);
-		writeUintAttr(wr, itemtag, "sref", "roottterm", roottterm);
-	xmlTextWriterEndElement(wr);
-};
-
-set<uint> StgWzskAppearance::comm(
-			const StgWzskAppearance* comp
-		) {
-	set<uint> items;
-
-	if (histlength == comp->histlength) insert(items, HISTLENGTH);
-	if (suspsess == comp->suspsess) insert(items, SUSPSESS);
-	if (sesstterm == comp->sesstterm) insert(items, SESSTTERM);
-	if (sesstwarn == comp->sesstwarn) insert(items, SESSTWARN);
-	if (roottterm == comp->roottterm) insert(items, ROOTTTERM);
-
-	return(items);
-};
-
-set<uint> StgWzskAppearance::diff(
-			const StgWzskAppearance* comp
-		) {
-	set<uint> commitems;
-	set<uint> diffitems;
-
-	commitems = comm(comp);
-
-	diffitems = {HISTLENGTH, SUSPSESS, SESSTTERM, SESSTWARN, ROOTTTERM};
-	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
-
-	return(diffitems);
-};
-
-/******************************************************************************
  class StgWzskAppsrv
  ******************************************************************************/
 
@@ -519,10 +420,10 @@ StgWzskAppsrv::StgWzskAppsrv(
 			, const string& cors
 		) :
 			Block()
+			, port(port)
+			, https(https)
+			, cors(cors)
 		{
-	this->port = port;
-	this->https = https;
-	this->cors = cors;
 	mask = {PORT, HTTPS, CORS};
 };
 
@@ -596,6 +497,102 @@ set<uint> StgWzskAppsrv::diff(
 };
 
 /******************************************************************************
+ class StgWzskBehavior
+ ******************************************************************************/
+
+StgWzskBehavior::StgWzskBehavior(
+			const usmallint histlength
+			, const bool suspsess
+			, const uint sesstterm
+			, const uint sesstwarn
+			, const uint roottterm
+		) :
+			Block()
+			, histlength(histlength)
+			, suspsess(suspsess)
+			, sesstterm(sesstterm)
+			, sesstwarn(sesstwarn)
+			, roottterm(roottterm)
+		{
+	mask = {HISTLENGTH, SUSPSESS, SESSTTERM, SESSTWARN, ROOTTTERM};
+};
+
+bool StgWzskBehavior::readXML(
+			xmlXPathContext* docctx
+			, string basexpath
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	if (addbasetag)
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "StgWzskBehavior");
+	else
+		basefound = checkXPath(docctx, basexpath);
+
+	string itemtag = "StgitemWzskBehavior";
+
+	if (basefound) {
+		if (extractUsmallintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "histlength", histlength)) add(HISTLENGTH);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "suspsess", suspsess)) add(SUSPSESS);
+		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "sesstterm", sesstterm)) add(SESSTTERM);
+		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "sesstwarn", sesstwarn)) add(SESSTWARN);
+		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "roottterm", roottterm)) add(ROOTTTERM);
+	};
+
+	return basefound;
+};
+
+void StgWzskBehavior::writeXML(
+			xmlTextWriter* wr
+			, string difftag
+			, bool shorttags
+		) {
+	if (difftag.length() == 0) difftag = "StgWzskBehavior";
+
+	string itemtag;
+	if (shorttags) itemtag = "Si";
+	else itemtag = "StgitemWzskBehavior";
+
+	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
+		writeUsmallintAttr(wr, itemtag, "sref", "histlength", histlength);
+		writeBoolAttr(wr, itemtag, "sref", "suspsess", suspsess);
+		writeUintAttr(wr, itemtag, "sref", "sesstterm", sesstterm);
+		writeUintAttr(wr, itemtag, "sref", "sesstwarn", sesstwarn);
+		writeUintAttr(wr, itemtag, "sref", "roottterm", roottterm);
+	xmlTextWriterEndElement(wr);
+};
+
+set<uint> StgWzskBehavior::comm(
+			const StgWzskBehavior* comp
+		) {
+	set<uint> items;
+
+	if (histlength == comp->histlength) insert(items, HISTLENGTH);
+	if (suspsess == comp->suspsess) insert(items, SUSPSESS);
+	if (sesstterm == comp->sesstterm) insert(items, SESSTTERM);
+	if (sesstwarn == comp->sesstwarn) insert(items, SESSTWARN);
+	if (roottterm == comp->roottterm) insert(items, ROOTTTERM);
+
+	return(items);
+};
+
+set<uint> StgWzskBehavior::diff(
+			const StgWzskBehavior* comp
+		) {
+	set<uint> commitems;
+	set<uint> diffitems;
+
+	commitems = comm(comp);
+
+	diffitems = {HISTLENGTH, SUSPSESS, SESSTTERM, SESSTWARN, ROOTTTERM};
+	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
+
+	return(diffitems);
+};
+
+/******************************************************************************
  class StgWzskCamera
  ******************************************************************************/
 
@@ -603,13 +600,17 @@ StgWzskCamera::StgWzskCamera(
 			const float hpix
 			, const float f
 			, const float fn
+			, const uint NColRaw
+			, const uint NRowRaw
 		) :
 			Block()
+			, hpix(hpix)
+			, f(f)
+			, fn(fn)
+			, NColRaw(NColRaw)
+			, NRowRaw(NRowRaw)
 		{
-	this->hpix = hpix;
-	this->f = f;
-	this->fn = fn;
-	mask = {HPIX, F, FN};
+	mask = {HPIX, F, FN, NCOLRAW, NROWRAW};
 };
 
 bool StgWzskCamera::readXML(
@@ -632,6 +633,8 @@ bool StgWzskCamera::readXML(
 		if (extractFloatAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "hpix", hpix)) add(HPIX);
 		if (extractFloatAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "f", f)) add(F);
 		if (extractFloatAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "fn", fn)) add(FN);
+		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "NColRaw", NColRaw)) add(NCOLRAW);
+		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "NRowRaw", NRowRaw)) add(NROWRAW);
 	};
 
 	return basefound;
@@ -652,6 +655,8 @@ void StgWzskCamera::writeXML(
 		writeFloatAttr(wr, itemtag, "sref", "hpix", hpix);
 		writeFloatAttr(wr, itemtag, "sref", "f", f);
 		writeFloatAttr(wr, itemtag, "sref", "fn", fn);
+		writeUintAttr(wr, itemtag, "sref", "NColRaw", NColRaw);
+		writeUintAttr(wr, itemtag, "sref", "NRowRaw", NRowRaw);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -663,6 +668,8 @@ set<uint> StgWzskCamera::comm(
 	if (compareFloat(hpix, comp->hpix) < 1.0e-4) insert(items, HPIX);
 	if (compareFloat(f, comp->f) < 1.0e-4) insert(items, F);
 	if (compareFloat(fn, comp->fn) < 1.0e-4) insert(items, FN);
+	if (NColRaw == comp->NColRaw) insert(items, NCOLRAW);
+	if (NRowRaw == comp->NRowRaw) insert(items, NROWRAW);
 
 	return(items);
 };
@@ -675,7 +682,7 @@ set<uint> StgWzskCamera::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {HPIX, F, FN};
+	diffitems = {HPIX, F, FN, NCOLRAW, NROWRAW};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -693,12 +700,12 @@ StgWzskcmbd::StgWzskcmbd(
 			, const bool uasrv
 		) :
 			Block()
+			, jobprcn(jobprcn)
+			, opprcn(opprcn)
+			, appsrv(appsrv)
+			, ddspub(ddspub)
+			, uasrv(uasrv)
 		{
-	this->jobprcn = jobprcn;
-	this->opprcn = opprcn;
-	this->appsrv = appsrv;
-	this->ddspub = ddspub;
-	this->uasrv = uasrv;
 	mask = {JOBPRCN, OPPRCN, APPSRV, DDSPUB, UASRV};
 };
 
@@ -791,14 +798,14 @@ StgWzskDatabase::StgWzskDatabase(
 			, const usmallint port
 		) :
 			Block()
+			, ixDbsVDbstype(ixDbsVDbstype)
+			, dbspath(dbspath)
+			, dbsname(dbsname)
+			, username(username)
+			, password(password)
+			, ip(ip)
+			, port(port)
 		{
-	this->ixDbsVDbstype = ixDbsVDbstype;
-	this->dbspath = dbspath;
-	this->dbsname = dbsname;
-	this->username = username;
-	this->password = password;
-	this->ip = ip;
-	this->port = port;
 	mask = {IXDBSVDBSTYPE, DBSPATH, DBSNAME, USERNAME, PASSWORD, IP, PORT};
 };
 
@@ -897,9 +904,9 @@ StgWzskDdspub::StgWzskDdspub(
 			, const string& password
 		) :
 			Block()
+			, username(username)
+			, password(password)
 		{
-	this->username = username;
-	this->password = password;
 	mask = {USERNAME, PASSWORD};
 };
 
@@ -970,132 +977,6 @@ set<uint> StgWzskDdspub::diff(
 };
 
 /******************************************************************************
- class StgWzskFramegeo
- ******************************************************************************/
-
-StgWzskFramegeo::StgWzskFramegeo(
-			const uint wAcq
-			, const uint hAcq
-			, const uint whAcq
-			, const uint x0Rgb
-			, const uint wRgb
-			, const uint y0Rgb
-			, const uint hRgb
-			, const uint x0Grrd
-			, const uint wGrrd
-			, const uint y0Grrd
-			, const uint hGrrd
-		) :
-			Block()
-		{
-	this->wAcq = wAcq;
-	this->hAcq = hAcq;
-	this->whAcq = whAcq;
-	this->x0Rgb = x0Rgb;
-	this->wRgb = wRgb;
-	this->y0Rgb = y0Rgb;
-	this->hRgb = hRgb;
-	this->x0Grrd = x0Grrd;
-	this->wGrrd = wGrrd;
-	this->y0Grrd = y0Grrd;
-	this->hGrrd = hGrrd;
-	mask = {WACQ, HACQ, WHACQ, X0RGB, WRGB, Y0RGB, HRGB, X0GRRD, WGRRD, Y0GRRD, HGRRD};
-};
-
-bool StgWzskFramegeo::readXML(
-			xmlXPathContext* docctx
-			, string basexpath
-			, bool addbasetag
-		) {
-	clear();
-
-	bool basefound;
-
-	if (addbasetag)
-		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "StgWzskFramegeo");
-	else
-		basefound = checkXPath(docctx, basexpath);
-
-	string itemtag = "StgitemWzskFramegeo";
-
-	if (basefound) {
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "wAcq", wAcq)) add(WACQ);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "hAcq", hAcq)) add(HACQ);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "whAcq", whAcq)) add(WHACQ);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "x0Rgb", x0Rgb)) add(X0RGB);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "wRgb", wRgb)) add(WRGB);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "y0Rgb", y0Rgb)) add(Y0RGB);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "hRgb", hRgb)) add(HRGB);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "x0Grrd", x0Grrd)) add(X0GRRD);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "wGrrd", wGrrd)) add(WGRRD);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "y0Grrd", y0Grrd)) add(Y0GRRD);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "hGrrd", hGrrd)) add(HGRRD);
-	};
-
-	return basefound;
-};
-
-void StgWzskFramegeo::writeXML(
-			xmlTextWriter* wr
-			, string difftag
-			, bool shorttags
-		) {
-	if (difftag.length() == 0) difftag = "StgWzskFramegeo";
-
-	string itemtag;
-	if (shorttags) itemtag = "Si";
-	else itemtag = "StgitemWzskFramegeo";
-
-	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeUintAttr(wr, itemtag, "sref", "wAcq", wAcq);
-		writeUintAttr(wr, itemtag, "sref", "hAcq", hAcq);
-		writeUintAttr(wr, itemtag, "sref", "whAcq", whAcq);
-		writeUintAttr(wr, itemtag, "sref", "x0Rgb", x0Rgb);
-		writeUintAttr(wr, itemtag, "sref", "wRgb", wRgb);
-		writeUintAttr(wr, itemtag, "sref", "y0Rgb", y0Rgb);
-		writeUintAttr(wr, itemtag, "sref", "hRgb", hRgb);
-		writeUintAttr(wr, itemtag, "sref", "x0Grrd", x0Grrd);
-		writeUintAttr(wr, itemtag, "sref", "wGrrd", wGrrd);
-		writeUintAttr(wr, itemtag, "sref", "y0Grrd", y0Grrd);
-		writeUintAttr(wr, itemtag, "sref", "hGrrd", hGrrd);
-	xmlTextWriterEndElement(wr);
-};
-
-set<uint> StgWzskFramegeo::comm(
-			const StgWzskFramegeo* comp
-		) {
-	set<uint> items;
-
-	if (wAcq == comp->wAcq) insert(items, WACQ);
-	if (hAcq == comp->hAcq) insert(items, HACQ);
-	if (whAcq == comp->whAcq) insert(items, WHACQ);
-	if (x0Rgb == comp->x0Rgb) insert(items, X0RGB);
-	if (wRgb == comp->wRgb) insert(items, WRGB);
-	if (y0Rgb == comp->y0Rgb) insert(items, Y0RGB);
-	if (hRgb == comp->hRgb) insert(items, HRGB);
-	if (x0Grrd == comp->x0Grrd) insert(items, X0GRRD);
-	if (wGrrd == comp->wGrrd) insert(items, WGRRD);
-	if (y0Grrd == comp->y0Grrd) insert(items, Y0GRRD);
-	if (hGrrd == comp->hGrrd) insert(items, HGRRD);
-
-	return(items);
-};
-
-set<uint> StgWzskFramegeo::diff(
-			const StgWzskFramegeo* comp
-		) {
-	set<uint> commitems;
-	set<uint> diffitems;
-
-	commitems = comm(comp);
-
-	diffitems = {WACQ, HACQ, WHACQ, X0RGB, WRGB, Y0RGB, HRGB, X0GRRD, WGRRD, Y0GRRD, HGRRD};
-	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
-
-	return(diffitems);
-};
-
-/******************************************************************************
  class StgWzskGlobal
  ******************************************************************************/
 
@@ -1103,8 +984,8 @@ StgWzskGlobal::StgWzskGlobal(
 			const uint ixWzskVTarget
 		) :
 			Block()
+			, ixWzskVTarget(ixWzskVTarget)
 		{
-	this->ixWzskVTarget = ixWzskVTarget;
 	mask = {IXWZSKVTARGET};
 };
 
@@ -1189,13 +1070,13 @@ StgWzskPath::StgWzskPath(
 			, const string& helpurl
 		) :
 			Block()
+			, acvpath(acvpath)
+			, keypath(keypath)
+			, monpath(monpath)
+			, tmppath(tmppath)
+			, webpath(webpath)
+			, helpurl(helpurl)
 		{
-	this->acvpath = acvpath;
-	this->keypath = keypath;
-	this->monpath = monpath;
-	this->tmppath = tmppath;
-	this->webpath = webpath;
-	this->helpurl = helpurl;
 	mask = {ACVPATH, KEYPATH, MONPATH, TMPPATH, WEBPATH, HELPURL};
 };
 
@@ -1289,12 +1170,12 @@ StgWzskUasrv::StgWzskUasrv(
 			, const uint maxmon
 		) :
 			Block()
+			, profile(profile)
+			, port(port)
+			, cycle(cycle)
+			, maxbrowse(maxbrowse)
+			, maxmon(maxmon)
 		{
-	this->profile = profile;
-	this->port = port;
-	this->cycle = cycle;
-	this->maxbrowse = maxbrowse;
-	this->maxmon = maxmon;
 	mask = {PROFILE, PORT, CYCLE, MAXBROWSE, MAXMON};
 };
 
@@ -1388,17 +1269,11 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrAbt(
 	continf.TxtCpt = StrMod::cap(continf.TxtCpt);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		continf.TxtMsg1 = "Whiznium StarterKit version v1.0.17 released on 12-9-2022";
+		continf.TxtMsg1 = "Whiznium StarterKit version v1.2.6 released on 12-10-2025";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "contributors: Alexander Wirthmueller";
-		continf.TxtMsg6 = "libraries: ezdevpmnd 0.1.0, ezdevwskd 0.1.26 and png 1.6.36";
+		continf.TxtMsg6 = "libraries: ezdevwskd 1.1.0";
 		continf.TxtMsg8 = "Whiznium StarterKit is computer vision software which powers MPSI's tabletop 3D laser scanner that represents the primary on-boarding vehicle for Whiznium.";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		continf.TxtMsg1 = "Whiznium StarterKit Version v1.0.17 ver\\u00f6ffentlicht am 12-9-2022";
-		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
-		continf.TxtMsg4 = "Mitwirkende: Alexander Wirthmueller";
-		continf.TxtMsg6 = "Programmbibliotheken: ezdevpmnd 0.1.0, ezdevwskd 0.1.26 und png 1.6.36";
-		continf.TxtMsg8 = "Whiznium StarterKit ist Computer-Vision Software, welche MPSI's kompakten 3D-Laserscanner (prim\\u00e4res Onboarding-Werkzeug f\\u00fcr Whiznium) ansteuert.";
 	};
 
 	feedFMcbAlert.clear();
@@ -1421,8 +1296,6 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrIer(
 	continf.TxtCpt = StrMod::cap(continf.TxtCpt);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		continf.TxtMsg1 = "" + iexsqk + "";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 		continf.TxtMsg1 = "" + iexsqk + "";
 	};
 
@@ -1448,8 +1321,6 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrPer(
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		continf.TxtMsg1 = "" + iexsqk + "";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		continf.TxtMsg1 = "" + iexsqk + "";
 	};
 
 	feedFMcbAlert.clear();
@@ -1472,8 +1343,6 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrSav(
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		continf.TxtMsg1 = "Save changes?";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		continf.TxtMsg1 = "\\u00c4nderungen speichern?";
 	};
 
 	feedFMcbAlert.clear();
@@ -1500,8 +1369,6 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrTrm(
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		continf.TxtMsg1 = "Your session has been inactive for " + prepareAlrTrm_dtToString(ixWzskVLocale, sesstterm) + ". It will be terminated in " + prepareAlrTrm_dtToString(ixWzskVLocale, sesstwarn) + ".";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		continf.TxtMsg1 = "Ihre Sitzung ist seit " + prepareAlrTrm_dtToString(ixWzskVLocale, sesstterm) + " inaktiv. Sie wird in " + prepareAlrTrm_dtToString(ixWzskVLocale, sesstwarn) + " beendet.";
 	};
 
 	feedFMcbAlert.clear();
@@ -1549,12 +1416,11 @@ ReqWzsk::ReqWzsk(
 			, const uint ixVState
 			, const string& ip
 		) :
-			cReady("cReady", "ReqWzsk", "ReqWzsk")
+			ixVBasetype(ixVBasetype)
+			, ixVState(ixVState)
+			, ip(ip)
+			, cReady("cReady", "ReqWzsk", "ReqWzsk")
 		{
-	this->ixVBasetype = ixVBasetype;
-	this->ixVState = ixVState;
-	this->ip = ip;
-
 	pp = NULL;
 
 	retain = !((ixVBasetype == VecVBasetype::CMD) || (ixVBasetype == VecVBasetype::DPCHAPP) || (ixVBasetype == VecVBasetype::NOTIFY)
@@ -1630,11 +1496,10 @@ DcolWzsk::DcolWzsk(
 			const ubigint jref
 			, const uint ixWzskVLocale
 		) :
-			mAccess("dcol.mAccess", "DcolWzsk", "DcolWzsk", "jref=" + to_string(jref))
+			jref(jref)
+			, ixWzskVLocale(ixWzskVLocale)
+			, mAccess("dcol.mAccess", "DcolWzsk", "DcolWzsk", "jref=" + to_string(jref))
 		{
-	this->jref = jref;
-	this->ixWzskVLocale = ixWzskVLocale;
-
 	hot = false;
 
 	req = NULL;
@@ -1673,16 +1538,13 @@ JobWzsk::JobWzsk(
 			, const ubigint jrefSup
 			, const uint ixWzskVLocale
 		) :
-			mAccess("mAccess", VecWzskVJob::getSref(ixWzskVJob), VecWzskVJob::getSref(ixWzskVJob), "jrefSup=" + to_string(jrefSup))
+			xchg(xchg)
+			, ixWzskVJob(ixWzskVJob)
+			, ixWzskVLocale(ixWzskVLocale)
+			, mAccess("mAccess", VecWzskVJob::getSref(ixWzskVJob), VecWzskVJob::getSref(ixWzskVJob), "jrefSup=" + to_string(jrefSup))
 			, mOps("mOps", VecWzskVJob::getSref(ixWzskVJob), VecWzskVJob::getSref(ixWzskVJob), "jrefSup=" + to_string(jrefSup))
 		{
-	this->xchg = xchg;
-
 	jref = 0;
-
-	this->ixWzskVJob = ixWzskVJob;
-
-	this->ixWzskVLocale = ixWzskVLocale;
 
 	muteRefresh = false;
 
@@ -1981,10 +1843,10 @@ ShrdatWzsk::ShrdatWzsk(
 			const string& srefSupclass
 			, const string& srefObject
 		) :
-			rwmAccess("shrdat.mAccess", srefSupclass + "::" + srefObject, srefObject)
+			srefSupclass(srefSupclass)
+			, srefObject(srefObject)
+			, rwmAccess("shrdat.mAccess", srefSupclass + "::" + srefObject, srefObject)
 		{
-	this->srefSupclass = srefSupclass;
-	this->srefObject = srefObject;
 };
 
 ShrdatWzsk::~ShrdatWzsk() {
@@ -2070,13 +1932,11 @@ StmgrWzsk::StmgrWzsk(
 			, const ubigint jref
 			, const uint ixVNonetype
 		) :
-			mAccess("stmgr.mAccess", "StmgrWzsk", "StmgrWzsk", "jref=" + to_string(jref))
+			xchg(xchg)
+			, jref(jref)
+			, ixVNonetype(ixVNonetype)
+			, mAccess("stmgr.mAccess", "StmgrWzsk", "StmgrWzsk", "jref=" + to_string(jref))
 		{
-	this->xchg = xchg;
-
-	this->jref = jref;
-	this->ixVNonetype = ixVNonetype;
-
 	stcch = new Stcch(true);
 };
 
@@ -2100,24 +1960,17 @@ void StmgrWzsk::handleCall(
 
 	if (call->ixVCall == VecWzskVCall::CALLWZSKFILUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKFILSTD);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOBJUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOBJSTD);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKOGRUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRSTD);
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOGRHSREF);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKPRSUPD_REFEQ) {
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKPRSSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSESUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSESMENU);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSESSTD);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHTUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSHTSTD);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKSESMENU);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSGUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKUSGSTD);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKGROUP);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKUSGSTD);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSRUPD_REFEQ) {
-		insert(icsWzskVStub, VecWzskVStub::STUBWZSKUSRSTD);
 		insert(icsWzskVStub, VecWzskVStub::STUBWZSKOWNER);
+		insert(icsWzskVStub, VecWzskVStub::STUBWZSKUSRSTD);
 	};
 
 	for (auto it = icsWzskVStub.begin(); it != icsWzskVStub.end(); it++) {
@@ -2160,12 +2013,6 @@ void StmgrWzsk::commit() {
 			xchg->addClstnStmgr(VecWzskVCall::CALLWZSKFILUPD_REFEQ, jref);
 		} else if (*it == VecWzskVStub::STUBWZSKGROUP) {
 			xchg->addClstnStmgr(VecWzskVCall::CALLWZSKUSGUPD_REFEQ, jref);
-		} else if (*it == VecWzskVStub::STUBWZSKOBJSTD) {
-			xchg->addClstnStmgr(VecWzskVCall::CALLWZSKOBJUPD_REFEQ, jref);
-		} else if (*it == VecWzskVStub::STUBWZSKOGRHSREF) {
-			xchg->addClstnStmgr(VecWzskVCall::CALLWZSKOGRUPD_REFEQ, jref);
-		} else if (*it == VecWzskVStub::STUBWZSKOGRSTD) {
-			xchg->addClstnStmgr(VecWzskVCall::CALLWZSKOGRUPD_REFEQ, jref);
 		} else if (*it == VecWzskVStub::STUBWZSKOWNER) {
 			xchg->addClstnStmgr(VecWzskVCall::CALLWZSKUSRUPD_REFEQ, jref);
 		} else if (*it == VecWzskVStub::STUBWZSKPRSSTD) {
@@ -2174,8 +2021,6 @@ void StmgrWzsk::commit() {
 			xchg->addClstnStmgr(VecWzskVCall::CALLWZSKSESUPD_REFEQ, jref);
 		} else if (*it == VecWzskVStub::STUBWZSKSESSTD) {
 			xchg->addClstnStmgr(VecWzskVCall::CALLWZSKSESUPD_REFEQ, jref);
-		} else if (*it == VecWzskVStub::STUBWZSKSHTSTD) {
-			xchg->addClstnStmgr(VecWzskVCall::CALLWZSKSHTUPD_REFEQ, jref);
 		} else if (*it == VecWzskVStub::STUBWZSKUSGSTD) {
 			xchg->addClstnStmgr(VecWzskVCall::CALLWZSKUSGUPD_REFEQ, jref);
 		} else if (*it == VecWzskVStub::STUBWZSKUSRSTD) {
@@ -2211,13 +2056,14 @@ WakeupWzsk::WakeupWzsk(
 			, const string sref
 			, const uint64_t deltat
 			, const bool weak
-		) {
-	this->xchg = xchg;
-	this->wref = wref;
-	this->jref = jref;
-	this->sref = sref;
-	this->deltat = deltat;
-	this->weak = weak;
+		) :
+			xchg(xchg)
+			, wref(wref)
+			, jref(jref)
+			, sref(sref)
+			, deltat(deltat)
+			, weak(weak)
+		{
 };
 
 /******************************************************************************
@@ -2227,9 +2073,10 @@ WakeupWzsk::WakeupWzsk(
 ExtcallWzsk::ExtcallWzsk(
 			XchgWzsk* xchg
 			, Call* call
-		) {
-	this->xchg = xchg;
-	this->call = call;
+		) :
+			xchg(xchg)
+			, call(call)
+		{
 };
 
 // IP ShrdatJobprc.subs --- INSERT
@@ -2320,26 +2167,22 @@ XchgWzskcmbd::XchgWzskcmbd() :
 	jrefCmd = 0;
 
 	// client-server job information
-	csjobinfos[VecWzskVJob::JOBWZSKACQFPGAFLG] = new Csjobinfo(VecWzskVJob::JOBWZSKACQFPGAFLG);
-	csjobinfos[VecWzskVJob::JOBWZSKACQFPGAPVW] = new Csjobinfo(VecWzskVJob::JOBWZSKACQFPGAPVW);
+	csjobinfos[VecWzskVJob::JOBWZSKACQCORNER] = new Csjobinfo(VecWzskVJob::JOBWZSKACQCORNER);
+	csjobinfos[VecWzskVJob::JOBWZSKACQHDR] = new Csjobinfo(VecWzskVJob::JOBWZSKACQHDR);
+	csjobinfos[VecWzskVJob::JOBWZSKACQMEMTRACK] = new Csjobinfo(VecWzskVJob::JOBWZSKACQMEMTRACK);
 	csjobinfos[VecWzskVJob::JOBWZSKACQPREVIEW] = new Csjobinfo(VecWzskVJob::JOBWZSKACQPREVIEW);
-	csjobinfos[VecWzskVJob::JOBWZSKACQPTCLOUD] = new Csjobinfo(VecWzskVJob::JOBWZSKACQPTCLOUD);
-	csjobinfos[VecWzskVJob::JOBWZSKACTEXPOSURE] = new Csjobinfo(VecWzskVJob::JOBWZSKACTEXPOSURE);
+	csjobinfos[VecWzskVJob::JOBWZSKACQTRACE] = new Csjobinfo(VecWzskVJob::JOBWZSKACQTRACE);
+	csjobinfos[VecWzskVJob::JOBWZSKACQVTRTRACK] = new Csjobinfo(VecWzskVJob::JOBWZSKACQVTRTRACK);
 	csjobinfos[VecWzskVJob::JOBWZSKACTLASER] = new Csjobinfo(VecWzskVJob::JOBWZSKACTLASER);
-	csjobinfos[VecWzskVJob::JOBWZSKACTSERVO] = new Csjobinfo(VecWzskVJob::JOBWZSKACTSERVO);
-	csjobinfos[VecWzskVJob::JOBWZSKIPRANGLE] = new Csjobinfo(VecWzskVJob::JOBWZSKIPRANGLE);
-	csjobinfos[VecWzskVJob::JOBWZSKIPRCORNER] = new Csjobinfo(VecWzskVJob::JOBWZSKIPRCORNER);
-	csjobinfos[VecWzskVJob::JOBWZSKIPRTRACE] = new Csjobinfo(VecWzskVJob::JOBWZSKIPRTRACE);
-	csjobinfos[VecWzskVJob::JOBWZSKSRCARTY] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCARTY);
-	csjobinfos[VecWzskVJob::JOBWZSKSRCCLNXEVB] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCCLNXEVB);
-	csjobinfos[VecWzskVJob::JOBWZSKSRCICICLE] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCICICLE);
-	csjobinfos[VecWzskVJob::JOBWZSKSRCMCVEVP] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCMCVEVP);
-	csjobinfos[VecWzskVJob::JOBWZSKSRCMERCBB] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCMERCBB);
-	csjobinfos[VecWzskVJob::JOBWZSKSRCPWMONUART] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCPWMONUART);
-	csjobinfos[VecWzskVJob::JOBWZSKSRCPWMONUSB] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCPWMONUSB);
+	csjobinfos[VecWzskVJob::JOBWZSKACTROTARY] = new Csjobinfo(VecWzskVJob::JOBWZSKACTROTARY);
+	csjobinfos[VecWzskVJob::JOBWZSKACTVISTOROT] = new Csjobinfo(VecWzskVJob::JOBWZSKACTVISTOROT);
+	csjobinfos[VecWzskVJob::JOBWZSKPRCANGLE] = new Csjobinfo(VecWzskVJob::JOBWZSKPRCANGLE);
+	csjobinfos[VecWzskVJob::JOBWZSKPRCWAVELET] = new Csjobinfo(VecWzskVJob::JOBWZSKPRCWAVELET);
+	csjobinfos[VecWzskVJob::JOBWZSKSRCDCVSP] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCDCVSP);
+	csjobinfos[VecWzskVJob::JOBWZSKSRCFPGAINFO] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCFPGAINFO);
 	csjobinfos[VecWzskVJob::JOBWZSKSRCSYSINFO] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCSYSINFO);
-	csjobinfos[VecWzskVJob::JOBWZSKSRCUVBDVK] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCUVBDVK);
-	csjobinfos[VecWzskVJob::JOBWZSKSRCV4L2] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCV4L2);
+	csjobinfos[VecWzskVJob::JOBWZSKSRCTIVSP] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCTIVSP);
+	csjobinfos[VecWzskVJob::JOBWZSKSRCZUVSP] = new Csjobinfo(VecWzskVJob::JOBWZSKSRCZUVSP);
 
 #if defined(SBECORE_DDS)
 	// DDS publisher call
@@ -2380,7 +2223,7 @@ void XchgWzskcmbd::startMon() {
 	Clstn* clstn = NULL;
 	Preset* preset = NULL;
 
-	mon.start("Whiznium StarterKit v1.0.17", stgwzskpath.monpath);
+	mon.start("Whiznium StarterKit v1.2.6", stgwzskpath.monpath);
 
 	rwmJobs.rlock("XchgWzskcmbd", "startMon");
 	for (auto it = jobs.begin(); it != jobs.end(); it++) {

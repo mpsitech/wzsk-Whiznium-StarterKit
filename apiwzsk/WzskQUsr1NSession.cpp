@@ -2,8 +2,8 @@
 	* \file WzskQUsr1NSession.cpp
 	* API code for table TblWzskQUsr1NSession (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -20,9 +20,10 @@ using namespace Xmlio;
 WzskQUsr1NSession::WzskQUsr1NSession(
 			const uint jnum
 			, const string stubRef
-		) {
-	this->jnum = jnum;
-	this->stubRef = stubRef;
+		) :
+			jnum(jnum)
+			, stubRef(stubRef)
+		{
 };
 
 bool WzskQUsr1NSession::readXML(

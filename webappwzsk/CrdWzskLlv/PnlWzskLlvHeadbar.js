@@ -13,9 +13,6 @@ function getMenLeft(short) {
 	if (short == "App") return(left);
 	left += getMenCptwidth("App") + 1;
 
-	if (short == "Crd") return(left);
-	left += getMenCptwidth("Crd") + 1;
-
 	return left;
 };
 
@@ -27,8 +24,6 @@ function init() {
 
 	w = getMenCptwidth("App"); contdoc.getElementById("colMenApp").setAttribute("width", "" + w); wFill -= w + 1;
 	setTextContent(contdoc, contdoc.getElementById("MenApp"), "\\u00a0" + retrieveTi(srcdoc, "TagWzskLlvHeadbar", "MenApp") + "\\u00a0");
-	w = getMenCptwidth("Crd"); contdoc.getElementById("colMenCrd").setAttribute("width", "" + w); wFill -= w + 1;
-	setTextContent(contdoc, contdoc.getElementById("MenCrd"), "\\u00a0" + retrieveTi(srcdoc, "TagWzskLlvHeadbar", "MenCrd") + "\\u00a0");
 
 	contdoc.getElementById("colFill").setAttribute("width", "" + wFill);
 };
@@ -46,10 +41,6 @@ function handleLoad() {
 
 function handleMenAppClick() {
 	getCrdwnd().toggleMenu("App", getMenLeft("App"), parseInt(retrieveSi(srcdoc, "StgInfWzskLlvHeadbar", "MenAppWidth")), 42);
-};
-
-function handleMenCrdClick() {
-	getCrdwnd().toggleMenu("Crd", getMenLeft("Crd"), parseInt(retrieveSi(srcdoc, "StgInfWzskLlvHeadbar", "MenCrdWidth")), 0);
 };
 
 // --- server interaction

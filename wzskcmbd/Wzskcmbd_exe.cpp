@@ -2,8 +2,8 @@
 	* \file Wzskcmbd_exe.cpp
 	* Wzsk combined daemon main (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -41,8 +41,9 @@ Wzskcmbd::Wzskcmbd(
 	xchg = new XchgWzskcmbd();
 	xchg->exedir = exedir;
 
-	// 2. load preferences and SSL key/certificate
+	// 2. load then store preferences, load SSL key/certificate
 	loadPref();
+	storePref();
 	if (xchg->stgwzskappsrv.https) loadKeycert();
 
 	// 3. connect to database
@@ -52,26 +53,22 @@ Wzskcmbd::Wzskcmbd(
 	// 4. initialize shared data
 	xchg->shrdatJobprc.init(xchg, &dbswzsk);
 
-	JobWzskAcqFpgaflg::shrdat.init(xchg, &dbswzsk);
-	JobWzskAcqFpgapvw::shrdat.init(xchg, &dbswzsk);
+	JobWzskSrcDcvsp::shrdat.init(xchg, &dbswzsk);
+	JobWzskSrcTivsp::shrdat.init(xchg, &dbswzsk);
+	JobWzskSrcZuvsp::shrdat.init(xchg, &dbswzsk);
 	JobWzskAcqPreview::shrdat.init(xchg, &dbswzsk);
-	JobWzskAcqPtcloud::shrdat.init(xchg, &dbswzsk);
-	JobWzskActExposure::shrdat.init(xchg, &dbswzsk);
+	JobWzskAcqTrace::shrdat.init(xchg, &dbswzsk);
+	JobWzskAcqVtrtrack::shrdat.init(xchg, &dbswzsk);
 	JobWzskActLaser::shrdat.init(xchg, &dbswzsk);
-	JobWzskActServo::shrdat.init(xchg, &dbswzsk);
-	JobWzskIprAngle::shrdat.init(xchg, &dbswzsk);
-	JobWzskIprCorner::shrdat.init(xchg, &dbswzsk);
-	JobWzskIprTrace::shrdat.init(xchg, &dbswzsk);
-	JobWzskSrcArty::shrdat.init(xchg, &dbswzsk);
-	JobWzskSrcClnxevb::shrdat.init(xchg, &dbswzsk);
-	JobWzskSrcIcicle::shrdat.init(xchg, &dbswzsk);
-	JobWzskSrcMcvevp::shrdat.init(xchg, &dbswzsk);
-	JobWzskSrcMercbb::shrdat.init(xchg, &dbswzsk);
-	JobWzskSrcPwmonuart::shrdat.init(xchg, &dbswzsk);
-	JobWzskSrcPwmonusb::shrdat.init(xchg, &dbswzsk);
+	JobWzskActRotary::shrdat.init(xchg, &dbswzsk);
+	JobWzskAcqCorner::shrdat.init(xchg, &dbswzsk);
+	JobWzskPrcAngle::shrdat.init(xchg, &dbswzsk);
+	JobWzskAcqHdr::shrdat.init(xchg, &dbswzsk);
+	JobWzskActVistorot::shrdat.init(xchg, &dbswzsk);
+	JobWzskSrcFpgainfo::shrdat.init(xchg, &dbswzsk);
 	JobWzskSrcSysinfo::shrdat.init(xchg, &dbswzsk);
-	JobWzskSrcUvbdvk::shrdat.init(xchg, &dbswzsk);
-	JobWzskSrcV4l2::shrdat.init(xchg, &dbswzsk);
+	JobWzskPrcWavelet::shrdat.init(xchg, &dbswzsk);
+	JobWzskAcqMemtrack::shrdat.init(xchg, &dbswzsk);
 
 	xchg->shrdatOpprc.init(xchg, &dbswzsk);
 
@@ -203,33 +200,26 @@ Wzskcmbd::~Wzskcmbd() {
 	// 7. terminate shared data
 	xchg->shrdatOpprc.term(xchg);
 
-	JobWzskAcqFpgaflg::shrdat.term(xchg);
-	JobWzskAcqFpgapvw::shrdat.term(xchg);
-	JobWzskAcqPreview::shrdat.term(xchg);
-	JobWzskAcqPtcloud::shrdat.term(xchg);
-	JobWzskActExposure::shrdat.term(xchg);
-	JobWzskActLaser::shrdat.term(xchg);
-	JobWzskActServo::shrdat.term(xchg);
-	JobWzskIprAngle::shrdat.term(xchg);
-	JobWzskIprCorner::shrdat.term(xchg);
-	JobWzskIprTrace::shrdat.term(xchg);
-	JobWzskSrcArty::shrdat.term(xchg);
-	JobWzskSrcClnxevb::shrdat.term(xchg);
-	JobWzskSrcIcicle::shrdat.term(xchg);
-	JobWzskSrcMcvevp::shrdat.term(xchg);
-	JobWzskSrcMercbb::shrdat.term(xchg);
-	JobWzskSrcPwmonuart::shrdat.term(xchg);
-	JobWzskSrcPwmonusb::shrdat.term(xchg);
+	JobWzskAcqMemtrack::shrdat.term(xchg);
+	JobWzskPrcWavelet::shrdat.term(xchg);
 	JobWzskSrcSysinfo::shrdat.term(xchg);
-	JobWzskSrcUvbdvk::shrdat.term(xchg);
-	JobWzskSrcV4l2::shrdat.term(xchg);
+	JobWzskSrcFpgainfo::shrdat.term(xchg);
+	JobWzskActVistorot::shrdat.term(xchg);
+	JobWzskAcqHdr::shrdat.term(xchg);
+	JobWzskPrcAngle::shrdat.term(xchg);
+	JobWzskAcqCorner::shrdat.term(xchg);
+	JobWzskActRotary::shrdat.term(xchg);
+	JobWzskActLaser::shrdat.term(xchg);
+	JobWzskAcqVtrtrack::shrdat.term(xchg);
+	JobWzskAcqTrace::shrdat.term(xchg);
+	JobWzskAcqPreview::shrdat.term(xchg);
+	JobWzskSrcZuvsp::shrdat.term(xchg);
+	JobWzskSrcTivsp::shrdat.term(xchg);
+	JobWzskSrcDcvsp::shrdat.term(xchg);
 
 	xchg->shrdatJobprc.term(xchg);
 
-	// 8. store preferences
-	storePref();
-
-	// 9. delete exchange object
+	// 8. delete exchange object
 	delete xchg;
 };
 
@@ -242,31 +232,24 @@ void Wzskcmbd::loadPref() {
 	parseFile(xchg->exedir + "/PrefWzskcmbd.xml", &doc, &docctx);
 
 	if (checkUclcXPaths(docctx, basexpath, "/", "PrefWzskcmbd")) {
-		xchg->stgwzskappearance.readXML(docctx, basexpath, true);
 		xchg->stgwzskappsrv.readXML(docctx, basexpath, true);
+		xchg->stgwzskbehavior.readXML(docctx, basexpath, true);
 		xchg->stgwzskcamera.readXML(docctx, basexpath, true);
 		xchg->stgwzskcmbd.readXML(docctx, basexpath, true);
 		xchg->stgwzskdatabase.readXML(docctx, basexpath, true);
 		xchg->stgwzskddspub.readXML(docctx, basexpath, true);
-		xchg->stgwzskframegeo.readXML(docctx, basexpath, true);
 		xchg->stgwzskglobal.readXML(docctx, basexpath, true);
 		xchg->stgwzskpath.readXML(docctx, basexpath, true);
 		xchg->stgwzskuasrv.readXML(docctx, basexpath, true);
-		JobWzskAcqPtcloud::stg.readXML(docctx, basexpath, true);
+		JobWzskAcqCorner::stg.readXML(docctx, basexpath, true);
+		JobWzskAcqPreview::stg.readXML(docctx, basexpath, true);
+		JobWzskAcqTrace::stg.readXML(docctx, basexpath, true);
 		JobWzskActLaser::stg.readXML(docctx, basexpath, true);
-		JobWzskActServo::stg.readXML(docctx, basexpath, true);
-		JobWzskIprCorner::stg.readXML(docctx, basexpath, true);
-		JobWzskIprTrace::stg.readXML(docctx, basexpath, true);
-		JobWzskSrcArty::stg.readXML(docctx, basexpath, true);
-		JobWzskSrcClnxevb::stg.readXML(docctx, basexpath, true);
-		JobWzskSrcIcicle::stg.readXML(docctx, basexpath, true);
-		JobWzskSrcMcvevp::stg.readXML(docctx, basexpath, true);
-		JobWzskSrcMercbb::stg.readXML(docctx, basexpath, true);
-		JobWzskSrcPwmonuart::stg.readXML(docctx, basexpath, true);
-		JobWzskSrcPwmonusb::stg.readXML(docctx, basexpath, true);
+		JobWzskActVistorot::stg.readXML(docctx, basexpath, true);
+		JobWzskSrcDcvsp::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcSysinfo::stg.readXML(docctx, basexpath, true);
-		JobWzskSrcUvbdvk::stg.readXML(docctx, basexpath, true);
-		JobWzskSrcV4l2::stg.readXML(docctx, basexpath, true);
+		JobWzskSrcTivsp::stg.readXML(docctx, basexpath, true);
+		JobWzskSrcZuvsp::stg.readXML(docctx, basexpath, true);
 	};
 
 	closeParsed(doc, docctx);
@@ -292,32 +275,27 @@ void Wzskcmbd::storePref() {
 	xmlTextWriter* wr = NULL;
 
 	startwriteFile(xchg->exedir + "/PrefWzskcmbd.xml", &wr);
+	xmlTextWriterSetIndent(wr, 1);
+	xmlTextWriterSetIndentString(wr, BAD_CAST "\t");
 	xmlTextWriterStartElement(wr, BAD_CAST "PrefWzskcmbd");
-		xchg->stgwzskappearance.writeXML(wr);
 		xchg->stgwzskappsrv.writeXML(wr);
+		xchg->stgwzskbehavior.writeXML(wr);
 		xchg->stgwzskcamera.writeXML(wr);
 		xchg->stgwzskcmbd.writeXML(wr);
 		xchg->stgwzskdatabase.writeXML(wr);
 		xchg->stgwzskddspub.writeXML(wr);
-		xchg->stgwzskframegeo.writeXML(wr);
 		xchg->stgwzskglobal.writeXML(wr);
 		xchg->stgwzskpath.writeXML(wr);
 		xchg->stgwzskuasrv.writeXML(wr);
-		JobWzskAcqPtcloud::stg.writeXML(wr);
+		JobWzskAcqCorner::stg.writeXML(wr);
+		JobWzskAcqPreview::stg.writeXML(wr);
+		JobWzskAcqTrace::stg.writeXML(wr);
 		JobWzskActLaser::stg.writeXML(wr);
-		JobWzskActServo::stg.writeXML(wr);
-		JobWzskIprCorner::stg.writeXML(wr);
-		JobWzskIprTrace::stg.writeXML(wr);
-		JobWzskSrcArty::stg.writeXML(wr);
-		JobWzskSrcClnxevb::stg.writeXML(wr);
-		JobWzskSrcIcicle::stg.writeXML(wr);
-		JobWzskSrcMcvevp::stg.writeXML(wr);
-		JobWzskSrcMercbb::stg.writeXML(wr);
-		JobWzskSrcPwmonuart::stg.writeXML(wr);
-		JobWzskSrcPwmonusb::stg.writeXML(wr);
+		JobWzskActVistorot::stg.writeXML(wr);
+		JobWzskSrcDcvsp::stg.writeXML(wr);
 		JobWzskSrcSysinfo::stg.writeXML(wr);
-		JobWzskSrcUvbdvk::stg.writeXML(wr);
-		JobWzskSrcV4l2::stg.writeXML(wr);
+		JobWzskSrcTivsp::stg.writeXML(wr);
+		JobWzskSrcZuvsp::stg.writeXML(wr);
 	xmlTextWriterEndElement(wr);
 	closewriteFile(wr);
 };
@@ -359,46 +337,36 @@ void Wzskcmbd::loadKeycert() {
  settings for jobs, operation packs and operations
  ******************************************************************************/
 
-StgJobWzskAcqPtcloud JobWzskAcqPtcloud::stg;
+StgJobWzskAcqCorner JobWzskAcqCorner::stg;
+StgJobWzskAcqPreview JobWzskAcqPreview::stg;
+StgJobWzskAcqTrace JobWzskAcqTrace::stg;
 StgJobWzskActLaser JobWzskActLaser::stg;
-StgJobWzskActServo JobWzskActServo::stg;
-StgJobWzskIprCorner JobWzskIprCorner::stg;
-StgJobWzskIprTrace JobWzskIprTrace::stg;
-StgJobWzskSrcArty JobWzskSrcArty::stg;
-StgJobWzskSrcClnxevb JobWzskSrcClnxevb::stg;
-StgJobWzskSrcIcicle JobWzskSrcIcicle::stg;
-StgJobWzskSrcMcvevp JobWzskSrcMcvevp::stg;
-StgJobWzskSrcMercbb JobWzskSrcMercbb::stg;
-StgJobWzskSrcPwmonuart JobWzskSrcPwmonuart::stg;
-StgJobWzskSrcPwmonusb JobWzskSrcPwmonusb::stg;
+StgJobWzskActVistorot JobWzskActVistorot::stg;
+StgJobWzskSrcDcvsp JobWzskSrcDcvsp::stg;
 StgJobWzskSrcSysinfo JobWzskSrcSysinfo::stg;
-StgJobWzskSrcUvbdvk JobWzskSrcUvbdvk::stg;
-StgJobWzskSrcV4l2 JobWzskSrcV4l2::stg;
+StgJobWzskSrcTivsp JobWzskSrcTivsp::stg;
+StgJobWzskSrcZuvsp JobWzskSrcZuvsp::stg;
 
 /******************************************************************************
  shared data for jobs, operation packs and operations
  ******************************************************************************/
 
-ShrdatJobWzskAcqFpgaflg JobWzskAcqFpgaflg::shrdat;
-ShrdatJobWzskAcqFpgapvw JobWzskAcqFpgapvw::shrdat;
+ShrdatJobWzskAcqCorner JobWzskAcqCorner::shrdat;
+ShrdatJobWzskAcqHdr JobWzskAcqHdr::shrdat;
+ShrdatJobWzskAcqMemtrack JobWzskAcqMemtrack::shrdat;
 ShrdatJobWzskAcqPreview JobWzskAcqPreview::shrdat;
-ShrdatJobWzskAcqPtcloud JobWzskAcqPtcloud::shrdat;
-ShrdatJobWzskActExposure JobWzskActExposure::shrdat;
+ShrdatJobWzskAcqTrace JobWzskAcqTrace::shrdat;
+ShrdatJobWzskAcqVtrtrack JobWzskAcqVtrtrack::shrdat;
 ShrdatJobWzskActLaser JobWzskActLaser::shrdat;
-ShrdatJobWzskActServo JobWzskActServo::shrdat;
-ShrdatJobWzskIprAngle JobWzskIprAngle::shrdat;
-ShrdatJobWzskIprCorner JobWzskIprCorner::shrdat;
-ShrdatJobWzskIprTrace JobWzskIprTrace::shrdat;
-ShrdatJobWzskSrcArty JobWzskSrcArty::shrdat;
-ShrdatJobWzskSrcClnxevb JobWzskSrcClnxevb::shrdat;
-ShrdatJobWzskSrcIcicle JobWzskSrcIcicle::shrdat;
-ShrdatJobWzskSrcMcvevp JobWzskSrcMcvevp::shrdat;
-ShrdatJobWzskSrcMercbb JobWzskSrcMercbb::shrdat;
-ShrdatJobWzskSrcPwmonuart JobWzskSrcPwmonuart::shrdat;
-ShrdatJobWzskSrcPwmonusb JobWzskSrcPwmonusb::shrdat;
+ShrdatJobWzskActRotary JobWzskActRotary::shrdat;
+ShrdatJobWzskActVistorot JobWzskActVistorot::shrdat;
+ShrdatJobWzskPrcAngle JobWzskPrcAngle::shrdat;
+ShrdatJobWzskPrcWavelet JobWzskPrcWavelet::shrdat;
+ShrdatJobWzskSrcDcvsp JobWzskSrcDcvsp::shrdat;
+ShrdatJobWzskSrcFpgainfo JobWzskSrcFpgainfo::shrdat;
 ShrdatJobWzskSrcSysinfo JobWzskSrcSysinfo::shrdat;
-ShrdatJobWzskSrcUvbdvk JobWzskSrcUvbdvk::shrdat;
-ShrdatJobWzskSrcV4l2 JobWzskSrcV4l2::shrdat;
+ShrdatJobWzskSrcTivsp JobWzskSrcTivsp::shrdat;
+ShrdatJobWzskSrcZuvsp JobWzskSrcZuvsp::shrdat;
 
 /******************************************************************************
  main program
@@ -649,7 +617,7 @@ int main(
 
 	try {
 		// welcome message
-		cout << "Welcome to Whiznium StarterKit v1.0.17!" << endl;
+		cout << "Welcome to Whiznium StarterKit v1.2.6!" << endl;
 
 		// calls wzskcmbd.init()
 		wzskcmbd = new Wzskcmbd(exedir, clearAll, startMon);

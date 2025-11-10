@@ -2,8 +2,8 @@
 	* \file PnlWzskFilRec.cpp
 	* API code for job PnlWzskFilRec (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -45,9 +45,8 @@ PnlWzskFilRec::ContInf::ContInf(
 			const string& TxtRef
 		) :
 			Block()
+			, TxtRef(TxtRef)
 		{
-	this->TxtRef = TxtRef;
-
 	mask = {TXTREF};
 };
 
@@ -106,9 +105,8 @@ PnlWzskFilRec::StatApp::StatApp(
 			const bool initdoneDetail
 		) :
 			Block()
+			, initdoneDetail(initdoneDetail)
 		{
-	this->initdoneDetail = initdoneDetail;
-
 	mask = {INITDONEDETAIL};
 };
 
@@ -169,11 +167,10 @@ PnlWzskFilRec::StatShr::StatShr(
 			, const bool ButRegularizeActive
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, scrJrefDetail(scrJrefDetail)
+			, ButRegularizeActive(ButRegularizeActive)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->scrJrefDetail = scrJrefDetail;
-	this->ButRegularizeActive = ButRegularizeActive;
-
 	mask = {IXWZSKVEXPSTATE, SCRJREFDETAIL, BUTREGULARIZEACTIVE};
 };
 
@@ -241,9 +238,8 @@ PnlWzskFilRec::Tag::Tag(
 			const string& Cpt
 		) :
 			Block()
+			, Cpt(Cpt)
 		{
-	this->Cpt = Cpt;
-
 	mask = {CPT};
 };
 
@@ -280,11 +276,11 @@ PnlWzskFilRec::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKFILRECDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string PnlWzskFilRec::DpchAppDo::getSrefsMask() {

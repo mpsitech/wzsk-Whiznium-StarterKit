@@ -2,8 +2,8 @@
 	* \file PnlWzskUsgRec.cpp
 	* API code for job PnlWzskUsgRec (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -45,9 +45,8 @@ PnlWzskUsgRec::ContInf::ContInf(
 			const string& TxtRef
 		) :
 			Block()
+			, TxtRef(TxtRef)
 		{
-	this->TxtRef = TxtRef;
-
 	mask = {TXTREF};
 };
 
@@ -108,11 +107,10 @@ PnlWzskUsgRec::StatApp::StatApp(
 			, const bool initdoneMNUser
 		) :
 			Block()
+			, initdoneDetail(initdoneDetail)
+			, initdoneAAccess(initdoneAAccess)
+			, initdoneMNUser(initdoneMNUser)
 		{
-	this->initdoneDetail = initdoneDetail;
-	this->initdoneAAccess = initdoneAAccess;
-	this->initdoneMNUser = initdoneMNUser;
-
 	mask = {INITDONEDETAIL, INITDONEAACCESS, INITDONEMNUSER};
 };
 
@@ -179,13 +177,12 @@ PnlWzskUsgRec::StatShr::StatShr(
 			, const bool ButRegularizeActive
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, scrJrefDetail(scrJrefDetail)
+			, scrJrefAAccess(scrJrefAAccess)
+			, scrJrefMNUser(scrJrefMNUser)
+			, ButRegularizeActive(ButRegularizeActive)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->scrJrefDetail = scrJrefDetail;
-	this->scrJrefAAccess = scrJrefAAccess;
-	this->scrJrefMNUser = scrJrefMNUser;
-	this->ButRegularizeActive = ButRegularizeActive;
-
 	mask = {IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREFAACCESS, SCRJREFMNUSER, BUTREGULARIZEACTIVE};
 };
 
@@ -257,9 +254,8 @@ PnlWzskUsgRec::Tag::Tag(
 			const string& Cpt
 		) :
 			Block()
+			, Cpt(Cpt)
 		{
-	this->Cpt = Cpt;
-
 	mask = {CPT};
 };
 
@@ -296,11 +292,11 @@ PnlWzskUsgRec::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKUSGRECDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string PnlWzskUsgRec::DpchAppDo::getSrefsMask() {

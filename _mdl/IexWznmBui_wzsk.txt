@@ -1,50 +1,23 @@
-IexWznmBui v0.9.27
+IexWznmBui v1.1.8
 ImeIMModule.sref	Title	Comment
 MdlWzskAdmin
 	ImeIJMModule.srefX1RefWznmMLocale	Title	Comment
 	enus	administration
-	dech	Verwaltung
 	ImeIJMModule.end
 	ImeIMCard.srefRefIxVTbl	srefRefUref	sref	Title	Avail	Active
 	tbl	TblWzskMUsergroup	CrdWzskUsg
 	tbl	TblWzskMUser	CrdWzskUsr
 	tbl	TblWzskMPerson	CrdWzskPrs
-	void		CrdWzskScf
-		ImeIJMCardTitle.srefX1RefWznmMLocale	Title
-		enus	system configuration
-		dech	Systemkonfiguration
-		ImeIJMCardTitle.end
+	void		CrdWzskPrf	preferences
 	ImeIMCard.end
 MdlWzskOp
 	ImeIJMModule.srefX1RefWznmMLocale	Title	Comment
 	enus	operation
-	dech	Betrieb
 	ImeIJMModule.end
 	ImeIMCard.srefRefIxVTbl	srefRefUref	sref	Title	Avail	Active
-	void		CrdWzskLlv
-		ImeIJMCardTitle.srefX1RefWznmMLocale	Title
-		enus	low-level access
-		dech	Low-level Zugriff
-		ImeIJMCardTitle.end
-	void		CrdWzskLiv
-		ImeIJMCardTitle.srefX1RefWznmMLocale	Title
-		enus	live data
-		dech	Livedaten
-		ImeIJMCardTitle.end
-	ImeIMCard.end
-MdlWzskGlry
-	ImeIJMModule.srefX1RefWznmMLocale	Title	Comment
-	enus	gallery
-	dech	Galerie
-	ImeIJMModule.end
-	ImeIMCard.srefRefIxVTbl	srefRefUref	sref	Title	Avail	Active
-	tbl	TblWzskMObjgroup	CrdWzskOgr
-	tbl	TblWzskMObject	CrdWzskObj
-	tbl	TblWzskMSession	CrdWzskSes
-	tbl	TblWzskMShot	CrdWzskSht			pre.refObj() > pre.void()
-	tbl	TblWzskMFile	CrdWzskFil			pre.refObj() > pre.void()
+	void		CrdWzskLlv	low-level access
+	void		CrdWzskVtr	vision-to-rotary
+	void		CrdWzskHwc	HDR wavelet classification
+	tbl	TblWzskMFile	CrdWzskFil
 	ImeIMCard.end
 ImeIMModule.end
-ImeIMPreset.srefIxVIop	srefRefIxVTbl	srefRefUref	srefIxVScope	sref	srefIxWznmWArgtype
-retrupd			sess	PreWzskRefObj
-ImeIMPreset.end

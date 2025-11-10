@@ -168,11 +168,13 @@ function handleTxftChange(_doc, ctlsref) {
 function mergeDpchEngData(dom) {
 	var mask = [];
 
+	// IP mergeDpchEngData --- BEGIN
 	if (updateSrcblock(dom, "DpchEngWzskUsgDetailData", "ContIacWzskUsgDetail", srcdoc)) mask.push("contiac");
 	if (updateSrcblock(dom, "DpchEngWzskUsgDetailData", "ContInfWzskUsgDetail", srcdoc)) mask.push("continf");
 	if (updateSrcblock(dom, "DpchEngWzskUsgDetailData", "StatAppWzskUsgDetail", srcdoc)) mask.push("statapp");
 	if (updateSrcblock(dom, "DpchEngWzskUsgDetailData", "StatShrWzskUsgDetail", srcdoc)) mask.push("statshr");
 	if (updateSrcblock(dom, "DpchEngWzskUsgDetailData", "TagWzskUsgDetail", srcdoc)) mask.push("tag");
+	// IP mergeDpchEngData --- END
 
 	return mask;
 };

@@ -2,8 +2,8 @@
 	* \file PnlWzskFilList.h
 	* API code for job PnlWzskFilList (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -76,17 +76,13 @@ namespace PnlWzskFilList {
 	class ContInf : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint TXTFOR = 1;
-		static const Sbecore::uint TXTPRE = 2;
-		static const Sbecore::uint BUTFILTERON = 3;
-		static const Sbecore::uint NUMFCSIQST = 4;
+		static const Sbecore::uint BUTFILTERON = 1;
+		static const Sbecore::uint NUMFCSIQST = 2;
 
 	public:
-		ContInf(const std::string& TxtFor = "", const std::string& TxtPre = "", const bool ButFilterOn = false, const Sbecore::uint numFCsiQst = 1);
+		ContInf(const bool ButFilterOn = false, const Sbecore::uint numFCsiQst = 1);
 
 	public:
-		std::string TxtFor;
-		std::string TxtPre;
 		bool ButFilterOn;
 		Sbecore::uint numFCsiQst;
 
@@ -160,27 +156,25 @@ namespace PnlWzskFilList {
 
 	public:
 		static const Sbecore::uint CPT = 1;
-		static const Sbecore::uint TXTFOR = 2;
-		static const Sbecore::uint TXTRECORD1 = 3;
-		static const Sbecore::uint TXTRECORD2 = 4;
-		static const Sbecore::uint TRS = 5;
-		static const Sbecore::uint TXTSHOWING1 = 6;
-		static const Sbecore::uint TXTSHOWING2 = 7;
-		static const Sbecore::uint TCOGRP = 8;
-		static const Sbecore::uint TCOOWN = 9;
-		static const Sbecore::uint TCOFNM = 10;
-		static const Sbecore::uint TCORET = 11;
-		static const Sbecore::uint TCOREU = 12;
-		static const Sbecore::uint TCOCNT = 13;
-		static const Sbecore::uint TCOMIM = 14;
-		static const Sbecore::uint TCOSIZ = 15;
+		static const Sbecore::uint TXTRECORD1 = 2;
+		static const Sbecore::uint TXTRECORD2 = 3;
+		static const Sbecore::uint TRS = 4;
+		static const Sbecore::uint TXTSHOWING1 = 5;
+		static const Sbecore::uint TXTSHOWING2 = 6;
+		static const Sbecore::uint TCOGRP = 7;
+		static const Sbecore::uint TCOOWN = 8;
+		static const Sbecore::uint TCOFNM = 9;
+		static const Sbecore::uint TCORET = 10;
+		static const Sbecore::uint TCOREU = 11;
+		static const Sbecore::uint TCOCNT = 12;
+		static const Sbecore::uint TCOMIM = 13;
+		static const Sbecore::uint TCOSIZ = 14;
 
 	public:
-		Tag(const std::string& Cpt = "", const std::string& TxtFor = "", const std::string& TxtRecord1 = "", const std::string& TxtRecord2 = "", const std::string& Trs = "", const std::string& TxtShowing1 = "", const std::string& TxtShowing2 = "", const std::string& TcoGrp = "", const std::string& TcoOwn = "", const std::string& TcoFnm = "", const std::string& TcoRet = "", const std::string& TcoReu = "", const std::string& TcoCnt = "", const std::string& TcoMim = "", const std::string& TcoSiz = "");
+		Tag(const std::string& Cpt = "", const std::string& TxtRecord1 = "", const std::string& TxtRecord2 = "", const std::string& Trs = "", const std::string& TxtShowing1 = "", const std::string& TxtShowing2 = "", const std::string& TcoGrp = "", const std::string& TcoOwn = "", const std::string& TcoFnm = "", const std::string& TcoRet = "", const std::string& TcoReu = "", const std::string& TcoCnt = "", const std::string& TcoMim = "", const std::string& TcoSiz = "");
 
 	public:
 		std::string Cpt;
-		std::string TxtFor;
 		std::string TxtRecord1;
 		std::string TxtRecord2;
 		std::string Trs;

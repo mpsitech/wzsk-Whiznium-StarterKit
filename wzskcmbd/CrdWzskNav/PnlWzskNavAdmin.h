@@ -2,8 +2,8 @@
 	* \file PnlWzskNavAdmin.h
 	* job handler for job PnlWzskNavAdmin (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -43,7 +43,7 @@ public:
 		static const Sbecore::uint BUTUSRNEWCRDCLICK = 4;
 		static const Sbecore::uint BUTPRSVIEWCLICK = 5;
 		static const Sbecore::uint BUTPRSNEWCRDCLICK = 6;
-		static const Sbecore::uint BUTSCFNEWCRDCLICK = 7;
+		static const Sbecore::uint BUTPRFNEWCRDCLICK = 7;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -98,10 +98,10 @@ public:
 		static const Sbecore::uint BUTUSRVIEWACTIVE = 4;
 		static const Sbecore::uint LSTPRSAVAIL = 5;
 		static const Sbecore::uint BUTPRSVIEWACTIVE = 6;
-		static const Sbecore::uint BUTSCFNEWCRDAVAIL = 7;
+		static const Sbecore::uint BUTPRFNEWCRDAVAIL = 7;
 
 	public:
-		StatShr(const bool LstUsgAvail = true, const bool ButUsgViewActive = true, const bool LstUsrAvail = true, const bool ButUsrViewActive = true, const bool LstPrsAvail = true, const bool ButPrsViewActive = true, const bool ButScfNewcrdAvail = true);
+		StatShr(const bool LstUsgAvail = true, const bool ButUsgViewActive = true, const bool LstUsrAvail = true, const bool ButUsrViewActive = true, const bool LstPrsAvail = true, const bool ButPrsViewActive = true, const bool ButPrfNewcrdAvail = true);
 
 	public:
 		bool LstUsgAvail;
@@ -110,7 +110,7 @@ public:
 		bool ButUsrViewActive;
 		bool LstPrsAvail;
 		bool ButPrsViewActive;
-		bool ButScfNewcrdAvail;
+		bool ButPrfNewcrdAvail;
 
 	public:
 		void writeJSON(Json::Value& sup, std::string difftag = "");
@@ -213,7 +213,7 @@ public:
 	bool evalButUsrViewActive(DbsWzsk* dbswzsk);
 	bool evalLstPrsAvail(DbsWzsk* dbswzsk);
 	bool evalButPrsViewActive(DbsWzsk* dbswzsk);
-	bool evalButScfNewcrdAvail(DbsWzsk* dbswzsk);
+	bool evalButPrfNewcrdAvail(DbsWzsk* dbswzsk);
 
 public:
 	PnlWzskNavAdmin(XchgWzsk* xchg, DbsWzsk* dbswzsk, const Sbecore::ubigint jrefSup, const Sbecore::uint ixWzskVLocale);
@@ -261,7 +261,7 @@ private:
 	void handleDpchAppDoButUsrNewcrdClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButPrsViewClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButPrsNewcrdClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
-	void handleDpchAppDoButScfNewcrdClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoButPrfNewcrdClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 
 public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);

@@ -2,8 +2,8 @@
 	* \file JobWzskIexIni.cpp
 	* job handler for job JobWzskIexIni (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -184,24 +184,16 @@ string JobWzskIexIni::getSquawk(
 			DbsWzsk* dbswzsk
 		) {
 	string retval;
-	// IP getSquawk --- RBEGIN
+	// IP getSquawk --- BEGIN
 	if ( (ixVSge == VecVSge::PARSE) || (ixVSge == VecVSge::PRSDONE) || (ixVSge == VecVSge::IMPORT) || (ixVSge == VecVSge::REVERSE) || (ixVSge == VecVSge::COLLECT) || (ixVSge == VecVSge::CLTDONE) || (ixVSge == VecVSge::EXPORT) ) {
-		if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			if (ixVSge == VecVSge::PARSE) retval = "parsing Initialisierungsdaten";
-			else if (ixVSge == VecVSge::PRSDONE) retval = "Initialisierungsdaten parsed";
-			else if (ixVSge == VecVSge::IMPORT) retval = "importing Initialisierungsdaten (" + to_string(impcnt) + " records added)";
-			else if (ixVSge == VecVSge::REVERSE) retval = "reversing Initialisierungsdaten import";
-			else if (ixVSge == VecVSge::COLLECT) retval = "collecting Initialisierungsdaten for export";
-			else if (ixVSge == VecVSge::CLTDONE) retval = "Initialisierungsdaten collected for export";
-			else if (ixVSge == VecVSge::EXPORT) retval = "exporting Initialisierungsdaten";
-		} else if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-			if (ixVSge == VecVSge::PARSE) retval = "parsing Initialisierungsdaten";
-			else if (ixVSge == VecVSge::PRSDONE) retval = "Initialisierungsdaten parsed";
-			else if (ixVSge == VecVSge::IMPORT) retval = "importing Initialisierungsdaten (" + to_string(impcnt) + " records added)";
-			else if (ixVSge == VecVSge::REVERSE) retval = "reversing Initialisierungsdaten import";
-			else if (ixVSge == VecVSge::COLLECT) retval = "collecting Initialisierungsdaten for export";
-			else if (ixVSge == VecVSge::CLTDONE) retval = "Initialisierungsdaten collected for export";
-			else if (ixVSge == VecVSge::EXPORT) retval = "exporting Initialisierungsdaten";
+		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+			if (ixVSge == VecVSge::PARSE) retval = "parsing initialization data";
+			else if (ixVSge == VecVSge::PRSDONE) retval = "initialization data parsed";
+			else if (ixVSge == VecVSge::IMPORT) retval = "importing initialization data (&impcnt; records added)";
+			else if (ixVSge == VecVSge::REVERSE) retval = "reversing initialization data import";
+			else if (ixVSge == VecVSge::COLLECT) retval = "collecting initialization data for export";
+			else if (ixVSge == VecVSge::CLTDONE) retval = "initialization data collected for export";
+			else if (ixVSge == VecVSge::EXPORT) retval = "exporting initialization data";
 		};
 
 	} else if ( (ixVSge == VecVSge::PRSERR) || (ixVSge == VecVSge::IMPERR) ) {
@@ -210,7 +202,7 @@ string JobWzskIexIni::getSquawk(
 	} else {
 		retval = VecVSge::getSref(ixVSge);
 	};
-	// IP getSquawk --- REND
+	// IP getSquawk --- END
 	return retval;
 };
 
@@ -232,7 +224,6 @@ uint JobWzskIexIni::enterSgeIdle(
 	imeiavcontrolpar.clear();
 	imeiavkeylistkey.clear();
 	imeiavvaluelistval.clear();
-	imeimfile.clear();
 	imeimusergroup.clear();
 
 	return retval;
@@ -254,7 +245,7 @@ uint JobWzskIexIni::enterSgeParse(
 	nextIxVSgeFailure = VecVSge::PRSERR;
 
 	try {
-		IexWzskIni::parseFromFile(fullpath, xmlNotTxt, rectpath, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimfile, imeimusergroup);
+		IexWzskIni::parseFromFile(fullpath, xmlNotTxt, rectpath, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimusergroup);
 
 	} catch (SbeException& e) {
 		if (e.ix == SbeException::PATHNF) e.vals["path"] = "<hidden>";
@@ -318,7 +309,6 @@ uint JobWzskIexIni::enterSgeImport(
 	ImeitemIAVControlPar* ctlApar = NULL;
 	ImeitemIAVKeylistKey* klsAkey = NULL;
 	ImeitemIAVValuelistVal* vlsAval = NULL;
-	ImeitemIMFile* fil = NULL;
 	ImeitemIMUsergroup* usg = NULL;
 	ImeitemIAMUsergroupAccess* usgAacc = NULL;
 	ImeitemIJAVKeylistKey* kakJkey = NULL;
@@ -330,12 +320,23 @@ uint JobWzskIexIni::enterSgeImport(
 
 	uint num0;
 
-	// IP enterSgeImport.prep --- IBEGIN
-	WzskRMUserMUsergroup uru;
-	// IP enterSgeImport.prep --- IEND
+	// IP enterSgeImport.prep --- INSERT
 
 	try {
-		// IP enterSgeImport.traverse --- RBEGIN
+		// IP enterSgeImport.traverse --- BEGIN
+
+		// -- ImeIAVControlPar
+		for (unsigned int ix0 = 0; ix0 < imeiavcontrolpar.nodes.size(); ix0++) {
+			ctlApar = imeiavcontrolpar.nodes[ix0];
+
+			ctlApar->ixWzskVControl = VecWzskVControl::getIx(ctlApar->srefIxWzskVControl);
+			if (ctlApar->ixWzskVControl == 0) throw SbeException(SbeException::IEX_VSREF, {{"vsref",ctlApar->srefIxWzskVControl}, {"iel","srefIxWzskVControl"}, {"lineno",to_string(ctlApar->lineno)}});
+			//ctlApar->Par: TBL
+			//ctlApar->Val: TBL
+
+			dbswzsk->tblwzskavcontrolpar->insertRec(ctlApar);
+			impcnt++;
+		};
 
 		// -- ImeIAVKeylistKey
 		for (unsigned int ix0 = 0; ix0 < imeiavkeylistkey.nodes.size(); ix0++) {
@@ -344,7 +345,6 @@ uint JobWzskIexIni::enterSgeImport(
 			klsAkey->klsIxWzskVKeylist = VecWzskVKeylist::getIx(klsAkey->srefKlsIxWzskVKeylist);
 			if (klsAkey->klsIxWzskVKeylist == 0) throw SbeException(SbeException::IEX_VSREF, {{"vsref",klsAkey->srefKlsIxWzskVKeylist}, {"iel","srefKlsIxWzskVKeylist"}, {"lineno",to_string(klsAkey->lineno)}});
 			//klsAkey->klsNum: CUST
-			klsAkey->klsNum = num0++; // TBD
 			klsAkey->x1IxWzskVMaintable = VecWzskVMaintable::VOID;
 			klsAkey->Fixed = true;
 			//klsAkey->sref: TBL
@@ -396,39 +396,11 @@ uint JobWzskIexIni::enterSgeImport(
 			vlsAval->vlsIxWzskVValuelist = VecWzskVValuelist::getIx(vlsAval->srefVlsIxWzskVValuelist);
 			if (vlsAval->vlsIxWzskVValuelist == 0) throw SbeException(SbeException::IEX_VSREF, {{"vsref",vlsAval->srefVlsIxWzskVValuelist}, {"iel","srefVlsIxWzskVValuelist"}, {"lineno",to_string(vlsAval->lineno)}});
 			//vlsAval->vlsNum: CUST
-			vlsAval->vlsNum = num0++; // TBD
 			vlsAval->x1IxWzskVLocale = VecWzskVLocale::getIx(vlsAval->srefX1IxWzskVLocale);
 			if (vlsAval->x1IxWzskVLocale == 0) throw SbeException(SbeException::IEX_VSREF, {{"vsref",vlsAval->srefX1IxWzskVLocale}, {"iel","srefX1IxWzskVLocale"}, {"lineno",to_string(vlsAval->lineno)}});
 			//vlsAval->Val: TBL
 
 			dbswzsk->tblwzskavvaluelistval->insertRec(vlsAval);
-			impcnt++;
-		};
-
-		// -- ImeIAVControlPar
-		for (unsigned int ix0 = 0; ix0 < imeiavcontrolpar.nodes.size(); ix0++) {
-			ctlApar = imeiavcontrolpar.nodes[ix0];
-
-			ctlApar->ixWzskVControl = VecWzskVControl::getIx(ctlApar->srefIxWzskVControl);
-			if (ctlApar->ixWzskVControl == 0) throw SbeException(SbeException::IEX_VSREF, {{"vsref",ctlApar->srefIxWzskVControl}, {"iel","srefIxWzskVControl"}, {"lineno",to_string(ctlApar->lineno)}});
-			//ctlApar->Par: TBL
-			//ctlApar->Val: TBL
-
-			dbswzsk->tblwzskavcontrolpar->insertRec(ctlApar);
-			impcnt++;
-		};
-
-		// -- ImeIMFile
-		for (unsigned int ix0 = 0; ix0 < imeimfile.nodes.size(); ix0++) {
-			fil = imeimfile.nodes[ix0];
-
-			fil->refIxVTbl = VecWzskVMFileRefTbl::VOID;
-			//fil->osrefKContent: TBL
-			//fil->Filename: TBL
-			//fil->srefKMimetype: TBL
-			//fil->Comment: TBL
-
-			dbswzsk->tblwzskmfile->insertRec(fil);
 			impcnt++;
 		};
 
@@ -463,10 +435,8 @@ uint JobWzskIexIni::enterSgeImport(
 				//usr->refWzskMPerson: SUB
 				//usr->sref: TBL
 				//usr->refJState: SUB
-				if (usr->srefIxVState != "") {
-					usr->ixVState = VecWzskVMUserState::getIx(usr->srefIxVState);
-					if (usr->ixVState == 0) throw SbeException(SbeException::IEX_VSREF, {{"vsref",usr->srefIxVState}, {"iel","srefIxVState"}, {"lineno",to_string(usr->lineno)}});
-				};
+				usr->ixVState = VecWzskVMUserState::getIx(usr->srefIxVState);
+				if (usr->ixVState == 0) throw SbeException(SbeException::IEX_VSREF, {{"vsref",usr->srefIxVState}, {"iel","srefIxVState"}, {"lineno",to_string(usr->lineno)}});
 				usr->ixWzskVLocale = VecWzskVLocale::getIx(usr->srefIxWzskVLocale);
 				if (usr->ixWzskVLocale == 0) throw SbeException(SbeException::IEX_VSREF, {{"vsref",usr->srefIxWzskVLocale}, {"iel","srefIxWzskVLocale"}, {"lineno",to_string(usr->lineno)}});
 				usr->ixWzskVUserlevel = VecWzskVUserlevel::getIx(usr->srefIxWzskVUserlevel);
@@ -484,6 +454,19 @@ uint JobWzskIexIni::enterSgeImport(
 
 					usrJste->refWzskMUser = usr->ref;
 					usrJste->srefIxVState = usr->srefIxVState;
+				};
+
+				for (unsigned int ix2 = 0; ix2 < usr->imeiamuseraccess.nodes.size(); ix2++) {
+					usrAacc = usr->imeiamuseraccess.nodes[ix2];
+
+					usrAacc->refWzskMUser = usr->ref;
+					usrAacc->x1IxWzskVFeatgroup = VecWzskVFeatgroup::getIx(usrAacc->srefX1IxWzskVFeatgroup);
+					if (usrAacc->x1IxWzskVFeatgroup == 0) throw SbeException(SbeException::IEX_VSREF, {{"vsref",usrAacc->srefX1IxWzskVFeatgroup}, {"iel","srefX1IxWzskVFeatgroup"}, {"lineno",to_string(usrAacc->lineno)}});
+					//usrAacc->x2FeaSrefUix: TBL
+					usrAacc->ixWzskWAccess = VecWzskWAccess::getIx(usrAacc->srefsIxWzskWAccess);
+
+					dbswzsk->tblwzskamuseraccess->insertRec(usrAacc);
+					impcnt++;
 				};
 
 				for (unsigned int ix2 = 0; ix2 < usr->imeijmuserstate.nodes.size(); ix2++) {
@@ -549,31 +532,9 @@ uint JobWzskIexIni::enterSgeImport(
 						};
 					};
 				};
-
-				for (unsigned int ix2 = 0; ix2 < usr->imeiamuseraccess.nodes.size(); ix2++) {
-					usrAacc = usr->imeiamuseraccess.nodes[ix2];
-
-					usrAacc->refWzskMUser = usr->ref;
-					usrAacc->x1IxWzskVFeatgroup = VecWzskVFeatgroup::getIx(usrAacc->srefX1IxWzskVFeatgroup);
-					if (usrAacc->x1IxWzskVFeatgroup == 0) throw SbeException(SbeException::IEX_VSREF, {{"vsref",usrAacc->srefX1IxWzskVFeatgroup}, {"iel","srefX1IxWzskVFeatgroup"}, {"lineno",to_string(usrAacc->lineno)}});
-					//usrAacc->x2FeaSrefUix: TBL
-					usrAacc->ixWzskWAccess = VecWzskWAccess::getIx(usrAacc->srefsIxWzskWAccess);
-
-					dbswzsk->tblwzskamuseraccess->insertRec(usrAacc);
-					impcnt++;
-				};
-
-				uru.refWzskMUser = usr->ref;
-				uru.refWzskMUsergroup = usg->ref;
-				uru.ixWzskVUserlevel = usr->ixWzskVUserlevel;
-				dbswzsk->tblwzskrmusermusergroup->insertRec(&uru);
-
-				usr->refRUsergroup = uru.ref;
-				usr->refWzskMUsergroup = usg->ref;
-				dbswzsk->tblwzskmuser->updateRec(usr);
 			};
 		};
-		// IP enterSgeImport.traverse --- REND
+		// IP enterSgeImport.traverse --- END
 
 		// IP enterSgeImport.ppr --- INSERT
 	} catch (SbeException& e) {
@@ -618,7 +579,6 @@ uint JobWzskIexIni::enterSgeReverse(
 	ImeitemIAVControlPar* ctlApar = NULL;
 	ImeitemIAVKeylistKey* klsAkey = NULL;
 	ImeitemIAVValuelistVal* vlsAval = NULL;
-	ImeitemIMFile* fil = NULL;
 	ImeitemIMUsergroup* usg = NULL;
 	ImeitemIAMUsergroupAccess* usgAacc = NULL;
 	ImeitemIJAVKeylistKey* kakJkey = NULL;
@@ -649,12 +609,6 @@ uint JobWzskIexIni::enterSgeReverse(
 	for (unsigned int ix0 = 0; ix0 < imeiavvaluelistval.nodes.size(); ix0++) {
 		vlsAval = imeiavvaluelistval.nodes[ix0];
 		if (vlsAval->ref != 0) dbswzsk->tblwzskavvaluelistval->removeRecByRef(vlsAval->ref);
-	};
-
-	// -- ImeIMFile
-	for (unsigned int ix0 = 0; ix0 < imeimfile.nodes.size(); ix0++) {
-		fil = imeimfile.nodes[ix0];
-		if (fil->ref != 0) dbswzsk->tblwzskmfile->removeRecByRef(fil->ref);
 	};
 
 	// -- ImeIMUsergroup
@@ -713,7 +667,6 @@ uint JobWzskIexIni::enterSgeCollect(
 	ImeitemIAVControlPar* ctlApar = NULL;
 	ImeitemIAVKeylistKey* klsAkey = NULL;
 	ImeitemIAVValuelistVal* vlsAval = NULL;
-	ImeitemIMFile* fil = NULL;
 	ImeitemIMUsergroup* usg = NULL;
 	ImeitemIAMUsergroupAccess* usgAacc = NULL;
 	ImeitemIJAVKeylistKey* kakJkey = NULL;
@@ -765,14 +718,6 @@ uint JobWzskIexIni::enterSgeCollect(
 		vlsAval = imeiavvaluelistval.nodes[ix0];
 
 		if (vlsAval->ref != 0) {
-		};
-	};
-
-	// -- ImeIMFile
-	for (unsigned int ix0 = 0; ix0 < imeimfile.nodes.size(); ix0++) {
-		fil = imeimfile.nodes[ix0];
-
-		if (fil->ref != 0) {
 		};
 	};
 
@@ -891,7 +836,7 @@ uint JobWzskIexIni::enterSgeExport(
 	nextIxVSgeSuccess = VecVSge::DONE;
 	retval = nextIxVSgeSuccess;
 
-	IexWzskIni::exportToFile(fullpath, xmlNotTxt, shorttags, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimfile, imeimusergroup);
+	IexWzskIni::exportToFile(fullpath, xmlNotTxt, shorttags, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimusergroup);
 
 	return retval;
 };

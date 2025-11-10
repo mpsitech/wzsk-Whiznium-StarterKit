@@ -2,8 +2,8 @@
 	* \file CrdWzskNav.h
 	* API code for job CrdWzskNav (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -40,15 +40,12 @@ namespace CrdWzskNav {
 		static const Sbecore::uint MITCRDUSGCLICK = 5;
 		static const Sbecore::uint MITCRDUSRCLICK = 6;
 		static const Sbecore::uint MITCRDPRSCLICK = 7;
-		static const Sbecore::uint MITCRDSCFCLICK = 8;
+		static const Sbecore::uint MITCRDPRFCLICK = 8;
 		static const Sbecore::uint MITCRDLLVCLICK = 9;
-		static const Sbecore::uint MITCRDLIVCLICK = 10;
-		static const Sbecore::uint MITCRDOGRCLICK = 11;
-		static const Sbecore::uint MITCRDOBJCLICK = 12;
-		static const Sbecore::uint MITCRDSESCLICK = 13;
-		static const Sbecore::uint MITCRDSHTCLICK = 14;
-		static const Sbecore::uint MITCRDFILCLICK = 15;
-		static const Sbecore::uint MITAPPLOICLICK = 16;
+		static const Sbecore::uint MITCRDVTRCLICK = 10;
+		static const Sbecore::uint MITCRDHWCCLICK = 11;
+		static const Sbecore::uint MITCRDFILCLICK = 12;
+		static const Sbecore::uint MITAPPLOICLICK = 13;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -107,13 +104,11 @@ namespace CrdWzskNav {
 		static const Sbecore::uint SHORTMENU = 3;
 		static const Sbecore::uint WIDTHMENU = 4;
 		static const Sbecore::uint INITDONEHEADBAR = 5;
-		static const Sbecore::uint INITDONEPRE = 6;
-		static const Sbecore::uint INITDONEADMIN = 7;
-		static const Sbecore::uint INITDONEOP = 8;
-		static const Sbecore::uint INITDONEGLRY = 9;
+		static const Sbecore::uint INITDONEADMIN = 6;
+		static const Sbecore::uint INITDONEOP = 7;
 
 	public:
-		StatApp(const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdonePre = false, const bool initdoneAdmin = false, const bool initdoneOp = false, const bool initdoneGlry = false);
+		StatApp(const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneAdmin = false, const bool initdoneOp = false);
 
 	public:
 		Sbecore::uint ixWzskVReqitmode;
@@ -121,10 +116,8 @@ namespace CrdWzskNav {
 		std::string shortMenu;
 		Sbecore::uint widthMenu;
 		bool initdoneHeadbar;
-		bool initdonePre;
 		bool initdoneAdmin;
 		bool initdoneOp;
-		bool initdoneGlry;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -140,60 +133,44 @@ namespace CrdWzskNav {
 	public:
 		static const Sbecore::uint SCRJREFDLGLOAINI = 1;
 		static const Sbecore::uint SCRJREFHEADBAR = 2;
-		static const Sbecore::uint SCRJREFPRE = 3;
-		static const Sbecore::uint PNLPREAVAIL = 4;
-		static const Sbecore::uint SCRJREFADMIN = 5;
-		static const Sbecore::uint PNLADMINAVAIL = 6;
-		static const Sbecore::uint SCRJREFOP = 7;
-		static const Sbecore::uint PNLOPAVAIL = 8;
-		static const Sbecore::uint SCRJREFGLRY = 9;
-		static const Sbecore::uint PNLGLRYAVAIL = 10;
-		static const Sbecore::uint MITSESSPSAVAIL = 11;
-		static const Sbecore::uint MSPCRD1AVAIL = 12;
-		static const Sbecore::uint MITCRDUSGAVAIL = 13;
-		static const Sbecore::uint MITCRDUSRAVAIL = 14;
-		static const Sbecore::uint MITCRDPRSAVAIL = 15;
-		static const Sbecore::uint MITCRDSCFAVAIL = 16;
-		static const Sbecore::uint MSPCRD2AVAIL = 17;
-		static const Sbecore::uint MITCRDLLVAVAIL = 18;
-		static const Sbecore::uint MITCRDLIVAVAIL = 19;
-		static const Sbecore::uint MSPCRD3AVAIL = 20;
-		static const Sbecore::uint MITCRDOGRAVAIL = 21;
-		static const Sbecore::uint MITCRDOBJAVAIL = 22;
-		static const Sbecore::uint MITCRDSESAVAIL = 23;
-		static const Sbecore::uint MITCRDSHTAVAIL = 24;
-		static const Sbecore::uint MITCRDFILAVAIL = 25;
-		static const Sbecore::uint MSPAPP2AVAIL = 26;
-		static const Sbecore::uint MITAPPLOIAVAIL = 27;
+		static const Sbecore::uint SCRJREFADMIN = 3;
+		static const Sbecore::uint PNLADMINAVAIL = 4;
+		static const Sbecore::uint SCRJREFOP = 5;
+		static const Sbecore::uint PNLOPAVAIL = 6;
+		static const Sbecore::uint MITSESSPSAVAIL = 7;
+		static const Sbecore::uint MSPCRD1AVAIL = 8;
+		static const Sbecore::uint MITCRDUSGAVAIL = 9;
+		static const Sbecore::uint MITCRDUSRAVAIL = 10;
+		static const Sbecore::uint MITCRDPRSAVAIL = 11;
+		static const Sbecore::uint MITCRDPRFAVAIL = 12;
+		static const Sbecore::uint MSPCRD2AVAIL = 13;
+		static const Sbecore::uint MITCRDLLVAVAIL = 14;
+		static const Sbecore::uint MITCRDVTRAVAIL = 15;
+		static const Sbecore::uint MITCRDHWCAVAIL = 16;
+		static const Sbecore::uint MITCRDFILAVAIL = 17;
+		static const Sbecore::uint MSPAPP2AVAIL = 18;
+		static const Sbecore::uint MITAPPLOIAVAIL = 19;
 
 	public:
-		StatShr(const std::string& scrJrefDlgloaini = "", const std::string& scrJrefHeadbar = "", const std::string& scrJrefPre = "", const bool pnlpreAvail = false, const std::string& scrJrefAdmin = "", const bool pnladminAvail = false, const std::string& scrJrefOp = "", const bool pnlopAvail = false, const std::string& scrJrefGlry = "", const bool pnlglryAvail = false, const bool MitSesSpsAvail = true, const bool MspCrd1Avail = true, const bool MitCrdUsgAvail = true, const bool MitCrdUsrAvail = true, const bool MitCrdPrsAvail = true, const bool MitCrdScfAvail = true, const bool MspCrd2Avail = true, const bool MitCrdLlvAvail = true, const bool MitCrdLivAvail = true, const bool MspCrd3Avail = true, const bool MitCrdOgrAvail = true, const bool MitCrdObjAvail = true, const bool MitCrdSesAvail = true, const bool MitCrdShtAvail = true, const bool MitCrdFilAvail = true, const bool MspApp2Avail = true, const bool MitAppLoiAvail = true);
+		StatShr(const std::string& scrJrefDlgloaini = "", const std::string& scrJrefHeadbar = "", const std::string& scrJrefAdmin = "", const bool pnladminAvail = false, const std::string& scrJrefOp = "", const bool pnlopAvail = false, const bool MitSesSpsAvail = true, const bool MspCrd1Avail = true, const bool MitCrdUsgAvail = true, const bool MitCrdUsrAvail = true, const bool MitCrdPrsAvail = true, const bool MitCrdPrfAvail = true, const bool MspCrd2Avail = true, const bool MitCrdLlvAvail = true, const bool MitCrdVtrAvail = true, const bool MitCrdHwcAvail = true, const bool MitCrdFilAvail = true, const bool MspApp2Avail = true, const bool MitAppLoiAvail = true);
 
 	public:
 		std::string scrJrefDlgloaini;
 		std::string scrJrefHeadbar;
-		std::string scrJrefPre;
-		bool pnlpreAvail;
 		std::string scrJrefAdmin;
 		bool pnladminAvail;
 		std::string scrJrefOp;
 		bool pnlopAvail;
-		std::string scrJrefGlry;
-		bool pnlglryAvail;
 		bool MitSesSpsAvail;
 		bool MspCrd1Avail;
 		bool MitCrdUsgAvail;
 		bool MitCrdUsrAvail;
 		bool MitCrdPrsAvail;
-		bool MitCrdScfAvail;
+		bool MitCrdPrfAvail;
 		bool MspCrd2Avail;
 		bool MitCrdLlvAvail;
-		bool MitCrdLivAvail;
-		bool MspCrd3Avail;
-		bool MitCrdOgrAvail;
-		bool MitCrdObjAvail;
-		bool MitCrdSesAvail;
-		bool MitCrdShtAvail;
+		bool MitCrdVtrAvail;
+		bool MitCrdHwcAvail;
 		bool MitCrdFilAvail;
 		bool MspApp2Avail;
 		bool MitAppLoiAvail;
@@ -217,18 +194,15 @@ namespace CrdWzskNav {
 		static const Sbecore::uint MITCRDUSG = 5;
 		static const Sbecore::uint MITCRDUSR = 6;
 		static const Sbecore::uint MITCRDPRS = 7;
-		static const Sbecore::uint MITCRDSCF = 8;
+		static const Sbecore::uint MITCRDPRF = 8;
 		static const Sbecore::uint MITCRDLLV = 9;
-		static const Sbecore::uint MITCRDLIV = 10;
-		static const Sbecore::uint MITCRDOGR = 11;
-		static const Sbecore::uint MITCRDOBJ = 12;
-		static const Sbecore::uint MITCRDSES = 13;
-		static const Sbecore::uint MITCRDSHT = 14;
-		static const Sbecore::uint MITCRDFIL = 15;
-		static const Sbecore::uint MITAPPLOI = 16;
+		static const Sbecore::uint MITCRDVTR = 10;
+		static const Sbecore::uint MITCRDHWC = 11;
+		static const Sbecore::uint MITCRDFIL = 12;
+		static const Sbecore::uint MITAPPLOI = 13;
 
 	public:
-		Tag(const std::string& MitAppAbt = "", const std::string& MrlAppHlp = "", const std::string& MitSesSps = "", const std::string& MitSesTrm = "", const std::string& MitCrdUsg = "", const std::string& MitCrdUsr = "", const std::string& MitCrdPrs = "", const std::string& MitCrdScf = "", const std::string& MitCrdLlv = "", const std::string& MitCrdLiv = "", const std::string& MitCrdOgr = "", const std::string& MitCrdObj = "", const std::string& MitCrdSes = "", const std::string& MitCrdSht = "", const std::string& MitCrdFil = "", const std::string& MitAppLoi = "");
+		Tag(const std::string& MitAppAbt = "", const std::string& MrlAppHlp = "", const std::string& MitSesSps = "", const std::string& MitSesTrm = "", const std::string& MitCrdUsg = "", const std::string& MitCrdUsr = "", const std::string& MitCrdPrs = "", const std::string& MitCrdPrf = "", const std::string& MitCrdLlv = "", const std::string& MitCrdVtr = "", const std::string& MitCrdHwc = "", const std::string& MitCrdFil = "", const std::string& MitAppLoi = "");
 
 	public:
 		std::string MitAppAbt;
@@ -238,13 +212,10 @@ namespace CrdWzskNav {
 		std::string MitCrdUsg;
 		std::string MitCrdUsr;
 		std::string MitCrdPrs;
-		std::string MitCrdScf;
+		std::string MitCrdPrf;
 		std::string MitCrdLlv;
-		std::string MitCrdLiv;
-		std::string MitCrdOgr;
-		std::string MitCrdObj;
-		std::string MitCrdSes;
-		std::string MitCrdSht;
+		std::string MitCrdVtr;
+		std::string MitCrdHwc;
 		std::string MitCrdFil;
 		std::string MitAppLoi;
 

@@ -2,8 +2,8 @@
 	* \file VecWzskVQrystate.cpp
 	* vector VecWzskVQrystate (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -51,12 +51,6 @@ string VecWzskVQrystate::getTitle(
 		if (ix == SLM) return("slightly modified");
 		if (ix == UTD) return("up to date");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == MNR) return("eventuell veraltet");
-		if (ix == OOD) return("veraltet");
-		if (ix == SLM) return("geringf\\u00fcgig ver\\u00e4ndert");
-		if (ix == UTD) return("aktuell");
-		return(getTitle(ix, 1));
 	};
 
 	return("");

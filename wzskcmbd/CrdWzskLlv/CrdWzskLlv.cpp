@@ -2,8 +2,8 @@
 	* \file CrdWzskLlv.cpp
 	* job handler for job CrdWzskLlv (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -16,6 +16,7 @@
 #include "CrdWzskLlv.h"
 
 #include "CrdWzskLlv_blks.cpp"
+#include "CrdWzskLlv_evals.cpp"
 
 using namespace std;
 using namespace Sbecore;
@@ -41,48 +42,39 @@ CrdWzskLlv::CrdWzskLlv(
 	feedFSge.tag = "FeedFSge";
 	VecVSge::fillFeed(feedFSge);
 
-	pnltermpwmonusb = NULL;
-	pnltermpwmonuart = NULL;
-	pnllaser = NULL;
-	pnlttable = NULL;
-	pnlcamera = NULL;
-	pnltermuvbdvk = NULL;
-	pnltermmcvevp = NULL;
-	pnltermicicle = NULL;
-	pnltermclnxevb = NULL;
-	pnltermarty = NULL;
+	pnlident = NULL;
 	pnlheadbar = NULL;
+	pnltermdcvsp = NULL;
+	pnltermtivsp = NULL;
+	pnllaser = NULL;
+	pnlrotary = NULL;
+	pnlsysmon = NULL;
+	pnltermzuvsp = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
-	pnltermpwmonusb = new PnlWzskLlvTermPwmonusb(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnltermpwmonuart = new PnlWzskLlvTermPwmonuart(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnllaser = new PnlWzskLlvLaser(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlttable = new PnlWzskLlvTtable(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnlcamera = new PnlWzskLlvCamera(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnltermuvbdvk = new PnlWzskLlvTermUvbdvk(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnltermmcvevp = new PnlWzskLlvTermMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnltermicicle = new PnlWzskLlvTermIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnltermclnxevb = new PnlWzskLlvTermClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
-	pnltermarty = new PnlWzskLlvTermArty(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlident = new PnlWzskLlvIdent(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlheadbar = new PnlWzskLlvHeadbar(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnltermdcvsp = new PnlWzskLlvTermDcvsp(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnltermtivsp = new PnlWzskLlvTermTivsp(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnllaser = new PnlWzskLlvLaser(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlrotary = new PnlWzskLlvRotary(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlsysmon = new PnlWzskLlvSysmon(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnltermzuvsp = new PnlWzskLlvTermZuvsp(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 
+	statshr.jrefIdent = pnlident->jref;
 	statshr.jrefHeadbar = pnlheadbar->jref;
-	statshr.jrefTermArty = pnltermarty->jref;
-	statshr.jrefTermClnxevb = pnltermclnxevb->jref;
-	statshr.jrefTermIcicle = pnltermicicle->jref;
-	statshr.jrefTermMcvevp = pnltermmcvevp->jref;
-	statshr.jrefTermUvbdvk = pnltermuvbdvk->jref;
-	statshr.jrefCamera = pnlcamera->jref;
-	statshr.jrefTtable = pnlttable->jref;
+	statshr.jrefTermDcvsp = pnltermdcvsp->jref;
+	statshr.jrefTermTivsp = pnltermtivsp->jref;
 	statshr.jrefLaser = pnllaser->jref;
-	statshr.jrefTermPwmonuart = pnltermpwmonuart->jref;
-	statshr.jrefTermPwmonusb = pnltermpwmonusb->jref;
+	statshr.jrefRotary = pnlrotary->jref;
+	statshr.jrefSysmon = pnlsysmon->jref;
+	statshr.jrefTermZuvsp = pnltermzuvsp->jref;
 
 	changeStage(dbswzsk, VecVSge::IDLE);
 
@@ -129,20 +121,16 @@ void CrdWzskLlv::refresh(
 	ContInf oldContinf(continf);
 	StatShr oldStatshr(statshr);
 
-	// IP refresh --- RBEGIN
+	// IP refresh --- BEGIN
 	// continf
 	continf.MrlAppHlp = xchg->helpurl + "/CrdWzskLlv/" + VecWzskVLocale::getSref(ixWzskVLocale);
 
 	// statshr
-	statshr.pnltermartyAvail = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ARTY);
-	statshr.pnltermclnxevbAvail = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB);
-	statshr.pnltermicicleAvail = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ICICLE);
-	statshr.pnltermmcvevpAvail = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::MCVEVP);
-	statshr.pnltermuvbdvkAvail = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::WS);
-	statshr.pnltermpwmonuartAvail = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::APALIS);
-	statshr.pnltermpwmonusbAvail = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::CLNXEVB);
+	statshr.pnltermdcvspAvail = evalPnltermdcvspAvail(dbswzsk);
+	statshr.pnltermtivspAvail = evalPnltermtivspAvail(dbswzsk);
+	statshr.pnltermzuvspAvail = evalPnltermzuvspAvail(dbswzsk);
 
-	// IP refresh --- REND
+	// IP refresh --- END
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
 

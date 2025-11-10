@@ -2,8 +2,8 @@
 	* \file WzskMUsergroup.cpp
 	* database access for table TblWzskMUsergroup (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -22,13 +22,13 @@ WzskMUsergroup::WzskMUsergroup(
 			, const ubigint own
 			, const string sref
 			, const string Comment
-		) {
-
-	this->ref = ref;
-	this->grp = grp;
-	this->own = own;
-	this->sref = sref;
-	this->Comment = Comment;
+		) :
+			ref(ref)
+			, grp(grp)
+			, own(own)
+			, sref(sref)
+			, Comment(Comment)
+		{
 };
 
 bool WzskMUsergroup::operator==(

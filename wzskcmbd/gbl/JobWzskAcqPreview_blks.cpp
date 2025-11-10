@@ -2,8 +2,8 @@
 	* \file JobWzskAcqPreview_blks.cpp
 	* job handler for job JobWzskAcqPreview (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -21,9 +21,7 @@ uint JobWzskAcqPreview::VecVSge::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "idle") return IDLE;
-	if (s == "ready") return READY;
-	if (s == "prcidle") return PRCIDLE;
-	if (s == "process") return PROCESS;
+	if (s == "rng") return RNG;
 
 	return(0);
 };
@@ -32,9 +30,7 @@ string JobWzskAcqPreview::VecVSge::getSref(
 			const uint ix
 		) {
 	if (ix == IDLE) return("idle");
-	if (ix == READY) return("ready");
-	if (ix == PRCIDLE) return("prcidle");
-	if (ix == PROCESS) return("process");
+	if (ix == RNG) return("rng");
 
 	return("");
 };
@@ -44,37 +40,86 @@ void JobWzskAcqPreview::VecVSge::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 4; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
+	for (unsigned int i = 1; i <= 2; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
 };
 
 /******************************************************************************
- class JobWzskAcqPreview::VecVVar
+ class JobWzskAcqPreview::Stg
  ******************************************************************************/
 
-uint JobWzskAcqPreview::VecVVar::getIx(
-			const string& sref
-		) {
-	string s = StrMod::lc(sref);
-
-	if (s == "gray") return GRAY;
-	if (s == "redgreenblue") return REDGREENBLUE;
-
-	return(0);
+JobWzskAcqPreview::Stg::Stg(
+			const bool rgbNotGray
+			, const utinyint decim
+		) :
+			Block()
+			, rgbNotGray(rgbNotGray)
+			, decim(decim)
+		{
+	mask = {RGBNOTGRAY, DECIM};
 };
 
-string JobWzskAcqPreview::VecVVar::getSref(
-			const uint ix
+bool JobWzskAcqPreview::Stg::readXML(
+			xmlXPathContext* docctx
+			, string basexpath
+			, bool addbasetag
 		) {
-	if (ix == GRAY) return("gray");
-	if (ix == REDGREENBLUE) return("redGreenBlue");
+	clear();
 
-	return("");
+	bool basefound;
+
+	if (addbasetag)
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "StgJobWzskAcqPreview");
+	else
+		basefound = checkXPath(docctx, basexpath);
+
+	string itemtag = "StgitemJobWzskAcqPreview";
+
+	if (basefound) {
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "rgbNotGray", rgbNotGray)) add(RGBNOTGRAY);
+		if (extractUtinyintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "decim", decim)) add(DECIM);
+	};
+
+	return basefound;
 };
 
-void JobWzskAcqPreview::VecVVar::fillFeed(
-			Feed& feed
+void JobWzskAcqPreview::Stg::writeXML(
+			xmlTextWriter* wr
+			, string difftag
+			, bool shorttags
 		) {
-	feed.clear();
+	if (difftag.length() == 0) difftag = "StgJobWzskAcqPreview";
 
-	for (unsigned int i = 1; i <= 2; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
+	string itemtag;
+	if (shorttags) itemtag = "Si";
+	else itemtag = "StgitemJobWzskAcqPreview";
+
+	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
+		writeBoolAttr(wr, itemtag, "sref", "rgbNotGray", rgbNotGray);
+		writeUtinyintAttr(wr, itemtag, "sref", "decim", decim);
+	xmlTextWriterEndElement(wr);
+};
+
+set<uint> JobWzskAcqPreview::Stg::comm(
+			const Stg* comp
+		) {
+	set<uint> items;
+
+	if (rgbNotGray == comp->rgbNotGray) insert(items, RGBNOTGRAY);
+	if (decim == comp->decim) insert(items, DECIM);
+
+	return(items);
+};
+
+set<uint> JobWzskAcqPreview::Stg::diff(
+			const Stg* comp
+		) {
+	set<uint> commitems;
+	set<uint> diffitems;
+
+	commitems = comm(comp);
+
+	diffitems = {RGBNOTGRAY, DECIM};
+	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
+
+	return(diffitems);
 };

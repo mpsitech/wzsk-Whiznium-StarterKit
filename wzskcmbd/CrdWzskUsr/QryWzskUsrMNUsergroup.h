@@ -2,8 +2,8 @@
 	* \file QryWzskUsrMNUsergroup.h
 	* job handler for job QryWzskUsrMNUsergroup (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -127,8 +127,8 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskUsrRusgMod_usrEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskStubChgFromSelf(DbsWzsk* dbswzsk);
+	bool handleCallWzskUsrRusgMod_usrEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 
 };
 

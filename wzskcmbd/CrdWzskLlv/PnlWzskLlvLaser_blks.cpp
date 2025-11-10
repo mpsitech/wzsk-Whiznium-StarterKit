@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvLaser_blks.cpp
 	* job handler for job PnlWzskLlvLaser (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -47,11 +47,10 @@ PnlWzskLlvLaser::ContIac::ContIac(
 			, const double SldLri
 		) :
 			Block()
+			, ChkErg(ChkErg)
+			, SldLle(SldLle)
+			, SldLri(SldLri)
 		{
-	this->ChkErg = ChkErg;
-	this->SldLle = SldLle;
-	this->SldLri = SldLri;
-
 	mask = {CHKERG, SLDLLE, SLDLRI};
 };
 
@@ -166,9 +165,8 @@ PnlWzskLlvLaser::ContInf::ContInf(
 			const bool ButClaimOn
 		) :
 			Block()
+			, ButClaimOn(ButClaimOn)
 		{
-	this->ButClaimOn = ButClaimOn;
-
 	mask = {BUTCLAIMON};
 };
 
@@ -238,16 +236,15 @@ PnlWzskLlvLaser::StatShr::StatShr(
 			, const double SldLriMax
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, ButClaimActive(ButClaimActive)
+			, SldLleActive(SldLleActive)
+			, SldLleMin(SldLleMin)
+			, SldLleMax(SldLleMax)
+			, SldLriActive(SldLriActive)
+			, SldLriMin(SldLriMin)
+			, SldLriMax(SldLriMax)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->ButClaimActive = ButClaimActive;
-	this->SldLleActive = SldLleActive;
-	this->SldLleMin = SldLleMin;
-	this->SldLleMax = SldLleMax;
-	this->SldLriActive = SldLriActive;
-	this->SldLriMin = SldLriMin;
-	this->SldLriMax = SldLriMax;
-
 	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDLLEACTIVE, SLDLLEMIN, SLDLLEMAX, SLDLRIACTIVE, SLDLRIMIN, SLDLRIMAX};
 };
 
@@ -341,11 +338,6 @@ void PnlWzskLlvLaser::Tag::writeJSON(
 		me["CptErg"] = "entire range";
 		me["CptLle"] = "left [\\u0025]";
 		me["CptLri"] = "right [\\u0025]";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Linienlaser";
-		me["CptErg"] = "vollst\\u00e4ndige Spanne";
-		me["CptLle"] = "links [\\u0025]";
-		me["CptLri"] = "rechts [\\u0025]";
 	};
 };
 
@@ -367,11 +359,6 @@ void PnlWzskLlvLaser::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "CptErg", "entire range");
 			writeStringAttr(wr, itemtag, "sref", "CptLle", "left [\\u0025]");
 			writeStringAttr(wr, itemtag, "sref", "CptLri", "right [\\u0025]");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Linienlaser");
-			writeStringAttr(wr, itemtag, "sref", "CptErg", "vollst\\u00e4ndige Spanne");
-			writeStringAttr(wr, itemtag, "sref", "CptLle", "links [\\u0025]");
-			writeStringAttr(wr, itemtag, "sref", "CptLri", "rechts [\\u0025]");
 		};
 	xmlTextWriterEndElement(wr);
 };

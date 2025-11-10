@@ -2,8 +2,8 @@
 	* \file WzskAVValuelistVal.cpp
 	* database access for table TblWzskAVValuelistVal (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -22,13 +22,13 @@ WzskAVValuelistVal::WzskAVValuelistVal(
 			, const uint vlsNum
 			, const uint x1IxWzskVLocale
 			, const string Val
-		) {
-
-	this->ref = ref;
-	this->vlsIxWzskVValuelist = vlsIxWzskVValuelist;
-	this->vlsNum = vlsNum;
-	this->x1IxWzskVLocale = x1IxWzskVLocale;
-	this->Val = Val;
+		) :
+			ref(ref)
+			, vlsIxWzskVValuelist(vlsIxWzskVValuelist)
+			, vlsNum(vlsNum)
+			, x1IxWzskVLocale(x1IxWzskVLocale)
+			, Val(Val)
+		{
 };
 
 bool WzskAVValuelistVal::operator==(

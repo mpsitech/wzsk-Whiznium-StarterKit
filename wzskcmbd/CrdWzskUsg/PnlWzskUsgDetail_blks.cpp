@@ -2,8 +2,8 @@
 	* \file PnlWzskUsgDetail_blks.cpp
 	* job handler for job PnlWzskUsgDetail (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -41,9 +41,8 @@ PnlWzskUsgDetail::ContIac::ContIac(
 			const string& TxfCmt
 		) :
 			Block()
+			, TxfCmt(TxfCmt)
 		{
-	this->TxfCmt = TxfCmt;
-
 	mask = {TXFCMT};
 };
 
@@ -148,9 +147,8 @@ PnlWzskUsgDetail::ContInf::ContInf(
 			const string& TxtSrf
 		) :
 			Block()
+			, TxtSrf(TxtSrf)
 		{
-	this->TxtSrf = TxtSrf;
-
 	mask = {TXTSRF};
 };
 
@@ -249,12 +247,11 @@ PnlWzskUsgDetail::StatShr::StatShr(
 			, const bool TxfCmtActive
 		) :
 			Block()
+			, ButSaveAvail(ButSaveAvail)
+			, ButSaveActive(ButSaveActive)
+			, TxtSrfActive(TxtSrfActive)
+			, TxfCmtActive(TxfCmtActive)
 		{
-	this->ButSaveAvail = ButSaveAvail;
-	this->ButSaveActive = ButSaveActive;
-	this->TxtSrfActive = TxtSrfActive;
-	this->TxfCmtActive = TxfCmtActive;
-
 	mask = {BUTSAVEAVAIL, BUTSAVEACTIVE, TXTSRFACTIVE, TXFCMTACTIVE};
 };
 
@@ -334,9 +331,6 @@ void PnlWzskUsgDetail::Tag::writeJSON(
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["CptSrf"] = "identifier";
 		me["CptCmt"] = "comment";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["CptSrf"] = "Bezeichner";
-		me["CptCmt"] = "Notiz";
 	};
 	me["Cpt"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DETAIL, ixWzskVLocale));
 };
@@ -357,9 +351,6 @@ void PnlWzskUsgDetail::Tag::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "CptSrf", "identifier");
 			writeStringAttr(wr, itemtag, "sref", "CptCmt", "comment");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "CptSrf", "Bezeichner");
-			writeStringAttr(wr, itemtag, "sref", "CptCmt", "Notiz");
 		};
 		writeStringAttr(wr, itemtag, "sref", "Cpt", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DETAIL, ixWzskVLocale)));
 	xmlTextWriterEndElement(wr);

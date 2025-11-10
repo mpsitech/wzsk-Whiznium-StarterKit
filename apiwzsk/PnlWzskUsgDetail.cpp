@@ -2,8 +2,8 @@
 	* \file PnlWzskUsgDetail.cpp
 	* API code for job PnlWzskUsgDetail (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -43,9 +43,8 @@ PnlWzskUsgDetail::ContIac::ContIac(
 			const string& TxfCmt
 		) :
 			Block()
+			, TxfCmt(TxfCmt)
 		{
-	this->TxfCmt = TxfCmt;
-
 	mask = {TXFCMT};
 };
 
@@ -120,9 +119,8 @@ PnlWzskUsgDetail::ContInf::ContInf(
 			const string& TxtSrf
 		) :
 			Block()
+			, TxtSrf(TxtSrf)
 		{
-	this->TxtSrf = TxtSrf;
-
 	mask = {TXTSRF};
 };
 
@@ -181,9 +179,8 @@ PnlWzskUsgDetail::StatApp::StatApp(
 			const uint ixWzskVExpstate
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-
 	mask = {IXWZSKVEXPSTATE};
 };
 
@@ -250,12 +247,11 @@ PnlWzskUsgDetail::StatShr::StatShr(
 			, const bool TxfCmtActive
 		) :
 			Block()
+			, ButSaveAvail(ButSaveAvail)
+			, ButSaveActive(ButSaveActive)
+			, TxtSrfActive(TxtSrfActive)
+			, TxfCmtActive(TxfCmtActive)
 		{
-	this->ButSaveAvail = ButSaveAvail;
-	this->ButSaveActive = ButSaveActive;
-	this->TxtSrfActive = TxtSrfActive;
-	this->TxfCmtActive = TxfCmtActive;
-
 	mask = {BUTSAVEAVAIL, BUTSAVEACTIVE, TXTSRFACTIVE, TXFCMTACTIVE};
 };
 
@@ -322,11 +318,10 @@ PnlWzskUsgDetail::Tag::Tag(
 			, const string& CptCmt
 		) :
 			Block()
+			, Cpt(Cpt)
+			, CptSrf(CptSrf)
+			, CptCmt(CptCmt)
 		{
-	this->Cpt = Cpt;
-	this->CptSrf = CptSrf;
-	this->CptCmt = CptCmt;
-
 	mask = {CPT, CPTSRF, CPTCMT};
 };
 
@@ -404,11 +399,11 @@ PnlWzskUsgDetail::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKUSGDETAILDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string PnlWzskUsgDetail::DpchAppDo::getSrefsMask() {

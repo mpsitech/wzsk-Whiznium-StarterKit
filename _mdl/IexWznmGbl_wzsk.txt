@@ -1,59 +1,10 @@
-IexWznmGbl v1.1.7
-ImeIMError.sref	Title
-gpio	GPIO subsystem: &msg;
-pwm	PWM subsystem: &msg;
-spidev	SPI subsystem: &msg;
-v4l2	V4L2 subsystem: &msg;
-ImeIMError.end
+IexWznmGbl v1.1.8
 ImeIMVector.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
-lin	VecWzskVPvwmode		apdfed;filfed
-	ImeIMVectoritem.sref	Avail	Implied	Title	Comment
-	bingray
-		ImeIJMVectoritem.srefX1RefWznmMLocale	Title	Comment
-		enus	4x4 pixel binning grayscale
-		dech	4x4 Pixel Mittelung Graustufen
-		ImeIJMVectoritem.end
-	binreddom
-		ImeIJMVectoritem.srefX1RefWznmMLocale	Title	Comment
-		enus	4x4 pixel binning red dominance
-		dech	4x4 Pixel Mittelung Rot-Dominanz
-		ImeIJMVectoritem.end
-	binrgb
-		ImeIJMVectoritem.srefX1RefWznmMLocale	Title	Comment
-		enus	8x8 pixel binning RGB
-		dech	8x8 Pixel Mittelung RGB
-		ImeIJMVectoritem.end
-	rawgray
-		ImeIJMVectoritem.srefX1RefWznmMLocale	Title	Comment
-		enus	full-res grayscale
-		dech	Graustufen volle Aufl\u00f6sung
-		ImeIJMVectoritem.end
-	rawrgb
-		ImeIJMVectoritem.srefX1RefWznmMLocale	Title	Comment
-		enus	full-res RGB
-		dech	RGB volle Aufl\u00f6sung
-		ImeIJMVectoritem.end
-	ImeIMVectoritem.end
-lin	VecWzskVSqrgrp		noloc;notit;apdfed;filfed
-	ImeIMVectoritem.sref	Avail	Implied	Title	Comment
-	r0
-	r1
-	r2
-	r3
-	s0
-	s1
-	s2
-	s3
-	ImeIMVectoritem.end
 lin	VecWzskVTarget		apdfed;filfed
 	ImeIMVectoritem.sref	Avail	Implied	Title	Comment
-	apalis			Toradex Apalis on Ixora carrier board 
-	arty			Digilent Cora Z7
-	clnxevb			Lattice CrossLink-NX evaluation board
-	icicle			Microchip PolarFire Soc Icicle kit
-	mcvevp			Aries Cyclone V evaluation platform
-	mercbb			enclustra Mercury+ on base board
-	ws			Generic Intel x64 workstation
+	disco			Microchip PolarFire SoC discovery kit
+	titdvk			Efinix Titanium Ti180 development kit
+	zudvk			Avnet Zynq UltraScale+ MPSoC development kit
 	ImeIMVectoritem.end
 ImeIMVector.end
 ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
@@ -66,128 +17,32 @@ cmbeng;eng	cmbeng;eng	StgWzskCamera
 		wzskcmbd_ubuntu	2.00
 		ImeIJAMBlockItem.end
 	0	var	fn	float		3
-	ImeIAMBlockItem.end
-cmbeng;eng	cmbeng;eng	StgWzskFramegeo
-	ImeICAMBlockItem.iref
-	1
-	2
-	3
-	ImeICAMBlockItem.end
-	ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-	1	var	wAcq	uint
-		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
-			2592
-		wzskcmbd_ubuntu	1600
-		ImeIJAMBlockItem.end
-	1	var	hAcq	uint
-		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
-			1944
-		wzskcmbd_ubuntu	1200
-		ImeIJAMBlockItem.end
-	1	var	whAcq	uint		wAcq * hAcq
-		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
-			5038848
-		wzskcmbd_ubuntu	1920000
-		ImeIJAMBlockItem.end
-	2	var	x0Rgb	uint
-		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
-			16
-		wzskcmbd_ubuntu	0
-		ImeIJAMBlockItem.end
-	2	var	wRgb	uint
-		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
-			1280
-		wzskcmbd_ubuntu	800
-		ImeIJAMBlockItem.end
-	2	var	y0Rgb	uint
-		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
-			12
-		wzskcmbd_ubuntu	0
-		ImeIJAMBlockItem.end
-	2	var	hRgb	uint
-		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
-			960
-		wzskcmbd_ubuntu	600
-		ImeIJAMBlockItem.end
-	3	var	x0Grrd	uint
-		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
-			272
-		wzskcmbd_ubuntu	0
-		ImeIJAMBlockItem.end
-	3	var	wGrrd	uint
-		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
-			1024
-		wzskcmbd_ubuntu	800
-		ImeIJAMBlockItem.end
-	3	var	y0Grrd	uint
-		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
-			204
-		wzskcmbd_ubuntu	0
-		ImeIJAMBlockItem.end
-	3	var	hGrrd	uint
-		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
-			768
-		wzskcmbd_ubuntu	600
-		ImeIJAMBlockItem.end
+	1	var	NColRaw	uint		2592
+	1	var	NRowRaw	uint		1944
 	ImeIAMBlockItem.end
 cmbeng;eng	cmbeng;eng	StgWzskGlobal
 	ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-	0	var	ixWzskVTarget	vecsref	VecWzskVTarget
-		ImeIJAMBlockItem.srefX1RefWznmMRelease	Defval	srefRefWznmMVectoritem
-		wzskcmbd_mcv		mcvevp
-		wzskcmbd_plnx		arty
-		wzskcmbd_riscv		icicle
-		wzskcmbd_tdx		apalis
-		wzskcmbd_ubuntu		ws
-		wzskcmbd_pl64		mercbb
-		// IP stgglobal.mpsi --- IBEGIN
-		wzskcmbd_mcv_mpsi		mcvevp
-		wzskcmbd_plnx_mpsi		arty
-		wzskcmbd_riscv_mpsi		icicle
-		wzskcmbd_tdx_mpsi		apalis
-		wzskcmbd_pl64_mpsi		mercbb
-		// IP stgglobal.mpsi --- IEND
-		ImeIJAMBlockItem.end
+	0	var	ixWzskVTarget	vecsref	VecWzskVTarget		zudvk
 	ImeIAMBlockItem.end
 ImeIMBlock.end
 ImeIMCapability.srefTplRefWznmMCapability	sref	Title
 acv	Acv
 arm	Arm
-prefs	CrdWzskScf
-dlgloaini	DlgWzskNavLoaini
-dbeterm	PnlWzskLlvTermArty
-	ImeIAMCapabilityPar.x1SrefKKey	Val
-	carNum	1
-	unt	UntWskdArty
-	ImeIAMCapabilityPar.end
-dbeterm	PnlWzskLlvTermClnxevb
+dbeterm	PnlWzskLlvTermDcvsp
 	ImeIAMCapabilityPar.x1SrefKKey	Val
 	carNum	2
-	unt	UntWskdCleb
+	unt	UntWskdDcvsp
 	ImeIAMCapabilityPar.end
-dbeterm	PnlWzskLlvTermIcicle
+dbeterm	PnlWzskLlvTermTivsp
 	ImeIAMCapabilityPar.x1SrefKKey	Val
 	carNum	3
-	unt	UntWskdIccl
+	unt	UntWskdTivsp
 	ImeIAMCapabilityPar.end
-dbeterm	PnlWzskLlvTermMcvevp
+dbeterm	PnlWzskLlvTermZuvsp
 	ImeIAMCapabilityPar.x1SrefKKey	Val
 	carNum	4
-	unt	UntWskdMcep
+	unt	UntWskdZuvsp
 	ImeIAMCapabilityPar.end
-dbeterm	PnlWzskLlvTermUvbdvk
-	ImeIAMCapabilityPar.x1SrefKKey	Val
-	carNum	5
-	unt	UntWskdUbdk
-	ImeIAMCapabilityPar.end
-dbeterm	PnlWzskLlvTermPwmonuart
-	ImeIAMCapabilityPar.x1SrefKKey	Val
-	carNum	6
-	unt	UntPmndUdua
-	ImeIAMCapabilityPar.end
-dbeterm	PnlWzskLlvTermPwmonusb
-	ImeIAMCapabilityPar.x1SrefKKey	Val
-	carNum	7
-	unt	UntPmndUbdk
-	ImeIAMCapabilityPar.end
+dlgloaini	DlgWzskNavLoaini
+prefs	CrdWzskPrf
 ImeIMCapability.end

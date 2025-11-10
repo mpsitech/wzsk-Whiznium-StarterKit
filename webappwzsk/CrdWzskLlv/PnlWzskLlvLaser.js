@@ -385,10 +385,12 @@ function handleSldValChange(_doc, ctlsref, shr, log, _rast) {
 function mergeDpchEngData(dom) {
 	var mask = [];
 
+	// IP mergeDpchEngData --- BEGIN
 	if (updateSrcblock(dom, "DpchEngWzskLlvLaserData", "ContIacWzskLlvLaser", srcdoc)) mask.push("contiac");
 	if (updateSrcblock(dom, "DpchEngWzskLlvLaserData", "ContInfWzskLlvLaser", srcdoc)) mask.push("continf");
 	if (updateSrcblock(dom, "DpchEngWzskLlvLaserData", "StatShrWzskLlvLaser", srcdoc)) mask.push("statshr");
 	if (updateSrcblock(dom, "DpchEngWzskLlvLaserData", "TagWzskLlvLaser", srcdoc)) mask.push("tag");
+	// IP mergeDpchEngData --- END
 
 	return mask;
 };

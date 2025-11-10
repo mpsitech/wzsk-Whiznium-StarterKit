@@ -2,8 +2,8 @@
 	* \file PnlWzskUsr1NSession.cpp
 	* API code for job PnlWzskUsr1NSession (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -22,8 +22,6 @@ uint PnlWzskUsr1NSession::VecVDo::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "butviewclick") return BUTVIEWCLICK;
-	if (s == "butnewclick") return BUTNEWCLICK;
 	if (s == "butdeleteclick") return BUTDELETECLICK;
 	if (s == "butrefreshclick") return BUTREFRESHCLICK;
 
@@ -33,8 +31,6 @@ uint PnlWzskUsr1NSession::VecVDo::getIx(
 string PnlWzskUsr1NSession::VecVDo::getSref(
 			const uint ix
 		) {
-	if (ix == BUTVIEWCLICK) return("ButViewClick");
-	if (ix == BUTNEWCLICK) return("ButNewClick");
 	if (ix == BUTDELETECLICK) return("ButDeleteClick");
 	if (ix == BUTREFRESHCLICK) return("ButRefreshClick");
 
@@ -49,9 +45,8 @@ PnlWzskUsr1NSession::ContInf::ContInf(
 			const uint numFCsiQst
 		) :
 			Block()
+			, numFCsiQst(numFCsiQst)
 		{
-	this->numFCsiQst = numFCsiQst;
-
 	mask = {NUMFCSIQST};
 };
 
@@ -110,9 +105,8 @@ PnlWzskUsr1NSession::StatApp::StatApp(
 			const uint ixWzskVExpstate
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-
 	mask = {IXWZSKVEXPSTATE};
 };
 
@@ -173,21 +167,14 @@ set<uint> PnlWzskUsr1NSession::StatApp::diff(
  ******************************************************************************/
 
 PnlWzskUsr1NSession::StatShr::StatShr(
-			const bool ButViewAvail
-			, const bool ButViewActive
-			, const bool ButNewAvail
-			, const bool ButDeleteAvail
+			const bool ButDeleteAvail
 			, const bool ButDeleteActive
 		) :
 			Block()
+			, ButDeleteAvail(ButDeleteAvail)
+			, ButDeleteActive(ButDeleteActive)
 		{
-	this->ButViewAvail = ButViewAvail;
-	this->ButViewActive = ButViewActive;
-	this->ButNewAvail = ButNewAvail;
-	this->ButDeleteAvail = ButDeleteAvail;
-	this->ButDeleteActive = ButDeleteActive;
-
-	mask = {BUTVIEWAVAIL, BUTVIEWACTIVE, BUTNEWAVAIL, BUTDELETEAVAIL, BUTDELETEACTIVE};
+	mask = {BUTDELETEAVAIL, BUTDELETEACTIVE};
 };
 
 bool PnlWzskUsr1NSession::StatShr::readXML(
@@ -207,9 +194,6 @@ bool PnlWzskUsr1NSession::StatShr::readXML(
 	string itemtag = "StatitemShrWzskUsr1NSession";
 
 	if (basefound) {
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButViewAvail", ButViewAvail)) add(BUTVIEWAVAIL);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButViewActive", ButViewActive)) add(BUTVIEWACTIVE);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButNewAvail", ButNewAvail)) add(BUTNEWAVAIL);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButDeleteAvail", ButDeleteAvail)) add(BUTDELETEAVAIL);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButDeleteActive", ButDeleteActive)) add(BUTDELETEACTIVE);
 	};
@@ -222,9 +206,6 @@ set<uint> PnlWzskUsr1NSession::StatShr::comm(
 		) {
 	set<uint> items;
 
-	if (ButViewAvail == comp->ButViewAvail) insert(items, BUTVIEWAVAIL);
-	if (ButViewActive == comp->ButViewActive) insert(items, BUTVIEWACTIVE);
-	if (ButNewAvail == comp->ButNewAvail) insert(items, BUTNEWAVAIL);
 	if (ButDeleteAvail == comp->ButDeleteAvail) insert(items, BUTDELETEAVAIL);
 	if (ButDeleteActive == comp->ButDeleteActive) insert(items, BUTDELETEACTIVE);
 
@@ -239,7 +220,7 @@ set<uint> PnlWzskUsr1NSession::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {BUTVIEWAVAIL, BUTVIEWACTIVE, BUTNEWAVAIL, BUTDELETEAVAIL, BUTDELETEACTIVE};
+	diffitems = {BUTDELETEAVAIL, BUTDELETEACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -253,9 +234,8 @@ PnlWzskUsr1NSession::StgIac::StgIac(
 			const uint TcoRefWidth
 		) :
 			Block()
+			, TcoRefWidth(TcoRefWidth)
 		{
-	this->TcoRefWidth = TcoRefWidth;
-
 	mask = {TCOREFWIDTH};
 };
 
@@ -336,15 +316,14 @@ PnlWzskUsr1NSession::Tag::Tag(
 			, const string& TcoRef
 		) :
 			Block()
+			, Cpt(Cpt)
+			, TxtRecord1(TxtRecord1)
+			, TxtRecord2(TxtRecord2)
+			, Trs(Trs)
+			, TxtShowing1(TxtShowing1)
+			, TxtShowing2(TxtShowing2)
+			, TcoRef(TcoRef)
 		{
-	this->Cpt = Cpt;
-	this->TxtRecord1 = TxtRecord1;
-	this->TxtRecord2 = TxtRecord2;
-	this->Trs = Trs;
-	this->TxtShowing1 = TxtShowing1;
-	this->TxtShowing2 = TxtShowing2;
-	this->TcoRef = TcoRef;
-
 	mask = {CPT, TXTRECORD1, TXTRECORD2, TRS, TXTSHOWING1, TXTSHOWING2, TCOREF};
 };
 
@@ -430,11 +409,11 @@ PnlWzskUsr1NSession::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKUSR1NSESSIONDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string PnlWzskUsr1NSession::DpchAppDo::getSrefsMask() {

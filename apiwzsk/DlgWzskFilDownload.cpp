@@ -2,8 +2,8 @@
 	* \file DlgWzskFilDownload.cpp
 	* API code for job DlgWzskFilDownload (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -43,9 +43,8 @@ DlgWzskFilDownload::ContInf::ContInf(
 			const string& Dld
 		) :
 			Block()
+			, Dld(Dld)
 		{
-	this->Dld = Dld;
-
 	mask = {DLD};
 };
 
@@ -104,9 +103,8 @@ DlgWzskFilDownload::StatApp::StatApp(
 			const string& shortMenu
 		) :
 			Block()
+			, shortMenu(shortMenu)
 		{
-	this->shortMenu = shortMenu;
-
 	mask = {SHORTMENU};
 };
 
@@ -167,11 +165,10 @@ DlgWzskFilDownload::Tag::Tag(
 			, const string& ButDne
 		) :
 			Block()
+			, Cpt(Cpt)
+			, Dld(Dld)
+			, ButDne(ButDne)
 		{
-	this->Cpt = Cpt;
-	this->Dld = Dld;
-	this->ButDne = ButDne;
-
 	mask = {CPT, DLD, BUTDNE};
 };
 
@@ -210,11 +207,11 @@ DlgWzskFilDownload::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPDLGWZSKFILDOWNLOADDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string DlgWzskFilDownload::DpchAppDo::getSrefsMask() {

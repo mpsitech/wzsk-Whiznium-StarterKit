@@ -2,8 +2,8 @@
 	* \file PnlWzskUsr1NSession.cpp
 	* job handler for job PnlWzskUsr1NSession (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -104,9 +104,6 @@ void PnlWzskUsr1NSession::refresh(
 	continf.numFCsiQst = feedFCsiQst.getNumByIx(qry->ixWzskVQrystate);
 
 	// statshr
-	statshr.ButViewAvail = evalButViewAvail(dbswzsk);
-	statshr.ButViewActive = evalButViewActive(dbswzsk);
-	statshr.ButNewAvail = evalButNewAvail(dbswzsk);
 	statshr.ButDeleteAvail = evalButDeleteAvail(dbswzsk);
 	statshr.ButDeleteActive = evalButDeleteActive(dbswzsk);
 
@@ -176,11 +173,7 @@ void PnlWzskUsr1NSession::handleRequest(
 			DpchAppDo* dpchappdo = (DpchAppDo*) (req->dpchapp);
 
 			if (dpchappdo->ixVDo != 0) {
-				if (dpchappdo->ixVDo == VecVDo::BUTVIEWCLICK) {
-					handleDpchAppDoButViewClick(dbswzsk, &(req->dpcheng));
-				} else if (dpchappdo->ixVDo == VecVDo::BUTNEWCLICK) {
-					handleDpchAppDoButNewClick(dbswzsk, &(req->dpcheng));
-				} else if (dpchappdo->ixVDo == VecVDo::BUTDELETECLICK) {
+				if (dpchappdo->ixVDo == VecVDo::BUTDELETECLICK) {
 					handleDpchAppDoButDeleteClick(dbswzsk, &(req->dpcheng));
 				} else if (dpchappdo->ixVDo == VecVDo::BUTREFRESHCLICK) {
 					handleDpchAppDoButRefreshClick(dbswzsk, &(req->dpcheng));
@@ -261,42 +254,6 @@ void PnlWzskUsr1NSession::handleDpchAppDataStgiacqry(
 
 	insert(moditems, DpchEngData::STGIACQRY);
 	*dpcheng = getNewDpchEng(moditems);
-};
-
-void PnlWzskUsr1NSession::handleDpchAppDoButViewClick(
-			DbsWzsk* dbswzsk
-			, DpchEngWzsk** dpcheng
-		) {
-	ubigint jrefNew = 0;
-	string sref;
-
-	if (statshr.ButViewAvail && statshr.ButViewActive) {
-		if (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCSES, jref)) {
-			sref = "CrdWzskSes";
-			xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, sref, recSes.ref, jrefNew);
-		};
-
-		if (jrefNew == 0) *dpcheng = new DpchEngWzskConfirm(false, 0, "");
-		else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, sref);
-	};
-};
-
-void PnlWzskUsr1NSession::handleDpchAppDoButNewClick(
-			DbsWzsk* dbswzsk
-			, DpchEngWzsk** dpcheng
-		) {
-	ubigint jrefNew = 0;
-	string sref;
-
-	if (statshr.ButNewAvail) {
-		if ((xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCSES, jref) & VecWzskWAccess::EDIT) != 0) {
-			sref = "CrdWzskSes";
-			xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, sref, -1, jrefNew);
-		};
-
-		if (jrefNew == 0) *dpcheng = new DpchEngWzskConfirm(false, 0, "");
-		else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, sref);
-	};
 };
 
 void PnlWzskUsr1NSession::handleDpchAppDoButDeleteClick(

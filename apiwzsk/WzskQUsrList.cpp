@@ -2,8 +2,8 @@
 	* \file WzskQUsrList.cpp
 	* API code for table TblWzskQUsrList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -30,19 +30,20 @@ WzskQUsrList::WzskQUsrList(
 			, const string titIxWzskVLocale
 			, const string srefIxWzskVUserlevel
 			, const string titIxWzskVUserlevel
-		) {
-	this->jnum = jnum;
-	this->stubGrp = stubGrp;
-	this->stubOwn = stubOwn;
-	this->stubRefWzskMPerson = stubRefWzskMPerson;
-	this->sref = sref;
-	this->stubRefWzskMUsergroup = stubRefWzskMUsergroup;
-	this->srefIxVState = srefIxVState;
-	this->titIxVState = titIxVState;
-	this->srefIxWzskVLocale = srefIxWzskVLocale;
-	this->titIxWzskVLocale = titIxWzskVLocale;
-	this->srefIxWzskVUserlevel = srefIxWzskVUserlevel;
-	this->titIxWzskVUserlevel = titIxWzskVUserlevel;
+		) :
+			jnum(jnum)
+			, stubGrp(stubGrp)
+			, stubOwn(stubOwn)
+			, stubRefWzskMPerson(stubRefWzskMPerson)
+			, sref(sref)
+			, stubRefWzskMUsergroup(stubRefWzskMUsergroup)
+			, srefIxVState(srefIxVState)
+			, titIxVState(titIxVState)
+			, srefIxWzskVLocale(srefIxWzskVLocale)
+			, titIxWzskVLocale(titIxWzskVLocale)
+			, srefIxWzskVUserlevel(srefIxWzskVUserlevel)
+			, titIxWzskVUserlevel(titIxWzskVUserlevel)
+		{
 };
 
 bool WzskQUsrList::readXML(

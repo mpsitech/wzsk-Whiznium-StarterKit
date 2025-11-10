@@ -2,8 +2,8 @@
 	* \file CrdWzskLlv.cpp
 	* API code for job CrdWzskLlv (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -70,10 +70,9 @@ CrdWzskLlv::ContInf::ContInf(
 			, const string& MrlAppHlp
 		) :
 			Block()
+			, numFSge(numFSge)
+			, MrlAppHlp(MrlAppHlp)
 		{
-	this->numFSge = numFSge;
-	this->MrlAppHlp = MrlAppHlp;
-
 	mask = {NUMFSGE, MRLAPPHLP};
 };
 
@@ -135,37 +134,30 @@ CrdWzskLlv::StatApp::StatApp(
 			, const usmallint latency
 			, const string& shortMenu
 			, const uint widthMenu
+			, const bool initdoneIdent
 			, const bool initdoneHeadbar
-			, const bool initdoneTermArty
-			, const bool initdoneTermClnxevb
-			, const bool initdoneTermIcicle
-			, const bool initdoneTermMcvevp
-			, const bool initdoneTermUvbdvk
-			, const bool initdoneCamera
-			, const bool initdoneTtable
+			, const bool initdoneTermDcvsp
+			, const bool initdoneTermTivsp
 			, const bool initdoneLaser
-			, const bool initdoneTermPwmonuart
-			, const bool initdoneTermPwmonusb
+			, const bool initdoneRotary
+			, const bool initdoneSysmon
+			, const bool initdoneTermZuvsp
 		) :
 			Block()
+			, ixWzskVReqitmode(ixWzskVReqitmode)
+			, latency(latency)
+			, shortMenu(shortMenu)
+			, widthMenu(widthMenu)
+			, initdoneIdent(initdoneIdent)
+			, initdoneHeadbar(initdoneHeadbar)
+			, initdoneTermDcvsp(initdoneTermDcvsp)
+			, initdoneTermTivsp(initdoneTermTivsp)
+			, initdoneLaser(initdoneLaser)
+			, initdoneRotary(initdoneRotary)
+			, initdoneSysmon(initdoneSysmon)
+			, initdoneTermZuvsp(initdoneTermZuvsp)
 		{
-	this->ixWzskVReqitmode = ixWzskVReqitmode;
-	this->latency = latency;
-	this->shortMenu = shortMenu;
-	this->widthMenu = widthMenu;
-	this->initdoneHeadbar = initdoneHeadbar;
-	this->initdoneTermArty = initdoneTermArty;
-	this->initdoneTermClnxevb = initdoneTermClnxevb;
-	this->initdoneTermIcicle = initdoneTermIcicle;
-	this->initdoneTermMcvevp = initdoneTermMcvevp;
-	this->initdoneTermUvbdvk = initdoneTermUvbdvk;
-	this->initdoneCamera = initdoneCamera;
-	this->initdoneTtable = initdoneTtable;
-	this->initdoneLaser = initdoneLaser;
-	this->initdoneTermPwmonuart = initdoneTermPwmonuart;
-	this->initdoneTermPwmonusb = initdoneTermPwmonusb;
-
-	mask = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONETERMARTY, INITDONETERMCLNXEVB, INITDONETERMICICLE, INITDONETERMMCVEVP, INITDONETERMUVBDVK, INITDONECAMERA, INITDONETTABLE, INITDONELASER, INITDONETERMPWMONUART, INITDONETERMPWMONUSB};
+	mask = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEIDENT, INITDONEHEADBAR, INITDONETERMDCVSP, INITDONETERMTIVSP, INITDONELASER, INITDONEROTARY, INITDONESYSMON, INITDONETERMZUVSP};
 };
 
 bool CrdWzskLlv::StatApp::readXML(
@@ -194,17 +186,14 @@ bool CrdWzskLlv::StatApp::readXML(
 		if (extractUsmallintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "latency", latency)) add(LATENCY);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "shortMenu", shortMenu)) add(SHORTMENU);
 		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "widthMenu", widthMenu)) add(WIDTHMENU);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneIdent", initdoneIdent)) add(INITDONEIDENT);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneHeadbar", initdoneHeadbar)) add(INITDONEHEADBAR);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermArty", initdoneTermArty)) add(INITDONETERMARTY);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermClnxevb", initdoneTermClnxevb)) add(INITDONETERMCLNXEVB);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermIcicle", initdoneTermIcicle)) add(INITDONETERMICICLE);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermMcvevp", initdoneTermMcvevp)) add(INITDONETERMMCVEVP);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermUvbdvk", initdoneTermUvbdvk)) add(INITDONETERMUVBDVK);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneCamera", initdoneCamera)) add(INITDONECAMERA);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTtable", initdoneTtable)) add(INITDONETTABLE);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermDcvsp", initdoneTermDcvsp)) add(INITDONETERMDCVSP);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermTivsp", initdoneTermTivsp)) add(INITDONETERMTIVSP);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneLaser", initdoneLaser)) add(INITDONELASER);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermPwmonuart", initdoneTermPwmonuart)) add(INITDONETERMPWMONUART);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermPwmonusb", initdoneTermPwmonusb)) add(INITDONETERMPWMONUSB);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneRotary", initdoneRotary)) add(INITDONEROTARY);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneSysmon", initdoneSysmon)) add(INITDONESYSMON);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneTermZuvsp", initdoneTermZuvsp)) add(INITDONETERMZUVSP);
 	};
 
 	return basefound;
@@ -219,17 +208,14 @@ set<uint> CrdWzskLlv::StatApp::comm(
 	if (latency == comp->latency) insert(items, LATENCY);
 	if (shortMenu == comp->shortMenu) insert(items, SHORTMENU);
 	if (widthMenu == comp->widthMenu) insert(items, WIDTHMENU);
+	if (initdoneIdent == comp->initdoneIdent) insert(items, INITDONEIDENT);
 	if (initdoneHeadbar == comp->initdoneHeadbar) insert(items, INITDONEHEADBAR);
-	if (initdoneTermArty == comp->initdoneTermArty) insert(items, INITDONETERMARTY);
-	if (initdoneTermClnxevb == comp->initdoneTermClnxevb) insert(items, INITDONETERMCLNXEVB);
-	if (initdoneTermIcicle == comp->initdoneTermIcicle) insert(items, INITDONETERMICICLE);
-	if (initdoneTermMcvevp == comp->initdoneTermMcvevp) insert(items, INITDONETERMMCVEVP);
-	if (initdoneTermUvbdvk == comp->initdoneTermUvbdvk) insert(items, INITDONETERMUVBDVK);
-	if (initdoneCamera == comp->initdoneCamera) insert(items, INITDONECAMERA);
-	if (initdoneTtable == comp->initdoneTtable) insert(items, INITDONETTABLE);
+	if (initdoneTermDcvsp == comp->initdoneTermDcvsp) insert(items, INITDONETERMDCVSP);
+	if (initdoneTermTivsp == comp->initdoneTermTivsp) insert(items, INITDONETERMTIVSP);
 	if (initdoneLaser == comp->initdoneLaser) insert(items, INITDONELASER);
-	if (initdoneTermPwmonuart == comp->initdoneTermPwmonuart) insert(items, INITDONETERMPWMONUART);
-	if (initdoneTermPwmonusb == comp->initdoneTermPwmonusb) insert(items, INITDONETERMPWMONUSB);
+	if (initdoneRotary == comp->initdoneRotary) insert(items, INITDONEROTARY);
+	if (initdoneSysmon == comp->initdoneSysmon) insert(items, INITDONESYSMON);
+	if (initdoneTermZuvsp == comp->initdoneTermZuvsp) insert(items, INITDONETERMZUVSP);
 
 	return(items);
 };
@@ -242,7 +228,7 @@ set<uint> CrdWzskLlv::StatApp::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONETERMARTY, INITDONETERMCLNXEVB, INITDONETERMICICLE, INITDONETERMMCVEVP, INITDONETERMUVBDVK, INITDONECAMERA, INITDONETTABLE, INITDONELASER, INITDONETERMPWMONUART, INITDONETERMPWMONUSB};
+	diffitems = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEIDENT, INITDONEHEADBAR, INITDONETERMDCVSP, INITDONETERMTIVSP, INITDONELASER, INITDONEROTARY, INITDONESYSMON, INITDONETERMZUVSP};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -253,47 +239,32 @@ set<uint> CrdWzskLlv::StatApp::diff(
  ******************************************************************************/
 
 CrdWzskLlv::StatShr::StatShr(
-			const string& scrJrefHeadbar
-			, const string& scrJrefTermArty
-			, const bool pnltermartyAvail
-			, const string& scrJrefTermClnxevb
-			, const bool pnltermclnxevbAvail
-			, const string& scrJrefTermIcicle
-			, const bool pnltermicicleAvail
-			, const string& scrJrefTermMcvevp
-			, const bool pnltermmcvevpAvail
-			, const string& scrJrefTermUvbdvk
-			, const bool pnltermuvbdvkAvail
-			, const string& scrJrefCamera
-			, const string& scrJrefTtable
+			const string& scrJrefIdent
+			, const string& scrJrefHeadbar
+			, const string& scrJrefTermDcvsp
+			, const bool pnltermdcvspAvail
+			, const string& scrJrefTermTivsp
+			, const bool pnltermtivspAvail
 			, const string& scrJrefLaser
-			, const string& scrJrefTermPwmonuart
-			, const bool pnltermpwmonuartAvail
-			, const string& scrJrefTermPwmonusb
-			, const bool pnltermpwmonusbAvail
+			, const string& scrJrefRotary
+			, const string& scrJrefSysmon
+			, const string& scrJrefTermZuvsp
+			, const bool pnltermzuvspAvail
 		) :
 			Block()
+			, scrJrefIdent(scrJrefIdent)
+			, scrJrefHeadbar(scrJrefHeadbar)
+			, scrJrefTermDcvsp(scrJrefTermDcvsp)
+			, pnltermdcvspAvail(pnltermdcvspAvail)
+			, scrJrefTermTivsp(scrJrefTermTivsp)
+			, pnltermtivspAvail(pnltermtivspAvail)
+			, scrJrefLaser(scrJrefLaser)
+			, scrJrefRotary(scrJrefRotary)
+			, scrJrefSysmon(scrJrefSysmon)
+			, scrJrefTermZuvsp(scrJrefTermZuvsp)
+			, pnltermzuvspAvail(pnltermzuvspAvail)
 		{
-	this->scrJrefHeadbar = scrJrefHeadbar;
-	this->scrJrefTermArty = scrJrefTermArty;
-	this->pnltermartyAvail = pnltermartyAvail;
-	this->scrJrefTermClnxevb = scrJrefTermClnxevb;
-	this->pnltermclnxevbAvail = pnltermclnxevbAvail;
-	this->scrJrefTermIcicle = scrJrefTermIcicle;
-	this->pnltermicicleAvail = pnltermicicleAvail;
-	this->scrJrefTermMcvevp = scrJrefTermMcvevp;
-	this->pnltermmcvevpAvail = pnltermmcvevpAvail;
-	this->scrJrefTermUvbdvk = scrJrefTermUvbdvk;
-	this->pnltermuvbdvkAvail = pnltermuvbdvkAvail;
-	this->scrJrefCamera = scrJrefCamera;
-	this->scrJrefTtable = scrJrefTtable;
-	this->scrJrefLaser = scrJrefLaser;
-	this->scrJrefTermPwmonuart = scrJrefTermPwmonuart;
-	this->pnltermpwmonuartAvail = pnltermpwmonuartAvail;
-	this->scrJrefTermPwmonusb = scrJrefTermPwmonusb;
-	this->pnltermpwmonusbAvail = pnltermpwmonusbAvail;
-
-	mask = {SCRJREFHEADBAR, SCRJREFTERMARTY, PNLTERMARTYAVAIL, SCRJREFTERMCLNXEVB, PNLTERMCLNXEVBAVAIL, SCRJREFTERMICICLE, PNLTERMICICLEAVAIL, SCRJREFTERMMCVEVP, PNLTERMMCVEVPAVAIL, SCRJREFTERMUVBDVK, PNLTERMUVBDVKAVAIL, SCRJREFCAMERA, SCRJREFTTABLE, SCRJREFLASER, SCRJREFTERMPWMONUART, PNLTERMPWMONUARTAVAIL, SCRJREFTERMPWMONUSB, PNLTERMPWMONUSBAVAIL};
+	mask = {SCRJREFIDENT, SCRJREFHEADBAR, SCRJREFTERMDCVSP, PNLTERMDCVSPAVAIL, SCRJREFTERMTIVSP, PNLTERMTIVSPAVAIL, SCRJREFLASER, SCRJREFROTARY, SCRJREFSYSMON, SCRJREFTERMZUVSP, PNLTERMZUVSPAVAIL};
 };
 
 bool CrdWzskLlv::StatShr::readXML(
@@ -313,24 +284,17 @@ bool CrdWzskLlv::StatShr::readXML(
 	string itemtag = "StatitemShrWzskLlv";
 
 	if (basefound) {
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefIdent", scrJrefIdent)) add(SCRJREFIDENT);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefHeadbar", scrJrefHeadbar)) add(SCRJREFHEADBAR);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermArty", scrJrefTermArty)) add(SCRJREFTERMARTY);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnltermartyAvail", pnltermartyAvail)) add(PNLTERMARTYAVAIL);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermClnxevb", scrJrefTermClnxevb)) add(SCRJREFTERMCLNXEVB);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnltermclnxevbAvail", pnltermclnxevbAvail)) add(PNLTERMCLNXEVBAVAIL);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermIcicle", scrJrefTermIcicle)) add(SCRJREFTERMICICLE);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnltermicicleAvail", pnltermicicleAvail)) add(PNLTERMICICLEAVAIL);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermMcvevp", scrJrefTermMcvevp)) add(SCRJREFTERMMCVEVP);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnltermmcvevpAvail", pnltermmcvevpAvail)) add(PNLTERMMCVEVPAVAIL);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermUvbdvk", scrJrefTermUvbdvk)) add(SCRJREFTERMUVBDVK);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnltermuvbdvkAvail", pnltermuvbdvkAvail)) add(PNLTERMUVBDVKAVAIL);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefCamera", scrJrefCamera)) add(SCRJREFCAMERA);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTtable", scrJrefTtable)) add(SCRJREFTTABLE);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermDcvsp", scrJrefTermDcvsp)) add(SCRJREFTERMDCVSP);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnltermdcvspAvail", pnltermdcvspAvail)) add(PNLTERMDCVSPAVAIL);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermTivsp", scrJrefTermTivsp)) add(SCRJREFTERMTIVSP);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnltermtivspAvail", pnltermtivspAvail)) add(PNLTERMTIVSPAVAIL);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefLaser", scrJrefLaser)) add(SCRJREFLASER);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermPwmonuart", scrJrefTermPwmonuart)) add(SCRJREFTERMPWMONUART);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnltermpwmonuartAvail", pnltermpwmonuartAvail)) add(PNLTERMPWMONUARTAVAIL);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermPwmonusb", scrJrefTermPwmonusb)) add(SCRJREFTERMPWMONUSB);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnltermpwmonusbAvail", pnltermpwmonusbAvail)) add(PNLTERMPWMONUSBAVAIL);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefRotary", scrJrefRotary)) add(SCRJREFROTARY);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefSysmon", scrJrefSysmon)) add(SCRJREFSYSMON);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefTermZuvsp", scrJrefTermZuvsp)) add(SCRJREFTERMZUVSP);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "pnltermzuvspAvail", pnltermzuvspAvail)) add(PNLTERMZUVSPAVAIL);
 	};
 
 	return basefound;
@@ -341,24 +305,17 @@ set<uint> CrdWzskLlv::StatShr::comm(
 		) {
 	set<uint> items;
 
+	if (scrJrefIdent == comp->scrJrefIdent) insert(items, SCRJREFIDENT);
 	if (scrJrefHeadbar == comp->scrJrefHeadbar) insert(items, SCRJREFHEADBAR);
-	if (scrJrefTermArty == comp->scrJrefTermArty) insert(items, SCRJREFTERMARTY);
-	if (pnltermartyAvail == comp->pnltermartyAvail) insert(items, PNLTERMARTYAVAIL);
-	if (scrJrefTermClnxevb == comp->scrJrefTermClnxevb) insert(items, SCRJREFTERMCLNXEVB);
-	if (pnltermclnxevbAvail == comp->pnltermclnxevbAvail) insert(items, PNLTERMCLNXEVBAVAIL);
-	if (scrJrefTermIcicle == comp->scrJrefTermIcicle) insert(items, SCRJREFTERMICICLE);
-	if (pnltermicicleAvail == comp->pnltermicicleAvail) insert(items, PNLTERMICICLEAVAIL);
-	if (scrJrefTermMcvevp == comp->scrJrefTermMcvevp) insert(items, SCRJREFTERMMCVEVP);
-	if (pnltermmcvevpAvail == comp->pnltermmcvevpAvail) insert(items, PNLTERMMCVEVPAVAIL);
-	if (scrJrefTermUvbdvk == comp->scrJrefTermUvbdvk) insert(items, SCRJREFTERMUVBDVK);
-	if (pnltermuvbdvkAvail == comp->pnltermuvbdvkAvail) insert(items, PNLTERMUVBDVKAVAIL);
-	if (scrJrefCamera == comp->scrJrefCamera) insert(items, SCRJREFCAMERA);
-	if (scrJrefTtable == comp->scrJrefTtable) insert(items, SCRJREFTTABLE);
+	if (scrJrefTermDcvsp == comp->scrJrefTermDcvsp) insert(items, SCRJREFTERMDCVSP);
+	if (pnltermdcvspAvail == comp->pnltermdcvspAvail) insert(items, PNLTERMDCVSPAVAIL);
+	if (scrJrefTermTivsp == comp->scrJrefTermTivsp) insert(items, SCRJREFTERMTIVSP);
+	if (pnltermtivspAvail == comp->pnltermtivspAvail) insert(items, PNLTERMTIVSPAVAIL);
 	if (scrJrefLaser == comp->scrJrefLaser) insert(items, SCRJREFLASER);
-	if (scrJrefTermPwmonuart == comp->scrJrefTermPwmonuart) insert(items, SCRJREFTERMPWMONUART);
-	if (pnltermpwmonuartAvail == comp->pnltermpwmonuartAvail) insert(items, PNLTERMPWMONUARTAVAIL);
-	if (scrJrefTermPwmonusb == comp->scrJrefTermPwmonusb) insert(items, SCRJREFTERMPWMONUSB);
-	if (pnltermpwmonusbAvail == comp->pnltermpwmonusbAvail) insert(items, PNLTERMPWMONUSBAVAIL);
+	if (scrJrefRotary == comp->scrJrefRotary) insert(items, SCRJREFROTARY);
+	if (scrJrefSysmon == comp->scrJrefSysmon) insert(items, SCRJREFSYSMON);
+	if (scrJrefTermZuvsp == comp->scrJrefTermZuvsp) insert(items, SCRJREFTERMZUVSP);
+	if (pnltermzuvspAvail == comp->pnltermzuvspAvail) insert(items, PNLTERMZUVSPAVAIL);
 
 	return(items);
 };
@@ -371,7 +328,7 @@ set<uint> CrdWzskLlv::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {SCRJREFHEADBAR, SCRJREFTERMARTY, PNLTERMARTYAVAIL, SCRJREFTERMCLNXEVB, PNLTERMCLNXEVBAVAIL, SCRJREFTERMICICLE, PNLTERMICICLEAVAIL, SCRJREFTERMMCVEVP, PNLTERMMCVEVPAVAIL, SCRJREFTERMUVBDVK, PNLTERMUVBDVKAVAIL, SCRJREFCAMERA, SCRJREFTTABLE, SCRJREFLASER, SCRJREFTERMPWMONUART, PNLTERMPWMONUARTAVAIL, SCRJREFTERMPWMONUSB, PNLTERMPWMONUSBAVAIL};
+	diffitems = {SCRJREFIDENT, SCRJREFHEADBAR, SCRJREFTERMDCVSP, PNLTERMDCVSPAVAIL, SCRJREFTERMTIVSP, PNLTERMTIVSPAVAIL, SCRJREFLASER, SCRJREFROTARY, SCRJREFSYSMON, SCRJREFTERMZUVSP, PNLTERMZUVSPAVAIL};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -386,10 +343,9 @@ CrdWzskLlv::Tag::Tag(
 			, const string& MrlAppHlp
 		) :
 			Block()
+			, MitAppAbt(MitAppAbt)
+			, MrlAppHlp(MrlAppHlp)
 		{
-	this->MitAppAbt = MitAppAbt;
-	this->MrlAppHlp = MrlAppHlp;
-
 	mask = {MITAPPABT, MRLAPPHLP};
 };
 
@@ -427,11 +383,11 @@ CrdWzskLlv::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKLLVDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string CrdWzskLlv::DpchAppDo::getSrefsMask() {

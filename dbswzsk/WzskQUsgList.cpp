@@ -2,8 +2,8 @@
 	* \file WzskQUsgList.cpp
 	* Dbs and XML wrapper for table TblWzskQUsgList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -27,16 +27,17 @@ WzskQUsgList::WzskQUsgList(
 			, const ubigint own
 			, const string stubOwn
 			, const string sref
-		) {
-	this->qref = qref;
-	this->jref = jref;
-	this->jnum = jnum;
-	this->ref = ref;
-	this->grp = grp;
-	this->stubGrp = stubGrp;
-	this->own = own;
-	this->stubOwn = stubOwn;
-	this->sref = sref;
+		) :
+			qref(qref)
+			, jref(jref)
+			, jnum(jnum)
+			, ref(ref)
+			, grp(grp)
+			, stubGrp(stubGrp)
+			, own(own)
+			, stubOwn(stubOwn)
+			, sref(sref)
+		{
 };
 
 void WzskQUsgList::writeJSON(

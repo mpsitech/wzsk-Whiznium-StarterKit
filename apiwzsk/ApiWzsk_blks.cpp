@@ -2,8 +2,8 @@
 	* \file ApiWzsk_blks.cpp
 	* Wzsk API library global data blocks (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -33,20 +33,20 @@ ContInfWzskAlert::ContInfWzskAlert(
 			, const string& TxtMsg12
 		) :
 			Block()
+			, TxtCpt(TxtCpt)
+			, TxtMsg1(TxtMsg1)
+			, TxtMsg2(TxtMsg2)
+			, TxtMsg3(TxtMsg3)
+			, TxtMsg4(TxtMsg4)
+			, TxtMsg5(TxtMsg5)
+			, TxtMsg6(TxtMsg6)
+			, TxtMsg7(TxtMsg7)
+			, TxtMsg8(TxtMsg8)
+			, TxtMsg9(TxtMsg9)
+			, TxtMsg10(TxtMsg10)
+			, TxtMsg11(TxtMsg11)
+			, TxtMsg12(TxtMsg12)
 		{
-	this->TxtCpt = TxtCpt;
-	this->TxtMsg1 = TxtMsg1;
-	this->TxtMsg2 = TxtMsg2;
-	this->TxtMsg3 = TxtMsg3;
-	this->TxtMsg4 = TxtMsg4;
-	this->TxtMsg5 = TxtMsg5;
-	this->TxtMsg6 = TxtMsg6;
-	this->TxtMsg7 = TxtMsg7;
-	this->TxtMsg8 = TxtMsg8;
-	this->TxtMsg9 = TxtMsg9;
-	this->TxtMsg10 = TxtMsg10;
-	this->TxtMsg10 = TxtMsg11;
-	this->TxtMsg10 = TxtMsg12;
 
 	mask = {TXTCPT, TXTMSG1, TXTMSG2, TXTMSG3, TXTMSG4, TXTMSG5, TXTMSG6, TXTMSG7, TXTMSG8, TXTMSG9, TXTMSG10, TXTMSG11, TXTMSG12};
 };
@@ -134,8 +134,9 @@ set<uint> ContInfWzskAlert::compare(
 
 DpchWzsk::DpchWzsk(
 			const uint ixWzskVDpch
-		) {
-	this->ixWzskVDpch = ixWzskVDpch;
+		) :
+			ixWzskVDpch(ixWzskVDpch)
+		{
 };
 
 DpchWzsk::~DpchWzsk() {
@@ -150,9 +151,8 @@ DpchAppWzsk::DpchAppWzsk(
 			, const string& scrJref
 		) :
 			DpchWzsk(ixWzskVDpch)
+			, scrJref(scrJref)
 		{
-	this->scrJref = scrJref;
-
 	mask = {SCRJREF};
 };
 
@@ -193,9 +193,8 @@ DpchAppWzskAlert::DpchAppWzskAlert(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKALERT, scrJref)
+			, numFMcb(numFMcb)
 		{
-	this->numFMcb = numFMcb;
-
 	if (find(mask, ALL)) this->mask = {SCRJREF, NUMFMCB};
 	else this->mask = mask;
 };

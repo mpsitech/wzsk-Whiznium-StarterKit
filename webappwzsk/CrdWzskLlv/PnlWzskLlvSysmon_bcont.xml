@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<head>
+		<title>Sysmon_bcont</title>
+		<script>
+			<!-- IP custScript - INSERT -->
+		</script>
+		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
+		<!-- IP custStyle - INSERT -->
+	</head>
+	<body marginwidth="0" marginheight="0">
+		<table cellspacing="0" border="0" cellpadding="0"><form action="">
+			<colgroup>
+				<col width="5"/>
+				<col width="215"/>
+				<col width="5"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="68"/>
+				<col width="2"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="1"/>
+				<col width="114"/>
+			</colgroup>
+			<tbody id="tbl">
+				<tr><td colspan="11" height="5"></td></tr>
+				<tr id="trCtp" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptCtp" class="cpt">CptCtp</span>
+					</td>
+					<td></td>
+					<td colspan="1" align="left">
+						<input id="TxtCtp" class="txfxsnoed" type="text" readonly="readonly" value="TxtCtp"/>
+					</td>
+					<td></td>
+					<td colspan="6"></td>
+				</tr>
+				<tr id="tr11" class="show"><td colspan="11" height="3"></td></tr>
+				<tr id="tr12" class="show">
+					<td height="1"></td>
+					<td colspan="10" bgcolor="#7f7f7f"></td>
+				</tr>
+				<tr id="tr13" class="show"><td colspan="11" height="3"></td></tr>
+				<tr id="trPlt" class="show">
+					<td id="tdPlt" colspan="11" height="250">
+						<iframe id="CusPlt" name="CusPlt" src="./PnlWzskLlvSysmon_CusPlt.xml" width="690" height="250" frameborder="0" scrolling="no">This page needs a web-browser capable of displaying inline frames!</iframe>
+					</td>
+				</tr>
+				<tr id="tr21" class="show"><td colspan="11" height="3"></td></tr>
+				<tr id="tr22" class="show">
+					<td height="1"></td>
+					<td colspan="10" bgcolor="#7f7f7f"></td>
+				</tr>
+				<tr id="tr23" class="show"><td colspan="11" height="3"></td></tr>
+				<tr id="trDhr" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptDhr" class="cpt">CptDhr</span>
+					</td>
+					<td></td>
+					<td colspan="1" align="left">
+						<input id="TxtDhr" class="txfxsnoed" type="text" readonly="readonly" value="TxtDhr"/>
+					</td>
+					<td></td>
+					<td colspan="6"></td>
+				</tr>
+				<tr id="trDhw" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptDhw" class="cpt">CptDhw</span>
+					</td>
+					<td></td>
+					<td colspan="1" align="left">
+						<input id="TxtDhw" class="txfxsnoed" type="text" readonly="readonly" value="TxtDhw"/>
+					</td>
+					<td></td>
+					<td colspan="6"></td>
+				</tr>
+				<tr id="trDrr" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptDrr" class="cpt">CptDrr</span>
+					</td>
+					<td></td>
+					<td colspan="1" align="left">
+						<input id="TxtDrr" class="txfxsnoed" type="text" readonly="readonly" value="TxtDrr"/>
+					</td>
+					<td></td>
+					<td colspan="6"></td>
+				</tr>
+				<tr id="trDrw" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptDrw" class="cpt">CptDrw</span>
+					</td>
+					<td></td>
+					<td colspan="1" align="left">
+						<input id="TxtDrw" class="txfxsnoed" type="text" readonly="readonly" value="TxtDrw"/>
+					</td>
+					<td></td>
+					<td colspan="6"></td>
+				</tr>
+				<tr><td colspan="11" height="4"></td></tr>
+			</tbody>
+		</form></table>
+	</body>
+</html>

@@ -67,30 +67,6 @@
 
 			<v-divider/>
 
-			<v-list-item-group v-if="statshr.pnlpreAvail">
-				<v-list-item
-					v-for="(short, j) in mitsPre"
-					:key="j"
-					active-class="red--text"
-					class="red--text"
-				>
-					<v-list-item-content>
-						<v-list-item-subtitle class="red--text text--lighten-3 overline">{{pnlpre.tag['Cpt' + short]}}</v-list-item-subtitle>
-						<v-list-item-title>{{pnlpre.continf['Txt' + short]}}</v-list-item-title>
-					</v-list-item-content>
-					<v-list-item-icon>
-						<v-icon
-							color="red"
-							v-on:click="handleButClick_other('Pre', statshr.scrJrefPre, 'But' + short + 'RemoveClick')"
-						>
-							mdi-close-circle-outline
-						</v-icon>
-					</v-list-item-icon>
-				</v-list-item>
-			</v-list-item-group>
-
-			<v-divider v-if="statshr.pnlpreAvail"/>
-
 			<v-list-item-group v-for="({sref, mits}, i) in MbarContent" :key="i" v-model="MbarContent[i].mit">
 				<v-list-item small disabled dense class="grey lighten-5">
 					<v-list-item-content :style="{'text-align':'right'}">
@@ -213,20 +189,22 @@
 			},
 
 			handleButClick_other: function(sref, scrJref, ctlsref) {
-				var dpchapp = {};
-				dpchapp["DpchAppWzskNav" + sref + "Do"] = {
-					"scrJref": scrJref,
-					"srefIxVDo": ctlsref
+				const dpchapp = {
+					["DpchAppWzskNav" + sref + "Do"]: {
+						"scrJref": scrJref,
+						"srefIxVDo": ctlsref
+					}
 				};
 
 				this.$emit("request", {scrJref: this.scrJref, dpchapp: dpchapp, then: "handleDpchAppDoReply"});
 			},
 
 			handleMitContentClick: function(ctlsref) {
-				var dpchapp = {};
-				dpchapp["DpchApp" + this.content.sref.substring(3) + "Do"] = {
-					"scrJref": this.content.scrJref,
-					"srefIxVDo": ctlsref
+				const dpchapp = {
+					["DpchApp" + this.content.sref.substring(3) + "Do"]: {
+						"scrJref": this.content.scrJref,
+						"srefIxVDo": ctlsref
+					}
 				};
 
 				this.$emit("request", {scrJref: this.content.scrJref, dpchapp: dpchapp, then: "handleDpchAppDoReply"}); // reply ends up in content card
@@ -283,15 +261,6 @@
 				}
 			},
 
-			mergeDpchEngData_pnlpre: function(dpcheng) {
-				if (dpcheng.ContInfWzskNavPre) this.pnlpre.continf = dpcheng.ContInfWzskNavPre;
-				if (dpcheng.StatShrWzskNavPre) this.pnlpre.statshr = dpcheng.StatShrWzskNavPre;
-				if (dpcheng.TagWzskNavPre) {
-					Wzsk.unescapeBlock(dpcheng.TagWzskNavPre);
-					this.pnlpre.tag = dpcheng.TagWzskNavPre;
-				}
-			},
-
 			mergeDpchEngData_pnladmin: function(dpcheng) {
 				if (dpcheng.ContIacWzskNavAdmin) this.pnladmin.contiac = dpcheng.ContIacWzskNavAdmin;
 				if (dpcheng.FeedFLstPrs) this.pnladmin.feedFLstPrs = dpcheng.FeedFLstPrs;
@@ -306,26 +275,13 @@
 			},
 
 			mergeDpchEngData_pnlop: function(dpcheng) {
+				if (dpcheng.ContIacWzskNavOp) this.pnlop.contiac = dpcheng.ContIacWzskNavOp;
+				if (dpcheng.FeedFLstFil) this.pnlop.feedFLstFil = dpcheng.FeedFLstFil;
 				if (dpcheng.StatAppWzskNavOp) this.pnlop.statapp = dpcheng.StatAppWzskNavOp;
 				if (dpcheng.StatShrWzskNavOp) this.pnlop.statshr = dpcheng.StatShrWzskNavOp;
 				if (dpcheng.TagWzskNavOp) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskNavOp);
 					this.pnlop.tag = dpcheng.TagWzskNavOp;
-				}
-			},
-
-			mergeDpchEngData_pnlglry: function(dpcheng) {
-				if (dpcheng.ContIacWzskNavGlry) this.pnlglry.contiac = dpcheng.ContIacWzskNavGlry;
-				if (dpcheng.FeedFLstFil) this.pnlglry.feedFLstFil = dpcheng.FeedFLstFil;
-				if (dpcheng.FeedFLstObj) this.pnlglry.feedFLstObj = dpcheng.FeedFLstObj;
-				if (dpcheng.FeedFLstOgr) this.pnlglry.feedFLstOgr = dpcheng.FeedFLstOgr;
-				if (dpcheng.FeedFLstSes) this.pnlglry.feedFLstSes = dpcheng.FeedFLstSes;
-				if (dpcheng.FeedFLstSht) this.pnlglry.feedFLstSht = dpcheng.FeedFLstSht;
-				if (dpcheng.StatAppWzskNavGlry) this.pnlglry.statapp = dpcheng.StatAppWzskNavGlry;
-				if (dpcheng.StatShrWzskNavGlry) this.pnlglry.statshr = dpcheng.StatShrWzskNavGlry;
-				if (dpcheng.TagWzskNavGlry) {
-					Wzsk.unescapeBlock(dpcheng.TagWzskNavGlry);
-					this.pnlglry.tag = dpcheng.TagWzskNavGlry;
 				}
 			},
 
@@ -415,28 +371,20 @@
 					if (dpcheng.scrJref == this.statshr.scrJrefHeadbar) {
 						this.mergeDpchEngData_pnlheadbar(dpcheng);
 						this.statapp.initdoneHeadbar = true;
-					} else if (dpcheng.scrJref == this.statshr.scrJrefPre) {
-						this.mergeDpchEngData_pnlpre(dpcheng);
-						this.statapp.initdonePre = true;
 					} else if (dpcheng.scrJref == this.statshr.scrJrefAdmin) {
 						this.mergeDpchEngData_pnladmin(dpcheng);
 						this.statapp.initdoneAdmin = true;
 					} else if (dpcheng.scrJref == this.statshr.scrJrefOp) {
 						this.mergeDpchEngData_pnlop(dpcheng);
 						this.statapp.initdoneOp = true;
-					} else if (dpcheng.scrJref == this.statshr.scrJrefGlry) {
-						this.mergeDpchEngData_pnlglry(dpcheng);
-						this.statapp.initdoneGlry = true;
 					} else if (dpcheng.scrJref == this.content.scrJref) {
 						this.mergeDpchEngData_content(dpcheng);
 						this.content.initdone = true;
 					}
 
 					if (!this.statapp.initdoneHeadbar) this.initOther(this.statshr.scrJrefHeadbar);
-					else if (!this.statapp.initdonePre) this.initOther(this.statshr.scrJrefPre);
 					else if (!this.statapp.initdoneAdmin) this.initOther(this.statshr.scrJrefAdmin);
 					else if (!this.statapp.initdoneOp) this.initOther(this.statshr.scrJrefOp);
-					else if (!this.statapp.initdoneGlry) this.initOther(this.statshr.scrJrefGlry);
 					/*
 					*/
 					else this.initdonePnls = true;
@@ -454,7 +402,6 @@
 
 			handleDpchAppDoReply: function(srefIxWzskVDpch, dpcheng) {
 				if (srefIxWzskVDpch == "DpchEngWzskNavData") this.mergeDpchEngData(dpcheng);
-				else if (srefIxWzskVDpch == "DpchEngWzskNavPreData") this.mergeDpchEngData_pnlpre(dpcheng);
 			},
 
 			handleDpchAppCrdopenReply: function(dpcheng) {
@@ -597,7 +544,6 @@
 
 			/*
 			*/
-			MenPre: ["Obj"],
 			/*
 			*/
 
@@ -606,15 +552,11 @@
 			MenCrd: [
 				{
 					pnlsref: "pnladmin",
-					mits: ["MitCrdUsg", "MitCrdUsr", "MitCrdPrs", "MitCrdScf"]
+					mits: ["MitCrdUsg", "MitCrdUsr", "MitCrdPrs", "MitCrdPrf"]
 				},
 				{
 					pnlsref: "pnlop",
-					mits: ["MitCrdLlv", "MitCrdLiv"]
-				},
-				{
-					pnlsref: "pnlglry",
-					mits: ["MitCrdOgr", "MitCrdObj", "MitCrdSes", "MitCrdSht", "MitCrdFil"]
+					mits: ["MitCrdLlv", "MitCrdVtr", "MitCrdHwc", "MitCrdFil"]
 				}
 			],
 			/*
@@ -625,17 +567,10 @@
 			pnlheadbar: {
 			},
 
-			pnlpre: {
-				statshr: null
-			},
-
 			pnladmin: {
 			},
 
 			pnlop: {
-			},
-
-			pnlglry: {
 			},
 
 			/*
@@ -665,37 +600,20 @@
 			MbarPrs: [
 			],
 
-			MbarScf: [
+			MbarPrf: [
 				{
 					sref: "MenCrd",
-					mits: ["MitCrdCmm", "MitCrdTtc", "MitCrdLsp"]
+					mits: ["MitCrdRvr", "MitCrdSto"]
 				}
 			],
 
 			MbarLlv: [
 			],
 
-			MbarLiv: [
+			MbarVtr: [
 			],
 
-			MbarOgr: [
-				{
-					sref: "MenCrd",
-					mits: ["MitCrdNew"]
-				}
-			],
-
-			MbarObj: [
-				{
-					sref: "MenCrd",
-					mits: ["MitCrdNew"]
-				}
-			],
-
-			MbarSes: [
-			],
-
-			MbarSht: [
+			MbarHwc: [
 			],
 
 			MbarFil: [

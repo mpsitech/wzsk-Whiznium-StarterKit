@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvHeadbar.h
 	* API code for job PnlWzskLlvHeadbar (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -29,17 +29,13 @@ namespace PnlWzskLlvHeadbar {
 	public:
 		static const Sbecore::uint MENAPPCPTWIDTH = 1;
 		static const Sbecore::uint MENAPPWIDTH = 2;
-		static const Sbecore::uint MENCRDCPTWIDTH = 3;
-		static const Sbecore::uint MENCRDWIDTH = 4;
 
 	public:
-		StgInf(const Sbecore::uint MenAppCptwidth = 100, const Sbecore::uint MenAppWidth = 100, const Sbecore::uint MenCrdCptwidth = 100, const Sbecore::uint MenCrdWidth = 100);
+		StgInf(const Sbecore::uint MenAppCptwidth = 100, const Sbecore::uint MenAppWidth = 100);
 
 	public:
 		Sbecore::uint MenAppCptwidth;
 		Sbecore::uint MenAppWidth;
-		Sbecore::uint MenCrdCptwidth;
-		Sbecore::uint MenCrdWidth;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -54,14 +50,12 @@ namespace PnlWzskLlvHeadbar {
 
 	public:
 		static const Sbecore::uint MENAPP = 1;
-		static const Sbecore::uint MENCRD = 2;
 
 	public:
-		Tag(const std::string& MenApp = "", const std::string& MenCrd = "");
+		Tag(const std::string& MenApp = "");
 
 	public:
 		std::string MenApp;
-		std::string MenCrd;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);

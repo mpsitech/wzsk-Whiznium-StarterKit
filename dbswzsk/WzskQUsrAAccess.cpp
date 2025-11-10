@@ -2,8 +2,8 @@
 	* \file WzskQUsrAAccess.cpp
 	* Dbs and XML wrapper for table TblWzskQUsrAAccess (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -29,18 +29,19 @@ WzskQUsrAAccess::WzskQUsrAAccess(
 			, const uint ixWzskWAccess
 			, const string srefsIxWzskWAccess
 			, const string titsIxWzskWAccess
-		) {
-	this->qref = qref;
-	this->jref = jref;
-	this->jnum = jnum;
-	this->ref = ref;
-	this->x1IxWzskVFeatgroup = x1IxWzskVFeatgroup;
-	this->srefX1IxWzskVFeatgroup = srefX1IxWzskVFeatgroup;
-	this->titX1IxWzskVFeatgroup = titX1IxWzskVFeatgroup;
-	this->x2FeaSrefUix = x2FeaSrefUix;
-	this->ixWzskWAccess = ixWzskWAccess;
-	this->srefsIxWzskWAccess = srefsIxWzskWAccess;
-	this->titsIxWzskWAccess = titsIxWzskWAccess;
+		) :
+			qref(qref)
+			, jref(jref)
+			, jnum(jnum)
+			, ref(ref)
+			, x1IxWzskVFeatgroup(x1IxWzskVFeatgroup)
+			, srefX1IxWzskVFeatgroup(srefX1IxWzskVFeatgroup)
+			, titX1IxWzskVFeatgroup(titX1IxWzskVFeatgroup)
+			, x2FeaSrefUix(x2FeaSrefUix)
+			, ixWzskWAccess(ixWzskWAccess)
+			, srefsIxWzskWAccess(srefsIxWzskWAccess)
+			, titsIxWzskWAccess(titsIxWzskWAccess)
+		{
 };
 
 void WzskQUsrAAccess::writeJSON(

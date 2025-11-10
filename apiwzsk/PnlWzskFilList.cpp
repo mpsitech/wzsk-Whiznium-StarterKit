@@ -2,8 +2,8 @@
 	* \file PnlWzskFilList.cpp
 	* API code for job PnlWzskFilList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -53,9 +53,8 @@ PnlWzskFilList::ContIac::ContIac(
 			const uint numFTos
 		) :
 			Block()
+			, numFTos(numFTos)
 		{
-	this->numFTos = numFTos;
-
 	mask = {NUMFTOS};
 };
 
@@ -127,19 +126,14 @@ set<uint> PnlWzskFilList::ContIac::diff(
  ******************************************************************************/
 
 PnlWzskFilList::ContInf::ContInf(
-			const string& TxtFor
-			, const string& TxtPre
-			, const bool ButFilterOn
+			const bool ButFilterOn
 			, const uint numFCsiQst
 		) :
 			Block()
+			, ButFilterOn(ButFilterOn)
+			, numFCsiQst(numFCsiQst)
 		{
-	this->TxtFor = TxtFor;
-	this->TxtPre = TxtPre;
-	this->ButFilterOn = ButFilterOn;
-	this->numFCsiQst = numFCsiQst;
-
-	mask = {TXTFOR, TXTPRE, BUTFILTERON, NUMFCSIQST};
+	mask = {BUTFILTERON, NUMFCSIQST};
 };
 
 bool PnlWzskFilList::ContInf::readXML(
@@ -159,8 +153,6 @@ bool PnlWzskFilList::ContInf::readXML(
 	string itemtag = "ContitemInfWzskFilList";
 
 	if (basefound) {
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "TxtFor", TxtFor)) add(TXTFOR);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "TxtPre", TxtPre)) add(TXTPRE);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "ButFilterOn", ButFilterOn)) add(BUTFILTERON);
 		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "numFCsiQst", numFCsiQst)) add(NUMFCSIQST);
 	};
@@ -173,8 +165,6 @@ set<uint> PnlWzskFilList::ContInf::comm(
 		) {
 	set<uint> items;
 
-	if (TxtFor == comp->TxtFor) insert(items, TXTFOR);
-	if (TxtPre == comp->TxtPre) insert(items, TXTPRE);
 	if (ButFilterOn == comp->ButFilterOn) insert(items, BUTFILTERON);
 	if (numFCsiQst == comp->numFCsiQst) insert(items, NUMFCSIQST);
 
@@ -189,7 +179,7 @@ set<uint> PnlWzskFilList::ContInf::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {TXTFOR, TXTPRE, BUTFILTERON, NUMFCSIQST};
+	diffitems = {BUTFILTERON, NUMFCSIQST};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -204,10 +194,9 @@ PnlWzskFilList::StatShr::StatShr(
 			, const bool ButDeleteActive
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, ButDeleteActive(ButDeleteActive)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->ButDeleteActive = ButDeleteActive;
-
 	mask = {IXWZSKVEXPSTATE, BUTDELETEACTIVE};
 };
 
@@ -280,16 +269,15 @@ PnlWzskFilList::StgIac::StgIac(
 			, const uint TcoSizWidth
 		) :
 			Block()
+			, TcoGrpWidth(TcoGrpWidth)
+			, TcoOwnWidth(TcoOwnWidth)
+			, TcoFnmWidth(TcoFnmWidth)
+			, TcoRetWidth(TcoRetWidth)
+			, TcoReuWidth(TcoReuWidth)
+			, TcoCntWidth(TcoCntWidth)
+			, TcoMimWidth(TcoMimWidth)
+			, TcoSizWidth(TcoSizWidth)
 		{
-	this->TcoGrpWidth = TcoGrpWidth;
-	this->TcoOwnWidth = TcoOwnWidth;
-	this->TcoFnmWidth = TcoFnmWidth;
-	this->TcoRetWidth = TcoRetWidth;
-	this->TcoReuWidth = TcoReuWidth;
-	this->TcoCntWidth = TcoCntWidth;
-	this->TcoMimWidth = TcoMimWidth;
-	this->TcoSizWidth = TcoSizWidth;
-
 	mask = {TCOGRPWIDTH, TCOOWNWIDTH, TCOFNMWIDTH, TCORETWIDTH, TCOREUWIDTH, TCOCNTWIDTH, TCOMIMWIDTH, TCOSIZWIDTH};
 };
 
@@ -383,7 +371,6 @@ set<uint> PnlWzskFilList::StgIac::diff(
 
 PnlWzskFilList::Tag::Tag(
 			const string& Cpt
-			, const string& TxtFor
 			, const string& TxtRecord1
 			, const string& TxtRecord2
 			, const string& Trs
@@ -399,24 +386,22 @@ PnlWzskFilList::Tag::Tag(
 			, const string& TcoSiz
 		) :
 			Block()
+			, Cpt(Cpt)
+			, TxtRecord1(TxtRecord1)
+			, TxtRecord2(TxtRecord2)
+			, Trs(Trs)
+			, TxtShowing1(TxtShowing1)
+			, TxtShowing2(TxtShowing2)
+			, TcoGrp(TcoGrp)
+			, TcoOwn(TcoOwn)
+			, TcoFnm(TcoFnm)
+			, TcoRet(TcoRet)
+			, TcoReu(TcoReu)
+			, TcoCnt(TcoCnt)
+			, TcoMim(TcoMim)
+			, TcoSiz(TcoSiz)
 		{
-	this->Cpt = Cpt;
-	this->TxtFor = TxtFor;
-	this->TxtRecord1 = TxtRecord1;
-	this->TxtRecord2 = TxtRecord2;
-	this->Trs = Trs;
-	this->TxtShowing1 = TxtShowing1;
-	this->TxtShowing2 = TxtShowing2;
-	this->TcoGrp = TcoGrp;
-	this->TcoOwn = TcoOwn;
-	this->TcoFnm = TcoFnm;
-	this->TcoRet = TcoRet;
-	this->TcoReu = TcoReu;
-	this->TcoCnt = TcoCnt;
-	this->TcoMim = TcoMim;
-	this->TcoSiz = TcoSiz;
-
-	mask = {CPT, TXTFOR, TXTRECORD1, TXTRECORD2, TRS, TXTSHOWING1, TXTSHOWING2, TCOGRP, TCOOWN, TCOFNM, TCORET, TCOREU, TCOCNT, TCOMIM, TCOSIZ};
+	mask = {CPT, TXTRECORD1, TXTRECORD2, TRS, TXTSHOWING1, TXTSHOWING2, TCOGRP, TCOOWN, TCOFNM, TCORET, TCOREU, TCOCNT, TCOMIM, TCOSIZ};
 };
 
 bool PnlWzskFilList::Tag::readXML(
@@ -437,7 +422,6 @@ bool PnlWzskFilList::Tag::readXML(
 
 	if (basefound) {
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "Cpt", Cpt)) add(CPT);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "TxtFor", TxtFor)) add(TXTFOR);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "TxtRecord1", TxtRecord1)) add(TXTRECORD1);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "TxtRecord2", TxtRecord2)) add(TXTRECORD2);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "Trs", Trs)) add(TRS);
@@ -513,11 +497,11 @@ PnlWzskFilList::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKFILLISTDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string PnlWzskFilList::DpchAppDo::getSrefsMask() {

@@ -2,8 +2,8 @@
 	* \file PnlWzskNavAdmin_blks.cpp
 	* job handler for job PnlWzskNavAdmin (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -26,7 +26,7 @@ uint PnlWzskNavAdmin::VecVDo::getIx(
 	if (s == "butusrnewcrdclick") return BUTUSRNEWCRDCLICK;
 	if (s == "butprsviewclick") return BUTPRSVIEWCLICK;
 	if (s == "butprsnewcrdclick") return BUTPRSNEWCRDCLICK;
-	if (s == "butscfnewcrdclick") return BUTSCFNEWCRDCLICK;
+	if (s == "butprfnewcrdclick") return BUTPRFNEWCRDCLICK;
 
 	return(0);
 };
@@ -40,7 +40,7 @@ string PnlWzskNavAdmin::VecVDo::getSref(
 	if (ix == BUTUSRNEWCRDCLICK) return("ButUsrNewcrdClick");
 	if (ix == BUTPRSVIEWCLICK) return("ButPrsViewClick");
 	if (ix == BUTPRSNEWCRDCLICK) return("ButPrsNewcrdClick");
-	if (ix == BUTSCFNEWCRDCLICK) return("ButScfNewcrdClick");
+	if (ix == BUTPRFNEWCRDCLICK) return("ButPrfNewcrdClick");
 
 	return("");
 };
@@ -55,11 +55,10 @@ PnlWzskNavAdmin::ContIac::ContIac(
 			, const uint numFLstPrs
 		) :
 			Block()
+			, numFLstUsg(numFLstUsg)
+			, numFLstUsr(numFLstUsr)
+			, numFLstPrs(numFLstPrs)
 		{
-	this->numFLstUsg = numFLstUsg;
-	this->numFLstUsr = numFLstUsr;
-	this->numFLstPrs = numFLstPrs;
-
 	mask = {NUMFLSTUSG, NUMFLSTUSR, NUMFLSTPRS};
 };
 
@@ -117,9 +116,9 @@ void PnlWzskNavAdmin::ContIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFLstUsg"] = numFLstUsg;
-	me["numFLstUsr"] = numFLstUsr;
-	me["numFLstPrs"] = numFLstPrs;
+	me["numFLstUsg"] = (Json::Value::UInt) numFLstUsg;
+	me["numFLstUsr"] = (Json::Value::UInt) numFLstUsr;
+	me["numFLstPrs"] = (Json::Value::UInt) numFLstPrs;
 };
 
 void PnlWzskNavAdmin::ContIac::writeXML(
@@ -189,9 +188,9 @@ void PnlWzskNavAdmin::StatApp::writeJSON(
 	me["LstUsgAlt"] = LstUsgAlt;
 	me["LstUsrAlt"] = LstUsrAlt;
 	me["LstPrsAlt"] = LstPrsAlt;
-	me["LstUsgNumFirstdisp"] = LstUsgNumFirstdisp;
-	me["LstUsrNumFirstdisp"] = LstUsrNumFirstdisp;
-	me["LstPrsNumFirstdisp"] = LstPrsNumFirstdisp;
+	me["LstUsgNumFirstdisp"] = (Json::Value::UInt) LstUsgNumFirstdisp;
+	me["LstUsrNumFirstdisp"] = (Json::Value::UInt) LstUsrNumFirstdisp;
+	me["LstPrsNumFirstdisp"] = (Json::Value::UInt) LstPrsNumFirstdisp;
 };
 
 void PnlWzskNavAdmin::StatApp::writeXML(
@@ -234,19 +233,18 @@ PnlWzskNavAdmin::StatShr::StatShr(
 			, const bool ButUsrViewActive
 			, const bool LstPrsAvail
 			, const bool ButPrsViewActive
-			, const bool ButScfNewcrdAvail
+			, const bool ButPrfNewcrdAvail
 		) :
 			Block()
+			, LstUsgAvail(LstUsgAvail)
+			, ButUsgViewActive(ButUsgViewActive)
+			, LstUsrAvail(LstUsrAvail)
+			, ButUsrViewActive(ButUsrViewActive)
+			, LstPrsAvail(LstPrsAvail)
+			, ButPrsViewActive(ButPrsViewActive)
+			, ButPrfNewcrdAvail(ButPrfNewcrdAvail)
 		{
-	this->LstUsgAvail = LstUsgAvail;
-	this->ButUsgViewActive = ButUsgViewActive;
-	this->LstUsrAvail = LstUsrAvail;
-	this->ButUsrViewActive = ButUsrViewActive;
-	this->LstPrsAvail = LstPrsAvail;
-	this->ButPrsViewActive = ButPrsViewActive;
-	this->ButScfNewcrdAvail = ButScfNewcrdAvail;
-
-	mask = {LSTUSGAVAIL, BUTUSGVIEWACTIVE, LSTUSRAVAIL, BUTUSRVIEWACTIVE, LSTPRSAVAIL, BUTPRSVIEWACTIVE, BUTSCFNEWCRDAVAIL};
+	mask = {LSTUSGAVAIL, BUTUSGVIEWACTIVE, LSTUSRAVAIL, BUTUSRVIEWACTIVE, LSTPRSAVAIL, BUTPRSVIEWACTIVE, BUTPRFNEWCRDAVAIL};
 };
 
 void PnlWzskNavAdmin::StatShr::writeJSON(
@@ -263,7 +261,7 @@ void PnlWzskNavAdmin::StatShr::writeJSON(
 	me["ButUsrViewActive"] = ButUsrViewActive;
 	me["LstPrsAvail"] = LstPrsAvail;
 	me["ButPrsViewActive"] = ButPrsViewActive;
-	me["ButScfNewcrdAvail"] = ButScfNewcrdAvail;
+	me["ButPrfNewcrdAvail"] = ButPrfNewcrdAvail;
 };
 
 void PnlWzskNavAdmin::StatShr::writeXML(
@@ -284,7 +282,7 @@ void PnlWzskNavAdmin::StatShr::writeXML(
 		writeBoolAttr(wr, itemtag, "sref", "ButUsrViewActive", ButUsrViewActive);
 		writeBoolAttr(wr, itemtag, "sref", "LstPrsAvail", LstPrsAvail);
 		writeBoolAttr(wr, itemtag, "sref", "ButPrsViewActive", ButPrsViewActive);
-		writeBoolAttr(wr, itemtag, "sref", "ButScfNewcrdAvail", ButScfNewcrdAvail);
+		writeBoolAttr(wr, itemtag, "sref", "ButPrfNewcrdAvail", ButPrfNewcrdAvail);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -299,7 +297,7 @@ set<uint> PnlWzskNavAdmin::StatShr::comm(
 	if (ButUsrViewActive == comp->ButUsrViewActive) insert(items, BUTUSRVIEWACTIVE);
 	if (LstPrsAvail == comp->LstPrsAvail) insert(items, LSTPRSAVAIL);
 	if (ButPrsViewActive == comp->ButPrsViewActive) insert(items, BUTPRSVIEWACTIVE);
-	if (ButScfNewcrdAvail == comp->ButScfNewcrdAvail) insert(items, BUTSCFNEWCRDAVAIL);
+	if (ButPrfNewcrdAvail == comp->ButPrfNewcrdAvail) insert(items, BUTPRFNEWCRDAVAIL);
 
 	return(items);
 };
@@ -312,7 +310,7 @@ set<uint> PnlWzskNavAdmin::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {LSTUSGAVAIL, BUTUSGVIEWACTIVE, LSTUSRAVAIL, BUTUSRVIEWACTIVE, LSTPRSAVAIL, BUTPRSVIEWACTIVE, BUTSCFNEWCRDAVAIL};
+	diffitems = {LSTUSGAVAIL, BUTUSGVIEWACTIVE, LSTUSRAVAIL, BUTUSRVIEWACTIVE, LSTPRSAVAIL, BUTPRSVIEWACTIVE, BUTPRFNEWCRDAVAIL};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -336,13 +334,7 @@ void PnlWzskNavAdmin::Tag::writeJSON(
 		me["CptUsg"] = "user groups";
 		me["CptUsr"] = "users";
 		me["CptPrs"] = "persons";
-		me["CptScf"] = "system configuration";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Verwaltung";
-		me["CptUsg"] = "Benutzergruppen";
-		me["CptUsr"] = "Benutzer";
-		me["CptPrs"] = "Personen";
-		me["CptScf"] = "Systemkonfiguration";
+		me["CptPrf"] = "preferences";
 	};
 };
 
@@ -364,13 +356,7 @@ void PnlWzskNavAdmin::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "CptUsg", "user groups");
 			writeStringAttr(wr, itemtag, "sref", "CptUsr", "users");
 			writeStringAttr(wr, itemtag, "sref", "CptPrs", "persons");
-			writeStringAttr(wr, itemtag, "sref", "CptScf", "system configuration");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Verwaltung");
-			writeStringAttr(wr, itemtag, "sref", "CptUsg", "Benutzergruppen");
-			writeStringAttr(wr, itemtag, "sref", "CptUsr", "Benutzer");
-			writeStringAttr(wr, itemtag, "sref", "CptPrs", "Personen");
-			writeStringAttr(wr, itemtag, "sref", "CptScf", "Systemkonfiguration");
+			writeStringAttr(wr, itemtag, "sref", "CptPrf", "preferences");
 		};
 	xmlTextWriterEndElement(wr);
 };

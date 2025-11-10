@@ -2,8 +2,8 @@
 	* \file CrdWzskLlv_evals.cpp
 	* job handler for job CrdWzskLlv (implementation of availability/activation evaluation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 12 Oct 2025
 	*/
 // IP header --- ABOVE
 
@@ -11,4 +11,44 @@ using namespace std;
 using namespace Sbecore;
 using namespace Xmlio;
 
-// IP evals --- INSERT
+bool CrdWzskLlv::evalPnltermdcvspAvail(
+			DbsWzsk* dbswzsk
+		) {
+	// stgwzskglobal.ixwzskvtargetEq(disco)
+
+	vector<bool> args;
+	bool a;
+
+	a = false; a = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::DISCO);
+	args.push_back(a);
+
+	return(args.back());
+};
+
+bool CrdWzskLlv::evalPnltermtivspAvail(
+			DbsWzsk* dbswzsk
+		) {
+	// stgwzskglobal.ixwzskvtargetEq(titdvk)
+
+	vector<bool> args;
+	bool a;
+
+	a = false; a = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::TITDVK);
+	args.push_back(a);
+
+	return(args.back());
+};
+
+bool CrdWzskLlv::evalPnltermzuvspAvail(
+			DbsWzsk* dbswzsk
+		) {
+	// stgwzskglobal.ixwzskvtargetEq(zudvk)
+
+	vector<bool> args;
+	bool a;
+
+	a = false; a = (xchg->stgwzskglobal.ixWzskVTarget == VecWzskVTarget::ZUDVK);
+	args.push_back(a);
+
+	return(args.back());
+};

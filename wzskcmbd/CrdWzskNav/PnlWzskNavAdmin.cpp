@@ -2,8 +2,8 @@
 	* \file PnlWzskNavAdmin.cpp
 	* job handler for job PnlWzskNavAdmin (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -218,7 +218,7 @@ void PnlWzskNavAdmin::refresh(
 
 	// IP refresh --- BEGIN
 	// statshr
-	statshr.ButScfNewcrdAvail = evalButScfNewcrdAvail(dbswzsk);
+	statshr.ButPrfNewcrdAvail = evalButPrfNewcrdAvail(dbswzsk);
 	// IP refresh --- END
 
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
@@ -286,8 +286,8 @@ void PnlWzskNavAdmin::handleRequest(
 					handleDpchAppDoButPrsViewClick(dbswzsk, &(req->dpcheng));
 				} else if (dpchappdo->ixVDo == VecVDo::BUTPRSNEWCRDCLICK) {
 					handleDpchAppDoButPrsNewcrdClick(dbswzsk, &(req->dpcheng));
-				} else if (dpchappdo->ixVDo == VecVDo::BUTSCFNEWCRDCLICK) {
-					handleDpchAppDoButScfNewcrdClick(dbswzsk, &(req->dpcheng));
+				} else if (dpchappdo->ixVDo == VecVDo::BUTPRFNEWCRDCLICK) {
+					handleDpchAppDoButPrfNewcrdClick(dbswzsk, &(req->dpcheng));
 				};
 
 			};
@@ -423,16 +423,16 @@ void PnlWzskNavAdmin::handleDpchAppDoButPrsNewcrdClick(
 	else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskPrs");
 };
 
-void PnlWzskNavAdmin::handleDpchAppDoButScfNewcrdClick(
+void PnlWzskNavAdmin::handleDpchAppDoButPrfNewcrdClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
 	ubigint jrefNew = 0;
 
-	xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, "CrdWzskScf", 0, jrefNew);
+	xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, "CrdWzskPrf", 0, jrefNew);
 
 	if (jrefNew == 0) *dpcheng = new DpchEngWzskConfirm(false, 0, "");
-	else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskScf");
+	else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, "CrdWzskPrf");
 };
 
 void PnlWzskNavAdmin::handleCall(

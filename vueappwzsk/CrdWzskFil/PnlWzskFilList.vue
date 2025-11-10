@@ -4,10 +4,7 @@
 			<v-row>
 				<v-col cols="8">
 					<div>
-						<span>{{tag.Cpt}}</span>
-						<span class="caption">{{TxtFor}}</span>
-						<span>{{continf.TxtPre}}</span>
-						<span>{{Cpt2}}</span>
+						<span>{{Cpt}}</span>
 					</div>
 				</v-col>
 				<v-col cols="4" align="end">
@@ -294,16 +291,12 @@
 		computed: {
 			/*
 			*/
-			Cpt2: function() {
-				if (this.statshr.srefIxWzskVExpstate == "mind") return(" (" + this.statshrqry.ntot + ")");
-				return "";
-			},
-
-			TxtFor: function() {
-				return(" " + Wzsk.strFor(this.tag.TxtFor, this.continf.TxtFor) + " ");
-			},
 			/*
 			*/
+			Cpt: function() {
+				if (this.statshr.srefIxWzskVExpstate == "mind") return(this.tag.Cpt + " (" + this.statshrqry.ntot + ")");
+				return this.tag.Cpt;
+			},
 			/*
 			*/
 

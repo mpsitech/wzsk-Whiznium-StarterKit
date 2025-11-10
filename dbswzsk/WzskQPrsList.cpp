@@ -2,8 +2,8 @@
 	* \file WzskQPrsList.cpp
 	* Dbs and XML wrapper for table TblWzskQPrsList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -34,23 +34,24 @@ WzskQPrsList::WzskQPrsList(
 			, const string titIxVSex
 			, const string telVal
 			, const string emlVal
-		) {
-	this->qref = qref;
-	this->jref = jref;
-	this->jnum = jnum;
-	this->ref = ref;
-	this->grp = grp;
-	this->stubGrp = stubGrp;
-	this->own = own;
-	this->stubOwn = stubOwn;
-	this->Title = Title;
-	this->Firstname = Firstname;
-	this->Lastname = Lastname;
-	this->ixVSex = ixVSex;
-	this->srefIxVSex = srefIxVSex;
-	this->titIxVSex = titIxVSex;
-	this->telVal = telVal;
-	this->emlVal = emlVal;
+		) :
+			qref(qref)
+			, jref(jref)
+			, jnum(jnum)
+			, ref(ref)
+			, grp(grp)
+			, stubGrp(stubGrp)
+			, own(own)
+			, stubOwn(stubOwn)
+			, Title(Title)
+			, Firstname(Firstname)
+			, Lastname(Lastname)
+			, ixVSex(ixVSex)
+			, srefIxVSex(srefIxVSex)
+			, titIxVSex(titIxVSex)
+			, telVal(telVal)
+			, emlVal(emlVal)
+		{
 };
 
 void WzskQPrsList::writeJSON(

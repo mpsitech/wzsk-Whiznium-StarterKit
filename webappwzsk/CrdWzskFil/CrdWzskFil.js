@@ -340,7 +340,7 @@ function refresh() {
 		if (scrJrefDlg != scrJrefDlgdownload) showDlg("DlgWzskFilDownload", scrJrefDlgdownload);
 	} else if (scrJrefDlg != "") hideDlg();
 
-	doc.title = retrieveCi(srcdoc, "ContInfWzskFil", "MtxCrdFil") + " - Whiznium StarterKit v1.0.17";
+	doc.title = retrieveCi(srcdoc, "ContInfWzskFil", "MtxCrdFil") + " - Whiznium StarterKit v1.2.6";
 };
 
 // --- event handlers
@@ -510,7 +510,7 @@ function handleDpchAppResumeReply() {
 	} else if (doc.req.readyState == 4) {
 		dom = doc.req.responseXML;
 
-		blk = retrieveBlock(dom, "//wzsk:*");
+		if (dom) blk = retrieveBlock(dom, "//wzsk:*");
 
 		if (blk) if (blk.nodeName == "DpchEngWzskAck") restartNotify();
 	};
@@ -521,6 +521,8 @@ function iteratePoll() {
 };
 
 function iterateReqit(ev) {
+	var dom, blk;
+
 	var accepted, _scrJref, mask;
 
 	var news = false;
@@ -542,7 +544,7 @@ function iterateReqit(ev) {
 			dom = doc.reqit.responseXML;
 
 			// check dispatch type
-			blk = retrieveBlock(dom, "//wzsk:*");
+			if (dom) blk = retrieveBlock(dom, "//wzsk:*");
 
 			if (blk) {
 				if (blk.nodeName == "DpchEngWzskAck") {

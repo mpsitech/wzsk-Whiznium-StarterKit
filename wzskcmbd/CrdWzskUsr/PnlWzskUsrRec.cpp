@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrRec.cpp
 	* job handler for job PnlWzskUsrRec (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -38,17 +38,17 @@ PnlWzskUsrRec::PnlWzskUsrRec(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	pnlmnusergroup = NULL;
-	pnl1nsession = NULL;
-	pnlaaccess = NULL;
 	pnldetail = NULL;
+	pnlaaccess = NULL;
+	pnl1nsession = NULL;
+	pnlmnusergroup = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
 	// IP constructor.cust2 --- INSERT
 
-	xchg->addClstn(VecWzskVCall::CALLWZSKUSR_USGEQ, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKUSR_PRSEQ, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKUSR_USGEQ, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -255,21 +255,23 @@ void PnlWzskUsrRec::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKUSRUPD_REFEQ) {
-		call->abort = handleCallWzskUsrUpd_refEq(dbswzsk, call->jref);
+	if (call->ixVCall == VecWzskVCall::CALLWZSKUSR_PRSEQ) {
+		call->abort = handleCallWzskUsr_prsEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSR_USGEQ) {
 		call->abort = handleCallWzskUsr_usgEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSR_PRSEQ) {
-		call->abort = handleCallWzskUsr_prsEq(dbswzsk, call->jref, call->argInv.ref, call->argRet.boolval);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSRUPD_REFEQ) {
+		call->abort = handleCallWzskUsrUpd_refEq(dbswzsk, call->jref);
 	};
 };
 
-bool PnlWzskUsrRec::handleCallWzskUsrUpd_refEq(
+bool PnlWzskUsrRec::handleCallWzskUsr_prsEq(
 			DbsWzsk* dbswzsk
 			, const ubigint jrefTrig
+			, const ubigint refInv
+			, bool& boolvalRet
 		) {
 	bool retval = false;
-	// IP handleCallWzskUsrUpd_refEq --- INSERT
+	boolvalRet = (recUsr.refWzskMPerson == refInv); // IP handleCallWzskUsr_prsEq --- LINE
 	return retval;
 };
 
@@ -284,13 +286,11 @@ bool PnlWzskUsrRec::handleCallWzskUsr_usgEq(
 	return retval;
 };
 
-bool PnlWzskUsrRec::handleCallWzskUsr_prsEq(
+bool PnlWzskUsrRec::handleCallWzskUsrUpd_refEq(
 			DbsWzsk* dbswzsk
 			, const ubigint jrefTrig
-			, const ubigint refInv
-			, bool& boolvalRet
 		) {
 	bool retval = false;
-	boolvalRet = (recUsr.refWzskMPerson == refInv); // IP handleCallWzskUsr_prsEq --- LINE
+	// IP handleCallWzskUsrUpd_refEq --- INSERT
 	return retval;
 };

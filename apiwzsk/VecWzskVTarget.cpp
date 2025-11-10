@@ -3,7 +3,7 @@
 	* vector VecWzskVTarget (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
 	* \author Alexander Wirthmueller (auto-generation)
-	* \date created: 25 Oct 2021
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -22,13 +22,9 @@ uint VecWzskVTarget::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "apalis") return APALIS;
-	if (s == "arty") return ARTY;
-	if (s == "clnxevb") return CLNXEVB;
-	if (s == "icicle") return ICICLE;
-	if (s == "mcvevp") return MCVEVP;
-	if (s == "mercbb") return MERCBB;
-	if (s == "ws") return WS;
+	if (s == "disco") return DISCO;
+	if (s == "titdvk") return TITDVK;
+	if (s == "zudvk") return ZUDVK;
 
 	return(0);
 };
@@ -36,13 +32,9 @@ uint VecWzskVTarget::getIx(
 string VecWzskVTarget::getSref(
 			const uint ix
 		) {
-	if (ix == APALIS) return("apalis");
-	if (ix == ARTY) return("arty");
-	if (ix == CLNXEVB) return("clnxevb");
-	if (ix == ICICLE) return("icicle");
-	if (ix == MCVEVP) return("mcvevp");
-	if (ix == MERCBB) return("mercbb");
-	if (ix == WS) return("ws");
+	if (ix == DISCO) return("disco");
+	if (ix == TITDVK) return("titdvk");
+	if (ix == ZUDVK) return("zudvk");
 
 	return("");
 };

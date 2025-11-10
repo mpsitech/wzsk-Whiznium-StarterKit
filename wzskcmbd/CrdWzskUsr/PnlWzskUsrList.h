@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrList.h
 	* job handler for job PnlWzskUsrList (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -136,7 +136,7 @@ public:
 		static const Sbecore::uint TCOULVWIDTH = 8;
 
 	public:
-		StgIac(const Sbecore::uint TcoGrpWidth = 80, const Sbecore::uint TcoOwnWidth = 80, const Sbecore::uint TcoPrsWidth = 200, const Sbecore::uint TcoSrfWidth = 150, const Sbecore::uint TcoUsgWidth = 150, const Sbecore::uint TcoSteWidth = 120, const Sbecore::uint TcoLclWidth = 150, const Sbecore::uint TcoUlvWidth = 100);
+		StgIac(const Sbecore::uint TcoGrpWidth = 100, const Sbecore::uint TcoOwnWidth = 100, const Sbecore::uint TcoPrsWidth = 100, const Sbecore::uint TcoSrfWidth = 100, const Sbecore::uint TcoUsgWidth = 100, const Sbecore::uint TcoSteWidth = 100, const Sbecore::uint TcoLclWidth = 100, const Sbecore::uint TcoUlvWidth = 100);
 
 	public:
 		Sbecore::uint TcoGrpWidth;

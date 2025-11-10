@@ -3,7 +3,7 @@
 # checkout script for Wzsk Vue.js UI, release vueappwzsk_any
 # copyright: (C) 2022 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 12 Sep 2022
+# date created: 12 Oct 2025
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then
@@ -49,33 +49,21 @@ mkdir $WEBROOT/vueappwzsk/src/components/CrdWzskPrs
 
 cp ../../vueappwzsk/CrdWzskPrs/*.vue $WEBROOT/vueappwzsk/src/components/CrdWzskPrs/
 
-mkdir $WEBROOT/vueappwzsk/src/components/CrdWzskScf
+mkdir $WEBROOT/vueappwzsk/src/components/CrdWzskPrf
 
-cp ../../vueappwzsk/CrdWzskScf/*.vue $WEBROOT/vueappwzsk/src/components/CrdWzskScf/
+cp ../../vueappwzsk/CrdWzskPrf/*.vue $WEBROOT/vueappwzsk/src/components/CrdWzskPrf/
 
 mkdir $WEBROOT/vueappwzsk/src/components/CrdWzskLlv
 
 cp ../../vueappwzsk/CrdWzskLlv/*.vue $WEBROOT/vueappwzsk/src/components/CrdWzskLlv/
 
-mkdir $WEBROOT/vueappwzsk/src/components/CrdWzskLiv
+mkdir $WEBROOT/vueappwzsk/src/components/CrdWzskVtr
 
-cp ../../vueappwzsk/CrdWzskLiv/*.vue $WEBROOT/vueappwzsk/src/components/CrdWzskLiv/
+cp ../../vueappwzsk/CrdWzskVtr/*.vue $WEBROOT/vueappwzsk/src/components/CrdWzskVtr/
 
-mkdir $WEBROOT/vueappwzsk/src/components/CrdWzskOgr
+mkdir $WEBROOT/vueappwzsk/src/components/CrdWzskHwc
 
-cp ../../vueappwzsk/CrdWzskOgr/*.vue $WEBROOT/vueappwzsk/src/components/CrdWzskOgr/
-
-mkdir $WEBROOT/vueappwzsk/src/components/CrdWzskObj
-
-cp ../../vueappwzsk/CrdWzskObj/*.vue $WEBROOT/vueappwzsk/src/components/CrdWzskObj/
-
-mkdir $WEBROOT/vueappwzsk/src/components/CrdWzskSes
-
-cp ../../vueappwzsk/CrdWzskSes/*.vue $WEBROOT/vueappwzsk/src/components/CrdWzskSes/
-
-mkdir $WEBROOT/vueappwzsk/src/components/CrdWzskSht
-
-cp ../../vueappwzsk/CrdWzskSht/*.vue $WEBROOT/vueappwzsk/src/components/CrdWzskSht/
+cp ../../vueappwzsk/CrdWzskHwc/*.vue $WEBROOT/vueappwzsk/src/components/CrdWzskHwc/
 
 mkdir $WEBROOT/vueappwzsk/src/components/CrdWzskFil
 

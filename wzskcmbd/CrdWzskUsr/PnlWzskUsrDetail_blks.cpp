@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrDetail_blks.cpp
 	* job handler for job PnlWzskUsrDetail (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -53,15 +53,14 @@ PnlWzskUsrDetail::ContIac::ContIac(
 			, const string& TxfCmt
 		) :
 			Block()
+			, numFPupJ(numFPupJ)
+			, numFPupSte(numFPupSte)
+			, numFPupLcl(numFPupLcl)
+			, numFPupUlv(numFPupUlv)
+			, TxfPwd(TxfPwd)
+			, TxfFky(TxfFky)
+			, TxfCmt(TxfCmt)
 		{
-	this->numFPupJ = numFPupJ;
-	this->numFPupSte = numFPupSte;
-	this->numFPupLcl = numFPupLcl;
-	this->numFPupUlv = numFPupUlv;
-	this->TxfPwd = TxfPwd;
-	this->TxfFky = TxfFky;
-	this->TxfCmt = TxfCmt;
-
 	mask = {NUMFPUPJ, NUMFPUPSTE, NUMFPUPLCL, NUMFPUPULV, TXFPWD, TXFFKY, TXFCMT};
 };
 
@@ -127,10 +126,10 @@ void PnlWzskUsrDetail::ContIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFPupJ"] = numFPupJ;
-	me["numFPupSte"] = numFPupSte;
-	me["numFPupLcl"] = numFPupLcl;
-	me["numFPupUlv"] = numFPupUlv;
+	me["numFPupJ"] = (Json::Value::UInt) numFPupJ;
+	me["numFPupSte"] = (Json::Value::UInt) numFPupSte;
+	me["numFPupLcl"] = (Json::Value::UInt) numFPupLcl;
+	me["numFPupUlv"] = (Json::Value::UInt) numFPupUlv;
 	me["TxfPwd"] = TxfPwd;
 	me["TxfFky"] = TxfFky;
 	me["TxfCmt"] = TxfCmt;
@@ -198,11 +197,10 @@ PnlWzskUsrDetail::ContInf::ContInf(
 			, const string& TxtUsg
 		) :
 			Block()
+			, TxtPrs(TxtPrs)
+			, TxtSrf(TxtSrf)
+			, TxtUsg(TxtUsg)
 		{
-	this->TxtPrs = TxtPrs;
-	this->TxtSrf = TxtSrf;
-	this->TxtUsg = TxtUsg;
-
 	mask = {TXTPRS, TXTSRF, TXTUSG};
 };
 
@@ -320,25 +318,24 @@ PnlWzskUsrDetail::StatShr::StatShr(
 			, const bool TxfCmtActive
 		) :
 			Block()
+			, ButSaveAvail(ButSaveAvail)
+			, ButSaveActive(ButSaveActive)
+			, TxtPrsActive(TxtPrsActive)
+			, ButPrsViewAvail(ButPrsViewAvail)
+			, ButPrsViewActive(ButPrsViewActive)
+			, TxtSrfActive(TxtSrfActive)
+			, TxtUsgActive(TxtUsgActive)
+			, ButUsgViewAvail(ButUsgViewAvail)
+			, ButUsgViewActive(ButUsgViewActive)
+			, PupJActive(PupJActive)
+			, ButJEditAvail(ButJEditAvail)
+			, PupSteActive(PupSteActive)
+			, PupLclActive(PupLclActive)
+			, PupUlvActive(PupUlvActive)
+			, TxfPwdActive(TxfPwdActive)
+			, TxfFkyActive(TxfFkyActive)
+			, TxfCmtActive(TxfCmtActive)
 		{
-	this->ButSaveAvail = ButSaveAvail;
-	this->ButSaveActive = ButSaveActive;
-	this->TxtPrsActive = TxtPrsActive;
-	this->ButPrsViewAvail = ButPrsViewAvail;
-	this->ButPrsViewActive = ButPrsViewActive;
-	this->TxtSrfActive = TxtSrfActive;
-	this->TxtUsgActive = TxtUsgActive;
-	this->ButUsgViewAvail = ButUsgViewAvail;
-	this->ButUsgViewActive = ButUsgViewActive;
-	this->PupJActive = PupJActive;
-	this->ButJEditAvail = ButJEditAvail;
-	this->PupSteActive = PupSteActive;
-	this->PupLclActive = PupLclActive;
-	this->PupUlvActive = PupUlvActive;
-	this->TxfPwdActive = TxfPwdActive;
-	this->TxfFkyActive = TxfFkyActive;
-	this->TxfCmtActive = TxfCmtActive;
-
 	mask = {BUTSAVEAVAIL, BUTSAVEACTIVE, TXTPRSACTIVE, BUTPRSVIEWAVAIL, BUTPRSVIEWACTIVE, TXTSRFACTIVE, TXTUSGACTIVE, BUTUSGVIEWAVAIL, BUTUSGVIEWACTIVE, PUPJACTIVE, BUTJEDITAVAIL, PUPSTEACTIVE, PUPLCLACTIVE, PUPULVACTIVE, TXFPWDACTIVE, TXFFKYACTIVE, TXFCMTACTIVE};
 };
 
@@ -464,16 +461,6 @@ void PnlWzskUsrDetail::Tag::writeJSON(
 		me["CptPwd"] = "password";
 		me["CptFky"] = "full key (X.509)";
 		me["CptCmt"] = "comment";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["CptPrs"] = "Person";
-		me["CptSrf"] = "Login";
-		me["CptUsg"] = "prim\\u00e4re Benutzergruppe";
-		me["CptSte"] = "state";
-		me["CptLcl"] = "locale";
-		me["CptUlv"] = "user level";
-		me["CptPwd"] = "Passwort";
-		me["CptFky"] = "vollst\\u00e4ndiger Schl\\u00fcssel (X.509)";
-		me["CptCmt"] = "Notiz";
 	};
 	me["Cpt"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DETAIL, ixWzskVLocale));
 };
@@ -501,16 +488,6 @@ void PnlWzskUsrDetail::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "CptPwd", "password");
 			writeStringAttr(wr, itemtag, "sref", "CptFky", "full key (X.509)");
 			writeStringAttr(wr, itemtag, "sref", "CptCmt", "comment");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "CptPrs", "Person");
-			writeStringAttr(wr, itemtag, "sref", "CptSrf", "Login");
-			writeStringAttr(wr, itemtag, "sref", "CptUsg", "prim\\u00e4re Benutzergruppe");
-			writeStringAttr(wr, itemtag, "sref", "CptSte", "state");
-			writeStringAttr(wr, itemtag, "sref", "CptLcl", "locale");
-			writeStringAttr(wr, itemtag, "sref", "CptUlv", "user level");
-			writeStringAttr(wr, itemtag, "sref", "CptPwd", "Passwort");
-			writeStringAttr(wr, itemtag, "sref", "CptFky", "vollst\\u00e4ndiger Schl\\u00fcssel (X.509)");
-			writeStringAttr(wr, itemtag, "sref", "CptCmt", "Notiz");
 		};
 		writeStringAttr(wr, itemtag, "sref", "Cpt", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DETAIL, ixWzskVLocale)));
 	xmlTextWriterEndElement(wr);

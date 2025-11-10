@@ -1,185 +1,103 @@
 IexWznmJob v0.9.29
 ImeIMJob.sref	Clisrv	Shrdat	Comment
-JobWzskAcqFpgaflg	true	true	acquires preview images from FPGA subsystem
-JobWzskAcqFpgapvw	true	true	acquires flag patterns from FPGA subsystem
-JobWzskAcqPreview	true	true	acquires preview images from camera
-JobWzskAcqPtcloud	true	true	acquires point cloud data from line laser traces
+JobWzskAcqCorner	true	true	acquires corner coordinates
 	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskAcqPtcloud
-		ImeICAMBlockItem.iref
-		1
-		ImeICAMBlockItem.end
+	cmbeng;eng	cmbeng;eng	StgJobWzskAcqCorner
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	dLasback	float		0.03		laser origin behind focal plane [m]
-		1	var	dLeft	float		0.2		lhs laser origin to main axis [m]
-		1	var	dRight	float		0.2		rhs laser origin to main axis [m]
+		1	var	row0	usmallint		100
+		1	var	col0	usmallint		100
+		2	var	w	usmallint		640
+		2	var	h	usmallint		480
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
-JobWzskActExposure	true	true	controls camera exposure time and focus
+JobWzskAcqHdr	true	true	acquires HDR images
+JobWzskAcqMemtrack	true	true	acquires tracks of DDR memory AXI signals
+JobWzskAcqPreview	true	true	acquires preview images
+	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	cmbeng;eng	cmbeng;eng	StgJobWzskAcqPreview
+		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
+		0	var	rgbNotGray	boolean		true
+		0	var	decim	utinyint		10
+		ImeIAMBlockItem.end
+	ImeIMBlock.end
+JobWzskAcqTrace	true	true	acquires laser traces
+	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	cmbeng;eng	cmbeng;eng	StgJobWzskAcqTrace
+		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
+		1	var	row0	usmallint		100
+		1	var	col0	usmallint		100
+		2	var	w	usmallint		640
+		2	var	h	usmallint		480
+		ImeIAMBlockItem.end
+	ImeIMBlock.end
+JobWzskAcqVtrtrack	true	true	acquires tracks of vision-to-rotary PI controller handshake signals
 JobWzskActLaser	true	true	controls the lhs/rhs line laser strobes
 	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
 	cmbeng;eng	cmbeng;eng	StgJobWzskActLaser
-		ImeICAMBlockItem.iref
-		1
-		2
-		3
-		ImeICAMBlockItem.end
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		1	var	pathGpio	string		/dev/gpiochip5		corr. to GPIO6
-		1	var	lineoffsetLeft	utinyint		10		GPIO6_IO10
-		1	var	lineoffsetRight	utinyint		9		GPIO6_IO9
-		0	var	pathSpi	string		/dev/spidev0.0
-		2	var	leftMin	usmallint		164		experimentally, full range corresponds to 16% .. 24%
-		2	var	leftMax	usmallint		245
-		3	var	rightMin	usmallint		164
-		3	var	rightMax	usmallint		245
+		1	var	leftMin	usmallint		164		experimentally, full range corresponds to 16% .. 24%
+		1	var	leftMax	usmallint		245
+		2	var	rightMin	usmallint		164
+		2	var	rightMax	usmallint		245
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
-JobWzskActServo	true	true	controls the stepper motor driving the turntable
+JobWzskActRotary	true	true	controls the stepper motor driving the rotary table
+JobWzskActVistorot	true	true	actuates the rotary table based on visual input
 	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskActServo
+	cmbeng;eng	cmbeng;eng	StgJobWzskActVistorot
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	pathroot	string		/sys/class/pwm/pwmchip
-		0	var	halfstepNotTorque	boolean		false		driving scheme
-		0	var	omega	float		0.025		[1/s]
+		0	var	omegaMax	float		9		[\u00a1/s]
+		0	var	P	float		0.5		[(\u00a1/s)/\u00a1]
+		0	var	I	float		1		[(\u00a1/s)/(\u00a1s)]
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
-JobWzskIprAngle	true	true	derives turntable rotation angle based on checkerboard orientation
-JobWzskIprCorner	true	true	finds the turnable's checkerboard corners
+JobWzskPrcAngle	true	true	identifies rotation angle based on corner coordinates
+JobWzskPrcWavelet	true	true	performs wavelet transform on HDR image
+JobWzskSrcDcvsp	true	true	handles the MPFS Disco kit FPGA sub-system for video stream processing
 	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskIprCorner
+	cmbeng;eng	cmbeng;eng	StgJobWzskSrcDcvsp
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	linNotLog	boolean		false
-		0	var	roiNotFull	boolean		false
-		0	var	flgPerRowMax	utinyint		50
+		0	var	path	string		/dev/dbeaxilite0
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
-JobWzskIprTrace	true	true	finds the lhs/rhs line laser traces
-	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskIprTrace
-		ImeICAMBlockItem.iref
-		1
-		ImeICAMBlockItem.end
-		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	v4l2RdNotDelta	boolean		false
-		0	var	roiNotFull	boolean		false
-		0	var	flgPerRowMax	utinyint		10
-		1	var	leftOnNotOff	boolean		true
-		1	var	rightOnNotOff	boolean		true
-		ImeIAMBlockItem.end
-	ImeIMBlock.end
-JobWzskSrcArty	true	true	handles the Zynq FPGA sub-system
-	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskSrcArty
-		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	path	string		/dev/arty
-		ImeIAMBlockItem.end
-	ImeIMBlock.end
-JobWzskSrcClnxevb	true	true	handles the CrossLink-NX FPGA system
-	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskSrcClnxevb
-		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	path	string		/dev/ttyUSB0
-		ImeIAMBlockItem.end
-	ImeIMBlock.end
-JobWzskSrcIcicle	true	true	handles the PolarFire SoC FPGA sub-system
-	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskSrcIcicle
-		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	path	string		/dev/icicle
-		ImeIAMBlockItem.end
-	ImeIMBlock.end
-JobWzskSrcMcvevp	true	true	handles the Cyclone-V FPGA sub-system
-	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskSrcMcvevp
-		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	path	string		/dev/mcvevp
-		ImeIAMBlockItem.end
-	ImeIMBlock.end
-JobWzskSrcMercbb	true	true	handles the Zynq UltraScale+ FPGA sub-system
-	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskSrcMercbb
-		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	path	string		/dev/mercbb
-		ImeIAMBlockItem.end
-	ImeIMBlock.end
-JobWzskSrcPwmonuart	true	true	handles the power monitoring system via UART
-	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskSrcPwmonuart
-		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	path	string		/dev/ttyUSB0
-		ImeIAMBlockItem.end
-	ImeIMBlock.end
-JobWzskSrcPwmonusb	true	true	handles the power monitoring system via USB
-	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskSrcPwmonusb
-		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	path	string		/dev/ttyUSB0
-		ImeIAMBlockItem.end
-	ImeIMBlock.end
-JobWzskSrcSysinfo	true	true	queries system files for load and temperature
+JobWzskSrcFpgainfo	true	true	queries FPGA sub-systems for statistics
+JobWzskSrcSysinfo	true	true	queries CPU sub-system state information
 	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
 	cmbeng;eng	cmbeng;eng	StgJobWzskSrcSysinfo
-		ImeICAMBlockItem.iref
-		1
-		ImeICAMBlockItem.end
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	pathrootCurrVolt	string		/var/lib/collectd/icicle-kit-es/sensors-microchip,pac1934
 		0	var	pathStat	string		/proc/stat
-		1	var	pathThermal	string		/sys/class/thermal/thermal_zone0/temp
-		1	var	pathrootXadc	string		/sys/bus/platform/drivers/xadc/f8007100.adc/iio:device0/in_temp0
+		0	var	pathrootThermal	string		/sys/bus/iio/devices/iio:device0/in_temp0_ps_temp
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
-JobWzskSrcUvbdvk	true	true	handles the UniversalBee MCU system
+JobWzskSrcTivsp	true	true	handles the Titanium devkit FPGA sub-system for video stream processing
 	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskSrcUvbdvk
+	cmbeng;eng	cmbeng;eng	StgJobWzskSrcTivsp
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	path	string		/dev/ttyUSB0
+		0	var	path	string		/dev/dbeaxilite0
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
-JobWzskSrcV4l2	true	true	delivers v4l2 camera frames
+JobWzskSrcZuvsp	true	true	handles the ZUBoard FPGA sub-system for video stream processing
 	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	cmbeng;eng	cmbeng;eng	StgJobWzskSrcV4l2
+	cmbeng;eng	cmbeng;eng	StgJobWzskSrcZuvsp
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	path	string		/dev/video1
-		0	var	YUV422NotYUV420	boolean		false
+		0	var	path	string		/dev/dbeaxilite0
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
 ImeIMJob.end
 ImeIMCapability.sref
-PnlWzskLlvTermArty
-	ImeIRMCapabilityUniversal.srefUnvUref	srefKKey
+PnlWzskLlvTermDcvsp
+	ImeIRMCapabilityUniversal.srefUnv	srefKKey
 	CrdWzskLlv	car
-	JobWzskSrcArty	src
+	JobWzskSrcDcvsp	src
 	ImeIRMCapabilityUniversal.end
-PnlWzskLlvTermClnxevb
-	ImeIRMCapabilityUniversal.srefUnvUref	srefKKey
+PnlWzskLlvTermTivsp
+	ImeIRMCapabilityUniversal.srefUnv	srefKKey
 	CrdWzskLlv	car
-	JobWzskSrcClnxevb	src
+	JobWzskSrcTivsp	src
 	ImeIRMCapabilityUniversal.end
-PnlWzskLlvTermIcicle
-	ImeIRMCapabilityUniversal.srefUnvUref	srefKKey
+PnlWzskLlvTermZuvsp
+	ImeIRMCapabilityUniversal.srefUnv	srefKKey
 	CrdWzskLlv	car
-	JobWzskSrcIcicle	src
-	ImeIRMCapabilityUniversal.end
-PnlWzskLlvTermMcvevp
-	ImeIRMCapabilityUniversal.srefUnvUref	srefKKey
-	CrdWzskLlv	car
-	JobWzskSrcMcvevp	src
-	ImeIRMCapabilityUniversal.end
-PnlWzskLlvTermPwmonuart
-	ImeIRMCapabilityUniversal.srefUnvUref	srefKKey
-	CrdWzskLlv	car
-	JobWzskSrcPwmonuart	src
-	ImeIRMCapabilityUniversal.end
-PnlWzskLlvTermPwmonusb
-	ImeIRMCapabilityUniversal.srefUnvUref	srefKKey
-	CrdWzskLlv	car
-	JobWzskSrcPwmonusb	src
-	ImeIRMCapabilityUniversal.end
-PnlWzskLlvTermUvbdvk
-	ImeIRMCapabilityUniversal.srefUnvUref	srefKKey
-	CrdWzskLlv	car
-	JobWzskSrcUvbdvk	src
+	JobWzskSrcZuvsp	src
 	ImeIRMCapabilityUniversal.end
 ImeIMCapability.end

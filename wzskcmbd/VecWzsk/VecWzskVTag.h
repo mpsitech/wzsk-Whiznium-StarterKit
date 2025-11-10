@@ -2,8 +2,8 @@
 	* \file VecWzskVTag.h
 	* vector VecWzskVTag (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -23,50 +23,47 @@ namespace VecWzskVTag {
 	const Sbecore::uint CLOSE = 5;
 	const Sbecore::uint CLSESS = 6;
 	const Sbecore::uint CLUST = 7;
-	const Sbecore::uint CREATE = 8;
-	const Sbecore::uint DETAIL = 9;
-	const Sbecore::uint DONE = 10;
-	const Sbecore::uint DOWNLOAD = 11;
-	const Sbecore::uint EMPLONG = 12;
-	const Sbecore::uint EMPSHORT = 13;
-	const Sbecore::uint ERROR = 14;
-	const Sbecore::uint FILENAME = 15;
-	const Sbecore::uint FLS = 16;
-	const Sbecore::uint FOR = 17;
-	const Sbecore::uint GENERAL = 18;
-	const Sbecore::uint GOTO = 19;
-	const Sbecore::uint GRP = 20;
-	const Sbecore::uint HELP = 21;
-	const Sbecore::uint HOUR = 22;
-	const Sbecore::uint HOURS = 23;
-	const Sbecore::uint IMPERR = 24;
-	const Sbecore::uint IMPORT = 25;
-	const Sbecore::uint LOAINI = 26;
-	const Sbecore::uint MINUTE = 27;
-	const Sbecore::uint MINUTES = 28;
-	const Sbecore::uint NAV = 29;
-	const Sbecore::uint NEW = 30;
-	const Sbecore::uint NO = 31;
-	const Sbecore::uint OK = 32;
-	const Sbecore::uint OPSCPLLAST = 33;
-	const Sbecore::uint OPSPREP = 34;
-	const Sbecore::uint OWN = 35;
-	const Sbecore::uint PROGRESS = 36;
-	const Sbecore::uint PRSERR = 37;
-	const Sbecore::uint QUEST = 38;
-	const Sbecore::uint REC = 39;
-	const Sbecore::uint REVERSE = 40;
-	const Sbecore::uint RUN = 41;
-	const Sbecore::uint SECOND = 42;
-	const Sbecore::uint SECONDS = 43;
-	const Sbecore::uint SESS = 44;
-	const Sbecore::uint SHOWLONG = 45;
-	const Sbecore::uint SHOWSHORT = 46;
-	const Sbecore::uint STOP = 47;
-	const Sbecore::uint SUSPSESS = 48;
-	const Sbecore::uint TRU = 49;
-	const Sbecore::uint UPLOAD = 50;
-	const Sbecore::uint YES = 51;
+	const Sbecore::uint DETAIL = 8;
+	const Sbecore::uint DONE = 9;
+	const Sbecore::uint DOWNLOAD = 10;
+	const Sbecore::uint EMPLONG = 11;
+	const Sbecore::uint EMPSHORT = 12;
+	const Sbecore::uint ERROR = 13;
+	const Sbecore::uint FILENAME = 14;
+	const Sbecore::uint FLS = 15;
+	const Sbecore::uint GENERAL = 16;
+	const Sbecore::uint GOTO = 17;
+	const Sbecore::uint GRP = 18;
+	const Sbecore::uint HELP = 19;
+	const Sbecore::uint HOUR = 20;
+	const Sbecore::uint HOURS = 21;
+	const Sbecore::uint IMPERR = 22;
+	const Sbecore::uint IMPORT = 23;
+	const Sbecore::uint LOAINI = 24;
+	const Sbecore::uint MINUTE = 25;
+	const Sbecore::uint MINUTES = 26;
+	const Sbecore::uint NAV = 27;
+	const Sbecore::uint NO = 28;
+	const Sbecore::uint OK = 29;
+	const Sbecore::uint OPSCPLLAST = 30;
+	const Sbecore::uint OPSPREP = 31;
+	const Sbecore::uint OWN = 32;
+	const Sbecore::uint PROGRESS = 33;
+	const Sbecore::uint PRSERR = 34;
+	const Sbecore::uint QUEST = 35;
+	const Sbecore::uint REC = 36;
+	const Sbecore::uint REVERSE = 37;
+	const Sbecore::uint RUN = 38;
+	const Sbecore::uint SECOND = 39;
+	const Sbecore::uint SECONDS = 40;
+	const Sbecore::uint SESS = 41;
+	const Sbecore::uint SHOWLONG = 42;
+	const Sbecore::uint SHOWSHORT = 43;
+	const Sbecore::uint STOP = 44;
+	const Sbecore::uint SUSPSESS = 45;
+	const Sbecore::uint TRU = 46;
+	const Sbecore::uint UPLOAD = 47;
+	const Sbecore::uint YES = 48;
 
 	Sbecore::uint getIx(const std::string& sref);
 	std::string getSref(const Sbecore::uint ix);

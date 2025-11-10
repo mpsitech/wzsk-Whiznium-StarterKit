@@ -2,8 +2,8 @@
 	* \file RootWzsk.h
 	* job handler for job RootWzsk (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -14,28 +14,24 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskSrcV4l2.h"
-#include "JobWzskSrcUvbdvk.h"
-#include "JobWzskSrcPwmonusb.h"
-#include "JobWzskSrcSysinfo.h"
-#include "JobWzskSrcPwmonuart.h"
-#include "JobWzskSrcMercbb.h"
-#include "JobWzskSrcMcvevp.h"
-#include "JobWzskSrcIcicle.h"
-#include "JobWzskSrcClnxevb.h"
-#include "JobWzskIprTrace.h"
-#include "JobWzskSrcArty.h"
-#include "JobWzskIprCorner.h"
-#include "JobWzskIprAngle.h"
-#include "JobWzskActServo.h"
-#include "JobWzskActExposure.h"
-#include "JobWzskActLaser.h"
-#include "JobWzskAcqPtcloud.h"
-#include "JobWzskAcqPreview.h"
-#include "JobWzskAcqFpgapvw.h"
-#include "JobWzskAcqFpgaflg.h"
-#include "M2msessWzsk.h"
 #include "SessWzsk.h"
+#include "M2msessWzsk.h"
+#include "JobWzskAcqCorner.h"
+#include "JobWzskAcqHdr.h"
+#include "JobWzskAcqMemtrack.h"
+#include "JobWzskAcqPreview.h"
+#include "JobWzskAcqTrace.h"
+#include "JobWzskAcqVtrtrack.h"
+#include "JobWzskActLaser.h"
+#include "JobWzskActRotary.h"
+#include "JobWzskActVistorot.h"
+#include "JobWzskPrcAngle.h"
+#include "JobWzskPrcWavelet.h"
+#include "JobWzskSrcDcvsp.h"
+#include "JobWzskSrcFpgainfo.h"
+#include "JobWzskSrcSysinfo.h"
+#include "JobWzskSrcTivsp.h"
+#include "JobWzskSrcZuvsp.h"
 
 #define DpchAppRootWzskLogin RootWzsk::DpchAppLogin
 #define DpchEngRootWzskData RootWzsk::DpchEngData
@@ -104,28 +100,24 @@ public:
 
 public:
 
-	JobWzskSrcV4l2* srcv4l2;
-	JobWzskSrcUvbdvk* srcuvbdvk;
-	JobWzskSrcPwmonusb* srcpwmonusb;
-	JobWzskSrcSysinfo* srcsysinfo;
-	JobWzskSrcPwmonuart* srcpwmonuart;
-	JobWzskSrcMercbb* srcmercbb;
-	JobWzskSrcMcvevp* srcmcvevp;
-	JobWzskSrcIcicle* srcicicle;
-	JobWzskSrcClnxevb* srcclnxevb;
-	JobWzskIprTrace* iprtrace;
-	JobWzskSrcArty* srcarty;
-	JobWzskIprCorner* iprcorner;
-	JobWzskIprAngle* iprangle;
-	JobWzskActServo* actservo;
-	JobWzskActExposure* actexposure;
-	JobWzskActLaser* actlaser;
-	JobWzskAcqPtcloud* acqptcloud;
-	JobWzskAcqPreview* acqpreview;
-	JobWzskAcqFpgapvw* acqfpgapvw;
-	JobWzskAcqFpgaflg* acqfpgaflg;
-	std::map<Sbecore::ubigint, JobWzsk*> m2msesss;
 	std::map<Sbecore::ubigint, JobWzsk*> sesss;
+	std::map<Sbecore::ubigint, JobWzsk*> m2msesss;
+	JobWzskAcqCorner* acqcorner;
+	JobWzskAcqHdr* acqhdr;
+	JobWzskAcqMemtrack* acqmemtrack;
+	JobWzskAcqPreview* acqpreview;
+	JobWzskAcqTrace* acqtrace;
+	JobWzskAcqVtrtrack* acqvtrtrack;
+	JobWzskActLaser* actlaser;
+	JobWzskActRotary* actrotary;
+	JobWzskActVistorot* actvistorot;
+	JobWzskPrcAngle* prcangle;
+	JobWzskPrcWavelet* prcwavelet;
+	JobWzskSrcDcvsp* srcdcvsp;
+	JobWzskSrcFpgainfo* srcfpgainfo;
+	JobWzskSrcSysinfo* srcsysinfo;
+	JobWzskSrcTivsp* srctivsp;
+	JobWzskSrcZuvsp* srczuvsp;
 
 	// IP vars.spec --- INSERT
 
@@ -160,9 +152,9 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
+	bool handleCallWzskLogout(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const bool boolvalInv);
 	bool handleCallWzskSuspsess(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskRefPreSet(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const Sbecore::ubigint refInv);
-	bool handleCallWzskLogout(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const bool boolvalInv);
 
 };
 

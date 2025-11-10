@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvHeadbar_blks.cpp
 	* job handler for job PnlWzskLlvHeadbar (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -27,13 +27,6 @@ void PnlWzskLlvHeadbar::StgInf::writeJSON(
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["MenAppCptwidth"] = "200";
 		me["MenAppWidth"] = "246";
-		me["MenCrdCptwidth"] = "200";
-		me["MenCrdWidth"] = "200";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["MenAppCptwidth"] = "200";
-		me["MenAppWidth"] = "246";
-		me["MenCrdCptwidth"] = "250";
-		me["MenCrdWidth"] = "250";
 	};
 };
 
@@ -53,13 +46,6 @@ void PnlWzskLlvHeadbar::StgInf::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "MenAppCptwidth", "200");
 			writeStringAttr(wr, itemtag, "sref", "MenAppWidth", "246");
-			writeStringAttr(wr, itemtag, "sref", "MenCrdCptwidth", "200");
-			writeStringAttr(wr, itemtag, "sref", "MenCrdWidth", "200");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "MenAppCptwidth", "200");
-			writeStringAttr(wr, itemtag, "sref", "MenAppWidth", "246");
-			writeStringAttr(wr, itemtag, "sref", "MenCrdCptwidth", "250");
-			writeStringAttr(wr, itemtag, "sref", "MenCrdWidth", "250");
 		};
 	xmlTextWriterEndElement(wr);
 };
@@ -79,10 +65,6 @@ void PnlWzskLlvHeadbar::Tag::writeJSON(
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["MenApp"] = "Whiznium StarterKit";
-		me["MenCrd"] = "Low-level access";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["MenApp"] = "Whiznium StarterKit";
-		me["MenCrd"] = "Low-level Zugriff";
 	};
 };
 
@@ -101,10 +83,6 @@ void PnlWzskLlvHeadbar::Tag::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "MenApp", "Whiznium StarterKit");
-			writeStringAttr(wr, itemtag, "sref", "MenCrd", "Low-level access");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "MenApp", "Whiznium StarterKit");
-			writeStringAttr(wr, itemtag, "sref", "MenCrd", "Low-level Zugriff");
 		};
 	xmlTextWriterEndElement(wr);
 };

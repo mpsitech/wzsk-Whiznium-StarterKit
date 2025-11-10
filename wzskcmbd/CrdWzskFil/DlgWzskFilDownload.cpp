@@ -2,8 +2,8 @@
 	* \file DlgWzskFilDownload.cpp
 	* job handler for job DlgWzskFilDownload (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -142,10 +142,7 @@ void DlgWzskFilDownload::handleDpchAppDoButDneClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
-	// IP handleDpchAppDoButDneClick --- IBEGIN
-	*dpcheng = new DpchEngWzskConfirm(true, jref, "");
-	xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKDLGCLOSE, jref);
-	// IP handleDpchAppDoButDneClick --- IEND
+	// IP handleDpchAppDoButDneClick --- INSERT
 };
 
 string DlgWzskFilDownload::handleDownload(

@@ -2,8 +2,8 @@
 	* \file PnlWzskFilDetail_blks.cpp
 	* job handler for job PnlWzskFilDetail (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -24,7 +24,6 @@ uint PnlWzskFilDetail::VecVDo::getIx(
 	if (s == "butcluviewclick") return BUTCLUVIEWCLICK;
 	if (s == "butcluclusterclick") return BUTCLUCLUSTERCLICK;
 	if (s == "butcluunclusterclick") return BUTCLUUNCLUSTERCLICK;
-	if (s == "butreuviewclick") return BUTREUVIEWCLICK;
 	if (s == "butcnteditclick") return BUTCNTEDITCLICK;
 	if (s == "butmimeditclick") return BUTMIMEDITCLICK;
 
@@ -38,7 +37,6 @@ string PnlWzskFilDetail::VecVDo::getSref(
 	if (ix == BUTCLUVIEWCLICK) return("ButCluViewClick");
 	if (ix == BUTCLUCLUSTERCLICK) return("ButCluClusterClick");
 	if (ix == BUTCLUUNCLUSTERCLICK) return("ButCluUnclusterClick");
-	if (ix == BUTREUVIEWCLICK) return("ButReuViewClick");
 	if (ix == BUTCNTEDITCLICK) return("ButCntEditClick");
 	if (ix == BUTMIMEDITCLICK) return("ButMimEditClick");
 
@@ -63,19 +61,18 @@ PnlWzskFilDetail::ContIac::ContIac(
 			, const string& TxfCmt
 		) :
 			Block()
+			, TxfFnm(TxfFnm)
+			, numFLstClu(numFLstClu)
+			, numFPupRet(numFPupRet)
+			, numFPupCnt(numFPupCnt)
+			, TxfCnt(TxfCnt)
+			, TxfAcv(TxfAcv)
+			, TxfAnm(TxfAnm)
+			, numFPupMim(numFPupMim)
+			, TxfMim(TxfMim)
+			, TxfSiz(TxfSiz)
+			, TxfCmt(TxfCmt)
 		{
-	this->TxfFnm = TxfFnm;
-	this->numFLstClu = numFLstClu;
-	this->numFPupRet = numFPupRet;
-	this->numFPupCnt = numFPupCnt;
-	this->TxfCnt = TxfCnt;
-	this->TxfAcv = TxfAcv;
-	this->TxfAnm = TxfAnm;
-	this->numFPupMim = numFPupMim;
-	this->TxfMim = TxfMim;
-	this->TxfSiz = TxfSiz;
-	this->TxfCmt = TxfCmt;
-
 	mask = {TXFFNM, NUMFLSTCLU, NUMFPUPRET, NUMFPUPCNT, TXFCNT, TXFACV, TXFANM, NUMFPUPMIM, TXFMIM, TXFSIZ, TXFCMT};
 };
 
@@ -150,13 +147,13 @@ void PnlWzskFilDetail::ContIac::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	me["TxfFnm"] = TxfFnm;
-	me["numFLstClu"] = numFLstClu;
-	me["numFPupRet"] = numFPupRet;
-	me["numFPupCnt"] = numFPupCnt;
+	me["numFLstClu"] = (Json::Value::UInt) numFLstClu;
+	me["numFPupRet"] = (Json::Value::UInt) numFPupRet;
+	me["numFPupCnt"] = (Json::Value::UInt) numFPupCnt;
 	me["TxfCnt"] = TxfCnt;
 	me["TxfAcv"] = TxfAcv;
 	me["TxfAnm"] = TxfAnm;
-	me["numFPupMim"] = numFPupMim;
+	me["numFPupMim"] = (Json::Value::UInt) numFPupMim;
 	me["TxfMim"] = TxfMim;
 	me["TxfSiz"] = TxfSiz;
 	me["TxfCmt"] = TxfCmt;
@@ -231,10 +228,9 @@ PnlWzskFilDetail::ContInf::ContInf(
 			, const string& TxtReu
 		) :
 			Block()
+			, TxtClu(TxtClu)
+			, TxtReu(TxtReu)
 		{
-	this->TxtClu = TxtClu;
-	this->TxtReu = TxtReu;
-
 	mask = {TXTCLU, TXTREU};
 };
 
@@ -313,7 +309,7 @@ void PnlWzskFilDetail::StatApp::writeJSON(
 	me["LstCluAlt"] = LstCluAlt;
 	me["PupCntAlt"] = PupCntAlt;
 	me["PupMimAlt"] = PupMimAlt;
-	me["LstCluNumFirstdisp"] = LstCluNumFirstdisp;
+	me["LstCluNumFirstdisp"] = (Json::Value::UInt) LstCluNumFirstdisp;
 };
 
 void PnlWzskFilDetail::StatApp::writeXML(
@@ -346,9 +342,7 @@ void PnlWzskFilDetail::StatApp::writeXML(
  ******************************************************************************/
 
 PnlWzskFilDetail::StatShr::StatShr(
-			const bool TxfCntValid
-			, const bool TxfMimValid
-			, const bool ButSaveAvail
+			const bool ButSaveAvail
 			, const bool ButSaveActive
 			, const bool TxfFnmActive
 			, const bool LstCluActive
@@ -356,41 +350,38 @@ PnlWzskFilDetail::StatShr::StatShr(
 			, const bool ButCluClusterAvail
 			, const bool ButCluUnclusterAvail
 			, const bool TxtReuActive
-			, const bool ButReuViewAvail
-			, const bool ButReuViewActive
 			, const bool PupCntActive
+			, const bool TxfCntValid
 			, const bool ButCntEditAvail
 			, const bool TxfAcvActive
 			, const bool TxfAnmActive
 			, const bool PupMimActive
+			, const bool TxfMimValid
 			, const bool ButMimEditAvail
 			, const bool TxfSizActive
 			, const bool TxfCmtActive
 		) :
 			Block()
+			, ButSaveAvail(ButSaveAvail)
+			, ButSaveActive(ButSaveActive)
+			, TxfFnmActive(TxfFnmActive)
+			, LstCluActive(LstCluActive)
+			, ButCluViewActive(ButCluViewActive)
+			, ButCluClusterAvail(ButCluClusterAvail)
+			, ButCluUnclusterAvail(ButCluUnclusterAvail)
+			, TxtReuActive(TxtReuActive)
+			, PupCntActive(PupCntActive)
+			, TxfCntValid(TxfCntValid)
+			, ButCntEditAvail(ButCntEditAvail)
+			, TxfAcvActive(TxfAcvActive)
+			, TxfAnmActive(TxfAnmActive)
+			, PupMimActive(PupMimActive)
+			, TxfMimValid(TxfMimValid)
+			, ButMimEditAvail(ButMimEditAvail)
+			, TxfSizActive(TxfSizActive)
+			, TxfCmtActive(TxfCmtActive)
 		{
-	this->TxfCntValid = TxfCntValid;
-	this->TxfMimValid = TxfMimValid;
-	this->ButSaveAvail = ButSaveAvail;
-	this->ButSaveActive = ButSaveActive;
-	this->TxfFnmActive = TxfFnmActive;
-	this->LstCluActive = LstCluActive;
-	this->ButCluViewActive = ButCluViewActive;
-	this->ButCluClusterAvail = ButCluClusterAvail;
-	this->ButCluUnclusterAvail = ButCluUnclusterAvail;
-	this->TxtReuActive = TxtReuActive;
-	this->ButReuViewAvail = ButReuViewAvail;
-	this->ButReuViewActive = ButReuViewActive;
-	this->PupCntActive = PupCntActive;
-	this->ButCntEditAvail = ButCntEditAvail;
-	this->TxfAcvActive = TxfAcvActive;
-	this->TxfAnmActive = TxfAnmActive;
-	this->PupMimActive = PupMimActive;
-	this->ButMimEditAvail = ButMimEditAvail;
-	this->TxfSizActive = TxfSizActive;
-	this->TxfCmtActive = TxfCmtActive;
-
-	mask = {TXFCNTVALID, TXFMIMVALID, BUTSAVEAVAIL, BUTSAVEACTIVE, TXFFNMACTIVE, LSTCLUACTIVE, BUTCLUVIEWACTIVE, BUTCLUCLUSTERAVAIL, BUTCLUUNCLUSTERAVAIL, TXTREUACTIVE, BUTREUVIEWAVAIL, BUTREUVIEWACTIVE, PUPCNTACTIVE, BUTCNTEDITAVAIL, TXFACVACTIVE, TXFANMACTIVE, PUPMIMACTIVE, BUTMIMEDITAVAIL, TXFSIZACTIVE, TXFCMTACTIVE};
+	mask = {BUTSAVEAVAIL, BUTSAVEACTIVE, TXFFNMACTIVE, LSTCLUACTIVE, BUTCLUVIEWACTIVE, BUTCLUCLUSTERAVAIL, BUTCLUUNCLUSTERAVAIL, TXTREUACTIVE, PUPCNTACTIVE, TXFCNTVALID, BUTCNTEDITAVAIL, TXFACVACTIVE, TXFANMACTIVE, PUPMIMACTIVE, TXFMIMVALID, BUTMIMEDITAVAIL, TXFSIZACTIVE, TXFCMTACTIVE};
 };
 
 void PnlWzskFilDetail::StatShr::writeJSON(
@@ -401,8 +392,6 @@ void PnlWzskFilDetail::StatShr::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["TxfCntValid"] = TxfCntValid;
-	me["TxfMimValid"] = TxfMimValid;
 	me["ButSaveAvail"] = ButSaveAvail;
 	me["ButSaveActive"] = ButSaveActive;
 	me["TxfFnmActive"] = TxfFnmActive;
@@ -411,13 +400,13 @@ void PnlWzskFilDetail::StatShr::writeJSON(
 	me["ButCluClusterAvail"] = ButCluClusterAvail;
 	me["ButCluUnclusterAvail"] = ButCluUnclusterAvail;
 	me["TxtReuActive"] = TxtReuActive;
-	me["ButReuViewAvail"] = ButReuViewAvail;
-	me["ButReuViewActive"] = ButReuViewActive;
 	me["PupCntActive"] = PupCntActive;
+	me["TxfCntValid"] = TxfCntValid;
 	me["ButCntEditAvail"] = ButCntEditAvail;
 	me["TxfAcvActive"] = TxfAcvActive;
 	me["TxfAnmActive"] = TxfAnmActive;
 	me["PupMimActive"] = PupMimActive;
+	me["TxfMimValid"] = TxfMimValid;
 	me["ButMimEditAvail"] = ButMimEditAvail;
 	me["TxfSizActive"] = TxfSizActive;
 	me["TxfCmtActive"] = TxfCmtActive;
@@ -435,8 +424,6 @@ void PnlWzskFilDetail::StatShr::writeXML(
 	else itemtag = "StatitemShrWzskFilDetail";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeBoolAttr(wr, itemtag, "sref", "TxfCntValid", TxfCntValid);
-		writeBoolAttr(wr, itemtag, "sref", "TxfMimValid", TxfMimValid);
 		writeBoolAttr(wr, itemtag, "sref", "ButSaveAvail", ButSaveAvail);
 		writeBoolAttr(wr, itemtag, "sref", "ButSaveActive", ButSaveActive);
 		writeBoolAttr(wr, itemtag, "sref", "TxfFnmActive", TxfFnmActive);
@@ -445,13 +432,13 @@ void PnlWzskFilDetail::StatShr::writeXML(
 		writeBoolAttr(wr, itemtag, "sref", "ButCluClusterAvail", ButCluClusterAvail);
 		writeBoolAttr(wr, itemtag, "sref", "ButCluUnclusterAvail", ButCluUnclusterAvail);
 		writeBoolAttr(wr, itemtag, "sref", "TxtReuActive", TxtReuActive);
-		writeBoolAttr(wr, itemtag, "sref", "ButReuViewAvail", ButReuViewAvail);
-		writeBoolAttr(wr, itemtag, "sref", "ButReuViewActive", ButReuViewActive);
 		writeBoolAttr(wr, itemtag, "sref", "PupCntActive", PupCntActive);
+		writeBoolAttr(wr, itemtag, "sref", "TxfCntValid", TxfCntValid);
 		writeBoolAttr(wr, itemtag, "sref", "ButCntEditAvail", ButCntEditAvail);
 		writeBoolAttr(wr, itemtag, "sref", "TxfAcvActive", TxfAcvActive);
 		writeBoolAttr(wr, itemtag, "sref", "TxfAnmActive", TxfAnmActive);
 		writeBoolAttr(wr, itemtag, "sref", "PupMimActive", PupMimActive);
+		writeBoolAttr(wr, itemtag, "sref", "TxfMimValid", TxfMimValid);
 		writeBoolAttr(wr, itemtag, "sref", "ButMimEditAvail", ButMimEditAvail);
 		writeBoolAttr(wr, itemtag, "sref", "TxfSizActive", TxfSizActive);
 		writeBoolAttr(wr, itemtag, "sref", "TxfCmtActive", TxfCmtActive);
@@ -463,8 +450,6 @@ set<uint> PnlWzskFilDetail::StatShr::comm(
 		) {
 	set<uint> items;
 
-	if (TxfCntValid == comp->TxfCntValid) insert(items, TXFCNTVALID);
-	if (TxfMimValid == comp->TxfMimValid) insert(items, TXFMIMVALID);
 	if (ButSaveAvail == comp->ButSaveAvail) insert(items, BUTSAVEAVAIL);
 	if (ButSaveActive == comp->ButSaveActive) insert(items, BUTSAVEACTIVE);
 	if (TxfFnmActive == comp->TxfFnmActive) insert(items, TXFFNMACTIVE);
@@ -473,13 +458,13 @@ set<uint> PnlWzskFilDetail::StatShr::comm(
 	if (ButCluClusterAvail == comp->ButCluClusterAvail) insert(items, BUTCLUCLUSTERAVAIL);
 	if (ButCluUnclusterAvail == comp->ButCluUnclusterAvail) insert(items, BUTCLUUNCLUSTERAVAIL);
 	if (TxtReuActive == comp->TxtReuActive) insert(items, TXTREUACTIVE);
-	if (ButReuViewAvail == comp->ButReuViewAvail) insert(items, BUTREUVIEWAVAIL);
-	if (ButReuViewActive == comp->ButReuViewActive) insert(items, BUTREUVIEWACTIVE);
 	if (PupCntActive == comp->PupCntActive) insert(items, PUPCNTACTIVE);
+	if (TxfCntValid == comp->TxfCntValid) insert(items, TXFCNTVALID);
 	if (ButCntEditAvail == comp->ButCntEditAvail) insert(items, BUTCNTEDITAVAIL);
 	if (TxfAcvActive == comp->TxfAcvActive) insert(items, TXFACVACTIVE);
 	if (TxfAnmActive == comp->TxfAnmActive) insert(items, TXFANMACTIVE);
 	if (PupMimActive == comp->PupMimActive) insert(items, PUPMIMACTIVE);
+	if (TxfMimValid == comp->TxfMimValid) insert(items, TXFMIMVALID);
 	if (ButMimEditAvail == comp->ButMimEditAvail) insert(items, BUTMIMEDITAVAIL);
 	if (TxfSizActive == comp->TxfSizActive) insert(items, TXFSIZACTIVE);
 	if (TxfCmtActive == comp->TxfCmtActive) insert(items, TXFCMTACTIVE);
@@ -495,7 +480,7 @@ set<uint> PnlWzskFilDetail::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {TXFCNTVALID, TXFMIMVALID, BUTSAVEAVAIL, BUTSAVEACTIVE, TXFFNMACTIVE, LSTCLUACTIVE, BUTCLUVIEWACTIVE, BUTCLUCLUSTERAVAIL, BUTCLUUNCLUSTERAVAIL, TXTREUACTIVE, BUTREUVIEWAVAIL, BUTREUVIEWACTIVE, PUPCNTACTIVE, BUTCNTEDITAVAIL, TXFACVACTIVE, TXFANMACTIVE, PUPMIMACTIVE, BUTMIMEDITAVAIL, TXFSIZACTIVE, TXFCMTACTIVE};
+	diffitems = {BUTSAVEAVAIL, BUTSAVEACTIVE, TXFFNMACTIVE, LSTCLUACTIVE, BUTCLUVIEWACTIVE, BUTCLUCLUSTERAVAIL, BUTCLUUNCLUSTERAVAIL, TXTREUACTIVE, PUPCNTACTIVE, TXFCNTVALID, BUTCNTEDITAVAIL, TXFACVACTIVE, TXFANMACTIVE, PUPMIMACTIVE, TXFMIMVALID, BUTMIMEDITAVAIL, TXFSIZACTIVE, TXFCMTACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -523,15 +508,6 @@ void PnlWzskFilDetail::Tag::writeJSON(
 		me["CptMim"] = "MIME type";
 		me["CptSiz"] = "size [kB]";
 		me["CptCmt"] = "comment";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["CptFnm"] = "Dateiname";
-		me["CptReu"] = "Referenz";
-		me["CptCnt"] = "Inhalt";
-		me["CptAcv"] = "Zeitpunkt der Archivierung";
-		me["CptAnm"] = "Dateiname in Archiv";
-		me["CptMim"] = "MIME-Typ";
-		me["CptSiz"] = "Gr\\u00f6sse [kB]";
-		me["CptCmt"] = "Notiz";
 	};
 	me["Cpt"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DETAIL, ixWzskVLocale));
 	me["CptClu"] = VecWzskVTag::getTitle(VecWzskVTag::CLUST, ixWzskVLocale);
@@ -559,15 +535,6 @@ void PnlWzskFilDetail::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "CptMim", "MIME type");
 			writeStringAttr(wr, itemtag, "sref", "CptSiz", "size [kB]");
 			writeStringAttr(wr, itemtag, "sref", "CptCmt", "comment");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "CptFnm", "Dateiname");
-			writeStringAttr(wr, itemtag, "sref", "CptReu", "Referenz");
-			writeStringAttr(wr, itemtag, "sref", "CptCnt", "Inhalt");
-			writeStringAttr(wr, itemtag, "sref", "CptAcv", "Zeitpunkt der Archivierung");
-			writeStringAttr(wr, itemtag, "sref", "CptAnm", "Dateiname in Archiv");
-			writeStringAttr(wr, itemtag, "sref", "CptMim", "MIME-Typ");
-			writeStringAttr(wr, itemtag, "sref", "CptSiz", "Gr\\u00f6sse [kB]");
-			writeStringAttr(wr, itemtag, "sref", "CptCmt", "Notiz");
 		};
 		writeStringAttr(wr, itemtag, "sref", "Cpt", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DETAIL, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "CptClu", VecWzskVTag::getTitle(VecWzskVTag::CLUST, ixWzskVLocale));

@@ -2,8 +2,8 @@
 	* \file DbsWzsk.cpp
 	* C++ wrapper for database DbsWzsk (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -96,8 +96,6 @@ void DbsWzsk::initMy() {
 	((MyTblWzskAccRMUserUniversal*) tblwzskaccrmuseruniversal)->init(dbsMy);
 	tblwzskampersondetail = new MyTblWzskAMPersonDetail();
 	((MyTblWzskAMPersonDetail*) tblwzskampersondetail)->init(dbsMy);
-	tblwzskamshotpar = new MyTblWzskAMShotPar();
-	((MyTblWzskAMShotPar*) tblwzskamshotpar)->init(dbsMy);
 	tblwzskamuseraccess = new MyTblWzskAMUserAccess();
 	((MyTblWzskAMUserAccess*) tblwzskamuseraccess)->init(dbsMy);
 	tblwzskamusergroupaccess = new MyTblWzskAMUsergroupAccess();
@@ -114,24 +112,16 @@ void DbsWzsk::initMy() {
 	((MyTblWzskHistRMUserUniversal*) tblwzskhistrmuseruniversal)->init(dbsMy);
 	tblwzskjavkeylistkey = new MyTblWzskJAVKeylistKey();
 	((MyTblWzskJAVKeylistKey*) tblwzskjavkeylistkey)->init(dbsMy);
-	tblwzskjmobjgrouptitle = new MyTblWzskJMObjgroupTitle();
-	((MyTblWzskJMObjgroupTitle*) tblwzskjmobjgrouptitle)->init(dbsMy);
 	tblwzskjmpersonlastname = new MyTblWzskJMPersonLastname();
 	((MyTblWzskJMPersonLastname*) tblwzskjmpersonlastname)->init(dbsMy);
 	tblwzskjmuserstate = new MyTblWzskJMUserState();
 	((MyTblWzskJMUserState*) tblwzskjmuserstate)->init(dbsMy);
 	tblwzskmfile = new MyTblWzskMFile();
 	((MyTblWzskMFile*) tblwzskmfile)->init(dbsMy);
-	tblwzskmobject = new MyTblWzskMObject();
-	((MyTblWzskMObject*) tblwzskmobject)->init(dbsMy);
-	tblwzskmobjgroup = new MyTblWzskMObjgroup();
-	((MyTblWzskMObjgroup*) tblwzskmobjgroup)->init(dbsMy);
 	tblwzskmperson = new MyTblWzskMPerson();
 	((MyTblWzskMPerson*) tblwzskmperson)->init(dbsMy);
 	tblwzskmsession = new MyTblWzskMSession();
 	((MyTblWzskMSession*) tblwzskmsession)->init(dbsMy);
-	tblwzskmshot = new MyTblWzskMShot();
-	((MyTblWzskMShot*) tblwzskmshot)->init(dbsMy);
 	tblwzskmuser = new MyTblWzskMUser();
 	((MyTblWzskMUser*) tblwzskmuser)->init(dbsMy);
 	tblwzskmusergroup = new MyTblWzskMUsergroup();
@@ -143,18 +133,6 @@ void DbsWzsk::initMy() {
 
 	tblwzskqfillist = new MyTblWzskQFilList();
 	((MyTblWzskQFilList*) tblwzskqfillist)->init(dbsMy);
-	tblwzskqobj1nshot = new MyTblWzskQObj1NShot();
-	((MyTblWzskQObj1NShot*) tblwzskqobj1nshot)->init(dbsMy);
-	tblwzskqobjlist = new MyTblWzskQObjList();
-	((MyTblWzskQObjList*) tblwzskqobjlist)->init(dbsMy);
-	tblwzskqobjref1nfile = new MyTblWzskQObjRef1NFile();
-	((MyTblWzskQObjRef1NFile*) tblwzskqobjref1nfile)->init(dbsMy);
-	tblwzskqogr1nobject = new MyTblWzskQOgr1NObject();
-	((MyTblWzskQOgr1NObject*) tblwzskqogr1nobject)->init(dbsMy);
-	tblwzskqogrlist = new MyTblWzskQOgrList();
-	((MyTblWzskQOgrList*) tblwzskqogrlist)->init(dbsMy);
-	tblwzskqogrsup1nobjgroup = new MyTblWzskQOgrSup1NObjgroup();
-	((MyTblWzskQOgrSup1NObjgroup*) tblwzskqogrsup1nobjgroup)->init(dbsMy);
 	tblwzskqpreselect = new MyTblWzskQPreselect();
 	((MyTblWzskQPreselect*) tblwzskqpreselect)->init(dbsMy);
 	tblwzskqprsadetail = new MyTblWzskQPrsADetail();
@@ -163,16 +141,6 @@ void DbsWzsk::initMy() {
 	((MyTblWzskQPrsList*) tblwzskqprslist)->init(dbsMy);
 	tblwzskqselect = new MyTblWzskQSelect();
 	((MyTblWzskQSelect*) tblwzskqselect)->init(dbsMy);
-	tblwzskqses1nshot = new MyTblWzskQSes1NShot();
-	((MyTblWzskQSes1NShot*) tblwzskqses1nshot)->init(dbsMy);
-	tblwzskqseslist = new MyTblWzskQSesList();
-	((MyTblWzskQSesList*) tblwzskqseslist)->init(dbsMy);
-	tblwzskqshtapar = new MyTblWzskQShtAPar();
-	((MyTblWzskQShtAPar*) tblwzskqshtapar)->init(dbsMy);
-	tblwzskqshtlist = new MyTblWzskQShtList();
-	((MyTblWzskQShtList*) tblwzskqshtlist)->init(dbsMy);
-	tblwzskqshtref1nfile = new MyTblWzskQShtRef1NFile();
-	((MyTblWzskQShtRef1NFile*) tblwzskqshtref1nfile)->init(dbsMy);
 	tblwzskqusgaaccess = new MyTblWzskQUsgAAccess();
 	((MyTblWzskQUsgAAccess*) tblwzskqusgaaccess)->init(dbsMy);
 	tblwzskqusglist = new MyTblWzskQUsgList();
@@ -212,8 +180,6 @@ void DbsWzsk::initLite() {
 	((LiteTblWzskAccRMUserUniversal*) tblwzskaccrmuseruniversal)->init(dbsLite);
 	tblwzskampersondetail = new LiteTblWzskAMPersonDetail();
 	((LiteTblWzskAMPersonDetail*) tblwzskampersondetail)->init(dbsLite);
-	tblwzskamshotpar = new LiteTblWzskAMShotPar();
-	((LiteTblWzskAMShotPar*) tblwzskamshotpar)->init(dbsLite);
 	tblwzskamuseraccess = new LiteTblWzskAMUserAccess();
 	((LiteTblWzskAMUserAccess*) tblwzskamuseraccess)->init(dbsLite);
 	tblwzskamusergroupaccess = new LiteTblWzskAMUsergroupAccess();
@@ -230,24 +196,16 @@ void DbsWzsk::initLite() {
 	((LiteTblWzskHistRMUserUniversal*) tblwzskhistrmuseruniversal)->init(dbsLite);
 	tblwzskjavkeylistkey = new LiteTblWzskJAVKeylistKey();
 	((LiteTblWzskJAVKeylistKey*) tblwzskjavkeylistkey)->init(dbsLite);
-	tblwzskjmobjgrouptitle = new LiteTblWzskJMObjgroupTitle();
-	((LiteTblWzskJMObjgroupTitle*) tblwzskjmobjgrouptitle)->init(dbsLite);
 	tblwzskjmpersonlastname = new LiteTblWzskJMPersonLastname();
 	((LiteTblWzskJMPersonLastname*) tblwzskjmpersonlastname)->init(dbsLite);
 	tblwzskjmuserstate = new LiteTblWzskJMUserState();
 	((LiteTblWzskJMUserState*) tblwzskjmuserstate)->init(dbsLite);
 	tblwzskmfile = new LiteTblWzskMFile();
 	((LiteTblWzskMFile*) tblwzskmfile)->init(dbsLite);
-	tblwzskmobject = new LiteTblWzskMObject();
-	((LiteTblWzskMObject*) tblwzskmobject)->init(dbsLite);
-	tblwzskmobjgroup = new LiteTblWzskMObjgroup();
-	((LiteTblWzskMObjgroup*) tblwzskmobjgroup)->init(dbsLite);
 	tblwzskmperson = new LiteTblWzskMPerson();
 	((LiteTblWzskMPerson*) tblwzskmperson)->init(dbsLite);
 	tblwzskmsession = new LiteTblWzskMSession();
 	((LiteTblWzskMSession*) tblwzskmsession)->init(dbsLite);
-	tblwzskmshot = new LiteTblWzskMShot();
-	((LiteTblWzskMShot*) tblwzskmshot)->init(dbsLite);
 	tblwzskmuser = new LiteTblWzskMUser();
 	((LiteTblWzskMUser*) tblwzskmuser)->init(dbsLite);
 	tblwzskmusergroup = new LiteTblWzskMUsergroup();
@@ -259,18 +217,6 @@ void DbsWzsk::initLite() {
 
 	tblwzskqfillist = new LiteTblWzskQFilList();
 	((LiteTblWzskQFilList*) tblwzskqfillist)->init(dbsLite);
-	tblwzskqobj1nshot = new LiteTblWzskQObj1NShot();
-	((LiteTblWzskQObj1NShot*) tblwzskqobj1nshot)->init(dbsLite);
-	tblwzskqobjlist = new LiteTblWzskQObjList();
-	((LiteTblWzskQObjList*) tblwzskqobjlist)->init(dbsLite);
-	tblwzskqobjref1nfile = new LiteTblWzskQObjRef1NFile();
-	((LiteTblWzskQObjRef1NFile*) tblwzskqobjref1nfile)->init(dbsLite);
-	tblwzskqogr1nobject = new LiteTblWzskQOgr1NObject();
-	((LiteTblWzskQOgr1NObject*) tblwzskqogr1nobject)->init(dbsLite);
-	tblwzskqogrlist = new LiteTblWzskQOgrList();
-	((LiteTblWzskQOgrList*) tblwzskqogrlist)->init(dbsLite);
-	tblwzskqogrsup1nobjgroup = new LiteTblWzskQOgrSup1NObjgroup();
-	((LiteTblWzskQOgrSup1NObjgroup*) tblwzskqogrsup1nobjgroup)->init(dbsLite);
 	tblwzskqpreselect = new LiteTblWzskQPreselect();
 	((LiteTblWzskQPreselect*) tblwzskqpreselect)->init(dbsLite);
 	tblwzskqprsadetail = new LiteTblWzskQPrsADetail();
@@ -279,16 +225,6 @@ void DbsWzsk::initLite() {
 	((LiteTblWzskQPrsList*) tblwzskqprslist)->init(dbsLite);
 	tblwzskqselect = new LiteTblWzskQSelect();
 	((LiteTblWzskQSelect*) tblwzskqselect)->init(dbsLite);
-	tblwzskqses1nshot = new LiteTblWzskQSes1NShot();
-	((LiteTblWzskQSes1NShot*) tblwzskqses1nshot)->init(dbsLite);
-	tblwzskqseslist = new LiteTblWzskQSesList();
-	((LiteTblWzskQSesList*) tblwzskqseslist)->init(dbsLite);
-	tblwzskqshtapar = new LiteTblWzskQShtAPar();
-	((LiteTblWzskQShtAPar*) tblwzskqshtapar)->init(dbsLite);
-	tblwzskqshtlist = new LiteTblWzskQShtList();
-	((LiteTblWzskQShtList*) tblwzskqshtlist)->init(dbsLite);
-	tblwzskqshtref1nfile = new LiteTblWzskQShtRef1NFile();
-	((LiteTblWzskQShtRef1NFile*) tblwzskqshtref1nfile)->init(dbsLite);
 	tblwzskqusgaaccess = new LiteTblWzskQUsgAAccess();
 	((LiteTblWzskQUsgAAccess*) tblwzskqusgaaccess)->init(dbsLite);
 	tblwzskqusglist = new LiteTblWzskQUsgList();

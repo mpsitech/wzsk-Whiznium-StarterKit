@@ -83,18 +83,10 @@
 	import CrdWzskUsg from './CrdWzskUsg/CrdWzskUsg';
 	import CrdWzskUsr from './CrdWzskUsr/CrdWzskUsr';
 	import CrdWzskPrs from './CrdWzskPrs/CrdWzskPrs';
-	import CrdWzskScf from './CrdWzskScf/CrdWzskScf';
-	import DlgWzskScfCameramat from './CrdWzskScf/DlgWzskScfCameramat';
-	import DlgWzskScfLaserpos from './CrdWzskScf/DlgWzskScfLaserpos';
-	import DlgWzskScfTtablecoord from './CrdWzskScf/DlgWzskScfTtablecoord';
+	import CrdWzskPrf from './CrdWzskPrf/CrdWzskPrf';
 	import CrdWzskLlv from './CrdWzskLlv/CrdWzskLlv';
-	import CrdWzskLiv from './CrdWzskLiv/CrdWzskLiv';
-	import CrdWzskOgr from './CrdWzskOgr/CrdWzskOgr';
-	import DlgWzskOgrNew from './CrdWzskOgr/DlgWzskOgrNew';
-	import CrdWzskObj from './CrdWzskObj/CrdWzskObj';
-	import DlgWzskObjNew from './CrdWzskObj/DlgWzskObjNew';
-	import CrdWzskSes from './CrdWzskSes/CrdWzskSes';
-	import CrdWzskSht from './CrdWzskSht/CrdWzskSht';
+	import CrdWzskVtr from './CrdWzskVtr/CrdWzskVtr';
+	import CrdWzskHwc from './CrdWzskHwc/CrdWzskHwc';
 	import CrdWzskFil from './CrdWzskFil/CrdWzskFil';
 	import DlgWzskFilDownload from './CrdWzskFil/DlgWzskFilDownload';
 	/*
@@ -127,18 +119,10 @@
 			CrdWzskUsg,
 			CrdWzskUsr,
 			CrdWzskPrs,
-			CrdWzskScf,
-			DlgWzskScfCameramat,
-			DlgWzskScfLaserpos,
-			DlgWzskScfTtablecoord,
+			CrdWzskPrf,
 			CrdWzskLlv,
-			CrdWzskLiv,
-			CrdWzskOgr,
-			DlgWzskOgrNew,
-			CrdWzskObj,
-			DlgWzskObjNew,
-			CrdWzskSes,
-			CrdWzskSht,
+			CrdWzskVtr,
+			CrdWzskHwc,
 			CrdWzskFil,
 			DlgWzskFilDownload
 			/*
@@ -351,10 +335,11 @@
 
 					} else if (srefIxWzskVDpch == "DpchEngWzskAlert") vm.showAlert(dpcheng);
 					else {
-						var processed = false;
 						const target = (dpcheng.scrJref == vm.scrJrefDlg) ? vm.$refs.dialog : (dpcheng.scrJref != vm.scrJrefCrdnav) ? vm.$refs.content : vm.$refs.CrdWzskNav;
-						processed = target.handleUpdate({srefIxWzskVDpch: srefIxWzskVDpch, dpcheng: dpcheng});
-						if (!processed || (dpcheng.scrJref == vm.scrJrefCrd)) vm.$refs.CrdWzskNav.handleUpdate({srefIxWzskVDpch: srefIxWzskVDpch, dpcheng: dpcheng});
+						if (target) {
+							var processed = target.handleUpdate({srefIxWzskVDpch: srefIxWzskVDpch, dpcheng: dpcheng});
+							if (!processed || (dpcheng.scrJref == vm.scrJrefCrd)) vm.$refs.CrdWzskNav.handleUpdate({srefIxWzskVDpch: srefIxWzskVDpch, dpcheng: dpcheng});
+						}
 					}
 
 					if (iterate) vm.iterateNotify();

@@ -2,8 +2,8 @@
 	* \file CrdWzskUsr_blks.cpp
 	* job handler for job CrdWzskUsr (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -77,11 +77,10 @@ CrdWzskUsr::ContInf::ContInf(
 			, const string& MtxCrdUsr
 		) :
 			Block()
+			, numFSge(numFSge)
+			, MrlAppHlp(MrlAppHlp)
+			, MtxCrdUsr(MtxCrdUsr)
 		{
-	this->numFSge = numFSge;
-	this->MrlAppHlp = MrlAppHlp;
-	this->MtxCrdUsr = MtxCrdUsr;
-
 	mask = {NUMFSGE, MRLAPPHLP, MTXCRDUSR};
 };
 
@@ -93,7 +92,7 @@ void CrdWzskUsr::ContInf::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFSge"] = numFSge;
+	me["numFSge"] = (Json::Value::UInt) numFSge;
 	me["MrlAppHlp"] = MrlAppHlp;
 	me["MtxCrdUsr"] = MtxCrdUsr;
 };
@@ -164,7 +163,7 @@ void CrdWzskUsr::StatApp::writeJSON(
 	me["srefIxWzskVReqitmode"] = VecWzskVReqitmode::getSref(ixWzskVReqitmode);
 	me["latency"] = latency;
 	me["shortMenu"] = shortMenu;
-	me["widthMenu"] = widthMenu;
+	me["widthMenu"] = (Json::Value::UInt) widthMenu;
 	me["initdoneHeadbar"] = initdoneHeadbar;
 	me["initdoneList"] = initdoneList;
 	me["initdoneRec"] = initdoneRec;
@@ -209,11 +208,10 @@ CrdWzskUsr::StatShr::StatShr(
 			, const ubigint jrefRec
 		) :
 			Block()
+			, jrefHeadbar(jrefHeadbar)
+			, jrefList(jrefList)
+			, jrefRec(jrefRec)
 		{
-	this->jrefHeadbar = jrefHeadbar;
-	this->jrefList = jrefList;
-	this->jrefRec = jrefRec;
-
 	mask = {JREFHEADBAR, JREFLIST, JREFREC};
 };
 
@@ -288,7 +286,6 @@ void CrdWzskUsr::Tag::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 	};
 	me["MitAppAbt"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::ABOUT, ixWzskVLocale)) + " ...";
 	me["MrlAppHlp"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::HELP, ixWzskVLocale)) + " ...";
@@ -308,7 +305,6 @@ void CrdWzskUsr::Tag::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 		};
 		writeStringAttr(wr, itemtag, "sref", "MitAppAbt", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::ABOUT, ixWzskVLocale)) + " ...");
 		writeStringAttr(wr, itemtag, "sref", "MrlAppHlp", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::HELP, ixWzskVLocale)) + " ...");

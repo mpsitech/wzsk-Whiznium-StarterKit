@@ -2,8 +2,8 @@
 	* \file PnlWzskLlvHeadbar.cpp
 	* API code for job PnlWzskLlvHeadbar (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -20,17 +20,12 @@ using namespace Xmlio;
 PnlWzskLlvHeadbar::StgInf::StgInf(
 			const uint MenAppCptwidth
 			, const uint MenAppWidth
-			, const uint MenCrdCptwidth
-			, const uint MenCrdWidth
 		) :
 			Block()
+			, MenAppCptwidth(MenAppCptwidth)
+			, MenAppWidth(MenAppWidth)
 		{
-	this->MenAppCptwidth = MenAppCptwidth;
-	this->MenAppWidth = MenAppWidth;
-	this->MenCrdCptwidth = MenCrdCptwidth;
-	this->MenCrdWidth = MenCrdWidth;
-
-	mask = {MENAPPCPTWIDTH, MENAPPWIDTH, MENCRDCPTWIDTH, MENCRDWIDTH};
+	mask = {MENAPPCPTWIDTH, MENAPPWIDTH};
 };
 
 bool PnlWzskLlvHeadbar::StgInf::readXML(
@@ -52,8 +47,6 @@ bool PnlWzskLlvHeadbar::StgInf::readXML(
 	if (basefound) {
 		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "MenAppCptwidth", MenAppCptwidth)) add(MENAPPCPTWIDTH);
 		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "MenAppWidth", MenAppWidth)) add(MENAPPWIDTH);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "MenCrdCptwidth", MenCrdCptwidth)) add(MENCRDCPTWIDTH);
-		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "MenCrdWidth", MenCrdWidth)) add(MENCRDWIDTH);
 	};
 
 	return basefound;
@@ -66,8 +59,6 @@ set<uint> PnlWzskLlvHeadbar::StgInf::comm(
 
 	if (MenAppCptwidth == comp->MenAppCptwidth) insert(items, MENAPPCPTWIDTH);
 	if (MenAppWidth == comp->MenAppWidth) insert(items, MENAPPWIDTH);
-	if (MenCrdCptwidth == comp->MenCrdCptwidth) insert(items, MENCRDCPTWIDTH);
-	if (MenCrdWidth == comp->MenCrdWidth) insert(items, MENCRDWIDTH);
 
 	return(items);
 };
@@ -80,7 +71,7 @@ set<uint> PnlWzskLlvHeadbar::StgInf::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {MENAPPCPTWIDTH, MENAPPWIDTH, MENCRDCPTWIDTH, MENCRDWIDTH};
+	diffitems = {MENAPPCPTWIDTH, MENAPPWIDTH};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -92,14 +83,11 @@ set<uint> PnlWzskLlvHeadbar::StgInf::diff(
 
 PnlWzskLlvHeadbar::Tag::Tag(
 			const string& MenApp
-			, const string& MenCrd
 		) :
 			Block()
+			, MenApp(MenApp)
 		{
-	this->MenApp = MenApp;
-	this->MenCrd = MenCrd;
-
-	mask = {MENAPP, MENCRD};
+	mask = {MENAPP};
 };
 
 bool PnlWzskLlvHeadbar::Tag::readXML(
@@ -120,7 +108,6 @@ bool PnlWzskLlvHeadbar::Tag::readXML(
 
 	if (basefound) {
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "MenApp", MenApp)) add(MENAPP);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "MenCrd", MenCrd)) add(MENCRD);
 	};
 
 	return basefound;

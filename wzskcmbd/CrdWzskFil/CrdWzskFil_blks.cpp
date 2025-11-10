@@ -2,8 +2,8 @@
 	* \file CrdWzskFil_blks.cpp
 	* job handler for job CrdWzskFil (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -79,11 +79,10 @@ CrdWzskFil::ContInf::ContInf(
 			, const string& MtxCrdFil
 		) :
 			Block()
+			, numFSge(numFSge)
+			, MrlAppHlp(MrlAppHlp)
+			, MtxCrdFil(MtxCrdFil)
 		{
-	this->numFSge = numFSge;
-	this->MrlAppHlp = MrlAppHlp;
-	this->MtxCrdFil = MtxCrdFil;
-
 	mask = {NUMFSGE, MRLAPPHLP, MTXCRDFIL};
 };
 
@@ -95,7 +94,7 @@ void CrdWzskFil::ContInf::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFSge"] = numFSge;
+	me["numFSge"] = (Json::Value::UInt) numFSge;
 	me["MrlAppHlp"] = MrlAppHlp;
 	me["MtxCrdFil"] = MtxCrdFil;
 };
@@ -166,7 +165,7 @@ void CrdWzskFil::StatApp::writeJSON(
 	me["srefIxWzskVReqitmode"] = VecWzskVReqitmode::getSref(ixWzskVReqitmode);
 	me["latency"] = latency;
 	me["shortMenu"] = shortMenu;
-	me["widthMenu"] = widthMenu;
+	me["widthMenu"] = (Json::Value::UInt) widthMenu;
 	me["initdoneHeadbar"] = initdoneHeadbar;
 	me["initdoneList"] = initdoneList;
 	me["initdoneRec"] = initdoneRec;
@@ -214,14 +213,13 @@ CrdWzskFil::StatShr::StatShr(
 			, const bool MitCrdDldActive
 		) :
 			Block()
+			, jrefDlgdownload(jrefDlgdownload)
+			, jrefHeadbar(jrefHeadbar)
+			, jrefList(jrefList)
+			, jrefRec(jrefRec)
+			, MitCrdDldAvail(MitCrdDldAvail)
+			, MitCrdDldActive(MitCrdDldActive)
 		{
-	this->jrefDlgdownload = jrefDlgdownload;
-	this->jrefHeadbar = jrefHeadbar;
-	this->jrefList = jrefList;
-	this->jrefRec = jrefRec;
-	this->MitCrdDldAvail = MitCrdDldAvail;
-	this->MitCrdDldActive = MitCrdDldActive;
-
 	mask = {JREFDLGDOWNLOAD, JREFHEADBAR, JREFLIST, JREFREC, MITCRDDLDAVAIL, MITCRDDLDACTIVE};
 };
 
@@ -305,7 +303,6 @@ void CrdWzskFil::Tag::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 	};
 	me["MitAppAbt"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::ABOUT, ixWzskVLocale)) + " ...";
 	me["MrlAppHlp"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::HELP, ixWzskVLocale)) + " ...";
@@ -326,7 +323,6 @@ void CrdWzskFil::Tag::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 		};
 		writeStringAttr(wr, itemtag, "sref", "MitAppAbt", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::ABOUT, ixWzskVLocale)) + " ...");
 		writeStringAttr(wr, itemtag, "sref", "MrlAppHlp", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::HELP, ixWzskVLocale)) + " ...");

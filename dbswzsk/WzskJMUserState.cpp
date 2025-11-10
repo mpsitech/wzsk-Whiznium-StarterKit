@@ -2,8 +2,8 @@
 	* \file WzskJMUserState.cpp
 	* database access for table TblWzskJMUserState (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -21,12 +21,12 @@ WzskJMUserState::WzskJMUserState(
 			, const ubigint refWzskMUser
 			, const uint x1Start
 			, const uint ixVState
-		) {
-
-	this->ref = ref;
-	this->refWzskMUser = refWzskMUser;
-	this->x1Start = x1Start;
-	this->ixVState = ixVState;
+		) :
+			ref(ref)
+			, refWzskMUser(refWzskMUser)
+			, x1Start(x1Start)
+			, ixVState(ixVState)
+		{
 };
 
 bool WzskJMUserState::operator==(

@@ -2,8 +2,8 @@
 	* \file PnlWzskUsr1NSession.h
 	* API code for job PnlWzskUsr1NSession (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -38,10 +38,8 @@ namespace PnlWzskUsr1NSession {
 	class VecVDo {
 
 	public:
-		static const Sbecore::uint BUTVIEWCLICK = 1;
-		static const Sbecore::uint BUTNEWCLICK = 2;
-		static const Sbecore::uint BUTDELETECLICK = 3;
-		static const Sbecore::uint BUTREFRESHCLICK = 4;
+		static const Sbecore::uint BUTDELETECLICK = 1;
+		static const Sbecore::uint BUTREFRESHCLICK = 2;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -93,19 +91,13 @@ namespace PnlWzskUsr1NSession {
 	class StatShr : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint BUTVIEWAVAIL = 1;
-		static const Sbecore::uint BUTVIEWACTIVE = 2;
-		static const Sbecore::uint BUTNEWAVAIL = 3;
-		static const Sbecore::uint BUTDELETEAVAIL = 4;
-		static const Sbecore::uint BUTDELETEACTIVE = 5;
+		static const Sbecore::uint BUTDELETEAVAIL = 1;
+		static const Sbecore::uint BUTDELETEACTIVE = 2;
 
 	public:
-		StatShr(const bool ButViewAvail = true, const bool ButViewActive = true, const bool ButNewAvail = true, const bool ButDeleteAvail = true, const bool ButDeleteActive = true);
+		StatShr(const bool ButDeleteAvail = true, const bool ButDeleteActive = true);
 
 	public:
-		bool ButViewAvail;
-		bool ButViewActive;
-		bool ButNewAvail;
 		bool ButDeleteAvail;
 		bool ButDeleteActive;
 

@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrHeadbar_blks.cpp
 	* job handler for job PnlWzskUsrHeadbar (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -29,11 +29,6 @@ void PnlWzskUsrHeadbar::StgInf::writeJSON(
 		me["MenAppWidth"] = "246";
 		me["MenCrdCptwidth"] = "46";
 		me["MenCrdWidth"] = "323";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["MenAppCptwidth"] = "200";
-		me["MenAppWidth"] = "246";
-		me["MenCrdCptwidth"] = "82";
-		me["MenCrdWidth"] = "323";
 	};
 };
 
@@ -55,11 +50,6 @@ void PnlWzskUsrHeadbar::StgInf::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "MenAppWidth", "246");
 			writeStringAttr(wr, itemtag, "sref", "MenCrdCptwidth", "46");
 			writeStringAttr(wr, itemtag, "sref", "MenCrdWidth", "323");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "MenAppCptwidth", "200");
-			writeStringAttr(wr, itemtag, "sref", "MenAppWidth", "246");
-			writeStringAttr(wr, itemtag, "sref", "MenCrdCptwidth", "82");
-			writeStringAttr(wr, itemtag, "sref", "MenCrdWidth", "323");
 		};
 	xmlTextWriterEndElement(wr);
 };
@@ -80,9 +70,6 @@ void PnlWzskUsrHeadbar::Tag::writeJSON(
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["MenApp"] = "Whiznium StarterKit";
 		me["MenCrd"] = "User";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["MenApp"] = "Whiznium StarterKit";
-		me["MenCrd"] = "Benutzer";
 	};
 };
 
@@ -102,9 +89,6 @@ void PnlWzskUsrHeadbar::Tag::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "MenApp", "Whiznium StarterKit");
 			writeStringAttr(wr, itemtag, "sref", "MenCrd", "User");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "MenApp", "Whiznium StarterKit");
-			writeStringAttr(wr, itemtag, "sref", "MenCrd", "Benutzer");
 		};
 	xmlTextWriterEndElement(wr);
 };

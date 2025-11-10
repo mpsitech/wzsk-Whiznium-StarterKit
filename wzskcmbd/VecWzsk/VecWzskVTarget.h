@@ -3,7 +3,7 @@
 	* vector VecWzskVTarget (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
 	* \author Alexander Wirthmueller (auto-generation)
-	* \date created: 25 Oct 2021
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -16,13 +16,9 @@
 	* VecWzskVTarget
 	*/
 namespace VecWzskVTarget {
-	const Sbecore::uint APALIS = 1;
-	const Sbecore::uint ARTY = 2;
-	const Sbecore::uint CLNXEVB = 3;
-	const Sbecore::uint ICICLE = 4;
-	const Sbecore::uint MCVEVP = 5;
-	const Sbecore::uint MERCBB = 6;
-	const Sbecore::uint WS = 7;
+	const Sbecore::uint DISCO = 1;
+	const Sbecore::uint TITDVK = 2;
+	const Sbecore::uint ZUDVK = 3;
 
 	Sbecore::uint getIx(const std::string& sref);
 	std::string getSref(const Sbecore::uint ix);

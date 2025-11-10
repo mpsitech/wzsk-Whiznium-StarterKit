@@ -2,8 +2,8 @@
 	* \file PnlWzskNavAdmin.h
 	* API code for job PnlWzskNavAdmin (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -39,7 +39,7 @@ namespace PnlWzskNavAdmin {
 		static const Sbecore::uint BUTUSRNEWCRDCLICK = 4;
 		static const Sbecore::uint BUTPRSVIEWCLICK = 5;
 		static const Sbecore::uint BUTPRSNEWCRDCLICK = 6;
-		static const Sbecore::uint BUTSCFNEWCRDCLICK = 7;
+		static const Sbecore::uint BUTPRFNEWCRDCLICK = 7;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -114,10 +114,10 @@ namespace PnlWzskNavAdmin {
 		static const Sbecore::uint BUTUSRVIEWACTIVE = 4;
 		static const Sbecore::uint LSTPRSAVAIL = 5;
 		static const Sbecore::uint BUTPRSVIEWACTIVE = 6;
-		static const Sbecore::uint BUTSCFNEWCRDAVAIL = 7;
+		static const Sbecore::uint BUTPRFNEWCRDAVAIL = 7;
 
 	public:
-		StatShr(const bool LstUsgAvail = true, const bool ButUsgViewActive = true, const bool LstUsrAvail = true, const bool ButUsrViewActive = true, const bool LstPrsAvail = true, const bool ButPrsViewActive = true, const bool ButScfNewcrdAvail = true);
+		StatShr(const bool LstUsgAvail = true, const bool ButUsgViewActive = true, const bool LstUsrAvail = true, const bool ButUsrViewActive = true, const bool LstPrsAvail = true, const bool ButPrsViewActive = true, const bool ButPrfNewcrdAvail = true);
 
 	public:
 		bool LstUsgAvail;
@@ -126,7 +126,7 @@ namespace PnlWzskNavAdmin {
 		bool ButUsrViewActive;
 		bool LstPrsAvail;
 		bool ButPrsViewActive;
-		bool ButScfNewcrdAvail;
+		bool ButPrfNewcrdAvail;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -144,17 +144,17 @@ namespace PnlWzskNavAdmin {
 		static const Sbecore::uint CPTUSG = 2;
 		static const Sbecore::uint CPTUSR = 3;
 		static const Sbecore::uint CPTPRS = 4;
-		static const Sbecore::uint CPTSCF = 5;
+		static const Sbecore::uint CPTPRF = 5;
 
 	public:
-		Tag(const std::string& Cpt = "", const std::string& CptUsg = "", const std::string& CptUsr = "", const std::string& CptPrs = "", const std::string& CptScf = "");
+		Tag(const std::string& Cpt = "", const std::string& CptUsg = "", const std::string& CptUsr = "", const std::string& CptPrs = "", const std::string& CptPrf = "");
 
 	public:
 		std::string Cpt;
 		std::string CptUsg;
 		std::string CptUsr;
 		std::string CptPrs;
-		std::string CptScf;
+		std::string CptPrf;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);

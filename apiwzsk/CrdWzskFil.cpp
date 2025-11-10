@@ -2,8 +2,8 @@
 	* \file CrdWzskFil.cpp
 	* API code for job CrdWzskFil (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -73,11 +73,10 @@ CrdWzskFil::ContInf::ContInf(
 			, const string& MtxCrdFil
 		) :
 			Block()
+			, numFSge(numFSge)
+			, MrlAppHlp(MrlAppHlp)
+			, MtxCrdFil(MtxCrdFil)
 		{
-	this->numFSge = numFSge;
-	this->MrlAppHlp = MrlAppHlp;
-	this->MtxCrdFil = MtxCrdFil;
-
 	mask = {NUMFSGE, MRLAPPHLP, MTXCRDFIL};
 };
 
@@ -146,15 +145,14 @@ CrdWzskFil::StatApp::StatApp(
 			, const bool initdoneRec
 		) :
 			Block()
+			, ixWzskVReqitmode(ixWzskVReqitmode)
+			, latency(latency)
+			, shortMenu(shortMenu)
+			, widthMenu(widthMenu)
+			, initdoneHeadbar(initdoneHeadbar)
+			, initdoneList(initdoneList)
+			, initdoneRec(initdoneRec)
 		{
-	this->ixWzskVReqitmode = ixWzskVReqitmode;
-	this->latency = latency;
-	this->shortMenu = shortMenu;
-	this->widthMenu = widthMenu;
-	this->initdoneHeadbar = initdoneHeadbar;
-	this->initdoneList = initdoneList;
-	this->initdoneRec = initdoneRec;
-
 	mask = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONELIST, INITDONEREC};
 };
 
@@ -235,14 +233,13 @@ CrdWzskFil::StatShr::StatShr(
 			, const bool MitCrdDldActive
 		) :
 			Block()
+			, scrJrefDlgdownload(scrJrefDlgdownload)
+			, scrJrefHeadbar(scrJrefHeadbar)
+			, scrJrefList(scrJrefList)
+			, scrJrefRec(scrJrefRec)
+			, MitCrdDldAvail(MitCrdDldAvail)
+			, MitCrdDldActive(MitCrdDldActive)
 		{
-	this->scrJrefDlgdownload = scrJrefDlgdownload;
-	this->scrJrefHeadbar = scrJrefHeadbar;
-	this->scrJrefList = scrJrefList;
-	this->scrJrefRec = scrJrefRec;
-	this->MitCrdDldAvail = MitCrdDldAvail;
-	this->MitCrdDldActive = MitCrdDldActive;
-
 	mask = {SCRJREFDLGDOWNLOAD, SCRJREFHEADBAR, SCRJREFLIST, SCRJREFREC, MITCRDDLDAVAIL, MITCRDDLDACTIVE};
 };
 
@@ -313,11 +310,10 @@ CrdWzskFil::Tag::Tag(
 			, const string& MitCrdDld
 		) :
 			Block()
+			, MitAppAbt(MitAppAbt)
+			, MrlAppHlp(MrlAppHlp)
+			, MitCrdDld(MitCrdDld)
 		{
-	this->MitAppAbt = MitAppAbt;
-	this->MrlAppHlp = MrlAppHlp;
-	this->MitCrdDld = MitCrdDld;
-
 	mask = {MITAPPABT, MRLAPPHLP, MITCRDDLD};
 };
 
@@ -356,11 +352,11 @@ CrdWzskFil::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKFILDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string CrdWzskFil::DpchAppDo::getSrefsMask() {

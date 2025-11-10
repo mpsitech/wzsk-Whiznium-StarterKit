@@ -2,8 +2,8 @@
 	* \file PnlWzskNavOp_evals.cpp
 	* job handler for job PnlWzskNavOp (implementation of availability/activation evaluation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -25,15 +25,57 @@ bool PnlWzskNavOp::evalButLlvNewcrdAvail(
 	return(args.back());
 };
 
-bool PnlWzskNavOp::evalButLivNewcrdAvail(
+bool PnlWzskNavOp::evalButVtrNewcrdAvail(
 			DbsWzsk* dbswzsk
 		) {
-	// pre.ixCrdaccLiv()
+	// pre.ixCrdaccVtr()
 
 	vector<bool> args;
 	bool a;
 
-	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCLIV, jref) != 0);
+	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCVTR, jref) != 0);
+	args.push_back(a);
+
+	return(args.back());
+};
+
+bool PnlWzskNavOp::evalButHwcNewcrdAvail(
+			DbsWzsk* dbswzsk
+		) {
+	// pre.ixCrdaccHwc()
+
+	vector<bool> args;
+	bool a;
+
+	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCHWC, jref) != 0);
+	args.push_back(a);
+
+	return(args.back());
+};
+
+bool PnlWzskNavOp::evalLstFilAvail(
+			DbsWzsk* dbswzsk
+		) {
+	// pre.ixCrdaccFil()
+
+	vector<bool> args;
+	bool a;
+
+	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCFIL, jref) != 0);
+	args.push_back(a);
+
+	return(args.back());
+};
+
+bool PnlWzskNavOp::evalButFilViewActive(
+			DbsWzsk* dbswzsk
+		) {
+	// LstFil.sel()
+
+	vector<bool> args;
+	bool a;
+
+	a = false; a = (contiac.numFLstFil != 0);
 	args.push_back(a);
 
 	return(args.back());

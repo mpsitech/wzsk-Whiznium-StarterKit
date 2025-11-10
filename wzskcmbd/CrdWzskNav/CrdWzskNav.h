@@ -2,8 +2,8 @@
 	* \file CrdWzskNav.h
 	* job handler for job CrdWzskNav (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -14,12 +14,10 @@
 
 // IP include.cust --- INSERT
 
-#include "PnlWzskNavGlry.h"
+#include "DlgWzskNavLoaini.h"
+#include "PnlWzskNavHeadbar.h"
 #include "PnlWzskNavAdmin.h"
 #include "PnlWzskNavOp.h"
-#include "PnlWzskNavHeadbar.h"
-#include "PnlWzskNavPre.h"
-#include "DlgWzskNavLoaini.h"
 
 #define VecVWzskNavDo CrdWzskNav::VecVDo
 #define VecVWzskNavSge CrdWzskNav::VecVSge
@@ -51,15 +49,12 @@ public:
 		static const Sbecore::uint MITCRDUSGCLICK = 5;
 		static const Sbecore::uint MITCRDUSRCLICK = 6;
 		static const Sbecore::uint MITCRDPRSCLICK = 7;
-		static const Sbecore::uint MITCRDSCFCLICK = 8;
+		static const Sbecore::uint MITCRDPRFCLICK = 8;
 		static const Sbecore::uint MITCRDLLVCLICK = 9;
-		static const Sbecore::uint MITCRDLIVCLICK = 10;
-		static const Sbecore::uint MITCRDOGRCLICK = 11;
-		static const Sbecore::uint MITCRDOBJCLICK = 12;
-		static const Sbecore::uint MITCRDSESCLICK = 13;
-		static const Sbecore::uint MITCRDSHTCLICK = 14;
-		static const Sbecore::uint MITCRDFILCLICK = 15;
-		static const Sbecore::uint MITAPPLOICLICK = 16;
+		static const Sbecore::uint MITCRDVTRCLICK = 10;
+		static const Sbecore::uint MITCRDHWCCLICK = 11;
+		static const Sbecore::uint MITCRDFILCLICK = 12;
+		static const Sbecore::uint MITAPPLOICLICK = 13;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -116,8 +111,8 @@ public:
 	class StatApp {
 
 	public:
-		static void writeJSON(Json::Value& sup, std::string difftag = "", const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdonePre = false, const bool initdoneAdmin = false, const bool initdoneOp = false, const bool initdoneGlry = false);
-		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdonePre = false, const bool initdoneAdmin = false, const bool initdoneOp = false, const bool initdoneGlry = false);
+		static void writeJSON(Json::Value& sup, std::string difftag = "", const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneAdmin = false, const bool initdoneOp = false);
+		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneAdmin = false, const bool initdoneOp = false);
 	};
 
 	/**
@@ -128,60 +123,44 @@ public:
 	public:
 		static const Sbecore::uint JREFDLGLOAINI = 1;
 		static const Sbecore::uint JREFHEADBAR = 2;
-		static const Sbecore::uint JREFPRE = 3;
-		static const Sbecore::uint PNLPREAVAIL = 4;
-		static const Sbecore::uint JREFADMIN = 5;
-		static const Sbecore::uint PNLADMINAVAIL = 6;
-		static const Sbecore::uint JREFOP = 7;
-		static const Sbecore::uint PNLOPAVAIL = 8;
-		static const Sbecore::uint JREFGLRY = 9;
-		static const Sbecore::uint PNLGLRYAVAIL = 10;
-		static const Sbecore::uint MITSESSPSAVAIL = 11;
-		static const Sbecore::uint MSPCRD1AVAIL = 12;
-		static const Sbecore::uint MITCRDUSGAVAIL = 13;
-		static const Sbecore::uint MITCRDUSRAVAIL = 14;
-		static const Sbecore::uint MITCRDPRSAVAIL = 15;
-		static const Sbecore::uint MITCRDSCFAVAIL = 16;
-		static const Sbecore::uint MSPCRD2AVAIL = 17;
-		static const Sbecore::uint MITCRDLLVAVAIL = 18;
-		static const Sbecore::uint MITCRDLIVAVAIL = 19;
-		static const Sbecore::uint MSPCRD3AVAIL = 20;
-		static const Sbecore::uint MITCRDOGRAVAIL = 21;
-		static const Sbecore::uint MITCRDOBJAVAIL = 22;
-		static const Sbecore::uint MITCRDSESAVAIL = 23;
-		static const Sbecore::uint MITCRDSHTAVAIL = 24;
-		static const Sbecore::uint MITCRDFILAVAIL = 25;
-		static const Sbecore::uint MSPAPP2AVAIL = 26;
-		static const Sbecore::uint MITAPPLOIAVAIL = 27;
+		static const Sbecore::uint JREFADMIN = 3;
+		static const Sbecore::uint PNLADMINAVAIL = 4;
+		static const Sbecore::uint JREFOP = 5;
+		static const Sbecore::uint PNLOPAVAIL = 6;
+		static const Sbecore::uint MITSESSPSAVAIL = 7;
+		static const Sbecore::uint MSPCRD1AVAIL = 8;
+		static const Sbecore::uint MITCRDUSGAVAIL = 9;
+		static const Sbecore::uint MITCRDUSRAVAIL = 10;
+		static const Sbecore::uint MITCRDPRSAVAIL = 11;
+		static const Sbecore::uint MITCRDPRFAVAIL = 12;
+		static const Sbecore::uint MSPCRD2AVAIL = 13;
+		static const Sbecore::uint MITCRDLLVAVAIL = 14;
+		static const Sbecore::uint MITCRDVTRAVAIL = 15;
+		static const Sbecore::uint MITCRDHWCAVAIL = 16;
+		static const Sbecore::uint MITCRDFILAVAIL = 17;
+		static const Sbecore::uint MSPAPP2AVAIL = 18;
+		static const Sbecore::uint MITAPPLOIAVAIL = 19;
 
 	public:
-		StatShr(const Sbecore::ubigint jrefDlgloaini = 0, const Sbecore::ubigint jrefHeadbar = 0, const Sbecore::ubigint jrefPre = 0, const bool pnlpreAvail = false, const Sbecore::ubigint jrefAdmin = 0, const bool pnladminAvail = false, const Sbecore::ubigint jrefOp = 0, const bool pnlopAvail = false, const Sbecore::ubigint jrefGlry = 0, const bool pnlglryAvail = false, const bool MitSesSpsAvail = true, const bool MspCrd1Avail = true, const bool MitCrdUsgAvail = true, const bool MitCrdUsrAvail = true, const bool MitCrdPrsAvail = true, const bool MitCrdScfAvail = true, const bool MspCrd2Avail = true, const bool MitCrdLlvAvail = true, const bool MitCrdLivAvail = true, const bool MspCrd3Avail = true, const bool MitCrdOgrAvail = true, const bool MitCrdObjAvail = true, const bool MitCrdSesAvail = true, const bool MitCrdShtAvail = true, const bool MitCrdFilAvail = true, const bool MspApp2Avail = true, const bool MitAppLoiAvail = true);
+		StatShr(const Sbecore::ubigint jrefDlgloaini = 0, const Sbecore::ubigint jrefHeadbar = 0, const Sbecore::ubigint jrefAdmin = 0, const bool pnladminAvail = false, const Sbecore::ubigint jrefOp = 0, const bool pnlopAvail = false, const bool MitSesSpsAvail = true, const bool MspCrd1Avail = true, const bool MitCrdUsgAvail = true, const bool MitCrdUsrAvail = true, const bool MitCrdPrsAvail = true, const bool MitCrdPrfAvail = true, const bool MspCrd2Avail = true, const bool MitCrdLlvAvail = true, const bool MitCrdVtrAvail = true, const bool MitCrdHwcAvail = true, const bool MitCrdFilAvail = true, const bool MspApp2Avail = true, const bool MitAppLoiAvail = true);
 
 	public:
 		Sbecore::ubigint jrefDlgloaini;
 		Sbecore::ubigint jrefHeadbar;
-		Sbecore::ubigint jrefPre;
-		bool pnlpreAvail;
 		Sbecore::ubigint jrefAdmin;
 		bool pnladminAvail;
 		Sbecore::ubigint jrefOp;
 		bool pnlopAvail;
-		Sbecore::ubigint jrefGlry;
-		bool pnlglryAvail;
 		bool MitSesSpsAvail;
 		bool MspCrd1Avail;
 		bool MitCrdUsgAvail;
 		bool MitCrdUsrAvail;
 		bool MitCrdPrsAvail;
-		bool MitCrdScfAvail;
+		bool MitCrdPrfAvail;
 		bool MspCrd2Avail;
 		bool MitCrdLlvAvail;
-		bool MitCrdLivAvail;
-		bool MspCrd3Avail;
-		bool MitCrdOgrAvail;
-		bool MitCrdObjAvail;
-		bool MitCrdSesAvail;
-		bool MitCrdShtAvail;
+		bool MitCrdVtrAvail;
+		bool MitCrdHwcAvail;
 		bool MitCrdFilAvail;
 		bool MspApp2Avail;
 		bool MitAppLoiAvail;
@@ -255,24 +234,18 @@ public:
 		void writeXML(const Sbecore::uint ixWzskVLocale, xmlTextWriter* wr);
 	};
 
-	bool evalPnlpreAvail(DbsWzsk* dbswzsk);
 	bool evalPnladminAvail(DbsWzsk* dbswzsk);
 	bool evalPnlopAvail(DbsWzsk* dbswzsk);
-	bool evalPnlglryAvail(DbsWzsk* dbswzsk);
 	bool evalMitSesSpsAvail(DbsWzsk* dbswzsk);
 	bool evalMspCrd1Avail(DbsWzsk* dbswzsk);
 	bool evalMitCrdUsgAvail(DbsWzsk* dbswzsk);
 	bool evalMitCrdUsrAvail(DbsWzsk* dbswzsk);
 	bool evalMitCrdPrsAvail(DbsWzsk* dbswzsk);
-	bool evalMitCrdScfAvail(DbsWzsk* dbswzsk);
+	bool evalMitCrdPrfAvail(DbsWzsk* dbswzsk);
 	bool evalMspCrd2Avail(DbsWzsk* dbswzsk);
 	bool evalMitCrdLlvAvail(DbsWzsk* dbswzsk);
-	bool evalMitCrdLivAvail(DbsWzsk* dbswzsk);
-	bool evalMspCrd3Avail(DbsWzsk* dbswzsk);
-	bool evalMitCrdOgrAvail(DbsWzsk* dbswzsk);
-	bool evalMitCrdObjAvail(DbsWzsk* dbswzsk);
-	bool evalMitCrdSesAvail(DbsWzsk* dbswzsk);
-	bool evalMitCrdShtAvail(DbsWzsk* dbswzsk);
+	bool evalMitCrdVtrAvail(DbsWzsk* dbswzsk);
+	bool evalMitCrdHwcAvail(DbsWzsk* dbswzsk);
 	bool evalMitCrdFilAvail(DbsWzsk* dbswzsk);
 	bool evalMspApp2Avail(DbsWzsk* dbswzsk);
 	bool evalMitAppLoiAvail(DbsWzsk* dbswzsk);
@@ -288,12 +261,10 @@ public:
 	Sbecore::Feed feedFMcbAlert;
 	Sbecore::Feed feedFSge;
 
-	PnlWzskNavGlry* pnlglry;
+	DlgWzskNavLoaini* dlgloaini;
+	PnlWzskNavHeadbar* pnlheadbar;
 	PnlWzskNavAdmin* pnladmin;
 	PnlWzskNavOp* pnlop;
-	PnlWzskNavHeadbar* pnlheadbar;
-	PnlWzskNavPre* pnlpre;
-	DlgWzskNavLoaini* dlgloaini;
 
 	// IP vars.cust --- INSERT
 
@@ -322,13 +293,10 @@ private:
 	void handleDpchAppDoMitCrdUsgClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoMitCrdUsrClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoMitCrdPrsClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
-	void handleDpchAppDoMitCrdScfClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoMitCrdPrfClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoMitCrdLlvClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
-	void handleDpchAppDoMitCrdLivClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
-	void handleDpchAppDoMitCrdOgrClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
-	void handleDpchAppDoMitCrdObjClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
-	void handleDpchAppDoMitCrdSesClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
-	void handleDpchAppDoMitCrdShtClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoMitCrdVtrClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoMitCrdHwcClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoMitCrdFilClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoMitAppLoiClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppWzskAlert(DbsWzsk* dbswzsk, DpchAppWzskAlert* dpchappwzskalert, DpchEngWzsk** dpcheng);

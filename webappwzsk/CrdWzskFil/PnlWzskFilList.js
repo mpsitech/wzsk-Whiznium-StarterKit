@@ -60,17 +60,7 @@ function init() {
 };
 
 function refreshA() {
-	var TxtFor = retrieveCi(srcdoc, "ContInfWzskFilList", "TxtFor");
-
-	setTextContent(contdoc, contdoc.getElementById("TxtFor"), strFor(retrieveTi(srcdoc, "TagWzskFilList", "TxtFor"), TxtFor));
-
-	if (TxtFor == "") {
-		setTextContent(contdoc, contdoc.getElementById("Cpt"), retrieveTi(srcdoc, "TagWzskFilList", "Cpt") + " (" + retrieveSi(srcdoc, "StatShrQryWzskFilList", "ntot") + ")");
-		clearElem(contdoc.getElementById("TxtPre"));
-	} else {
-		setTextContent(contdoc, contdoc.getElementById("Cpt"), retrieveTi(srcdoc, "TagWzskFilList", "Cpt"));
-		setTextContent(contdoc, contdoc.getElementById("TxtPre"), retrieveCi(srcdoc, "ContInfWzskFilList", "TxtPre") + " (" + retrieveSi(srcdoc, "StatShrQryWzskFilList", "ntot") + ")");
-	};
+	setTextContent(contdoc, contdoc.getElementById("Cpt"), retrieveTi(srcdoc, "TagWzskFilList", "Cpt") + " (" + retrieveSi(srcdoc, "StatShrQryWzskFilList", "ntot") + ")");
 };
 
 function refreshB(chgcol) {
@@ -90,14 +80,6 @@ function refreshB(chgcol) {
 	var rownode;
 
 	var height;
-
-	var TxtFor = retrieveCi(srcdoc, "ContInfWzskFilList", "TxtFor");
-
-	// header row
-	setTextContent(hdrdoc, hdrdoc.getElementById("TxtFor"), strFor(retrieveTi(srcdoc, "TagWzskFilList", "TxtFor"), TxtFor));
-
-	if (TxtFor == "") clearElem(hdrdoc.getElementById("TxtPre"));
-	else setTextContent(hdrdoc, hdrdoc.getElementById("TxtPre"), retrieveCi(srcdoc, "ContInfWzskFilList", "TxtPre"));
 
 	// update column characteristics
 	if (chgcol) {
@@ -130,15 +112,15 @@ function refreshB(chgcol) {
 			ix++;
 
 			if (i == 1) {
-				doc.cols.push("TcoGrp"); doc.widths.push(TcoGrpWidth); doc.fs.push("grp"); doc.tos.push(5); wtot += TcoGrpWidth;
+				doc.cols.push("TcoGrp"); doc.widths.push(TcoGrpWidth); doc.fs.push("grp"); doc.tos.push(1); wtot += TcoGrpWidth;
 			} else if (i == 2) {
-				doc.cols.push("TcoOwn"); doc.widths.push(TcoOwnWidth); doc.fs.push("own"); doc.tos.push(4); wtot += TcoOwnWidth;
+				doc.cols.push("TcoOwn"); doc.widths.push(TcoOwnWidth); doc.fs.push("own"); doc.tos.push(2); wtot += TcoOwnWidth;
 			} else if (i == 3) {
 				doc.cols.push("TcoFnm"); doc.widths.push(TcoFnmWidth); doc.fs.push("fnm"); doc.tos.push(3); wtot += TcoFnmWidth;
 			} else if (i == 4) {
 				doc.cols.push("TcoRet"); doc.widths.push(TcoRetWidth); doc.fs.push("ret2"); doc.tos.push(0); wtot += TcoRetWidth;
 			} else if (i == 5) {
-				doc.cols.push("TcoReu"); doc.widths.push(TcoReuWidth); doc.fs.push("reu"); doc.tos.push(2); wtot += TcoReuWidth;
+				doc.cols.push("TcoReu"); doc.widths.push(TcoReuWidth); doc.fs.push("reu"); doc.tos.push(5); wtot += TcoReuWidth;
 			} else if (i == 6) {
 				doc.cols.push("TcoCnt"); doc.widths.push(TcoCntWidth); doc.fs.push("cnt2"); doc.tos.push(0); wtot += TcoCntWidth;
 			} else if (i == 7) {

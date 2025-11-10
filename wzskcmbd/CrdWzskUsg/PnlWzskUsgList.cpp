@@ -2,8 +2,8 @@
 	* \file PnlWzskUsgList.cpp
 	* job handler for job PnlWzskUsgList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -247,7 +247,7 @@ void PnlWzskUsgList::handleDpchAppDataContiac(
 	diffitems = _contiac->diff(&contiac);
 
 	if (has(diffitems, ContIac::NUMFTOS)) {
-		if ((_contiac->numFTos >= QryWzskUsgList::VecVOrd::OWN) && (_contiac->numFTos <= QryWzskUsgList::VecVOrd::GRP)) {
+		if ((_contiac->numFTos >= QryWzskUsgList::VecVOrd::GRP) && (_contiac->numFTos <= QryWzskUsgList::VecVOrd::SRF)) {
 			muteRefresh = true;
 
 			xchg->addIxPreset(VecWzskVPreset::PREWZSKIXORD, jref, _contiac->numFTos);

@@ -2,18 +2,18 @@
 	* \file DbsWzsk.h
 	* C++ wrapper for database DbsWzsk (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
 #ifndef DBSWZSK_H
 #define DBSWZSK_H
 
-#define WZSK_VERSION "1.0.17"
+#define WZSK_VERSION "1.2.6"
 #define WZSK_VERSION_MAJOR 1
-#define WZSK_VERSION_MINOR 0
-#define WZSK_VERSION_SUB 17
+#define WZSK_VERSION_MINOR 2
+#define WZSK_VERSION_SUB 6
 
 #include <sbecore/Types.h>
 
@@ -26,7 +26,6 @@
 
 #include "WzskAccRMUserUniversal.h"
 #include "WzskAMPersonDetail.h"
-#include "WzskAMShotPar.h"
 #include "WzskAMUserAccess.h"
 #include "WzskAMUsergroupAccess.h"
 #include "WzskAVControlPar.h"
@@ -35,36 +34,21 @@
 #include "WzskCFile.h"
 #include "WzskHistRMUserUniversal.h"
 #include "WzskJAVKeylistKey.h"
-#include "WzskJMObjgroupTitle.h"
 #include "WzskJMPersonLastname.h"
 #include "WzskJMUserState.h"
 #include "WzskMFile.h"
-#include "WzskMObject.h"
-#include "WzskMObjgroup.h"
 #include "WzskMPerson.h"
 #include "WzskMSession.h"
-#include "WzskMShot.h"
 #include "WzskMUser.h"
 #include "WzskMUsergroup.h"
 #include "WzskRMUsergroupUniversal.h"
 #include "WzskRMUserMUsergroup.h"
 
 #include "WzskQFilList.h"
-#include "WzskQObj1NShot.h"
-#include "WzskQObjList.h"
-#include "WzskQObjRef1NFile.h"
-#include "WzskQOgr1NObject.h"
-#include "WzskQOgrList.h"
-#include "WzskQOgrSup1NObjgroup.h"
 #include "WzskQPreselect.h"
 #include "WzskQPrsADetail.h"
 #include "WzskQPrsList.h"
 #include "WzskQSelect.h"
-#include "WzskQSes1NShot.h"
-#include "WzskQSesList.h"
-#include "WzskQShtAPar.h"
-#include "WzskQShtList.h"
-#include "WzskQShtRef1NFile.h"
 #include "WzskQUsgAAccess.h"
 #include "WzskQUsgList.h"
 #include "WzskQUsgMNUser.h"
@@ -104,14 +88,11 @@ public:
 		static const Sbecore::uint CRDWZSKUSG = 2;
 		static const Sbecore::uint CRDWZSKUSR = 3;
 		static const Sbecore::uint CRDWZSKPRS = 4;
-		static const Sbecore::uint CRDWZSKSCF = 5;
+		static const Sbecore::uint CRDWZSKPRF = 5;
 		static const Sbecore::uint CRDWZSKLLV = 6;
-		static const Sbecore::uint CRDWZSKLIV = 7;
-		static const Sbecore::uint CRDWZSKOGR = 8;
-		static const Sbecore::uint CRDWZSKOBJ = 9;
-		static const Sbecore::uint CRDWZSKSES = 10;
-		static const Sbecore::uint CRDWZSKSHT = 11;
-		static const Sbecore::uint CRDWZSKFIL = 12;
+		static const Sbecore::uint CRDWZSKVTR = 7;
+		static const Sbecore::uint CRDWZSKHWC = 8;
+		static const Sbecore::uint CRDWZSKFIL = 9;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -159,34 +140,14 @@ public:
 		static const Sbecore::uint PNLWZSKPRSLIST_TCOEML = 30;
 		static const Sbecore::uint PNLWZSKPRSADETAIL_TCOTYP = 31;
 		static const Sbecore::uint PNLWZSKPRSADETAIL_TCOVAL = 32;
-		static const Sbecore::uint PNLWZSKOGRLIST_TCOSRF = 33;
-		static const Sbecore::uint PNLWZSKOGRLIST_TCOTIT = 34;
-		static const Sbecore::uint PNLWZSKOGRLIST_TCOSUP = 35;
-		static const Sbecore::uint PNLWZSKOGR1NOBJECT_TCOREF = 36;
-		static const Sbecore::uint PNLWZSKOGRSUP1NOBJGROUP_TCOREF = 37;
-		static const Sbecore::uint PNLWZSKOBJLIST_TCOTIT = 38;
-		static const Sbecore::uint PNLWZSKOBJLIST_TCOOGR = 39;
-		static const Sbecore::uint PNLWZSKOBJ1NSHOT_TCOREF = 40;
-		static const Sbecore::uint PNLWZSKOBJREF1NFILE_TCOREF = 41;
-		static const Sbecore::uint PNLWZSKSESLIST_TCOUSR = 42;
-		static const Sbecore::uint PNLWZSKSESLIST_TCOSTA = 43;
-		static const Sbecore::uint PNLWZSKSESLIST_TCOSTO = 44;
-		static const Sbecore::uint PNLWZSKSESLIST_TCOIP = 45;
-		static const Sbecore::uint PNLWZSKSES1NSHOT_TCOREF = 46;
-		static const Sbecore::uint PNLWZSKSHTLIST_TCOSES = 47;
-		static const Sbecore::uint PNLWZSKSHTLIST_TCOOBJ = 48;
-		static const Sbecore::uint PNLWZSKSHTLIST_TCOSTA = 49;
-		static const Sbecore::uint PNLWZSKSHTAPAR_TCOKEY = 50;
-		static const Sbecore::uint PNLWZSKSHTAPAR_TCOVAL = 51;
-		static const Sbecore::uint PNLWZSKSHTREF1NFILE_TCOREF = 52;
-		static const Sbecore::uint PNLWZSKFILLIST_TCOGRP = 53;
-		static const Sbecore::uint PNLWZSKFILLIST_TCOOWN = 54;
-		static const Sbecore::uint PNLWZSKFILLIST_TCOFNM = 55;
-		static const Sbecore::uint PNLWZSKFILLIST_TCORET = 56;
-		static const Sbecore::uint PNLWZSKFILLIST_TCOREU = 57;
-		static const Sbecore::uint PNLWZSKFILLIST_TCOCNT = 58;
-		static const Sbecore::uint PNLWZSKFILLIST_TCOMIM = 59;
-		static const Sbecore::uint PNLWZSKFILLIST_TCOSIZ = 60;
+		static const Sbecore::uint PNLWZSKFILLIST_TCOGRP = 33;
+		static const Sbecore::uint PNLWZSKFILLIST_TCOOWN = 34;
+		static const Sbecore::uint PNLWZSKFILLIST_TCOFNM = 35;
+		static const Sbecore::uint PNLWZSKFILLIST_TCORET = 36;
+		static const Sbecore::uint PNLWZSKFILLIST_TCOREU = 37;
+		static const Sbecore::uint PNLWZSKFILLIST_TCOCNT = 38;
+		static const Sbecore::uint PNLWZSKFILLIST_TCOMIM = 39;
+		static const Sbecore::uint PNLWZSKFILLIST_TCOSIZ = 40;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -199,20 +160,16 @@ public:
 
 	public:
 		static const Sbecore::uint VECWZSKVCARD = 1;
-		static const Sbecore::uint VECVJOBWZSKACQPREVIEWVAR = 2;
-		static const Sbecore::uint VECVJOBWZSKACQPTCLOUDMETHOD = 3;
-		static const Sbecore::uint VECVJOBWZSKACQPTCLOUDVAR = 4;
-		static const Sbecore::uint VECVJOBWZSKACTEXPOSUREMETHOD = 5;
-		static const Sbecore::uint VECVJOBWZSKACTEXPOSUREVAR = 6;
-		static const Sbecore::uint VECVJOBWZSKACTLASERMETHOD = 7;
-		static const Sbecore::uint VECVJOBWZSKACTLASERVAR = 8;
-		static const Sbecore::uint VECVJOBWZSKACTSERVOMETHOD = 9;
-		static const Sbecore::uint VECVJOBWZSKACTSERVOVAR = 10;
-		static const Sbecore::uint VECVJOBWZSKIPRCORNERMETHOD = 11;
-		static const Sbecore::uint VECVJOBWZSKIPRCORNERVAR = 12;
-		static const Sbecore::uint VECVJOBWZSKIPRTRACEMETHOD = 13;
-		static const Sbecore::uint VECVJOBWZSKIPRTRACEVAR = 14;
-		static const Sbecore::uint VECVJOBWZSKSRCSYSINFOVAR = 15;
+		static const Sbecore::uint VECVJOBWZSKACQCORNERMETHOD = 2;
+		static const Sbecore::uint VECVJOBWZSKACQCORNERVAR = 3;
+		static const Sbecore::uint VECVJOBWZSKACQTRACEMETHOD = 4;
+		static const Sbecore::uint VECVJOBWZSKACQTRACEVAR = 5;
+		static const Sbecore::uint VECVJOBWZSKACTLASERMETHOD = 6;
+		static const Sbecore::uint VECVJOBWZSKACTLASERVAR = 7;
+		static const Sbecore::uint VECVJOBWZSKACTROTARYMETHOD = 8;
+		static const Sbecore::uint VECVJOBWZSKACTROTARYVAR = 9;
+		static const Sbecore::uint VECVJOBWZSKSRCFPGAINFOVAR = 10;
+		static const Sbecore::uint VECVJOBWZSKSRCSYSINFOVAR = 11;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -229,9 +186,8 @@ public:
 
 	public:
 		static const Sbecore::uint KLSTWZSKKAMPERSONDETAILTYPE = 1;
-		static const Sbecore::uint KLSTWZSKKAMSHOTPARKEY = 2;
-		static const Sbecore::uint KLSTWZSKKMFILECONTENT = 3;
-		static const Sbecore::uint KLSTWZSKKMFILEMIMETYPE = 4;
+		static const Sbecore::uint KLSTWZSKKMFILECONTENT = 2;
+		static const Sbecore::uint KLSTWZSKKMFILEMIMETYPE = 3;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -259,7 +215,6 @@ public:
 
 	public:
 		static const Sbecore::uint ENUS = 1;
-		static const Sbecore::uint DECH = 2;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -290,13 +245,10 @@ public:
 	public:
 		static const Sbecore::uint VOID = 1;
 		static const Sbecore::uint TBLWZSKMFILE = 2;
-		static const Sbecore::uint TBLWZSKMOBJECT = 3;
-		static const Sbecore::uint TBLWZSKMOBJGROUP = 4;
-		static const Sbecore::uint TBLWZSKMPERSON = 5;
-		static const Sbecore::uint TBLWZSKMSESSION = 6;
-		static const Sbecore::uint TBLWZSKMSHOT = 7;
-		static const Sbecore::uint TBLWZSKMUSER = 8;
-		static const Sbecore::uint TBLWZSKMUSERGROUP = 9;
+		static const Sbecore::uint TBLWZSKMPERSON = 3;
+		static const Sbecore::uint TBLWZSKMSESSION = 4;
+		static const Sbecore::uint TBLWZSKMUSER = 5;
+		static const Sbecore::uint TBLWZSKMUSERGROUP = 6;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -339,67 +291,50 @@ public:
 		static const Sbecore::uint PREWZSKGROUP = 8;
 		static const Sbecore::uint PREWZSKIP = 9;
 		static const Sbecore::uint PREWZSKIXCRDACCFIL = 10;
-		static const Sbecore::uint PREWZSKIXCRDACCLIV = 11;
+		static const Sbecore::uint PREWZSKIXCRDACCHWC = 11;
 		static const Sbecore::uint PREWZSKIXCRDACCLLV = 12;
-		static const Sbecore::uint PREWZSKIXCRDACCOBJ = 13;
-		static const Sbecore::uint PREWZSKIXCRDACCOGR = 14;
-		static const Sbecore::uint PREWZSKIXCRDACCPRS = 15;
-		static const Sbecore::uint PREWZSKIXCRDACCSCF = 16;
-		static const Sbecore::uint PREWZSKIXCRDACCSES = 17;
-		static const Sbecore::uint PREWZSKIXCRDACCSHT = 18;
-		static const Sbecore::uint PREWZSKIXCRDACCUSG = 19;
-		static const Sbecore::uint PREWZSKIXCRDACCUSR = 20;
-		static const Sbecore::uint PREWZSKIXLCL = 21;
-		static const Sbecore::uint PREWZSKIXORD = 22;
-		static const Sbecore::uint PREWZSKIXPRE = 23;
-		static const Sbecore::uint PREWZSKIXRECACC = 24;
-		static const Sbecore::uint PREWZSKJREFNOTIFY = 25;
-		static const Sbecore::uint PREWZSKJREFSESS = 26;
-		static const Sbecore::uint PREWZSKNOADM = 27;
-		static const Sbecore::uint PREWZSKOBJLIST_OGR = 28;
-		static const Sbecore::uint PREWZSKOBJLIST_TIT = 29;
-		static const Sbecore::uint PREWZSKOGRLIST_SRF = 30;
-		static const Sbecore::uint PREWZSKOGRLIST_SUP = 31;
-		static const Sbecore::uint PREWZSKOGRLIST_TIT = 32;
-		static const Sbecore::uint PREWZSKOWNER = 33;
-		static const Sbecore::uint PREWZSKPRSADETAIL_X1 = 34;
-		static const Sbecore::uint PREWZSKPRSLIST_GRP = 35;
-		static const Sbecore::uint PREWZSKPRSLIST_LNM = 36;
-		static const Sbecore::uint PREWZSKPRSLIST_OWN = 37;
-		static const Sbecore::uint PREWZSKREFFIL = 38;
-		static const Sbecore::uint PREWZSKREFOBJ = 39;
-		static const Sbecore::uint PREWZSKREFOGR = 40;
-		static const Sbecore::uint PREWZSKREFPRS = 41;
-		static const Sbecore::uint PREWZSKREFSEL = 42;
-		static const Sbecore::uint PREWZSKREFSES = 43;
-		static const Sbecore::uint PREWZSKREFSHT = 44;
-		static const Sbecore::uint PREWZSKREFUSG = 45;
-		static const Sbecore::uint PREWZSKREFUSR = 46;
-		static const Sbecore::uint PREWZSKSESLIST_STA = 47;
-		static const Sbecore::uint PREWZSKSESLIST_USR = 48;
-		static const Sbecore::uint PREWZSKSESS = 49;
-		static const Sbecore::uint PREWZSKSHTAPAR_X1 = 50;
-		static const Sbecore::uint PREWZSKSHTLIST_OBJ = 51;
-		static const Sbecore::uint PREWZSKSHTLIST_SES = 52;
-		static const Sbecore::uint PREWZSKSHTLIST_STA = 53;
-		static const Sbecore::uint PREWZSKSUSPSESS = 54;
-		static const Sbecore::uint PREWZSKSYSDATE = 55;
-		static const Sbecore::uint PREWZSKSYSSTAMP = 56;
-		static const Sbecore::uint PREWZSKSYSTIME = 57;
-		static const Sbecore::uint PREWZSKTLAST = 58;
-		static const Sbecore::uint PREWZSKUSGAACCESS_X1 = 59;
-		static const Sbecore::uint PREWZSKUSGAACCESS_X2 = 60;
-		static const Sbecore::uint PREWZSKUSGLIST_GRP = 61;
-		static const Sbecore::uint PREWZSKUSGLIST_OWN = 62;
-		static const Sbecore::uint PREWZSKUSGLIST_SRF = 63;
-		static const Sbecore::uint PREWZSKUSRAACCESS_X1 = 64;
-		static const Sbecore::uint PREWZSKUSRAACCESS_X2 = 65;
-		static const Sbecore::uint PREWZSKUSRLIST_GRP = 66;
-		static const Sbecore::uint PREWZSKUSRLIST_OWN = 67;
-		static const Sbecore::uint PREWZSKUSRLIST_PRS = 68;
-		static const Sbecore::uint PREWZSKUSRLIST_SRF = 69;
-		static const Sbecore::uint PREWZSKUSRLIST_STE = 70;
-		static const Sbecore::uint PREWZSKUSRLIST_USG = 71;
+		static const Sbecore::uint PREWZSKIXCRDACCPRF = 13;
+		static const Sbecore::uint PREWZSKIXCRDACCPRS = 14;
+		static const Sbecore::uint PREWZSKIXCRDACCUSG = 15;
+		static const Sbecore::uint PREWZSKIXCRDACCUSR = 16;
+		static const Sbecore::uint PREWZSKIXCRDACCVTR = 17;
+		static const Sbecore::uint PREWZSKIXLCL = 18;
+		static const Sbecore::uint PREWZSKIXORD = 19;
+		static const Sbecore::uint PREWZSKIXPRE = 20;
+		static const Sbecore::uint PREWZSKIXRECACC = 21;
+		static const Sbecore::uint PREWZSKJREFNOTIFY = 22;
+		static const Sbecore::uint PREWZSKJREFSESS = 23;
+		static const Sbecore::uint PREWZSKNOADM = 24;
+		static const Sbecore::uint PREWZSKOWNER = 25;
+		static const Sbecore::uint PREWZSKPRSADETAIL_X1 = 26;
+		static const Sbecore::uint PREWZSKPRSLIST_GRP = 27;
+		static const Sbecore::uint PREWZSKPRSLIST_LNM = 28;
+		static const Sbecore::uint PREWZSKPRSLIST_OWN = 29;
+		static const Sbecore::uint PREWZSKREFFIL = 30;
+		static const Sbecore::uint PREWZSKREFPRS = 31;
+		static const Sbecore::uint PREWZSKREFSEL = 32;
+		static const Sbecore::uint PREWZSKREFSES = 33;
+		static const Sbecore::uint PREWZSKREFUSG = 34;
+		static const Sbecore::uint PREWZSKREFUSR = 35;
+		static const Sbecore::uint PREWZSKSESS = 36;
+		static const Sbecore::uint PREWZSKSUSPSESS = 37;
+		static const Sbecore::uint PREWZSKSYSDATE = 38;
+		static const Sbecore::uint PREWZSKSYSSTAMP = 39;
+		static const Sbecore::uint PREWZSKSYSTIME = 40;
+		static const Sbecore::uint PREWZSKTLAST = 41;
+		static const Sbecore::uint PREWZSKUSGAACCESS_X1 = 42;
+		static const Sbecore::uint PREWZSKUSGAACCESS_X2 = 43;
+		static const Sbecore::uint PREWZSKUSGLIST_GRP = 44;
+		static const Sbecore::uint PREWZSKUSGLIST_OWN = 45;
+		static const Sbecore::uint PREWZSKUSGLIST_SRF = 46;
+		static const Sbecore::uint PREWZSKUSRAACCESS_X1 = 47;
+		static const Sbecore::uint PREWZSKUSRAACCESS_X2 = 48;
+		static const Sbecore::uint PREWZSKUSRLIST_GRP = 49;
+		static const Sbecore::uint PREWZSKUSRLIST_OWN = 50;
+		static const Sbecore::uint PREWZSKUSRLIST_PRS = 51;
+		static const Sbecore::uint PREWZSKUSRLIST_SRF = 52;
+		static const Sbecore::uint PREWZSKUSRLIST_STE = 53;
+		static const Sbecore::uint PREWZSKUSRLIST_USG = 54;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -567,7 +502,6 @@ public:
 public:
 	TblWzskAccRMUserUniversal* tblwzskaccrmuseruniversal;
 	TblWzskAMPersonDetail* tblwzskampersondetail;
-	TblWzskAMShotPar* tblwzskamshotpar;
 	TblWzskAMUserAccess* tblwzskamuseraccess;
 	TblWzskAMUsergroupAccess* tblwzskamusergroupaccess;
 	TblWzskAVControlPar* tblwzskavcontrolpar;
@@ -576,36 +510,21 @@ public:
 	TblWzskCFile* tblwzskcfile;
 	TblWzskHistRMUserUniversal* tblwzskhistrmuseruniversal;
 	TblWzskJAVKeylistKey* tblwzskjavkeylistkey;
-	TblWzskJMObjgroupTitle* tblwzskjmobjgrouptitle;
 	TblWzskJMPersonLastname* tblwzskjmpersonlastname;
 	TblWzskJMUserState* tblwzskjmuserstate;
 	TblWzskMFile* tblwzskmfile;
-	TblWzskMObject* tblwzskmobject;
-	TblWzskMObjgroup* tblwzskmobjgroup;
 	TblWzskMPerson* tblwzskmperson;
 	TblWzskMSession* tblwzskmsession;
-	TblWzskMShot* tblwzskmshot;
 	TblWzskMUser* tblwzskmuser;
 	TblWzskMUsergroup* tblwzskmusergroup;
 	TblWzskRMUsergroupUniversal* tblwzskrmusergroupuniversal;
 	TblWzskRMUserMUsergroup* tblwzskrmusermusergroup;
 
 	TblWzskQFilList* tblwzskqfillist;
-	TblWzskQObj1NShot* tblwzskqobj1nshot;
-	TblWzskQObjList* tblwzskqobjlist;
-	TblWzskQObjRef1NFile* tblwzskqobjref1nfile;
-	TblWzskQOgr1NObject* tblwzskqogr1nobject;
-	TblWzskQOgrList* tblwzskqogrlist;
-	TblWzskQOgrSup1NObjgroup* tblwzskqogrsup1nobjgroup;
 	TblWzskQPreselect* tblwzskqpreselect;
 	TblWzskQPrsADetail* tblwzskqprsadetail;
 	TblWzskQPrsList* tblwzskqprslist;
 	TblWzskQSelect* tblwzskqselect;
-	TblWzskQSes1NShot* tblwzskqses1nshot;
-	TblWzskQSesList* tblwzskqseslist;
-	TblWzskQShtAPar* tblwzskqshtapar;
-	TblWzskQShtList* tblwzskqshtlist;
-	TblWzskQShtRef1NFile* tblwzskqshtref1nfile;
 	TblWzskQUsgAAccess* tblwzskqusgaaccess;
 	TblWzskQUsgList* tblwzskqusglist;
 	TblWzskQUsgMNUser* tblwzskqusgmnuser;

@@ -2,8 +2,8 @@
 	* \file WzskAVControlPar.cpp
 	* database access for table TblWzskAVControlPar (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -23,14 +23,14 @@ WzskAVControlPar::WzskAVControlPar(
 			, const uint x2IxWzskVLocale
 			, const string Par
 			, const string Val
-		) {
-
-	this->ref = ref;
-	this->ixWzskVControl = ixWzskVControl;
-	this->x1RefWzskMUser = x1RefWzskMUser;
-	this->x2IxWzskVLocale = x2IxWzskVLocale;
-	this->Par = Par;
-	this->Val = Val;
+		) :
+			ref(ref)
+			, ixWzskVControl(ixWzskVControl)
+			, x1RefWzskMUser(x1RefWzskMUser)
+			, x2IxWzskVLocale(x2IxWzskVLocale)
+			, Par(Par)
+			, Val(Val)
+		{
 };
 
 bool WzskAVControlPar::operator==(

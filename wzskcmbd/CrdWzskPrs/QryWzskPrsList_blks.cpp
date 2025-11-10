@@ -2,8 +2,8 @@
 	* \file QryWzskPrsList_blks.cpp
 	* job handler for job QryWzskPrsList (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -20,9 +20,9 @@ uint QryWzskPrsList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "lnm") return LNM;
-	if (s == "own") return OWN;
 	if (s == "grp") return GRP;
+	if (s == "own") return OWN;
+	if (s == "lnm") return LNM;
 
 	return(0);
 };
@@ -30,9 +30,9 @@ uint QryWzskPrsList::VecVOrd::getIx(
 string QryWzskPrsList::VecVOrd::getSref(
 			const uint ix
 		) {
-	if (ix == LNM) return("lnm");
-	if (ix == OWN) return("own");
 	if (ix == GRP) return("grp");
+	if (ix == OWN) return("own");
+	if (ix == LNM) return("lnm");
 
 	return("");
 };
@@ -61,10 +61,10 @@ void QryWzskPrsList::StatApp::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["firstcol"] = firstcol;
-	me["jnumFirstdisp"] = jnumFirstdisp;
-	me["ncol"] = ncol;
-	me["ndisp"] = ndisp;
+	me["firstcol"] = (Json::Value::UInt) firstcol;
+	me["jnumFirstdisp"] = (Json::Value::UInt) jnumFirstdisp;
+	me["ncol"] = (Json::Value::UInt) ncol;
+	me["ndisp"] = (Json::Value::UInt) ndisp;
 };
 
 void QryWzskPrsList::StatApp::writeXML(
@@ -100,11 +100,10 @@ QryWzskPrsList::StatShr::StatShr(
 			, const uint nload
 		) :
 			Block()
+			, ntot(ntot)
+			, jnumFirstload(jnumFirstload)
+			, nload(nload)
 		{
-	this->ntot = ntot;
-	this->jnumFirstload = jnumFirstload;
-	this->nload = nload;
-
 	mask = {NTOT, JNUMFIRSTLOAD, NLOAD};
 };
 
@@ -116,9 +115,9 @@ void QryWzskPrsList::StatShr::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["ntot"] = ntot;
-	me["jnumFirstload"] = jnumFirstload;
-	me["nload"] = nload;
+	me["ntot"] = (Json::Value::UInt) ntot;
+	me["jnumFirstload"] = (Json::Value::UInt) jnumFirstload;
+	me["nload"] = (Json::Value::UInt) nload;
 };
 
 void QryWzskPrsList::StatShr::writeXML(
@@ -175,10 +174,10 @@ QryWzskPrsList::StgIac::StgIac(
 			, const uint nload
 		) :
 			Block()
+			, jnum(jnum)
+			, jnumFirstload(jnumFirstload)
+			, nload(nload)
 		{
-	this->jnum = jnum;
-	this->jnumFirstload = jnumFirstload;
-	this->nload = nload;
 	mask = {JNUM, JNUMFIRSTLOAD, NLOAD};
 };
 
@@ -236,9 +235,9 @@ void QryWzskPrsList::StgIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["jnum"] = jnum;
-	me["jnumFirstload"] = jnumFirstload;
-	me["nload"] = nload;
+	me["jnum"] = (Json::Value::UInt) jnum;
+	me["jnumFirstload"] = (Json::Value::UInt) jnumFirstload;
+	me["nload"] = (Json::Value::UInt) nload;
 };
 
 void QryWzskPrsList::StgIac::writeXML(

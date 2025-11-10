@@ -1,62 +1,43 @@
 <template>
 	<v-container v-if="initdone">
 		<h1 class="text-5 my-3" style="text-align:center">Low-level access</h1>
-		<PnlWzskLlvTermArty
-			v-if="statshr.pnltermartyAvail"
+		<PnlWzskLlvIdent
 			v-on:request="handleRequest"
-			ref="PnlWzskLlvTermArty"
-			:scrJref=statshr.scrJrefTermArty
+			ref="PnlWzskLlvIdent"
+			:scrJref=statshr.scrJrefIdent
 		/>
-		<PnlWzskLlvTermClnxevb
-			v-if="statshr.pnltermclnxevbAvail"
+		<PnlWzskLlvTermDcvsp
+			v-if="statshr.pnltermdcvspAvail"
 			v-on:request="handleRequest"
-			ref="PnlWzskLlvTermClnxevb"
-			:scrJref=statshr.scrJrefTermClnxevb
+			ref="PnlWzskLlvTermDcvsp"
+			:scrJref=statshr.scrJrefTermDcvsp
 		/>
-		<PnlWzskLlvTermIcicle
-			v-if="statshr.pnltermicicleAvail"
+		<PnlWzskLlvTermTivsp
+			v-if="statshr.pnltermtivspAvail"
 			v-on:request="handleRequest"
-			ref="PnlWzskLlvTermIcicle"
-			:scrJref=statshr.scrJrefTermIcicle
-		/>
-		<PnlWzskLlvTermMcvevp
-			v-if="statshr.pnltermmcvevpAvail"
-			v-on:request="handleRequest"
-			ref="PnlWzskLlvTermMcvevp"
-			:scrJref=statshr.scrJrefTermMcvevp
-		/>
-		<PnlWzskLlvTermUvbdvk
-			v-if="statshr.pnltermuvbdvkAvail"
-			v-on:request="handleRequest"
-			ref="PnlWzskLlvTermUvbdvk"
-			:scrJref=statshr.scrJrefTermUvbdvk
-		/>
-		<PnlWzskLlvCamera
-			v-on:request="handleRequest"
-			ref="PnlWzskLlvCamera"
-			:scrJref=statshr.scrJrefCamera
-		/>
-		<PnlWzskLlvTtable
-			v-on:request="handleRequest"
-			ref="PnlWzskLlvTtable"
-			:scrJref=statshr.scrJrefTtable
+			ref="PnlWzskLlvTermTivsp"
+			:scrJref=statshr.scrJrefTermTivsp
 		/>
 		<PnlWzskLlvLaser
 			v-on:request="handleRequest"
 			ref="PnlWzskLlvLaser"
 			:scrJref=statshr.scrJrefLaser
 		/>
-		<PnlWzskLlvTermPwmonuart
-			v-if="statshr.pnltermpwmonuartAvail"
+		<PnlWzskLlvRotary
 			v-on:request="handleRequest"
-			ref="PnlWzskLlvTermPwmonuart"
-			:scrJref=statshr.scrJrefTermPwmonuart
+			ref="PnlWzskLlvRotary"
+			:scrJref=statshr.scrJrefRotary
 		/>
-		<PnlWzskLlvTermPwmonusb
-			v-if="statshr.pnltermpwmonusbAvail"
+		<PnlWzskLlvSysmon
 			v-on:request="handleRequest"
-			ref="PnlWzskLlvTermPwmonusb"
-			:scrJref=statshr.scrJrefTermPwmonusb
+			ref="PnlWzskLlvSysmon"
+			:scrJref=statshr.scrJrefSysmon
+		/>
+		<PnlWzskLlvTermZuvsp
+			v-if="statshr.pnltermzuvspAvail"
+			v-on:request="handleRequest"
+			ref="PnlWzskLlvTermZuvsp"
+			:scrJref=statshr.scrJrefTermZuvsp
 		/>
 	</v-container>
 </template>
@@ -66,16 +47,13 @@
 
 	/*
 	*/
-	import PnlWzskLlvTermArty from './PnlWzskLlvTermArty';
-	import PnlWzskLlvTermClnxevb from './PnlWzskLlvTermClnxevb';
-	import PnlWzskLlvTermIcicle from './PnlWzskLlvTermIcicle';
-	import PnlWzskLlvTermMcvevp from './PnlWzskLlvTermMcvevp';
-	import PnlWzskLlvTermUvbdvk from './PnlWzskLlvTermUvbdvk';
-	import PnlWzskLlvCamera from './PnlWzskLlvCamera';
-	import PnlWzskLlvTtable from './PnlWzskLlvTtable';
+	import PnlWzskLlvIdent from './PnlWzskLlvIdent';
+	import PnlWzskLlvTermDcvsp from './PnlWzskLlvTermDcvsp';
+	import PnlWzskLlvTermTivsp from './PnlWzskLlvTermTivsp';
 	import PnlWzskLlvLaser from './PnlWzskLlvLaser';
-	import PnlWzskLlvTermPwmonuart from './PnlWzskLlvTermPwmonuart';
-	import PnlWzskLlvTermPwmonusb from './PnlWzskLlvTermPwmonusb';
+	import PnlWzskLlvRotary from './PnlWzskLlvRotary';
+	import PnlWzskLlvSysmon from './PnlWzskLlvSysmon';
+	import PnlWzskLlvTermZuvsp from './PnlWzskLlvTermZuvsp';
 	/*
 	*/
 
@@ -93,16 +71,13 @@
 		components: {
 			/*
 			*/
-			PnlWzskLlvTermArty,
-			PnlWzskLlvTermClnxevb,
-			PnlWzskLlvTermIcicle,
-			PnlWzskLlvTermMcvevp,
-			PnlWzskLlvTermUvbdvk,
-			PnlWzskLlvCamera,
-			PnlWzskLlvTtable,
+			PnlWzskLlvIdent,
+			PnlWzskLlvTermDcvsp,
+			PnlWzskLlvTermTivsp,
 			PnlWzskLlvLaser,
-			PnlWzskLlvTermPwmonuart,
-			PnlWzskLlvTermPwmonusb
+			PnlWzskLlvRotary,
+			PnlWzskLlvSysmon,
+			PnlWzskLlvTermZuvsp
 			/*
 			*/
 		},
@@ -154,16 +129,13 @@
 				} else if (this.initdone) {
 					/*
 					*/
-					if (obj.scrJref == this.statshr.scrJrefTermArty) this.$refs.PnlWzskLlvTermArty.handleReply(obj);
-					else if (obj.scrJref == this.statshr.scrJrefTermClnxevb) this.$refs.PnlWzskLlvTermClnxevb.handleReply(obj);
-					else if (obj.scrJref == this.statshr.scrJrefTermIcicle) this.$refs.PnlWzskLlvTermIcicle.handleReply(obj);
-					else if (obj.scrJref == this.statshr.scrJrefTermMcvevp) this.$refs.PnlWzskLlvTermMcvevp.handleReply(obj);
-					else if (obj.scrJref == this.statshr.scrJrefTermUvbdvk) this.$refs.PnlWzskLlvTermUvbdvk.handleReply(obj);
-					else if (obj.scrJref == this.statshr.scrJrefCamera) this.$refs.PnlWzskLlvCamera.handleReply(obj);
-					else if (obj.scrJref == this.statshr.scrJrefTtable) this.$refs.PnlWzskLlvTtable.handleReply(obj);
+					if (obj.scrJref == this.statshr.scrJrefIdent) this.$refs.PnlWzskLlvIdent.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefTermDcvsp) this.$refs.PnlWzskLlvTermDcvsp.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefTermTivsp) this.$refs.PnlWzskLlvTermTivsp.handleReply(obj);
 					else if (obj.scrJref == this.statshr.scrJrefLaser) this.$refs.PnlWzskLlvLaser.handleReply(obj);
-					else if (obj.scrJref == this.statshr.scrJrefTermPwmonuart) this.$refs.PnlWzskLlvTermPwmonuart.handleReply(obj);
-					else if (obj.scrJref == this.statshr.scrJrefTermPwmonusb) this.$refs.PnlWzskLlvTermPwmonusb.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefRotary) this.$refs.PnlWzskLlvRotary.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefSysmon) this.$refs.PnlWzskLlvSysmon.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefTermZuvsp) this.$refs.PnlWzskLlvTermZuvsp.handleReply(obj);
 					else console.log("got a '" + obj.srefIxWzskVDpch + "' from job with scrJref " + obj.dpcheng.scrJref);
 					/*
 					*/
@@ -186,35 +158,26 @@
 				} else if (this.initdone) {
 					/*
 					*/
-					if (obj.dpcheng.scrJref == this.statshr.scrJrefTermArty) {
-						this.$refs.PnlWzskLlvTermArty.handleUpdate(obj);
+					if (obj.dpcheng.scrJref == this.statshr.scrJrefIdent) {
+						this.$refs.PnlWzskLlvIdent.handleUpdate(obj);
 						processed = true;
-					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermClnxevb) {
-						this.$refs.PnlWzskLlvTermClnxevb.handleUpdate(obj);
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermDcvsp) {
+						this.$refs.PnlWzskLlvTermDcvsp.handleUpdate(obj);
 						processed = true;
-					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermIcicle) {
-						this.$refs.PnlWzskLlvTermIcicle.handleUpdate(obj);
-						processed = true;
-					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermMcvevp) {
-						this.$refs.PnlWzskLlvTermMcvevp.handleUpdate(obj);
-						processed = true;
-					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermUvbdvk) {
-						this.$refs.PnlWzskLlvTermUvbdvk.handleUpdate(obj);
-						processed = true;
-					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefCamera) {
-						this.$refs.PnlWzskLlvCamera.handleUpdate(obj);
-						processed = true;
-					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTtable) {
-						this.$refs.PnlWzskLlvTtable.handleUpdate(obj);
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermTivsp) {
+						this.$refs.PnlWzskLlvTermTivsp.handleUpdate(obj);
 						processed = true;
 					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefLaser) {
 						this.$refs.PnlWzskLlvLaser.handleUpdate(obj);
 						processed = true;
-					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermPwmonuart) {
-						this.$refs.PnlWzskLlvTermPwmonuart.handleUpdate(obj);
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefRotary) {
+						this.$refs.PnlWzskLlvRotary.handleUpdate(obj);
 						processed = true;
-					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermPwmonusb) {
-						this.$refs.PnlWzskLlvTermPwmonusb.handleUpdate(obj);
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefSysmon) {
+						this.$refs.PnlWzskLlvSysmon.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefTermZuvsp) {
+						this.$refs.PnlWzskLlvTermZuvsp.handleUpdate(obj);
 						processed = true;
 					}
 					/*

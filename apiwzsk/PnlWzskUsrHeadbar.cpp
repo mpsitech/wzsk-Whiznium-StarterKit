@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrHeadbar.cpp
 	* API code for job PnlWzskUsrHeadbar (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -24,12 +24,11 @@ PnlWzskUsrHeadbar::StgInf::StgInf(
 			, const uint MenCrdWidth
 		) :
 			Block()
+			, MenAppCptwidth(MenAppCptwidth)
+			, MenAppWidth(MenAppWidth)
+			, MenCrdCptwidth(MenCrdCptwidth)
+			, MenCrdWidth(MenCrdWidth)
 		{
-	this->MenAppCptwidth = MenAppCptwidth;
-	this->MenAppWidth = MenAppWidth;
-	this->MenCrdCptwidth = MenCrdCptwidth;
-	this->MenCrdWidth = MenCrdWidth;
-
 	mask = {MENAPPCPTWIDTH, MENAPPWIDTH, MENCRDCPTWIDTH, MENCRDWIDTH};
 };
 
@@ -95,10 +94,9 @@ PnlWzskUsrHeadbar::Tag::Tag(
 			, const string& MenCrd
 		) :
 			Block()
+			, MenApp(MenApp)
+			, MenCrd(MenCrd)
 		{
-	this->MenApp = MenApp;
-	this->MenCrd = MenCrd;
-
 	mask = {MENAPP, MENCRD};
 };
 

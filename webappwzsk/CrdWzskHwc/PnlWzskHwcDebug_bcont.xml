@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<head>
+		<title>Debug_bcont</title>
+		<script>
+			function handleTxfTfrKey(evt) {return parent.parent.window.handleTxfKey(document,"TxfTfr","",evt);};
+			function handleTxfTfrChange() {parent.parent.window.handleTxfChange(document,"TxfTfr","");};
+			function handleButTsrClick() {parent.parent.window.handleButClick("ButTsr");};
+			function handleButTspClick() {parent.parent.window.handleButClick("ButTsp");};
+			function handleButTtfViewClick() {parent.parent.window.handleButCrdopenClick("ButTtfView");};
+			<!-- IP custScript - INSERT -->
+		</script>
+		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
+		<!-- IP custStyle - INSERT -->
+	</head>
+	<body marginwidth="0" marginheight="0">
+		<table cellspacing="0" border="0" cellpadding="0"><form action="">
+			<colgroup>
+				<col width="5"/>
+				<col width="215"/>
+				<col width="5"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="68"/>
+				<col width="2"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="1"/>
+				<col width="114"/>
+			</colgroup>
+			<tbody id="tbl">
+				<tr><td colspan="11" height="5"></td></tr>
+				<tr id="trTrk" class="show">
+					<td height="25"></td>
+					<td colspan="2"></td>
+					<td colspan="8" align="left">
+						<span id="HdgTrk" class="cpt">HdgTrk</span>&#160;&#160;
+					</td>
+				</tr>
+				<tr id="trTfr" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptTfr" class="cpt">CptTfr</span>
+					</td>
+					<td></td>
+					<td colspan="5" align="left">
+						<input id="TxfTfr" class="txf" type="text" value="TxfTfr" onchange="handleTxfTfrChange()" onkeypress="return handleTxfTfrKey(event)"/>
+					</td>
+					<td></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr id="trTst" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptTst" class="cpt">CptTst</span>
+					</td>
+					<td></td>
+					<td colspan="5" align="left">
+						<input id="TxtTst" class="txfnoed" type="text" readonly="readonly" value="TxtTst"/>
+					</td>
+					<td></td>
+					<td colspan="2"></td>
+				</tr>
+				<tr id="trTsrtsp" class="show">
+					<td height="25"></td>
+					<td colspan="2"></td>
+					<td colspan="8" align="left">
+						<span id="ButTsr" class="but" onclick="handleButTsrClick()">ButTsr</span>
+						&#160;&#160;<span id="ButTsp" class="but" onclick="handleButTspClick()">ButTsp</span>
+					</td>
+				</tr>
+				<tr id="trTtf" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptTtf" class="cpt">CptTtf</span>
+					</td>
+					<td></td>
+					<td colspan="5" align="left">
+						<input id="TxtTtf" class="txfnoed" type="text" readonly="readonly" value="TxtTtf"/>
+					</td>
+					<td></td>
+					<td colspan="2" align="left">
+						<img id="ButTtfView" class="but" src="../icon/view.png" width="16" height="16" alt="ButTtfView" onmouseover="src='../icon/view_hlt.png'" onmouseout="src='../icon/view.png'" onclick="handleButTtfViewClick()"/>
+					</td>
+				</tr>
+				<tr><td colspan="11" height="4"></td></tr>
+			</tbody>
+		</form></table>
+	</body>
+</html>

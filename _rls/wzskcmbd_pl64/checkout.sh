@@ -3,7 +3,7 @@
 # checkout script for Wzsk combined daemon, release wzskcmbd_pl64 (ubuntu cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 12 Sep 2022
+# date created: 12 Oct 2025
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then
@@ -22,13 +22,10 @@ mkdir $BUILDROOT/wzskcmbd/CrdWzskNav
 mkdir $BUILDROOT/wzskcmbd/CrdWzskUsg
 mkdir $BUILDROOT/wzskcmbd/CrdWzskUsr
 mkdir $BUILDROOT/wzskcmbd/CrdWzskPrs
-mkdir $BUILDROOT/wzskcmbd/CrdWzskScf
+mkdir $BUILDROOT/wzskcmbd/CrdWzskPrf
 mkdir $BUILDROOT/wzskcmbd/CrdWzskLlv
-mkdir $BUILDROOT/wzskcmbd/CrdWzskLiv
-mkdir $BUILDROOT/wzskcmbd/CrdWzskOgr
-mkdir $BUILDROOT/wzskcmbd/CrdWzskObj
-mkdir $BUILDROOT/wzskcmbd/CrdWzskSes
-mkdir $BUILDROOT/wzskcmbd/CrdWzskSht
+mkdir $BUILDROOT/wzskcmbd/CrdWzskVtr
+mkdir $BUILDROOT/wzskcmbd/CrdWzskHwc
 mkdir $BUILDROOT/wzskcmbd/CrdWzskFil
 
 mkdir $LIBROOT/wzskcmbd
@@ -104,40 +101,25 @@ cp Makefile_CrdWzskPrs $BUILDROOT/wzskcmbd/CrdWzskPrs/Makefile
 cp ../../wzskcmbd/CrdWzskPrs/*.h $BUILDROOT/wzskcmbd/CrdWzskPrs/
 cp ../../wzskcmbd/CrdWzskPrs/*.cpp $BUILDROOT/wzskcmbd/CrdWzskPrs/
 
-cp Makefile_CrdWzskScf $BUILDROOT/wzskcmbd/CrdWzskScf/Makefile
+cp Makefile_CrdWzskPrf $BUILDROOT/wzskcmbd/CrdWzskPrf/Makefile
 
-cp ../../wzskcmbd/CrdWzskScf/*.h $BUILDROOT/wzskcmbd/CrdWzskScf/
-cp ../../wzskcmbd/CrdWzskScf/*.cpp $BUILDROOT/wzskcmbd/CrdWzskScf/
+cp ../../wzskcmbd/CrdWzskPrf/*.h $BUILDROOT/wzskcmbd/CrdWzskPrf/
+cp ../../wzskcmbd/CrdWzskPrf/*.cpp $BUILDROOT/wzskcmbd/CrdWzskPrf/
 
 cp Makefile_CrdWzskLlv $BUILDROOT/wzskcmbd/CrdWzskLlv/Makefile
 
 cp ../../wzskcmbd/CrdWzskLlv/*.h $BUILDROOT/wzskcmbd/CrdWzskLlv/
 cp ../../wzskcmbd/CrdWzskLlv/*.cpp $BUILDROOT/wzskcmbd/CrdWzskLlv/
 
-cp Makefile_CrdWzskLiv $BUILDROOT/wzskcmbd/CrdWzskLiv/Makefile
+cp Makefile_CrdWzskVtr $BUILDROOT/wzskcmbd/CrdWzskVtr/Makefile
 
-cp ../../wzskcmbd/CrdWzskLiv/*.h $BUILDROOT/wzskcmbd/CrdWzskLiv/
-cp ../../wzskcmbd/CrdWzskLiv/*.cpp $BUILDROOT/wzskcmbd/CrdWzskLiv/
+cp ../../wzskcmbd/CrdWzskVtr/*.h $BUILDROOT/wzskcmbd/CrdWzskVtr/
+cp ../../wzskcmbd/CrdWzskVtr/*.cpp $BUILDROOT/wzskcmbd/CrdWzskVtr/
 
-cp Makefile_CrdWzskOgr $BUILDROOT/wzskcmbd/CrdWzskOgr/Makefile
+cp Makefile_CrdWzskHwc $BUILDROOT/wzskcmbd/CrdWzskHwc/Makefile
 
-cp ../../wzskcmbd/CrdWzskOgr/*.h $BUILDROOT/wzskcmbd/CrdWzskOgr/
-cp ../../wzskcmbd/CrdWzskOgr/*.cpp $BUILDROOT/wzskcmbd/CrdWzskOgr/
-
-cp Makefile_CrdWzskObj $BUILDROOT/wzskcmbd/CrdWzskObj/Makefile
-
-cp ../../wzskcmbd/CrdWzskObj/*.h $BUILDROOT/wzskcmbd/CrdWzskObj/
-cp ../../wzskcmbd/CrdWzskObj/*.cpp $BUILDROOT/wzskcmbd/CrdWzskObj/
-
-cp Makefile_CrdWzskSes $BUILDROOT/wzskcmbd/CrdWzskSes/Makefile
-
-cp ../../wzskcmbd/CrdWzskSes/*.h $BUILDROOT/wzskcmbd/CrdWzskSes/
-cp ../../wzskcmbd/CrdWzskSes/*.cpp $BUILDROOT/wzskcmbd/CrdWzskSes/
-
-cp Makefile_CrdWzskSht $BUILDROOT/wzskcmbd/CrdWzskSht/Makefile
-
-cp ../../wzskcmbd/CrdWzskSht/*.h $BUILDROOT/wzskcmbd/CrdWzskSht/
-cp ../../wzskcmbd/CrdWzskSht/*.cpp $BUILDROOT/wzskcmbd/CrdWzskSht/
+cp ../../wzskcmbd/CrdWzskHwc/*.h $BUILDROOT/wzskcmbd/CrdWzskHwc/
+cp ../../wzskcmbd/CrdWzskHwc/*.cpp $BUILDROOT/wzskcmbd/CrdWzskHwc/
 
 cp Makefile_CrdWzskFil $BUILDROOT/wzskcmbd/CrdWzskFil/Makefile
 

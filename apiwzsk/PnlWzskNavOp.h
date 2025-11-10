@@ -2,8 +2,8 @@
 	* \file PnlWzskNavOp.h
 	* API code for job PnlWzskNavOp (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -14,10 +14,12 @@
 
 #define VecVWzskNavOpDo PnlWzskNavOp::VecVDo
 
+#define ContIacWzskNavOp PnlWzskNavOp::ContIac
 #define StatAppWzskNavOp PnlWzskNavOp::StatApp
 #define StatShrWzskNavOp PnlWzskNavOp::StatShr
 #define TagWzskNavOp PnlWzskNavOp::Tag
 
+#define DpchAppWzskNavOpData PnlWzskNavOp::DpchAppData
 #define DpchAppWzskNavOpDo PnlWzskNavOp::DpchAppDo
 #define DpchEngWzskNavOpData PnlWzskNavOp::DpchEngData
 
@@ -32,10 +34,34 @@ namespace PnlWzskNavOp {
 
 	public:
 		static const Sbecore::uint BUTLLVNEWCRDCLICK = 1;
-		static const Sbecore::uint BUTLIVNEWCRDCLICK = 2;
+		static const Sbecore::uint BUTVTRNEWCRDCLICK = 2;
+		static const Sbecore::uint BUTHWCNEWCRDCLICK = 3;
+		static const Sbecore::uint BUTFILVIEWCLICK = 4;
+		static const Sbecore::uint BUTFILNEWCRDCLICK = 5;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
+	};
+
+	/**
+	  * ContIac (full: ContIacWzskNavOp)
+	  */
+	class ContIac : public Sbecore::Block {
+
+	public:
+		static const Sbecore::uint NUMFLSTFIL = 1;
+
+	public:
+		ContIac(const Sbecore::uint numFLstFil = 1);
+
+	public:
+		Sbecore::uint numFLstFil;
+
+	public:
+		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
+		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
+		std::set<Sbecore::uint> comm(const ContIac* comp);
+		std::set<Sbecore::uint> diff(const ContIac* comp);
 	};
 
 	/**
@@ -45,12 +71,16 @@ namespace PnlWzskNavOp {
 
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
+		static const Sbecore::uint LSTFILALT = 2;
+		static const Sbecore::uint LSTFILNUMFIRSTDISP = 3;
 
 	public:
-		StatApp(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND);
+		StatApp(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool LstFilAlt = true, const Sbecore::uint LstFilNumFirstdisp = 1);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
+		bool LstFilAlt;
+		Sbecore::uint LstFilNumFirstdisp;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -65,14 +95,20 @@ namespace PnlWzskNavOp {
 
 	public:
 		static const Sbecore::uint BUTLLVNEWCRDAVAIL = 1;
-		static const Sbecore::uint BUTLIVNEWCRDAVAIL = 2;
+		static const Sbecore::uint BUTVTRNEWCRDAVAIL = 2;
+		static const Sbecore::uint BUTHWCNEWCRDAVAIL = 3;
+		static const Sbecore::uint LSTFILAVAIL = 4;
+		static const Sbecore::uint BUTFILVIEWACTIVE = 5;
 
 	public:
-		StatShr(const bool ButLlvNewcrdAvail = true, const bool ButLivNewcrdAvail = true);
+		StatShr(const bool ButLlvNewcrdAvail = true, const bool ButVtrNewcrdAvail = true, const bool ButHwcNewcrdAvail = true, const bool LstFilAvail = true, const bool ButFilViewActive = true);
 
 	public:
 		bool ButLlvNewcrdAvail;
-		bool ButLivNewcrdAvail;
+		bool ButVtrNewcrdAvail;
+		bool ButHwcNewcrdAvail;
+		bool LstFilAvail;
+		bool ButFilViewActive;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -88,18 +124,44 @@ namespace PnlWzskNavOp {
 	public:
 		static const Sbecore::uint CPT = 1;
 		static const Sbecore::uint CPTLLV = 2;
-		static const Sbecore::uint CPTLIV = 3;
+		static const Sbecore::uint CPTVTR = 3;
+		static const Sbecore::uint CPTHWC = 4;
+		static const Sbecore::uint CPTFIL = 5;
 
 	public:
-		Tag(const std::string& Cpt = "", const std::string& CptLlv = "", const std::string& CptLiv = "");
+		Tag(const std::string& Cpt = "", const std::string& CptLlv = "", const std::string& CptVtr = "", const std::string& CptHwc = "", const std::string& CptFil = "");
 
 	public:
 		std::string Cpt;
 		std::string CptLlv;
-		std::string CptLiv;
+		std::string CptVtr;
+		std::string CptHwc;
+		std::string CptFil;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
+	};
+
+	/**
+		* DpchAppData (full: DpchAppWzskNavOpData)
+		*/
+	class DpchAppData : public DpchAppWzsk {
+
+	public:
+		static const Sbecore::uint SCRJREF = 1;
+		static const Sbecore::uint CONTIAC = 2;
+		static const Sbecore::uint ALL = 3;
+
+	public:
+		DpchAppData(const std::string& scrJref = "", ContIac* contiac = NULL, const std::set<Sbecore::uint>& mask = {NONE});
+
+	public:
+		ContIac contiac;
+
+	public:
+		std::string getSrefsMask();
+
+		void writeXML(xmlTextWriter* wr);
 	};
 
 	/**
@@ -131,14 +193,18 @@ namespace PnlWzskNavOp {
 
 	public:
 		static const Sbecore::uint SCRJREF = 1;
-		static const Sbecore::uint STATAPP = 2;
-		static const Sbecore::uint STATSHR = 3;
-		static const Sbecore::uint TAG = 4;
+		static const Sbecore::uint CONTIAC = 2;
+		static const Sbecore::uint FEEDFLSTFIL = 3;
+		static const Sbecore::uint STATAPP = 4;
+		static const Sbecore::uint STATSHR = 5;
+		static const Sbecore::uint TAG = 6;
 
 	public:
 		DpchEngData();
 
 	public:
+		ContIac contiac;
+		Sbecore::Feed feedFLstFil;
 		StatApp statapp;
 		StatShr statshr;
 		Tag tag;

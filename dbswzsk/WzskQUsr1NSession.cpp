@@ -2,8 +2,8 @@
 	* \file WzskQUsr1NSession.cpp
 	* Dbs and XML wrapper for table TblWzskQUsr1NSession (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -23,12 +23,13 @@ WzskQUsr1NSession::WzskQUsr1NSession(
 			, const uint jnum
 			, const ubigint ref
 			, const string stubRef
-		) {
-	this->qref = qref;
-	this->jref = jref;
-	this->jnum = jnum;
-	this->ref = ref;
-	this->stubRef = stubRef;
+		) :
+			qref(qref)
+			, jref(jref)
+			, jnum(jnum)
+			, ref(ref)
+			, stubRef(stubRef)
+		{
 };
 
 void WzskQUsr1NSession::writeJSON(

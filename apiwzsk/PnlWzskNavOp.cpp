@@ -2,8 +2,8 @@
 	* \file PnlWzskNavOp.cpp
 	* API code for job PnlWzskNavOp (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -23,7 +23,10 @@ uint PnlWzskNavOp::VecVDo::getIx(
 	string s = StrMod::lc(sref);
 
 	if (s == "butllvnewcrdclick") return BUTLLVNEWCRDCLICK;
-	if (s == "butlivnewcrdclick") return BUTLIVNEWCRDCLICK;
+	if (s == "butvtrnewcrdclick") return BUTVTRNEWCRDCLICK;
+	if (s == "buthwcnewcrdclick") return BUTHWCNEWCRDCLICK;
+	if (s == "butfilviewclick") return BUTFILVIEWCLICK;
+	if (s == "butfilnewcrdclick") return BUTFILNEWCRDCLICK;
 
 	return(0);
 };
@@ -32,9 +35,88 @@ string PnlWzskNavOp::VecVDo::getSref(
 			const uint ix
 		) {
 	if (ix == BUTLLVNEWCRDCLICK) return("ButLlvNewcrdClick");
-	if (ix == BUTLIVNEWCRDCLICK) return("ButLivNewcrdClick");
+	if (ix == BUTVTRNEWCRDCLICK) return("ButVtrNewcrdClick");
+	if (ix == BUTHWCNEWCRDCLICK) return("ButHwcNewcrdClick");
+	if (ix == BUTFILVIEWCLICK) return("ButFilViewClick");
+	if (ix == BUTFILNEWCRDCLICK) return("ButFilNewcrdClick");
 
 	return("");
+};
+
+/******************************************************************************
+ class PnlWzskNavOp::ContIac
+ ******************************************************************************/
+
+PnlWzskNavOp::ContIac::ContIac(
+			const uint numFLstFil
+		) :
+			Block()
+			, numFLstFil(numFLstFil)
+		{
+	mask = {NUMFLSTFIL};
+};
+
+bool PnlWzskNavOp::ContIac::readXML(
+			xmlXPathContext* docctx
+			, string basexpath
+			, bool addbasetag
+		) {
+	clear();
+
+	bool basefound;
+
+	if (addbasetag)
+		basefound = checkUclcXPaths(docctx, basexpath, basexpath, "ContIacWzskNavOp");
+	else
+		basefound = checkXPath(docctx, basexpath);
+
+	string itemtag = "ContitemIacWzskNavOp";
+
+	if (basefound) {
+		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "numFLstFil", numFLstFil)) add(NUMFLSTFIL);
+	};
+
+	return basefound;
+};
+
+void PnlWzskNavOp::ContIac::writeXML(
+			xmlTextWriter* wr
+			, string difftag
+			, bool shorttags
+		) {
+	if (difftag.length() == 0) difftag = "ContIacWzskNavOp";
+
+	string itemtag;
+	if (shorttags) itemtag = "Ci";
+	else itemtag = "ContitemIacWzskNavOp";
+
+	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
+		writeUintAttr(wr, itemtag, "sref", "numFLstFil", numFLstFil);
+	xmlTextWriterEndElement(wr);
+};
+
+set<uint> PnlWzskNavOp::ContIac::comm(
+			const ContIac* comp
+		) {
+	set<uint> items;
+
+	if (numFLstFil == comp->numFLstFil) insert(items, NUMFLSTFIL);
+
+	return(items);
+};
+
+set<uint> PnlWzskNavOp::ContIac::diff(
+			const ContIac* comp
+		) {
+	set<uint> commitems;
+	set<uint> diffitems;
+
+	commitems = comm(comp);
+
+	diffitems = {NUMFLSTFIL};
+	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
+
+	return(diffitems);
 };
 
 /******************************************************************************
@@ -43,12 +125,15 @@ string PnlWzskNavOp::VecVDo::getSref(
 
 PnlWzskNavOp::StatApp::StatApp(
 			const uint ixWzskVExpstate
+			, const bool LstFilAlt
+			, const uint LstFilNumFirstdisp
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, LstFilAlt(LstFilAlt)
+			, LstFilNumFirstdisp(LstFilNumFirstdisp)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-
-	mask = {IXWZSKVEXPSTATE};
+	mask = {IXWZSKVEXPSTATE, LSTFILALT, LSTFILNUMFIRSTDISP};
 };
 
 bool PnlWzskNavOp::StatApp::readXML(
@@ -74,6 +159,8 @@ bool PnlWzskNavOp::StatApp::readXML(
 			ixWzskVExpstate = VecWzskVExpstate::getIx(srefIxWzskVExpstate);
 			add(IXWZSKVEXPSTATE);
 		};
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "LstFilAlt", LstFilAlt)) add(LSTFILALT);
+		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "LstFilNumFirstdisp", LstFilNumFirstdisp)) add(LSTFILNUMFIRSTDISP);
 	};
 
 	return basefound;
@@ -85,6 +172,8 @@ set<uint> PnlWzskNavOp::StatApp::comm(
 	set<uint> items;
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
+	if (LstFilAlt == comp->LstFilAlt) insert(items, LSTFILALT);
+	if (LstFilNumFirstdisp == comp->LstFilNumFirstdisp) insert(items, LSTFILNUMFIRSTDISP);
 
 	return(items);
 };
@@ -97,7 +186,7 @@ set<uint> PnlWzskNavOp::StatApp::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE};
+	diffitems = {IXWZSKVEXPSTATE, LSTFILALT, LSTFILNUMFIRSTDISP};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -109,14 +198,19 @@ set<uint> PnlWzskNavOp::StatApp::diff(
 
 PnlWzskNavOp::StatShr::StatShr(
 			const bool ButLlvNewcrdAvail
-			, const bool ButLivNewcrdAvail
+			, const bool ButVtrNewcrdAvail
+			, const bool ButHwcNewcrdAvail
+			, const bool LstFilAvail
+			, const bool ButFilViewActive
 		) :
 			Block()
+			, ButLlvNewcrdAvail(ButLlvNewcrdAvail)
+			, ButVtrNewcrdAvail(ButVtrNewcrdAvail)
+			, ButHwcNewcrdAvail(ButHwcNewcrdAvail)
+			, LstFilAvail(LstFilAvail)
+			, ButFilViewActive(ButFilViewActive)
 		{
-	this->ButLlvNewcrdAvail = ButLlvNewcrdAvail;
-	this->ButLivNewcrdAvail = ButLivNewcrdAvail;
-
-	mask = {BUTLLVNEWCRDAVAIL, BUTLIVNEWCRDAVAIL};
+	mask = {BUTLLVNEWCRDAVAIL, BUTVTRNEWCRDAVAIL, BUTHWCNEWCRDAVAIL, LSTFILAVAIL, BUTFILVIEWACTIVE};
 };
 
 bool PnlWzskNavOp::StatShr::readXML(
@@ -137,7 +231,10 @@ bool PnlWzskNavOp::StatShr::readXML(
 
 	if (basefound) {
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButLlvNewcrdAvail", ButLlvNewcrdAvail)) add(BUTLLVNEWCRDAVAIL);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButLivNewcrdAvail", ButLivNewcrdAvail)) add(BUTLIVNEWCRDAVAIL);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButVtrNewcrdAvail", ButVtrNewcrdAvail)) add(BUTVTRNEWCRDAVAIL);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButHwcNewcrdAvail", ButHwcNewcrdAvail)) add(BUTHWCNEWCRDAVAIL);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "LstFilAvail", LstFilAvail)) add(LSTFILAVAIL);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButFilViewActive", ButFilViewActive)) add(BUTFILVIEWACTIVE);
 	};
 
 	return basefound;
@@ -149,7 +246,10 @@ set<uint> PnlWzskNavOp::StatShr::comm(
 	set<uint> items;
 
 	if (ButLlvNewcrdAvail == comp->ButLlvNewcrdAvail) insert(items, BUTLLVNEWCRDAVAIL);
-	if (ButLivNewcrdAvail == comp->ButLivNewcrdAvail) insert(items, BUTLIVNEWCRDAVAIL);
+	if (ButVtrNewcrdAvail == comp->ButVtrNewcrdAvail) insert(items, BUTVTRNEWCRDAVAIL);
+	if (ButHwcNewcrdAvail == comp->ButHwcNewcrdAvail) insert(items, BUTHWCNEWCRDAVAIL);
+	if (LstFilAvail == comp->LstFilAvail) insert(items, LSTFILAVAIL);
+	if (ButFilViewActive == comp->ButFilViewActive) insert(items, BUTFILVIEWACTIVE);
 
 	return(items);
 };
@@ -162,7 +262,7 @@ set<uint> PnlWzskNavOp::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {BUTLLVNEWCRDAVAIL, BUTLIVNEWCRDAVAIL};
+	diffitems = {BUTLLVNEWCRDAVAIL, BUTVTRNEWCRDAVAIL, BUTHWCNEWCRDAVAIL, LSTFILAVAIL, BUTFILVIEWACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -175,15 +275,18 @@ set<uint> PnlWzskNavOp::StatShr::diff(
 PnlWzskNavOp::Tag::Tag(
 			const string& Cpt
 			, const string& CptLlv
-			, const string& CptLiv
+			, const string& CptVtr
+			, const string& CptHwc
+			, const string& CptFil
 		) :
 			Block()
+			, Cpt(Cpt)
+			, CptLlv(CptLlv)
+			, CptVtr(CptVtr)
+			, CptHwc(CptHwc)
+			, CptFil(CptFil)
 		{
-	this->Cpt = Cpt;
-	this->CptLlv = CptLlv;
-	this->CptLiv = CptLiv;
-
-	mask = {CPT, CPTLLV, CPTLIV};
+	mask = {CPT, CPTLLV, CPTVTR, CPTHWC, CPTFIL};
 };
 
 bool PnlWzskNavOp::Tag::readXML(
@@ -205,10 +308,51 @@ bool PnlWzskNavOp::Tag::readXML(
 	if (basefound) {
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "Cpt", Cpt)) add(CPT);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptLlv", CptLlv)) add(CPTLLV);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptLiv", CptLiv)) add(CPTLIV);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptVtr", CptVtr)) add(CPTVTR);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptHwc", CptHwc)) add(CPTHWC);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptFil", CptFil)) add(CPTFIL);
 	};
 
 	return basefound;
+};
+
+/******************************************************************************
+ class PnlWzskNavOp::DpchAppData
+ ******************************************************************************/
+
+PnlWzskNavOp::DpchAppData::DpchAppData(
+			const string& scrJref
+			, ContIac* contiac
+			, const set<uint>& mask
+		) :
+			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKNAVOPDATA, scrJref)
+		{
+	if (find(mask, ALL)) this->mask = {SCRJREF, CONTIAC};
+	else this->mask = mask;
+
+		if (find(this->mask, CONTIAC) && contiac) this->contiac = *contiac;
+};
+
+string PnlWzskNavOp::DpchAppData::getSrefsMask() {
+	vector<string> ss;
+	string srefs;
+
+	if (has(SCRJREF)) ss.push_back("scrJref");
+	if (has(CONTIAC)) ss.push_back("contiac");
+
+	StrMod::vectorToString(ss, srefs);
+
+	return(srefs);
+};
+
+void PnlWzskNavOp::DpchAppData::writeXML(
+			xmlTextWriter* wr
+		) {
+	xmlTextWriterStartElement(wr, BAD_CAST "DpchAppWzskNavOpData");
+	xmlTextWriterWriteAttribute(wr, BAD_CAST "xmlns", BAD_CAST "http://www.mpsitech.com/wzsk");
+		if (has(SCRJREF)) writeString(wr, "scrJref", scrJref);
+		if (has(CONTIAC)) contiac.writeXML(wr);
+	xmlTextWriterEndElement(wr);
 };
 
 /******************************************************************************
@@ -221,11 +365,11 @@ PnlWzskNavOp::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKNAVOPDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string PnlWzskNavOp::DpchAppDo::getSrefsMask() {
@@ -257,6 +401,7 @@ void PnlWzskNavOp::DpchAppDo::writeXML(
 PnlWzskNavOp::DpchEngData::DpchEngData() :
 			DpchEngWzsk(VecWzskVDpch::DPCHENGWZSKNAVOPDATA)
 		{
+	feedFLstFil.tag = "FeedFLstFil";
 };
 
 string PnlWzskNavOp::DpchEngData::getSrefsMask() {
@@ -264,6 +409,8 @@ string PnlWzskNavOp::DpchEngData::getSrefsMask() {
 	string srefs;
 
 	if (has(SCRJREF)) ss.push_back("scrJref");
+	if (has(CONTIAC)) ss.push_back("contiac");
+	if (has(FEEDFLSTFIL)) ss.push_back("feedFLstFil");
 	if (has(STATAPP)) ss.push_back("statapp");
 	if (has(STATSHR)) ss.push_back("statshr");
 	if (has(TAG)) ss.push_back("tag");
@@ -289,10 +436,14 @@ void PnlWzskNavOp::DpchEngData::readXML(
 
 	if (basefound) {
 		if (extractStringUclc(docctx, basexpath, "scrJref", "", scrJref)) add(SCRJREF);
+		if (contiac.readXML(docctx, basexpath, true)) add(CONTIAC);
+		if (feedFLstFil.readXML(docctx, basexpath, true)) add(FEEDFLSTFIL);
 		if (statapp.readXML(docctx, basexpath, true)) add(STATAPP);
 		if (statshr.readXML(docctx, basexpath, true)) add(STATSHR);
 		if (tag.readXML(docctx, basexpath, true)) add(TAG);
 	} else {
+		contiac = ContIac();
+		feedFLstFil.clear();
 		statapp = StatApp();
 		statshr = StatShr();
 		tag = Tag();

@@ -2,8 +2,8 @@
 	* \file PnlWzskPrsADetail_blks.cpp
 	* job handler for job PnlWzskPrsADetail (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -47,9 +47,8 @@ PnlWzskPrsADetail::ContInf::ContInf(
 			const uint numFCsiQst
 		) :
 			Block()
+			, numFCsiQst(numFCsiQst)
 		{
-	this->numFCsiQst = numFCsiQst;
-
 	mask = {NUMFCSIQST};
 };
 
@@ -61,7 +60,7 @@ void PnlWzskPrsADetail::ContInf::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFCsiQst"] = numFCsiQst;
+	me["numFCsiQst"] = (Json::Value::UInt) numFCsiQst;
 };
 
 void PnlWzskPrsADetail::ContInf::writeXML(
@@ -149,13 +148,12 @@ PnlWzskPrsADetail::StatShr::StatShr(
 			, const bool ButDeleteActive
 		) :
 			Block()
+			, ButNewAvail(ButNewAvail)
+			, ButDuplicateAvail(ButDuplicateAvail)
+			, ButDuplicateActive(ButDuplicateActive)
+			, ButDeleteAvail(ButDeleteAvail)
+			, ButDeleteActive(ButDeleteActive)
 		{
-	this->ButNewAvail = ButNewAvail;
-	this->ButDuplicateAvail = ButDuplicateAvail;
-	this->ButDuplicateActive = ButDuplicateActive;
-	this->ButDeleteAvail = ButDeleteAvail;
-	this->ButDeleteActive = ButDeleteActive;
-
 	mask = {BUTNEWAVAIL, BUTDUPLICATEAVAIL, BUTDUPLICATEACTIVE, BUTDELETEAVAIL, BUTDELETEACTIVE};
 };
 
@@ -231,9 +229,9 @@ PnlWzskPrsADetail::StgIac::StgIac(
 			, const uint TcoValWidth
 		) :
 			Block()
+			, TcoTypWidth(TcoTypWidth)
+			, TcoValWidth(TcoValWidth)
 		{
-	this->TcoTypWidth = TcoTypWidth;
-	this->TcoValWidth = TcoValWidth;
 	mask = {TCOTYPWIDTH, TCOVALWIDTH};
 };
 
@@ -289,8 +287,8 @@ void PnlWzskPrsADetail::StgIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["TcoTypWidth"] = TcoTypWidth;
-	me["TcoValWidth"] = TcoValWidth;
+	me["TcoTypWidth"] = (Json::Value::UInt) TcoTypWidth;
+	me["TcoValWidth"] = (Json::Value::UInt) TcoValWidth;
 };
 
 void PnlWzskPrsADetail::StgIac::writeXML(
@@ -352,10 +350,6 @@ void PnlWzskPrsADetail::Tag::writeJSON(
 		me["Cpt"] = "Contact details";
 		me["TcoTyp"] = "Type";
 		me["TcoVal"] = "Value";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Kontaktangaben";
-		me["TcoTyp"] = "Typ";
-		me["TcoVal"] = "Wert";
 	};
 	me["TxtRecord1"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale));
 	me["TxtRecord2"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale));
@@ -381,10 +375,6 @@ void PnlWzskPrsADetail::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Contact details");
 			writeStringAttr(wr, itemtag, "sref", "TcoTyp", "Type");
 			writeStringAttr(wr, itemtag, "sref", "TcoVal", "Value");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Kontaktangaben");
-			writeStringAttr(wr, itemtag, "sref", "TcoTyp", "Typ");
-			writeStringAttr(wr, itemtag, "sref", "TcoVal", "Wert");
 		};
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord1", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord2", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale)));

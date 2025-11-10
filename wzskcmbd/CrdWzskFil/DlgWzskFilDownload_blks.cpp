@@ -2,8 +2,8 @@
 	* \file DlgWzskFilDownload_blks.cpp
 	* job handler for job DlgWzskFilDownload (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -41,9 +41,8 @@ DlgWzskFilDownload::ContInf::ContInf(
 			const string& Dld
 		) :
 			Block()
+			, Dld(Dld)
 		{
-	this->Dld = Dld;
-
 	mask = {DLD};
 };
 
@@ -146,8 +145,6 @@ void DlgWzskFilDownload::Tag::writeJSON(
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["Cpt"] = "Download file";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Datei herunterladen";
 	};
 	me["Dld"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DOWNLOAD, ixWzskVLocale));
 	me["ButDne"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DONE, ixWzskVLocale));
@@ -168,8 +165,6 @@ void DlgWzskFilDownload::Tag::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Download file");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Datei herunterladen");
 		};
 		writeStringAttr(wr, itemtag, "sref", "Dld", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DOWNLOAD, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "ButDne", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::DONE, ixWzskVLocale)));

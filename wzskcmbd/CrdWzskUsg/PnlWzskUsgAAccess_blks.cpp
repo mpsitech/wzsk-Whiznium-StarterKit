@@ -2,8 +2,8 @@
 	* \file PnlWzskUsgAAccess_blks.cpp
 	* job handler for job PnlWzskUsgAAccess (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -47,9 +47,8 @@ PnlWzskUsgAAccess::ContInf::ContInf(
 			const uint numFCsiQst
 		) :
 			Block()
+			, numFCsiQst(numFCsiQst)
 		{
-	this->numFCsiQst = numFCsiQst;
-
 	mask = {NUMFCSIQST};
 };
 
@@ -61,7 +60,7 @@ void PnlWzskUsgAAccess::ContInf::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFCsiQst"] = numFCsiQst;
+	me["numFCsiQst"] = (Json::Value::UInt) numFCsiQst;
 };
 
 void PnlWzskUsgAAccess::ContInf::writeXML(
@@ -149,13 +148,12 @@ PnlWzskUsgAAccess::StatShr::StatShr(
 			, const bool ButDeleteActive
 		) :
 			Block()
+			, ButNewAvail(ButNewAvail)
+			, ButDuplicateAvail(ButDuplicateAvail)
+			, ButDuplicateActive(ButDuplicateActive)
+			, ButDeleteAvail(ButDeleteAvail)
+			, ButDeleteActive(ButDeleteActive)
 		{
-	this->ButNewAvail = ButNewAvail;
-	this->ButDuplicateAvail = ButDuplicateAvail;
-	this->ButDuplicateActive = ButDuplicateActive;
-	this->ButDeleteAvail = ButDeleteAvail;
-	this->ButDeleteActive = ButDeleteActive;
-
 	mask = {BUTNEWAVAIL, BUTDUPLICATEAVAIL, BUTDUPLICATEACTIVE, BUTDELETEAVAIL, BUTDELETEACTIVE};
 };
 
@@ -232,10 +230,10 @@ PnlWzskUsgAAccess::StgIac::StgIac(
 			, const uint TcoAccWidth
 		) :
 			Block()
+			, TcoFegWidth(TcoFegWidth)
+			, TcoFeaWidth(TcoFeaWidth)
+			, TcoAccWidth(TcoAccWidth)
 		{
-	this->TcoFegWidth = TcoFegWidth;
-	this->TcoFeaWidth = TcoFeaWidth;
-	this->TcoAccWidth = TcoAccWidth;
 	mask = {TCOFEGWIDTH, TCOFEAWIDTH, TCOACCWIDTH};
 };
 
@@ -293,9 +291,9 @@ void PnlWzskUsgAAccess::StgIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["TcoFegWidth"] = TcoFegWidth;
-	me["TcoFeaWidth"] = TcoFeaWidth;
-	me["TcoAccWidth"] = TcoAccWidth;
+	me["TcoFegWidth"] = (Json::Value::UInt) TcoFegWidth;
+	me["TcoFeaWidth"] = (Json::Value::UInt) TcoFeaWidth;
+	me["TcoAccWidth"] = (Json::Value::UInt) TcoAccWidth;
 };
 
 void PnlWzskUsgAAccess::StgIac::writeXML(
@@ -360,11 +358,6 @@ void PnlWzskUsgAAccess::Tag::writeJSON(
 		me["TcoFeg"] = "Feature group";
 		me["TcoFea"] = "Feature";
 		me["TcoAcc"] = "Feature access rights";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Feature-Zugriffsrechte";
-		me["TcoFeg"] = "Featuregruppe";
-		me["TcoFea"] = "Feature";
-		me["TcoAcc"] = "Feature-Zugriffsrechte";
 	};
 	me["TxtRecord1"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale));
 	me["TxtRecord2"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale));
@@ -391,11 +384,6 @@ void PnlWzskUsgAAccess::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "TcoFeg", "Feature group");
 			writeStringAttr(wr, itemtag, "sref", "TcoFea", "Feature");
 			writeStringAttr(wr, itemtag, "sref", "TcoAcc", "Feature access rights");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Feature-Zugriffsrechte");
-			writeStringAttr(wr, itemtag, "sref", "TcoFeg", "Featuregruppe");
-			writeStringAttr(wr, itemtag, "sref", "TcoFea", "Feature");
-			writeStringAttr(wr, itemtag, "sref", "TcoAcc", "Feature-Zugriffsrechte");
 		};
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord1", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord2", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale)));

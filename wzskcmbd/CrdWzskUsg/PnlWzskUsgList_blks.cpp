@@ -2,8 +2,8 @@
 	* \file PnlWzskUsgList_blks.cpp
 	* job handler for job PnlWzskUsgList (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -51,9 +51,8 @@ PnlWzskUsgList::ContIac::ContIac(
 			const uint numFTos
 		) :
 			Block()
+			, numFTos(numFTos)
 		{
-	this->numFTos = numFTos;
-
 	mask = {NUMFTOS};
 };
 
@@ -107,7 +106,7 @@ void PnlWzskUsgList::ContIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFTos"] = numFTos;
+	me["numFTos"] = (Json::Value::UInt) numFTos;
 };
 
 void PnlWzskUsgList::ContIac::writeXML(
@@ -159,10 +158,9 @@ PnlWzskUsgList::ContInf::ContInf(
 			, const uint numFCsiQst
 		) :
 			Block()
+			, ButFilterOn(ButFilterOn)
+			, numFCsiQst(numFCsiQst)
 		{
-	this->ButFilterOn = ButFilterOn;
-	this->numFCsiQst = numFCsiQst;
-
 	mask = {BUTFILTERON, NUMFCSIQST};
 };
 
@@ -175,7 +173,7 @@ void PnlWzskUsgList::ContInf::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	me["ButFilterOn"] = ButFilterOn;
-	me["numFCsiQst"] = numFCsiQst;
+	me["numFCsiQst"] = (Json::Value::UInt) numFCsiQst;
 };
 
 void PnlWzskUsgList::ContInf::writeXML(
@@ -229,10 +227,9 @@ PnlWzskUsgList::StatShr::StatShr(
 			, const bool ButDeleteActive
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, ButDeleteActive(ButDeleteActive)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->ButDeleteActive = ButDeleteActive;
-
 	mask = {IXWZSKVEXPSTATE, BUTDELETEACTIVE};
 };
 
@@ -300,10 +297,10 @@ PnlWzskUsgList::StgIac::StgIac(
 			, const uint TcoSrfWidth
 		) :
 			Block()
+			, TcoGrpWidth(TcoGrpWidth)
+			, TcoOwnWidth(TcoOwnWidth)
+			, TcoSrfWidth(TcoSrfWidth)
 		{
-	this->TcoGrpWidth = TcoGrpWidth;
-	this->TcoOwnWidth = TcoOwnWidth;
-	this->TcoSrfWidth = TcoSrfWidth;
 	mask = {TCOGRPWIDTH, TCOOWNWIDTH, TCOSRFWIDTH};
 };
 
@@ -361,9 +358,9 @@ void PnlWzskUsgList::StgIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["TcoGrpWidth"] = TcoGrpWidth;
-	me["TcoOwnWidth"] = TcoOwnWidth;
-	me["TcoSrfWidth"] = TcoSrfWidth;
+	me["TcoGrpWidth"] = (Json::Value::UInt) TcoGrpWidth;
+	me["TcoOwnWidth"] = (Json::Value::UInt) TcoOwnWidth;
+	me["TcoSrfWidth"] = (Json::Value::UInt) TcoSrfWidth;
 };
 
 void PnlWzskUsgList::StgIac::writeXML(
@@ -426,9 +423,6 @@ void PnlWzskUsgList::Tag::writeJSON(
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["Cpt"] = "User groups";
 		me["TcoSrf"] = "Identifier";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Benutzergruppen";
-		me["TcoSrf"] = "Bezeichner";
 	};
 	me["TxtRecord1"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale));
 	me["TxtRecord2"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale));
@@ -455,9 +449,6 @@ void PnlWzskUsgList::Tag::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "User groups");
 			writeStringAttr(wr, itemtag, "sref", "TcoSrf", "Identifier");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Benutzergruppen");
-			writeStringAttr(wr, itemtag, "sref", "TcoSrf", "Bezeichner");
 		};
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord1", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord2", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale)));

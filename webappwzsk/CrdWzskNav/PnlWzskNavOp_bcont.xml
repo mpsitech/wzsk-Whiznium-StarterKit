@@ -5,7 +5,12 @@
 		<title>Op_bcont</title>
 		<script>
 			function handleButLlvNewcrdClick() {parent.parent.window.handleButCrdopenClick("ButLlvNewcrd");};
-			function handleButLivNewcrdClick() {parent.parent.window.handleButCrdopenClick("ButLivNewcrd");};
+			function handleButVtrNewcrdClick() {parent.parent.window.handleButCrdopenClick("ButVtrNewcrd");};
+			function handleButHwcNewcrdClick() {parent.parent.window.handleButCrdopenClick("ButHwcNewcrd");};
+			function handleButFilExpandClick() {parent.parent.window.handleButExpandClick("LstFil");};
+			function handleButFilCollapseClick() {parent.parent.window.handleButCollapseClick("LstFil");};
+			function handleButFilViewClick() {parent.parent.window.handleButCrdopenClick("ButFilView");};
+			function handleButFilNewcrdClick() {parent.parent.window.handleButCrdopenClick("ButFilNewcrd");};
 			<!-- IP custScript - INSERT -->
 		</script>
 		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
@@ -37,14 +42,38 @@
 					<td id="dynLlv" colspan="8" align="left">
 					</td>
 				</tr>
-				<tr id="trLiv" class="show">
+				<tr id="trVtr" class="show">
 					<td height="25"></td>
 					<td align="right">
-						<span id="CptLiv" class="cpt">CptLiv</span>
+						<span id="CptVtr" class="cpt">CptVtr</span>
 					</td>
 					<td></td>
-					<td id="dynLiv" colspan="8" align="left">
+					<td id="dynVtr" colspan="8" align="left">
 					</td>
+				</tr>
+				<tr id="trHwc" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptHwc" class="cpt">CptHwc</span>
+					</td>
+					<td></td>
+					<td id="dynHwc" colspan="8" align="left">
+					</td>
+				</tr>
+				<tr id="trFil" class="show">
+					<td height="25"></td>
+					<td id="ldynFil" align="right">
+					</td>
+					<td></td>
+					<td id="dynFil" rowspan="1" colspan="5">
+					</td>
+					<td></td>
+					<td id="rdynFil" colspan="2" align="left">
+					</td>
+				</tr>
+				<tr id="trFil2" class="hide">
+					<td colspan="3" height="67"></td>
+					<td colspan="3"></td>
 				</tr>
 				<tr><td colspan="11" height="4"></td></tr>
 			</tbody>

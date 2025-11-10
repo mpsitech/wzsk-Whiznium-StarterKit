@@ -2,8 +2,8 @@
 	* \file PnlWzskFilList_blks.cpp
 	* job handler for job PnlWzskFilList (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -51,9 +51,8 @@ PnlWzskFilList::ContIac::ContIac(
 			const uint numFTos
 		) :
 			Block()
+			, numFTos(numFTos)
 		{
-	this->numFTos = numFTos;
-
 	mask = {NUMFTOS};
 };
 
@@ -107,7 +106,7 @@ void PnlWzskFilList::ContIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFTos"] = numFTos;
+	me["numFTos"] = (Json::Value::UInt) numFTos;
 };
 
 void PnlWzskFilList::ContIac::writeXML(
@@ -155,19 +154,14 @@ set<uint> PnlWzskFilList::ContIac::diff(
  ******************************************************************************/
 
 PnlWzskFilList::ContInf::ContInf(
-			const string& TxtFor
-			, const string& TxtPre
-			, const bool ButFilterOn
+			const bool ButFilterOn
 			, const uint numFCsiQst
 		) :
 			Block()
+			, ButFilterOn(ButFilterOn)
+			, numFCsiQst(numFCsiQst)
 		{
-	this->TxtFor = TxtFor;
-	this->TxtPre = TxtPre;
-	this->ButFilterOn = ButFilterOn;
-	this->numFCsiQst = numFCsiQst;
-
-	mask = {TXTFOR, TXTPRE, BUTFILTERON, NUMFCSIQST};
+	mask = {BUTFILTERON, NUMFCSIQST};
 };
 
 void PnlWzskFilList::ContInf::writeJSON(
@@ -178,10 +172,8 @@ void PnlWzskFilList::ContInf::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["TxtFor"] = TxtFor;
-	me["TxtPre"] = TxtPre;
 	me["ButFilterOn"] = ButFilterOn;
-	me["numFCsiQst"] = numFCsiQst;
+	me["numFCsiQst"] = (Json::Value::UInt) numFCsiQst;
 };
 
 void PnlWzskFilList::ContInf::writeXML(
@@ -196,8 +188,6 @@ void PnlWzskFilList::ContInf::writeXML(
 	else itemtag = "ContitemInfWzskFilList";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeStringAttr(wr, itemtag, "sref", "TxtFor", TxtFor);
-		writeStringAttr(wr, itemtag, "sref", "TxtPre", TxtPre);
 		writeBoolAttr(wr, itemtag, "sref", "ButFilterOn", ButFilterOn);
 		writeUintAttr(wr, itemtag, "sref", "numFCsiQst", numFCsiQst);
 	xmlTextWriterEndElement(wr);
@@ -208,8 +198,6 @@ set<uint> PnlWzskFilList::ContInf::comm(
 		) {
 	set<uint> items;
 
-	if (TxtFor == comp->TxtFor) insert(items, TXTFOR);
-	if (TxtPre == comp->TxtPre) insert(items, TXTPRE);
 	if (ButFilterOn == comp->ButFilterOn) insert(items, BUTFILTERON);
 	if (numFCsiQst == comp->numFCsiQst) insert(items, NUMFCSIQST);
 
@@ -224,7 +212,7 @@ set<uint> PnlWzskFilList::ContInf::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {TXTFOR, TXTPRE, BUTFILTERON, NUMFCSIQST};
+	diffitems = {BUTFILTERON, NUMFCSIQST};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -239,10 +227,9 @@ PnlWzskFilList::StatShr::StatShr(
 			, const bool ButDeleteActive
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, ButDeleteActive(ButDeleteActive)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->ButDeleteActive = ButDeleteActive;
-
 	mask = {IXWZSKVEXPSTATE, BUTDELETEACTIVE};
 };
 
@@ -315,15 +302,15 @@ PnlWzskFilList::StgIac::StgIac(
 			, const uint TcoSizWidth
 		) :
 			Block()
+			, TcoGrpWidth(TcoGrpWidth)
+			, TcoOwnWidth(TcoOwnWidth)
+			, TcoFnmWidth(TcoFnmWidth)
+			, TcoRetWidth(TcoRetWidth)
+			, TcoReuWidth(TcoReuWidth)
+			, TcoCntWidth(TcoCntWidth)
+			, TcoMimWidth(TcoMimWidth)
+			, TcoSizWidth(TcoSizWidth)
 		{
-	this->TcoGrpWidth = TcoGrpWidth;
-	this->TcoOwnWidth = TcoOwnWidth;
-	this->TcoFnmWidth = TcoFnmWidth;
-	this->TcoRetWidth = TcoRetWidth;
-	this->TcoReuWidth = TcoReuWidth;
-	this->TcoCntWidth = TcoCntWidth;
-	this->TcoMimWidth = TcoMimWidth;
-	this->TcoSizWidth = TcoSizWidth;
 	mask = {TCOGRPWIDTH, TCOOWNWIDTH, TCOFNMWIDTH, TCORETWIDTH, TCOREUWIDTH, TCOCNTWIDTH, TCOMIMWIDTH, TCOSIZWIDTH};
 };
 
@@ -391,14 +378,14 @@ void PnlWzskFilList::StgIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["TcoGrpWidth"] = TcoGrpWidth;
-	me["TcoOwnWidth"] = TcoOwnWidth;
-	me["TcoFnmWidth"] = TcoFnmWidth;
-	me["TcoRetWidth"] = TcoRetWidth;
-	me["TcoReuWidth"] = TcoReuWidth;
-	me["TcoCntWidth"] = TcoCntWidth;
-	me["TcoMimWidth"] = TcoMimWidth;
-	me["TcoSizWidth"] = TcoSizWidth;
+	me["TcoGrpWidth"] = (Json::Value::UInt) TcoGrpWidth;
+	me["TcoOwnWidth"] = (Json::Value::UInt) TcoOwnWidth;
+	me["TcoFnmWidth"] = (Json::Value::UInt) TcoFnmWidth;
+	me["TcoRetWidth"] = (Json::Value::UInt) TcoRetWidth;
+	me["TcoReuWidth"] = (Json::Value::UInt) TcoReuWidth;
+	me["TcoCntWidth"] = (Json::Value::UInt) TcoCntWidth;
+	me["TcoMimWidth"] = (Json::Value::UInt) TcoMimWidth;
+	me["TcoSizWidth"] = (Json::Value::UInt) TcoSizWidth;
 };
 
 void PnlWzskFilList::StgIac::writeXML(
@@ -476,16 +463,7 @@ void PnlWzskFilList::Tag::writeJSON(
 		me["TcoCnt"] = "Content";
 		me["TcoMim"] = "MIME type";
 		me["TcoSiz"] = "Size [kB]";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Dateien";
-		me["TcoFnm"] = "Dateiname";
-		me["TcoRet"] = "Referenztabelle";
-		me["TcoReu"] = "Referenz";
-		me["TcoCnt"] = "Inhalt";
-		me["TcoMim"] = "MIME-Typ";
-		me["TcoSiz"] = "Gr\\u00f6sse [kB]";
 	};
-	me["TxtFor"] = VecWzskVTag::getTitle(VecWzskVTag::FOR, ixWzskVLocale);
 	me["TxtRecord1"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale));
 	me["TxtRecord2"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale));
 	me["Trs"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::GOTO, ixWzskVLocale)) + " ...";
@@ -516,16 +494,7 @@ void PnlWzskFilList::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "TcoCnt", "Content");
 			writeStringAttr(wr, itemtag, "sref", "TcoMim", "MIME type");
 			writeStringAttr(wr, itemtag, "sref", "TcoSiz", "Size [kB]");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Dateien");
-			writeStringAttr(wr, itemtag, "sref", "TcoFnm", "Dateiname");
-			writeStringAttr(wr, itemtag, "sref", "TcoRet", "Referenztabelle");
-			writeStringAttr(wr, itemtag, "sref", "TcoReu", "Referenz");
-			writeStringAttr(wr, itemtag, "sref", "TcoCnt", "Inhalt");
-			writeStringAttr(wr, itemtag, "sref", "TcoMim", "MIME-Typ");
-			writeStringAttr(wr, itemtag, "sref", "TcoSiz", "Gr\\u00f6sse [kB]");
 		};
-		writeStringAttr(wr, itemtag, "sref", "TxtFor", VecWzskVTag::getTitle(VecWzskVTag::FOR, ixWzskVLocale));
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord1", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord2", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "Trs", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::GOTO, ixWzskVLocale)) + " ...");

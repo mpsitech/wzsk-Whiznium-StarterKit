@@ -2,8 +2,8 @@
 	* \file PnlWzskPrsList_blks.cpp
 	* job handler for job PnlWzskPrsList (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -51,9 +51,8 @@ PnlWzskPrsList::ContIac::ContIac(
 			const uint numFTos
 		) :
 			Block()
+			, numFTos(numFTos)
 		{
-	this->numFTos = numFTos;
-
 	mask = {NUMFTOS};
 };
 
@@ -107,7 +106,7 @@ void PnlWzskPrsList::ContIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFTos"] = numFTos;
+	me["numFTos"] = (Json::Value::UInt) numFTos;
 };
 
 void PnlWzskPrsList::ContIac::writeXML(
@@ -159,10 +158,9 @@ PnlWzskPrsList::ContInf::ContInf(
 			, const uint numFCsiQst
 		) :
 			Block()
+			, ButFilterOn(ButFilterOn)
+			, numFCsiQst(numFCsiQst)
 		{
-	this->ButFilterOn = ButFilterOn;
-	this->numFCsiQst = numFCsiQst;
-
 	mask = {BUTFILTERON, NUMFCSIQST};
 };
 
@@ -175,7 +173,7 @@ void PnlWzskPrsList::ContInf::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	me["ButFilterOn"] = ButFilterOn;
-	me["numFCsiQst"] = numFCsiQst;
+	me["numFCsiQst"] = (Json::Value::UInt) numFCsiQst;
 };
 
 void PnlWzskPrsList::ContInf::writeXML(
@@ -229,10 +227,9 @@ PnlWzskPrsList::StatShr::StatShr(
 			, const bool ButDeleteActive
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, ButDeleteActive(ButDeleteActive)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->ButDeleteActive = ButDeleteActive;
-
 	mask = {IXWZSKVEXPSTATE, BUTDELETEACTIVE};
 };
 
@@ -305,15 +302,15 @@ PnlWzskPrsList::StgIac::StgIac(
 			, const uint TcoEmlWidth
 		) :
 			Block()
+			, TcoGrpWidth(TcoGrpWidth)
+			, TcoOwnWidth(TcoOwnWidth)
+			, TcoTitWidth(TcoTitWidth)
+			, TcoFnmWidth(TcoFnmWidth)
+			, TcoLnmWidth(TcoLnmWidth)
+			, TcoSexWidth(TcoSexWidth)
+			, TcoTelWidth(TcoTelWidth)
+			, TcoEmlWidth(TcoEmlWidth)
 		{
-	this->TcoGrpWidth = TcoGrpWidth;
-	this->TcoOwnWidth = TcoOwnWidth;
-	this->TcoTitWidth = TcoTitWidth;
-	this->TcoFnmWidth = TcoFnmWidth;
-	this->TcoLnmWidth = TcoLnmWidth;
-	this->TcoSexWidth = TcoSexWidth;
-	this->TcoTelWidth = TcoTelWidth;
-	this->TcoEmlWidth = TcoEmlWidth;
 	mask = {TCOGRPWIDTH, TCOOWNWIDTH, TCOTITWIDTH, TCOFNMWIDTH, TCOLNMWIDTH, TCOSEXWIDTH, TCOTELWIDTH, TCOEMLWIDTH};
 };
 
@@ -381,14 +378,14 @@ void PnlWzskPrsList::StgIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["TcoGrpWidth"] = TcoGrpWidth;
-	me["TcoOwnWidth"] = TcoOwnWidth;
-	me["TcoTitWidth"] = TcoTitWidth;
-	me["TcoFnmWidth"] = TcoFnmWidth;
-	me["TcoLnmWidth"] = TcoLnmWidth;
-	me["TcoSexWidth"] = TcoSexWidth;
-	me["TcoTelWidth"] = TcoTelWidth;
-	me["TcoEmlWidth"] = TcoEmlWidth;
+	me["TcoGrpWidth"] = (Json::Value::UInt) TcoGrpWidth;
+	me["TcoOwnWidth"] = (Json::Value::UInt) TcoOwnWidth;
+	me["TcoTitWidth"] = (Json::Value::UInt) TcoTitWidth;
+	me["TcoFnmWidth"] = (Json::Value::UInt) TcoFnmWidth;
+	me["TcoLnmWidth"] = (Json::Value::UInt) TcoLnmWidth;
+	me["TcoSexWidth"] = (Json::Value::UInt) TcoSexWidth;
+	me["TcoTelWidth"] = (Json::Value::UInt) TcoTelWidth;
+	me["TcoEmlWidth"] = (Json::Value::UInt) TcoEmlWidth;
 };
 
 void PnlWzskPrsList::StgIac::writeXML(
@@ -464,14 +461,6 @@ void PnlWzskPrsList::Tag::writeJSON(
 		me["TcoFnm"] = "First name";
 		me["TcoLnm"] = "Last name";
 		me["TcoSex"] = "Sex";
-		me["TcoTel"] = "Phone";
-		me["TcoEml"] = "E-Mail";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Personen";
-		me["TcoTit"] = "Title";
-		me["TcoFnm"] = "Vorname";
-		me["TcoLnm"] = "Nachname";
-		me["TcoSex"] = "Geschlecht";
 		me["TcoTel"] = "TelVal";
 		me["TcoEml"] = "EmlVal";
 	};
@@ -503,14 +492,6 @@ void PnlWzskPrsList::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "TcoFnm", "First name");
 			writeStringAttr(wr, itemtag, "sref", "TcoLnm", "Last name");
 			writeStringAttr(wr, itemtag, "sref", "TcoSex", "Sex");
-			writeStringAttr(wr, itemtag, "sref", "TcoTel", "Phone");
-			writeStringAttr(wr, itemtag, "sref", "TcoEml", "E-Mail");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Personen");
-			writeStringAttr(wr, itemtag, "sref", "TcoTit", "Title");
-			writeStringAttr(wr, itemtag, "sref", "TcoFnm", "Vorname");
-			writeStringAttr(wr, itemtag, "sref", "TcoLnm", "Nachname");
-			writeStringAttr(wr, itemtag, "sref", "TcoSex", "Geschlecht");
 			writeStringAttr(wr, itemtag, "sref", "TcoTel", "TelVal");
 			writeStringAttr(wr, itemtag, "sref", "TcoEml", "EmlVal");
 		};

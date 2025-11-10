@@ -2,8 +2,8 @@
 	* \file QryWzskFilList.h
 	* job handler for job QryWzskFilList (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -32,11 +32,11 @@ public:
 	class VecVOrd {
 
 	public:
-		static const Sbecore::uint RET = 1;
-		static const Sbecore::uint REU = 2;
+		static const Sbecore::uint GRP = 1;
+		static const Sbecore::uint OWN = 2;
 		static const Sbecore::uint FNM = 3;
-		static const Sbecore::uint OWN = 4;
-		static const Sbecore::uint GRP = 5;
+		static const Sbecore::uint RET = 4;
+		static const Sbecore::uint REU = 5;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -127,7 +127,6 @@ public:
 	void refreshJnum();
 
 	void rerun(DbsWzsk* dbswzsk, const bool call = false);
-	void rerun_baseSQL(std::string& sqlstr);
 	void rerun_filtSQL(std::string& sqlstr, const Sbecore::ubigint preGrp, const Sbecore::ubigint preOwn, const std::string& preFnm, const Sbecore::uint preRet, const Sbecore::ubigint preReu, const bool addwhere);
 	void rerun_filtSQL_append(std::string& sqlstr, bool& first);
 	void rerun_orderSQL(std::string& sqlstr, const Sbecore::uint preIxOrd);
@@ -151,9 +150,9 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
+	bool handleCallWzskStubChgFromSelf(DbsWzsk* dbswzsk);
 	bool handleCallWzskFilMod(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskFilUpd_refEq(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
-	bool handleCallWzskStubChgFromSelf(DbsWzsk* dbswzsk);
 
 };
 

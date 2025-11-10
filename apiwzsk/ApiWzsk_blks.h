@@ -2,8 +2,8 @@
 	* \file ApiWzsk_blks.h
 	* Wzsk API library global data blocks (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -11,9 +11,7 @@
 #define APIWZSK_BLKS_H
 
 #include "VecWzskVExpstate.h"
-#include "VecWzskVPvwmode.h"
 #include "VecWzskVReqitmode.h"
-#include "VecWzskVSqrgrp.h"
 #include "VecWzskVTarget.h"
 
 #include "VecWzskVDpch.h"

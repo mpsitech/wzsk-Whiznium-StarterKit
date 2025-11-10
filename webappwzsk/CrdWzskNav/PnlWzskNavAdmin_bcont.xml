@@ -16,7 +16,7 @@
 			function handleButPrsCollapseClick() {parent.parent.window.handleButCollapseClick("LstPrs");};
 			function handleButPrsViewClick() {parent.parent.window.handleButCrdopenClick("ButPrsView");};
 			function handleButPrsNewcrdClick() {parent.parent.window.handleButCrdopenClick("ButPrsNewcrd");};
-			function handleButScfNewcrdClick() {parent.parent.window.handleButCrdopenClick("ButScfNewcrd");};
+			function handleButPrfNewcrdClick() {parent.parent.window.handleButCrdopenClick("ButPrfNewcrd");};
 			<!-- IP custScript - INSERT -->
 		</script>
 		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
@@ -84,13 +84,13 @@
 					<td colspan="3" height="67"></td>
 					<td colspan="3"></td>
 				</tr>
-				<tr id="trScf" class="show">
+				<tr id="trPrf" class="show">
 					<td height="25"></td>
 					<td align="right">
-						<span id="CptScf" class="cpt">CptScf</span>
+						<span id="CptPrf" class="cpt">CptPrf</span>
 					</td>
 					<td></td>
-					<td id="dynScf" colspan="8" align="left">
+					<td id="dynPrf" colspan="8" align="left">
 					</td>
 				</tr>
 				<tr><td colspan="11" height="4"></td></tr>

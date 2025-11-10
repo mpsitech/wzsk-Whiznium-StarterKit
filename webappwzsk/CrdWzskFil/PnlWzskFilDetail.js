@@ -96,8 +96,6 @@ function refreshBD(bNotD) {
 	var ButCluUnclusterAvail = (retrieveSi(srcdoc, "StatShrWzskFilDetail", "ButCluUnclusterAvail") == "true");
 
 	var TxtReuActive = (retrieveSi(srcdoc, "StatShrWzskFilDetail", "TxtReuActive") == "true");
-	var ButReuViewAvail = (retrieveSi(srcdoc, "StatShrWzskFilDetail", "ButReuViewAvail") == "true");
-	var ButReuViewActive = (retrieveSi(srcdoc, "StatShrWzskFilDetail", "ButReuViewActive") == "true");
 
 	var PupCntAlt = (retrieveSi(srcdoc, "StatAppWzskFilDetail", "PupCntAlt") == "true");
 	var TxfCntValid = (retrieveSi(srcdoc, "StatShrWzskFilDetail", "TxfCntValid") == "true");
@@ -182,23 +180,8 @@ function refreshBD(bNotD) {
 
 	if (ButCluViewAvail) refreshButicon(contcontdoc, "ButCluView", "icon/view", ButCluViewActive, false);
 
-	if ((ButReuViewAvail == !contcontdoc.getElementById("ButReuView"))) {
-		mytd = contcontdoc.getElementById("rdynReu");
-		clearElem(mytd);
-
-		first = true;
-
-		if (ButReuViewAvail) {
-			if (first) first = false;
-			else mytd.appendChild(contcontdoc.createTextNode("\u00a0"));
-			mytd.appendChild(makeImgBut(contcontdoc, "ButReuView", "icon/view"));
-		};
-	};
-
 	refreshTxt(contcontdoc, "TxtReu", retrieveCi(srcdoc, "ContInfWzskFilDetail", "TxtReu"));
 	contcontdoc.getElementById("PupRet").value = retrieveCi(srcdoc, "ContIacWzskFilDetail", "numFPupRet");
-
-	if (ButReuViewAvail) refreshButicon(contcontdoc, "ButReuView", "icon/view", ButReuViewActive, false);
 
 	if ( (PupCntAlt == !contcontdoc.getElementById("TxfCnt")) || (!PupCntAlt == !contcontdoc.getElementById("PupCnt")) ) {
 		mytd = contcontdoc.getElementById("dynCnt");
@@ -521,6 +504,7 @@ function handleTxftChange(_doc, ctlsref) {
 function mergeDpchEngData(dom) {
 	var mask = [];
 
+	// IP mergeDpchEngData --- BEGIN
 	if (updateSrcblock(dom, "DpchEngWzskFilDetailData", "ContIacWzskFilDetail", srcdoc)) mask.push("contiac");
 	if (updateSrcblock(dom, "DpchEngWzskFilDetailData", "ContInfWzskFilDetail", srcdoc)) mask.push("continf");
 	if (updateSrcblock(dom, "DpchEngWzskFilDetailData", "FeedFLstClu", srcdoc)) mask.push("feedFLstClu");
@@ -530,6 +514,7 @@ function mergeDpchEngData(dom) {
 	if (updateSrcblock(dom, "DpchEngWzskFilDetailData", "StatAppWzskFilDetail", srcdoc)) mask.push("statapp");
 	if (updateSrcblock(dom, "DpchEngWzskFilDetailData", "StatShrWzskFilDetail", srcdoc)) mask.push("statshr");
 	if (updateSrcblock(dom, "DpchEngWzskFilDetailData", "TagWzskFilDetail", srcdoc)) mask.push("tag");
+	// IP mergeDpchEngData --- END
 
 	return mask;
 };

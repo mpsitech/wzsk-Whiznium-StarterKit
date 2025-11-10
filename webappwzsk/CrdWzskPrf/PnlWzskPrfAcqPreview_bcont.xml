@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<head>
+		<title>AcqPreview_bcont</title>
+		<script>
+			function handleChk1Change() {parent.parent.window.handleChkChange(document,"Chk1");};
+			function handleTxf2Key(evt) {return parent.parent.window.handleTxfKey(document,"Txf2","s",evt);};
+			function handleTxf2Change() {parent.parent.window.handleTxfChange(document,"Txf2","s");};
+			<!-- IP custScript - INSERT -->
+		</script>
+		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
+		<!-- IP custStyle - INSERT -->
+	</head>
+	<body marginwidth="0" marginheight="0">
+		<table cellspacing="0" border="0" cellpadding="0"><form action="">
+			<colgroup>
+				<col width="5"/>
+				<col width="215"/>
+				<col width="5"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="68"/>
+				<col width="2"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="1"/>
+				<col width="114"/>
+			</colgroup>
+			<tbody id="tbl">
+				<tr><td colspan="11" height="5"></td></tr>
+				<tr id="tr1" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="Cpt1" class="cpt">Cpt1</span>
+					</td>
+					<td></td>
+					<td align="left">
+						<input id="Chk1" class="chk" name="Chk1" type="checkbox" checked="checked" onchange="handleChk1Change()"/>
+					</td>
+					<td colspan="7"></td>
+				</tr>
+				<tr id="tr2" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="Cpt2" class="cpt">Cpt2</span>
+					</td>
+					<td></td>
+					<td colspan="3" align="left">
+						<input id="Txf2" class="txfs" type="text" value="Txf2" onchange="handleTxf2Change()" onkeypress="return handleTxf2Key(event)"/>
+					</td>
+					<td></td>
+					<td colspan="4"></td>
+				</tr>
+				<tr><td colspan="11" height="4"></td></tr>
+			</tbody>
+		</form></table>
+	</body>
+</html>

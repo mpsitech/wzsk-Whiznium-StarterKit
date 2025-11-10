@@ -10,21 +10,15 @@ function setInitdone(pnlshort) {
 
 function checkInitdone() {
 	var initdoneHeadbar = (retrieveSi(srcdoc, "StatAppWzskNav", "initdoneHeadbar") == "true");
-	var initdonePre = (retrieveSi(srcdoc, "StatAppWzskNav", "initdonePre") == "true");
 	var initdoneAdmin = (retrieveSi(srcdoc, "StatAppWzskNav", "initdoneAdmin") == "true");
 	var initdoneOp = (retrieveSi(srcdoc, "StatAppWzskNav", "initdoneOp") == "true");
-	var initdoneGlry = (retrieveSi(srcdoc, "StatAppWzskNav", "initdoneGlry") == "true");
 
 	if (!initdoneHeadbar) {
 		doc.getElementById("Headbar").src = "./PnlWzskNavHeadbar.html?scrJref=" + scrJrefHeadbar;
-	} else if (!initdonePre) {
-		doc.getElementById("Pre").src = "./PnlWzskNavPre.html?scrJref=" + scrJrefPre;
 	} else if (!initdoneAdmin) {
 		doc.getElementById("Admin").src = "./PnlWzskNavAdmin.html?scrJref=" + scrJrefAdmin;
 	} else if (!initdoneOp) {
 		doc.getElementById("Op").src = "./PnlWzskNavOp.html?scrJref=" + scrJrefOp;
-	} else if (!initdoneGlry) {
-		doc.getElementById("Glry").src = "./PnlWzskNavGlry.html?scrJref=" + scrJrefGlry;
 	} else {
 		doc.initdone = true;
 		window.onfocus = resumeNotify;
@@ -53,10 +47,8 @@ function setPnlAvail(short, avail) {
 function getHeight() {
 	var height = 25;
 
-	if (doc.getElementById("trPre").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdPre").getAttribute("height"));
 	if (doc.getElementById("trAdmin").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdAdmin").getAttribute("height")) + 8;
 	if (doc.getElementById("trOp").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdOp").getAttribute("height")) + 8;
-	if (doc.getElementById("trGlry").getAttribute("class") == "show") height += 10 + parseInt(doc.getElementById("tdGlry").getAttribute("height")) + 8;
 
 	height += 5;
 
@@ -173,15 +165,11 @@ function initMenCrd() {
 	MitCrdUsgAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdUsgAvail") == "true");
 	MitCrdUsrAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdUsrAvail") == "true");
 	MitCrdPrsAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdPrsAvail") == "true");
-	MitCrdScfAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdScfAvail") == "true");
+	MitCrdPrfAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdPrfAvail") == "true");
 	MspCrd2Avail = (retrieveSi(srcdoc, "StatShrWzskNav", "MspCrd2Avail") == "true");
 	MitCrdLlvAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdLlvAvail") == "true");
-	MitCrdLivAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdLivAvail") == "true");
-	MspCrd3Avail = (retrieveSi(srcdoc, "StatShrWzskNav", "MspCrd3Avail") == "true");
-	MitCrdOgrAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdOgrAvail") == "true");
-	MitCrdObjAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdObjAvail") == "true");
-	MitCrdSesAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdSesAvail") == "true");
-	MitCrdShtAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdShtAvail") == "true");
+	MitCrdVtrAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdVtrAvail") == "true");
+	MitCrdHwcAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdHwcAvail") == "true");
 	MitCrdFilAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "MitCrdFilAvail") == "true");
 
 	mendoc.getElementById("colCont").setAttribute("width", retrieveSi(srcdoc, "StatAppWzskNav", "widthMenu"));
@@ -189,28 +177,21 @@ function initMenCrd() {
 	setTextContent(mendoc, mendoc.getElementById("MitCrdUsg"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdUsg"));
 	setTextContent(mendoc, mendoc.getElementById("MitCrdUsr"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdUsr"));
 	setTextContent(mendoc, mendoc.getElementById("MitCrdPrs"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdPrs"));
-	setTextContent(mendoc, mendoc.getElementById("MitCrdScf"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdScf"));
+	setTextContent(mendoc, mendoc.getElementById("MitCrdPrf"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdPrf"));
 	setTextContent(mendoc, mendoc.getElementById("MitCrdLlv"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdLlv"));
-	setTextContent(mendoc, mendoc.getElementById("MitCrdLiv"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdLiv"));
-	setTextContent(mendoc, mendoc.getElementById("MitCrdOgr"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdOgr"));
-	setTextContent(mendoc, mendoc.getElementById("MitCrdObj"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdObj"));
-	setTextContent(mendoc, mendoc.getElementById("MitCrdSes"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdSes"));
-	setTextContent(mendoc, mendoc.getElementById("MitCrdSht"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdSht"));
+	setTextContent(mendoc, mendoc.getElementById("MitCrdVtr"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdVtr"));
+	setTextContent(mendoc, mendoc.getElementById("MitCrdHwc"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdHwc"));
 	setTextContent(mendoc, mendoc.getElementById("MitCrdFil"), retrieveTi(srcdoc, "TagWzskNav", "MitCrdFil"));
 
 	height -= setMitMspAvail("MspCrd1", MspCrd1Avail, 1);
 	height -= setMitMspAvail("MitCrdUsg", MitCrdUsgAvail, 20);
 	height -= setMitMspAvail("MitCrdUsr", MitCrdUsrAvail, 20);
 	height -= setMitMspAvail("MitCrdPrs", MitCrdPrsAvail, 20);
-	height -= setMitMspAvail("MitCrdScf", MitCrdScfAvail, 20);
+	height -= setMitMspAvail("MitCrdPrf", MitCrdPrfAvail, 20);
 	height -= setMitMspAvail("MspCrd2", MspCrd2Avail, 1);
 	height -= setMitMspAvail("MitCrdLlv", MitCrdLlvAvail, 20);
-	height -= setMitMspAvail("MitCrdLiv", MitCrdLivAvail, 20);
-	height -= setMitMspAvail("MspCrd3", MspCrd3Avail, 1);
-	height -= setMitMspAvail("MitCrdOgr", MitCrdOgrAvail, 20);
-	height -= setMitMspAvail("MitCrdObj", MitCrdObjAvail, 20);
-	height -= setMitMspAvail("MitCrdSes", MitCrdSesAvail, 20);
-	height -= setMitMspAvail("MitCrdSht", MitCrdShtAvail, 20);
+	height -= setMitMspAvail("MitCrdVtr", MitCrdVtrAvail, 20);
+	height -= setMitMspAvail("MitCrdHwc", MitCrdHwcAvail, 20);
 	height -= setMitMspAvail("MitCrdFil", MitCrdFilAvail, 20);
 
 	doc.getElementById("Menu").setAttribute("height", "" + height);
@@ -395,9 +376,6 @@ function changeHeight(pnlshort, height) {
 	} else if (pnlshort == "Op") {
 		doc.getElementById("tdOp").setAttribute("height", "" + height);
 		doc.getElementById("Op").setAttribute("height", "" + height);
-	} else if (pnlshort == "Glry") {
-		doc.getElementById("tdGlry").setAttribute("height", "" + height);
-		doc.getElementById("Glry").setAttribute("height", "" + height);
 	};
 
 	if (divPnldshld) divPnldshld.setAttribute("style", "height:" + getHeight() + "px;");
@@ -408,19 +386,15 @@ function changeHeight(pnlshort, height) {
 // --- view initialization and refresh
 function refresh() {
 	var scrJrefDlgloaini = retrieveSi(srcdoc, "StatShrWzskNav", "scrJrefDlgloaini");
-	var pnlpreAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "pnlpreAvail") == "true");
 	var pnladminAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "pnladminAvail") == "true");
 	var pnlopAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "pnlopAvail") == "true");
-	var pnlglryAvail = (retrieveSi(srcdoc, "StatShrWzskNav", "pnlglryAvail") == "true");
 
 	if (scrJrefDlgloaini != "") {
 		if (scrJrefDlg != scrJrefDlgloaini) showDlg("DlgWzskNavLoaini", scrJrefDlgloaini);
 	} else if (scrJrefDlg != "") hideDlg();
 
-	setPnlAvail("Pre", pnlpreAvail);
 	setPnlAvail("Admin", pnladminAvail);
 	setPnlAvail("Op", pnlopAvail);
-	setPnlAvail("Glry", pnlglryAvail);
 };
 
 // --- event handlers
@@ -479,14 +453,10 @@ function handleDpchEngSub(_scrJref, dom, dpch) {
 	} else if (_scrJref == scrJrefDlg) {
 		doc.getElementById("Dlg").contentWindow.handleDpchEng(dom, dpch);
 
-	} else if (_scrJref == scrJrefPre) {
-		doc.getElementById("Pre").contentWindow.handleDpchEng(dom, dpch);
 	} else if (_scrJref == scrJrefAdmin) {
 		doc.getElementById("Admin").contentWindow.handleDpchEng(dom, dpch);
 	} else if (_scrJref == scrJrefOp) {
 		doc.getElementById("Op").contentWindow.handleDpchEng(dom, dpch);
-	} else if (_scrJref == scrJrefGlry) {
-		doc.getElementById("Glry").contentWindow.handleDpchEng(dom, dpch);
 
 	} else {
 		// alert("got a '" + dpch + "' from job with scrJref " + _scrJref);
@@ -506,10 +476,8 @@ function handleDpchAppInitReply() {
 
 				// establish sub-panel scrJref's as global variables, and start sub-panel load sequence
 				scrJrefHeadbar = retrieveSi(srcdoc, "StatShrWzskNav", "scrJrefHeadbar");
-				scrJrefPre = retrieveSi(srcdoc, "StatShrWzskNav", "scrJrefPre");
 				scrJrefAdmin = retrieveSi(srcdoc, "StatShrWzskNav", "scrJrefAdmin");
 				scrJrefOp = retrieveSi(srcdoc, "StatShrWzskNav", "scrJrefOp");
-				scrJrefGlry = retrieveSi(srcdoc, "StatShrWzskNav", "scrJrefGlry");
 
 				scrJrefPnld = "";
 
@@ -633,7 +601,7 @@ function handleDpchAppResumeReply() {
 	} else if (doc.req.readyState == 4) {
 		dom = doc.req.responseXML;
 
-		blk = retrieveBlock(dom, "//wzsk:*");
+		if (dom) blk = retrieveBlock(dom, "//wzsk:*");
 
 		if (blk) if (blk.nodeName == "DpchEngWzskAck") restartNotify();
 	};
@@ -644,6 +612,8 @@ function iteratePoll() {
 };
 
 function iterateReqit(ev) {
+	var dom, blk;
+
 	var accepted, _scrJref, mask;
 
 	var news = false;
@@ -665,7 +635,7 @@ function iterateReqit(ev) {
 			dom = doc.reqit.responseXML;
 
 			// check dispatch type
-			blk = retrieveBlock(dom, "//wzsk:*");
+			if (dom) blk = retrieveBlock(dom, "//wzsk:*");
 
 			if (blk) {
 				if (blk.nodeName == "DpchEngWzskAck") {

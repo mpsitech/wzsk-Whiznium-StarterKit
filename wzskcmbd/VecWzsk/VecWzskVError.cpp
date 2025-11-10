@@ -2,8 +2,8 @@
 	* \file VecWzskVError.cpp
 	* vector VecWzskVError (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -46,10 +46,6 @@ uint VecWzskVError::getIx(
 	if (s == "txtrd.tknunid") return TXTRD_TKNUNID;
 	if (s == "xmlio.bufparse") return XMLIO_BUFPARSE;
 	if (s == "xmlio.fileparse") return XMLIO_FILEPARSE;
-	if (s == "gpio") return GPIO;
-	if (s == "pwm") return PWM;
-	if (s == "spidev") return SPIDEV;
-	if (s == "v4l2") return V4L2;
 
 	return(0);
 };
@@ -81,10 +77,6 @@ string VecWzskVError::getSref(
 	if (ix == TXTRD_TKNUNID) return("txtrd.tknunid");
 	if (ix == XMLIO_BUFPARSE) return("xmlio.bufparse");
 	if (ix == XMLIO_FILEPARSE) return("xmlio.fileparse");
-	if (ix == GPIO) return("gpio");
-	if (ix == PWM) return("pwm");
-	if (ix == SPIDEV) return("spidev");
-	if (ix == V4L2) return("v4l2");
 
 	return("");
 };
@@ -118,37 +110,7 @@ string VecWzskVError::getTitle(
 		if (ix == TXTRD_TKNUNID) return("unidentified token '&tkn;' in line &lineno;");
 		if (ix == XMLIO_BUFPARSE) return("error parsing XML buffer");
 		if (ix == XMLIO_FILEPARSE) return("error parsing XML file");
-		if (ix == GPIO) return("GPIO subsystem: &msg;");
-		if (ix == PWM) return("PWM subsystem: &msg;");
-		if (ix == SPIDEV) return("SPI subsystem: &msg;");
-		if (ix == V4L2) return("V4L2 subsystem: &msg;");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == DBS_CONN) return("database connection failure: &dbms;");
-		if (ix == DBS_QUERY) return("error executing SQL query '&sql;': &dbms;");
-		if (ix == DBS_STMTEXEC) return("error executing statement: &dbms;");
-		if (ix == DBS_STMTPREP) return("error preparing SQL statement '&sql;': &dbms;");
-		if (ix == ENGCONN) return("Fehler beim Verbinden zur Engine");
-		if (ix == IEX_FILETYPE) return("keine &iexsref; Datei");
-		if (ix == IEX_FTM) return("Zeitstempel/Datum/Uhrzeit-Format '&ftm;' ung\\u00fcltig f\\u00fcr Importspalte &iel; in Zeile &lineno;");
-		if (ix == IEX_IARG) return("Argument '&iarg;' zum spezifischen Import ung\\u00fcltig f\\u00fcr Importspalte &iel; in Zeile &lineno;");
-		if (ix == IEX_IDIREF) return("doppelte Integer-ID-Referenz &idiref; f\\u00fcr Import &ime; in Zeile &lineno;");
-		if (ix == IEX_IOP) return("ung\\u00fcltige Import-Operation &iop; f\\u00fcr Import &ime; in Zeile &lineno;");
-		if (ix == IEX_IREF) return("Integer-Referenz &iref; nicht aufgel\\u00f6st f\\u00fcr Importspalte &iel; in Zeile &lineno;");
-		if (ix == IEX_RETR) return("Datensatz nicht auffindbar f\\u00fcr Import &ime; und Informationen in Zeile &lineno;");
-		if (ix == IEX_THINT) return("Text-Hinweis '&thint;' f\\u00fcr Tabellen-Referenz nicht aufgel\\u00f6st f\\u00fcr Importspalte &iel; in Zeile &lineno;");
-		if (ix == IEX_THSREF) return("hierarchische String-Referenz '&thsref;' auf Tabelle nicht aufgel\\u00f6st f\\u00fcr Importspalte &iel; in Zeile &lineno;");
-		if (ix == IEX_TSREF) return("String-Referenz '&tsref;' auf Tabelle nicht aufgel\\u00f6st f\\u00fcr Importspalte &iel; in Zeile &lineno;");
-		if (ix == IEX_VERSION) return("Version &version; inkompatibel, Minimum ist &minversion;");
-		if (ix == IEX_VSREF) return("String-Referenz '&vsref;' auf Vektoreintrag nicht aufgel\\u00f6st f\\u00fcr Importspalte &iel; in Zeile &lineno;");
-		if (ix == PATHNF) return("Pfad '&path;' nicht gefunden");
-		if (ix == TXTRD_CONTENT) return("fehlplatzierter Inhalt in Zeile &lineno;");
-		if (ix == TXTRD_ENDTKN) return("fehlendes &ime;.end-Token in Zeile &lineno;");
-		if (ix == TXTRD_TKNMISPL) return("fehlplatziertes Token '&tkn;' in Zeile &lineno;");
-		if (ix == TXTRD_TKNUNID) return("unbekanntes Token '&tkn;' in Zeile &lineno;");
-		if (ix == XMLIO_BUFPARSE) return("Fehler beim Parsen von XML-Buffer");
-		if (ix == XMLIO_FILEPARSE) return("Fehler beim Parsen von XML-Datei");
-		return(getTitle(ix, 1));
 	};
 
 	return("");
@@ -160,5 +122,5 @@ void VecWzskVError::fillFeed(
 		) {
 	feed.clear();
 
-	for (unsigned int i = 1; i <= 28; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
+	for (unsigned int i = 1; i <= 24; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
 };

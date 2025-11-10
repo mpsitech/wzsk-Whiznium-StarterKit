@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrRec.cpp
 	* API code for job PnlWzskUsrRec (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -45,9 +45,8 @@ PnlWzskUsrRec::ContInf::ContInf(
 			const string& TxtRef
 		) :
 			Block()
+			, TxtRef(TxtRef)
 		{
-	this->TxtRef = TxtRef;
-
 	mask = {TXTREF};
 };
 
@@ -109,12 +108,11 @@ PnlWzskUsrRec::StatApp::StatApp(
 			, const bool initdoneMNUsergroup
 		) :
 			Block()
+			, initdoneDetail(initdoneDetail)
+			, initdoneAAccess(initdoneAAccess)
+			, initdone1NSession(initdone1NSession)
+			, initdoneMNUsergroup(initdoneMNUsergroup)
 		{
-	this->initdoneDetail = initdoneDetail;
-	this->initdoneAAccess = initdoneAAccess;
-	this->initdone1NSession = initdone1NSession;
-	this->initdoneMNUsergroup = initdoneMNUsergroup;
-
 	mask = {INITDONEDETAIL, INITDONEAACCESS, INITDONE1NSESSION, INITDONEMNUSERGROUP};
 };
 
@@ -184,14 +182,13 @@ PnlWzskUsrRec::StatShr::StatShr(
 			, const bool ButRegularizeActive
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, scrJrefDetail(scrJrefDetail)
+			, scrJrefAAccess(scrJrefAAccess)
+			, scrJref1NSession(scrJref1NSession)
+			, scrJrefMNUsergroup(scrJrefMNUsergroup)
+			, ButRegularizeActive(ButRegularizeActive)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->scrJrefDetail = scrJrefDetail;
-	this->scrJrefAAccess = scrJrefAAccess;
-	this->scrJref1NSession = scrJref1NSession;
-	this->scrJrefMNUsergroup = scrJrefMNUsergroup;
-	this->ButRegularizeActive = ButRegularizeActive;
-
 	mask = {IXWZSKVEXPSTATE, SCRJREFDETAIL, SCRJREFAACCESS, SCRJREF1NSESSION, SCRJREFMNUSERGROUP, BUTREGULARIZEACTIVE};
 };
 
@@ -265,9 +262,8 @@ PnlWzskUsrRec::Tag::Tag(
 			const string& Cpt
 		) :
 			Block()
+			, Cpt(Cpt)
 		{
-	this->Cpt = Cpt;
-
 	mask = {CPT};
 };
 
@@ -304,11 +300,11 @@ PnlWzskUsrRec::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKUSRRECDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string PnlWzskUsrRec::DpchAppDo::getSrefsMask() {

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<head>
+		<title>Ident_bcont</title>
+		<script>
+			<!-- IP custScript - INSERT -->
+		</script>
+		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
+		<!-- IP custStyle - INSERT -->
+	</head>
+	<body marginwidth="0" marginheight="0">
+		<table cellspacing="0" border="0" cellpadding="0"><form action="">
+			<colgroup>
+				<col width="5"/>
+				<col width="215"/>
+				<col width="5"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="68"/>
+				<col width="2"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="1"/>
+				<col width="114"/>
+			</colgroup>
+			<tbody id="tbl">
+				<tr><td colspan="11" height="5"></td></tr>
+				<tr id="trVsp" class="show">
+					<td height="25"></td>
+					<td colspan="2"></td>
+					<td colspan="8" align="left">
+						<span id="HdgVsp" class="cpt">HdgVsp</span>&#160;&#160;
+					</td>
+				</tr>
+				<tr id="trVve" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptVve" class="cpt">CptVve</span>
+					</td>
+					<td></td>
+					<td colspan="3" align="left">
+						<input id="TxtVve" class="txfsnoed" type="text" readonly="readonly" value="TxtVve"/>
+					</td>
+					<td></td>
+					<td colspan="4"></td>
+				</tr>
+				<tr id="trVgh" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptVgh" class="cpt">CptVgh</span>
+					</td>
+					<td></td>
+					<td colspan="3" align="left">
+						<input id="TxtVgh" class="txfsnoed" type="text" readonly="readonly" value="TxtVgh"/>
+					</td>
+					<td></td>
+					<td colspan="4"></td>
+				</tr>
+				<tr id="trVau" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptVau" class="cpt">CptVau</span>
+					</td>
+					<td></td>
+					<td colspan="3" align="left">
+						<input id="TxtVau" class="txfsnoed" type="text" readonly="readonly" value="TxtVau"/>
+					</td>
+					<td></td>
+					<td colspan="4"></td>
+				</tr>
+				<tr id="trVfm" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptVfm" class="cpt">CptVfm</span>
+					</td>
+					<td></td>
+					<td colspan="1" align="left">
+						<input id="TxtVfm" class="txfxsnoed" type="text" readonly="readonly" value="TxtVfm"/>
+					</td>
+					<td></td>
+					<td colspan="6"></td>
+				</tr>
+				<tr id="trVfd" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptVfd" class="cpt">CptVfd</span>
+					</td>
+					<td></td>
+					<td colspan="1" align="left">
+						<input id="TxtVfd" class="txfxsnoed" type="text" readonly="readonly" value="TxtVfd"/>
+					</td>
+					<td></td>
+					<td colspan="6"></td>
+				</tr>
+				<tr><td colspan="11" height="4"></td></tr>
+			</tbody>
+		</form></table>
+	</body>
+</html>

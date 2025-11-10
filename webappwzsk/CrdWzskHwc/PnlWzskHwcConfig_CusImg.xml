@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<head>
+		<title>CusImg</title>
+		<script>
+			function handleCusImgLoad() {parent.parent.parent.window.handleCusImgLoad(document)};
+			<!-- IP evthdls - INSERT -->
+		</script>
+		<!-- IP style - INSERT -->
+	</head>
+	<body marginwidth="0" marginheight="0" onload="handleCusImgLoad()">
+		<!-- IP pre - INSERT -->
+		<table cellspacing="0" border="0" cellpadding="0">
+			<colgroup>
+				<!-- IP colgrp - INSERT -->
+			</colgroup>
+			<tbody id="tbl">
+				<!-- IP tbody - INSERT -->
+			</tbody>
+		</table>
+	</body>
+</html>

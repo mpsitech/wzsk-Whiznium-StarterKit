@@ -2,8 +2,8 @@
 	* \file M2msessWzsk.h
 	* API code for job M2msessWzsk (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -26,26 +26,22 @@ namespace M2msessWzsk {
 	class StatShr : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint SCRJREFACQPREVIEW = 1;
-		static const Sbecore::uint SCRJREFACQPTCLOUD = 2;
-		static const Sbecore::uint SCRJREFACTEXPOSURE = 3;
-		static const Sbecore::uint SCRJREFACTLASER = 4;
-		static const Sbecore::uint SCRJREFACTSERVO = 5;
-		static const Sbecore::uint SCRJREFIPRCORNER = 6;
-		static const Sbecore::uint SCRJREFIPRTRACE = 7;
-		static const Sbecore::uint SCRJREFSRCSYSINFO = 8;
+		static const Sbecore::uint SCRJREFACQCORNER = 1;
+		static const Sbecore::uint SCRJREFACQTRACE = 2;
+		static const Sbecore::uint SCRJREFACTLASER = 3;
+		static const Sbecore::uint SCRJREFACTROTARY = 4;
+		static const Sbecore::uint SCRJREFSRCFPGAINFO = 5;
+		static const Sbecore::uint SCRJREFSRCSYSINFO = 6;
 
 	public:
-		StatShr(const std::string& scrJrefAcqpreview = "", const std::string& scrJrefAcqptcloud = "", const std::string& scrJrefActexposure = "", const std::string& scrJrefActlaser = "", const std::string& scrJrefActservo = "", const std::string& scrJrefIprcorner = "", const std::string& scrJrefIprtrace = "", const std::string& scrJrefSrcsysinfo = "");
+		StatShr(const std::string& scrJrefAcqcorner = "", const std::string& scrJrefAcqtrace = "", const std::string& scrJrefActlaser = "", const std::string& scrJrefActrotary = "", const std::string& scrJrefSrcfpgainfo = "", const std::string& scrJrefSrcsysinfo = "");
 
 	public:
-		std::string scrJrefAcqpreview;
-		std::string scrJrefAcqptcloud;
-		std::string scrJrefActexposure;
+		std::string scrJrefAcqcorner;
+		std::string scrJrefAcqtrace;
 		std::string scrJrefActlaser;
-		std::string scrJrefActservo;
-		std::string scrJrefIprcorner;
-		std::string scrJrefIprtrace;
+		std::string scrJrefActrotary;
+		std::string scrJrefSrcfpgainfo;
 		std::string scrJrefSrcsysinfo;
 
 	public:

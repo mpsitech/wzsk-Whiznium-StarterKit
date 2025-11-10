@@ -1,27 +1,21 @@
-IexWznmDpl v1.0.9
+IexWznmDpl v1.1.8
 ImeIMComponent.srefIxVBasetype	sref	Title	Comment
 cmbeng	wzskcmbd	Whiznium Starter Kit combined engine
 	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
-	any;yocto;armv7;mcv	wzskcmbd_mcv
-	any;yocto;armv7;plnx	wzskcmbd_plnx
-	any;yocto;riscv64	wzskcmbd_riscv
-	any;yocto;armv7;tdx	wzskcmbd_tdx
-	any;ubuntu	wzskcmbd_ubuntu
 	any;yocto;armv8;pl64	wzskcmbd_pl64
+	any;broot;riscv32;sapsoc	wzskcmbd_riscv32
+	any;yocto;riscv64	wzskcmbd_riscv64
+	any;ubuntu	wzskcmbd_ubuntu
 	ImeIMRelease.end
 	ImeIRMComponentMLibrary.srefRefWznmMLibrary
-	ezdevpmnd
 	ezdevwskd
-	png
 	ImeIRMComponentMLibrary.end
 dbs	dbswzsk	Whiznium Starter Kit database access library
 	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
-	any;yocto;armv7;mcv	dbswzsk_mcv
-	any;yocto;armv7;plnx	dbswzsk_plnx
-	any;yocto;riscv64	dbswzsk_riscv
-	any;yocto;armv7;tdx	dbswzsk_tdx
-	any;ubuntu	dbswzsk_ubuntu
 	any;yocto;armv8;pl64	dbswzsk_pl64
+	any;broot;riscv32;sapsoc	dbswzsk_riscv32
+	any;yocto;riscv64	dbswzsk_riscv64
+	any;ubuntu	dbswzsk_ubuntu
 	ImeIMRelease.end
 vueapp	vueappwzsk	Whiznium Starter Kit Vue.js app
 	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
@@ -35,15 +29,6 @@ webapp	webappwzsk	Whiznium Starter Kit web app user interface files
 	ImeIMRelease.end
 api	apiwzsk	Whiznium Starter Kit API library
 	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
-	any;mac	apiwzsk_mac
-	any;ubuntu	apiwzsk_ubuntu
-	ImeIMRelease.end
-japi	japiwzsk	Whiznium Starter Kit Java API package
-	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
-	any	japiwzsk_any
-	ImeIMRelease.end
-swapi	swapiwzsk	Whiznium Starter Kit Swift API package
-	ImeIMRelease.hsrefRefWznmMMachine	sref	srefsKOption	Comment
-	any	swapiwzsk_any
+	any;ubuntu;default	apiwzsk_ubuntu
 	ImeIMRelease.end
 ImeIMComponent.end

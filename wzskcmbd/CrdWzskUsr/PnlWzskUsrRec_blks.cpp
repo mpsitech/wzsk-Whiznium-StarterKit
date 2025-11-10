@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrRec_blks.cpp
 	* job handler for job PnlWzskUsrRec (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -43,9 +43,8 @@ PnlWzskUsrRec::ContInf::ContInf(
 			const string& TxtRef
 		) :
 			Block()
+			, TxtRef(TxtRef)
 		{
-	this->TxtRef = TxtRef;
-
 	mask = {TXTREF};
 };
 
@@ -158,14 +157,13 @@ PnlWzskUsrRec::StatShr::StatShr(
 			, const bool ButRegularizeActive
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, jrefDetail(jrefDetail)
+			, jrefAAccess(jrefAAccess)
+			, jref1NSession(jref1NSession)
+			, jrefMNUsergroup(jrefMNUsergroup)
+			, ButRegularizeActive(ButRegularizeActive)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->jrefDetail = jrefDetail;
-	this->jrefAAccess = jrefAAccess;
-	this->jref1NSession = jref1NSession;
-	this->jrefMNUsergroup = jrefMNUsergroup;
-	this->ButRegularizeActive = ButRegularizeActive;
-
 	mask = {IXWZSKVEXPSTATE, JREFDETAIL, JREFAACCESS, JREF1NSESSION, JREFMNUSERGROUP, BUTREGULARIZEACTIVE};
 };
 
@@ -250,8 +248,6 @@ void PnlWzskUsrRec::Tag::writeJSON(
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["Cpt"] = "User";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Benutzer";
 	};
 };
 
@@ -270,8 +266,6 @@ void PnlWzskUsrRec::Tag::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "User");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Benutzer");
 		};
 	xmlTextWriterEndElement(wr);
 };

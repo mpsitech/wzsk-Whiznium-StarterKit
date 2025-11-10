@@ -2,8 +2,8 @@
 	* \file WzskAMPersonDetail.cpp
 	* database access for table TblWzskAMPersonDetail (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -21,12 +21,12 @@ WzskAMPersonDetail::WzskAMPersonDetail(
 			, const ubigint refWzskMPerson
 			, const string x1SrefKType
 			, const string Val
-		) {
-
-	this->ref = ref;
-	this->refWzskMPerson = refWzskMPerson;
-	this->x1SrefKType = x1SrefKType;
-	this->Val = Val;
+		) :
+			ref(ref)
+			, refWzskMPerson(refWzskMPerson)
+			, x1SrefKType(x1SrefKType)
+			, Val(Val)
+		{
 };
 
 bool WzskAMPersonDetail::operator==(

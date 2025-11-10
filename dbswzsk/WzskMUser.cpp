@@ -2,8 +2,8 @@
 	* \file WzskMUser.cpp
 	* database access for table TblWzskMUser (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -33,22 +33,22 @@ WzskMUser::WzskMUser(
 			, const string Password
 			, const string Fullkey
 			, const string Comment
-		) {
-
-	this->ref = ref;
-	this->grp = grp;
-	this->own = own;
-	this->refRUsergroup = refRUsergroup;
-	this->refWzskMUsergroup = refWzskMUsergroup;
-	this->refWzskMPerson = refWzskMPerson;
-	this->sref = sref;
-	this->refJState = refJState;
-	this->ixVState = ixVState;
-	this->ixWzskVLocale = ixWzskVLocale;
-	this->ixWzskVUserlevel = ixWzskVUserlevel;
-	this->Password = Password;
-	this->Fullkey = Fullkey;
-	this->Comment = Comment;
+		) :
+			ref(ref)
+			, grp(grp)
+			, own(own)
+			, refRUsergroup(refRUsergroup)
+			, refWzskMUsergroup(refWzskMUsergroup)
+			, refWzskMPerson(refWzskMPerson)
+			, sref(sref)
+			, refJState(refJState)
+			, ixVState(ixVState)
+			, ixWzskVLocale(ixWzskVLocale)
+			, ixWzskVUserlevel(ixWzskVUserlevel)
+			, Password(Password)
+			, Fullkey(Fullkey)
+			, Comment(Comment)
+		{
 };
 
 bool WzskMUser::operator==(

@@ -2,8 +2,8 @@
 	* \file WzskcmbdJobprc.cpp
 	* job processor for Wzsk combined daemon (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -188,7 +188,7 @@ void WzskcmbdJobprc::accessJob(
 	JobWzsk* job = NULL;
 
 	if ((req->ixVBasetype == ReqWzsk::VecVBasetype::CMD) || (req->ixVBasetype == ReqWzsk::VecVBasetype::DPCHAPP) || (req->ixVBasetype == ReqWzsk::VecVBasetype::UPLOAD) || (req->ixVBasetype == ReqWzsk::VecVBasetype::DOWNLOAD)) {
-		if ((xchg->stgwzskappearance.roottterm != 0) || (xchg->stgwzskappearance.sesstterm != 0)) {
+		if ((xchg->stgwzskbehavior.roottterm != 0) || (xchg->stgwzskbehavior.sesstterm != 0)) {
 			time(&rawtime);
 			xchg->triggerIxRefCall(dbswzsk, VecWzskVCall::CALLWZSKREFPRESET, req->jref, VecWzskVPreset::PREWZSKTLAST, rawtime);
 		};

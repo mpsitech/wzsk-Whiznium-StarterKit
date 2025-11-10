@@ -2,8 +2,8 @@
 	* \file JobWzskActLaser.h
 	* job handler for job JobWzskActLaser (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -12,18 +12,11 @@
 
 // IP include.spec --- INSERT
 
-// IP include.cust --- IBEGIN
-#include <linux/gpio.h>
-#include <linux/spi/spidev.h>
-#include <sys/ioctl.h>
-// IP include.cust --- IEND
+// IP include.cust --- INSERT
 
-#include "JobWzskSrcMercbb.h"
-#include "JobWzskSrcUvbdvk.h"
-#include "JobWzskSrcMcvevp.h"
-#include "JobWzskSrcIcicle.h"
-#include "JobWzskSrcClnxevb.h"
-#include "JobWzskSrcArty.h"
+#include "JobWzskSrcDcvsp.h"
+#include "JobWzskSrcTivsp.h"
+#include "JobWzskSrcZuvsp.h"
 
 #define VecVJobWzskActLaserMethod JobWzskActLaser::VecVMethod
 #define VecVJobWzskActLaserVar JobWzskActLaser::VecVVar
@@ -73,25 +66,15 @@ public:
 	class Stg : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint PATHGPIO = 1;
-		static const Sbecore::uint LINEOFFSETLEFT = 2;
-		static const Sbecore::uint LINEOFFSETRIGHT = 3;
-		static const Sbecore::uint PATHSPI = 4;
-		static const Sbecore::uint LEFTMIN = 5;
-		static const Sbecore::uint LEFTMAX = 6;
-		static const Sbecore::uint RIGHTMIN = 7;
-		static const Sbecore::uint RIGHTMAX = 8;
+		static const Sbecore::uint LEFTMIN = 1;
+		static const Sbecore::uint LEFTMAX = 2;
+		static const Sbecore::uint RIGHTMIN = 3;
+		static const Sbecore::uint RIGHTMAX = 4;
 
 	public:
-		Stg(const std::string& pathGpio = "/dev/gpiochip5", const Sbecore::utinyint lineoffsetLeft = 10, const Sbecore::utinyint lineoffsetRight = 9, const std::string& pathSpi = "/dev/spidev0.0", const Sbecore::usmallint leftMin = 164, const Sbecore::usmallint leftMax = 245, const Sbecore::usmallint rightMin = 164, const Sbecore::usmallint rightMax = 245);
+		Stg(const Sbecore::usmallint leftMin = 164, const Sbecore::usmallint leftMax = 245, const Sbecore::usmallint rightMin = 164, const Sbecore::usmallint rightMax = 245);
 
 	public:
-		std::string pathGpio; // corr. to GPIO6
-		Sbecore::utinyint lineoffsetLeft; // GPIO6_IO10
-		Sbecore::utinyint lineoffsetRight; // GPIO6_IO9
-
-		std::string pathSpi;
-
 		Sbecore::usmallint leftMin; // experimentally, full range corresponds to 16% .. 24%
 		Sbecore::usmallint leftMax;
 
@@ -105,6 +88,9 @@ public:
 		std::set<Sbecore::uint> diff(const Stg* comp);
 	};
 
+	bool evalSrcdcvspConstr(DbsWzsk* dbswzsk);
+	bool evalSrctivspConstr(DbsWzsk* dbswzsk);
+	bool evalSrczuvspConstr(DbsWzsk* dbswzsk);
 	/**
 		* Shrdat (full: ShrdatJobWzskActLaser)
 		*/
@@ -120,17 +106,7 @@ public:
 		float left;
 		float right;
 
-		// IP Shrdat.vars.cust --- IBEGIN
-		gpiohandle_request reqGpio;
-
-		int fdSpi;
-		spi_ioc_transfer xferSpi;
-
-		static constexpr int lenSpi = 2;
-
-		unsigned char rxbufSpi[lenSpi];
-		unsigned char txbufSpi[lenSpi];
-		// IP Shrdat.vars.cust --- IEND
+		// IP Shrdat.vars.cust --- INSERT
 
 	public:
 		void init(XchgWzsk* xchg, DbsWzsk* dbswzsk);
@@ -145,12 +121,9 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
-	JobWzskSrcMercbb* srcmercbb;
-	JobWzskSrcUvbdvk* srcuvbdvk;
-	JobWzskSrcMcvevp* srcmcvevp;
-	JobWzskSrcIcicle* srcicicle;
-	JobWzskSrcClnxevb* srcclnxevb;
-	JobWzskSrcArty* srcarty;
+	JobWzskSrcDcvsp* srcdcvsp;
+	JobWzskSrcTivsp* srctivsp;
+	JobWzskSrcZuvsp* srczuvsp;
 
 	// IP vars.spec --- INSERT
 
@@ -172,7 +145,6 @@ public:
 	void handleRequest(DbsWzsk* dbswzsk, ReqWzsk* req);
 
 private:
-	bool handleTest(DbsWzsk* dbswzsk);
 
 public:
 	bool handleClaim(DbsWzsk* dbswzsk, std::map<Sbecore::ubigint,Sbecore::Claim*>& claims, const Sbecore::ubigint jrefNewest);

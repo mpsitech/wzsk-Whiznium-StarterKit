@@ -2,12 +2,11 @@
 -- SQLite database create script
 -- copyright: (C) 2016-2020 MPSI Technologies GmbH
 -- author: Alexander Wirthmueller (auto-generation)
--- date created: 12 Sep 2022
+-- date created: 12 Oct 2025
 -- IP header --- ABOVE
 
 DROP TABLE IF EXISTS TblWzskAccRMUserUniversal;
 DROP TABLE IF EXISTS TblWzskAMPersonDetail;
-DROP TABLE IF EXISTS TblWzskAMShotPar;
 DROP TABLE IF EXISTS TblWzskAMUserAccess;
 DROP TABLE IF EXISTS TblWzskAMUsergroupAccess;
 DROP TABLE IF EXISTS TblWzskAVControlPar;
@@ -16,36 +15,21 @@ DROP TABLE IF EXISTS TblWzskAVValuelistVal;
 DROP TABLE IF EXISTS TblWzskCFile;
 DROP TABLE IF EXISTS TblWzskHistRMUserUniversal;
 DROP TABLE IF EXISTS TblWzskJAVKeylistKey;
-DROP TABLE IF EXISTS TblWzskJMObjgroupTitle;
 DROP TABLE IF EXISTS TblWzskJMPersonLastname;
 DROP TABLE IF EXISTS TblWzskJMUserState;
 DROP TABLE IF EXISTS TblWzskMFile;
-DROP TABLE IF EXISTS TblWzskMObject;
-DROP TABLE IF EXISTS TblWzskMObjgroup;
 DROP TABLE IF EXISTS TblWzskMPerson;
 DROP TABLE IF EXISTS TblWzskMSession;
-DROP TABLE IF EXISTS TblWzskMShot;
 DROP TABLE IF EXISTS TblWzskMUser;
 DROP TABLE IF EXISTS TblWzskMUsergroup;
 DROP TABLE IF EXISTS TblWzskRMUsergroupUniversal;
 DROP TABLE IF EXISTS TblWzskRMUserMUsergroup;
 
 DROP TABLE IF EXISTS TblWzskQFilList;
-DROP TABLE IF EXISTS TblWzskQObj1NShot;
-DROP TABLE IF EXISTS TblWzskQObjList;
-DROP TABLE IF EXISTS TblWzskQObjRef1NFile;
-DROP TABLE IF EXISTS TblWzskQOgr1NObject;
-DROP TABLE IF EXISTS TblWzskQOgrList;
-DROP TABLE IF EXISTS TblWzskQOgrSup1NObjgroup;
 DROP TABLE IF EXISTS TblWzskQPreselect;
 DROP TABLE IF EXISTS TblWzskQPrsADetail;
 DROP TABLE IF EXISTS TblWzskQPrsList;
 DROP TABLE IF EXISTS TblWzskQSelect;
-DROP TABLE IF EXISTS TblWzskQSes1NShot;
-DROP TABLE IF EXISTS TblWzskQSesList;
-DROP TABLE IF EXISTS TblWzskQShtAPar;
-DROP TABLE IF EXISTS TblWzskQShtList;
-DROP TABLE IF EXISTS TblWzskQShtRef1NFile;
 DROP TABLE IF EXISTS TblWzskQUsgAAccess;
 DROP TABLE IF EXISTS TblWzskQUsgList;
 DROP TABLE IF EXISTS TblWzskQUsgMNUser;
@@ -72,15 +56,6 @@ CREATE TABLE TblWzskAMPersonDetail(
 	Val VARCHAR(192)
 );
 CREATE INDEX TblWzskAMPersonDetail_refWzskMPerson ON TblWzskAMPersonDetail (refWzskMPerson);
-
-CREATE TABLE TblWzskAMShotPar(
-	ref INTEGER PRIMARY KEY AUTOINCREMENT,
-	refWzskMShot BIGINT,
-	x1SrefKKey VARCHAR(50),
-	Val VARCHAR(192)
-);
-CREATE INDEX TblWzskAMShotPar_refWzskMShot ON TblWzskAMShotPar (refWzskMShot);
-CREATE INDEX TblWzskAMShotPar_x1SrefKKey ON TblWzskAMShotPar (x1SrefKKey);
 
 CREATE TABLE TblWzskAMUserAccess(
 	ref INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -183,16 +158,6 @@ CREATE TABLE TblWzskJAVKeylistKey(
 CREATE INDEX TblWzskJAVKeylistKey_refWzskAVKeylistKey ON TblWzskJAVKeylistKey (refWzskAVKeylistKey);
 CREATE INDEX TblWzskJAVKeylistKey_x1IxWzskVLocale ON TblWzskJAVKeylistKey (x1IxWzskVLocale);
 
-CREATE TABLE TblWzskJMObjgroupTitle(
-	ref INTEGER PRIMARY KEY AUTOINCREMENT,
-	refWzskMObjgroup BIGINT,
-	x1IxWzskVLocale INT,
-	Title VARCHAR(100)
-);
-CREATE INDEX TblWzskJMObjgroupTitle_refWzskMObjgroup ON TblWzskJMObjgroupTitle (refWzskMObjgroup);
-CREATE INDEX TblWzskJMObjgroupTitle_x1IxWzskVLocale ON TblWzskJMObjgroupTitle (x1IxWzskVLocale);
-CREATE INDEX TblWzskJMObjgroupTitle_Title ON TblWzskJMObjgroupTitle (Title);
-
 CREATE TABLE TblWzskJMPersonLastname(
 	ref INTEGER PRIMARY KEY AUTOINCREMENT,
 	refWzskMPerson BIGINT,
@@ -224,7 +189,7 @@ CREATE TABLE TblWzskMFile(
 	Filename VARCHAR(50),
 	Archivename VARCHAR(30),
 	srefKMimetype VARCHAR(50),
-	Size SMALLINT,
+	Size INT,
 	Comment TEXT
 );
 CREATE INDEX TblWzskMFile_grp ON TblWzskMFile (grp);
@@ -233,27 +198,6 @@ CREATE INDEX TblWzskMFile_refWzskCFile ON TblWzskMFile (refWzskCFile);
 CREATE INDEX TblWzskMFile_refIxVTbl ON TblWzskMFile (refIxVTbl);
 CREATE INDEX TblWzskMFile_refUref ON TblWzskMFile (refUref);
 CREATE INDEX TblWzskMFile_Filename ON TblWzskMFile (Filename);
-
-CREATE TABLE TblWzskMObject(
-	ref INTEGER PRIMARY KEY AUTOINCREMENT,
-	refWzskMObjgroup BIGINT,
-	Title VARCHAR(100),
-	Comment TEXT
-);
-CREATE INDEX TblWzskMObject_refWzskMObjgroup ON TblWzskMObject (refWzskMObjgroup);
-CREATE INDEX TblWzskMObject_Title ON TblWzskMObject (Title);
-
-CREATE TABLE TblWzskMObjgroup(
-	ref INTEGER PRIMARY KEY AUTOINCREMENT,
-	supRefWzskMObjgroup BIGINT,
-	sref VARCHAR(50),
-	refJTitle BIGINT,
-	Title VARCHAR(100),
-	Comment TEXT
-);
-CREATE INDEX TblWzskMObjgroup_supRefWzskMObjgroup ON TblWzskMObjgroup (supRefWzskMObjgroup);
-CREATE INDEX TblWzskMObjgroup_sref ON TblWzskMObjgroup (sref);
-CREATE INDEX TblWzskMObjgroup_Title ON TblWzskMObjgroup (Title);
 
 CREATE TABLE TblWzskMPerson(
 	ref INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -285,17 +229,6 @@ CREATE TABLE TblWzskMSession(
 );
 CREATE INDEX TblWzskMSession_refWzskMUser ON TblWzskMSession (refWzskMUser);
 CREATE INDEX TblWzskMSession_start ON TblWzskMSession (start);
-
-CREATE TABLE TblWzskMShot(
-	ref INTEGER PRIMARY KEY AUTOINCREMENT,
-	refWzskMSession BIGINT,
-	refWzskMObject BIGINT,
-	start INT,
-	Comment TEXT
-);
-CREATE INDEX TblWzskMShot_refWzskMSession ON TblWzskMShot (refWzskMSession);
-CREATE INDEX TblWzskMShot_refWzskMObject ON TblWzskMShot (refWzskMObject);
-CREATE INDEX TblWzskMShot_start ON TblWzskMShot (start);
 
 CREATE TABLE TblWzskMUser(
 	ref INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -363,69 +296,10 @@ CREATE TABLE TblWzskQFilList(
 	refUref BIGINT,
 	osrefKContent VARCHAR(50),
 	srefKMimetype VARCHAR(50),
-	Size SMALLINT
+	Size INT
 );
 CREATE INDEX TblWzskQFilList_jref ON TblWzskQFilList (jref);
 CREATE INDEX TblWzskQFilList_jnum ON TblWzskQFilList (jnum);
-
-CREATE TABLE TblWzskQObj1NShot(
-	qref INTEGER PRIMARY KEY AUTOINCREMENT,
-	jref BIGINT,
-	jnum INT,
-	ref BIGINT
-);
-CREATE INDEX TblWzskQObj1NShot_jref ON TblWzskQObj1NShot (jref);
-CREATE INDEX TblWzskQObj1NShot_jnum ON TblWzskQObj1NShot (jnum);
-
-CREATE TABLE TblWzskQObjList(
-	qref INTEGER PRIMARY KEY AUTOINCREMENT,
-	jref BIGINT,
-	jnum INT,
-	ref BIGINT,
-	Title VARCHAR(100),
-	refWzskMObjgroup BIGINT
-);
-CREATE INDEX TblWzskQObjList_jref ON TblWzskQObjList (jref);
-CREATE INDEX TblWzskQObjList_jnum ON TblWzskQObjList (jnum);
-
-CREATE TABLE TblWzskQObjRef1NFile(
-	qref INTEGER PRIMARY KEY AUTOINCREMENT,
-	jref BIGINT,
-	jnum INT,
-	ref BIGINT
-);
-CREATE INDEX TblWzskQObjRef1NFile_jref ON TblWzskQObjRef1NFile (jref);
-CREATE INDEX TblWzskQObjRef1NFile_jnum ON TblWzskQObjRef1NFile (jnum);
-
-CREATE TABLE TblWzskQOgr1NObject(
-	qref INTEGER PRIMARY KEY AUTOINCREMENT,
-	jref BIGINT,
-	jnum INT,
-	ref BIGINT
-);
-CREATE INDEX TblWzskQOgr1NObject_jref ON TblWzskQOgr1NObject (jref);
-CREATE INDEX TblWzskQOgr1NObject_jnum ON TblWzskQOgr1NObject (jnum);
-
-CREATE TABLE TblWzskQOgrList(
-	qref INTEGER PRIMARY KEY AUTOINCREMENT,
-	jref BIGINT,
-	jnum INT,
-	ref BIGINT,
-	sref VARCHAR(50),
-	Title VARCHAR(100),
-	supRefWzskMObjgroup BIGINT
-);
-CREATE INDEX TblWzskQOgrList_jref ON TblWzskQOgrList (jref);
-CREATE INDEX TblWzskQOgrList_jnum ON TblWzskQOgrList (jnum);
-
-CREATE TABLE TblWzskQOgrSup1NObjgroup(
-	qref INTEGER PRIMARY KEY AUTOINCREMENT,
-	jref BIGINT,
-	jnum INT,
-	ref BIGINT
-);
-CREATE INDEX TblWzskQOgrSup1NObjgroup_jref ON TblWzskQOgrSup1NObjgroup (jref);
-CREATE INDEX TblWzskQOgrSup1NObjgroup_jnum ON TblWzskQOgrSup1NObjgroup (jnum);
 
 CREATE TABLE TblWzskQPreselect(
 	qref INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -472,60 +346,6 @@ CREATE TABLE TblWzskQSelect(
 );
 CREATE INDEX TblWzskQSelect_jref ON TblWzskQSelect (jref);
 CREATE INDEX TblWzskQSelect_ix ON TblWzskQSelect (ix);
-
-CREATE TABLE TblWzskQSes1NShot(
-	qref INTEGER PRIMARY KEY AUTOINCREMENT,
-	jref BIGINT,
-	jnum INT,
-	ref BIGINT
-);
-CREATE INDEX TblWzskQSes1NShot_jref ON TblWzskQSes1NShot (jref);
-CREATE INDEX TblWzskQSes1NShot_jnum ON TblWzskQSes1NShot (jnum);
-
-CREATE TABLE TblWzskQSesList(
-	qref INTEGER PRIMARY KEY AUTOINCREMENT,
-	jref BIGINT,
-	jnum INT,
-	ref BIGINT,
-	refWzskMUser BIGINT,
-	start INT,
-	stop INT,
-	Ip VARCHAR(30)
-);
-CREATE INDEX TblWzskQSesList_jref ON TblWzskQSesList (jref);
-CREATE INDEX TblWzskQSesList_jnum ON TblWzskQSesList (jnum);
-
-CREATE TABLE TblWzskQShtAPar(
-	qref INTEGER PRIMARY KEY AUTOINCREMENT,
-	jref BIGINT,
-	jnum INT,
-	ref BIGINT,
-	x1SrefKKey VARCHAR(50),
-	Val VARCHAR(192)
-);
-CREATE INDEX TblWzskQShtAPar_jref ON TblWzskQShtAPar (jref);
-CREATE INDEX TblWzskQShtAPar_jnum ON TblWzskQShtAPar (jnum);
-
-CREATE TABLE TblWzskQShtList(
-	qref INTEGER PRIMARY KEY AUTOINCREMENT,
-	jref BIGINT,
-	jnum INT,
-	ref BIGINT,
-	refWzskMSession BIGINT,
-	refWzskMObject BIGINT,
-	start INT
-);
-CREATE INDEX TblWzskQShtList_jref ON TblWzskQShtList (jref);
-CREATE INDEX TblWzskQShtList_jnum ON TblWzskQShtList (jnum);
-
-CREATE TABLE TblWzskQShtRef1NFile(
-	qref INTEGER PRIMARY KEY AUTOINCREMENT,
-	jref BIGINT,
-	jnum INT,
-	ref BIGINT
-);
-CREATE INDEX TblWzskQShtRef1NFile_jref ON TblWzskQShtRef1NFile (jref);
-CREATE INDEX TblWzskQShtRef1NFile_jnum ON TblWzskQShtRef1NFile (jnum);
 
 CREATE TABLE TblWzskQUsgAAccess(
 	qref INTEGER PRIMARY KEY AUTOINCREMENT,

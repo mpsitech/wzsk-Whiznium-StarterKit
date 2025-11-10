@@ -2,8 +2,8 @@
 	* \file WzskJMPersonLastname.cpp
 	* database access for table TblWzskJMPersonLastname (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -21,12 +21,12 @@ WzskJMPersonLastname::WzskJMPersonLastname(
 			, const ubigint refWzskMPerson
 			, const uint x1Startd
 			, const string Lastname
-		) {
-
-	this->ref = ref;
-	this->refWzskMPerson = refWzskMPerson;
-	this->x1Startd = x1Startd;
-	this->Lastname = Lastname;
+		) :
+			ref(ref)
+			, refWzskMPerson(refWzskMPerson)
+			, x1Startd(x1Startd)
+			, Lastname(Lastname)
+		{
 };
 
 bool WzskJMPersonLastname::operator==(

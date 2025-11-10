@@ -2,8 +2,8 @@
 	* \file PnlWzskPrsRec_blks.cpp
 	* job handler for job PnlWzskPrsRec (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -43,9 +43,8 @@ PnlWzskPrsRec::ContInf::ContInf(
 			const string& TxtRef
 		) :
 			Block()
+			, TxtRef(TxtRef)
 		{
-	this->TxtRef = TxtRef;
-
 	mask = {TXTREF};
 };
 
@@ -148,12 +147,11 @@ PnlWzskPrsRec::StatShr::StatShr(
 			, const bool ButRegularizeActive
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, jrefDetail(jrefDetail)
+			, jrefADetail(jrefADetail)
+			, ButRegularizeActive(ButRegularizeActive)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->jrefDetail = jrefDetail;
-	this->jrefADetail = jrefADetail;
-	this->ButRegularizeActive = ButRegularizeActive;
-
 	mask = {IXWZSKVEXPSTATE, JREFDETAIL, JREFADETAIL, BUTREGULARIZEACTIVE};
 };
 
@@ -232,8 +230,6 @@ void PnlWzskPrsRec::Tag::writeJSON(
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["Cpt"] = "Person";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Person";
 	};
 };
 
@@ -251,8 +247,6 @@ void PnlWzskPrsRec::Tag::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Person");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Person");
 		};
 	xmlTextWriterEndElement(wr);

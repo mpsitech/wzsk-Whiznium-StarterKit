@@ -2,8 +2,8 @@
 	* \file Wzsk.cpp
 	* Wzsk global functionality (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -45,10 +45,10 @@ ubigint Acv::addfile(
 	// set archived time to current time
 	Archived = time(NULL);
 
-	// determine file size in kB
+	// determine file size in byte
 	struct stat st;
 	stat(path.c_str(), &st);
-	Size = st.st_size / 1024;
+	Size = st.st_size;
 
 	dbswzsk->tblwzskmfile->insertNewRec(&fil, grp, own, 0, refIxVTbl, refUref, osrefKContent, Archived, Filename, "", srefKMimetype, Size, Comment);
 	
@@ -433,186 +433,71 @@ string Tmp::random() {
  ******************************************************************************/
 
 // IP gbl --- IBEGIN
-void Wzsk::getPvwWh(
-			const uint ixWzskVTarget
-			, const uint ixWzskVPvwmode
-			, unsigned int& w
-			, unsigned int& h
+void Wzsk::parseCmd(
+			UntWskd& unt
+			, string s
+			, Dbecore::Cmd*& cmd
 		) {
-	if ((ixWzskVPvwmode == VecWzskVPvwmode::BINGRAY) || (ixWzskVPvwmode == VecWzskVPvwmode::RAWGRAY)) {
-		if (ixWzskVTarget == VecWzskVTarget::WS) {
-			w = 400;
-			h = 300;
-		} else {
-			w = 256;
-			h = 192;
-		};
-	} else if ((ixWzskVPvwmode == VecWzskVPvwmode::BINRGB) || (ixWzskVPvwmode == VecWzskVPvwmode::RAWRGB)) {
-		if (ixWzskVTarget == VecWzskVTarget::WS) {
-			w = 400;
-			h = 300;
-		} else {
-			w = 160;
-			h = 120;
-		};
-	} else {
-		w = 0;
-		h = 0;
-	};
+	string cmdsref;
+	uint cmdix;
+
+	utinyint tixVController;
+	utinyint tixVCommand;
+
+	if (cmd) delete cmd;
+	cmd = NULL;
+
+	size_t ptr;
+
+	if (s.length() == 0) return;
+	if (s[s.length()-1] != ')') return;
+	s = s.substr(0, s.length()-1);
+	ptr = s.find('(');
+	if (ptr == string::npos) return;
+
+	cmdix = getCmdix(unt, s.substr(0, ptr));
+	tixVController = (cmdix >> 8);
+	tixVCommand = (cmdix & 0xFF);
+	s = s.substr(ptr+1);
+
+	cmd = unt.getNewCmd(tixVController, tixVCommand);
+	if (cmd) cmd->parlistToParbufInv(s);
 };
 
-bool Wzsk::getPvwRawNotBin(
-			const uint ixWzskVPvwmode
+uint Wzsk::getCmdix(
+			UntWskd& unt
+			, const string& cmdsref
 		) {
-	return ((ixWzskVPvwmode == VecWzskVPvwmode::RAWGRAY) || (ixWzskVPvwmode == VecWzskVPvwmode::RAWRGB));
+	utinyint tixVController = 0;
+	utinyint tixVCommand = 0;
+
+	size_t ptr;
+
+	ptr = cmdsref.find('.');
+
+	if (ptr != string::npos) {
+		tixVController = unt.getTixVControllerBySref(cmdsref.substr(0, ptr));
+		tixVCommand = unt.getTixVCommandBySref(tixVController, cmdsref.substr(ptr+1));
+
+		return((tixVController << 8) + tixVCommand);
+
+	} else return 0;
 };
 
-bool Wzsk::getPvwGrayNotRgb(
-			const uint ixWzskVPvwmode
+string Wzsk::getCmdsref(
+			UntWskd& unt
+			, const uint cmdix
 		) {
-	return ((ixWzskVPvwmode == VecWzskVPvwmode::BINGRAY) || (ixWzskVPvwmode == VecWzskVPvwmode::RAWGRAY));
-};
+	string cmdsref;
 
-uint Wzsk::getIxWzskVPvwmode(
-			const bool rawNotBin
-			, const bool grayNotRgb
-		) {
-	if (!rawNotBin) {
-		if (!grayNotRgb) return VecWzskVPvwmode::BINRGB;
-		return VecWzskVPvwmode::BINGRAY;
-	} else {
-		if (!grayNotRgb) return VecWzskVPvwmode::RAWRGB;
-		return VecWzskVPvwmode::RAWGRAY;
-	};
-};
+	utinyint tixVController = (cmdix >> 8);
+	utinyint tixVCommand = (cmdix & 0xFF);
 
-void Wzsk::getFlgWh(
-			unsigned int& w
-			, unsigned int& h
-		) {
-	w = 1024;
-	h = 768;
-};
+	cmdsref = unt.getSrefByTixVController(tixVController);
+	cmdsref += ".";
+	cmdsref += unt.getSrefByTixVCommand(tixVController, tixVCommand);
 
-void Wzsk::bitmapToXy(
-			unsigned char* src
-			, const bool src16Not8
-			, const unsigned int width
-			, const unsigned int height
-			, vector<int>& xs
-			, vector<int>& ys
-			, const unsigned int cntPerRowMax
-			, const bool roi
-			, const vector<int>& xsRoi
-			, const vector<int>& ysRoi
-			, const bool rot180
-			, const bool append
-		) {
-	bool byteflip = src16Not8 && !bigendian();
-
-	unsigned int ldix, stix;
-
-	register unsigned char byte0, byte1;
-	register uint16_t data;
-
-	register uint16_t test;
-
-	unsigned int cnt;
-
-	vector<int> dxsRoi;
-	vector<int> dysRoi;
-
-	unsigned int Nroi;
-
-	double rx, ry, x0, dx, y0, dy, mu, lam;
-
-	if (!append) {
-		xs.clear();
-		ys.clear();
-	};
-
-	if (roi) {
-		// vectors between each two points
-		dxsRoi.resize(xsRoi.size());
-		dysRoi.resize(xsRoi.size());
-
-		for (unsigned int i = 0; i < xsRoi.size(); i++) {
-			unsigned int j = i + 1;
-			if (j == xsRoi.size()) j = 0;
-
-			dxsRoi[i] = xsRoi[j] - xsRoi[i];
-			dysRoi[i] = ysRoi[j] - ysRoi[i];
-		};
-	};
-
-	for (unsigned int i = 0; i < height; i++) {
-		cnt = 0;
-
-		for (unsigned int j = 0; j < width; j += 16) {
-			ldix = i * width/8 + j/8;
-
-			if (!byteflip) {
-				byte0 = src[ldix];
-				byte1 = src[ldix + 1];
-			} else {
-				byte1 = src[ldix];
-				byte0 = src[ldix + 1];
-			};
-
-			data = (byte0 << 8) + byte1;
-
-			for (stix = j, test = 32768; test != 0; stix++, test >>= 1)
-				if (data & test) {
-					Nroi = 0;
-
-					if (roi) {
-						// count vector intersections with line pointing from test point to x = -width/2
-						for (unsigned int k = 0; k < xsRoi.size(); k++) {
-							if (!rot180) {
-								rx = stix;
-								ry = i;
-							} else {
-								rx = width - stix - 1;
-								ry = height - i - 1;
-							};
-
-							x0 = xsRoi[k] + ((double) width)/2.0;
-							dx = dxsRoi[k];
-
-							y0 = ysRoi[k] + ((double) height)/2.0;
-							dy = dysRoi[k];
-
-							if (dy == 0.0) continue;
-
-							mu = (ry - y0) / dy;
-							if (mu < 0.0) continue;
-							if (mu > 1.0) continue;
-
-							if (rx == 0.0) continue;
-
-							lam = 1.0 - (x0 + mu * dx) / rx;
-							if (lam < 0.0) continue;
-							if (lam <= 1.0) Nroi++;
-						};
-					};
-
-					if (!roi || (Nroi%2)) {
-						if (!rot180) {
-							xs.push_back(((int) stix) - ((int) width)/2);
-							ys.push_back(((int) i) - ((int) height)/2);
-						} else {
-							xs.push_back(((int) (width - stix - 1)) - ((int) width)/2);
-							ys.push_back(((int) (height - i - 1)) - ((int) height)/2);
-						};
-
-						cnt++;
-						if (cnt >= cntPerRowMax) break;
-					};
-				};
-
-			if (cnt >= cntPerRowMax) break;
-		};
-	};
+	return cmdsref;
 };
 
 double Wzsk::getNow() {
@@ -656,17 +541,13 @@ string StubWzsk::getStub(
 			, const bool refresh
 		) {
 	if (ixWzskVStub == VecWzskVStub::STUBWZSKFILSTD) return getStubFilStd(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
-	else if (ixWzskVStub == VecWzskVStub::STUBWZSKGROUP) return getStubGroup(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
-	else if (ixWzskVStub == VecWzskVStub::STUBWZSKOBJSTD) return getStubObjStd(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
-	else if (ixWzskVStub == VecWzskVStub::STUBWZSKOGRHSREF) return getStubOgrHsref(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
-	else if (ixWzskVStub == VecWzskVStub::STUBWZSKOGRSTD) return getStubOgrStd(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
-	else if (ixWzskVStub == VecWzskVStub::STUBWZSKOWNER) return getStubOwner(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
-	else if (ixWzskVStub == VecWzskVStub::STUBWZSKPRSSTD) return getStubPrsStd(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
-	else if (ixWzskVStub == VecWzskVStub::STUBWZSKSESMENU) return getStubSesMenu(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
-	else if (ixWzskVStub == VecWzskVStub::STUBWZSKSESSTD) return getStubSesStd(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
-	else if (ixWzskVStub == VecWzskVStub::STUBWZSKSHTSTD) return getStubShtStd(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
-	else if (ixWzskVStub == VecWzskVStub::STUBWZSKUSGSTD) return getStubUsgStd(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
-	else if (ixWzskVStub == VecWzskVStub::STUBWZSKUSRSTD) return getStubUsrStd(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
+	if (ixWzskVStub == VecWzskVStub::STUBWZSKGROUP) return getStubGroup(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
+	if (ixWzskVStub == VecWzskVStub::STUBWZSKOWNER) return getStubOwner(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
+	if (ixWzskVStub == VecWzskVStub::STUBWZSKPRSSTD) return getStubPrsStd(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
+	if (ixWzskVStub == VecWzskVStub::STUBWZSKSESMENU) return getStubSesMenu(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
+	if (ixWzskVStub == VecWzskVStub::STUBWZSKSESSTD) return getStubSesStd(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
+	if (ixWzskVStub == VecWzskVStub::STUBWZSKUSGSTD) return getStubUsgStd(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
+	if (ixWzskVStub == VecWzskVStub::STUBWZSKUSRSTD) return getStubUsrStd(dbswzsk, ref, ixWzskVLocale, ixVNonetype, stcch, strefSub, refresh);
 
 	return("");
 };
@@ -680,7 +561,7 @@ string StubWzsk::getStubFilStd(
 			, stcchitemref_t* strefSub
 			, const bool refresh
 		) {
-	// example: "customers.xlsx"
+	// example: "abcd.h5"
 	string stub;
 
 	stcchitemref_t stref(VecWzskVStub::STUBWZSKFILSTD, ref, ixWzskVLocale);
@@ -697,10 +578,8 @@ string StubWzsk::getStubFilStd(
 	if (ixVNonetype == Stub::VecVNonetype::DASH) stub = "-";
 	else if (ixVNonetype == Stub::VecVNonetype::SHORT) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(none)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine)";
 	} else if (ixVNonetype == Stub::VecVNonetype::FULL) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(no file)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine Datei)";
 	};
 
 	if (ref != 0) {
@@ -741,10 +620,8 @@ string StubWzsk::getStubGroup(
 	if (ixVNonetype == Stub::VecVNonetype::DASH) stub = "-";
 	else if (ixVNonetype == Stub::VecVNonetype::SHORT) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(none)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine)";
 	} else if (ixVNonetype == Stub::VecVNonetype::FULL) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(no user group)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine Benutzergruppe)";
 	};
 
 	if (ref != 0) {
@@ -753,153 +630,6 @@ string StubWzsk::getStubGroup(
 				if (!stit) stit = stcch->addStit(stref);
 				stit->stub = stub;
 			};
-		};
-	};
-
-	return stub;
-};
-
-string StubWzsk::getStubObjStd(
-			DbsWzsk* dbswzsk
-			, const ubigint ref
-			, const uint ixWzskVLocale
-			, const uint ixVNonetype
-			, Stcch* stcch
-			, stcchitemref_t* strefSub
-			, const bool refresh
-		) {
-	// example: "Tux"
-	string stub;
-
-	stcchitemref_t stref(VecWzskVStub::STUBWZSKOBJSTD, ref, ixWzskVLocale);
-	Stcchitem* stit = NULL;
-
-	if (stcch) {
-		stit = stcch->getStitByStref(stref);
-		if (stit && !refresh) {
-			if (strefSub) stcch->link(stref, *strefSub);
-			return stit->stub;
-		};
-	};
-
-	if (ixVNonetype == Stub::VecVNonetype::DASH) stub = "-";
-	else if (ixVNonetype == Stub::VecVNonetype::SHORT) {
-		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(none)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keines)";
-	} else if (ixVNonetype == Stub::VecVNonetype::FULL) {
-		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(no object)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(kein Objekt)";
-	};
-
-	if (ref != 0) {
-		if (dbswzsk->tblwzskmobject->loadTitByRef(ref, stub)) {
-			if (stcch) {
-				if (!stit) stit = stcch->addStit(stref);
-				stit->stub = stub;
-			};
-		};
-	};
-
-	return stub;
-};
-
-string StubWzsk::getStubOgrHsref(
-			DbsWzsk* dbswzsk
-			, const ubigint ref
-			, const uint ixWzskVLocale
-			, const uint ixVNonetype
-			, Stcch* stcch
-			, stcchitemref_t* strefSub
-			, const bool refresh
-		) {
-	// example: "icon;comp"
-	string stub;
-
-	WzskMObjgroup* rec = NULL;
-
-	stcchitemref_t stref(VecWzskVStub::STUBWZSKOGRHSREF, ref, ixWzskVLocale);
-	Stcchitem* stit = NULL;
-
-	if (stcch) {
-		stit = stcch->getStitByStref(stref);
-		if (stit && !refresh) {
-			if (strefSub) stcch->link(stref, *strefSub);
-			return stit->stub;
-		};
-	};
-
-	if (ixVNonetype == Stub::VecVNonetype::DASH) stub = "-";
-	else if (ixVNonetype == Stub::VecVNonetype::SHORT) {
-		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(none)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine)";
-	} else if (ixVNonetype == Stub::VecVNonetype::FULL) {
-		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(no object group)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine Objektgruppe)";
-	};
-
-	if (ref != 0) {
-		if (dbswzsk->tblwzskmobjgroup->loadRecByRef(ref, &rec)) {
-			if (stcch && !stit) stit = stcch->addStit(stref);
-			stub = rec->sref;
-			if (rec->supRefWzskMObjgroup != 0) stub = getStubOgrHsref(dbswzsk, rec->supRefWzskMObjgroup, ixWzskVLocale, ixVNonetype, stcch, &stref) + ";" + stub;
-			if (stit) stit->stub = stub;
-			delete rec;
-		};
-	};
-
-	return stub;
-};
-
-string StubWzsk::getStubOgrStd(
-			DbsWzsk* dbswzsk
-			, const ubigint ref
-			, const uint ixWzskVLocale
-			, const uint ixVNonetype
-			, Stcch* stcch
-			, stcchitemref_t* strefSub
-			, const bool refresh
-		) {
-	// example: "(icon;comp) Open Source Software"
-	string stub;
-
-	WzskMObjgroup* rec = NULL;
-
-	stcchitemref_t stref(VecWzskVStub::STUBWZSKOGRSTD, ref, ixWzskVLocale);
-	Stcchitem* stit = NULL;
-
-	if (stcch) {
-		stit = stcch->getStitByStref(stref);
-		if (stit && !refresh) {
-			if (strefSub) stcch->link(stref, *strefSub);
-			return stit->stub;
-		};
-	};
-
-	if (ixVNonetype == Stub::VecVNonetype::DASH) stub = "-";
-	else if (ixVNonetype == Stub::VecVNonetype::SHORT) {
-		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(none)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine)";
-	} else if (ixVNonetype == Stub::VecVNonetype::FULL) {
-		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(no object group)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine Objektgruppe)";
-	};
-
-	if (ref != 0) {
-		if (dbswzsk->tblwzskmobjgroup->loadRecByRef(ref, &rec)) {
-			if (stcch && !stit) stit = stcch->addStit(stref);
-			// IP getStubOgrStd --- IBEGIN
-			WzskJMObjgroupTitle* ogrJTit = NULL;
-
-			if (dbswzsk->tblwzskjmobjgrouptitle->loadRecByOgrLcl(rec->ref, ixWzskVLocale, &ogrJTit)) {
-				stub = ogrJTit->Title;
-				delete ogrJTit;
-
-			} else stub = rec->Title;;
-
-			if (rec->supRefWzskMObjgroup != 0) stub = "(" + getStubOgrHsref(dbswzsk, rec->supRefWzskMObjgroup, ixWzskVLocale, ixVNonetype, stcch, &stref) + ") " + stub;
-			// IP getStubOgrStd --- IEND
-			if (stit) stit->stub = stub;
-			delete rec;
 		};
 	};
 
@@ -932,10 +662,8 @@ string StubWzsk::getStubOwner(
 	if (ixVNonetype == Stub::VecVNonetype::DASH) stub = "-";
 	else if (ixVNonetype == Stub::VecVNonetype::SHORT) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(none)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keiner)";
 	} else if (ixVNonetype == Stub::VecVNonetype::FULL) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(no user)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(kein Benutzer)";
 	};
 
 	if (ref != 0) {
@@ -978,10 +706,8 @@ string StubWzsk::getStubPrsStd(
 	if (ixVNonetype == Stub::VecVNonetype::DASH) stub = "-";
 	else if (ixVNonetype == Stub::VecVNonetype::SHORT) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(none)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine)";
 	} else if (ixVNonetype == Stub::VecVNonetype::FULL) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(no person)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine Person)";
 	};
 
 	if (ref != 0) {
@@ -1027,10 +753,8 @@ string StubWzsk::getStubSesMenu(
 	if (ixVNonetype == Stub::VecVNonetype::DASH) stub = "-";
 	else if (ixVNonetype == Stub::VecVNonetype::SHORT) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(none)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine)";
 	} else if (ixVNonetype == Stub::VecVNonetype::FULL) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(no session)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine Sitzung)";
 	};
 
 	if (ref != 0) {
@@ -1038,7 +762,6 @@ string StubWzsk::getStubSesMenu(
 			if (stcch && !stit) stit = stcch->addStit(stref);
 			// IP getStubWzskSesMenu --- BEGIN
 			if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "user " + getStubUsrStd(dbswzsk, rec->refWzskMUser, ixWzskVLocale, ixVNonetype, stcch, &stref) + ";logged in from " + rec->Ip + ";since " + Ftm::stamp(rec->start);
-			else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "Benutzer " + getStubUsrStd(dbswzsk, rec->refWzskMUser, ixWzskVLocale, ixVNonetype, stcch, &stref) + ";eingeloggt von " + rec->Ip + ";seit " + Ftm::stamp(rec->start);
 			// IP getStubWzskSesMenu --- END
 			if (stit) stit->stub = stub;
 			delete rec;
@@ -1076,10 +799,8 @@ string StubWzsk::getStubSesStd(
 	if (ixVNonetype == Stub::VecVNonetype::DASH) stub = "-";
 	else if (ixVNonetype == Stub::VecVNonetype::SHORT) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(none)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine)";
 	} else if (ixVNonetype == Stub::VecVNonetype::FULL) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(no session)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine Sitzung)";
 	};
 
 	if (ref != 0) {
@@ -1087,56 +808,7 @@ string StubWzsk::getStubSesStd(
 			if (stcch && !stit) stit = stcch->addStit(stref);
 			// IP getStubWzskSesStd --- BEGIN
 			if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = Ftm::stamp(rec->start) + " from " + rec->Ip;
-			else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = Ftm::stamp(rec->start) + " von " + rec->Ip;
 			// IP getStubWzskSesStd --- END
-			if (stit) stit->stub = stub;
-			delete rec;
-		};
-	};
-
-	return stub;
-};
-
-string StubWzsk::getStubShtStd(
-			DbsWzsk* dbswzsk
-			, const ubigint ref
-			, const uint ixWzskVLocale
-			, const uint ixVNonetype
-			, Stcch* stcch
-			, stcchitemref_t* strefSub
-			, const bool refresh
-		) {
-	// example: "Tux 1-9-2019 8:23:05"
-	string stub;
-
-	WzskMShot* rec = NULL;
-
-	stcchitemref_t stref(VecWzskVStub::STUBWZSKSHTSTD, ref, ixWzskVLocale);
-	Stcchitem* stit = NULL;
-
-	if (stcch) {
-		stit = stcch->getStitByStref(stref);
-		if (stit && !refresh) {
-			if (strefSub) stcch->link(stref, *strefSub);
-			return stit->stub;
-		};
-	};
-
-	if (ixVNonetype == Stub::VecVNonetype::DASH) stub = "-";
-	else if (ixVNonetype == Stub::VecVNonetype::SHORT) {
-		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(none)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine)";
-	} else if (ixVNonetype == Stub::VecVNonetype::FULL) {
-		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(no shot)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine Aufnahme)";
-	};
-
-	if (ref != 0) {
-		if (dbswzsk->tblwzskmshot->loadRecByRef(ref, &rec)) {
-			if (stcch && !stit) stit = stcch->addStit(stref);
-			// IP getStubShtStd --- IBEGIN
-			stub = getStubObjStd(dbswzsk, rec->refWzskMObject, ixWzskVLocale, ixVNonetype, stcch, &stref) + " " + Ftm::stamp(rec->start);
-			// IP getStubShtStd --- IEND
 			if (stit) stit->stub = stub;
 			delete rec;
 		};
@@ -1171,10 +843,8 @@ string StubWzsk::getStubUsgStd(
 	if (ixVNonetype == Stub::VecVNonetype::DASH) stub = "-";
 	else if (ixVNonetype == Stub::VecVNonetype::SHORT) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(none)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine)";
 	} else if (ixVNonetype == Stub::VecVNonetype::FULL) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(no user group)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keine Benutzergruppe)";
 	};
 
 	if (ref != 0) {
@@ -1217,10 +887,8 @@ string StubWzsk::getStubUsrStd(
 	if (ixVNonetype == Stub::VecVNonetype::DASH) stub = "-";
 	else if (ixVNonetype == Stub::VecVNonetype::SHORT) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(none)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(keiner)";
 	} else if (ixVNonetype == Stub::VecVNonetype::FULL) {
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) stub = "(no user)";
-		else if (ixWzskVLocale == VecWzskVLocale::DECH) stub = "(kein Benutzer)";
 	};
 
 	if (ref != 0) {
@@ -1253,10 +921,6 @@ string WzskException::getSref() {
 	string sref = SbeException::getSref();
 	if (sref != "") return sref;
 	
-	if (ix == GPIO) return("gpio");
-	if (ix == PWM) return("pwm");
-	if (ix == SPIDEV) return("spidev");
-	if (ix == V4L2) return("v4l2");
 	
 	return("");
 };
@@ -1281,20 +945,20 @@ ContInfWzskAlert::ContInfWzskAlert(
 			, const string& TxtMsg12
 		) :
 			Block()
+			, TxtCpt(TxtCpt)
+			, TxtMsg1(TxtMsg1)
+			, TxtMsg2(TxtMsg2)
+			, TxtMsg3(TxtMsg3)
+			, TxtMsg4(TxtMsg4)
+			, TxtMsg5(TxtMsg5)
+			, TxtMsg6(TxtMsg6)
+			, TxtMsg7(TxtMsg7)
+			, TxtMsg8(TxtMsg8)
+			, TxtMsg9(TxtMsg9)
+			, TxtMsg10(TxtMsg10)
+			, TxtMsg11(TxtMsg11)
+			, TxtMsg12(TxtMsg12)
 		{
-	this->TxtCpt = TxtCpt;
-	this->TxtMsg1 = TxtMsg1;
-	this->TxtMsg2 = TxtMsg2;
-	this->TxtMsg3 = TxtMsg3;
-	this->TxtMsg4 = TxtMsg4;
-	this->TxtMsg5 = TxtMsg5;
-	this->TxtMsg6 = TxtMsg6;
-	this->TxtMsg7 = TxtMsg7;
-	this->TxtMsg8 = TxtMsg8;
-	this->TxtMsg9 = TxtMsg9;
-	this->TxtMsg10 = TxtMsg10;
-	this->TxtMsg11 = TxtMsg11;
-	this->TxtMsg12 = TxtMsg12;
 
 	mask = {TXTCPT, TXTMSG1, TXTMSG2, TXTMSG3, TXTMSG4, TXTMSG5, TXTMSG6, TXTMSG7, TXTMSG8, TXTMSG9, TXTMSG10, TXTMSG11, TXTMSG12};
 };
@@ -1400,8 +1064,9 @@ set<uint> ContInfWzskAlert::compare(
 
 DpchWzsk::DpchWzsk(
 			const uint ixWzskVDpch
-		) {
-	this->ixWzskVDpch = ixWzskVDpch;
+		) :
+			ixWzskVDpch(ixWzskVDpch)
+		{
 };
 
 DpchWzsk::~DpchWzsk() {
@@ -1417,9 +1082,9 @@ DpchInvWzsk::DpchInvWzsk(
 			, const ubigint jref
 		) :
 			DpchWzsk(ixWzskVDpch)
+			, oref(oref)
+			, jref(jref)
 		{
-	this->oref = oref;
-	this->jref = jref;
 };
 
 DpchInvWzsk::~DpchInvWzsk() {
@@ -1467,11 +1132,11 @@ DpchRetWzsk::DpchRetWzsk(
 			, const utinyint pdone
 		) :
 			DpchWzsk(ixWzskVDpch)
+			, scrOref(scrOref)
+			, scrJref(scrJref)
+			, ixOpVOpres(ixOpVOpres)
+			, pdone(pdone)
 		{
-	this->scrOref = scrOref;
-	this->scrJref = scrJref;
-	this->ixOpVOpres = ixOpVOpres;
-	this->pdone = pdone;
 };
 
 DpchRetWzsk::~DpchRetWzsk() {

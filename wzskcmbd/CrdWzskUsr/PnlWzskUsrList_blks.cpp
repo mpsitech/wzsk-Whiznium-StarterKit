@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrList_blks.cpp
 	* job handler for job PnlWzskUsrList (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -51,9 +51,8 @@ PnlWzskUsrList::ContIac::ContIac(
 			const uint numFTos
 		) :
 			Block()
+			, numFTos(numFTos)
 		{
-	this->numFTos = numFTos;
-
 	mask = {NUMFTOS};
 };
 
@@ -107,7 +106,7 @@ void PnlWzskUsrList::ContIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFTos"] = numFTos;
+	me["numFTos"] = (Json::Value::UInt) numFTos;
 };
 
 void PnlWzskUsrList::ContIac::writeXML(
@@ -159,10 +158,9 @@ PnlWzskUsrList::ContInf::ContInf(
 			, const uint numFCsiQst
 		) :
 			Block()
+			, ButFilterOn(ButFilterOn)
+			, numFCsiQst(numFCsiQst)
 		{
-	this->ButFilterOn = ButFilterOn;
-	this->numFCsiQst = numFCsiQst;
-
 	mask = {BUTFILTERON, NUMFCSIQST};
 };
 
@@ -175,7 +173,7 @@ void PnlWzskUsrList::ContInf::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	me["ButFilterOn"] = ButFilterOn;
-	me["numFCsiQst"] = numFCsiQst;
+	me["numFCsiQst"] = (Json::Value::UInt) numFCsiQst;
 };
 
 void PnlWzskUsrList::ContInf::writeXML(
@@ -229,10 +227,9 @@ PnlWzskUsrList::StatShr::StatShr(
 			, const bool ButDeleteActive
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, ButDeleteActive(ButDeleteActive)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->ButDeleteActive = ButDeleteActive;
-
 	mask = {IXWZSKVEXPSTATE, BUTDELETEACTIVE};
 };
 
@@ -305,15 +302,15 @@ PnlWzskUsrList::StgIac::StgIac(
 			, const uint TcoUlvWidth
 		) :
 			Block()
+			, TcoGrpWidth(TcoGrpWidth)
+			, TcoOwnWidth(TcoOwnWidth)
+			, TcoPrsWidth(TcoPrsWidth)
+			, TcoSrfWidth(TcoSrfWidth)
+			, TcoUsgWidth(TcoUsgWidth)
+			, TcoSteWidth(TcoSteWidth)
+			, TcoLclWidth(TcoLclWidth)
+			, TcoUlvWidth(TcoUlvWidth)
 		{
-	this->TcoGrpWidth = TcoGrpWidth;
-	this->TcoOwnWidth = TcoOwnWidth;
-	this->TcoPrsWidth = TcoPrsWidth;
-	this->TcoSrfWidth = TcoSrfWidth;
-	this->TcoUsgWidth = TcoUsgWidth;
-	this->TcoSteWidth = TcoSteWidth;
-	this->TcoLclWidth = TcoLclWidth;
-	this->TcoUlvWidth = TcoUlvWidth;
 	mask = {TCOGRPWIDTH, TCOOWNWIDTH, TCOPRSWIDTH, TCOSRFWIDTH, TCOUSGWIDTH, TCOSTEWIDTH, TCOLCLWIDTH, TCOULVWIDTH};
 };
 
@@ -381,14 +378,14 @@ void PnlWzskUsrList::StgIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["TcoGrpWidth"] = TcoGrpWidth;
-	me["TcoOwnWidth"] = TcoOwnWidth;
-	me["TcoPrsWidth"] = TcoPrsWidth;
-	me["TcoSrfWidth"] = TcoSrfWidth;
-	me["TcoUsgWidth"] = TcoUsgWidth;
-	me["TcoSteWidth"] = TcoSteWidth;
-	me["TcoLclWidth"] = TcoLclWidth;
-	me["TcoUlvWidth"] = TcoUlvWidth;
+	me["TcoGrpWidth"] = (Json::Value::UInt) TcoGrpWidth;
+	me["TcoOwnWidth"] = (Json::Value::UInt) TcoOwnWidth;
+	me["TcoPrsWidth"] = (Json::Value::UInt) TcoPrsWidth;
+	me["TcoSrfWidth"] = (Json::Value::UInt) TcoSrfWidth;
+	me["TcoUsgWidth"] = (Json::Value::UInt) TcoUsgWidth;
+	me["TcoSteWidth"] = (Json::Value::UInt) TcoSteWidth;
+	me["TcoLclWidth"] = (Json::Value::UInt) TcoLclWidth;
+	me["TcoUlvWidth"] = (Json::Value::UInt) TcoUlvWidth;
 };
 
 void PnlWzskUsrList::StgIac::writeXML(
@@ -466,14 +463,6 @@ void PnlWzskUsrList::Tag::writeJSON(
 		me["TcoSte"] = "State";
 		me["TcoLcl"] = "Locale";
 		me["TcoUlv"] = "User level";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Benutzer";
-		me["TcoPrs"] = "Person";
-		me["TcoSrf"] = "Login";
-		me["TcoUsg"] = "Prim\\u00e4re Benutzergruppe";
-		me["TcoSte"] = "Status";
-		me["TcoLcl"] = "Sprachversion";
-		me["TcoUlv"] = "Benutzerebene";
 	};
 	me["TxtRecord1"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale));
 	me["TxtRecord2"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale));
@@ -505,14 +494,6 @@ void PnlWzskUsrList::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "TcoSte", "State");
 			writeStringAttr(wr, itemtag, "sref", "TcoLcl", "Locale");
 			writeStringAttr(wr, itemtag, "sref", "TcoUlv", "User level");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Benutzer");
-			writeStringAttr(wr, itemtag, "sref", "TcoPrs", "Person");
-			writeStringAttr(wr, itemtag, "sref", "TcoSrf", "Login");
-			writeStringAttr(wr, itemtag, "sref", "TcoUsg", "Prim\\u00e4re Benutzergruppe");
-			writeStringAttr(wr, itemtag, "sref", "TcoSte", "Status");
-			writeStringAttr(wr, itemtag, "sref", "TcoLcl", "Sprachversion");
-			writeStringAttr(wr, itemtag, "sref", "TcoUlv", "Benutzerebene");
 		};
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord1", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord2", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale)));

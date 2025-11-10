@@ -2,8 +2,8 @@
 	* \file WzskMFile.cpp
 	* database access for table TblWzskMFile (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -30,23 +30,23 @@ WzskMFile::WzskMFile(
 			, const string Filename
 			, const string Archivename
 			, const string srefKMimetype
-			, const usmallint Size
+			, const uint Size
 			, const string Comment
-		) {
-
-	this->ref = ref;
-	this->grp = grp;
-	this->own = own;
-	this->refWzskCFile = refWzskCFile;
-	this->refIxVTbl = refIxVTbl;
-	this->refUref = refUref;
-	this->osrefKContent = osrefKContent;
-	this->Archived = Archived;
-	this->Filename = Filename;
-	this->Archivename = Archivename;
-	this->srefKMimetype = srefKMimetype;
-	this->Size = Size;
-	this->Comment = Comment;
+		) :
+			ref(ref)
+			, grp(grp)
+			, own(own)
+			, refWzskCFile(refWzskCFile)
+			, refIxVTbl(refIxVTbl)
+			, refUref(refUref)
+			, osrefKContent(osrefKContent)
+			, Archived(Archived)
+			, Filename(Filename)
+			, Archivename(Archivename)
+			, srefKMimetype(srefKMimetype)
+			, Size(Size)
+			, Comment(Comment)
+		{
 };
 
 bool WzskMFile::operator==(
@@ -187,7 +187,7 @@ ubigint TblWzskMFile::insertNewRec(
 			, const string Filename
 			, const string Archivename
 			, const string srefKMimetype
-			, const usmallint Size
+			, const uint Size
 			, const string Comment
 		) {
 	ubigint retval = 0;
@@ -217,7 +217,7 @@ ubigint TblWzskMFile::appendNewRecToRst(
 			, const string Filename
 			, const string Archivename
 			, const string srefKMimetype
-			, const usmallint Size
+			, const uint Size
 			, const string Comment
 		) {
 	ubigint retval = 0;
@@ -277,15 +277,6 @@ ubigint TblWzskMFile::loadRefsByClu(
 
 ubigint TblWzskMFile::loadRstByClu(
 			ubigint refWzskCFile
-			, const bool append
-			, ListWzskMFile& rst
-		) {
-	return 0;
-};
-
-ubigint TblWzskMFile::loadRstByRetReu(
-			uint refIxVTbl
-			, ubigint refUref
 			, const bool append
 			, ListWzskMFile& rst
 		) {
@@ -373,7 +364,7 @@ bool MyTblWzskMFile::loadRecBySQL(
 		if (dbrow[8]) _rec->Filename.assign(dbrow[8], dblengths[8]); else _rec->Filename = "";
 		if (dbrow[9]) _rec->Archivename.assign(dbrow[9], dblengths[9]); else _rec->Archivename = "";
 		if (dbrow[10]) _rec->srefKMimetype.assign(dbrow[10], dblengths[10]); else _rec->srefKMimetype = "";
-		if (dbrow[11]) _rec->Size = atoi((char*) dbrow[11]); else _rec->Size = 0;
+		if (dbrow[11]) _rec->Size = atol((char*) dbrow[11]); else _rec->Size = 0;
 		if (dbrow[12]) _rec->Comment.assign(dbrow[12], dblengths[12]); else _rec->Comment = "";
 
 		retval = true;
@@ -428,7 +419,7 @@ ubigint MyTblWzskMFile::loadRstBySQL(
 			if (dbrow[8]) rec->Filename.assign(dbrow[8], dblengths[8]); else rec->Filename = "";
 			if (dbrow[9]) rec->Archivename.assign(dbrow[9], dblengths[9]); else rec->Archivename = "";
 			if (dbrow[10]) rec->srefKMimetype.assign(dbrow[10], dblengths[10]); else rec->srefKMimetype = "";
-			if (dbrow[11]) rec->Size = atoi((char*) dbrow[11]); else rec->Size = 0;
+			if (dbrow[11]) rec->Size = atol((char*) dbrow[11]); else rec->Size = 0;
 			if (dbrow[12]) rec->Comment.assign(dbrow[12], dblengths[12]); else rec->Comment = "";
 			rst.nodes.push_back(rec);
 
@@ -463,7 +454,7 @@ ubigint MyTblWzskMFile::insertRec(
 		bindCstring((char*) (rec->Filename.c_str()),&(l[7]),&(n[7]),&(e[7])),
 		bindCstring((char*) (rec->Archivename.c_str()),&(l[8]),&(n[8]),&(e[8])),
 		bindCstring((char*) (rec->srefKMimetype.c_str()),&(l[9]),&(n[9]),&(e[9])),
-		bindUsmallint(&rec->Size,&(l[10]),&(n[10]),&(e[10])),
+		bindUint(&rec->Size,&(l[10]),&(n[10]),&(e[10])),
 		bindCstring((char*) (rec->Comment.c_str()),&(l[11]),&(n[11]),&(e[11]))
 	};
 
@@ -511,7 +502,7 @@ void MyTblWzskMFile::updateRec(
 		bindCstring((char*) (rec->Filename.c_str()),&(l[7]),&(n[7]),&(e[7])),
 		bindCstring((char*) (rec->Archivename.c_str()),&(l[8]),&(n[8]),&(e[8])),
 		bindCstring((char*) (rec->srefKMimetype.c_str()),&(l[9]),&(n[9]),&(e[9])),
-		bindUsmallint(&rec->Size,&(l[10]),&(n[10]),&(e[10])),
+		bindUint(&rec->Size,&(l[10]),&(n[10]),&(e[10])),
 		bindCstring((char*) (rec->Comment.c_str()),&(l[11]),&(n[11]),&(e[11])),
 		bindUbigint(&rec->ref,&(l[12]),&(n[12]),&(e[12]))
 	};
@@ -587,15 +578,6 @@ ubigint MyTblWzskMFile::loadRstByClu(
 	return loadRstBySQL("SELECT ref, grp, own, refWzskCFile, refIxVTbl, refUref, osrefKContent, Archived, Filename, Archivename, srefKMimetype, Size, Comment FROM TblWzskMFile WHERE refWzskCFile = " + to_string(refWzskCFile) + "", append, rst);
 };
 
-ubigint MyTblWzskMFile::loadRstByRetReu(
-			uint refIxVTbl
-			, ubigint refUref
-			, const bool append
-			, ListWzskMFile& rst
-		) {
-	return loadRstBySQL("SELECT ref, grp, own, refWzskCFile, refIxVTbl, refUref, osrefKContent, Archived, Filename, Archivename, srefKMimetype, Size, Comment FROM TblWzskMFile WHERE refIxVTbl = " + to_string(refIxVTbl) + " AND refUref = " + to_string(refUref) + " ORDER BY Filename ASC", append, rst);
-};
-
 #endif
 
 #if defined(SBECORE_LITE)
@@ -614,7 +596,6 @@ LiteTblWzskMFile::LiteTblWzskMFile() :
 	stmtLoadFnmByRef = NULL;
 	stmtLoadRefsByClu = NULL;
 	stmtLoadRstByClu = NULL;
-	stmtLoadRstByRetReu = NULL;
 };
 
 LiteTblWzskMFile::~LiteTblWzskMFile() {
@@ -625,7 +606,6 @@ LiteTblWzskMFile::~LiteTblWzskMFile() {
 	if (stmtLoadFnmByRef) sqlite3_finalize(stmtLoadFnmByRef);
 	if (stmtLoadRefsByClu) sqlite3_finalize(stmtLoadRefsByClu);
 	if (stmtLoadRstByClu) sqlite3_finalize(stmtLoadRstByClu);
-	if (stmtLoadRstByRetReu) sqlite3_finalize(stmtLoadRstByRetReu);
 };
 
 void LiteTblWzskMFile::initStatements() {
@@ -637,7 +617,6 @@ void LiteTblWzskMFile::initStatements() {
 	stmtLoadFnmByRef = createStatement("SELECT Filename FROM TblWzskMFile WHERE ref = ?1");
 	stmtLoadRefsByClu = createStatement("SELECT ref FROM TblWzskMFile WHERE refWzskCFile = ?1");
 	stmtLoadRstByClu = createStatement("SELECT ref, grp, own, refWzskCFile, refIxVTbl, refUref, osrefKContent, Archived, Filename, Archivename, srefKMimetype, Size, Comment FROM TblWzskMFile WHERE refWzskCFile = ?1");
-	stmtLoadRstByRetReu = createStatement("SELECT ref, grp, own, refWzskCFile, refIxVTbl, refUref, osrefKContent, Archived, Filename, Archivename, srefKMimetype, Size, Comment FROM TblWzskMFile WHERE refIxVTbl = ?1 AND refUref = ?2 ORDER BY Filename ASC");
 };
 
 bool LiteTblWzskMFile::loadRec(
@@ -910,18 +889,6 @@ ubigint LiteTblWzskMFile::loadRstByClu(
 	sqlite3_bind_int64(stmtLoadRstByClu, 1, refWzskCFile);
 
 	return loadRstByStmt(stmtLoadRstByClu, append, rst);
-};
-
-ubigint LiteTblWzskMFile::loadRstByRetReu(
-			uint refIxVTbl
-			, ubigint refUref
-			, const bool append
-			, ListWzskMFile& rst
-		) {
-	sqlite3_bind_int(stmtLoadRstByRetReu, 1, refIxVTbl);
-	sqlite3_bind_int64(stmtLoadRstByRetReu, 2, refUref);
-
-	return loadRstByStmt(stmtLoadRstByRetReu, append, rst);
 };
 
 #endif

@@ -2,8 +2,8 @@
 	* \file WzskAVKeylistKey.cpp
 	* database access for table TblWzskAVKeylistKey (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -29,20 +29,20 @@ WzskAVKeylistKey::WzskAVKeylistKey(
 			, const ubigint refJ
 			, const string Title
 			, const string Comment
-		) {
-
-	this->ref = ref;
-	this->klsIxWzskVKeylist = klsIxWzskVKeylist;
-	this->klsNum = klsNum;
-	this->x1IxWzskVMaintable = x1IxWzskVMaintable;
-	this->x1Uref = x1Uref;
-	this->Fixed = Fixed;
-	this->sref = sref;
-	this->Avail = Avail;
-	this->Implied = Implied;
-	this->refJ = refJ;
-	this->Title = Title;
-	this->Comment = Comment;
+		) :
+			ref(ref)
+			, klsIxWzskVKeylist(klsIxWzskVKeylist)
+			, klsNum(klsNum)
+			, x1IxWzskVMaintable(x1IxWzskVMaintable)
+			, x1Uref(x1Uref)
+			, Fixed(Fixed)
+			, sref(sref)
+			, Avail(Avail)
+			, Implied(Implied)
+			, refJ(refJ)
+			, Title(Title)
+			, Comment(Comment)
+		{
 };
 
 bool WzskAVKeylistKey::operator==(

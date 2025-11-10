@@ -2,8 +2,8 @@
 	* \file ApiWzsk.cpp
 	* Wzsk API library global functionality (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -24,12 +24,11 @@ StgWzskapi::StgWzskapi(
 			, const string password
 		) :
 			Block()
+			, engip(engip)
+			, engport(engport)
+			, username(username)
+			, password(password)
 		{
-	this->engip = engip;
-	this->engport = engport;
-	this->username = username;
-	this->password = password;
-
 	mask = {ENGIP, ENGPORT, USERNAME, PASSWORD};
 };
 
@@ -130,21 +129,6 @@ uint ApiWzsk::readDpchEng(
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGDLGWZSKNAVLOAINIDATA) {
 			*dpcheng = new DlgWzskNavLoaini::DpchEngData();
 			((DlgWzskNavLoaini::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGDLGWZSKOBJNEWDATA) {
-			*dpcheng = new DlgWzskObjNew::DpchEngData();
-			((DlgWzskObjNew::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGDLGWZSKOGRNEWDATA) {
-			*dpcheng = new DlgWzskOgrNew::DpchEngData();
-			((DlgWzskOgrNew::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGDLGWZSKSCFCAMERAMATDATA) {
-			*dpcheng = new DlgWzskScfCameramat::DpchEngData();
-			((DlgWzskScfCameramat::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGDLGWZSKSCFLASERPOSDATA) {
-			*dpcheng = new DlgWzskScfLaserpos::DpchEngData();
-			((DlgWzskScfLaserpos::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGDLGWZSKSCFTTABLECOORDDATA) {
-			*dpcheng = new DlgWzskScfTtablecoord::DpchEngData();
-			((DlgWzskScfTtablecoord::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGM2MSESSWZSKDATA) {
 			*dpcheng = new M2msessWzsk::DpchEngData();
 			((M2msessWzsk::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
@@ -178,132 +162,108 @@ uint ApiWzsk::readDpchEng(
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKFILRECDATA) {
 			*dpcheng = new PnlWzskFilRec::DpchEngData();
 			((PnlWzskFilRec::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLIV2DVIEWALIGN) {
-			*dpcheng = new PnlWzskLiv2DView::DpchEngAlign();
-			((PnlWzskLiv2DView::DpchEngAlign*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLIV2DVIEWDATA) {
-			*dpcheng = new PnlWzskLiv2DView::DpchEngData();
-			((PnlWzskLiv2DView::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLIV2DVIEWLIVE) {
-			*dpcheng = new PnlWzskLiv2DView::DpchEngLive();
-			((PnlWzskLiv2DView::DpchEngLive*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLIV3DVIEWDATA) {
-			*dpcheng = new PnlWzskLiv3DView::DpchEngData();
-			((PnlWzskLiv3DView::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLIV3DVIEWLIVE) {
-			*dpcheng = new PnlWzskLiv3DView::DpchEngLive();
-			((PnlWzskLiv3DView::DpchEngLive*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLIVDATA) {
-			*dpcheng = new CrdWzskLiv::DpchEngData();
-			((CrdWzskLiv::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLIVHEADBARDATA) {
-			*dpcheng = new PnlWzskLivHeadbar::DpchEngData();
-			((PnlWzskLivHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLIVSYSMONDATA) {
-			*dpcheng = new PnlWzskLivSysmon::DpchEngData();
-			((PnlWzskLivSysmon::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLIVSYSMONLIVE) {
-			*dpcheng = new PnlWzskLivSysmon::DpchEngLive();
-			((PnlWzskLivSysmon::DpchEngLive*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVCAMERADATA) {
-			*dpcheng = new PnlWzskLlvCamera::DpchEngData();
-			((PnlWzskLlvCamera::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVCAMERALIVE) {
-			*dpcheng = new PnlWzskLlvCamera::DpchEngLive();
-			((PnlWzskLlvCamera::DpchEngLive*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKHWCASYSDATA) {
+			*dpcheng = new PnlWzskHwcAsys::DpchEngData();
+			((PnlWzskHwcAsys::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKHWCCONFIGALIGN) {
+			*dpcheng = new PnlWzskHwcConfig::DpchEngAlign();
+			((PnlWzskHwcConfig::DpchEngAlign*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKHWCCONFIGDATA) {
+			*dpcheng = new PnlWzskHwcConfig::DpchEngData();
+			((PnlWzskHwcConfig::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKHWCCONFIGLIVE) {
+			*dpcheng = new PnlWzskHwcConfig::DpchEngLive();
+			((PnlWzskHwcConfig::DpchEngLive*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKHWCDATA) {
+			*dpcheng = new CrdWzskHwc::DpchEngData();
+			((CrdWzskHwc::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKHWCDEBUGDATA) {
+			*dpcheng = new PnlWzskHwcDebug::DpchEngData();
+			((PnlWzskHwcDebug::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKHWCHEADBARDATA) {
+			*dpcheng = new PnlWzskHwcHeadbar::DpchEngData();
+			((PnlWzskHwcHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVDATA) {
 			*dpcheng = new CrdWzskLlv::DpchEngData();
 			((CrdWzskLlv::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVHEADBARDATA) {
 			*dpcheng = new PnlWzskLlvHeadbar::DpchEngData();
 			((PnlWzskLlvHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVIDENTDATA) {
+			*dpcheng = new PnlWzskLlvIdent::DpchEngData();
+			((PnlWzskLlvIdent::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVLASERDATA) {
 			*dpcheng = new PnlWzskLlvLaser::DpchEngData();
 			((PnlWzskLlvLaser::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMARTYDATA) {
-			*dpcheng = new PnlWzskLlvTermArty::DpchEngData();
-			((PnlWzskLlvTermArty::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMCLNXEVBDATA) {
-			*dpcheng = new PnlWzskLlvTermClnxevb::DpchEngData();
-			((PnlWzskLlvTermClnxevb::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMICICLEDATA) {
-			*dpcheng = new PnlWzskLlvTermIcicle::DpchEngData();
-			((PnlWzskLlvTermIcicle::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMMCVEVPDATA) {
-			*dpcheng = new PnlWzskLlvTermMcvevp::DpchEngData();
-			((PnlWzskLlvTermMcvevp::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMPWMONUARTDATA) {
-			*dpcheng = new PnlWzskLlvTermPwmonuart::DpchEngData();
-			((PnlWzskLlvTermPwmonuart::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMPWMONUSBDATA) {
-			*dpcheng = new PnlWzskLlvTermPwmonusb::DpchEngData();
-			((PnlWzskLlvTermPwmonusb::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMUVBDVKDATA) {
-			*dpcheng = new PnlWzskLlvTermUvbdvk::DpchEngData();
-			((PnlWzskLlvTermUvbdvk::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTTABLEDATA) {
-			*dpcheng = new PnlWzskLlvTtable::DpchEngData();
-			((PnlWzskLlvTtable::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVROTARYDATA) {
+			*dpcheng = new PnlWzskLlvRotary::DpchEngData();
+			((PnlWzskLlvRotary::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVSYSMONDATA) {
+			*dpcheng = new PnlWzskLlvSysmon::DpchEngData();
+			((PnlWzskLlvSysmon::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVSYSMONLIVE) {
+			*dpcheng = new PnlWzskLlvSysmon::DpchEngLive();
+			((PnlWzskLlvSysmon::DpchEngLive*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMDCVSPDATA) {
+			*dpcheng = new PnlWzskLlvTermDcvsp::DpchEngData();
+			((PnlWzskLlvTermDcvsp::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMTIVSPDATA) {
+			*dpcheng = new PnlWzskLlvTermTivsp::DpchEngData();
+			((PnlWzskLlvTermTivsp::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKLLVTERMZUVSPDATA) {
+			*dpcheng = new PnlWzskLlvTermZuvsp::DpchEngData();
+			((PnlWzskLlvTermZuvsp::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKNAVADMINDATA) {
 			*dpcheng = new PnlWzskNavAdmin::DpchEngData();
 			((PnlWzskNavAdmin::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKNAVDATA) {
 			*dpcheng = new CrdWzskNav::DpchEngData();
 			((CrdWzskNav::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKNAVGLRYDATA) {
-			*dpcheng = new PnlWzskNavGlry::DpchEngData();
-			((PnlWzskNavGlry::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKNAVHEADBARDATA) {
 			*dpcheng = new PnlWzskNavHeadbar::DpchEngData();
 			((PnlWzskNavHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKNAVOPDATA) {
 			*dpcheng = new PnlWzskNavOp::DpchEngData();
 			((PnlWzskNavOp::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKNAVPREDATA) {
-			*dpcheng = new PnlWzskNavPre::DpchEngData();
-			((PnlWzskNavPre::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOBJ1NSHOTDATA) {
-			*dpcheng = new PnlWzskObj1NShot::DpchEngData();
-			((PnlWzskObj1NShot::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOBJDATA) {
-			*dpcheng = new CrdWzskObj::DpchEngData();
-			((CrdWzskObj::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOBJDETAILDATA) {
-			*dpcheng = new PnlWzskObjDetail::DpchEngData();
-			((PnlWzskObjDetail::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOBJHEADBARDATA) {
-			*dpcheng = new PnlWzskObjHeadbar::DpchEngData();
-			((PnlWzskObjHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOBJLISTDATA) {
-			*dpcheng = new PnlWzskObjList::DpchEngData();
-			((PnlWzskObjList::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOBJRECDATA) {
-			*dpcheng = new PnlWzskObjRec::DpchEngData();
-			((PnlWzskObjRec::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOBJREF1NFILEDATA) {
-			*dpcheng = new PnlWzskObjRef1NFile::DpchEngData();
-			((PnlWzskObjRef1NFile::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOGR1NOBJECTDATA) {
-			*dpcheng = new PnlWzskOgr1NObject::DpchEngData();
-			((PnlWzskOgr1NObject::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOGRDATA) {
-			*dpcheng = new CrdWzskOgr::DpchEngData();
-			((CrdWzskOgr::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOGRDETAILDATA) {
-			*dpcheng = new PnlWzskOgrDetail::DpchEngData();
-			((PnlWzskOgrDetail::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOGRHEADBARDATA) {
-			*dpcheng = new PnlWzskOgrHeadbar::DpchEngData();
-			((PnlWzskOgrHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOGRLISTDATA) {
-			*dpcheng = new PnlWzskOgrList::DpchEngData();
-			((PnlWzskOgrList::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOGRRECDATA) {
-			*dpcheng = new PnlWzskOgrRec::DpchEngData();
-			((PnlWzskOgrRec::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKOGRSUP1NOBJGROUPDATA) {
-			*dpcheng = new PnlWzskOgrSup1NObjgroup::DpchEngData();
-			((PnlWzskOgrSup1NObjgroup::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFACQCORNERDATA) {
+			*dpcheng = new PnlWzskPrfAcqCorner::DpchEngData();
+			((PnlWzskPrfAcqCorner::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFACQPREVIEWDATA) {
+			*dpcheng = new PnlWzskPrfAcqPreview::DpchEngData();
+			((PnlWzskPrfAcqPreview::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFACQTRACEDATA) {
+			*dpcheng = new PnlWzskPrfAcqTrace::DpchEngData();
+			((PnlWzskPrfAcqTrace::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFACTLASERDATA) {
+			*dpcheng = new PnlWzskPrfActLaser::DpchEngData();
+			((PnlWzskPrfActLaser::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFACTVISTOROTDATA) {
+			*dpcheng = new PnlWzskPrfActVistorot::DpchEngData();
+			((PnlWzskPrfActVistorot::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFDAEMONDATA) {
+			*dpcheng = new PnlWzskPrfDaemon::DpchEngData();
+			((PnlWzskPrfDaemon::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFDATA) {
+			*dpcheng = new CrdWzskPrf::DpchEngData();
+			((CrdWzskPrf::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFGLOBALDATA) {
+			*dpcheng = new PnlWzskPrfGlobal::DpchEngData();
+			((PnlWzskPrfGlobal::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFHEADBARDATA) {
+			*dpcheng = new PnlWzskPrfHeadbar::DpchEngData();
+			((PnlWzskPrfHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFSRCDCVSPDATA) {
+			*dpcheng = new PnlWzskPrfSrcDcvsp::DpchEngData();
+			((PnlWzskPrfSrcDcvsp::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFSRCSYSINFODATA) {
+			*dpcheng = new PnlWzskPrfSrcSysinfo::DpchEngData();
+			((PnlWzskPrfSrcSysinfo::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFSRCTIVSPDATA) {
+			*dpcheng = new PnlWzskPrfSrcTivsp::DpchEngData();
+			((PnlWzskPrfSrcTivsp::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRFSRCZUVSPDATA) {
+			*dpcheng = new PnlWzskPrfSrcZuvsp::DpchEngData();
+			((PnlWzskPrfSrcZuvsp::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRSADETAILDATA) {
 			*dpcheng = new PnlWzskPrsADetail::DpchEngData();
 			((PnlWzskPrsADetail::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
@@ -322,57 +282,6 @@ uint ApiWzsk::readDpchEng(
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKPRSRECDATA) {
 			*dpcheng = new PnlWzskPrsRec::DpchEngData();
 			((PnlWzskPrsRec::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSCFCONNDATA) {
-			*dpcheng = new PnlWzskScfConn::DpchEngData();
-			((PnlWzskScfConn::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSCFDATA) {
-			*dpcheng = new CrdWzskScf::DpchEngData();
-			((CrdWzskScf::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSCFGEOMDATA) {
-			*dpcheng = new PnlWzskScfGeom::DpchEngData();
-			((PnlWzskScfGeom::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSCFHEADBARDATA) {
-			*dpcheng = new PnlWzskScfHeadbar::DpchEngData();
-			((PnlWzskScfHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSES1NSHOTDATA) {
-			*dpcheng = new PnlWzskSes1NShot::DpchEngData();
-			((PnlWzskSes1NShot::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSESDATA) {
-			*dpcheng = new CrdWzskSes::DpchEngData();
-			((CrdWzskSes::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSESDETAILDATA) {
-			*dpcheng = new PnlWzskSesDetail::DpchEngData();
-			((PnlWzskSesDetail::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSESHEADBARDATA) {
-			*dpcheng = new PnlWzskSesHeadbar::DpchEngData();
-			((PnlWzskSesHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSESLISTDATA) {
-			*dpcheng = new PnlWzskSesList::DpchEngData();
-			((PnlWzskSesList::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSESRECDATA) {
-			*dpcheng = new PnlWzskSesRec::DpchEngData();
-			((PnlWzskSesRec::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSHTAPARDATA) {
-			*dpcheng = new PnlWzskShtAPar::DpchEngData();
-			((PnlWzskShtAPar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSHTDATA) {
-			*dpcheng = new CrdWzskSht::DpchEngData();
-			((CrdWzskSht::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSHTDETAILDATA) {
-			*dpcheng = new PnlWzskShtDetail::DpchEngData();
-			((PnlWzskShtDetail::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSHTHEADBARDATA) {
-			*dpcheng = new PnlWzskShtHeadbar::DpchEngData();
-			((PnlWzskShtHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSHTLISTDATA) {
-			*dpcheng = new PnlWzskShtList::DpchEngData();
-			((PnlWzskShtList::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSHTRECDATA) {
-			*dpcheng = new PnlWzskShtRec::DpchEngData();
-			((PnlWzskShtRec::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
-		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSHTREF1NFILEDATA) {
-			*dpcheng = new PnlWzskShtRef1NFile::DpchEngData();
-			((PnlWzskShtRef1NFile::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKSUSPEND) {
 			*dpcheng = new DpchEngWzskSuspend();
 			((DpchEngWzskSuspend*) *dpcheng)->readXML(docctx, "/", true);
@@ -421,6 +330,30 @@ uint ApiWzsk::readDpchEng(
 		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKUSRRECDATA) {
 			*dpcheng = new PnlWzskUsrRec::DpchEngData();
 			((PnlWzskUsrRec::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKVTRCONFIGALIGN) {
+			*dpcheng = new PnlWzskVtrConfig::DpchEngAlign();
+			((PnlWzskVtrConfig::DpchEngAlign*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKVTRCONFIGDATA) {
+			*dpcheng = new PnlWzskVtrConfig::DpchEngData();
+			((PnlWzskVtrConfig::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKVTRCONFIGLIVE) {
+			*dpcheng = new PnlWzskVtrConfig::DpchEngLive();
+			((PnlWzskVtrConfig::DpchEngLive*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKVTRDATA) {
+			*dpcheng = new CrdWzskVtr::DpchEngData();
+			((CrdWzskVtr::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKVTRDEBUGDATA) {
+			*dpcheng = new PnlWzskVtrDebug::DpchEngData();
+			((PnlWzskVtrDebug::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKVTRHEADBARDATA) {
+			*dpcheng = new PnlWzskVtrHeadbar::DpchEngData();
+			((PnlWzskVtrHeadbar::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKVTRMONITORDATA) {
+			*dpcheng = new PnlWzskVtrMonitor::DpchEngData();
+			((PnlWzskVtrMonitor::DpchEngData*) *dpcheng)->readXML(docctx, "/", true);
+		} else if (ixWzskVDpch == VecWzskVDpch::DPCHENGWZSKVTRMONITORLIVE) {
+			*dpcheng = new PnlWzskVtrMonitor::DpchEngLive();
+			((PnlWzskVtrMonitor::DpchEngLive*) *dpcheng)->readXML(docctx, "/", true);
 		};
 	} catch (SbeException& e) {
 	};

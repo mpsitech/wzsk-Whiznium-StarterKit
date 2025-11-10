@@ -1,0 +1,36 @@
+# file Makefile
+# make file for Wzsk system vectors, release wzskcmbd_riscv64 (ubuntu cross-compilation)
+# copyright: (C) 2016-2020 MPSI Technologies GmbH
+# author: Alexander Wirthmueller (auto-generation)
+# date created: 12 Oct 2025
+# IP header --- ABOVE
+
+include ../Makefile.inc
+
+CPP = ${TCHROOT}/riscv64-oe-linux-g++
+CPPFLAGS = --sysroot=${SYSROOT} -std=c++11 -fstack-protector-strong -g -Wall -Os -pthread
+
+STATLIB = ${TCHROOT}/riscv64-oe-linux-ar
+STATLIBFLAGS = rcs
+
+INCPATH = -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
+
+OBJS = VecWzskVCall.o VecWzskVDpch.o VecWzskVError.o VecWzskVExpstate.o VecWzskVIop.o VecWzskVJob.o VecWzskVMimetype.o VecWzskVOpengtype.o VecWzskVOppack.o VecWzskVQrystate.o VecWzskVReqitmode.o VecWzskVStub.o VecWzskVTag.o VecWzskVTarget.o
+
+LIB = libvecwzsk
+
+.SUFFIXES: .cpp
+
+.cpp.o :
+	$(CPP) $(CPPFLAGS) $(INCPATH) -o $@ -c $<
+
+all:	$(LIB)
+
+$(LIB):	$(OBJS)
+	$(STATLIB) $(STATLIBFLAGS) $(LIB).a $(OBJS)
+
+install:
+	mv $(LIB).a ${SYSROOT}$(LIBROOT)/
+
+clean:
+	rm -f *.o

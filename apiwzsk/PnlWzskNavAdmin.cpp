@@ -2,8 +2,8 @@
 	* \file PnlWzskNavAdmin.cpp
 	* API code for job PnlWzskNavAdmin (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -28,7 +28,7 @@ uint PnlWzskNavAdmin::VecVDo::getIx(
 	if (s == "butusrnewcrdclick") return BUTUSRNEWCRDCLICK;
 	if (s == "butprsviewclick") return BUTPRSVIEWCLICK;
 	if (s == "butprsnewcrdclick") return BUTPRSNEWCRDCLICK;
-	if (s == "butscfnewcrdclick") return BUTSCFNEWCRDCLICK;
+	if (s == "butprfnewcrdclick") return BUTPRFNEWCRDCLICK;
 
 	return(0);
 };
@@ -42,7 +42,7 @@ string PnlWzskNavAdmin::VecVDo::getSref(
 	if (ix == BUTUSRNEWCRDCLICK) return("ButUsrNewcrdClick");
 	if (ix == BUTPRSVIEWCLICK) return("ButPrsViewClick");
 	if (ix == BUTPRSNEWCRDCLICK) return("ButPrsNewcrdClick");
-	if (ix == BUTSCFNEWCRDCLICK) return("ButScfNewcrdClick");
+	if (ix == BUTPRFNEWCRDCLICK) return("ButPrfNewcrdClick");
 
 	return("");
 };
@@ -57,11 +57,10 @@ PnlWzskNavAdmin::ContIac::ContIac(
 			, const uint numFLstPrs
 		) :
 			Block()
+			, numFLstUsg(numFLstUsg)
+			, numFLstUsr(numFLstUsr)
+			, numFLstPrs(numFLstPrs)
 		{
-	this->numFLstUsg = numFLstUsg;
-	this->numFLstUsr = numFLstUsr;
-	this->numFLstPrs = numFLstPrs;
-
 	mask = {NUMFLSTUSG, NUMFLSTUSR, NUMFLSTPRS};
 };
 
@@ -148,15 +147,14 @@ PnlWzskNavAdmin::StatApp::StatApp(
 			, const uint LstPrsNumFirstdisp
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
+			, LstUsgAlt(LstUsgAlt)
+			, LstUsrAlt(LstUsrAlt)
+			, LstPrsAlt(LstPrsAlt)
+			, LstUsgNumFirstdisp(LstUsgNumFirstdisp)
+			, LstUsrNumFirstdisp(LstUsrNumFirstdisp)
+			, LstPrsNumFirstdisp(LstPrsNumFirstdisp)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-	this->LstUsgAlt = LstUsgAlt;
-	this->LstUsrAlt = LstUsrAlt;
-	this->LstPrsAlt = LstPrsAlt;
-	this->LstUsgNumFirstdisp = LstUsgNumFirstdisp;
-	this->LstUsrNumFirstdisp = LstUsrNumFirstdisp;
-	this->LstPrsNumFirstdisp = LstPrsNumFirstdisp;
-
 	mask = {IXWZSKVEXPSTATE, LSTUSGALT, LSTUSRALT, LSTPRSALT, LSTUSGNUMFIRSTDISP, LSTUSRNUMFIRSTDISP, LSTPRSNUMFIRSTDISP};
 };
 
@@ -235,19 +233,18 @@ PnlWzskNavAdmin::StatShr::StatShr(
 			, const bool ButUsrViewActive
 			, const bool LstPrsAvail
 			, const bool ButPrsViewActive
-			, const bool ButScfNewcrdAvail
+			, const bool ButPrfNewcrdAvail
 		) :
 			Block()
+			, LstUsgAvail(LstUsgAvail)
+			, ButUsgViewActive(ButUsgViewActive)
+			, LstUsrAvail(LstUsrAvail)
+			, ButUsrViewActive(ButUsrViewActive)
+			, LstPrsAvail(LstPrsAvail)
+			, ButPrsViewActive(ButPrsViewActive)
+			, ButPrfNewcrdAvail(ButPrfNewcrdAvail)
 		{
-	this->LstUsgAvail = LstUsgAvail;
-	this->ButUsgViewActive = ButUsgViewActive;
-	this->LstUsrAvail = LstUsrAvail;
-	this->ButUsrViewActive = ButUsrViewActive;
-	this->LstPrsAvail = LstPrsAvail;
-	this->ButPrsViewActive = ButPrsViewActive;
-	this->ButScfNewcrdAvail = ButScfNewcrdAvail;
-
-	mask = {LSTUSGAVAIL, BUTUSGVIEWACTIVE, LSTUSRAVAIL, BUTUSRVIEWACTIVE, LSTPRSAVAIL, BUTPRSVIEWACTIVE, BUTSCFNEWCRDAVAIL};
+	mask = {LSTUSGAVAIL, BUTUSGVIEWACTIVE, LSTUSRAVAIL, BUTUSRVIEWACTIVE, LSTPRSAVAIL, BUTPRSVIEWACTIVE, BUTPRFNEWCRDAVAIL};
 };
 
 bool PnlWzskNavAdmin::StatShr::readXML(
@@ -273,7 +270,7 @@ bool PnlWzskNavAdmin::StatShr::readXML(
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButUsrViewActive", ButUsrViewActive)) add(BUTUSRVIEWACTIVE);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "LstPrsAvail", LstPrsAvail)) add(LSTPRSAVAIL);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButPrsViewActive", ButPrsViewActive)) add(BUTPRSVIEWACTIVE);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButScfNewcrdAvail", ButScfNewcrdAvail)) add(BUTSCFNEWCRDAVAIL);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButPrfNewcrdAvail", ButPrfNewcrdAvail)) add(BUTPRFNEWCRDAVAIL);
 	};
 
 	return basefound;
@@ -290,7 +287,7 @@ set<uint> PnlWzskNavAdmin::StatShr::comm(
 	if (ButUsrViewActive == comp->ButUsrViewActive) insert(items, BUTUSRVIEWACTIVE);
 	if (LstPrsAvail == comp->LstPrsAvail) insert(items, LSTPRSAVAIL);
 	if (ButPrsViewActive == comp->ButPrsViewActive) insert(items, BUTPRSVIEWACTIVE);
-	if (ButScfNewcrdAvail == comp->ButScfNewcrdAvail) insert(items, BUTSCFNEWCRDAVAIL);
+	if (ButPrfNewcrdAvail == comp->ButPrfNewcrdAvail) insert(items, BUTPRFNEWCRDAVAIL);
 
 	return(items);
 };
@@ -303,7 +300,7 @@ set<uint> PnlWzskNavAdmin::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {LSTUSGAVAIL, BUTUSGVIEWACTIVE, LSTUSRAVAIL, BUTUSRVIEWACTIVE, LSTPRSAVAIL, BUTPRSVIEWACTIVE, BUTSCFNEWCRDAVAIL};
+	diffitems = {LSTUSGAVAIL, BUTUSGVIEWACTIVE, LSTUSRAVAIL, BUTUSRVIEWACTIVE, LSTPRSAVAIL, BUTPRSVIEWACTIVE, BUTPRFNEWCRDAVAIL};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -318,17 +315,16 @@ PnlWzskNavAdmin::Tag::Tag(
 			, const string& CptUsg
 			, const string& CptUsr
 			, const string& CptPrs
-			, const string& CptScf
+			, const string& CptPrf
 		) :
 			Block()
+			, Cpt(Cpt)
+			, CptUsg(CptUsg)
+			, CptUsr(CptUsr)
+			, CptPrs(CptPrs)
+			, CptPrf(CptPrf)
 		{
-	this->Cpt = Cpt;
-	this->CptUsg = CptUsg;
-	this->CptUsr = CptUsr;
-	this->CptPrs = CptPrs;
-	this->CptScf = CptScf;
-
-	mask = {CPT, CPTUSG, CPTUSR, CPTPRS, CPTSCF};
+	mask = {CPT, CPTUSG, CPTUSR, CPTPRS, CPTPRF};
 };
 
 bool PnlWzskNavAdmin::Tag::readXML(
@@ -352,7 +348,7 @@ bool PnlWzskNavAdmin::Tag::readXML(
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptUsg", CptUsg)) add(CPTUSG);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptUsr", CptUsr)) add(CPTUSR);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptPrs", CptPrs)) add(CPTPRS);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptScf", CptScf)) add(CPTSCF);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptPrf", CptPrf)) add(CPTPRF);
 	};
 
 	return basefound;
@@ -407,11 +403,11 @@ PnlWzskNavAdmin::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKNAVADMINDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string PnlWzskNavAdmin::DpchAppDo::getSrefsMask() {

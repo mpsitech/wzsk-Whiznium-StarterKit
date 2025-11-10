@@ -2,8 +2,8 @@
 	* \file PnlWzskUsrMNUsergroup.cpp
 	* API code for job PnlWzskUsrMNUsergroup (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -49,9 +49,8 @@ PnlWzskUsrMNUsergroup::ContInf::ContInf(
 			const uint numFCsiQst
 		) :
 			Block()
+			, numFCsiQst(numFCsiQst)
 		{
-	this->numFCsiQst = numFCsiQst;
-
 	mask = {NUMFCSIQST};
 };
 
@@ -110,9 +109,8 @@ PnlWzskUsrMNUsergroup::StatApp::StatApp(
 			const uint ixWzskVExpstate
 		) :
 			Block()
+			, ixWzskVExpstate(ixWzskVExpstate)
 		{
-	this->ixWzskVExpstate = ixWzskVExpstate;
-
 	mask = {IXWZSKVEXPSTATE};
 };
 
@@ -180,13 +178,12 @@ PnlWzskUsrMNUsergroup::StatShr::StatShr(
 			, const bool ButSubActive
 		) :
 			Block()
+			, ButViewAvail(ButViewAvail)
+			, ButViewActive(ButViewActive)
+			, ButAddAvail(ButAddAvail)
+			, ButSubAvail(ButSubAvail)
+			, ButSubActive(ButSubActive)
 		{
-	this->ButViewAvail = ButViewAvail;
-	this->ButViewActive = ButViewActive;
-	this->ButAddAvail = ButAddAvail;
-	this->ButSubAvail = ButSubAvail;
-	this->ButSubActive = ButSubActive;
-
 	mask = {BUTVIEWAVAIL, BUTVIEWACTIVE, BUTADDAVAIL, BUTSUBAVAIL, BUTSUBACTIVE};
 };
 
@@ -254,10 +251,9 @@ PnlWzskUsrMNUsergroup::StgIac::StgIac(
 			, const uint TcoUlvWidth
 		) :
 			Block()
+			, TcoMrefWidth(TcoMrefWidth)
+			, TcoUlvWidth(TcoUlvWidth)
 		{
-	this->TcoMrefWidth = TcoMrefWidth;
-	this->TcoUlvWidth = TcoUlvWidth;
-
 	mask = {TCOMREFWIDTH, TCOULVWIDTH};
 };
 
@@ -342,16 +338,15 @@ PnlWzskUsrMNUsergroup::Tag::Tag(
 			, const string& TcoUlv
 		) :
 			Block()
+			, Cpt(Cpt)
+			, TxtRecord1(TxtRecord1)
+			, TxtRecord2(TxtRecord2)
+			, Trs(Trs)
+			, TxtShowing1(TxtShowing1)
+			, TxtShowing2(TxtShowing2)
+			, TcoMref(TcoMref)
+			, TcoUlv(TcoUlv)
 		{
-	this->Cpt = Cpt;
-	this->TxtRecord1 = TxtRecord1;
-	this->TxtRecord2 = TxtRecord2;
-	this->Trs = Trs;
-	this->TxtShowing1 = TxtShowing1;
-	this->TxtShowing2 = TxtShowing2;
-	this->TcoMref = TcoMref;
-	this->TcoUlv = TcoUlv;
-
 	mask = {CPT, TXTRECORD1, TXTRECORD2, TRS, TXTSHOWING1, TXTSHOWING2, TCOMREF, TCOULV};
 };
 
@@ -438,11 +433,11 @@ PnlWzskUsrMNUsergroup::DpchAppDo::DpchAppDo(
 			, const set<uint>& mask
 		) :
 			DpchAppWzsk(VecWzskVDpch::DPCHAPPWZSKUSRMNUSERGROUPDO, scrJref)
+			, ixVDo(ixVDo)
 		{
 	if (find(mask, ALL)) this->mask = {SCRJREF, IXVDO};
 	else this->mask = mask;
 
-	this->ixVDo = ixVDo;
 };
 
 string PnlWzskUsrMNUsergroup::DpchAppDo::getSrefsMask() {

@@ -2,8 +2,8 @@
 	* \file WzskQPreselect.cpp
 	* Dbs and XML wrapper for table TblWzskQPreselect (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -22,11 +22,12 @@ WzskQPreselect::WzskQPreselect(
 			, const ubigint jref
 			, const uint jnum
 			, const ubigint ref
-		) {
-	this->qref = qref;
-	this->jref = jref;
-	this->jnum = jnum;
-	this->ref = ref;
+		) :
+			qref(qref)
+			, jref(jref)
+			, jnum(jnum)
+			, ref(ref)
+		{
 };
 
 void WzskQPreselect::writeJSON(

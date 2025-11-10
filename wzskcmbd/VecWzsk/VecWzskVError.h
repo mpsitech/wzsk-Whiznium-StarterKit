@@ -2,8 +2,8 @@
 	* \file VecWzskVError.h
 	* vector VecWzskVError (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -40,10 +40,6 @@ namespace VecWzskVError {
 	const Sbecore::uint TXTRD_TKNUNID = 22;
 	const Sbecore::uint XMLIO_BUFPARSE = 23;
 	const Sbecore::uint XMLIO_FILEPARSE = 24;
-	const Sbecore::uint GPIO = 25;
-	const Sbecore::uint PWM = 26;
-	const Sbecore::uint SPIDEV = 27;
-	const Sbecore::uint V4L2 = 28;
 
 	Sbecore::uint getIx(const std::string& sref);
 	std::string getSref(const Sbecore::uint ix);

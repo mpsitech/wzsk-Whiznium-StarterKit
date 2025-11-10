@@ -2,8 +2,8 @@
 	* \file JobWzskSrcSysinfo.h
 	* job handler for job JobWzskSrcSysinfo (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -13,9 +13,6 @@
 // IP include.spec --- INSERT
 
 // IP include.cust --- INSERT
-
-#include "JobWzskSrcPwmonusb.h"
-#include "JobWzskSrcPwmonuart.h"
 
 #define VecVJobWzskSrcSysinfoSge JobWzskSrcSysinfo::VecVSge
 #define VecVJobWzskSrcSysinfoVar JobWzskSrcSysinfo::VecVVar
@@ -51,12 +48,8 @@ public:
 	class VecVVar {
 
 	public:
-		static const Sbecore::uint CURRCH0VOLTCH0 = 1;
-		static const Sbecore::uint CURRCH1VOLTCH1 = 2;
-		static const Sbecore::uint CURRCH2VOLTCH2 = 3;
-		static const Sbecore::uint CURRCH3VOLTCH3 = 4;
-		static const Sbecore::uint LOADALLLOADCORE0LOADCORE1LOADCORE2LOADCORE3 = 5;
-		static const Sbecore::uint TEMP = 6;
+		static const Sbecore::uint LOADALLLOADCORE0LOADCORE1LOADCORE2LOADCORE3 = 1;
+		static const Sbecore::uint TEMP = 2;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -70,20 +63,15 @@ public:
 	class Stg : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint PATHROOTCURRVOLT = 1;
-		static const Sbecore::uint PATHSTAT = 2;
-		static const Sbecore::uint PATHTHERMAL = 3;
-		static const Sbecore::uint PATHROOTXADC = 4;
+		static const Sbecore::uint PATHSTAT = 1;
+		static const Sbecore::uint PATHROOTTHERMAL = 2;
 
 	public:
-		Stg(const std::string& pathrootCurrVolt = "/var/lib/collectd/icicle-kit-es/sensors-microchip,pac1934", const std::string& pathStat = "/proc/stat", const std::string& pathThermal = "/sys/class/thermal/thermal_zone0/temp", const std::string& pathrootXadc = "/sys/bus/platform/drivers/xadc/f8007100.adc/iio:device0/in_temp0");
+		Stg(const std::string& pathStat = "/proc/stat", const std::string& pathrootThermal = "/sys/bus/iio/devices/iio:device0/in_temp0_ps_temp");
 
 	public:
-		std::string pathrootCurrVolt;
 		std::string pathStat;
-
-		std::string pathThermal;
-		std::string pathrootXadc;
+		std::string pathrootThermal;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -104,18 +92,6 @@ public:
 		Shrdat();
 
 	public:
-		std::vector<float> currCh0;
-		std::vector<float> voltCh0;
-
-		std::vector<float> currCh1;
-		std::vector<float> voltCh1;
-
-		std::vector<float> currCh2;
-		std::vector<float> voltCh2;
-
-		std::vector<float> currCh3;
-		std::vector<float> voltCh3;
-
 		std::vector<float> loadAll;
 		std::vector<float> loadCore0;
 		std::vector<float> loadCore1;
@@ -150,9 +126,6 @@ public:
 	static Stg stg;
 	static Shrdat shrdat;
 
-	JobWzskSrcPwmonusb* srcpwmonusb;
-	JobWzskSrcPwmonuart* srcpwmonuart;
-
 	// IP vars.spec --- INSERT
 
 	// IP vars.cust --- INSERT
@@ -161,8 +134,7 @@ public:
 	// IP cust --- IBEGIN
 	void getLoad();
 
-	void getTempThermal();
-	void getTempXadc();
+	void getTemp();
 
 	float getValFromFile(const std::string& path);
 	// IP cust --- IEND

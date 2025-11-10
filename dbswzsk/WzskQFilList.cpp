@@ -2,8 +2,8 @@
 	* \file WzskQFilList.cpp
 	* Dbs and XML wrapper for table TblWzskQFilList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -36,27 +36,28 @@ WzskQFilList::WzskQFilList(
 			, const string titOsrefKContent
 			, const string srefKMimetype
 			, const string titSrefKMimetype
-			, const usmallint Size
-		) {
-	this->qref = qref;
-	this->jref = jref;
-	this->jnum = jnum;
-	this->ref = ref;
-	this->grp = grp;
-	this->stubGrp = stubGrp;
-	this->own = own;
-	this->stubOwn = stubOwn;
-	this->Filename = Filename;
-	this->refIxVTbl = refIxVTbl;
-	this->srefRefIxVTbl = srefRefIxVTbl;
-	this->titRefIxVTbl = titRefIxVTbl;
-	this->refUref = refUref;
-	this->stubRefUref = stubRefUref;
-	this->osrefKContent = osrefKContent;
-	this->titOsrefKContent = titOsrefKContent;
-	this->srefKMimetype = srefKMimetype;
-	this->titSrefKMimetype = titSrefKMimetype;
-	this->Size = Size;
+			, const uint Size
+		) :
+			qref(qref)
+			, jref(jref)
+			, jnum(jnum)
+			, ref(ref)
+			, grp(grp)
+			, stubGrp(stubGrp)
+			, own(own)
+			, stubOwn(stubOwn)
+			, Filename(Filename)
+			, refIxVTbl(refIxVTbl)
+			, srefRefIxVTbl(srefRefIxVTbl)
+			, titRefIxVTbl(titRefIxVTbl)
+			, refUref(refUref)
+			, stubRefUref(stubRefUref)
+			, osrefKContent(osrefKContent)
+			, titOsrefKContent(titOsrefKContent)
+			, srefKMimetype(srefKMimetype)
+			, titSrefKMimetype(titSrefKMimetype)
+			, Size(Size)
+		{
 };
 
 void WzskQFilList::writeJSON(
@@ -254,7 +255,7 @@ ubigint TblWzskQFilList::insertNewRec(
 			, const string titOsrefKContent
 			, const string srefKMimetype
 			, const string titSrefKMimetype
-			, const usmallint Size
+			, const uint Size
 		) {
 	ubigint retval = 0;
 	WzskQFilList* _rec = NULL;
@@ -290,7 +291,7 @@ ubigint TblWzskQFilList::appendNewRecToRst(
 			, const string titOsrefKContent
 			, const string srefKMimetype
 			, const string titSrefKMimetype
-			, const usmallint Size
+			, const uint Size
 		) {
 	ubigint retval = 0;
 	WzskQFilList* _rec = NULL;
@@ -409,7 +410,7 @@ bool MyTblWzskQFilList::loadRecBySQL(
 		if (dbrow[8]) _rec->refUref = atoll((char*) dbrow[8]); else _rec->refUref = 0;
 		if (dbrow[9]) _rec->osrefKContent.assign(dbrow[9], dblengths[9]); else _rec->osrefKContent = "";
 		if (dbrow[10]) _rec->srefKMimetype.assign(dbrow[10], dblengths[10]); else _rec->srefKMimetype = "";
-		if (dbrow[11]) _rec->Size = atoi((char*) dbrow[11]); else _rec->Size = 0;
+		if (dbrow[11]) _rec->Size = atol((char*) dbrow[11]); else _rec->Size = 0;
 
 		retval = true;
 	};
@@ -463,7 +464,7 @@ ubigint MyTblWzskQFilList::loadRstBySQL(
 			if (dbrow[8]) rec->refUref = atoll((char*) dbrow[8]); else rec->refUref = 0;
 			if (dbrow[9]) rec->osrefKContent.assign(dbrow[9], dblengths[9]); else rec->osrefKContent = "";
 			if (dbrow[10]) rec->srefKMimetype.assign(dbrow[10], dblengths[10]); else rec->srefKMimetype = "";
-			if (dbrow[11]) rec->Size = atoi((char*) dbrow[11]); else rec->Size = 0;
+			if (dbrow[11]) rec->Size = atol((char*) dbrow[11]); else rec->Size = 0;
 			rst.nodes.push_back(rec);
 
 			numread++;
@@ -495,7 +496,7 @@ ubigint MyTblWzskQFilList::insertRec(
 		bindUbigint(&rec->refUref,&(l[7]),&(n[7]),&(e[7])),
 		bindCstring((char*) (rec->osrefKContent.c_str()),&(l[8]),&(n[8]),&(e[8])),
 		bindCstring((char*) (rec->srefKMimetype.c_str()),&(l[9]),&(n[9]),&(e[9])),
-		bindUsmallint(&rec->Size,&(l[10]),&(n[10]),&(e[10]))
+		bindUint(&rec->Size,&(l[10]),&(n[10]),&(e[10]))
 	};
 
 	if (mysql_stmt_bind_param(stmtInsertRec, bind)) {
@@ -537,7 +538,7 @@ void MyTblWzskQFilList::updateRec(
 		bindUbigint(&rec->refUref,&(l[7]),&(n[7]),&(e[7])),
 		bindCstring((char*) (rec->osrefKContent.c_str()),&(l[8]),&(n[8]),&(e[8])),
 		bindCstring((char*) (rec->srefKMimetype.c_str()),&(l[9]),&(n[9]),&(e[9])),
-		bindUsmallint(&rec->Size,&(l[10]),&(n[10]),&(e[10])),
+		bindUint(&rec->Size,&(l[10]),&(n[10]),&(e[10])),
 		bindUbigint(&rec->qref,&(l[11]),&(n[11]),&(e[11]))
 	};
 

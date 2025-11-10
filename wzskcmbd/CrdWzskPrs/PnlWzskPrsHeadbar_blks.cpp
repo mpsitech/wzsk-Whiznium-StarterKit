@@ -2,8 +2,8 @@
 	* \file PnlWzskPrsHeadbar_blks.cpp
 	* job handler for job PnlWzskPrsHeadbar (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -29,11 +29,6 @@ void PnlWzskPrsHeadbar::StgInf::writeJSON(
 		me["MenAppWidth"] = "246";
 		me["MenCrdCptwidth"] = "64";
 		me["MenCrdWidth"] = "323";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["MenAppCptwidth"] = "200";
-		me["MenAppWidth"] = "246";
-		me["MenCrdCptwidth"] = "64";
-		me["MenCrdWidth"] = "323";
 	};
 };
 
@@ -51,11 +46,6 @@ void PnlWzskPrsHeadbar::StgInf::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-			writeStringAttr(wr, itemtag, "sref", "MenAppCptwidth", "200");
-			writeStringAttr(wr, itemtag, "sref", "MenAppWidth", "246");
-			writeStringAttr(wr, itemtag, "sref", "MenCrdCptwidth", "64");
-			writeStringAttr(wr, itemtag, "sref", "MenCrdWidth", "323");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			writeStringAttr(wr, itemtag, "sref", "MenAppCptwidth", "200");
 			writeStringAttr(wr, itemtag, "sref", "MenAppWidth", "246");
 			writeStringAttr(wr, itemtag, "sref", "MenCrdCptwidth", "64");
@@ -80,9 +70,6 @@ void PnlWzskPrsHeadbar::Tag::writeJSON(
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["MenApp"] = "Whiznium StarterKit";
 		me["MenCrd"] = "Person";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["MenApp"] = "Whiznium StarterKit";
-		me["MenCrd"] = "Person";
 	};
 };
 
@@ -100,9 +87,6 @@ void PnlWzskPrsHeadbar::Tag::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-			writeStringAttr(wr, itemtag, "sref", "MenApp", "Whiznium StarterKit");
-			writeStringAttr(wr, itemtag, "sref", "MenCrd", "Person");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
 			writeStringAttr(wr, itemtag, "sref", "MenApp", "Whiznium StarterKit");
 			writeStringAttr(wr, itemtag, "sref", "MenCrd", "Person");
 		};

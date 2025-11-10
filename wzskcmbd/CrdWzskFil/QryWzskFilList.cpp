@@ -2,8 +2,8 @@
 	* \file QryWzskFilList.cpp
 	* job handler for job QryWzskFilList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -46,8 +46,8 @@ QryWzskFilList::QryWzskFilList(
 
 	rerun(dbswzsk);
 
-	xchg->addClstn(VecWzskVCall::CALLWZSKFILMOD, jref, Clstn::VecVJobmask::ALL, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSTUBCHG, jref, Clstn::VecVJobmask::SELF, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKFILMOD, jref, Clstn::VecVJobmask::ALL, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -79,18 +79,12 @@ void QryWzskFilList::rerun(
 		) {
 	string sqlstr;
 
-	vector<ubigint> cnts;
-	uint cnt, cntsum;
-
-	vector<ubigint> lims;
-	vector<ubigint> ofss;
+	uint cnt;
 
 	bool preNoadm = xchg->getBoolvalPreset(VecWzskVPreset::PREWZSKNOADM, jref);
 	ubigint preOwner = xchg->getRefPreset(VecWzskVPreset::PREWZSKOWNER, jref);
 	ubigint preJrefSess = xchg->getRefPreset(VecWzskVPreset::PREWZSKJREFSESS, jref);
-	uint preIxPre = xchg->getIxPreset(VecWzskVPreset::PREWZSKIXPRE, jref);
 	uint preIxOrd = xchg->getIxPreset(VecWzskVPreset::PREWZSKIXORD, jref);
-	ubigint preRefObj = xchg->getRefPreset(VecWzskVPreset::PREWZSKREFOBJ, jref);
 	ubigint preGrp = xchg->getRefPreset(VecWzskVPreset::PREWZSKFILLIST_GRP, jref);
 	ubigint preOwn = xchg->getRefPreset(VecWzskVPreset::PREWZSKFILLIST_OWN, jref);
 	string preFnm = xchg->getTxtvalPreset(VecWzskVPreset::PREWZSKFILLIST_FNM, jref);
@@ -100,109 +94,32 @@ void QryWzskFilList::rerun(
 	dbswzsk->tblwzskqselect->removeRstByJref(jref);
 	dbswzsk->tblwzskqfillist->removeRstByJref(jref);
 
-	cntsum = 0;
+	sqlstr = "SELECT COUNT(TblWzskMFile.ref)";
+	sqlstr += " FROM TblWzskMFile, TblWzskQSelect";
+	sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
+	sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
+	sqlstr += " AND " + [preNoadm,preOwner](){if (preNoadm) return("TblWzskMFile.own = " + to_string(preOwner) + ""); else return(string("1"));}() + "";
+	rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
+	dbswzsk->loadUintBySQL(sqlstr, cnt);
 
-	if (preIxPre == VecWzskVPreset::PREWZSKREFOBJ) {
-		sqlstr = "SELECT COUNT(TblWzskMFile.ref)";
-		sqlstr += " FROM TblWzskMFile, TblWzskQSelect, TblWzskMShot";
-		sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
-		sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
-		sqlstr += " AND " + [preNoadm,preOwner](){if (preNoadm) return("TblWzskMFile.own = " + to_string(preOwner) + ""); else return(string("1"));}() + "";
-		sqlstr += " AND TblWzskMFile.refIxVTbl = " + to_string(VecWzskVMFileRefTbl::SHT);
-		sqlstr += " AND TblWzskMFile.refUref = TblWzskMShot.ref";
-		sqlstr += " AND TblWzskMShot.refWzskMObject = " + to_string(preRefObj) + "";
-		rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
-		dbswzsk->loadUintBySQL(sqlstr, cnt);
-		cnts.push_back(cnt); lims.push_back(0); ofss.push_back(0);
-		cntsum += cnt;
-
-		sqlstr = "SELECT COUNT(TblWzskMFile.ref)";
-		sqlstr += " FROM TblWzskMFile, TblWzskQSelect";
-		sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
-		sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
-		sqlstr += " AND " + [preNoadm,preOwner](){if (preNoadm) return("TblWzskMFile.own = " + to_string(preOwner) + ""); else return(string("1"));}() + "";
-		sqlstr += " AND TblWzskMFile.refIxVTbl = " + to_string(VecWzskVMFileRefTbl::OBJ);
-		sqlstr += " AND TblWzskMFile.refUref = " + to_string(preRefObj) + "";
-		rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
-		dbswzsk->loadUintBySQL(sqlstr, cnt);
-		cnts.push_back(cnt); lims.push_back(0); ofss.push_back(0);
-		cntsum += cnt;
-
-	} else {
-		sqlstr = "SELECT COUNT(TblWzskMFile.ref)";
-		sqlstr += " FROM TblWzskMFile, TblWzskQSelect";
-		sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
-		sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
-		sqlstr += " AND " + [preNoadm,preOwner](){if (preNoadm) return("TblWzskMFile.own = " + to_string(preOwner) + ""); else return(string("1"));}() + "";
-		rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
-		dbswzsk->loadUintBySQL(sqlstr, cnt);
-		cnts.push_back(cnt); lims.push_back(0); ofss.push_back(0);
-		cntsum += cnt;
-	};
-
-	statshr.ntot = 0;
+	statshr.ntot = cnt;
 	statshr.nload = 0;
 
-	if (stgiac.jnumFirstload > cntsum) {
-		if (cntsum >= stgiac.nload) stgiac.jnumFirstload = cntsum-stgiac.nload+1;
+	if (stgiac.jnumFirstload > cnt) {
+		if (cnt >= stgiac.nload) stgiac.jnumFirstload = cnt-stgiac.nload+1;
 		else stgiac.jnumFirstload = 1;
 	};
 
-	for (unsigned int i = 0; i < cnts.size(); i++) {
-		if (statshr.nload < stgiac.nload) {
-			if ((statshr.ntot+cnts[i]) >= stgiac.jnumFirstload) {
-				if (statshr.ntot >= stgiac.jnumFirstload) {
-					ofss[i] = 0;
-				} else {
-					ofss[i] = stgiac.jnumFirstload-statshr.ntot-1;
-				};
-
-				if ((statshr.nload+cnts[i]-ofss[i]) > stgiac.nload) lims[i] = stgiac.nload-statshr.nload;
-				else lims[i] = cnts[i]-ofss[i];
-			};
-		};
-
-		statshr.ntot += cnts[i];
-		statshr.nload += lims[i];
-	};
-
-	if (preIxPre == VecWzskVPreset::PREWZSKREFOBJ) {
-		rerun_baseSQL(sqlstr);
-		sqlstr += " FROM TblWzskMFile, TblWzskQSelect, TblWzskMShot";
-		sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
-		sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
-		sqlstr += " AND " + [preNoadm,preOwner](){if (preNoadm) return("TblWzskMFile.own = " + to_string(preOwner) + ""); else return(string("1"));}() + "";
-		sqlstr += " AND TblWzskMFile.refIxVTbl = " + to_string(VecWzskVMFileRefTbl::SHT);
-		sqlstr += " AND TblWzskMFile.refUref = TblWzskMShot.ref";
-		sqlstr += " AND TblWzskMShot.refWzskMObject = " + to_string(preRefObj) + "";
-		rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
-		rerun_orderSQL(sqlstr, preIxOrd);
-		sqlstr += " LIMIT " + to_string(lims[0]) + " OFFSET " + to_string(ofss[0]);
-		dbswzsk->executeQuery(sqlstr);
-
-		rerun_baseSQL(sqlstr);
-		sqlstr += " FROM TblWzskMFile, TblWzskQSelect";
-		sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
-		sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
-		sqlstr += " AND " + [preNoadm,preOwner](){if (preNoadm) return("TblWzskMFile.own = " + to_string(preOwner) + ""); else return(string("1"));}() + "";
-		sqlstr += " AND TblWzskMFile.refIxVTbl = " + to_string(VecWzskVMFileRefTbl::OBJ);
-		sqlstr += " AND TblWzskMFile.refUref = " + to_string(preRefObj) + "";
-		rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
-		rerun_orderSQL(sqlstr, preIxOrd);
-		sqlstr += " LIMIT " + to_string(lims[1]) + " OFFSET " + to_string(ofss[1]);
-		dbswzsk->executeQuery(sqlstr);
-
-	} else {
-		rerun_baseSQL(sqlstr);
-		sqlstr += " FROM TblWzskMFile, TblWzskQSelect";
-		sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
-		sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
-		sqlstr += " AND " + [preNoadm,preOwner](){if (preNoadm) return("TblWzskMFile.own = " + to_string(preOwner) + ""); else return(string("1"));}() + "";
-		rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
-		rerun_orderSQL(sqlstr, preIxOrd);
-		sqlstr += " LIMIT " + to_string(lims[0]) + " OFFSET " + to_string(ofss[0]);
-		dbswzsk->executeQuery(sqlstr);
-	};
+	sqlstr = "INSERT INTO TblWzskQFilList(jref, jnum, ref, grp, own, Filename, refIxVTbl, refUref, osrefKContent, srefKMimetype, Size)";
+	sqlstr += " SELECT " + to_string(jref) + ", 0, TblWzskMFile.ref, TblWzskMFile.grp, TblWzskMFile.own, TblWzskMFile.Filename, TblWzskMFile.refIxVTbl, TblWzskMFile.refUref, TblWzskMFile.osrefKContent, TblWzskMFile.srefKMimetype, TblWzskMFile.Size";
+	sqlstr += " FROM TblWzskMFile, TblWzskQSelect";
+	sqlstr += " WHERE TblWzskQSelect.jref = " + to_string(preJrefSess) + "";
+	sqlstr += " AND TblWzskMFile.grp = TblWzskQSelect.ref";
+	sqlstr += " AND " + [preNoadm,preOwner](){if (preNoadm) return("TblWzskMFile.own = " + to_string(preOwner) + ""); else return(string("1"));}() + "";
+	rerun_filtSQL(sqlstr, preGrp, preOwn, preFnm, preRet, preReu, false);
+	rerun_orderSQL(sqlstr, preIxOrd);
+	sqlstr += " LIMIT " + to_string(stgiac.nload) + " OFFSET " + to_string(stgiac.jnumFirstload-1);
+	dbswzsk->executeQuery(sqlstr);
 
 	sqlstr = "UPDATE TblWzskQFilList SET jnum = qref WHERE jref = " + to_string(jref);
 	dbswzsk->executeQuery(sqlstr);
@@ -214,13 +131,6 @@ void QryWzskFilList::rerun(
 
 	if (call) xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
 
-};
-
-void QryWzskFilList::rerun_baseSQL(
-			string& sqlstr
-		) {
-	sqlstr = "INSERT INTO TblWzskQFilList(jref, jnum, ref, grp, own, Filename, refIxVTbl, refUref, osrefKContent, srefKMimetype, Size)";
-	sqlstr += " SELECT " + to_string(jref) + ", 0, TblWzskMFile.ref, TblWzskMFile.grp, TblWzskMFile.own, TblWzskMFile.Filename, TblWzskMFile.refIxVTbl, TblWzskMFile.refUref, TblWzskMFile.osrefKContent, TblWzskMFile.srefKMimetype, TblWzskMFile.Size";
 };
 
 void QryWzskFilList::rerun_filtSQL(
@@ -274,11 +184,11 @@ void QryWzskFilList::rerun_orderSQL(
 			string& sqlstr
 			, const uint preIxOrd
 		) {
-	if (preIxOrd == VecVOrd::RET) sqlstr += " ORDER BY TblWzskMFile.refIxVTbl ASC";
-	else if (preIxOrd == VecVOrd::REU) sqlstr += " ORDER BY TblWzskMFile.refUref ASC";
-	else if (preIxOrd == VecVOrd::FNM) sqlstr += " ORDER BY TblWzskMFile.Filename ASC";
+	if (preIxOrd == VecVOrd::GRP) sqlstr += " ORDER BY TblWzskMFile.grp ASC";
 	else if (preIxOrd == VecVOrd::OWN) sqlstr += " ORDER BY TblWzskMFile.own ASC";
-	else if (preIxOrd == VecVOrd::GRP) sqlstr += " ORDER BY TblWzskMFile.grp ASC";
+	else if (preIxOrd == VecVOrd::FNM) sqlstr += " ORDER BY TblWzskMFile.Filename ASC";
+	else if (preIxOrd == VecVOrd::RET) sqlstr += " ORDER BY TblWzskMFile.refIxVTbl ASC";
+	else if (preIxOrd == VecVOrd::REU) sqlstr += " ORDER BY TblWzskMFile.refUref ASC";
 };
 
 void QryWzskFilList::fetch(
@@ -310,11 +220,7 @@ void QryWzskFilList::fetch(
 			rec->stubOwn = StubWzsk::getStubOwner(dbswzsk, rec->own, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
 			rec->srefRefIxVTbl = VecWzskVMFileRefTbl::getSref(rec->refIxVTbl);
 			rec->titRefIxVTbl = VecWzskVMFileRefTbl::getTitle(rec->refIxVTbl, ixWzskVLocale);
-			if (rec->refIxVTbl == VecWzskVMFileRefTbl::OBJ) {
-				rec->stubRefUref = StubWzsk::getStubObjStd(dbswzsk, rec->refUref, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
-			} else if (rec->refIxVTbl == VecWzskVMFileRefTbl::SHT) {
-				rec->stubRefUref = StubWzsk::getStubShtStd(dbswzsk, rec->refUref, ixWzskVLocale, Stub::VecVNonetype::SHORT, stcch);
-			} else rec->stubRefUref = "-";
+			rec->stubRefUref = "-";
 			rec->titOsrefKContent = dbswzsk->getKlstTitleBySref(VecWzskVKeylist::KLSTWZSKKMFILECONTENT, rec->osrefKContent, ixWzskVLocale);
 			rec->titSrefKMimetype = dbswzsk->getKlstTitleBySref(VecWzskVKeylist::KLSTWZSKKMFILEMIMETYPE, rec->srefKMimetype, ixWzskVLocale);
 		};
@@ -471,13 +377,21 @@ void QryWzskFilList::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKFILMOD) {
+	if ((call->ixVCall == VecWzskVCall::CALLWZSKSTUBCHG) && (call->jref == jref)) {
+		call->abort = handleCallWzskStubChgFromSelf(dbswzsk);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKFILMOD) {
 		call->abort = handleCallWzskFilMod(dbswzsk, call->jref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKFILUPD_REFEQ) {
 		call->abort = handleCallWzskFilUpd_refEq(dbswzsk, call->jref);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSTUBCHG) && (call->jref == jref)) {
-		call->abort = handleCallWzskStubChgFromSelf(dbswzsk);
 	};
+};
+
+bool QryWzskFilList::handleCallWzskStubChgFromSelf(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = false;
+	// IP handleCallWzskStubChgFromSelf --- INSERT
+	return retval;
 };
 
 bool QryWzskFilList::handleCallWzskFilMod(
@@ -505,13 +419,5 @@ bool QryWzskFilList::handleCallWzskFilUpd_refEq(
 		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
 	};
 
-	return retval;
-};
-
-bool QryWzskFilList::handleCallWzskStubChgFromSelf(
-			DbsWzsk* dbswzsk
-		) {
-	bool retval = false;
-	// IP handleCallWzskStubChgFromSelf --- INSERT
 	return retval;
 };

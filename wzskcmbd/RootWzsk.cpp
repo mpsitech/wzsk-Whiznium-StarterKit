@@ -2,8 +2,8 @@
 	* \file RootWzsk.cpp
 	* job handler for job RootWzsk (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -39,26 +39,22 @@ RootWzsk::RootWzsk(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
-	srcv4l2 = NULL;
-	srcuvbdvk = NULL;
-	srcpwmonusb = NULL;
-	srcsysinfo = NULL;
-	srcpwmonuart = NULL;
-	srcmercbb = NULL;
-	srcmcvevp = NULL;
-	srcicicle = NULL;
-	srcclnxevb = NULL;
-	iprtrace = NULL;
-	srcarty = NULL;
-	iprcorner = NULL;
-	iprangle = NULL;
-	actservo = NULL;
-	actexposure = NULL;
-	actlaser = NULL;
-	acqptcloud = NULL;
+	acqcorner = NULL;
+	acqhdr = NULL;
+	acqmemtrack = NULL;
 	acqpreview = NULL;
-	acqfpgapvw = NULL;
-	acqfpgaflg = NULL;
+	acqtrace = NULL;
+	acqvtrtrack = NULL;
+	actlaser = NULL;
+	actrotary = NULL;
+	actvistorot = NULL;
+	prcangle = NULL;
+	prcwavelet = NULL;
+	srcdcvsp = NULL;
+	srcfpgainfo = NULL;
+	srcsysinfo = NULL;
+	srctivsp = NULL;
+	srczuvsp = NULL;
 
 	// IP constructor.cust1 --- INSERT
 
@@ -68,38 +64,34 @@ RootWzsk::RootWzsk(
 	if (_clearAll) clearAll(dbswzsk);
 	else clearQtb(dbswzsk);
 
-	srcv4l2 = new JobWzskSrcV4l2(xchg, dbswzsk, jref, ixWzskVLocale);
-	srcuvbdvk = new JobWzskSrcUvbdvk(xchg, dbswzsk, jref, ixWzskVLocale);
-	srcpwmonusb = new JobWzskSrcPwmonusb(xchg, dbswzsk, jref, ixWzskVLocale);
-	srcsysinfo = new JobWzskSrcSysinfo(xchg, dbswzsk, jref, ixWzskVLocale);
-	srcpwmonuart = new JobWzskSrcPwmonuart(xchg, dbswzsk, jref, ixWzskVLocale);
-	srcmercbb = new JobWzskSrcMercbb(xchg, dbswzsk, jref, ixWzskVLocale);
-	srcmcvevp = new JobWzskSrcMcvevp(xchg, dbswzsk, jref, ixWzskVLocale);
-	srcicicle = new JobWzskSrcIcicle(xchg, dbswzsk, jref, ixWzskVLocale);
-	srcclnxevb = new JobWzskSrcClnxevb(xchg, dbswzsk, jref, ixWzskVLocale);
-	iprtrace = new JobWzskIprTrace(xchg, dbswzsk, jref, ixWzskVLocale);
-	srcarty = new JobWzskSrcArty(xchg, dbswzsk, jref, ixWzskVLocale);
-	iprcorner = new JobWzskIprCorner(xchg, dbswzsk, jref, ixWzskVLocale);
-	iprangle = new JobWzskIprAngle(xchg, dbswzsk, jref, ixWzskVLocale);
-	actservo = new JobWzskActServo(xchg, dbswzsk, jref, ixWzskVLocale);
-	actexposure = new JobWzskActExposure(xchg, dbswzsk, jref, ixWzskVLocale);
-	actlaser = new JobWzskActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
-	acqptcloud = new JobWzskAcqPtcloud(xchg, dbswzsk, jref, ixWzskVLocale);
+	acqcorner = new JobWzskAcqCorner(xchg, dbswzsk, jref, ixWzskVLocale);
+	acqhdr = new JobWzskAcqHdr(xchg, dbswzsk, jref, ixWzskVLocale);
+	acqmemtrack = new JobWzskAcqMemtrack(xchg, dbswzsk, jref, ixWzskVLocale);
 	acqpreview = new JobWzskAcqPreview(xchg, dbswzsk, jref, ixWzskVLocale);
-	acqfpgapvw = new JobWzskAcqFpgapvw(xchg, dbswzsk, jref, ixWzskVLocale);
-	acqfpgaflg = new JobWzskAcqFpgaflg(xchg, dbswzsk, jref, ixWzskVLocale);
+	acqtrace = new JobWzskAcqTrace(xchg, dbswzsk, jref, ixWzskVLocale);
+	acqvtrtrack = new JobWzskAcqVtrtrack(xchg, dbswzsk, jref, ixWzskVLocale);
+	actlaser = new JobWzskActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
+	actrotary = new JobWzskActRotary(xchg, dbswzsk, jref, ixWzskVLocale);
+	actvistorot = new JobWzskActVistorot(xchg, dbswzsk, jref, ixWzskVLocale);
+	prcangle = new JobWzskPrcAngle(xchg, dbswzsk, jref, ixWzskVLocale);
+	prcwavelet = new JobWzskPrcWavelet(xchg, dbswzsk, jref, ixWzskVLocale);
+	srcdcvsp = new JobWzskSrcDcvsp(xchg, dbswzsk, jref, ixWzskVLocale);
+	srcfpgainfo = new JobWzskSrcFpgainfo(xchg, dbswzsk, jref, ixWzskVLocale);
+	srcsysinfo = new JobWzskSrcSysinfo(xchg, dbswzsk, jref, ixWzskVLocale);
+	srctivsp = new JobWzskSrcTivsp(xchg, dbswzsk, jref, ixWzskVLocale);
+	srczuvsp = new JobWzskSrcZuvsp(xchg, dbswzsk, jref, ixWzskVLocale);
 
 	// IP constructor.cust2 --- INSERT
 
 	// IP constructor.spec2 --- INSERT
 
+	xchg->addClstn(VecWzskVCall::CALLWZSKLOGOUT, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSUSPSESS, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKREFPRESET, jref, Clstn::VecVJobmask::TREE, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
-	xchg->addClstn(VecWzskVCall::CALLWZSKLOGOUT, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
-	if (xchg->stgwzskappearance.roottterm != 0) wrefLast = xchg->addWakeup(jref, "warnterm", 1e6 * xchg->stgwzskappearance.roottterm);
+	if (xchg->stgwzskbehavior.roottterm != 0) wrefLast = xchg->addWakeup(jref, "warnterm", 1e6 * xchg->stgwzskbehavior.roottterm);
 };
 
 RootWzsk::~RootWzsk() {
@@ -128,7 +120,6 @@ void RootWzsk::clearAll(
 	// empty out tables
 	dbswzsk->executeQuery("DELETE FROM TblWzskAccRMUserUniversal");
 	dbswzsk->executeQuery("DELETE FROM TblWzskAMPersonDetail");
-	dbswzsk->executeQuery("DELETE FROM TblWzskAMShotPar");
 	dbswzsk->executeQuery("DELETE FROM TblWzskAMUserAccess");
 	dbswzsk->executeQuery("DELETE FROM TblWzskAMUsergroupAccess");
 	dbswzsk->executeQuery("DELETE FROM TblWzskAVControlPar");
@@ -138,15 +129,11 @@ void RootWzsk::clearAll(
 	else if (dbswzsk->ixDbsVDbstype == VecDbsVDbstype::PG) dbswzsk->executeQuery("ALTER SEQUENCE TblWzskCFile RESTART WITH 1");
 	dbswzsk->executeQuery("DELETE FROM TblWzskHistRMUserUniversal");
 	dbswzsk->executeQuery("DELETE FROM TblWzskJAVKeylistKey");
-	dbswzsk->executeQuery("DELETE FROM TblWzskJMObjgroupTitle");
 	dbswzsk->executeQuery("DELETE FROM TblWzskJMPersonLastname");
 	dbswzsk->executeQuery("DELETE FROM TblWzskJMUserState");
 	dbswzsk->executeQuery("DELETE FROM TblWzskMFile");
-	dbswzsk->executeQuery("DELETE FROM TblWzskMObject");
-	dbswzsk->executeQuery("DELETE FROM TblWzskMObjgroup");
 	dbswzsk->executeQuery("DELETE FROM TblWzskMPerson");
 	dbswzsk->executeQuery("DELETE FROM TblWzskMSession");
-	dbswzsk->executeQuery("DELETE FROM TblWzskMShot");
 	dbswzsk->executeQuery("DELETE FROM TblWzskMUser");
 	dbswzsk->executeQuery("DELETE FROM TblWzskMUsergroup");
 	dbswzsk->executeQuery("DELETE FROM TblWzskRMUsergroupUniversal");
@@ -192,21 +179,10 @@ void RootWzsk::clearQtb(
 			DbsWzsk* dbswzsk
 		) {
 	dbswzsk->executeQuery("DELETE FROM TblWzskQFilList");
-	dbswzsk->executeQuery("DELETE FROM TblWzskQObj1NShot");
-	dbswzsk->executeQuery("DELETE FROM TblWzskQObjList");
-	dbswzsk->executeQuery("DELETE FROM TblWzskQObjRef1NFile");
-	dbswzsk->executeQuery("DELETE FROM TblWzskQOgr1NObject");
-	dbswzsk->executeQuery("DELETE FROM TblWzskQOgrList");
-	dbswzsk->executeQuery("DELETE FROM TblWzskQOgrSup1NObjgroup");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQPreselect");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQPrsADetail");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQPrsList");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQSelect");
-	dbswzsk->executeQuery("DELETE FROM TblWzskQSes1NShot");
-	dbswzsk->executeQuery("DELETE FROM TblWzskQSesList");
-	dbswzsk->executeQuery("DELETE FROM TblWzskQShtAPar");
-	dbswzsk->executeQuery("DELETE FROM TblWzskQShtList");
-	dbswzsk->executeQuery("DELETE FROM TblWzskQShtRef1NFile");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQUsgAAccess");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQUsgList");
 	dbswzsk->executeQuery("DELETE FROM TblWzskQUsgMNUser");
@@ -336,7 +312,7 @@ bool RootWzsk::handleCreateSess(
 		xchg->jrefCmd = insertSubjob(sesss, new SessWzsk(xchg, dbswzsk, jref, refUsr, "127.0.0.1"));
 		cout << "\tjob reference: " << xchg->jrefCmd << endl;
 
-		if ((xchg->stgwzskappearance.sesstterm != 0) && (sesss.size() == 1)) wrefLast = xchg->addWakeup(jref, "warnterm", 1e6 * (xchg->stgwzskappearance.sesstterm - xchg->stgwzskappearance.sesstwarn));
+		if ((xchg->stgwzskbehavior.sesstterm != 0) && (sesss.size() == 1)) wrefLast = xchg->addWakeup(jref, "warnterm", 1e6 * (xchg->stgwzskbehavior.sesstterm - xchg->stgwzskbehavior.sesstwarn));
 
 		xchg->appendToLogfile("command line session created for user '" + input + "'");
 
@@ -392,7 +368,7 @@ void RootWzsk::handleDpchAppLogin(
 	// verify password
 	if (authenticate(dbswzsk, StrMod::lc(dpchapplogin->username), dpchapplogin->password, refUsr)) {
 		if (!(dpchapplogin->m2mNotReg)) {
-			if (xchg->stgwzskappearance.suspsess && dpchapplogin->chksuspsess) {
+			if (xchg->stgwzskbehavior.suspsess && dpchapplogin->chksuspsess) {
 				// look for suspended sessions
 				for (auto it = sesss.begin(); it != sesss.end(); it++) {
 					jrefSess = it->second->jref;
@@ -410,7 +386,7 @@ void RootWzsk::handleDpchAppLogin(
 				// start new session
 				jrefSess = insertSubjob(sesss, new SessWzsk(xchg, dbswzsk, jref, refUsr, ip));
 
-				if ((xchg->stgwzskappearance.sesstterm != 0) && (sesss.size() == 1)) wrefLast = xchg->addWakeup(jref, "warnterm", 1e6 * (xchg->stgwzskappearance.sesstterm - xchg->stgwzskappearance.sesstwarn));
+				if ((xchg->stgwzskbehavior.sesstterm != 0) && (sesss.size() == 1)) wrefLast = xchg->addWakeup(jref, "warnterm", 1e6 * (xchg->stgwzskbehavior.sesstterm - xchg->stgwzskbehavior.sesstwarn));
 
 				xchg->appendToLogfile("session created for user '" + dpchapplogin->username + "' from IP " + ip);
 
@@ -449,7 +425,7 @@ void RootWzsk::handleTimerWithSrefWarnterm(
 
 	bool term;
 
-	if (xchg->stgwzskappearance.sesstterm != 0) {
+	if (xchg->stgwzskbehavior.sesstterm != 0) {
 		for (auto it = sesss.begin(); it != sesss.end();) {
 			sess = (SessWzsk*) it->second;
 
@@ -457,11 +433,11 @@ void RootWzsk::handleTimerWithSrefWarnterm(
 
 			tlast = xchg->getRefPreset(VecWzskVPreset::PREWZSKTLAST, sess->jref);
 
-			if ((tlast + ((int) xchg->stgwzskappearance.sesstterm)) <= rawtime) term = true;
-			else if ((tlast + ((int) xchg->stgwzskappearance.sesstterm) - ((int) xchg->stgwzskappearance.sesstwarn)) <= rawtime) {
+			if ((tlast + ((int) xchg->stgwzskbehavior.sesstterm)) <= rawtime) term = true;
+			else if ((tlast + ((int) xchg->stgwzskbehavior.sesstterm) - ((int) xchg->stgwzskbehavior.sesstwarn)) <= rawtime) {
 				sess->warnTerm(dbswzsk);
-				if ((tnext == 0) || ((tlast + ((int) xchg->stgwzskappearance.sesstterm)) < tnext)) tnext = tlast + ((int) xchg->stgwzskappearance.sesstterm);
-			} else if ((tnext == 0) || ((tlast + ((int) xchg->stgwzskappearance.sesstterm) - ((int) xchg->stgwzskappearance.sesstwarn)) < tnext)) tnext = tlast + xchg->stgwzskappearance.sesstterm - xchg->stgwzskappearance.sesstwarn;
+				if ((tnext == 0) || ((tlast + ((int) xchg->stgwzskbehavior.sesstterm)) < tnext)) tnext = tlast + ((int) xchg->stgwzskbehavior.sesstterm);
+			} else if ((tnext == 0) || ((tlast + ((int) xchg->stgwzskbehavior.sesstterm) - ((int) xchg->stgwzskbehavior.sesstwarn)) < tnext)) tnext = tlast + xchg->stgwzskbehavior.sesstterm - xchg->stgwzskbehavior.sesstwarn;
 
 			if (term) {
 				sess->term(dbswzsk);
@@ -475,11 +451,11 @@ void RootWzsk::handleTimerWithSrefWarnterm(
 
 	term = false;
 
-	if (xchg->stgwzskappearance.roottterm != 0) {
+	if (xchg->stgwzskbehavior.roottterm != 0) {
 		tlast = xchg->getRefPreset(VecWzskVPreset::PREWZSKTLAST, jref);
 
-		if ((tlast + ((int) xchg->stgwzskappearance.roottterm)) <= rawtime) term = true;
-		else if ((tnext == 0) || ((tlast + ((int) xchg->stgwzskappearance.roottterm)) < tnext)) tnext = tlast + xchg->stgwzskappearance.roottterm;
+		if ((tlast + ((int) xchg->stgwzskbehavior.roottterm)) <= rawtime) term = true;
+		else if ((tnext == 0) || ((tlast + ((int) xchg->stgwzskbehavior.roottterm)) < tnext)) tnext = tlast + xchg->stgwzskbehavior.roottterm;
 	};
 
 	if (term) {
@@ -492,13 +468,39 @@ void RootWzsk::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKSUSPSESS) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKLOGOUT) {
+		call->abort = handleCallWzskLogout(dbswzsk, call->jref, call->argInv.boolval);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSUSPSESS) {
 		call->abort = handleCallWzskSuspsess(dbswzsk, call->jref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKREFPRESET) {
 		call->abort = handleCallWzskRefPreSet(dbswzsk, call->jref, call->argInv.ix, call->argInv.ref);
-	} else if (call->ixVCall == VecWzskVCall::CALLWZSKLOGOUT) {
-		call->abort = handleCallWzskLogout(dbswzsk, call->jref, call->argInv.boolval);
 	};
+};
+
+bool RootWzsk::handleCallWzskLogout(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+			, const bool boolvalInv
+		) {
+	bool retval = false;
+
+	time_t rawtime;
+
+	termSess(dbswzsk, jrefTrig);
+
+	if (!boolvalInv) {
+		eraseSubjobByJref(sesss, jrefTrig);
+
+		if (xchg->stgwzskbehavior.roottterm) {
+			time(&rawtime);
+			xchg->addRefPreset(VecWzskVPreset::PREWZSKTLAST, jref, rawtime);
+		};
+
+	} else {
+		eraseSubjobByJref(m2msesss, jrefTrig);
+	};
+
+	return retval;
 };
 
 bool RootWzsk::handleCallWzskSuspsess(
@@ -523,32 +525,6 @@ bool RootWzsk::handleCallWzskRefPreSet(
 
 	if (ixInv == VecWzskVPreset::PREWZSKTLAST) {
 		xchg->addRefPreset(ixInv, jref, refInv);
-	};
-
-	return retval;
-};
-
-bool RootWzsk::handleCallWzskLogout(
-			DbsWzsk* dbswzsk
-			, const ubigint jrefTrig
-			, const bool boolvalInv
-		) {
-	bool retval = false;
-
-	time_t rawtime;
-
-	termSess(dbswzsk, jrefTrig);
-
-	if (!boolvalInv) {
-		eraseSubjobByJref(sesss, jrefTrig);
-
-		if (xchg->stgwzskappearance.roottterm) {
-			time(&rawtime);
-			xchg->addRefPreset(VecWzskVPreset::PREWZSKTLAST, jref, rawtime);
-		};
-
-	} else {
-		eraseSubjobByJref(m2msesss, jrefTrig);
 	};
 
 	return retval;

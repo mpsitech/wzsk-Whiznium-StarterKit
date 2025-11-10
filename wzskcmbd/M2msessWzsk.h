@@ -2,8 +2,8 @@
 	* \file M2msessWzsk.h
 	* job handler for job M2msessWzsk (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -14,14 +14,12 @@
 
 // IP include.cust --- INSERT
 
-#include "JobWzskSrcSysinfo.h"
-#include "JobWzskIprTrace.h"
-#include "JobWzskIprCorner.h"
-#include "JobWzskActServo.h"
+#include "JobWzskAcqCorner.h"
+#include "JobWzskAcqTrace.h"
 #include "JobWzskActLaser.h"
-#include "JobWzskActExposure.h"
-#include "JobWzskAcqPtcloud.h"
-#include "JobWzskAcqPreview.h"
+#include "JobWzskActRotary.h"
+#include "JobWzskSrcFpgainfo.h"
+#include "JobWzskSrcSysinfo.h"
 
 #define StatShrM2msessWzsk M2msessWzsk::StatShr
 
@@ -39,26 +37,22 @@ public:
 	class StatShr : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint JREFACQPREVIEW = 1;
-		static const Sbecore::uint JREFACQPTCLOUD = 2;
-		static const Sbecore::uint JREFACTEXPOSURE = 3;
-		static const Sbecore::uint JREFACTLASER = 4;
-		static const Sbecore::uint JREFACTSERVO = 5;
-		static const Sbecore::uint JREFIPRCORNER = 6;
-		static const Sbecore::uint JREFIPRTRACE = 7;
-		static const Sbecore::uint JREFSRCSYSINFO = 8;
+		static const Sbecore::uint JREFACQCORNER = 1;
+		static const Sbecore::uint JREFACQTRACE = 2;
+		static const Sbecore::uint JREFACTLASER = 3;
+		static const Sbecore::uint JREFACTROTARY = 4;
+		static const Sbecore::uint JREFSRCFPGAINFO = 5;
+		static const Sbecore::uint JREFSRCSYSINFO = 6;
 
 	public:
-		StatShr(const Sbecore::ubigint jrefAcqpreview = 0, const Sbecore::ubigint jrefAcqptcloud = 0, const Sbecore::ubigint jrefActexposure = 0, const Sbecore::ubigint jrefActlaser = 0, const Sbecore::ubigint jrefActservo = 0, const Sbecore::ubigint jrefIprcorner = 0, const Sbecore::ubigint jrefIprtrace = 0, const Sbecore::ubigint jrefSrcsysinfo = 0);
+		StatShr(const Sbecore::ubigint jrefAcqcorner = 0, const Sbecore::ubigint jrefAcqtrace = 0, const Sbecore::ubigint jrefActlaser = 0, const Sbecore::ubigint jrefActrotary = 0, const Sbecore::ubigint jrefSrcfpgainfo = 0, const Sbecore::ubigint jrefSrcsysinfo = 0);
 
 	public:
-		Sbecore::ubigint jrefAcqpreview;
-		Sbecore::ubigint jrefAcqptcloud;
-		Sbecore::ubigint jrefActexposure;
+		Sbecore::ubigint jrefAcqcorner;
+		Sbecore::ubigint jrefAcqtrace;
 		Sbecore::ubigint jrefActlaser;
-		Sbecore::ubigint jrefActservo;
-		Sbecore::ubigint jrefIprcorner;
-		Sbecore::ubigint jrefIprtrace;
+		Sbecore::ubigint jrefActrotary;
+		Sbecore::ubigint jrefSrcfpgainfo;
 		Sbecore::ubigint jrefSrcsysinfo;
 
 	public:
@@ -99,14 +93,12 @@ public:
 public:
 	StatShr statshr;
 
-	JobWzskSrcSysinfo* srcsysinfo;
-	JobWzskIprTrace* iprtrace;
-	JobWzskIprCorner* iprcorner;
-	JobWzskActServo* actservo;
+	JobWzskAcqCorner* acqcorner;
+	JobWzskAcqTrace* acqtrace;
 	JobWzskActLaser* actlaser;
-	JobWzskActExposure* actexposure;
-	JobWzskAcqPtcloud* acqptcloud;
-	JobWzskAcqPreview* acqpreview;
+	JobWzskActRotary* actrotary;
+	JobWzskSrcFpgainfo* srcfpgainfo;
+	JobWzskSrcSysinfo* srcsysinfo;
 
 	std::multimap<Sbecore::featix_t,Sbecore::uint> accs;
 

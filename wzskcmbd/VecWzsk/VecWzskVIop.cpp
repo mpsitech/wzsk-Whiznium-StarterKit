@@ -2,8 +2,8 @@
 	* \file VecWzskVIop.cpp
 	* vector VecWzskVIop (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -57,14 +57,6 @@ string VecWzskVIop::getTitle(
 		if (ix == RETRUPDINS) return("retrieve and update, else insert");
 		if (ix == RMV) return("remove");
 		return(getSref(ix));
-	} else if (ixWzskVLocale == 2) {
-		if (ix == INS) return("einf\\u00fcgen");
-		if (ix == RETR) return("auffinden");
-		if (ix == RETRINS) return("auffinden, sonst einf\\u00fcgen");
-		if (ix == RETRUPD) return("auffinden und aktualisieren");
-		if (ix == RETRUPDINS) return("auffinden und aktualisieren, sonst einf\\u00fcgen");
-		if (ix == RMV) return("entfernen");
-		return(getTitle(ix, 1));
 	};
 
 	return("");

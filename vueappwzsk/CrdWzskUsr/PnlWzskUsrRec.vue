@@ -58,7 +58,6 @@
 			<v-row>
 				<v-col cols="12" md="6">
 					<PnlWzskUsr1NSession
-						v-on:crdopen="handleCrdopen"
 						v-on:request="handleRequest"
 						ref="PnlWzskUsr1NSession"
 						:scrJref=statshr.scrJref1NSession

@@ -2,8 +2,8 @@
 	* \file PnlWzskUsr1NSession_blks.cpp
 	* job handler for job PnlWzskUsr1NSession (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -20,8 +20,6 @@ uint PnlWzskUsr1NSession::VecVDo::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
-	if (s == "butviewclick") return BUTVIEWCLICK;
-	if (s == "butnewclick") return BUTNEWCLICK;
 	if (s == "butdeleteclick") return BUTDELETECLICK;
 	if (s == "butrefreshclick") return BUTREFRESHCLICK;
 
@@ -31,8 +29,6 @@ uint PnlWzskUsr1NSession::VecVDo::getIx(
 string PnlWzskUsr1NSession::VecVDo::getSref(
 			const uint ix
 		) {
-	if (ix == BUTVIEWCLICK) return("ButViewClick");
-	if (ix == BUTNEWCLICK) return("ButNewClick");
 	if (ix == BUTDELETECLICK) return("ButDeleteClick");
 	if (ix == BUTREFRESHCLICK) return("ButRefreshClick");
 
@@ -47,9 +43,8 @@ PnlWzskUsr1NSession::ContInf::ContInf(
 			const uint numFCsiQst
 		) :
 			Block()
+			, numFCsiQst(numFCsiQst)
 		{
-	this->numFCsiQst = numFCsiQst;
-
 	mask = {NUMFCSIQST};
 };
 
@@ -61,7 +56,7 @@ void PnlWzskUsr1NSession::ContInf::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["numFCsiQst"] = numFCsiQst;
+	me["numFCsiQst"] = (Json::Value::UInt) numFCsiQst;
 };
 
 void PnlWzskUsr1NSession::ContInf::writeXML(
@@ -142,21 +137,14 @@ void PnlWzskUsr1NSession::StatApp::writeXML(
  ******************************************************************************/
 
 PnlWzskUsr1NSession::StatShr::StatShr(
-			const bool ButViewAvail
-			, const bool ButViewActive
-			, const bool ButNewAvail
-			, const bool ButDeleteAvail
+			const bool ButDeleteAvail
 			, const bool ButDeleteActive
 		) :
 			Block()
+			, ButDeleteAvail(ButDeleteAvail)
+			, ButDeleteActive(ButDeleteActive)
 		{
-	this->ButViewAvail = ButViewAvail;
-	this->ButViewActive = ButViewActive;
-	this->ButNewAvail = ButNewAvail;
-	this->ButDeleteAvail = ButDeleteAvail;
-	this->ButDeleteActive = ButDeleteActive;
-
-	mask = {BUTVIEWAVAIL, BUTVIEWACTIVE, BUTNEWAVAIL, BUTDELETEAVAIL, BUTDELETEACTIVE};
+	mask = {BUTDELETEAVAIL, BUTDELETEACTIVE};
 };
 
 void PnlWzskUsr1NSession::StatShr::writeJSON(
@@ -167,9 +155,6 @@ void PnlWzskUsr1NSession::StatShr::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["ButViewAvail"] = ButViewAvail;
-	me["ButViewActive"] = ButViewActive;
-	me["ButNewAvail"] = ButNewAvail;
 	me["ButDeleteAvail"] = ButDeleteAvail;
 	me["ButDeleteActive"] = ButDeleteActive;
 };
@@ -186,9 +171,6 @@ void PnlWzskUsr1NSession::StatShr::writeXML(
 	else itemtag = "StatitemShrWzskUsr1NSession";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeBoolAttr(wr, itemtag, "sref", "ButViewAvail", ButViewAvail);
-		writeBoolAttr(wr, itemtag, "sref", "ButViewActive", ButViewActive);
-		writeBoolAttr(wr, itemtag, "sref", "ButNewAvail", ButNewAvail);
 		writeBoolAttr(wr, itemtag, "sref", "ButDeleteAvail", ButDeleteAvail);
 		writeBoolAttr(wr, itemtag, "sref", "ButDeleteActive", ButDeleteActive);
 	xmlTextWriterEndElement(wr);
@@ -199,9 +181,6 @@ set<uint> PnlWzskUsr1NSession::StatShr::comm(
 		) {
 	set<uint> items;
 
-	if (ButViewAvail == comp->ButViewAvail) insert(items, BUTVIEWAVAIL);
-	if (ButViewActive == comp->ButViewActive) insert(items, BUTVIEWACTIVE);
-	if (ButNewAvail == comp->ButNewAvail) insert(items, BUTNEWAVAIL);
 	if (ButDeleteAvail == comp->ButDeleteAvail) insert(items, BUTDELETEAVAIL);
 	if (ButDeleteActive == comp->ButDeleteActive) insert(items, BUTDELETEACTIVE);
 
@@ -216,7 +195,7 @@ set<uint> PnlWzskUsr1NSession::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {BUTVIEWAVAIL, BUTVIEWACTIVE, BUTNEWAVAIL, BUTDELETEAVAIL, BUTDELETEACTIVE};
+	diffitems = {BUTDELETEAVAIL, BUTDELETEACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -230,8 +209,8 @@ PnlWzskUsr1NSession::StgIac::StgIac(
 			const uint TcoRefWidth
 		) :
 			Block()
+			, TcoRefWidth(TcoRefWidth)
 		{
-	this->TcoRefWidth = TcoRefWidth;
 	mask = {TCOREFWIDTH};
 };
 
@@ -285,7 +264,7 @@ void PnlWzskUsr1NSession::StgIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["TcoRefWidth"] = TcoRefWidth;
+	me["TcoRefWidth"] = (Json::Value::UInt) TcoRefWidth;
 };
 
 void PnlWzskUsr1NSession::StgIac::writeXML(
@@ -344,9 +323,6 @@ void PnlWzskUsr1NSession::Tag::writeJSON(
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["Cpt"] = "Sessions";
 		me["TcoRef"] = "Session";
-	} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-		me["Cpt"] = "Sitzungen";
-		me["TcoRef"] = "Sitzung";
 	};
 	me["TxtRecord1"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale));
 	me["TxtRecord2"] = StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale));
@@ -371,9 +347,6 @@ void PnlWzskUsr1NSession::Tag::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Sessions");
 			writeStringAttr(wr, itemtag, "sref", "TcoRef", "Session");
-		} else if (ixWzskVLocale == VecWzskVLocale::DECH) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Sitzungen");
-			writeStringAttr(wr, itemtag, "sref", "TcoRef", "Sitzung");
 		};
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord1", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::REC, ixWzskVLocale)));
 		writeStringAttr(wr, itemtag, "sref", "TxtRecord2", StrMod::cap(VecWzskVTag::getTitle(VecWzskVTag::EMPLONG, ixWzskVLocale)));

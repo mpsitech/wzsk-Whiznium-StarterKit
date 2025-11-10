@@ -2,8 +2,8 @@
 	* \file IexWzskIni.cpp
 	* data blocks and readers/writers for import/export complex IexWzskIni (implementation)
 	* \copyright (C) 2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -30,7 +30,6 @@ uint IexWzskIni::VecVIme::getIx(
 	if (s == "imeijavkeylistkey") return IMEIJAVKEYLISTKEY;
 	if (s == "imeijmpersonlastname") return IMEIJMPERSONLASTNAME;
 	if (s == "imeijmuserstate") return IMEIJMUSERSTATE;
-	if (s == "imeimfile") return IMEIMFILE;
 	if (s == "imeimperson") return IMEIMPERSON;
 	if (s == "imeimuser") return IMEIMUSER;
 	if (s == "imeimusergroup") return IMEIMUSERGROUP;
@@ -49,7 +48,6 @@ string IexWzskIni::VecVIme::getSref(
 	if (ix == IMEIJAVKEYLISTKEY) return("ImeIJAVKeylistKey");
 	if (ix == IMEIJMPERSONLASTNAME) return("ImeIJMPersonLastname");
 	if (ix == IMEIJMUSERSTATE) return("ImeIJMUserState");
-	if (ix == IMEIMFILE) return("ImeIMFile");
 	if (ix == IMEIMPERSON) return("ImeIMPerson");
 	if (ix == IMEIMUSER) return("ImeIMUser");
 	if (ix == IMEIMUSERGROUP) return("ImeIMUsergroup");
@@ -1073,259 +1071,6 @@ void IexWzskIni::ImeIAVValuelistVal::writeXML(
 		) {
 	if (nodes.size() > 0) {
 		xmlTextWriterStartElement(wr, BAD_CAST "ImeIAVValuelistVal");
-			for (unsigned int i = 0; i < nodes.size(); i++) nodes[i]->writeXML(wr, i+1, shorttags);
-		xmlTextWriterEndElement(wr);
-	};
-};
-
-/******************************************************************************
- class IexWzskIni::ImeitemIMFile
- ******************************************************************************/
-
-IexWzskIni::ImeitemIMFile::ImeitemIMFile(
-			const string& osrefKContent
-			, const string& Filename
-			, const string& srefKMimetype
-			, const string& Comment
-		) : WzskMFile() {
-	lineno = 0;
-	ixWIelValid = 0;
-
-	this->osrefKContent = osrefKContent;
-	this->Filename = Filename;
-	this->srefKMimetype = srefKMimetype;
-	this->Comment = Comment;
-};
-
-IexWzskIni::ImeitemIMFile::ImeitemIMFile(
-			DbsWzsk* dbswzsk
-			, const ubigint ref
-		) :
-			ImeitemIMFile()
-		{
-	WzskMFile* rec = NULL;
-
-	this->ref = ref;
-
-	if (dbswzsk->tblwzskmfile->loadRecByRef(ref, &rec)) {
-		refIxVTbl = rec->refIxVTbl;
-		osrefKContent = rec->osrefKContent;
-		Filename = rec->Filename;
-		srefKMimetype = rec->srefKMimetype;
-		Comment = rec->Comment;
-
-		delete rec;
-	};
-};
-
-void IexWzskIni::ImeitemIMFile::readTxt(
-			Txtrd& txtrd
-		) {
-	lineno = txtrd.linecnt;
-
-	if (txtrd.fields.size() > 0) {osrefKContent = txtrd.fields[0]; ixWIelValid += ImeIMFile::VecWIel::OSREFKCONTENT;};
-	if (txtrd.fields.size() > 1) {Filename = txtrd.fields[1]; ixWIelValid += ImeIMFile::VecWIel::FILENAME;};
-	if (txtrd.fields.size() > 2) {srefKMimetype = txtrd.fields[2]; ixWIelValid += ImeIMFile::VecWIel::SREFKMIMETYPE;};
-	if (txtrd.fields.size() > 3) {Comment = txtrd.fields[3]; ixWIelValid += ImeIMFile::VecWIel::COMMENT;};
-
-	while (txtrd.readLine()) {
-		switch (txtrd.ixVLinetype) {
-			case Txtrd::VecVLinetype::HEADER:
-			case Txtrd::VecVLinetype::DATA:
-			case Txtrd::VecVLinetype::FOOTER:
-				txtrd.skip = true;
-				return;
-
-			case Txtrd::VecVLinetype::COMMENT:
-				continue;
-
-			default:
-				throw SbeException(SbeException::TXTRD_CONTENT, {{"ime","ImeIMFile"}, {"lineno",to_string(lineno)}});
-		};
-	};
-};
-
-void IexWzskIni::ImeitemIMFile::readXML(
-			xmlXPathContext* docctx
-			, const string& basexpath
-		) {
-	if (checkXPath(docctx, basexpath, lineno)) {
-		if (extractStringUclc(docctx, basexpath, "osrefKContent", "cnt", osrefKContent)) ixWIelValid += ImeIMFile::VecWIel::OSREFKCONTENT;
-		if (extractStringUclc(docctx, basexpath, "Filename", "fnm", Filename)) ixWIelValid += ImeIMFile::VecWIel::FILENAME;
-		if (extractStringUclc(docctx, basexpath, "srefKMimetype", "mim", srefKMimetype)) ixWIelValid += ImeIMFile::VecWIel::SREFKMIMETYPE;
-		if (extractStringUclc(docctx, basexpath, "Comment", "cmt", Comment)) ixWIelValid += ImeIMFile::VecWIel::COMMENT;
-	};
-};
-
-void IexWzskIni::ImeitemIMFile::writeTxt(
-			fstream& outfile
-		) {
-	outfile << osrefKContent << "\t" << Filename << "\t" << srefKMimetype << "\t" << Comment << endl;
-};
-
-void IexWzskIni::ImeitemIMFile::writeXML(
-			xmlTextWriter* wr
-			, const uint num
-			, const bool shorttags
-		) {
-	vector<string> tags;
-	if (shorttags) tags = {"Ii","cnt","fnm","mim","cmt"};
-	else tags = {"ImeitemIMFile","osrefKContent","Filename","srefKMimetype","Comment"};
-
-	xmlTextWriterStartElement(wr, BAD_CAST tags[0].c_str());
-		xmlTextWriterWriteAttribute(wr, BAD_CAST "num", BAD_CAST to_string(num).c_str());
-		writeString(wr, tags[1], osrefKContent);
-		writeString(wr, tags[2], Filename);
-		writeString(wr, tags[3], srefKMimetype);
-		writeString(wr, tags[4], Comment);
-	xmlTextWriterEndElement(wr);
-};
-
-/******************************************************************************
- class IexWzskIni::ImeIMFile::VecWIel
- ******************************************************************************/
-
-uint IexWzskIni::ImeIMFile::VecWIel::getIx(
-			const string& srefs
-		) {
-	uint ix = 0;
-
-	vector<string> ss;
-	StrMod::srefsToVector(StrMod::lc(srefs), ss);
-
-	for (unsigned int i = 0; i < ss.size(); i++) {
-		if (ss[i] == "osrefkcontent") ix |= OSREFKCONTENT;
-		else if (ss[i] == "filename") ix |= FILENAME;
-		else if (ss[i] == "srefkmimetype") ix |= SREFKMIMETYPE;
-		else if (ss[i] == "comment") ix |= COMMENT;
-	};
-
-	return(ix);
-};
-
-void IexWzskIni::ImeIMFile::VecWIel::getIcs(
-			const uint ix
-			, set<uint>& ics
-		) {
-	ics.clear();
-	for (unsigned int i = 1; i < (2*COMMENT); i *= 2) if (ix & i) ics.insert(i);
-};
-
-string IexWzskIni::ImeIMFile::VecWIel::getSrefs(
-			const uint ix
-		) {
-	vector<string> ss;
-	string srefs;
-
-	if (ix & OSREFKCONTENT) ss.push_back("osrefKContent");
-	if (ix & FILENAME) ss.push_back("Filename");
-	if (ix & SREFKMIMETYPE) ss.push_back("srefKMimetype");
-	if (ix & COMMENT) ss.push_back("Comment");
-
-	StrMod::vectorToString(ss, srefs);
-
-	return(srefs);
-};
-
-/******************************************************************************
- class IexWzskIni::ImeIMFile
- ******************************************************************************/
-
-IexWzskIni::ImeIMFile::ImeIMFile() {
-};
-
-IexWzskIni::ImeIMFile::~ImeIMFile() {
-	clear();
-};
-
-void IexWzskIni::ImeIMFile::clear() {
-	for (unsigned int i = 0; i < nodes.size(); i++) delete nodes[i];
-	nodes.resize(0);
-};
-
-void IexWzskIni::ImeIMFile::readTxt(
-			Txtrd& txtrd
-		) {
-	IexWzskIni::ImeitemIMFile* ii = NULL;
-
-	clear();
-
-	while (txtrd.readLine()) {
-		switch (txtrd.ixVLinetype) {
-			case Txtrd::VecVLinetype::DATA:
-				if (txtrd.il == 0) {
-					ii = new IexWzskIni::ImeitemIMFile();
-					nodes.push_back(ii);
-
-					ii->readTxt(txtrd);
-
-					break;
-
-				} else throw SbeException(SbeException::TXTRD_CONTENT, {{"ime","ImeIMFile"}, {"lineno",to_string(txtrd.linecnt)}});
-
-			case Txtrd::VecVLinetype::FOOTER:
-				if (txtrd.ixVToken == VecVIme::IMEIMFILE) return;
-				else throw SbeException(SbeException::TXTRD_TKNMISPL, {{"tkn",VecVIme::getSref(txtrd.ixVToken)}, {"lineno",to_string(txtrd.linecnt)}});
-
-			case Txtrd::VecVLinetype::COMMENT:
-				continue;
-
-			default:
-				throw SbeException(SbeException::TXTRD_ENDTKN, {{"ime","ImeIMFile"}, {"lineno",to_string(txtrd.linecnt)}});
-		};
-	};
-
-	if (txtrd.eof()) throw SbeException(SbeException::TXTRD_ENDTKN, {{"ime","ImeIMFile"}, {"lineno",to_string(txtrd.linecnt)}});
-};
-
-void IexWzskIni::ImeIMFile::readXML(
-			xmlXPathContext* docctx
-			, string basexpath
-		) {
-	vector<unsigned int> nums;
-	vector<bool> _shorttags;
-
-	IexWzskIni::ImeitemIMFile* ii = NULL;
-
-	bool basefound;
-
-	string s;
-
-	basefound = checkUclcXPaths(docctx, basexpath, basexpath, "ImeIMFile");
-
-	clear();
-
-	if (basefound) {
-		extractList(docctx, basexpath, "ImeitemIMFile", "Ii", "num", nums, _shorttags);
-
-		for (unsigned int i = 0; i < nums.size(); i++) {
-			s = basexpath + "/";
-			if (_shorttags[i]) s += "Ii"; else s += "ImeitemIMFile";
-			s += "[@num='" + to_string(nums[i]) + "']";
-
-			ii = new IexWzskIni::ImeitemIMFile();
-			ii->readXML(docctx, s);
-			nodes.push_back(ii);
-		};
-	};
-};
-
-void IexWzskIni::ImeIMFile::writeTxt(
-			fstream& outfile
-		) {
-	if (nodes.size() > 0) {
-		outfile << "ImeIMFile." << StrMod::replaceChar(ImeIMFile::VecWIel::getSrefs(15), ';', '\t') << endl;
-		for (unsigned int i = 0; i < nodes.size(); i++) nodes[i]->writeTxt(outfile);
-		outfile << "ImeIMFile.end" << endl;
-	};
-};
-
-void IexWzskIni::ImeIMFile::writeXML(
-			xmlTextWriter* wr
-			, const bool shorttags
-		) {
-	if (nodes.size() > 0) {
-		xmlTextWriterStartElement(wr, BAD_CAST "ImeIMFile");
 			for (unsigned int i = 0; i < nodes.size(); i++) nodes[i]->writeXML(wr, i+1, shorttags);
 		xmlTextWriterEndElement(wr);
 	};
@@ -3129,7 +2874,6 @@ void IexWzskIni::parseFromFile(
 			, ImeIAVControlPar& imeiavcontrolpar
 			, ImeIAVKeylistKey& imeiavkeylistkey
 			, ImeIAVValuelistVal& imeiavvaluelistval
-			, ImeIMFile& imeimfile
 			, ImeIMUsergroup& imeimusergroup
 		) {
 	if (xmlNotTxt) {
@@ -3138,7 +2882,7 @@ void IexWzskIni::parseFromFile(
 
 		try {
 			parseFile(fullpath, &doc, &docctx);
-			readXML(docctx, "/", imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimfile, imeimusergroup);
+			readXML(docctx, "/", imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimusergroup);
 			closeParsed(doc, docctx);
 		
 		} catch (SbeException& e) {
@@ -3148,7 +2892,7 @@ void IexWzskIni::parseFromFile(
 
 	} else {
 			Txtrd rd(fullpath, rectpath, "IexWzskIni", Version(""), VecVIme::getIx);
-			readTxt(rd, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimfile, imeimusergroup);
+			readTxt(rd, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimusergroup);
 	};
 };
 
@@ -3159,21 +2903,20 @@ void IexWzskIni::exportToFile(
 			, ImeIAVControlPar& imeiavcontrolpar
 			, ImeIAVKeylistKey& imeiavkeylistkey
 			, ImeIAVValuelistVal& imeiavvaluelistval
-			, ImeIMFile& imeimfile
 			, ImeIMUsergroup& imeimusergroup
 		) {
 	if (xmlNotTxt) {
 		xmlTextWriter* wr = NULL;
 
 		startwriteFile(fullpath, &wr);
-			writeXML(wr, shorttags, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimfile, imeimusergroup);
+			writeXML(wr, shorttags, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimusergroup);
 		closewriteFile(wr);
 
 	} else {
 		fstream txtfile;
 
 		txtfile.open(fullpath.c_str(), ios::out);
-		writeTxt(txtfile, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimfile, imeimusergroup);
+		writeTxt(txtfile, imeiavcontrolpar, imeiavkeylistkey, imeiavvaluelistval, imeimusergroup);
 		txtfile.close();
 	};
 };
@@ -3183,7 +2926,6 @@ void IexWzskIni::readTxt(
 			, ImeIAVControlPar& imeiavcontrolpar
 			, ImeIAVKeylistKey& imeiavkeylistkey
 			, ImeIAVValuelistVal& imeiavvaluelistval
-			, ImeIMFile& imeimfile
 			, ImeIMUsergroup& imeimusergroup
 		) {
 	while (txtrd.readLine()) {
@@ -3192,7 +2934,6 @@ void IexWzskIni::readTxt(
 				if ((txtrd.il == 0) && (txtrd.ixVToken == VecVIme::IMEIAVCONTROLPAR)) imeiavcontrolpar.readTxt(txtrd);
 				else if ((txtrd.il == 0) && (txtrd.ixVToken == VecVIme::IMEIAVKEYLISTKEY)) imeiavkeylistkey.readTxt(txtrd);
 				else if ((txtrd.il == 0) && (txtrd.ixVToken == VecVIme::IMEIAVVALUELISTVAL)) imeiavvaluelistval.readTxt(txtrd);
-				else if ((txtrd.il == 0) && (txtrd.ixVToken == VecVIme::IMEIMFILE)) imeimfile.readTxt(txtrd);
 				else if ((txtrd.il == 0) && (txtrd.ixVToken == VecVIme::IMEIMUSERGROUP)) imeimusergroup.readTxt(txtrd);
 				else throw SbeException(SbeException::TXTRD_TKNMISPL, {{"tkn",VecVIme::getSref(txtrd.ixVToken)}, {"lineno",to_string(txtrd.linecnt)}});
 
@@ -3213,7 +2954,6 @@ void IexWzskIni::readXML(
 			, ImeIAVControlPar& imeiavcontrolpar
 			, ImeIAVKeylistKey& imeiavkeylistkey
 			, ImeIAVValuelistVal& imeiavvaluelistval
-			, ImeIMFile& imeimfile
 			, ImeIMUsergroup& imeimusergroup
 		) {
 	string goodxpath;
@@ -3225,14 +2965,12 @@ void IexWzskIni::readXML(
 		imeiavcontrolpar.readXML(docctx, basexpath);
 		imeiavkeylistkey.readXML(docctx, basexpath);
 		imeiavvaluelistval.readXML(docctx, basexpath);
-		imeimfile.readXML(docctx, basexpath);
 		imeimusergroup.readXML(docctx, basexpath);
 
 	} else {
 		imeiavcontrolpar = ImeIAVControlPar();
 		imeiavkeylistkey = ImeIAVKeylistKey();
 		imeiavvaluelistval = ImeIAVValuelistVal();
-		imeimfile = ImeIMFile();
 		imeimusergroup = ImeIMUsergroup();
 
 		throw SbeException(SbeException::IEX_FILETYPE, {{"iexsref","IexWzskIni"}});
@@ -3244,7 +2982,6 @@ void IexWzskIni::writeTxt(
 			, ImeIAVControlPar& imeiavcontrolpar
 			, ImeIAVKeylistKey& imeiavkeylistkey
 			, ImeIAVValuelistVal& imeiavvaluelistval
-			, ImeIMFile& imeimfile
 			, ImeIMUsergroup& imeimusergroup
 		) {
 	outfile << "IexWzskIni v" WZSK_VERSION << endl;
@@ -3252,7 +2989,6 @@ void IexWzskIni::writeTxt(
 	imeiavcontrolpar.writeTxt(outfile);
 	imeiavkeylistkey.writeTxt(outfile);
 	imeiavvaluelistval.writeTxt(outfile);
-	imeimfile.writeTxt(outfile);
 	imeimusergroup.writeTxt(outfile);
 };
 
@@ -3262,7 +2998,6 @@ void IexWzskIni::writeXML(
 			, ImeIAVControlPar& imeiavcontrolpar
 			, ImeIAVKeylistKey& imeiavkeylistkey
 			, ImeIAVValuelistVal& imeiavvaluelistval
-			, ImeIMFile& imeimfile
 			, ImeIMUsergroup& imeimusergroup
 		) {
 	xmlTextWriterStartElement(wr, BAD_CAST "IexWzskIni");
@@ -3271,13 +3006,12 @@ void IexWzskIni::writeXML(
 		imeiavcontrolpar.writeXML(wr, shorttags);
 		imeiavkeylistkey.writeXML(wr, shorttags);
 		imeiavvaluelistval.writeXML(wr, shorttags);
-		imeimfile.writeXML(wr, shorttags);
 		imeimusergroup.writeXML(wr, shorttags);
 	xmlTextWriterEndElement(wr);
 };
 
 map<uint,uint> IexWzskIni::icsWzskVIopInsAll() {
-	return {{(uint)VecVIme::IMEIAMUSERACCESS,VecWzskVIop::INS},{(uint)VecVIme::IMEIAMUSERGROUPACCESS,VecWzskVIop::INS},{(uint)VecVIme::IMEIAVCONTROLPAR,VecWzskVIop::INS},{(uint)VecVIme::IMEIAVKEYLISTKEY,VecWzskVIop::INS},{(uint)VecVIme::IMEIAVVALUELISTVAL,VecWzskVIop::INS},{(uint)VecVIme::IMEIJAVKEYLISTKEY,VecWzskVIop::INS},{(uint)VecVIme::IMEIJMPERSONLASTNAME,VecWzskVIop::INS},{(uint)VecVIme::IMEIJMUSERSTATE,VecWzskVIop::INS},{(uint)VecVIme::IMEIMFILE,VecWzskVIop::INS},{(uint)VecVIme::IMEIMPERSON,VecWzskVIop::INS},{(uint)VecVIme::IMEIMUSER,VecWzskVIop::INS},{(uint)VecVIme::IMEIMUSERGROUP,VecWzskVIop::INS}};
+	return {{(uint)VecVIme::IMEIAMUSERACCESS,VecWzskVIop::INS},{(uint)VecVIme::IMEIAMUSERGROUPACCESS,VecWzskVIop::INS},{(uint)VecVIme::IMEIAVCONTROLPAR,VecWzskVIop::INS},{(uint)VecVIme::IMEIAVKEYLISTKEY,VecWzskVIop::INS},{(uint)VecVIme::IMEIAVVALUELISTVAL,VecWzskVIop::INS},{(uint)VecVIme::IMEIJAVKEYLISTKEY,VecWzskVIop::INS},{(uint)VecVIme::IMEIJMPERSONLASTNAME,VecWzskVIop::INS},{(uint)VecVIme::IMEIJMUSERSTATE,VecWzskVIop::INS},{(uint)VecVIme::IMEIMPERSON,VecWzskVIop::INS},{(uint)VecVIme::IMEIMUSER,VecWzskVIop::INS},{(uint)VecVIme::IMEIMUSERGROUP,VecWzskVIop::INS}};
 };
 
 uint IexWzskIni::getIxWzskVIop(

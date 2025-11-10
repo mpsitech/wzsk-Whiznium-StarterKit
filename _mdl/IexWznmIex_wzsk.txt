@@ -1,9 +1,8 @@
-IexWznmIex v0.9.27
+IexWznmIex v1.1.8
 ImeIMImpexpcplx.sref	Short	Title	Minversion	Comment
 IexWzskIni	ini			tool initialization
 	ImeIJMImpexpcplxTitle.srefX1RefWznmMLocale	Title
 	enus	initialization data
-	dech	Initialisierungsdaten
 	ImeIJMImpexpcplxTitle.end
 	ImeIMImpexp.iref	irefSupRefWznmMImpexp	srefRefWznmMTable	sref	rtrSrefsWznmMImpexpcol	srefsIxWIop	Comment
 	1	0	TblWzskAVKeylistKey	ImeIAVKeylistKey		ins
@@ -38,14 +37,6 @@ IexWzskIni	ini			tool initialization
 		vsref	fil	ixWzskVControl	srefIxWzskVControl	ctl	0	ixsref
 		tbl	fil;tbl	Par	Par	par	0	void
 		tbl	fil;tbl	Val	Val	val	0	void
-		ImeIMImpexpcol.end
-	5	0	TblWzskMFile	ImeIMFile		ins
-		ImeIMImpexpcol.srefIxVBasetype	srefsIxWOccurrence	srefRefWznmMTablecol	sref	Short	irefRefWznmMImpexp	srefIxVConvtype	Defval	srefRefWznmMPreset	srefRefWznmMStub	srefRefWznmMVectoritem
-		tbl	tbl	refIxVTbl	refIxVTbl		0	void				void
-		tbl	fil;tbl	osrefKContent	osrefKContent	cnt	0	void
-		tbl	fil;tbl	Filename	Filename	fnm	0	void
-		tbl	fil;tbl	srefKMimetype	srefKMimetype	mim	0	void
-		tbl	fil;tbl	Comment	Comment	cmt	0	void
 		ImeIMImpexpcol.end
 	6	0	TblWzskMUsergroup	ImeIMUsergroup		ins
 		ImeIMImpexpcol.srefIxVBasetype	srefsIxWOccurrence	srefRefWznmMTablecol	sref	Short	irefRefWznmMImpexp	srefIxVConvtype	Defval	srefRefWznmMPreset	srefRefWznmMStub	srefRefWznmMVectoritem

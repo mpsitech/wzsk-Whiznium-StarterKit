@@ -2,8 +2,8 @@
 	* \file DlgWzskNavLoaini.h
 	* job handler for job DlgWzskNavLoaini (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -12,10 +12,7 @@
 
 // IP include.spec --- INSERT
 
-// IP include.cust --- IBEGIN
-#include <sys/types.h>
-#include <dirent.h>
-// IP include.cust --- IEND
+// IP include.cust --- INSERT
 
 #include "JobWzskIexIni.h"
 
@@ -428,11 +425,11 @@ public:
 		void writeXML(const Sbecore::uint ixWzskVLocale, xmlTextWriter* wr);
 	};
 
-	bool evalButDneActive(DbsWzsk* dbswzsk);
-	bool evalLfiDldActive(DbsWzsk* dbswzsk);
+	bool evalIfiUldActive(DbsWzsk* dbswzsk);
 	bool evalImpButRunActive(DbsWzsk* dbswzsk);
 	bool evalImpButStoActive(DbsWzsk* dbswzsk);
-	bool evalIfiUldActive(DbsWzsk* dbswzsk);
+	bool evalLfiDldActive(DbsWzsk* dbswzsk);
+	bool evalButDneActive(DbsWzsk* dbswzsk);
 
 public:
 	DlgWzskNavLoaini(XchgWzsk* xchg, DbsWzsk* dbswzsk, const Sbecore::ubigint jrefSup, const Sbecore::uint ixWzskVLocale);
@@ -490,9 +487,9 @@ private:
 
 	std::string handleDownload(DbsWzsk* dbswzsk);
 
+	void handleTimerInSgePrsidle(DbsWzsk* dbswzsk, const std::string& sref);
 	void handleTimerInSgeImpidle(DbsWzsk* dbswzsk, const std::string& sref);
 	void handleTimerWithSrefMonInSgeImport(DbsWzsk* dbswzsk);
-	void handleTimerInSgePrsidle(DbsWzsk* dbswzsk, const std::string& sref);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge, DpchEngWzsk** dpcheng = NULL);

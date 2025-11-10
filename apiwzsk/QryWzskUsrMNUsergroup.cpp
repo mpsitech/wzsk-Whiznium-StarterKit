@@ -2,8 +2,8 @@
 	* \file QryWzskUsrMNUsergroup.cpp
 	* API code for job QryWzskUsrMNUsergroup (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -24,12 +24,11 @@ QryWzskUsrMNUsergroup::StatApp::StatApp(
 			, const uint ndisp
 		) :
 			Block()
+			, firstcol(firstcol)
+			, jnumFirstdisp(jnumFirstdisp)
+			, ncol(ncol)
+			, ndisp(ndisp)
 		{
-	this->firstcol = firstcol;
-	this->jnumFirstdisp = jnumFirstdisp;
-	this->ncol = ncol;
-	this->ndisp = ndisp;
-
 	mask = {FIRSTCOL, JNUMFIRSTDISP, NCOL, NDISP};
 };
 
@@ -96,11 +95,10 @@ QryWzskUsrMNUsergroup::StatShr::StatShr(
 			, const uint nload
 		) :
 			Block()
+			, ntot(ntot)
+			, jnumFirstload(jnumFirstload)
+			, nload(nload)
 		{
-	this->ntot = ntot;
-	this->jnumFirstload = jnumFirstload;
-	this->nload = nload;
-
 	mask = {NTOT, JNUMFIRSTLOAD, NLOAD};
 };
 
@@ -165,11 +163,10 @@ QryWzskUsrMNUsergroup::StgIac::StgIac(
 			, const uint nload
 		) :
 			Block()
+			, jnum(jnum)
+			, jnumFirstload(jnumFirstload)
+			, nload(nload)
 		{
-	this->jnum = jnum;
-	this->jnumFirstload = jnumFirstload;
-	this->nload = nload;
-
 	mask = {JNUM, JNUMFIRSTLOAD, NLOAD};
 };
 

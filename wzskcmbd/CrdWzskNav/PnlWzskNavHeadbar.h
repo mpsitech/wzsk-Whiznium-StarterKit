@@ -2,8 +2,8 @@
 	* \file PnlWzskNavHeadbar.h
 	* job handler for job PnlWzskNavHeadbar (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -98,15 +98,11 @@ public:
 	bool evalMitCrdUsgAvail(DbsWzsk* dbswzsk);
 	bool evalMitCrdUsrAvail(DbsWzsk* dbswzsk);
 	bool evalMitCrdPrsAvail(DbsWzsk* dbswzsk);
-	bool evalMitCrdScfAvail(DbsWzsk* dbswzsk);
+	bool evalMitCrdPrfAvail(DbsWzsk* dbswzsk);
 	bool evalMspCrd2Avail(DbsWzsk* dbswzsk);
 	bool evalMitCrdLlvAvail(DbsWzsk* dbswzsk);
-	bool evalMitCrdLivAvail(DbsWzsk* dbswzsk);
-	bool evalMspCrd3Avail(DbsWzsk* dbswzsk);
-	bool evalMitCrdOgrAvail(DbsWzsk* dbswzsk);
-	bool evalMitCrdObjAvail(DbsWzsk* dbswzsk);
-	bool evalMitCrdSesAvail(DbsWzsk* dbswzsk);
-	bool evalMitCrdShtAvail(DbsWzsk* dbswzsk);
+	bool evalMitCrdVtrAvail(DbsWzsk* dbswzsk);
+	bool evalMitCrdHwcAvail(DbsWzsk* dbswzsk);
 	bool evalMitCrdFilAvail(DbsWzsk* dbswzsk);
 
 public:

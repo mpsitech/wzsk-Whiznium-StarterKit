@@ -2,8 +2,8 @@
 	* \file PnlWzskNavHeadbar.cpp
 	* API code for job PnlWzskNavHeadbar (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -21,9 +21,8 @@ PnlWzskNavHeadbar::StatShr::StatShr(
 			const bool MenCrdAvail
 		) :
 			Block()
+			, MenCrdAvail(MenCrdAvail)
 		{
-	this->MenCrdAvail = MenCrdAvail;
-
 	mask = {MENCRDAVAIL};
 };
 
@@ -87,14 +86,13 @@ PnlWzskNavHeadbar::StgInf::StgInf(
 			, const uint MenCrdWidth
 		) :
 			Block()
+			, MenAppCptwidth(MenAppCptwidth)
+			, MenAppWidth(MenAppWidth)
+			, MenSesCptwidth(MenSesCptwidth)
+			, MenSesWidth(MenSesWidth)
+			, MenCrdCptwidth(MenCrdCptwidth)
+			, MenCrdWidth(MenCrdWidth)
 		{
-	this->MenAppCptwidth = MenAppCptwidth;
-	this->MenAppWidth = MenAppWidth;
-	this->MenSesCptwidth = MenSesCptwidth;
-	this->MenSesWidth = MenSesWidth;
-	this->MenCrdCptwidth = MenCrdCptwidth;
-	this->MenCrdWidth = MenCrdWidth;
-
 	mask = {MENAPPCPTWIDTH, MENAPPWIDTH, MENSESCPTWIDTH, MENSESWIDTH, MENCRDCPTWIDTH, MENCRDWIDTH};
 };
 
@@ -165,11 +163,10 @@ PnlWzskNavHeadbar::Tag::Tag(
 			, const string& MenCrd
 		) :
 			Block()
+			, MenApp(MenApp)
+			, MenSes(MenSes)
+			, MenCrd(MenCrd)
 		{
-	this->MenApp = MenApp;
-	this->MenSes = MenSes;
-	this->MenCrd = MenCrd;
-
 	mask = {MENAPP, MENSES, MENCRD};
 };
 

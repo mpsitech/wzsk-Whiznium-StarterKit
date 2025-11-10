@@ -2,8 +2,8 @@
 	* \file WzskAccRMUserUniversal.cpp
 	* database access for table TblWzskAccRMUserUniversal (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -22,13 +22,13 @@ WzskAccRMUserUniversal::WzskAccRMUserUniversal(
 			, const uint unvIxWzskVMaintable
 			, const ubigint unvUref
 			, const uint ixWzskVRecaccess
-		) {
-
-	this->ref = ref;
-	this->refWzskMUser = refWzskMUser;
-	this->unvIxWzskVMaintable = unvIxWzskVMaintable;
-	this->unvUref = unvUref;
-	this->ixWzskVRecaccess = ixWzskVRecaccess;
+		) :
+			ref(ref)
+			, refWzskMUser(refWzskMUser)
+			, unvIxWzskVMaintable(unvIxWzskVMaintable)
+			, unvUref(unvUref)
+			, ixWzskVRecaccess(ixWzskVRecaccess)
+		{
 };
 
 bool WzskAccRMUserUniversal::operator==(

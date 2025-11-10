@@ -2,8 +2,8 @@
 	* \file WzskQUsgList.cpp
 	* API code for table TblWzskQUsgList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -22,11 +22,12 @@ WzskQUsgList::WzskQUsgList(
 			, const string stubGrp
 			, const string stubOwn
 			, const string sref
-		) {
-	this->jnum = jnum;
-	this->stubGrp = stubGrp;
-	this->stubOwn = stubOwn;
-	this->sref = sref;
+		) :
+			jnum(jnum)
+			, stubGrp(stubGrp)
+			, stubOwn(stubOwn)
+			, sref(sref)
+		{
 };
 
 bool WzskQUsgList::readXML(

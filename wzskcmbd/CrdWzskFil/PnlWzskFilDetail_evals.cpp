@@ -2,8 +2,8 @@
 	* \file PnlWzskFilDetail_evals.cpp
 	* job handler for job PnlWzskFilDetail (implementation of availability/activation evaluation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -135,71 +135,6 @@ bool PnlWzskFilDetail::evalTxtReuActive(
 	return(args.back());
 };
 
-bool PnlWzskFilDetail::evalButReuViewAvail(
-			DbsWzsk* dbswzsk
-		) {
-	// fil.reuEq(0)|((pre.ixCrdaccSht()&fil.retEq(sht)&pre.refObj())|(pre.ixCrdaccSht()&fil.retEq(sht))|(pre.ixCrdaccObj()&fil.retEq(obj)))
-
-	vector<bool> args;
-	bool a, b;
-
-	a = false; a = (recFil.refUref == 0);
-	args.push_back(a);
-	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCSHT, jref) != 0);
-	args.push_back(a);
-	a = false; a = (recFil.refIxVTbl == VecWzskVMFileRefTbl::SHT);
-	args.push_back(a);
-	a = false; a = (xchg->getRefPreset(VecWzskVPreset::PREWZSKREFOBJ, jref) != 0);
-	args.push_back(a);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a && b);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a && b);
-	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCSHT, jref) != 0);
-	args.push_back(a);
-	a = false; a = (recFil.refIxVTbl == VecWzskVMFileRefTbl::SHT);
-	args.push_back(a);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a && b);
-	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCOBJ, jref) != 0);
-	args.push_back(a);
-	a = false; a = (recFil.refIxVTbl == VecWzskVMFileRefTbl::OBJ);
-	args.push_back(a);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a && b);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a || b);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a || b);
-	b = args.back(); args.pop_back();
-	a = args.back(); args.pop_back();
-	args.push_back(a || b);
-
-	return(args.back());
-};
-
-bool PnlWzskFilDetail::evalButReuViewActive(
-			DbsWzsk* dbswzsk
-		) {
-	// !fil.reuEq(0)
-
-	vector<bool> args;
-	bool a;
-
-	a = false; a = (recFil.refUref == 0);
-	args.push_back(a);
-	a = args.back(); args.pop_back();
-	args.push_back(!a);
-
-	return(args.back());
-};
-
 bool PnlWzskFilDetail::evalPupCntActive(
 			DbsWzsk* dbswzsk
 		) {
@@ -217,12 +152,12 @@ bool PnlWzskFilDetail::evalPupCntActive(
 bool PnlWzskFilDetail::evalButCntEditAvail(
 			DbsWzsk* dbswzsk
 		) {
-	// pre.adm()
+	// pre.ixCrdaccFilIncl(edit)
 
 	vector<bool> args;
 	bool a;
 
-	a = false;
+	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCFIL, jref) & VecWzskWAccess::EDIT);
 	args.push_back(a);
 
 	return(args.back());
@@ -273,12 +208,12 @@ bool PnlWzskFilDetail::evalPupMimActive(
 bool PnlWzskFilDetail::evalButMimEditAvail(
 			DbsWzsk* dbswzsk
 		) {
-	// pre.adm()
+	// pre.ixCrdaccFilIncl(edit)
 
 	vector<bool> args;
 	bool a;
 
-	a = false;
+	a = false; a = (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCFIL, jref) & VecWzskWAccess::EDIT);
 	args.push_back(a);
 
 	return(args.back());

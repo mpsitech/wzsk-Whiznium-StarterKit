@@ -2,8 +2,8 @@
 	* \file M2msessWzsk.cpp
 	* API code for job M2msessWzsk (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -18,27 +18,22 @@ using namespace Xmlio;
  ******************************************************************************/
 
 M2msessWzsk::StatShr::StatShr(
-			const string& scrJrefAcqpreview
-			, const string& scrJrefAcqptcloud
-			, const string& scrJrefActexposure
+			const string& scrJrefAcqcorner
+			, const string& scrJrefAcqtrace
 			, const string& scrJrefActlaser
-			, const string& scrJrefActservo
-			, const string& scrJrefIprcorner
-			, const string& scrJrefIprtrace
+			, const string& scrJrefActrotary
+			, const string& scrJrefSrcfpgainfo
 			, const string& scrJrefSrcsysinfo
 		) :
 			Block()
+			, scrJrefAcqcorner(scrJrefAcqcorner)
+			, scrJrefAcqtrace(scrJrefAcqtrace)
+			, scrJrefActlaser(scrJrefActlaser)
+			, scrJrefActrotary(scrJrefActrotary)
+			, scrJrefSrcfpgainfo(scrJrefSrcfpgainfo)
+			, scrJrefSrcsysinfo(scrJrefSrcsysinfo)
 		{
-	this->scrJrefAcqpreview = scrJrefAcqpreview;
-	this->scrJrefAcqptcloud = scrJrefAcqptcloud;
-	this->scrJrefActexposure = scrJrefActexposure;
-	this->scrJrefActlaser = scrJrefActlaser;
-	this->scrJrefActservo = scrJrefActservo;
-	this->scrJrefIprcorner = scrJrefIprcorner;
-	this->scrJrefIprtrace = scrJrefIprtrace;
-	this->scrJrefSrcsysinfo = scrJrefSrcsysinfo;
-
-	mask = {SCRJREFACQPREVIEW, SCRJREFACQPTCLOUD, SCRJREFACTEXPOSURE, SCRJREFACTLASER, SCRJREFACTSERVO, SCRJREFIPRCORNER, SCRJREFIPRTRACE, SCRJREFSRCSYSINFO};
+	mask = {SCRJREFACQCORNER, SCRJREFACQTRACE, SCRJREFACTLASER, SCRJREFACTROTARY, SCRJREFSRCFPGAINFO, SCRJREFSRCSYSINFO};
 };
 
 bool M2msessWzsk::StatShr::readXML(
@@ -58,13 +53,11 @@ bool M2msessWzsk::StatShr::readXML(
 	string itemtag = "StatitemShrM2msessWzsk";
 
 	if (basefound) {
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefAcqpreview", scrJrefAcqpreview)) add(SCRJREFACQPREVIEW);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefAcqptcloud", scrJrefAcqptcloud)) add(SCRJREFACQPTCLOUD);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefActexposure", scrJrefActexposure)) add(SCRJREFACTEXPOSURE);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefAcqcorner", scrJrefAcqcorner)) add(SCRJREFACQCORNER);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefAcqtrace", scrJrefAcqtrace)) add(SCRJREFACQTRACE);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefActlaser", scrJrefActlaser)) add(SCRJREFACTLASER);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefActservo", scrJrefActservo)) add(SCRJREFACTSERVO);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefIprcorner", scrJrefIprcorner)) add(SCRJREFIPRCORNER);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefIprtrace", scrJrefIprtrace)) add(SCRJREFIPRTRACE);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefActrotary", scrJrefActrotary)) add(SCRJREFACTROTARY);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefSrcfpgainfo", scrJrefSrcfpgainfo)) add(SCRJREFSRCFPGAINFO);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefSrcsysinfo", scrJrefSrcsysinfo)) add(SCRJREFSRCSYSINFO);
 	};
 
@@ -76,13 +69,11 @@ set<uint> M2msessWzsk::StatShr::comm(
 		) {
 	set<uint> items;
 
-	if (scrJrefAcqpreview == comp->scrJrefAcqpreview) insert(items, SCRJREFACQPREVIEW);
-	if (scrJrefAcqptcloud == comp->scrJrefAcqptcloud) insert(items, SCRJREFACQPTCLOUD);
-	if (scrJrefActexposure == comp->scrJrefActexposure) insert(items, SCRJREFACTEXPOSURE);
+	if (scrJrefAcqcorner == comp->scrJrefAcqcorner) insert(items, SCRJREFACQCORNER);
+	if (scrJrefAcqtrace == comp->scrJrefAcqtrace) insert(items, SCRJREFACQTRACE);
 	if (scrJrefActlaser == comp->scrJrefActlaser) insert(items, SCRJREFACTLASER);
-	if (scrJrefActservo == comp->scrJrefActservo) insert(items, SCRJREFACTSERVO);
-	if (scrJrefIprcorner == comp->scrJrefIprcorner) insert(items, SCRJREFIPRCORNER);
-	if (scrJrefIprtrace == comp->scrJrefIprtrace) insert(items, SCRJREFIPRTRACE);
+	if (scrJrefActrotary == comp->scrJrefActrotary) insert(items, SCRJREFACTROTARY);
+	if (scrJrefSrcfpgainfo == comp->scrJrefSrcfpgainfo) insert(items, SCRJREFSRCFPGAINFO);
 	if (scrJrefSrcsysinfo == comp->scrJrefSrcsysinfo) insert(items, SCRJREFSRCSYSINFO);
 
 	return(items);
@@ -96,7 +87,7 @@ set<uint> M2msessWzsk::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {SCRJREFACQPREVIEW, SCRJREFACQPTCLOUD, SCRJREFACTEXPOSURE, SCRJREFACTLASER, SCRJREFACTSERVO, SCRJREFIPRCORNER, SCRJREFIPRTRACE, SCRJREFSRCSYSINFO};
+	diffitems = {SCRJREFACQCORNER, SCRJREFACQTRACE, SCRJREFACTLASER, SCRJREFACTROTARY, SCRJREFSRCFPGAINFO, SCRJREFSRCSYSINFO};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

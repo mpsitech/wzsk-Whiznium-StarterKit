@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<head>
+		<title>ActVistorot_bcont</title>
+		<script>
+			function handleTxf1Key(evt) {return parent.parent.window.handleTxfKey(document,"Txf1","s",evt);};
+			function handleTxf1Change() {parent.parent.window.handleTxfChange(document,"Txf1","s");};
+			function handleTxf2Key(evt) {return parent.parent.window.handleTxfKey(document,"Txf2","s",evt);};
+			function handleTxf2Change() {parent.parent.window.handleTxfChange(document,"Txf2","s");};
+			function handleTxf3Key(evt) {return parent.parent.window.handleTxfKey(document,"Txf3","s",evt);};
+			function handleTxf3Change() {parent.parent.window.handleTxfChange(document,"Txf3","s");};
+			<!-- IP custScript - INSERT -->
+		</script>
+		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
+		<!-- IP custStyle - INSERT -->
+	</head>
+	<body marginwidth="0" marginheight="0">
+		<table cellspacing="0" border="0" cellpadding="0"><form action="">
+			<colgroup>
+				<col width="5"/>
+				<col width="215"/>
+				<col width="5"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="68"/>
+				<col width="2"/>
+				<col width="138"/>
+				<col width="2"/>
+				<col width="1"/>
+				<col width="114"/>
+			</colgroup>
+			<tbody id="tbl">
+				<tr><td colspan="11" height="5"></td></tr>
+				<tr id="tr1" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="Cpt1" class="cpt">Cpt1</span>
+					</td>
+					<td></td>
+					<td colspan="3" align="left">
+						<input id="Txf1" class="txfs" type="text" value="Txf1" onchange="handleTxf1Change()" onkeypress="return handleTxf1Key(event)"/>
+					</td>
+					<td></td>
+					<td colspan="4"></td>
+				</tr>
+				<tr id="tr2" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="Cpt2" class="cpt">Cpt2</span>
+					</td>
+					<td></td>
+					<td colspan="3" align="left">
+						<input id="Txf2" class="txfs" type="text" value="Txf2" onchange="handleTxf2Change()" onkeypress="return handleTxf2Key(event)"/>
+					</td>
+					<td></td>
+					<td colspan="4"></td>
+				</tr>
+				<tr id="tr3" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="Cpt3" class="cpt">Cpt3</span>
+					</td>
+					<td></td>
+					<td colspan="3" align="left">
+						<input id="Txf3" class="txfs" type="text" value="Txf3" onchange="handleTxf3Change()" onkeypress="return handleTxf3Key(event)"/>
+					</td>
+					<td></td>
+					<td colspan="4"></td>
+				</tr>
+				<tr><td colspan="11" height="4"></td></tr>
+			</tbody>
+		</form></table>
+	</body>
+</html>

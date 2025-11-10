@@ -623,11 +623,6 @@ function handleButClick(ctlsref) {
 	sendReq(str, doc, handleDpchAppDataDoReply);
 };
 
-function handleButCrdopenClick(ctlsref) {
-	var str = serializeDpchAppDo(srcdoc, "DpchAppWzskUsr1NSessionDo", scrJref, ctlsref + "Click");
-	sendReq(str, doc, handleDpchAppDoCrdopenReply);
-};
-
 // --- server interaction
 function mergeDpchEngData(dom) {
 	var mask = [];
@@ -690,33 +685,6 @@ function handleDpchAppDataDoReply() {
 			} else if (blk.nodeName == "DpchEngWzskUsr1NSessionData") {
 				mergeDpchEngData(dom);
 				refresh();
-			};
-		};
-	};
-};
-
-function handleDpchAppDoCrdopenReply() {
-	var dom, blk;
-
-	var accepted, _scrJref, sref;
-
-	if (doc.req.readyState == 4) {
-		dom = doc.req.responseXML;
-
-		blk = retrieveBlock(dom, "//wzsk:*");
-
-		if (blk) {
-			if (blk.nodeName == "DpchEngWzskConfirm") {
-				accepted = retrieveValue(dom, "//wzsk:DpchEngWzskConfirm/wzsk:accepted");
-				_scrJref = retrieveValue(dom, "//wzsk:DpchEngWzskConfirm/wzsk:scrJref");
-				sref = retrieveValue(dom, "//wzsk:DpchEngWzskConfirm/wzsk:sref");
-
-				if (accepted == "true") window.open("/web/" + sref + "/" + sref + ".html?scrJref=" + _scrJref, "_blank");
-
-			} else if (blk.nodeName == "DpchEngWzskAlert") {
-				getCrdwnd().showAlr(retrieveValue(dom, "//wzsk:DpchEngWzskAlert/wzsk:scrJref"),
-						retrieveBlock(dom, "//wzsk:DpchEngWzskAlert/wzsk:ContInfWzskAlert"),
-						retrieveBlock(dom, "//wzsk:DpchEngWzskAlert/wzsk:FeedFMcbAlert"));
 			};
 		};
 	};

@@ -2,8 +2,8 @@
 	* \file WzskQPrsList.cpp
 	* API code for table TblWzskQPrsList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -28,17 +28,18 @@ WzskQPrsList::WzskQPrsList(
 			, const string titIxVSex
 			, const string telVal
 			, const string emlVal
-		) {
-	this->jnum = jnum;
-	this->stubGrp = stubGrp;
-	this->stubOwn = stubOwn;
-	this->Title = Title;
-	this->Firstname = Firstname;
-	this->Lastname = Lastname;
-	this->srefIxVSex = srefIxVSex;
-	this->titIxVSex = titIxVSex;
-	this->telVal = telVal;
-	this->emlVal = emlVal;
+		) :
+			jnum(jnum)
+			, stubGrp(stubGrp)
+			, stubOwn(stubOwn)
+			, Title(Title)
+			, Firstname(Firstname)
+			, Lastname(Lastname)
+			, srefIxVSex(srefIxVSex)
+			, titIxVSex(titIxVSex)
+			, telVal(telVal)
+			, emlVal(emlVal)
+		{
 };
 
 bool WzskQPrsList::readXML(

@@ -12,7 +12,6 @@
 			function handleButCluClusterClick() {parent.parent.window.handleButClick("ButCluCluster");};
 			function handleButCluUnclusterClick() {parent.parent.window.handleButClick("ButCluUncluster");};
 			function handlePupRetChange() {parent.parent.window.handlePupChange(document,"PupRet","xs");};
-			function handleButReuViewClick() {parent.parent.window.handleButCrdopenClick("ButReuView");};
 			function handlePupCntChange() {parent.parent.window.handlePupChange(document,"PupCnt","");};
 			function handleButCntToggleClick() {parent.parent.window.handleButToggleClick("PupCnt");};
 			function handleTxfCntKey(evt) {return parent.parent.window.handleTxfKey(document,"TxfCnt","",evt);};
@@ -99,8 +98,7 @@
 						<input id="TxtReu" class="txfsnoed" type="text" readonly="readonly" value="TxtReu"/>
 					</td>
 					<td></td>
-					<td id="rdynReu" colspan="2" align="left">
-					</td>
+					<td colspan="2"></td>
 				</tr>
 				<tr id="trCnt" class="show">
 					<td height="25"></td>

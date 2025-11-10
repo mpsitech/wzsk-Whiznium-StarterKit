@@ -2,8 +2,8 @@
 	* \file QryWzskUsgList.cpp
 	* API code for job QryWzskUsgList (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -22,9 +22,9 @@ uint QryWzskUsgList::VecVOrd::getIx(
 		) {
 	string s = StrMod::lc(sref);
 
+	if (s == "grp") return GRP;
 	if (s == "own") return OWN;
 	if (s == "srf") return SRF;
-	if (s == "grp") return GRP;
 
 	return(0);
 };
@@ -32,9 +32,9 @@ uint QryWzskUsgList::VecVOrd::getIx(
 string QryWzskUsgList::VecVOrd::getSref(
 			const uint ix
 		) {
+	if (ix == GRP) return("grp");
 	if (ix == OWN) return("own");
 	if (ix == SRF) return("srf");
-	if (ix == GRP) return("grp");
 
 	return("");
 };
@@ -50,12 +50,11 @@ QryWzskUsgList::StatApp::StatApp(
 			, const uint ndisp
 		) :
 			Block()
+			, firstcol(firstcol)
+			, jnumFirstdisp(jnumFirstdisp)
+			, ncol(ncol)
+			, ndisp(ndisp)
 		{
-	this->firstcol = firstcol;
-	this->jnumFirstdisp = jnumFirstdisp;
-	this->ncol = ncol;
-	this->ndisp = ndisp;
-
 	mask = {FIRSTCOL, JNUMFIRSTDISP, NCOL, NDISP};
 };
 
@@ -122,11 +121,10 @@ QryWzskUsgList::StatShr::StatShr(
 			, const uint nload
 		) :
 			Block()
+			, ntot(ntot)
+			, jnumFirstload(jnumFirstload)
+			, nload(nload)
 		{
-	this->ntot = ntot;
-	this->jnumFirstload = jnumFirstload;
-	this->nload = nload;
-
 	mask = {NTOT, JNUMFIRSTLOAD, NLOAD};
 };
 
@@ -191,11 +189,10 @@ QryWzskUsgList::StgIac::StgIac(
 			, const uint nload
 		) :
 			Block()
+			, jnum(jnum)
+			, jnumFirstload(jnumFirstload)
+			, nload(nload)
 		{
-	this->jnum = jnum;
-	this->jnumFirstload = jnumFirstload;
-	this->nload = nload;
-
 	mask = {JNUM, JNUMFIRSTLOAD, NLOAD};
 };
 

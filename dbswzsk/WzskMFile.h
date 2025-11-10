@@ -2,8 +2,8 @@
 	* \file WzskMFile.h
 	* database access for table TblWzskMFile (declarations)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
   */
 // IP header --- ABOVE
 
@@ -29,7 +29,7 @@
 class WzskMFile {
 
 public:
-	WzskMFile(const Sbecore::ubigint ref = 0, const Sbecore::ubigint grp = 0, const Sbecore::ubigint own = 0, const Sbecore::ubigint refWzskCFile = 0, const Sbecore::uint refIxVTbl = 0, const Sbecore::ubigint refUref = 0, const std::string osrefKContent = "", const Sbecore::uint Archived = 0, const std::string Filename = "", const std::string Archivename = "", const std::string srefKMimetype = "", const Sbecore::usmallint Size = 0, const std::string Comment = "");
+	WzskMFile(const Sbecore::ubigint ref = 0, const Sbecore::ubigint grp = 0, const Sbecore::ubigint own = 0, const Sbecore::ubigint refWzskCFile = 0, const Sbecore::uint refIxVTbl = 0, const Sbecore::ubigint refUref = 0, const std::string osrefKContent = "", const Sbecore::uint Archived = 0, const std::string Filename = "", const std::string Archivename = "", const std::string srefKMimetype = "", const Sbecore::uint Size = 0, const std::string Comment = "");
 
 public:
 	Sbecore::ubigint ref;
@@ -43,7 +43,7 @@ public:
 	std::string Filename;
 	std::string Archivename;
 	std::string srefKMimetype;
-	Sbecore::usmallint Size;
+	Sbecore::uint Size;
 	std::string Comment;
 
 public:
@@ -87,8 +87,6 @@ public:
 
 	public:
 		static const Sbecore::uint VOID = 1;
-		static const Sbecore::uint OBJ = 2;
-		static const Sbecore::uint SHT = 3;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -107,8 +105,8 @@ public:
 	virtual Sbecore::ubigint loadRstBySQL(const std::string& sqlstr, const bool append, ListWzskMFile& rst);
 
 	virtual Sbecore::ubigint insertRec(WzskMFile* rec);
-	Sbecore::ubigint insertNewRec(WzskMFile** rec = NULL, const Sbecore::ubigint grp = 0, const Sbecore::ubigint own = 0, const Sbecore::ubigint refWzskCFile = 0, const Sbecore::uint refIxVTbl = 0, const Sbecore::ubigint refUref = 0, const std::string osrefKContent = "", const Sbecore::uint Archived = 0, const std::string Filename = "", const std::string Archivename = "", const std::string srefKMimetype = "", const Sbecore::usmallint Size = 0, const std::string Comment = "");
-	Sbecore::ubigint appendNewRecToRst(ListWzskMFile& rst, WzskMFile** rec = NULL, const Sbecore::ubigint grp = 0, const Sbecore::ubigint own = 0, const Sbecore::ubigint refWzskCFile = 0, const Sbecore::uint refIxVTbl = 0, const Sbecore::ubigint refUref = 0, const std::string osrefKContent = "", const Sbecore::uint Archived = 0, const std::string Filename = "", const std::string Archivename = "", const std::string srefKMimetype = "", const Sbecore::usmallint Size = 0, const std::string Comment = "");
+	Sbecore::ubigint insertNewRec(WzskMFile** rec = NULL, const Sbecore::ubigint grp = 0, const Sbecore::ubigint own = 0, const Sbecore::ubigint refWzskCFile = 0, const Sbecore::uint refIxVTbl = 0, const Sbecore::ubigint refUref = 0, const std::string osrefKContent = "", const Sbecore::uint Archived = 0, const std::string Filename = "", const std::string Archivename = "", const std::string srefKMimetype = "", const Sbecore::uint Size = 0, const std::string Comment = "");
+	Sbecore::ubigint appendNewRecToRst(ListWzskMFile& rst, WzskMFile** rec = NULL, const Sbecore::ubigint grp = 0, const Sbecore::ubigint own = 0, const Sbecore::ubigint refWzskCFile = 0, const Sbecore::uint refIxVTbl = 0, const Sbecore::ubigint refUref = 0, const std::string osrefKContent = "", const Sbecore::uint Archived = 0, const std::string Filename = "", const std::string Archivename = "", const std::string srefKMimetype = "", const Sbecore::uint Size = 0, const std::string Comment = "");
 	virtual void insertRst(ListWzskMFile& rst, bool transact = false);
 	virtual void updateRec(WzskMFile* rec);
 	virtual void updateRst(ListWzskMFile& rst, bool transact = false);
@@ -118,7 +116,6 @@ public:
 	virtual bool loadFnmByRef(Sbecore::ubigint ref, std::string& Filename);
 	virtual Sbecore::ubigint loadRefsByClu(Sbecore::ubigint refWzskCFile, const bool append, std::vector<Sbecore::ubigint>& refs);
 	virtual Sbecore::ubigint loadRstByClu(Sbecore::ubigint refWzskCFile, const bool append, ListWzskMFile& rst);
-	virtual Sbecore::ubigint loadRstByRetReu(Sbecore::uint refIxVTbl, Sbecore::ubigint refUref, const bool append, ListWzskMFile& rst);
 	Sbecore::ubigint loadRstByRefs(std::vector<Sbecore::ubigint>& refs, const bool append, ListWzskMFile& rst);
 };
 
@@ -154,7 +151,6 @@ public:
 	bool loadFnmByRef(Sbecore::ubigint ref, std::string& Filename);
 	Sbecore::ubigint loadRefsByClu(Sbecore::ubigint refWzskCFile, const bool append, std::vector<Sbecore::ubigint>& refs);
 	Sbecore::ubigint loadRstByClu(Sbecore::ubigint refWzskCFile, const bool append, ListWzskMFile& rst);
-	Sbecore::ubigint loadRstByRetReu(Sbecore::uint refIxVTbl, Sbecore::ubigint refUref, const bool append, ListWzskMFile& rst);
 };
 #endif
 
@@ -180,7 +176,6 @@ public:
 	sqlite3_stmt* stmtLoadFnmByRef;
 	sqlite3_stmt* stmtLoadRefsByClu;
 	sqlite3_stmt* stmtLoadRstByClu;
-	sqlite3_stmt* stmtLoadRstByRetReu;
 
 private:
 	bool loadRec(sqlite3_stmt* stmt, WzskMFile** rec);
@@ -202,7 +197,6 @@ public:
 	bool loadFnmByRef(Sbecore::ubigint ref, std::string& Filename);
 	Sbecore::ubigint loadRefsByClu(Sbecore::ubigint refWzskCFile, const bool append, std::vector<Sbecore::ubigint>& refs);
 	Sbecore::ubigint loadRstByClu(Sbecore::ubigint refWzskCFile, const bool append, ListWzskMFile& rst);
-	Sbecore::ubigint loadRstByRetReu(Sbecore::uint refIxVTbl, Sbecore::ubigint refUref, const bool append, ListWzskMFile& rst);
 };
 #endif
 

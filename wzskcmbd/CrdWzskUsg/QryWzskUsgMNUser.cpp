@@ -2,8 +2,8 @@
 	* \file QryWzskUsgMNUser.cpp
 	* job handler for job QryWzskUsgMNUser (implementation)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -85,7 +85,7 @@ void QryWzskUsgMNUser::rerun(
 	dbswzsk->tblwzskqusgmnuser->removeRstByJref(jref);
 
 	sqlstr = "SELECT COUNT(TblWzskRMUserMUsergroup.ref)";
-	sqlstr += " FROM TblWzskMUser, TblWzskRMUserMUsergroup";
+	sqlstr += " FROM TblWzskRMUserMUsergroup, TblWzskMUser";
 	sqlstr += " WHERE TblWzskRMUserMUsergroup.refWzskMUser = TblWzskMUser.ref";
 	sqlstr += " AND TblWzskRMUserMUsergroup.refWzskMUsergroup = " + to_string(preRefUsg) + "";
 	dbswzsk->loadUintBySQL(sqlstr, cnt);
@@ -100,7 +100,7 @@ void QryWzskUsgMNUser::rerun(
 
 	sqlstr = "INSERT INTO TblWzskQUsgMNUser(jref, jnum, mref, ref, ixWzskVUserlevel)";
 	sqlstr += " SELECT " + to_string(jref) + ", 0, TblWzskMUser.ref, TblWzskRMUserMUsergroup.ref, TblWzskRMUserMUsergroup.ixWzskVUserlevel";
-	sqlstr += " FROM TblWzskMUser, TblWzskRMUserMUsergroup";
+	sqlstr += " FROM TblWzskRMUserMUsergroup, TblWzskMUser";
 	sqlstr += " WHERE TblWzskRMUserMUsergroup.refWzskMUser = TblWzskMUser.ref";
 	sqlstr += " AND TblWzskRMUserMUsergroup.refWzskMUsergroup = " + to_string(preRefUsg) + "";
 	sqlstr += " ORDER BY TblWzskMUser.sref ASC";
@@ -282,11 +282,19 @@ void QryWzskUsgMNUser::handleCall(
 			DbsWzsk* dbswzsk
 			, Call* call
 		) {
-	if (call->ixVCall == VecWzskVCall::CALLWZSKUSRRUSGMOD_USGEQ) {
-		call->abort = handleCallWzskUsrRusgMod_usgEq(dbswzsk, call->jref);
-	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKSTUBCHG) && (call->jref == jref)) {
+	if ((call->ixVCall == VecWzskVCall::CALLWZSKSTUBCHG) && (call->jref == jref)) {
 		call->abort = handleCallWzskStubChgFromSelf(dbswzsk);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKUSRRUSGMOD_USGEQ) {
+		call->abort = handleCallWzskUsrRusgMod_usgEq(dbswzsk, call->jref);
 	};
+};
+
+bool QryWzskUsgMNUser::handleCallWzskStubChgFromSelf(
+			DbsWzsk* dbswzsk
+		) {
+	bool retval = false;
+	// IP handleCallWzskStubChgFromSelf --- INSERT
+	return retval;
 };
 
 bool QryWzskUsgMNUser::handleCallWzskUsrRusgMod_usgEq(
@@ -300,13 +308,5 @@ bool QryWzskUsgMNUser::handleCallWzskUsrRusgMod_usgEq(
 		xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKSTATCHG, jref);
 	};
 
-	return retval;
-};
-
-bool QryWzskUsgMNUser::handleCallWzskStubChgFromSelf(
-			DbsWzsk* dbswzsk
-		) {
-	bool retval = false;
-	// IP handleCallWzskStubChgFromSelf --- INSERT
 	return retval;
 };

@@ -2,21 +2,21 @@
 # make file for CrdWzskUsg card job handler, release wzskcmbd_pl64_mpsi (jack cross-compilation)
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 12 Sep 2022
+# date created: 12 Oct 2025
 # IP header --- ABOVE
 
 include ../Makefile.inc
 
 CPP = ${TCHROOT}/aarch64-xilinx-linux-g++
-CPPFLAGS = --sysroot=/home/mpsitech/emb/mercbb/wzsk/sdk/sysroots/aarch64-xilinx-linux --sysroot=${SYSROOT} -std=c++11 -march=armv8-a -mtune=cortex-a53 -g -Wall -Os -pthread -DWZSKCMBD
+CPPFLAGS = --sysroot=/home/mpsitech/emb/zudvk/wzsk/sdk/sysroots/aarch64-xilinx-linux -std=c++11 -march=armv8-a -mtune=cortex-a53 -g -Wall -Os -pthread -DWZSKCMBD
 
 STATLIB = ${TCHROOT}/aarch64-xilinx-linux-ar
 STATLIBFLAGS = rcs
 
 INCPATH = -I=$(BUILDROOT)/dbswzsk -I=$(BUILDROOT)/wzskcmbd/VecWzsk -I=$(BUILDROOT)/wzskcmbd/IexWzsk -I=$(BUILDROOT)/wzskcmbd
-INCPATH += -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/atomic/any_platform_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/file/linux_windows -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/library/linux_windows -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/locks/any_platform_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/ref_count/any_platform_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/tcpip/windows_linux_sockets_select_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/thread_pool/any_platform_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/timers/any_platform_polled -I=${UASDKROOT}/SDK_Source/interface/common/portable/address_space -I=${UASDKROOT}/SDK_Source/interface/common/portable/address_space/helpers -I=${UASDKROOT}/SDK_Source/interface/common/portable/data_types -I=${UASDKROOT}/SDK_Source/interface/common/portable/data_types/helper -I=${UASDKROOT}/SDK_Source/interface/common/portable/miscellaneous -I=${UASDKROOT}/SDK_Source/interface/common/portable/smart_pointers -I=${UASDKROOT}/SDK_Source/interface/common/portable/ua_messages -I=${UASDKROOT}/SDK_Source/interface/server/platform_specific/server_class/windows_linux_st -I=${UASDKROOT}/SDK_Source/interface/server/portable -I=${UASDKROOT}/SDK_Source/internals -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevpmnd -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
+INCPATH += -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/atomic/any_platform_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/file/linux_windows -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/library/linux_windows -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/locks/any_platform_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/ref_count/any_platform_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/tcpip/windows_linux_sockets_select_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/thread_pool/any_platform_st -I=${UASDKROOT}/SDK_Source/interface/common/platform_specific/timers/any_platform_polled -I=${UASDKROOT}/SDK_Source/interface/common/portable/address_space -I=${UASDKROOT}/SDK_Source/interface/common/portable/address_space/helpers -I=${UASDKROOT}/SDK_Source/interface/common/portable/data_types -I=${UASDKROOT}/SDK_Source/interface/common/portable/data_types/helper -I=${UASDKROOT}/SDK_Source/interface/common/portable/miscellaneous -I=${UASDKROOT}/SDK_Source/interface/common/portable/smart_pointers -I=${UASDKROOT}/SDK_Source/interface/common/portable/ua_messages -I=${UASDKROOT}/SDK_Source/interface/server/platform_specific/server_class/windows_linux_st -I=${UASDKROOT}/SDK_Source/interface/server/portable -I=${UASDKROOT}/SDK_Source/internals -I=${WHIZSDKROOT}/build -I=${WHIZSDKROOT}/build/ezdevwskd -I=/usr/include -I=/usr/include/libxml2
 
-OBJS = CrdWzskUsg.o PnlWzskUsgList.o QryWzskUsgList.o PnlWzskUsgHeadbar.o PnlWzskUsgRec.o PnlWzskUsgMNUser.o QryWzskUsgMNUser.o PnlWzskUsgAAccess.o QryWzskUsgAAccess.o PnlWzskUsgDetail.o
+OBJS = CrdWzskUsg.o PnlWzskUsgRec.o PnlWzskUsgDetail.o PnlWzskUsgAAccess.o QryWzskUsgAAccess.o PnlWzskUsgMNUser.o QryWzskUsgMNUser.o PnlWzskUsgHeadbar.o PnlWzskUsgList.o QryWzskUsgList.o
 
 LIB = libcrdwzskusg
 
@@ -31,7 +31,7 @@ $(LIB):	$(OBJS)
 	$(STATLIB) $(STATLIBFLAGS) $(LIB).a $(OBJS)
 
 install:
-	mv $(LIB).a /home/mpsitech/emb/mercbb/wzsk/sdk/sysroots/aarch64-xilinx-linux$(LIBROOT)/wzskcmbd/
+	mv $(LIB).a /home/mpsitech/emb/zudvk/wzsk/sdk/sysroots/aarch64-xilinx-linux$(LIBROOT)/wzskcmbd/
 
 clean:
 	rm -f *.o

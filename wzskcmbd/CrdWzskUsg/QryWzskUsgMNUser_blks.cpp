@@ -2,8 +2,8 @@
 	* \file QryWzskUsgMNUser_blks.cpp
 	* job handler for job QryWzskUsgMNUser (implementation of blocks)
 	* \copyright (C) 2016-2020 MPSI Technologies GmbH
-	* \author Emily Johnson (auto-generation)
-	* \date created: 5 Dec 2020
+	* \author Alexander Wirthmueller (auto-generation)
+	* \date created: 1 Jul 2025
 	*/
 // IP header --- ABOVE
 
@@ -27,10 +27,10 @@ void QryWzskUsgMNUser::StatApp::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["firstcol"] = firstcol;
-	me["jnumFirstdisp"] = jnumFirstdisp;
-	me["ncol"] = ncol;
-	me["ndisp"] = ndisp;
+	me["firstcol"] = (Json::Value::UInt) firstcol;
+	me["jnumFirstdisp"] = (Json::Value::UInt) jnumFirstdisp;
+	me["ncol"] = (Json::Value::UInt) ncol;
+	me["ndisp"] = (Json::Value::UInt) ndisp;
 };
 
 void QryWzskUsgMNUser::StatApp::writeXML(
@@ -66,11 +66,10 @@ QryWzskUsgMNUser::StatShr::StatShr(
 			, const uint nload
 		) :
 			Block()
+			, ntot(ntot)
+			, jnumFirstload(jnumFirstload)
+			, nload(nload)
 		{
-	this->ntot = ntot;
-	this->jnumFirstload = jnumFirstload;
-	this->nload = nload;
-
 	mask = {NTOT, JNUMFIRSTLOAD, NLOAD};
 };
 
@@ -82,9 +81,9 @@ void QryWzskUsgMNUser::StatShr::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["ntot"] = ntot;
-	me["jnumFirstload"] = jnumFirstload;
-	me["nload"] = nload;
+	me["ntot"] = (Json::Value::UInt) ntot;
+	me["jnumFirstload"] = (Json::Value::UInt) jnumFirstload;
+	me["nload"] = (Json::Value::UInt) nload;
 };
 
 void QryWzskUsgMNUser::StatShr::writeXML(
@@ -141,10 +140,10 @@ QryWzskUsgMNUser::StgIac::StgIac(
 			, const uint nload
 		) :
 			Block()
+			, jnum(jnum)
+			, jnumFirstload(jnumFirstload)
+			, nload(nload)
 		{
-	this->jnum = jnum;
-	this->jnumFirstload = jnumFirstload;
-	this->nload = nload;
 	mask = {JNUM, JNUMFIRSTLOAD, NLOAD};
 };
 
@@ -202,9 +201,9 @@ void QryWzskUsgMNUser::StgIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["jnum"] = jnum;
-	me["jnumFirstload"] = jnumFirstload;
-	me["nload"] = nload;
+	me["jnum"] = (Json::Value::UInt) jnum;
+	me["jnumFirstload"] = (Json::Value::UInt) jnumFirstload;
+	me["nload"] = (Json::Value::UInt) nload;
 };
 
 void QryWzskUsgMNUser::StgIac::writeXML(
