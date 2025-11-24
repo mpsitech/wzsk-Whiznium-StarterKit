@@ -14,11 +14,13 @@
 
 // IP include.cust --- INSERT
 
+#include "JobWzskAcqHdr.h"
 #include "JobWzskAcqPreview.h"
 #include "JobWzskPrcWavelet.h"
 
 #define VecVWzskHwcConfigDo PnlWzskHwcConfig::VecVDo
 #define VecVWzskHwcConfigMode PnlWzskHwcConfig::VecVMode
+#define VecVWzskHwcConfigSge PnlWzskHwcConfig::VecVSge
 
 #define ContIacWzskHwcConfig PnlWzskHwcConfig::ContIac
 #define ContIacWzskHwcConfigAlign PnlWzskHwcConfig::ContIacAlign
@@ -48,8 +50,12 @@ public:
 		static const Sbecore::uint BUTREGULARIZECLICK = 1;
 		static const Sbecore::uint BUTMINIMIZECLICK = 2;
 		static const Sbecore::uint BUTCLAIMCLICK = 3;
-		static const Sbecore::uint BUTSTACLICK = 4;
-		static const Sbecore::uint BUTSTOCLICK = 5;
+		static const Sbecore::uint BUTPLAYCLICK = 4;
+		static const Sbecore::uint BUTSTOPCLICK = 5;
+		static const Sbecore::uint BUTSNAPCLICK = 6;
+		static const Sbecore::uint BUTPFIVIEWCLICK = 7;
+		static const Sbecore::uint BUTSTACLICK = 8;
+		static const Sbecore::uint BUTSTOCLICK = 9;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -70,6 +76,23 @@ public:
 		static std::string getTitle(const Sbecore::uint ix, const Sbecore::uint ixWzskVLocale);
 
 		static void fillFeed(const Sbecore::uint ixWzskVLocale, Sbecore::Feed& feed);
+	};
+
+	/**
+		* VecVSge (full: VecVWzskHwcConfigSge)
+		*/
+	class VecVSge {
+
+	public:
+		static const Sbecore::uint IDLE = 1;
+		static const Sbecore::uint CAPTURE = 2;
+		static const Sbecore::uint STOIDLE = 3;
+		static const Sbecore::uint STORE = 4;
+
+		static Sbecore::uint getIx(const std::string& sref);
+		static std::string getSref(const Sbecore::uint ix);
+
+		static void fillFeed(Sbecore::Feed& feed);
 	};
 
 	/**
@@ -137,13 +160,15 @@ public:
 
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
-		static const Sbecore::uint TXTSTE = 2;
+		static const Sbecore::uint TXTPFI = 2;
+		static const Sbecore::uint TXTSTE = 3;
 
 	public:
-		ContInf(const bool ButClaimOn = false, const std::string& TxtSte = "");
+		ContInf(const bool ButClaimOn = false, const std::string& TxtPfi = "", const std::string& TxtSte = "");
 
 	public:
 		bool ButClaimOn;
+		std::string TxtPfi;
 		std::string TxtSte;
 
 	public:
@@ -161,28 +186,34 @@ public:
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
 		static const Sbecore::uint BUTCLAIMACTIVE = 2;
-		static const Sbecore::uint RBUMDEACTIVE = 3;
-		static const Sbecore::uint CUSIMGHEIGHT = 4;
-		static const Sbecore::uint UPDNFRACTIVE = 5;
-		static const Sbecore::uint UPDNFRMIN = 6;
-		static const Sbecore::uint UPDNFRMAX = 7;
-		static const Sbecore::uint SLDFSTACTIVE = 8;
-		static const Sbecore::uint SLDFSTMIN = 9;
-		static const Sbecore::uint SLDFSTMAX = 10;
-		static const Sbecore::uint SLDFSPACTIVE = 11;
-		static const Sbecore::uint SLDFSPMIN = 12;
-		static const Sbecore::uint SLDFSPMAX = 13;
-		static const Sbecore::uint BUTSTAACTIVE = 14;
-		static const Sbecore::uint BUTSTOACTIVE = 15;
+		static const Sbecore::uint CUSIMGHEIGHT = 3;
+		static const Sbecore::uint BUTPLAYACTIVE = 4;
+		static const Sbecore::uint BUTSTOPACTIVE = 5;
+		static const Sbecore::uint BUTSNAPACTIVE = 6;
+		static const Sbecore::uint BUTPFIVIEWACTIVE = 7;
+		static const Sbecore::uint UPDNFRACTIVE = 8;
+		static const Sbecore::uint UPDNFRMIN = 9;
+		static const Sbecore::uint UPDNFRMAX = 10;
+		static const Sbecore::uint SLDFSTACTIVE = 11;
+		static const Sbecore::uint SLDFSTMIN = 12;
+		static const Sbecore::uint SLDFSTMAX = 13;
+		static const Sbecore::uint SLDFSPACTIVE = 14;
+		static const Sbecore::uint SLDFSPMIN = 15;
+		static const Sbecore::uint SLDFSPMAX = 16;
+		static const Sbecore::uint BUTSTAACTIVE = 17;
+		static const Sbecore::uint BUTSTOACTIVE = 18;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool RbuMdeActive = true, const Sbecore::uint CusImgHeight = 384, const bool UpdNfrActive = true, const int UpdNfrMin = 10, const int UpdNfrMax = 100, const bool SldFstActive = true, const double SldFstMin = 1, const double SldFstMax = 1000, const bool SldFspActive = true, const double SldFspMin = 1, const double SldFspMax = 1000, const bool ButStaActive = true, const bool ButStoActive = true);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const Sbecore::uint CusImgHeight = 384, const bool ButPlayActive = true, const bool ButStopActive = true, const bool ButSnapActive = true, const bool ButPfiViewActive = true, const bool UpdNfrActive = true, const int UpdNfrMin = 10, const int UpdNfrMax = 100, const bool SldFstActive = true, const double SldFstMin = 1, const double SldFstMax = 1000, const bool SldFspActive = true, const double SldFspMin = 1, const double SldFspMax = 1000, const bool ButStaActive = true, const bool ButStoActive = true);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		bool ButClaimActive;
-		bool RbuMdeActive;
 		Sbecore::uint CusImgHeight;
+		bool ButPlayActive;
+		bool ButStopActive;
+		bool ButSnapActive;
+		bool ButPfiViewActive;
 		bool UpdNfrActive;
 		int UpdNfrMin;
 		int UpdNfrMax;
@@ -341,20 +372,15 @@ public:
 	public:
 		static const Sbecore::uint JREF = 1;
 		static const Sbecore::uint GRAY = 2;
-		static const Sbecore::uint RED = 3;
-		static const Sbecore::uint GREEN = 4;
-		static const Sbecore::uint BLUE = 5;
-		static const Sbecore::uint ALL = 6;
+		static const Sbecore::uint RGB = 3;
+		static const Sbecore::uint ALL = 4;
 
 	public:
-		DpchEngLive(const Sbecore::ubigint jref = 0, const std::vector<Sbecore::utinyint>& gray = {}, const std::vector<Sbecore::utinyint>& red = {}, const std::vector<Sbecore::utinyint>& green = {}, const std::vector<Sbecore::utinyint>& blue = {}, const std::set<Sbecore::uint>& mask = {NONE});
+		DpchEngLive(const Sbecore::ubigint jref = 0, const std::vector<Sbecore::utinyint>& gray = {}, const std::vector<Sbecore::utinyint>& rgb = {}, const std::set<Sbecore::uint>& mask = {NONE});
 
 	public:
 		std::vector<Sbecore::utinyint> gray;
-
-		std::vector<Sbecore::utinyint> red;
-		std::vector<Sbecore::utinyint> green;
-		std::vector<Sbecore::utinyint> blue;
+		std::vector<Sbecore::utinyint> rgb;
 
 	public:
 		std::string getSrefsMask();
@@ -365,7 +391,10 @@ public:
 	};
 
 	bool evalButClaimActive(DbsWzsk* dbswzsk);
-	bool evalRbuMdeActive(DbsWzsk* dbswzsk);
+	bool evalButPlayActive(DbsWzsk* dbswzsk);
+	bool evalButStopActive(DbsWzsk* dbswzsk);
+	bool evalButSnapActive(DbsWzsk* dbswzsk);
+	bool evalButPfiViewActive(DbsWzsk* dbswzsk);
 	bool evalUpdNfrActive(DbsWzsk* dbswzsk);
 	bool evalSldFstActive(DbsWzsk* dbswzsk);
 	bool evalSldFspActive(DbsWzsk* dbswzsk);
@@ -384,13 +413,26 @@ public:
 
 	Sbecore::Feed feedFRbuMde;
 
+	JobWzskAcqHdr* acqhdr;
 	JobWzskAcqPreview* acqpreview;
 	JobWzskPrcWavelet* prcwavelet;
 
-	// IP vars.cust --- INSERT
+	// IP vars.cust --- IBEGIN
+	unsigned int scale;
+
+	unsigned int numSshot;
+	Sbecore::ubigint refFilSshot;
+
+	Sbecore::uint ixRiHdr;
+	Sbecore::uint ixRiPvw;
+	// IP vars.cust --- IEND
 
 public:
-	// IP cust --- INSERT
+	// IP cust --- IBEGIN
+	void updateScale(DbsWzsk* dbswzsk);
+
+	void writeRGBE(const std::string& fullpath);
+	// IP cust --- IEND
 
 public:
 	DpchEngWzsk* getNewDpchEng(std::set<Sbecore::uint> items);
@@ -411,8 +453,38 @@ private:
 	void handleDpchAppDoButRegularizeClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButMinimizeClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButClaimClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoButPlayClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoButStopClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoButSnapClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+	void handleDpchAppDoButPfiViewClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButStaClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButStoClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+
+	void handleTimerInSgeStoidle(DbsWzsk* dbswzsk, const std::string& sref);
+
+public:
+	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
+
+private:
+	bool handleCallWzskSgeChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskResultNewFromAcqpreview(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv);
+	bool handleCallWzskResultNewFromAcqhdrInSgeCapture(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv);
+
+private:
+	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge, DpchEngWzsk** dpcheng = NULL);
+
+public:
+	std::string getSquawk(DbsWzsk* dbswzsk);
+
+private:
+	Sbecore::uint enterSgeIdle(DbsWzsk* dbswzsk, const bool reenter);
+	void leaveSgeIdle(DbsWzsk* dbswzsk);
+	Sbecore::uint enterSgeCapture(DbsWzsk* dbswzsk, const bool reenter);
+	void leaveSgeCapture(DbsWzsk* dbswzsk);
+	Sbecore::uint enterSgeStoidle(DbsWzsk* dbswzsk, const bool reenter);
+	void leaveSgeStoidle(DbsWzsk* dbswzsk);
+	Sbecore::uint enterSgeStore(DbsWzsk* dbswzsk, const bool reenter);
+	void leaveSgeStore(DbsWzsk* dbswzsk);
 
 };
 

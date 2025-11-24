@@ -433,6 +433,112 @@ string Tmp::random() {
  ******************************************************************************/
 
 // IP gbl --- IBEGIN
+/******************************************************************************
+ class Wzsk::ClaimTrack
+ ******************************************************************************/
+
+ Wzsk::ClaimTrack::ClaimTrack(
+			const bool retractable
+			, const bool run
+			, const string path
+		) :
+			Claim(retractable, run)
+			, path(path)
+		{
+};
+
+/******************************************************************************
+ class Wzsk::ClaimVsp
+ ******************************************************************************/
+
+Wzsk::ClaimVsp::ClaimVsp(
+			const bool retractable
+			, const uint ixWDomain
+		) :
+			Claim(retractable)
+			, ixWDomain(ixWDomain)
+		{
+};
+
+bool Wzsk::ClaimVsp::handleClaim(
+			DbsWzsk* dbswzsk
+			, map<ubigint,Claim*>& claims
+			, const ubigint jrefNewest
+		) {
+	bool mod = false;
+
+	// claim policy:
+	// - individual domains can be taken up independently by one client at a time
+	// - one client taking all trumps individual domains
+
+	Wzsk::ClaimVsp* claim = NULL;
+
+	map<uint,ubigint> jrefs;
+	uint retractables;
+	uint availables;
+	uint reattributeds;
+
+	for (uint ix = Wzsk::ClaimVsp::VecWDomain::CORNER; ix < Wzsk::ClaimVsp::VecWDomain::ALL; ix <<= 1) jrefs[ix] = 0;
+	retractables = Wzsk::ClaimVsp::VecWDomain::ALL;
+	availables = 0;
+	reattributeds = 0;
+
+	// survey
+	for (auto it = claims.begin(); it != claims.end(); it++) {
+		claim = (Wzsk::ClaimVsp*) it->second;
+
+		if (claim->fulfilled)
+			for (uint ix = Wzsk::ClaimVsp::VecWDomain::CORNER; ix < Wzsk::ClaimVsp::VecWDomain::ALL; ix <<= 1)
+				if (claim->ixWDomain & ix) {
+					jrefs[ix] = it->first;
+					if (!claim->retractable) retractables &= ~ix;
+				};
+	};
+
+	availables = retractables;
+
+	// try to fulfill, reattribute each domain at most once
+	for (unsigned int i = 0; i < 2; i++) {
+		for (auto it = claims.begin(); it != claims.end(); it++) {
+			claim = (Wzsk::ClaimVsp*) it->second;
+
+			if (((i == 0) && (it->first == jrefNewest)) || ((i == 1) && (it->first != jrefNewest))) {
+				// preference given to newest claim
+				if ( ((claim->ixWDomain & availables) == claim->ixWDomain) && ((claim->ixWDomain & reattributeds) == 0) ) {
+
+					for (uint ix = Wzsk::ClaimVsp::VecWDomain::CORNER; ix < Wzsk::ClaimVsp::VecWDomain::ALL; ix <<= 1)
+						if (claim->ixWDomain & ix) {
+							if (jrefs[ix] != 0) claims[jrefs[ix]]->fulfilled = false;
+
+							if (claim->retractable) retractables |= ix;
+							else retractables &= ~ix;
+
+							reattributeds |= ix;
+						};
+
+					claim->fulfilled = true;
+				};
+			};
+	
+			if (reattributeds == Wzsk::ClaimVsp::VecWDomain::ALL) break;
+		};
+
+		if (reattributeds == Wzsk::ClaimVsp::VecWDomain::ALL) break;
+	};
+
+	// update taken status
+	for (auto it = claims.begin(); it != claims.end(); it++) {
+		claim = (Wzsk::ClaimVsp*) it->second;
+		claim->takenNotAvailable = !((claim->ixWDomain & retractables) == claim->ixWDomain);
+	};
+
+	mod = true; // for simplicity
+
+	return mod;
+};
+
+/******************************************************************************/
+
 void Wzsk::parseCmd(
 			UntWskd& unt
 			, string s

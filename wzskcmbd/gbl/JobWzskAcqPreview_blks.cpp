@@ -48,14 +48,12 @@ void JobWzskAcqPreview::VecVSge::fillFeed(
  ******************************************************************************/
 
 JobWzskAcqPreview::Stg::Stg(
-			const bool rgbNotGray
-			, const utinyint decim
+			const utinyint sizePvwbuf
 		) :
 			Block()
-			, rgbNotGray(rgbNotGray)
-			, decim(decim)
+			, sizePvwbuf(sizePvwbuf)
 		{
-	mask = {RGBNOTGRAY, DECIM};
+	mask = {SIZEPVWBUF};
 };
 
 bool JobWzskAcqPreview::Stg::readXML(
@@ -75,8 +73,7 @@ bool JobWzskAcqPreview::Stg::readXML(
 	string itemtag = "StgitemJobWzskAcqPreview";
 
 	if (basefound) {
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "rgbNotGray", rgbNotGray)) add(RGBNOTGRAY);
-		if (extractUtinyintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "decim", decim)) add(DECIM);
+		if (extractUtinyintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "sizePvwbuf", sizePvwbuf)) add(SIZEPVWBUF);
 	};
 
 	return basefound;
@@ -94,8 +91,7 @@ void JobWzskAcqPreview::Stg::writeXML(
 	else itemtag = "StgitemJobWzskAcqPreview";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeBoolAttr(wr, itemtag, "sref", "rgbNotGray", rgbNotGray);
-		writeUtinyintAttr(wr, itemtag, "sref", "decim", decim);
+		writeUtinyintAttr(wr, itemtag, "sref", "sizePvwbuf", sizePvwbuf);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -104,8 +100,7 @@ set<uint> JobWzskAcqPreview::Stg::comm(
 		) {
 	set<uint> items;
 
-	if (rgbNotGray == comp->rgbNotGray) insert(items, RGBNOTGRAY);
-	if (decim == comp->decim) insert(items, DECIM);
+	if (sizePvwbuf == comp->sizePvwbuf) insert(items, SIZEPVWBUF);
 
 	return(items);
 };
@@ -118,7 +113,7 @@ set<uint> JobWzskAcqPreview::Stg::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {RGBNOTGRAY, DECIM};
+	diffitems = {SIZEPVWBUF};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

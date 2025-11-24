@@ -5,6 +5,10 @@
 		<title>Config_bcont</title>
 		<script>
 			function handleRbuMdeSelect(num) {parent.parent.window.handleRbuSelect(document,"RbuMde",num);};
+			function handleButPlayClick() {parent.parent.window.handleButClick("ButPlay");};
+			function handleButStopClick() {parent.parent.window.handleButClick("ButStop");};
+			function handleButSnapClick() {parent.parent.window.handleButClick("ButSnap");};
+			function handleButPfiViewClick() {parent.parent.window.handleButClick("ButPfiView");};
 			function handleUpdNfrValKey(evt) {return parent.parent.window.handleUpdValKey(document,"UpdNfr",true,evt);};
 			function handleUpdNfrValChange() {parent.parent.window.handleUpdValChange(document,"UpdNfr",true);};
 			function handleUpdNfrUpClick() {parent.parent.window.handleUpdUpClick(document,"UpdNfr",true);};
@@ -79,6 +83,29 @@
 				<tr id="trImg" class="show">
 					<td id="tdImg" colspan="11" height="384">
 						<iframe id="CusImg" name="CusImg" src="./PnlWzskHwcConfig_CusImg.xml" width="690" height="384" frameborder="0" scrolling="no">This page needs a web-browser capable of displaying inline frames!</iframe>
+					</td>
+				</tr>
+				<tr id="trPlaystopsnap" class="show">
+					<td height="25"></td>
+					<td colspan="2"></td>
+					<td colspan="8" align="left">
+						<img id="ButPlay" class="but" src="../iconwzsk/play.png" width="16" height="16" alt="ButPlay" onmouseover="src='../iconwzsk/play_hlt.png'" onmouseout="src='../iconwzsk/play.png'" onclick="handleButPlayClick()"/>
+						&#160;<img id="ButStop" class="but" src="../iconwzsk/stop.png" width="16" height="16" alt="ButStop" onmouseover="src='../iconwzsk/stop_hlt.png'" onmouseout="src='../iconwzsk/stop.png'" onclick="handleButStopClick()"/>
+						&#160;<img id="ButSnap" class="but" src="../iconwzsk/snap.png" width="16" height="16" alt="ButSnap" onmouseover="src='../iconwzsk/snap_hlt.png'" onmouseout="src='../iconwzsk/snap.png'" onclick="handleButSnapClick()"/>
+					</td>
+				</tr>
+				<tr id="trPfi" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptPfi" class="cpt">CptPfi</span>
+					</td>
+					<td></td>
+					<td colspan="5" align="left">
+						<input id="TxtPfi" class="txfnoed" type="text" readonly="readonly" value="TxtPfi"/>
+					</td>
+					<td></td>
+					<td colspan="2" align="left">
+						<img id="ButPfiView" class="but" src="../icon/view.png" width="16" height="16" alt="ButPfiView" onmouseover="src='../icon/view_hlt.png'" onmouseout="src='../icon/view.png'" onclick="handleButPfiViewClick()"/>
 					</td>
 				</tr>
 				<tr id="tr11" class="show"><td colspan="11" height="3"></td></tr>

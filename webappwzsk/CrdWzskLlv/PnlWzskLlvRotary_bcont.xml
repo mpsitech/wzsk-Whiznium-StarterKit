@@ -4,23 +4,32 @@
 	<head>
 		<title>Rotary_bcont</title>
 		<script>
-			function handleSldTrgJpleftMov() {parent.parent.window.handleSldJpleftMov(document,"SldTrg");};
-			function handleSldTrgJpleftMou() {parent.parent.window.handleSldJpleftMou(document,"SldTrg");};
-			function handleSldTrgJpleftClick(evt) {parent.parent.window.handleSldJpleftClick(document,"SldTrg",true,false,false,evt);};
-			function handleSldTrgJprightMov() {parent.parent.window.handleSldJprightMov(document,"SldTrg");};
-			function handleSldTrgJprightMou() {parent.parent.window.handleSldJprightMou(document,"SldTrg");};
-			function handleSldTrgJprightClick(evt) {parent.parent.window.handleSldJprightClick(document,"SldTrg",true,false,false,evt);};
-			function handleSldTrgMov() {parent.parent.window.handleSldMov(document,"SldTrg");};
-			function handleSldTrgMou() {parent.parent.window.handleSldMou(document,"SldTrg");};
-			function handleSldTrgMdn() {parent.parent.window.handleSldMdn(document,"SldTrg");};
-			function handleSldTrgMove(evt) {parent.parent.window.handleSldMove(document,"SldTrg",true,false,false,evt);};
-			function handleSldTrgMup() {parent.parent.window.handleSldMup(document,"SldTrg",true);};
-			function handleSldTrgValKey(evt) {return parent.parent.window.handleSldValKey(document,"SldTrg",true,false,false,evt);};
-			function handleSldTrgValChange() {parent.parent.window.handleSldValChange(document,"SldTrg",true,false,false);};
-			<!-- IP custScript - INSERT -->
+			function handleTxfSchTrgKey(evt) {return parent.parent.window.handleTxfKey(document,"TxfSchTrg","",evt);};
+			function handleTxfSchTrgChange() {parent.parent.window.handleTxfChange(document,"TxfSchTrg","");};
+			<!-- IP custScript - IBEGIN -->
+			function handleCusSchFceSet(angle) {parent.parent.window.handleCusSchFceSet(angle);};
+			<!-- IP custScript - IEND -->
 		</script>
 		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
-		<!-- IP custStyle - INSERT -->
+		<!-- IP custStyle - IBEGIN -->
+		<style>
+		.fceline {
+			fill:#000000;
+			stroke:white;
+			stroke-width:2;
+			cursor:pointer;
+		}
+		.fceline:hover {
+			fill:orange;
+		}
+		.fcelineinact {
+			fill:#bfbfbf;
+			stroke:white;
+			stroke-width:2;
+			cursor:default;
+		}
+		</style>
+		<!-- IP custStyle - IEND -->
 	</head>
 	<body marginwidth="0" marginheight="0">
 		<table cellspacing="0" border="0" cellpadding="0"><form action="">
@@ -39,37 +48,112 @@
 			</colgroup>
 			<tbody id="tbl">
 				<tr><td colspan="11" height="5"></td></tr>
-				<tr id="trTrg" class="show">
-					<td height="25"></td>
-					<td align="right">
-						<span id="CptTrg" class="cpt">CptTrg</span>
-					</td>
-					<td></td>
-					<td id="tdSldTrg" colspan="5">
-						<svg class="svg" width="340" height="25" version="1.1" xmlns="http://www.w3.org/2000/svg">
-							<line class="sldlinact" x1="0" y1="12.5" x2="5" y2="12.5"/>
-							<line class="sldlinact" x1="335" y1="12.5" x2="340" y2="12.5"/>
-							<g id="SldTrgJpleft" class="sld" onmouseover="handleSldTrgJpleftMov()" onmouseout="handleSldTrgJpleftMou()" onclick="handleSldTrgJpleftClick(event)">
-								<rect id="SldTrgJpleftr" class="sldr" x="5" y="2" width="165" height="18"/>
-								<line id="SldTrgJpleftl" class="sldl" x1="5" y1="12.5" x2="167.5" y2="12.5"/>
-							</g>
-							<g id="SldTrgJpright" class="sld" onmouseover="handleSldTrgJprightMov()" onmouseout="handleSldTrgJprightMou()" onclick="handleSldTrgJprightClick(event)">
-								<rect id="SldTrgJprightr" class="sldr" x="170" y="2" width="165" height="18"/>
-								<line id="SldTrgJprightl" class="sldl" x1="172.5" y1="12.5" x2="335" y2="12.5"/>
-							</g>
-							<g id="SldTrg" class="sld" transform="translate(170 0)" onmouseover="handleSldTrgMov()" onmouseout="handleSldTrgMou()" onmousedown="handleSldTrgMdn()">
-								<rect id="SldTrgR" class="sldr" x="-3" y="2" width="6" height="21"/>
-								<g id="SldTrgBar" class="sldl">
-									<line x1="-2" y1="2" x2="-2" y2="23"/>
-									<line x1="2" y1="2" x2="2" y2="23"/>
+				<tr id="trSch" class="show">
+					<!-- IP trSch - RBEGIN -->
+					<td id="tdSch" height="150" colspan="11">
+						<svg width="690px" height="150px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+							<g transform="translate(200,75)">
+								<!-- clock face -->
+								<g id="CusSchFce" transform="rotate(-90)">
+									<!-- <g transform="rotate(-180) translate(63,-1.5)"><rect id="CusSchFce180" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(180)"/></g> -->
+									<g transform="rotate(-175) translate(68,-1.5)"><rect id="CusSchFce175" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(175)"/></g>
+									<g transform="rotate(-170) translate(68,-1.5)"><rect id="CusSchFce170" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(170)"/></g>
+									<g transform="rotate(-165) translate(63,-1.5)"><rect id="CusSchFce165" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(165)"/></g>
+									<g transform="rotate(-160) translate(68,-1.5)"><rect id="CusSchFce160" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(160)"/></g>
+									<g transform="rotate(-155) translate(68,-1.5)"><rect id="CusSchFce155" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(155)"/></g>
+									<g transform="rotate(-150) translate(63,-1.5)"><rect id="CusSchFce150" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(150)"/></g>
+									<g transform="rotate(-145) translate(68,-1.5)"><rect id="CusSchFce145" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(145)"/></g>
+									<g transform="rotate(-140) translate(68,-1.5)"><rect id="CusSchFce140" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(140)"/></g>
+									<g transform="rotate(-135) translate(63,-1.5)"><rect id="CusSchFce135" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(135)"/></g>
+									<g transform="rotate(-130) translate(68,-1.5)"><rect id="CusSchFce130" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(130)"/></g>
+									<g transform="rotate(-125) translate(68,-1.5)"><rect id="CusSchFce125" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(125)"/></g>
+									<g transform="rotate(-120) translate(63,-1.5)"><rect id="CusSchFce120" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(120)"/></g>
+									<g transform="rotate(-115) translate(68,-1.5)"><rect id="CusSchFce115" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(115)"/></g>
+									<g transform="rotate(-110) translate(68,-1.5)"><rect id="CusSchFce110" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(110)"/></g>
+									<g transform="rotate(-105) translate(63,-1.5)"><rect id="CusSchFce105" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(105)"/></g>
+									<g transform="rotate(-100) translate(68,-1.5)"><rect id="CusSchFce100" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(100)"/></g>
+									<g transform="rotate(-95) translate(68,-1.5)"><rect id="CusSchFce95" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(95)"/></g>
+									<g transform="rotate(-90) translate(63,-1.5)"><rect id="CusSchFce90" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(90)"/></g>
+									<g transform="rotate(-85) translate(68,-1.5)"><rect id="CusSchFce85" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(85)"/></g>
+									<g transform="rotate(-80) translate(68,-1.5)"><rect id="CusSchFce80" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(80)"/></g>
+									<g transform="rotate(-75) translate(63,-1.5)"><rect id="CusSchFce75" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(75)"/></g>
+									<g transform="rotate(-70) translate(68,-1.5)"><rect id="CusSchFce70" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(70)"/></g>
+									<g transform="rotate(-65) translate(68,-1.5)"><rect id="CusSchFce65" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(65)"/></g>
+									<g transform="rotate(-60) translate(63,-1.5)"><rect id="CusSchFce60" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(60)"/></g>
+									<g transform="rotate(-55) translate(68,-1.5)"><rect id="CusSchFce55" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(55)"/></g>
+									<g transform="rotate(-50) translate(68,-1.5)"><rect id="CusSchFce50" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(50)"/></g>
+									<g transform="rotate(-45) translate(63,-1.5)"><rect id="CusSchFce45" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(45)"/></g>
+									<g transform="rotate(-40) translate(68,-1.5)"><rect id="CusSchFce40" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(40)"/></g>
+									<g transform="rotate(-35) translate(68,-1.5)"><rect id="CusSchFce35" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(35)"/></g>
+									<g transform="rotate(-30) translate(63,-1.5)"><rect id="CusSchFce30" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(30)"/></g>
+									<g transform="rotate(-25) translate(68,-1.5)"><rect id="CusSchFce25" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(25)"/></g>
+									<g transform="rotate(-20) translate(68,-1.5)"><rect id="CusSchFce20" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(20)"/></g>
+									<g transform="rotate(-15) translate(63,-1.5)"><rect id="CusSchFce15" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(15)"/></g>
+									<g transform="rotate(-10) translate(68,-1.5)"><rect id="CusSchFce10" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(10)"/></g>
+									<g transform="rotate(-5) translate(68,-1.5)"><rect id="CusSchFce5" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(5)"/></g>
+									<g transform="rotate(0) translate(63,-1.5)"><rect id="CusSchFce0" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(0)"/></g>
+									<g transform="rotate(5) translate(68,-1.5)"><rect id="CusSchFceN5" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-5)"/></g>
+									<g transform="rotate(10) translate(68,-1.5)"><rect id="CusSchFceN10" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-10)"/></g>
+									<g transform="rotate(15) translate(63,-1.5)"><rect id="CusSchFceN15" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(-15)"/></g>
+									<g transform="rotate(20) translate(68,-1.5)"><rect id="CusSchFceN20" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-20)"/></g>
+									<g transform="rotate(25) translate(68,-1.5)"><rect id="CusSchFceN25" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-25)"/></g>
+									<g transform="rotate(30) translate(63,-1.5)"><rect id="CusSchFceN30" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(-30)"/></g>
+									<g transform="rotate(35) translate(68,-1.5)"><rect id="CusSchFceN35" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-35)"/></g>
+									<g transform="rotate(40) translate(68,-1.5)"><rect id="CusSchFceN40" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-40)"/></g>
+									<g transform="rotate(45) translate(63,-1.5)"><rect id="CusSchFceN45" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(-45)"/></g>
+									<g transform="rotate(50) translate(68,-1.5)"><rect id="CusSchFceN50" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-50)"/></g>
+									<g transform="rotate(55) translate(68,-1.5)"><rect id="CusSchFceN55" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-55)"/></g>
+									<g transform="rotate(60) translate(63,-1.5)"><rect id="CusSchFceN60" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(-60)"/></g>
+									<g transform="rotate(65) translate(68,-1.5)"><rect id="CusSchFceN65" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-65)"/></g>
+									<g transform="rotate(70) translate(68,-1.5)"><rect id="CusSchFceN70" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-70)"/></g>
+									<g transform="rotate(75) translate(63,-1.5)"><rect id="CusSchFceN75" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(-75)"/></g>
+									<g transform="rotate(80) translate(68,-1.5)"><rect id="CusSchFceN80" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-80)"/></g>
+									<g transform="rotate(85) translate(68,-1.5)"><rect id="CusSchFceN85" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-85)"/></g>
+									<g transform="rotate(90) translate(63,-1.5)"><rect id="CusSchFceN90" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(-90)"/></g>
+									<g transform="rotate(95) translate(68,-1.5)"><rect id="CusSchFceN95" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-95)"/></g>
+									<g transform="rotate(100) translate(68,-1.5)"><rect id="CusSchFceN100" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-100)"/></g>
+									<g transform="rotate(105) translate(63,-1.5)"><rect id="CusSchFceN105" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(-105)"/></g>
+									<g transform="rotate(110) translate(68,-1.5)"><rect id="CusSchFceN110" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-110)"/></g>
+									<g transform="rotate(115) translate(68,-1.5)"><rect id="CusSchFceN115" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-115)"/></g>
+									<g transform="rotate(120) translate(63,-1.5)"><rect id="CusSchFceN120" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(-120)"/></g>
+									<g transform="rotate(125) translate(68,-1.5)"><rect id="CusSchFceN125" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-125)"/></g>
+									<g transform="rotate(130) translate(68,-1.5)"><rect id="CusSchFceN130" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-130)"/></g>
+									<g transform="rotate(135) translate(63,-1.5)"><rect id="CusSchFceN135" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(-135)"/></g>
+									<g transform="rotate(140) translate(68,-1.5)"><rect id="CusSchFceN140" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-140)"/></g>
+									<g transform="rotate(145) translate(68,-1.5)"><rect id="CusSchFceN145" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-145)"/></g>
+									<g transform="rotate(150) translate(63,-1.5)"><rect id="CusSchFceN150" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(-150)"/></g>
+									<g transform="rotate(155) translate(68,-1.5)"><rect id="CusSchFceN155" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-155)"/></g>
+									<g transform="rotate(160) translate(68,-1.5)"><rect id="CusSchFceN160" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-160)"/></g>
+									<g transform="rotate(165) translate(63,-1.5)"><rect id="CusSchFceN165" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(-165)"/></g>
+									<g transform="rotate(170) translate(68,-1.5)"><rect id="CusSchFceN170" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-170)"/></g>
+									<g transform="rotate(175) translate(68,-1.5)"><rect id="CusSchFceN175" class="fceline" width="9" height="3" onclick="handleCusSchFceSet(-175)"/></g>
+									<g transform="rotate(180) translate(63,-1.5)"><rect id="CusSchFceN180" class="fceline" width="14" height="3" onclick="handleCusSchFceSet(-180)"/></g>
 								</g>
+
+								<!-- checkerboard -->
+								<g id="CusSchBrd" transform="rotate(-17)">
+									<path d="M-18 -18 L18 -18 L18 18 L-18 18 L-18 -18" stroke="black" stroke-width="1" fill="none"/>
+									<path d="M-6 -6 L6 -6 L6 6 L-6 6 L-6 -6" stroke="none" fill="gray"/>
+									<path d="M-18 -18 L-6 -18 L-6 -6 L-18 -6 L-18 -18" stroke="none" fill="gray"/>
+									<path d="M18 -18 L6 -18 L6 -6 L18 -6 L18 -18" stroke="none" fill="gray"/>
+									<path d="M-18 18 L-6 18 L-6 6 L-18 6 L-18 18" stroke="none" fill="gray"/>
+									<path d="M18 18 L6 18 L6 6 L18 6 L18 18" stroke="none" fill="gray"/>
+									<circle cx="0" cy="0" r="1" stroke="black" stroke-width="1" fill="black"/>
+									<line x1="15" y1="0" x2="60" y2="0" stroke="black" stroke-width="1"/>
+								</g>
+
+								<!-- state indicator -->
+								<circle id="CsiSchSte" cx="-70" cy="70" r="3" style="fill:limegreen"/>
+
+								<text x="180" y="-10" style="font-family:sans-serif;font-size:12;" text-anchor="end">target angle:</text>
+								<text id="TxfSchTrg" x="190" y="-10" style="font-family:sans-serif;font-size:12;">TxfSchTrg</text>
+
+								<text x="180" y="10" style="font-family:sans-serif;font-size:12;" text-anchor="end">current angle:</text>
+								<text id="TxtSchAng" x="190" y="10" style="font-family:sans-serif;font-size:12;">TxtSchAng</text>
 							</g>
 						</svg>
 					</td>
-					<td></td>
-					<td colspan="2" align="left">
-						<input id="SldTrgVal" class="txfxs" type="text" value="SldTrgVal" onchange="handleSldTrgValChange()" onkeypress="return handleSldTrgValKey(event)"/>
-					</td>
+					<!-- IP trSch - REND -->
 				</tr>
 				<tr><td colspan="11" height="4"></td></tr>
 			</tbody>

@@ -25,6 +25,10 @@ uint PnlWzskHwcConfig::VecVDo::getIx(
 	if (s == "butregularizeclick") return BUTREGULARIZECLICK;
 	if (s == "butminimizeclick") return BUTMINIMIZECLICK;
 	if (s == "butclaimclick") return BUTCLAIMCLICK;
+	if (s == "butplayclick") return BUTPLAYCLICK;
+	if (s == "butstopclick") return BUTSTOPCLICK;
+	if (s == "butsnapclick") return BUTSNAPCLICK;
+	if (s == "butpfiviewclick") return BUTPFIVIEWCLICK;
 	if (s == "butstaclick") return BUTSTACLICK;
 	if (s == "butstoclick") return BUTSTOCLICK;
 
@@ -37,6 +41,10 @@ string PnlWzskHwcConfig::VecVDo::getSref(
 	if (ix == BUTREGULARIZECLICK) return("ButRegularizeClick");
 	if (ix == BUTMINIMIZECLICK) return("ButMinimizeClick");
 	if (ix == BUTCLAIMCLICK) return("ButClaimClick");
+	if (ix == BUTPLAYCLICK) return("ButPlayClick");
+	if (ix == BUTSTOPCLICK) return("ButStopClick");
+	if (ix == BUTSNAPCLICK) return("ButSnapClick");
+	if (ix == BUTPFIVIEWCLICK) return("ButPfiViewClick");
 	if (ix == BUTSTACLICK) return("ButStaClick");
 	if (ix == BUTSTOCLICK) return("ButStoClick");
 
@@ -63,6 +71,34 @@ string PnlWzskHwcConfig::VecVMode::getSref(
 		) {
 	if (ix == GRAY) return("gray");
 	if (ix == RGB) return("rgb");
+
+	return("");
+};
+
+/******************************************************************************
+ class PnlWzskHwcConfig::VecVSge
+ ******************************************************************************/
+
+uint PnlWzskHwcConfig::VecVSge::getIx(
+			const string& sref
+		) {
+	string s = StrMod::lc(sref);
+
+	if (s == "idle") return IDLE;
+	if (s == "capture") return CAPTURE;
+	if (s == "stoidle") return STOIDLE;
+	if (s == "store") return STORE;
+
+	return(0);
+};
+
+string PnlWzskHwcConfig::VecVSge::getSref(
+			const uint ix
+		) {
+	if (ix == IDLE) return("idle");
+	if (ix == CAPTURE) return("capture");
+	if (ix == STOIDLE) return("stoidle");
+	if (ix == STORE) return("store");
 
 	return("");
 };
@@ -255,13 +291,15 @@ set<uint> PnlWzskHwcConfig::ContIacAlign::diff(
 
 PnlWzskHwcConfig::ContInf::ContInf(
 			const bool ButClaimOn
+			, const string& TxtPfi
 			, const string& TxtSte
 		) :
 			Block()
 			, ButClaimOn(ButClaimOn)
+			, TxtPfi(TxtPfi)
 			, TxtSte(TxtSte)
 		{
-	mask = {BUTCLAIMON, TXTSTE};
+	mask = {BUTCLAIMON, TXTPFI, TXTSTE};
 };
 
 bool PnlWzskHwcConfig::ContInf::readXML(
@@ -282,6 +320,7 @@ bool PnlWzskHwcConfig::ContInf::readXML(
 
 	if (basefound) {
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "ButClaimOn", ButClaimOn)) add(BUTCLAIMON);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "TxtPfi", TxtPfi)) add(TXTPFI);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "TxtSte", TxtSte)) add(TXTSTE);
 	};
 
@@ -294,6 +333,7 @@ set<uint> PnlWzskHwcConfig::ContInf::comm(
 	set<uint> items;
 
 	if (ButClaimOn == comp->ButClaimOn) insert(items, BUTCLAIMON);
+	if (TxtPfi == comp->TxtPfi) insert(items, TXTPFI);
 	if (TxtSte == comp->TxtSte) insert(items, TXTSTE);
 
 	return(items);
@@ -307,7 +347,7 @@ set<uint> PnlWzskHwcConfig::ContInf::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {BUTCLAIMON, TXTSTE};
+	diffitems = {BUTCLAIMON, TXTPFI, TXTSTE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -320,8 +360,11 @@ set<uint> PnlWzskHwcConfig::ContInf::diff(
 PnlWzskHwcConfig::StatShr::StatShr(
 			const uint ixWzskVExpstate
 			, const bool ButClaimActive
-			, const bool RbuMdeActive
 			, const uint CusImgHeight
+			, const bool ButPlayActive
+			, const bool ButStopActive
+			, const bool ButSnapActive
+			, const bool ButPfiViewActive
 			, const bool UpdNfrActive
 			, const int UpdNfrMin
 			, const int UpdNfrMax
@@ -337,8 +380,11 @@ PnlWzskHwcConfig::StatShr::StatShr(
 			Block()
 			, ixWzskVExpstate(ixWzskVExpstate)
 			, ButClaimActive(ButClaimActive)
-			, RbuMdeActive(RbuMdeActive)
 			, CusImgHeight(CusImgHeight)
+			, ButPlayActive(ButPlayActive)
+			, ButStopActive(ButStopActive)
+			, ButSnapActive(ButSnapActive)
+			, ButPfiViewActive(ButPfiViewActive)
 			, UpdNfrActive(UpdNfrActive)
 			, UpdNfrMin(UpdNfrMin)
 			, UpdNfrMax(UpdNfrMax)
@@ -351,7 +397,7 @@ PnlWzskHwcConfig::StatShr::StatShr(
 			, ButStaActive(ButStaActive)
 			, ButStoActive(ButStoActive)
 		{
-	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, RBUMDEACTIVE, CUSIMGHEIGHT, UPDNFRACTIVE, UPDNFRMIN, UPDNFRMAX, SLDFSTACTIVE, SLDFSTMIN, SLDFSTMAX, SLDFSPACTIVE, SLDFSPMIN, SLDFSPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
+	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, CUSIMGHEIGHT, BUTPLAYACTIVE, BUTSTOPACTIVE, BUTSNAPACTIVE, BUTPFIVIEWACTIVE, UPDNFRACTIVE, UPDNFRMIN, UPDNFRMAX, SLDFSTACTIVE, SLDFSTMIN, SLDFSTMAX, SLDFSPACTIVE, SLDFSPMIN, SLDFSPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
 };
 
 bool PnlWzskHwcConfig::StatShr::readXML(
@@ -378,8 +424,11 @@ bool PnlWzskHwcConfig::StatShr::readXML(
 			add(IXWZSKVEXPSTATE);
 		};
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButClaimActive", ButClaimActive)) add(BUTCLAIMACTIVE);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "RbuMdeActive", RbuMdeActive)) add(RBUMDEACTIVE);
 		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "CusImgHeight", CusImgHeight)) add(CUSIMGHEIGHT);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButPlayActive", ButPlayActive)) add(BUTPLAYACTIVE);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButStopActive", ButStopActive)) add(BUTSTOPACTIVE);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButSnapActive", ButSnapActive)) add(BUTSNAPACTIVE);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButPfiViewActive", ButPfiViewActive)) add(BUTPFIVIEWACTIVE);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "UpdNfrActive", UpdNfrActive)) add(UPDNFRACTIVE);
 		if (extractIntAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "UpdNfrMin", UpdNfrMin)) add(UPDNFRMIN);
 		if (extractIntAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "UpdNfrMax", UpdNfrMax)) add(UPDNFRMAX);
@@ -403,8 +452,11 @@ set<uint> PnlWzskHwcConfig::StatShr::comm(
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
 	if (ButClaimActive == comp->ButClaimActive) insert(items, BUTCLAIMACTIVE);
-	if (RbuMdeActive == comp->RbuMdeActive) insert(items, RBUMDEACTIVE);
 	if (CusImgHeight == comp->CusImgHeight) insert(items, CUSIMGHEIGHT);
+	if (ButPlayActive == comp->ButPlayActive) insert(items, BUTPLAYACTIVE);
+	if (ButStopActive == comp->ButStopActive) insert(items, BUTSTOPACTIVE);
+	if (ButSnapActive == comp->ButSnapActive) insert(items, BUTSNAPACTIVE);
+	if (ButPfiViewActive == comp->ButPfiViewActive) insert(items, BUTPFIVIEWACTIVE);
 	if (UpdNfrActive == comp->UpdNfrActive) insert(items, UPDNFRACTIVE);
 	if (UpdNfrMin == comp->UpdNfrMin) insert(items, UPDNFRMIN);
 	if (UpdNfrMax == comp->UpdNfrMax) insert(items, UPDNFRMAX);
@@ -428,7 +480,7 @@ set<uint> PnlWzskHwcConfig::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, RBUMDEACTIVE, CUSIMGHEIGHT, UPDNFRACTIVE, UPDNFRMIN, UPDNFRMAX, SLDFSTACTIVE, SLDFSTMIN, SLDFSTMAX, SLDFSPACTIVE, SLDFSPMIN, SLDFSPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
+	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, CUSIMGHEIGHT, BUTPLAYACTIVE, BUTSTOPACTIVE, BUTSNAPACTIVE, BUTPFIVIEWACTIVE, UPDNFRACTIVE, UPDNFRMIN, UPDNFRMAX, SLDFSTACTIVE, SLDFSTMIN, SLDFSTMAX, SLDFSPACTIVE, SLDFSPMIN, SLDFSPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -442,6 +494,7 @@ PnlWzskHwcConfig::Tag::Tag(
 			const string& Cpt
 			, const string& HdgPvw
 			, const string& CptMde
+			, const string& CptPfi
 			, const string& CptNfr
 			, const string& CptFst
 			, const string& CptFsp
@@ -453,6 +506,7 @@ PnlWzskHwcConfig::Tag::Tag(
 			, Cpt(Cpt)
 			, HdgPvw(HdgPvw)
 			, CptMde(CptMde)
+			, CptPfi(CptPfi)
 			, CptNfr(CptNfr)
 			, CptFst(CptFst)
 			, CptFsp(CptFsp)
@@ -460,7 +514,7 @@ PnlWzskHwcConfig::Tag::Tag(
 			, ButSta(ButSta)
 			, ButSto(ButSto)
 		{
-	mask = {CPT, HDGPVW, CPTMDE, CPTNFR, CPTFST, CPTFSP, CPTSTE, BUTSTA, BUTSTO};
+	mask = {CPT, HDGPVW, CPTMDE, CPTPFI, CPTNFR, CPTFST, CPTFSP, CPTSTE, BUTSTA, BUTSTO};
 };
 
 bool PnlWzskHwcConfig::Tag::readXML(
@@ -483,6 +537,7 @@ bool PnlWzskHwcConfig::Tag::readXML(
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "Cpt", Cpt)) add(CPT);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "HdgPvw", HdgPvw)) add(HDGPVW);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptMde", CptMde)) add(CPTMDE);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptPfi", CptPfi)) add(CPTPFI);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptNfr", CptNfr)) add(CPTNFR);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptFst", CptFst)) add(CPTFST);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptFsp", CptFsp)) add(CPTFSP);
@@ -725,9 +780,7 @@ string PnlWzskHwcConfig::DpchEngLive::getSrefsMask() {
 
 	if (has(SCRJREF)) ss.push_back("scrJref");
 	if (has(GRAY)) ss.push_back("gray");
-	if (has(RED)) ss.push_back("red");
-	if (has(GREEN)) ss.push_back("green");
-	if (has(BLUE)) ss.push_back("blue");
+	if (has(RGB)) ss.push_back("rgb");
 
 	StrMod::vectorToString(ss, srefs);
 
@@ -751,9 +804,7 @@ void PnlWzskHwcConfig::DpchEngLive::readXML(
 	if (basefound) {
 		if (extractStringUclc(docctx, basexpath, "scrJref", "", scrJref)) add(SCRJREF);
 		if (extractUtinyintvecUclc(docctx, basexpath, "gray", "", gray)) add(GRAY);
-		if (extractUtinyintvecUclc(docctx, basexpath, "red", "", red)) add(RED);
-		if (extractUtinyintvecUclc(docctx, basexpath, "green", "", green)) add(GREEN);
-		if (extractUtinyintvecUclc(docctx, basexpath, "blue", "", blue)) add(BLUE);
+		if (extractUtinyintvecUclc(docctx, basexpath, "rgb", "", rgb)) add(RGB);
 	} else {
 	};
 };

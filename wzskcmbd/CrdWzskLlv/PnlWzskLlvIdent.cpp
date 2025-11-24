@@ -91,19 +91,24 @@ void PnlWzskLlvIdent::refresh(
 	muteRefresh = true;
 
 	// IP refresh --- RBEGIN
-	string ver, hash, who;
+	string unt, ver, hash, who;
 
 	float fMclk, fMemclk;
 
 	ContInf oldContinf(continf);
 
-	srczuvsp->ident_get(ver, hash, who);
+	if (srcdcvsp) srcdcvsp->ident_get(unt, ver, hash, who);
+	else if (srctivsp) srctivsp->ident_get(unt, ver, hash, who);
+	else if (srczuvsp) srczuvsp->ident_get(unt, ver, hash, who);
 
+	continf.TxtSrf = unt;
 	continf.TxtVve = ver;
 	continf.TxtVgh = hash;
 	continf.TxtVau = who;
 
-	srczuvsp->ident_getCfg(fMclk, fMemclk);
+	if (srcdcvsp) srcdcvsp->ident_getCfg(fMclk, fMemclk);
+	else if (srctivsp) srctivsp->ident_getCfg(fMclk, fMemclk);
+	else if (srczuvsp) srczuvsp->ident_getCfg(fMclk, fMemclk);
 
 	continf.TxtVfm = to_string(fMclk);
 	continf.TxtVfd = to_string(fMemclk);

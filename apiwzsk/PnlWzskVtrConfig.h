@@ -41,8 +41,10 @@ namespace PnlWzskVtrConfig {
 		static const Sbecore::uint BUTREGULARIZECLICK = 1;
 		static const Sbecore::uint BUTMINIMIZECLICK = 2;
 		static const Sbecore::uint BUTCLAIMCLICK = 3;
-		static const Sbecore::uint BUTSTACLICK = 4;
-		static const Sbecore::uint BUTSTOCLICK = 5;
+		static const Sbecore::uint BUTPLAYCLICK = 4;
+		static const Sbecore::uint BUTSTOPCLICK = 5;
+		static const Sbecore::uint BUTSTACLICK = 6;
+		static const Sbecore::uint BUTSTOCLICK = 7;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -141,22 +143,24 @@ namespace PnlWzskVtrConfig {
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
 		static const Sbecore::uint BUTCLAIMACTIVE = 2;
-		static const Sbecore::uint RBUMDEACTIVE = 3;
-		static const Sbecore::uint CUSIMGHEIGHT = 4;
-		static const Sbecore::uint SLDASPACTIVE = 5;
-		static const Sbecore::uint SLDASPMIN = 6;
-		static const Sbecore::uint SLDASPMAX = 7;
-		static const Sbecore::uint BUTSTAACTIVE = 8;
-		static const Sbecore::uint BUTSTOACTIVE = 9;
+		static const Sbecore::uint CUSIMGHEIGHT = 3;
+		static const Sbecore::uint BUTPLAYACTIVE = 4;
+		static const Sbecore::uint BUTSTOPACTIVE = 5;
+		static const Sbecore::uint SLDASPACTIVE = 6;
+		static const Sbecore::uint SLDASPMIN = 7;
+		static const Sbecore::uint SLDASPMAX = 8;
+		static const Sbecore::uint BUTSTAACTIVE = 9;
+		static const Sbecore::uint BUTSTOACTIVE = 10;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool RbuMdeActive = true, const Sbecore::uint CusImgHeight = 384, const bool SldAspActive = true, const double SldAspMin = -180.0, const double SldAspMax = 180.0, const bool ButStaActive = true, const bool ButStoActive = true);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const Sbecore::uint CusImgHeight = 384, const bool ButPlayActive = true, const bool ButStopActive = true, const bool SldAspActive = true, const double SldAspMin = -180.0, const double SldAspMax = 180.0, const bool ButStaActive = true, const bool ButStoActive = true);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		bool ButClaimActive;
-		bool RbuMdeActive;
 		Sbecore::uint CusImgHeight;
+		bool ButPlayActive;
+		bool ButStopActive;
 		bool SldAspActive;
 		double SldAspMin;
 		double SldAspMax;
@@ -323,19 +327,14 @@ namespace PnlWzskVtrConfig {
 	public:
 		static const Sbecore::uint SCRJREF = 1;
 		static const Sbecore::uint GRAY = 2;
-		static const Sbecore::uint RED = 3;
-		static const Sbecore::uint GREEN = 4;
-		static const Sbecore::uint BLUE = 5;
+		static const Sbecore::uint RGB = 3;
 
 	public:
 		DpchEngLive();
 
 	public:
 		std::vector<Sbecore::utinyint> gray;
-
-		std::vector<Sbecore::utinyint> red;
-		std::vector<Sbecore::utinyint> green;
-		std::vector<Sbecore::utinyint> blue;
+		std::vector<Sbecore::utinyint> rgb;
 
 	public:
 		std::string getSrefsMask();

@@ -48,6 +48,14 @@
 				class="my-1"
 				readonly
 				outlined
+				v-model="continf.TxtSrf"
+				:label="tag.CptSrf"
+			/>
+
+			<v-text-field
+				class="my-1"
+				readonly
+				outlined
 				v-model="continf.TxtVve"
 				:label="tag.CptVve"
 			/>

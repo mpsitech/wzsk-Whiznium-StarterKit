@@ -44,16 +44,18 @@ namespace PnlWzskLlvIdent {
 	class ContInf : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint TXTVVE = 1;
-		static const Sbecore::uint TXTVGH = 2;
-		static const Sbecore::uint TXTVAU = 3;
-		static const Sbecore::uint TXTVFM = 4;
-		static const Sbecore::uint TXTVFD = 5;
+		static const Sbecore::uint TXTSRF = 1;
+		static const Sbecore::uint TXTVVE = 2;
+		static const Sbecore::uint TXTVGH = 3;
+		static const Sbecore::uint TXTVAU = 4;
+		static const Sbecore::uint TXTVFM = 5;
+		static const Sbecore::uint TXTVFD = 6;
 
 	public:
-		ContInf(const std::string& TxtVve = "", const std::string& TxtVgh = "", const std::string& TxtVau = "", const std::string& TxtVfm = "", const std::string& TxtVfd = "");
+		ContInf(const std::string& TxtSrf = "", const std::string& TxtVve = "", const std::string& TxtVgh = "", const std::string& TxtVau = "", const std::string& TxtVfm = "", const std::string& TxtVfd = "");
 
 	public:
+		std::string TxtSrf;
 		std::string TxtVve;
 		std::string TxtVgh;
 		std::string TxtVau;
@@ -94,18 +96,20 @@ namespace PnlWzskLlvIdent {
 	public:
 		static const Sbecore::uint CPT = 1;
 		static const Sbecore::uint HDGVSP = 2;
-		static const Sbecore::uint CPTVVE = 3;
-		static const Sbecore::uint CPTVGH = 4;
-		static const Sbecore::uint CPTVAU = 5;
-		static const Sbecore::uint CPTVFM = 6;
-		static const Sbecore::uint CPTVFD = 7;
+		static const Sbecore::uint CPTSRF = 3;
+		static const Sbecore::uint CPTVVE = 4;
+		static const Sbecore::uint CPTVGH = 5;
+		static const Sbecore::uint CPTVAU = 6;
+		static const Sbecore::uint CPTVFM = 7;
+		static const Sbecore::uint CPTVFD = 8;
 
 	public:
-		Tag(const std::string& Cpt = "", const std::string& HdgVsp = "", const std::string& CptVve = "", const std::string& CptVgh = "", const std::string& CptVau = "", const std::string& CptVfm = "", const std::string& CptVfd = "");
+		Tag(const std::string& Cpt = "", const std::string& HdgVsp = "", const std::string& CptSrf = "", const std::string& CptVve = "", const std::string& CptVgh = "", const std::string& CptVau = "", const std::string& CptVfm = "", const std::string& CptVfd = "");
 
 	public:
 		std::string Cpt;
 		std::string HdgVsp;
+		std::string CptSrf;
 		std::string CptVve;
 		std::string CptVgh;
 		std::string CptVau;

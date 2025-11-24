@@ -57,6 +57,7 @@ public:
 	bool evalSrcdcvspConstr(DbsWzsk* dbswzsk);
 	bool evalSrctivspConstr(DbsWzsk* dbswzsk);
 	bool evalSrczuvspConstr(DbsWzsk* dbswzsk);
+
 	/**
 		* Shrdat (full: ShrdatJobWzskActVistorot)
 		*/

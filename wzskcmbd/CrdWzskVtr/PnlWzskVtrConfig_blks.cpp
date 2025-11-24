@@ -23,6 +23,8 @@ uint PnlWzskVtrConfig::VecVDo::getIx(
 	if (s == "butregularizeclick") return BUTREGULARIZECLICK;
 	if (s == "butminimizeclick") return BUTMINIMIZECLICK;
 	if (s == "butclaimclick") return BUTCLAIMCLICK;
+	if (s == "butplayclick") return BUTPLAYCLICK;
+	if (s == "butstopclick") return BUTSTOPCLICK;
 	if (s == "butstaclick") return BUTSTACLICK;
 	if (s == "butstoclick") return BUTSTOCLICK;
 
@@ -35,6 +37,8 @@ string PnlWzskVtrConfig::VecVDo::getSref(
 	if (ix == BUTREGULARIZECLICK) return("ButRegularizeClick");
 	if (ix == BUTMINIMIZECLICK) return("ButMinimizeClick");
 	if (ix == BUTCLAIMCLICK) return("ButClaimClick");
+	if (ix == BUTPLAYCLICK) return("ButPlayClick");
+	if (ix == BUTSTOPCLICK) return("ButStopClick");
 	if (ix == BUTSTACLICK) return("ButStaClick");
 	if (ix == BUTSTOCLICK) return("ButStoClick");
 
@@ -403,8 +407,9 @@ set<uint> PnlWzskVtrConfig::ContInf::diff(
 PnlWzskVtrConfig::StatShr::StatShr(
 			const uint ixWzskVExpstate
 			, const bool ButClaimActive
-			, const bool RbuMdeActive
 			, const uint CusImgHeight
+			, const bool ButPlayActive
+			, const bool ButStopActive
 			, const bool SldAspActive
 			, const double SldAspMin
 			, const double SldAspMax
@@ -414,15 +419,16 @@ PnlWzskVtrConfig::StatShr::StatShr(
 			Block()
 			, ixWzskVExpstate(ixWzskVExpstate)
 			, ButClaimActive(ButClaimActive)
-			, RbuMdeActive(RbuMdeActive)
 			, CusImgHeight(CusImgHeight)
+			, ButPlayActive(ButPlayActive)
+			, ButStopActive(ButStopActive)
 			, SldAspActive(SldAspActive)
 			, SldAspMin(SldAspMin)
 			, SldAspMax(SldAspMax)
 			, ButStaActive(ButStaActive)
 			, ButStoActive(ButStoActive)
 		{
-	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, RBUMDEACTIVE, CUSIMGHEIGHT, SLDASPACTIVE, SLDASPMIN, SLDASPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
+	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, CUSIMGHEIGHT, BUTPLAYACTIVE, BUTSTOPACTIVE, SLDASPACTIVE, SLDASPMIN, SLDASPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
 };
 
 void PnlWzskVtrConfig::StatShr::writeJSON(
@@ -435,8 +441,9 @@ void PnlWzskVtrConfig::StatShr::writeJSON(
 
 	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
 	me["ButClaimActive"] = ButClaimActive;
-	me["RbuMdeActive"] = RbuMdeActive;
 	me["CusImgHeight"] = (Json::Value::UInt) CusImgHeight;
+	me["ButPlayActive"] = ButPlayActive;
+	me["ButStopActive"] = ButStopActive;
 	me["SldAspActive"] = SldAspActive;
 	me["SldAspMin"] = SldAspMin;
 	me["SldAspMax"] = SldAspMax;
@@ -458,8 +465,9 @@ void PnlWzskVtrConfig::StatShr::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeStringAttr(wr, itemtag, "sref", "srefIxWzskVExpstate", VecWzskVExpstate::getSref(ixWzskVExpstate));
 		writeBoolAttr(wr, itemtag, "sref", "ButClaimActive", ButClaimActive);
-		writeBoolAttr(wr, itemtag, "sref", "RbuMdeActive", RbuMdeActive);
 		writeUintAttr(wr, itemtag, "sref", "CusImgHeight", CusImgHeight);
+		writeBoolAttr(wr, itemtag, "sref", "ButPlayActive", ButPlayActive);
+		writeBoolAttr(wr, itemtag, "sref", "ButStopActive", ButStopActive);
 		writeBoolAttr(wr, itemtag, "sref", "SldAspActive", SldAspActive);
 		writeDoubleAttr(wr, itemtag, "sref", "SldAspMin", SldAspMin);
 		writeDoubleAttr(wr, itemtag, "sref", "SldAspMax", SldAspMax);
@@ -475,8 +483,9 @@ set<uint> PnlWzskVtrConfig::StatShr::comm(
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
 	if (ButClaimActive == comp->ButClaimActive) insert(items, BUTCLAIMACTIVE);
-	if (RbuMdeActive == comp->RbuMdeActive) insert(items, RBUMDEACTIVE);
 	if (CusImgHeight == comp->CusImgHeight) insert(items, CUSIMGHEIGHT);
+	if (ButPlayActive == comp->ButPlayActive) insert(items, BUTPLAYACTIVE);
+	if (ButStopActive == comp->ButStopActive) insert(items, BUTSTOPACTIVE);
 	if (SldAspActive == comp->SldAspActive) insert(items, SLDASPACTIVE);
 	if (compareDouble(SldAspMin, comp->SldAspMin) < 1.0e-4) insert(items, SLDASPMIN);
 	if (compareDouble(SldAspMax, comp->SldAspMax) < 1.0e-4) insert(items, SLDASPMAX);
@@ -494,7 +503,7 @@ set<uint> PnlWzskVtrConfig::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, RBUMDEACTIVE, CUSIMGHEIGHT, SLDASPACTIVE, SLDASPMIN, SLDASPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
+	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, CUSIMGHEIGHT, BUTPLAYACTIVE, BUTSTOPACTIVE, SLDASPACTIVE, SLDASPMIN, SLDASPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -903,18 +912,14 @@ void PnlWzskVtrConfig::DpchEngData::writeXML(
 PnlWzskVtrConfig::DpchEngLive::DpchEngLive(
 			const ubigint jref
 			, const vector<utinyint>& gray
-			, const vector<utinyint>& red
-			, const vector<utinyint>& green
-			, const vector<utinyint>& blue
+			, const vector<utinyint>& rgb
 			, const set<uint>& mask
 		) :
 			DpchEngWzsk(VecWzskVDpch::DPCHENGWZSKVTRCONFIGLIVE, jref)
 			, gray(gray)
-			, red(red)
-			, green(green)
-			, blue(blue)
+			, rgb(rgb)
 		{
-	if (find(mask, ALL)) this->mask = {JREF, GRAY, RED, GREEN, BLUE};
+	if (find(mask, ALL)) this->mask = {JREF, GRAY, RGB};
 	else this->mask = mask;
 
 };
@@ -925,9 +930,7 @@ string PnlWzskVtrConfig::DpchEngLive::getSrefsMask() {
 
 	if (has(JREF)) ss.push_back("jref");
 	if (has(GRAY)) ss.push_back("gray");
-	if (has(RED)) ss.push_back("red");
-	if (has(GREEN)) ss.push_back("green");
-	if (has(BLUE)) ss.push_back("blue");
+	if (has(RGB)) ss.push_back("rgb");
 
 	StrMod::vectorToString(ss, srefs);
 
@@ -941,9 +944,7 @@ void PnlWzskVtrConfig::DpchEngLive::merge(
 
 	if (src->has(JREF)) {jref = src->jref; add(JREF);};
 	if (src->has(GRAY)) {gray = src->gray; add(GRAY);};
-	if (src->has(RED)) {red = src->red; add(RED);};
-	if (src->has(GREEN)) {green = src->green; add(GREEN);};
-	if (src->has(BLUE)) {blue = src->blue; add(BLUE);};
+	if (src->has(RGB)) {rgb = src->rgb; add(RGB);};
 };
 
 void PnlWzskVtrConfig::DpchEngLive::writeJSON(
@@ -954,9 +955,7 @@ void PnlWzskVtrConfig::DpchEngLive::writeJSON(
 
 	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
 	if (has(GRAY)) Jsonio::writeUtinyintvec(me, "gray", gray);
-	if (has(RED)) Jsonio::writeUtinyintvec(me, "red", red);
-	if (has(GREEN)) Jsonio::writeUtinyintvec(me, "green", green);
-	if (has(BLUE)) Jsonio::writeUtinyintvec(me, "blue", blue);
+	if (has(RGB)) Jsonio::writeUtinyintvec(me, "rgb", rgb);
 };
 
 void PnlWzskVtrConfig::DpchEngLive::writeXML(
@@ -967,8 +966,6 @@ void PnlWzskVtrConfig::DpchEngLive::writeXML(
 	xmlTextWriterWriteAttribute(wr, BAD_CAST "xmlns", BAD_CAST "http://www.mpsitech.com/wzsk");
 		if (has(JREF)) writeString(wr, "scrJref", Scr::scramble(jref));
 		if (has(GRAY)) writeUtinyintvec(wr, "gray", gray);
-		if (has(RED)) writeUtinyintvec(wr, "red", red);
-		if (has(GREEN)) writeUtinyintvec(wr, "green", green);
-		if (has(BLUE)) writeUtinyintvec(wr, "blue", blue);
+		if (has(RGB)) writeUtinyintvec(wr, "rgb", rgb);
 	xmlTextWriterEndElement(wr);
 };

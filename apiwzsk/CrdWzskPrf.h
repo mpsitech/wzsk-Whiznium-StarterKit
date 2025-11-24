@@ -91,17 +91,19 @@ namespace CrdWzskPrf {
 		static const Sbecore::uint INITDONEDAEMON = 6;
 		static const Sbecore::uint INITDONEGLOBAL = 7;
 		static const Sbecore::uint INITDONEACQCORNER = 8;
-		static const Sbecore::uint INITDONEACQPREVIEW = 9;
-		static const Sbecore::uint INITDONEACQTRACE = 10;
-		static const Sbecore::uint INITDONEACTLASER = 11;
-		static const Sbecore::uint INITDONEACTVISTOROT = 12;
-		static const Sbecore::uint INITDONESRCDCVSP = 13;
-		static const Sbecore::uint INITDONESRCSYSINFO = 14;
-		static const Sbecore::uint INITDONESRCTIVSP = 15;
-		static const Sbecore::uint INITDONESRCZUVSP = 16;
+		static const Sbecore::uint INITDONEACQHDR = 9;
+		static const Sbecore::uint INITDONEACQPREVIEW = 10;
+		static const Sbecore::uint INITDONEACQTRACE = 11;
+		static const Sbecore::uint INITDONEACTLASER = 12;
+		static const Sbecore::uint INITDONEACTROTARY = 13;
+		static const Sbecore::uint INITDONEACTVISTOROT = 14;
+		static const Sbecore::uint INITDONESRCDCVSP = 15;
+		static const Sbecore::uint INITDONESRCSYSINFO = 16;
+		static const Sbecore::uint INITDONESRCTIVSP = 17;
+		static const Sbecore::uint INITDONESRCZUVSP = 18;
 
 	public:
-		StatApp(const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneDaemon = false, const bool initdoneGlobal = false, const bool initdoneAcqCorner = false, const bool initdoneAcqPreview = false, const bool initdoneAcqTrace = false, const bool initdoneActLaser = false, const bool initdoneActVistorot = false, const bool initdoneSrcDcvsp = false, const bool initdoneSrcSysinfo = false, const bool initdoneSrcTivsp = false, const bool initdoneSrcZuvsp = false);
+		StatApp(const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneDaemon = false, const bool initdoneGlobal = false, const bool initdoneAcqCorner = false, const bool initdoneAcqHdr = false, const bool initdoneAcqPreview = false, const bool initdoneAcqTrace = false, const bool initdoneActLaser = false, const bool initdoneActRotary = false, const bool initdoneActVistorot = false, const bool initdoneSrcDcvsp = false, const bool initdoneSrcSysinfo = false, const bool initdoneSrcTivsp = false, const bool initdoneSrcZuvsp = false);
 
 	public:
 		Sbecore::uint ixWzskVReqitmode;
@@ -112,9 +114,11 @@ namespace CrdWzskPrf {
 		bool initdoneDaemon;
 		bool initdoneGlobal;
 		bool initdoneAcqCorner;
+		bool initdoneAcqHdr;
 		bool initdoneAcqPreview;
 		bool initdoneAcqTrace;
 		bool initdoneActLaser;
+		bool initdoneActRotary;
 		bool initdoneActVistorot;
 		bool initdoneSrcDcvsp;
 		bool initdoneSrcSysinfo;
@@ -137,26 +141,30 @@ namespace CrdWzskPrf {
 		static const Sbecore::uint SCRJREFDAEMON = 2;
 		static const Sbecore::uint SCRJREFGLOBAL = 3;
 		static const Sbecore::uint SCRJREFACQCORNER = 4;
-		static const Sbecore::uint SCRJREFACQPREVIEW = 5;
-		static const Sbecore::uint SCRJREFACQTRACE = 6;
-		static const Sbecore::uint SCRJREFACTLASER = 7;
-		static const Sbecore::uint SCRJREFACTVISTOROT = 8;
-		static const Sbecore::uint SCRJREFSRCDCVSP = 9;
-		static const Sbecore::uint SCRJREFSRCSYSINFO = 10;
-		static const Sbecore::uint SCRJREFSRCTIVSP = 11;
-		static const Sbecore::uint SCRJREFSRCZUVSP = 12;
+		static const Sbecore::uint SCRJREFACQHDR = 5;
+		static const Sbecore::uint SCRJREFACQPREVIEW = 6;
+		static const Sbecore::uint SCRJREFACQTRACE = 7;
+		static const Sbecore::uint SCRJREFACTLASER = 8;
+		static const Sbecore::uint SCRJREFACTROTARY = 9;
+		static const Sbecore::uint SCRJREFACTVISTOROT = 10;
+		static const Sbecore::uint SCRJREFSRCDCVSP = 11;
+		static const Sbecore::uint SCRJREFSRCSYSINFO = 12;
+		static const Sbecore::uint SCRJREFSRCTIVSP = 13;
+		static const Sbecore::uint SCRJREFSRCZUVSP = 14;
 
 	public:
-		StatShr(const std::string& scrJrefHeadbar = "", const std::string& scrJrefDaemon = "", const std::string& scrJrefGlobal = "", const std::string& scrJrefAcqCorner = "", const std::string& scrJrefAcqPreview = "", const std::string& scrJrefAcqTrace = "", const std::string& scrJrefActLaser = "", const std::string& scrJrefActVistorot = "", const std::string& scrJrefSrcDcvsp = "", const std::string& scrJrefSrcSysinfo = "", const std::string& scrJrefSrcTivsp = "", const std::string& scrJrefSrcZuvsp = "");
+		StatShr(const std::string& scrJrefHeadbar = "", const std::string& scrJrefDaemon = "", const std::string& scrJrefGlobal = "", const std::string& scrJrefAcqCorner = "", const std::string& scrJrefAcqHdr = "", const std::string& scrJrefAcqPreview = "", const std::string& scrJrefAcqTrace = "", const std::string& scrJrefActLaser = "", const std::string& scrJrefActRotary = "", const std::string& scrJrefActVistorot = "", const std::string& scrJrefSrcDcvsp = "", const std::string& scrJrefSrcSysinfo = "", const std::string& scrJrefSrcTivsp = "", const std::string& scrJrefSrcZuvsp = "");
 
 	public:
 		std::string scrJrefHeadbar;
 		std::string scrJrefDaemon;
 		std::string scrJrefGlobal;
 		std::string scrJrefAcqCorner;
+		std::string scrJrefAcqHdr;
 		std::string scrJrefAcqPreview;
 		std::string scrJrefAcqTrace;
 		std::string scrJrefActLaser;
+		std::string scrJrefActRotary;
 		std::string scrJrefActVistorot;
 		std::string scrJrefSrcDcvsp;
 		std::string scrJrefSrcSysinfo;

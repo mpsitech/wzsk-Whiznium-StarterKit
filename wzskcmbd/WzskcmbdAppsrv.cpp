@@ -852,6 +852,12 @@ uint WzskcmbdAppsrv::readDpchApp(
 			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACQCORNERDO) {
 				req->dpchapp = new PnlWzskPrfAcqCorner::DpchAppDo();
 				((PnlWzskPrfAcqCorner::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACQHDRDATA) {
+				req->dpchapp = new PnlWzskPrfAcqHdr::DpchAppData();
+				((PnlWzskPrfAcqHdr::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACQHDRDO) {
+				req->dpchapp = new PnlWzskPrfAcqHdr::DpchAppDo();
+				((PnlWzskPrfAcqHdr::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
 			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACQPREVIEWDATA) {
 				req->dpchapp = new PnlWzskPrfAcqPreview::DpchAppData();
 				((PnlWzskPrfAcqPreview::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);
@@ -870,6 +876,12 @@ uint WzskcmbdAppsrv::readDpchApp(
 			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACTLASERDO) {
 				req->dpchapp = new PnlWzskPrfActLaser::DpchAppDo();
 				((PnlWzskPrfActLaser::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACTROTARYDATA) {
+				req->dpchapp = new PnlWzskPrfActRotary::DpchAppData();
+				((PnlWzskPrfActRotary::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACTROTARYDO) {
+				req->dpchapp = new PnlWzskPrfActRotary::DpchAppDo();
+				((PnlWzskPrfActRotary::DpchAppDo*) (req->dpchapp))->readXML(docctx, "/", true);
 			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACTVISTOROTDATA) {
 				req->dpchapp = new PnlWzskPrfActVistorot::DpchAppData();
 				((PnlWzskPrfActVistorot::DpchAppData*) (req->dpchapp))->readXML(docctx, "/", true);
@@ -1160,6 +1172,12 @@ uint WzskcmbdAppsrv::readDpchApp(
 			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACQCORNERDO) {
 				req->dpchapp = new PnlWzskPrfAcqCorner::DpchAppDo();
 				((PnlWzskPrfAcqCorner::DpchAppDo*) (req->dpchapp))->readJSON(root, true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACQHDRDATA) {
+				req->dpchapp = new PnlWzskPrfAcqHdr::DpchAppData();
+				((PnlWzskPrfAcqHdr::DpchAppData*) (req->dpchapp))->readJSON(root, true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACQHDRDO) {
+				req->dpchapp = new PnlWzskPrfAcqHdr::DpchAppDo();
+				((PnlWzskPrfAcqHdr::DpchAppDo*) (req->dpchapp))->readJSON(root, true);
 			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACQPREVIEWDATA) {
 				req->dpchapp = new PnlWzskPrfAcqPreview::DpchAppData();
 				((PnlWzskPrfAcqPreview::DpchAppData*) (req->dpchapp))->readJSON(root, true);
@@ -1178,6 +1196,12 @@ uint WzskcmbdAppsrv::readDpchApp(
 			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACTLASERDO) {
 				req->dpchapp = new PnlWzskPrfActLaser::DpchAppDo();
 				((PnlWzskPrfActLaser::DpchAppDo*) (req->dpchapp))->readJSON(root, true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACTROTARYDATA) {
+				req->dpchapp = new PnlWzskPrfActRotary::DpchAppData();
+				((PnlWzskPrfActRotary::DpchAppData*) (req->dpchapp))->readJSON(root, true);
+			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACTROTARYDO) {
+				req->dpchapp = new PnlWzskPrfActRotary::DpchAppDo();
+				((PnlWzskPrfActRotary::DpchAppDo*) (req->dpchapp))->readJSON(root, true);
 			} else if (ixWzskVDpch == VecWzskVDpch::DPCHAPPWZSKPRFACTVISTOROTDATA) {
 				req->dpchapp = new PnlWzskPrfActVistorot::DpchAppData();
 				((PnlWzskPrfActVistorot::DpchAppData*) (req->dpchapp))->readJSON(root, true);

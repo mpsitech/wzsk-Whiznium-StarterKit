@@ -142,9 +142,11 @@ CrdWzskPrf::StatApp::StatApp(
 			, const bool initdoneDaemon
 			, const bool initdoneGlobal
 			, const bool initdoneAcqCorner
+			, const bool initdoneAcqHdr
 			, const bool initdoneAcqPreview
 			, const bool initdoneAcqTrace
 			, const bool initdoneActLaser
+			, const bool initdoneActRotary
 			, const bool initdoneActVistorot
 			, const bool initdoneSrcDcvsp
 			, const bool initdoneSrcSysinfo
@@ -160,16 +162,18 @@ CrdWzskPrf::StatApp::StatApp(
 			, initdoneDaemon(initdoneDaemon)
 			, initdoneGlobal(initdoneGlobal)
 			, initdoneAcqCorner(initdoneAcqCorner)
+			, initdoneAcqHdr(initdoneAcqHdr)
 			, initdoneAcqPreview(initdoneAcqPreview)
 			, initdoneAcqTrace(initdoneAcqTrace)
 			, initdoneActLaser(initdoneActLaser)
+			, initdoneActRotary(initdoneActRotary)
 			, initdoneActVistorot(initdoneActVistorot)
 			, initdoneSrcDcvsp(initdoneSrcDcvsp)
 			, initdoneSrcSysinfo(initdoneSrcSysinfo)
 			, initdoneSrcTivsp(initdoneSrcTivsp)
 			, initdoneSrcZuvsp(initdoneSrcZuvsp)
 		{
-	mask = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONEDAEMON, INITDONEGLOBAL, INITDONEACQCORNER, INITDONEACQPREVIEW, INITDONEACQTRACE, INITDONEACTLASER, INITDONEACTVISTOROT, INITDONESRCDCVSP, INITDONESRCSYSINFO, INITDONESRCTIVSP, INITDONESRCZUVSP};
+	mask = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONEDAEMON, INITDONEGLOBAL, INITDONEACQCORNER, INITDONEACQHDR, INITDONEACQPREVIEW, INITDONEACQTRACE, INITDONEACTLASER, INITDONEACTROTARY, INITDONEACTVISTOROT, INITDONESRCDCVSP, INITDONESRCSYSINFO, INITDONESRCTIVSP, INITDONESRCZUVSP};
 };
 
 bool CrdWzskPrf::StatApp::readXML(
@@ -202,9 +206,11 @@ bool CrdWzskPrf::StatApp::readXML(
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneDaemon", initdoneDaemon)) add(INITDONEDAEMON);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneGlobal", initdoneGlobal)) add(INITDONEGLOBAL);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneAcqCorner", initdoneAcqCorner)) add(INITDONEACQCORNER);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneAcqHdr", initdoneAcqHdr)) add(INITDONEACQHDR);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneAcqPreview", initdoneAcqPreview)) add(INITDONEACQPREVIEW);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneAcqTrace", initdoneAcqTrace)) add(INITDONEACQTRACE);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneActLaser", initdoneActLaser)) add(INITDONEACTLASER);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneActRotary", initdoneActRotary)) add(INITDONEACTROTARY);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneActVistorot", initdoneActVistorot)) add(INITDONEACTVISTOROT);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneSrcDcvsp", initdoneSrcDcvsp)) add(INITDONESRCDCVSP);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "initdoneSrcSysinfo", initdoneSrcSysinfo)) add(INITDONESRCSYSINFO);
@@ -228,9 +234,11 @@ set<uint> CrdWzskPrf::StatApp::comm(
 	if (initdoneDaemon == comp->initdoneDaemon) insert(items, INITDONEDAEMON);
 	if (initdoneGlobal == comp->initdoneGlobal) insert(items, INITDONEGLOBAL);
 	if (initdoneAcqCorner == comp->initdoneAcqCorner) insert(items, INITDONEACQCORNER);
+	if (initdoneAcqHdr == comp->initdoneAcqHdr) insert(items, INITDONEACQHDR);
 	if (initdoneAcqPreview == comp->initdoneAcqPreview) insert(items, INITDONEACQPREVIEW);
 	if (initdoneAcqTrace == comp->initdoneAcqTrace) insert(items, INITDONEACQTRACE);
 	if (initdoneActLaser == comp->initdoneActLaser) insert(items, INITDONEACTLASER);
+	if (initdoneActRotary == comp->initdoneActRotary) insert(items, INITDONEACTROTARY);
 	if (initdoneActVistorot == comp->initdoneActVistorot) insert(items, INITDONEACTVISTOROT);
 	if (initdoneSrcDcvsp == comp->initdoneSrcDcvsp) insert(items, INITDONESRCDCVSP);
 	if (initdoneSrcSysinfo == comp->initdoneSrcSysinfo) insert(items, INITDONESRCSYSINFO);
@@ -248,7 +256,7 @@ set<uint> CrdWzskPrf::StatApp::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONEDAEMON, INITDONEGLOBAL, INITDONEACQCORNER, INITDONEACQPREVIEW, INITDONEACQTRACE, INITDONEACTLASER, INITDONEACTVISTOROT, INITDONESRCDCVSP, INITDONESRCSYSINFO, INITDONESRCTIVSP, INITDONESRCZUVSP};
+	diffitems = {IXWZSKVREQITMODE, LATENCY, SHORTMENU, WIDTHMENU, INITDONEHEADBAR, INITDONEDAEMON, INITDONEGLOBAL, INITDONEACQCORNER, INITDONEACQHDR, INITDONEACQPREVIEW, INITDONEACQTRACE, INITDONEACTLASER, INITDONEACTROTARY, INITDONEACTVISTOROT, INITDONESRCDCVSP, INITDONESRCSYSINFO, INITDONESRCTIVSP, INITDONESRCZUVSP};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -263,9 +271,11 @@ CrdWzskPrf::StatShr::StatShr(
 			, const string& scrJrefDaemon
 			, const string& scrJrefGlobal
 			, const string& scrJrefAcqCorner
+			, const string& scrJrefAcqHdr
 			, const string& scrJrefAcqPreview
 			, const string& scrJrefAcqTrace
 			, const string& scrJrefActLaser
+			, const string& scrJrefActRotary
 			, const string& scrJrefActVistorot
 			, const string& scrJrefSrcDcvsp
 			, const string& scrJrefSrcSysinfo
@@ -277,16 +287,18 @@ CrdWzskPrf::StatShr::StatShr(
 			, scrJrefDaemon(scrJrefDaemon)
 			, scrJrefGlobal(scrJrefGlobal)
 			, scrJrefAcqCorner(scrJrefAcqCorner)
+			, scrJrefAcqHdr(scrJrefAcqHdr)
 			, scrJrefAcqPreview(scrJrefAcqPreview)
 			, scrJrefAcqTrace(scrJrefAcqTrace)
 			, scrJrefActLaser(scrJrefActLaser)
+			, scrJrefActRotary(scrJrefActRotary)
 			, scrJrefActVistorot(scrJrefActVistorot)
 			, scrJrefSrcDcvsp(scrJrefSrcDcvsp)
 			, scrJrefSrcSysinfo(scrJrefSrcSysinfo)
 			, scrJrefSrcTivsp(scrJrefSrcTivsp)
 			, scrJrefSrcZuvsp(scrJrefSrcZuvsp)
 		{
-	mask = {SCRJREFHEADBAR, SCRJREFDAEMON, SCRJREFGLOBAL, SCRJREFACQCORNER, SCRJREFACQPREVIEW, SCRJREFACQTRACE, SCRJREFACTLASER, SCRJREFACTVISTOROT, SCRJREFSRCDCVSP, SCRJREFSRCSYSINFO, SCRJREFSRCTIVSP, SCRJREFSRCZUVSP};
+	mask = {SCRJREFHEADBAR, SCRJREFDAEMON, SCRJREFGLOBAL, SCRJREFACQCORNER, SCRJREFACQHDR, SCRJREFACQPREVIEW, SCRJREFACQTRACE, SCRJREFACTLASER, SCRJREFACTROTARY, SCRJREFACTVISTOROT, SCRJREFSRCDCVSP, SCRJREFSRCSYSINFO, SCRJREFSRCTIVSP, SCRJREFSRCZUVSP};
 };
 
 bool CrdWzskPrf::StatShr::readXML(
@@ -310,9 +322,11 @@ bool CrdWzskPrf::StatShr::readXML(
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefDaemon", scrJrefDaemon)) add(SCRJREFDAEMON);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefGlobal", scrJrefGlobal)) add(SCRJREFGLOBAL);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefAcqCorner", scrJrefAcqCorner)) add(SCRJREFACQCORNER);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefAcqHdr", scrJrefAcqHdr)) add(SCRJREFACQHDR);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefAcqPreview", scrJrefAcqPreview)) add(SCRJREFACQPREVIEW);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefAcqTrace", scrJrefAcqTrace)) add(SCRJREFACQTRACE);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefActLaser", scrJrefActLaser)) add(SCRJREFACTLASER);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefActRotary", scrJrefActRotary)) add(SCRJREFACTROTARY);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefActVistorot", scrJrefActVistorot)) add(SCRJREFACTVISTOROT);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefSrcDcvsp", scrJrefSrcDcvsp)) add(SCRJREFSRCDCVSP);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "scrJrefSrcSysinfo", scrJrefSrcSysinfo)) add(SCRJREFSRCSYSINFO);
@@ -332,9 +346,11 @@ set<uint> CrdWzskPrf::StatShr::comm(
 	if (scrJrefDaemon == comp->scrJrefDaemon) insert(items, SCRJREFDAEMON);
 	if (scrJrefGlobal == comp->scrJrefGlobal) insert(items, SCRJREFGLOBAL);
 	if (scrJrefAcqCorner == comp->scrJrefAcqCorner) insert(items, SCRJREFACQCORNER);
+	if (scrJrefAcqHdr == comp->scrJrefAcqHdr) insert(items, SCRJREFACQHDR);
 	if (scrJrefAcqPreview == comp->scrJrefAcqPreview) insert(items, SCRJREFACQPREVIEW);
 	if (scrJrefAcqTrace == comp->scrJrefAcqTrace) insert(items, SCRJREFACQTRACE);
 	if (scrJrefActLaser == comp->scrJrefActLaser) insert(items, SCRJREFACTLASER);
+	if (scrJrefActRotary == comp->scrJrefActRotary) insert(items, SCRJREFACTROTARY);
 	if (scrJrefActVistorot == comp->scrJrefActVistorot) insert(items, SCRJREFACTVISTOROT);
 	if (scrJrefSrcDcvsp == comp->scrJrefSrcDcvsp) insert(items, SCRJREFSRCDCVSP);
 	if (scrJrefSrcSysinfo == comp->scrJrefSrcSysinfo) insert(items, SCRJREFSRCSYSINFO);
@@ -352,7 +368,7 @@ set<uint> CrdWzskPrf::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {SCRJREFHEADBAR, SCRJREFDAEMON, SCRJREFGLOBAL, SCRJREFACQCORNER, SCRJREFACQPREVIEW, SCRJREFACQTRACE, SCRJREFACTLASER, SCRJREFACTVISTOROT, SCRJREFSRCDCVSP, SCRJREFSRCSYSINFO, SCRJREFSRCTIVSP, SCRJREFSRCZUVSP};
+	diffitems = {SCRJREFHEADBAR, SCRJREFDAEMON, SCRJREFGLOBAL, SCRJREFACQCORNER, SCRJREFACQHDR, SCRJREFACQPREVIEW, SCRJREFACQTRACE, SCRJREFACTLASER, SCRJREFACTROTARY, SCRJREFACTVISTOROT, SCRJREFSRCDCVSP, SCRJREFSRCSYSINFO, SCRJREFSRCTIVSP, SCRJREFSRCZUVSP};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

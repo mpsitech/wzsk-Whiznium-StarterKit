@@ -67,7 +67,7 @@ CrdWzskHwc
 		ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
 		ins	4	but	0	hdr	void		0	shr	ButClaim	void						custom()	icon;onoff
 		ins	5	hdg	0	cont	void		0	app	HdgPvw	void		Preview and ROI
-		ins	6	rbu	0	cont	void		0	shr	RbuMde	void						custom()
+		ins	6	rbu	0	cont	void		0	shr	RbuMde	void
 			ImeIMFeed2.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment
 			vec		FeedFRbuMde
 				ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
@@ -79,18 +79,33 @@ CrdWzskHwc
 			ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal
 			ins	height		384
 			ImeIAMControlPar2.end
-		ins	9	sep	0	cont	void		0	shr	Sep1	void
-		ins	10	upd	0	cont	void		0	shr	UpdNfr	void						custom()
-		ins	11	cpt	0	cont	void		10	app	CptNfr	void		frequencies
-		ins	12	sld	0	cont	void		0	shr	SldFst	void						custom()
-		ins	13	cpt	0	cont	void		12	app	CptFst	void		start frequency
-		ins	14	sld	0	cont	void		0	shr	SldFsp	void						custom()
-		ins	15	cpt	0	cont	void		14	app	CptFsp	void		stop frequency
-		ins	16	sep	0	cont	void		0	shr	Sep2	void
-		ins	17	txt	0	cont	void		0	shr	TxtSte	void
-		ins	18	cpt	0	cont	void		17	app	CptSte	void		state
-		ins	19	but	1	cont	void		0	shr	ButSta	void		Start				custom()
-		ins	20	but	1	cont	void		0	shr	ButSto	void		Stop				custom()
+		ins	9	but	1	cont	void		0	shr	ButPlay	void						custom()	icon
+			ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal
+			ins	icon		play
+			ImeIAMControlPar2.end
+		ins	10	but	1	cont	void		0	shr	ButStop	void						custom()	icon
+			ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal
+			ins	icon		stop
+			ImeIAMControlPar2.end
+		ins	11	but	1	cont	void		0	shr	ButSnap	void						custom()	icon
+			ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal
+			ins	icon		snap
+			ImeIAMControlPar2.end
+		ins	12	txt	0	cont	void		0	shr	TxtPfi	void
+		ins	13	cpt	0	cont	void		12	app	CptPfi	void		snapshot file
+		ins	14	but	0	cont	void		12	shr	ButPfiView	void						custom()	icon
+		ins	15	sep	0	cont	void		0	shr	Sep1	void
+		ins	16	upd	0	cont	void		0	shr	UpdNfr	void						custom()
+		ins	17	cpt	0	cont	void		16	app	CptNfr	void		frequencies
+		ins	18	sld	0	cont	void		0	shr	SldFst	void						custom()
+		ins	19	cpt	0	cont	void		18	app	CptFst	void		start frequency
+		ins	20	sld	0	cont	void		0	shr	SldFsp	void						custom()
+		ins	21	cpt	0	cont	void		20	app	CptFsp	void		stop frequency
+		ins	22	sep	0	cont	void		0	shr	Sep2	void
+		ins	23	txt	0	cont	void		0	shr	TxtSte	void
+		ins	24	cpt	0	cont	void		23	app	CptSte	void		state
+		ins	25	but	1	cont	void		0	shr	ButSta	void		Start				custom()
+		ins	26	but	1	cont	void		0	shr	ButSto	void		Stop				custom()
 		ImeIMControl2.end
 	ins	form	2	PnlWzskHwcAsys
 		ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
@@ -130,16 +145,18 @@ CrdWzskLlv
 		ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
 		ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
 		ins	4	hdg	0	cont	void		0	app	HdgVsp	void		VSP core
-		ins	5	txt	0	cont	void		0	shr	TxtVve	void							s
-		ins	6	cpt	0	cont	void		5	app	CptVve	void		version
-		ins	7	txt	0	cont	void		0	shr	TxtVgh	void							s
-		ins	8	cpt	0	cont	void		7	app	CptVgh	void		Git hash
-		ins	9	txt	0	cont	void		0	shr	TxtVau	void							s
-		ins	10	cpt	0	cont	void		9	app	CptVau	void		author
-		ins	11	txt	0	cont	void		0	shr	TxtVfm	void							xs
-		ins	12	cpt	0	cont	void		11	app	CptVfm	void		fMclk [MHz]
-		ins	13	txt	0	cont	void		0	shr	TxtVfd	void							xs
-		ins	14	cpt	0	cont	void		13	app	CptVfd	void		fMemclk [MHz]
+		ins	5	txt	0	cont	void		0	shr	TxtSrf	void							s
+		ins	6	cpt	0	cont	void		5	app	CptSrf	void		identifier
+		ins	7	txt	0	cont	void		0	shr	TxtVve	void							s
+		ins	8	cpt	0	cont	void		7	app	CptVve	void		version
+		ins	9	txt	0	cont	void		0	shr	TxtVgh	void							s
+		ins	10	cpt	0	cont	void		9	app	CptVgh	void		Git hash
+		ins	11	txt	0	cont	void		0	shr	TxtVau	void							s
+		ins	12	cpt	0	cont	void		11	app	CptVau	void		author
+		ins	13	txt	0	cont	void		0	shr	TxtVfm	void							xs
+		ins	14	cpt	0	cont	void		13	app	CptVfm	void		fMclk [MHz]
+		ins	15	txt	0	cont	void		0	shr	TxtVfd	void							xs
+		ins	16	cpt	0	cont	void		15	app	CptVfd	void		fMemclk [MHz]
 		ImeIMControl2.end
 	retrupd			PnlWzskLlvTermDcvsp		stgwzskglobal.ixwzskvtargetEq(disco)
 		ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
@@ -177,12 +194,23 @@ CrdWzskLlv
 		ImeIMControl2.end
 	ins	form	6	PnlWzskLlvRotary	false
 		ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
-		ins	1	cpt	0	hdr	void		0	app	Cpt	void		Rotary table
+		ins	1	cpt	0	hdr	void		0	app	Cpt	void		Turntable
 		ins	2	but	0	side	void		0	shr	ButRegularize	void							icon
 		ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
 		ins	4	but	0	hdr	void		0	shr	ButClaim	void						custom()	icon;onoff
-		ins	5	sld	0	cont	void		0	shr	SldTrg	void						custom()
-		ins	6	cpt	0	cont	void		5	app	CptTrg	void		angle [\u00b0]
+		ins	5	cus	0	cont	void		0	shr	CusSch	void						custom()
+			ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal
+			ins	height		150
+			ImeIAMControlPar2.end
+		ins	6	txf	0	cont	void		5	shr	TxfSchTrg	void
+		ins	7	txt	0	cont	void		5	shr	TxtSchAng	void
+		ins	8	csi	0	cont	void		5	shr	CsiSchSte	void
+			ImeIMFeed2.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment
+			vec		FeedFCsiSchSte	idle.grn;move.ong.fl
+				ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
+				lin	VecVWzskLlvRotaryState		noloc;filfed
+				ImeIMVector2.end
+			ImeIMFeed2.end
 		ImeIMControl2.end
 	ins	form	7	PnlWzskLlvSysmon	false
 		ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption
@@ -270,7 +298,7 @@ CrdWzskVtr
 		ins	3	but	0	side	void		0	shr	ButMinimize	void							icon
 		ins	4	but	0	hdr	void		0	shr	ButClaim	void						custom()	icon;onoff
 		ins	5	hdg	0	cont	void		0	app	HdgPvw	void		Preview and ROI
-		ins	6	rbu	0	cont	void		0	shr	RbuMde	void						custom()
+		ins	6	rbu	0	cont	void		0	shr	RbuMde	void
 			ImeIMFeed2.srefSrcIxVTbl	srefSrcUref	sref	srefsWznmMVectoritem	srefsWznmMTag	Comment
 			vec		FeedFRbuMde
 				ImeIMVector2.srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
@@ -282,14 +310,22 @@ CrdWzskVtr
 			ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal
 			ins	height		384
 			ImeIAMControlPar2.end
-		ins	9	sep	0	cont	void		0	shr	Sep1	void
-		ins	10	sld	0	cont	void		0	shr	SldAsp	void						custom()
-		ins	11	cpt	0	cont	void		10	app	CptAsp	void		angle setpoint [\u00b0]
-		ins	12	sep	0	cont	void		0	shr	Sep2	void
-		ins	13	txt	0	cont	void		0	shr	TxtSte	void
-		ins	14	cpt	0	cont	void		13	app	CptSte	void		state
-		ins	15	but	1	cont	void		0	shr	ButSta	void		Start				custom()
-		ins	16	but	1	cont	void		0	shr	ButSto	void		Stop				custom()
+		ins	9	but	1	cont	void		0	shr	ButPlay	void						custom()	icon
+			ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal
+			ins	icon		play
+			ImeIAMControlPar2.end
+		ins	10	but	1	cont	void		0	shr	ButStop	void						custom()	icon
+			ImeIAMControlPar2.srefIxWznmVIop	x1SrefKKey	srefX2RefWznmMLocale	osrefKVal
+			ins	icon		stop
+			ImeIAMControlPar2.end
+		ins	11	sep	0	cont	void		0	shr	Sep1	void
+		ins	12	sld	0	cont	void		0	shr	SldAsp	void						custom()
+		ins	13	cpt	0	cont	void		12	app	CptAsp	void		angle setpoint [\u00b0]
+		ins	14	sep	0	cont	void		0	shr	Sep2	void
+		ins	15	txt	0	cont	void		0	shr	TxtSte	void
+		ins	16	cpt	0	cont	void		15	app	CptSte	void		state
+		ins	17	but	1	cont	void		0	shr	ButSta	void		Start				custom()
+		ins	18	but	1	cont	void		0	shr	ButSto	void		Stop				custom()
 		ImeIMControl2.end
 	ins	form	2	PnlWzskVtrMonitor
 		ImeIMControl2.srefIxWznmVIop	iref	srefIxVBasetype	irefRefWznmCControl	srefHkIxVSection	srefRefIxVTbl	srefRefUref	irefSupRefWznmMControl	srefIxVScope	sref	srefIxVSubtype	srefsWznmMTag	Title	srefStdRefWznmMStub	srefShoRefWznmMStub	Avail	Active	srefsKOption

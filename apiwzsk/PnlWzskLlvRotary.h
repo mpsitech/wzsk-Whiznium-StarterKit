@@ -13,6 +13,7 @@
 #include "ApiWzsk_blks.h"
 
 #define VecVWzskLlvRotaryDo PnlWzskLlvRotary::VecVDo
+#define VecVWzskLlvRotaryState PnlWzskLlvRotary::VecVState
 
 #define ContIacWzskLlvRotary PnlWzskLlvRotary::ContIac
 #define ContInfWzskLlvRotary PnlWzskLlvRotary::ContInf
@@ -42,18 +43,31 @@ namespace PnlWzskLlvRotary {
 	};
 
 	/**
+		* VecVState (full: VecVWzskLlvRotaryState)
+		*/
+	class VecVState {
+
+	public:
+		static const Sbecore::uint IDLE = 1;
+		static const Sbecore::uint MOVE = 2;
+
+		static Sbecore::uint getIx(const std::string& sref);
+		static std::string getSref(const Sbecore::uint ix);
+	};
+
+	/**
 	  * ContIac (full: ContIacWzskLlvRotary)
 	  */
 	class ContIac : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint SLDTRG = 1;
+		static const Sbecore::uint TXFSCHTRG = 1;
 
 	public:
-		ContIac(const double SldTrg = 0.0);
+		ContIac(const std::string& TxfSchTrg = "");
 
 	public:
-		double SldTrg;
+		std::string TxfSchTrg;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -69,12 +83,16 @@ namespace PnlWzskLlvRotary {
 
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
+		static const Sbecore::uint TXTSCHANG = 2;
+		static const Sbecore::uint NUMFCSISCHSTE = 3;
 
 	public:
-		ContInf(const bool ButClaimOn = false);
+		ContInf(const bool ButClaimOn = false, const std::string& TxtSchAng = "", const Sbecore::uint numFCsiSchSte = 1);
 
 	public:
 		bool ButClaimOn;
+		std::string TxtSchAng;
+		Sbecore::uint numFCsiSchSte;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -90,19 +108,15 @@ namespace PnlWzskLlvRotary {
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
 		static const Sbecore::uint BUTCLAIMACTIVE = 2;
-		static const Sbecore::uint SLDTRGACTIVE = 3;
-		static const Sbecore::uint SLDTRGMIN = 4;
-		static const Sbecore::uint SLDTRGMAX = 5;
+		static const Sbecore::uint CUSSCHACTIVE = 3;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool SldTrgActive = true, const double SldTrgMin = 0, const double SldTrgMax = 360);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool CusSchActive = true);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		bool ButClaimActive;
-		bool SldTrgActive;
-		double SldTrgMin;
-		double SldTrgMax;
+		bool CusSchActive;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -117,14 +131,12 @@ namespace PnlWzskLlvRotary {
 
 	public:
 		static const Sbecore::uint CPT = 1;
-		static const Sbecore::uint CPTTRG = 2;
 
 	public:
-		Tag(const std::string& Cpt = "", const std::string& CptTrg = "");
+		Tag(const std::string& Cpt = "");
 
 	public:
 		std::string Cpt;
-		std::string CptTrg;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -183,8 +195,9 @@ namespace PnlWzskLlvRotary {
 		static const Sbecore::uint SCRJREF = 1;
 		static const Sbecore::uint CONTIAC = 2;
 		static const Sbecore::uint CONTINF = 3;
-		static const Sbecore::uint STATSHR = 4;
-		static const Sbecore::uint TAG = 5;
+		static const Sbecore::uint FEEDFCSISCHSTE = 4;
+		static const Sbecore::uint STATSHR = 5;
+		static const Sbecore::uint TAG = 6;
 
 	public:
 		DpchEngData();
@@ -192,6 +205,7 @@ namespace PnlWzskLlvRotary {
 	public:
 		ContIac contiac;
 		ContInf continf;
+		Sbecore::Feed feedFCsiSchSte;
 		StatShr statshr;
 		Tag tag;
 

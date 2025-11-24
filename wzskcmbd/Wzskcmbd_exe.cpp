@@ -242,9 +242,11 @@ void Wzskcmbd::loadPref() {
 		xchg->stgwzskpath.readXML(docctx, basexpath, true);
 		xchg->stgwzskuasrv.readXML(docctx, basexpath, true);
 		JobWzskAcqCorner::stg.readXML(docctx, basexpath, true);
+		JobWzskAcqHdr::stg.readXML(docctx, basexpath, true);
 		JobWzskAcqPreview::stg.readXML(docctx, basexpath, true);
 		JobWzskAcqTrace::stg.readXML(docctx, basexpath, true);
 		JobWzskActLaser::stg.readXML(docctx, basexpath, true);
+		JobWzskActRotary::stg.readXML(docctx, basexpath, true);
 		JobWzskActVistorot::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcDcvsp::stg.readXML(docctx, basexpath, true);
 		JobWzskSrcSysinfo::stg.readXML(docctx, basexpath, true);
@@ -288,9 +290,11 @@ void Wzskcmbd::storePref() {
 		xchg->stgwzskpath.writeXML(wr);
 		xchg->stgwzskuasrv.writeXML(wr);
 		JobWzskAcqCorner::stg.writeXML(wr);
+		JobWzskAcqHdr::stg.writeXML(wr);
 		JobWzskAcqPreview::stg.writeXML(wr);
 		JobWzskAcqTrace::stg.writeXML(wr);
 		JobWzskActLaser::stg.writeXML(wr);
+		JobWzskActRotary::stg.writeXML(wr);
 		JobWzskActVistorot::stg.writeXML(wr);
 		JobWzskSrcDcvsp::stg.writeXML(wr);
 		JobWzskSrcSysinfo::stg.writeXML(wr);
@@ -338,9 +342,11 @@ void Wzskcmbd::loadKeycert() {
  ******************************************************************************/
 
 StgJobWzskAcqCorner JobWzskAcqCorner::stg;
+StgJobWzskAcqHdr JobWzskAcqHdr::stg;
 StgJobWzskAcqPreview JobWzskAcqPreview::stg;
 StgJobWzskAcqTrace JobWzskAcqTrace::stg;
 StgJobWzskActLaser JobWzskActLaser::stg;
+StgJobWzskActRotary JobWzskActRotary::stg;
 StgJobWzskActVistorot JobWzskActVistorot::stg;
 StgJobWzskSrcDcvsp JobWzskSrcDcvsp::stg;
 StgJobWzskSrcSysinfo JobWzskSrcSysinfo::stg;
@@ -617,7 +623,7 @@ int main(
 
 	try {
 		// welcome message
-		cout << "Welcome to Whiznium StarterKit v1.2.6!" << endl;
+		cout << "Welcome to Whiznium StarterKit v1.2.12!" << endl;
 
 		// calls wzskcmbd.init()
 		wzskcmbd = new Wzskcmbd(exedir, clearAll, startMon);

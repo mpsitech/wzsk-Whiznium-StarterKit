@@ -249,7 +249,7 @@ void PnlWzskLlvTermDcvsp::handleDpchAppDoButClaimClick(
 	if (statshr.ButClaimActive) {
 		muteRefresh = true;
 
-		if (!continf.ButClaimOn) xchg->addCsjobClaim(dbswzsk, srcdcvsp, new Claim(true, true));
+		if (!continf.ButClaimOn) xchg->addCsjobClaim(dbswzsk, srcdcvsp, new Wzsk::ClaimVsp(true, Wzsk::ClaimVsp::VecWDomain::ALL));
 		else xchg->removeCsjobClaim(dbswzsk, srcdcvsp);
 
 		refreshWithDpchEng(dbswzsk, dpcheng, true);

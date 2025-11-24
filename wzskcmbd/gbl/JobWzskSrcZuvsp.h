@@ -105,6 +105,8 @@ public:
 public:
 	// IP cust --- IBEGIN
 
+	// - UntWskdZuvsp convenience methods with real-world units
+
 	// ddrif
 	bool ddrif_getStats(float& DRdA, float& DWrA, float& DRdB, float& DWrB);
 
@@ -112,18 +114,19 @@ public:
 	static bool ident_get(std::string& unt, std::string& ver, std::string& hash, std::string& who);
 	bool ident_getCfg(float& fMclk, float& fMemclk);
 
-///
 	// laser
 	bool laser_set(const uint16_t l, const uint16_t r);
 
 	// rotary
 	bool rotary_getInfo(std::string& srefTixVState, float& angle);
-	bool rotary_moveto(float& _angle, const float omega);
-	bool rotary_set(const bool rng, const bool ccwNotCw, const std::string& srefTixVStepmode, const float omega);
+	bool rotary_moveto(float& _angle);
+	bool rotary_set(const bool rng, const bool ccwNotCw);
 	bool rotary_zero();
 
 	// tkclksrc
 	bool tkclksrc_getTkst(uint32_t& tkst);
+
+	// - high-level methods
 
 	// 10kHz clock source
 	double tkstToT(const uint32_t tkst);

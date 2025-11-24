@@ -142,7 +142,10 @@ void DlgWzskFilDownload::handleDpchAppDoButDneClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
-	// IP handleDpchAppDoButDneClick --- INSERT
+	// IP handleDpchAppDoButDneClick --- IBEGIN
+	*dpcheng = new DpchEngWzskConfirm(true, jref, "");
+	xchg->triggerCall(dbswzsk, VecWzskVCall::CALLWZSKDLGCLOSE, jref);
+	// IP handleDpchAppDoButDneClick --- IEND
 };
 
 string DlgWzskFilDownload::handleDownload(

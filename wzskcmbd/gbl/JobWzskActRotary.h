@@ -22,6 +22,8 @@
 #define VecVJobWzskActRotarySge JobWzskActRotary::VecVSge
 #define VecVJobWzskActRotaryVar JobWzskActRotary::VecVVar
 
+#define StgJobWzskActRotary JobWzskActRotary::Stg
+
 #define ShrdatJobWzskActRotary JobWzskActRotary::Shrdat
 
 /**
@@ -76,9 +78,33 @@ public:
 		static void fillFeed(Sbecore::Feed& feed);
 	};
 
+	/**
+		* Stg (full: StgJobWzskActRotary)
+		*/
+	class Stg : public Sbecore::Block {
+
+	public:
+		static const Sbecore::uint PPR = 1;
+		static const Sbecore::uint OMEGA = 2;
+
+	public:
+		Stg(const Sbecore::usmallint ppr = 16000, const float omega = 9);
+
+	public:
+		Sbecore::usmallint ppr; // pulses per revolution
+		float omega; // [\u00a1/s]
+
+	public:
+		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
+		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
+		std::set<Sbecore::uint> comm(const Stg* comp);
+		std::set<Sbecore::uint> diff(const Stg* comp);
+	};
+
 	bool evalSrcdcvspConstr(DbsWzsk* dbswzsk);
 	bool evalSrctivspConstr(DbsWzsk* dbswzsk);
 	bool evalSrczuvspConstr(DbsWzsk* dbswzsk);
+
 	/**
 		* Shrdat (full: ShrdatJobWzskActRotary)
 		*/
@@ -94,7 +120,13 @@ public:
 		float angle; // in deg
 		float target; // in deg
 
-		// IP Shrdat.vars.cust --- INSERT
+		// IP Shrdat.vars.cust --- IBEGIN
+		bool ccwNotCw;
+		float start;
+
+		double t0;
+		double t1;
+		// IP Shrdat.vars.cust --- IEND
 
 	public:
 		void init(XchgWzsk* xchg, DbsWzsk* dbswzsk);
@@ -106,6 +138,7 @@ public:
 	~JobWzskActRotary();
 
 public:
+	static Stg stg;
 	static Shrdat shrdat;
 
 	JobWzskSrcDcvsp* srcdcvsp;

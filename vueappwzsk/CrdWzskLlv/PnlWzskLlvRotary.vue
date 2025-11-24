@@ -51,27 +51,12 @@
 		<v-card-text
 			v-if="statshr.srefIxWzskVExpstate=='regd'"
 		>
-			<v-slider
+			<div
 				class="my-1"
-				v-model="contiac.SldTrg"
-				v-on:end='updateEng(["contiac"])'
-				:label="tag.CptTrg"
-				:min="statshr.SldTrgMin"
-				:max="statshr.SldTrgMax"
-				:disabled="!statshr.SldTrgActive"
+				style="height:150px"
 			>
-				<template v-slot:append>
-					<v-text-field
-						v-model="contiac.SldTrg"
-						v-on:change='updateEng(["contiac"])'
-						class="mt-0 pt-0"
-						hide-details
-						single-line
-						type="number"
-						style="width: 80px"
-					/>
-				</template>
-			</v-slider>
+				<!-- IP divSch - INSERT -->
+			</div>
 
 		</v-card-text>
 	</v-card>
@@ -137,6 +122,7 @@
 				*/
 				if (dpcheng.ContIacWzskLlvRotary) this.contiac = dpcheng.ContIacWzskLlvRotary;
 				if (dpcheng.ContInfWzskLlvRotary) this.continf = dpcheng.ContInfWzskLlvRotary;
+				if (dpcheng.FeedFCsiSchSte) this.feedFCsiSchSte = dpcheng.FeedFCsiSchSte;
 				if (dpcheng.StatShrWzskLlvRotary) this.statshr = dpcheng.StatShrWzskLlvRotary;
 				if (dpcheng.TagWzskLlvRotary) {
 					Wzsk.unescapeBlock(dpcheng.TagWzskLlvRotary);
@@ -191,6 +177,8 @@
 			contiac: null,
 
 			continf: null,
+
+			feedFCsiSchSte: null,
 
 			statshr: null,
 

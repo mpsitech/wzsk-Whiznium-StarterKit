@@ -3,7 +3,7 @@
 # checkin script for Wzsk web-based UI, release webappwzsk_yocto
 # copyright: (C) 2016-2020 MPSI Technologies GmbH
 # author: Alexander Wirthmueller (auto-generation)
-# date created: 12 Oct 2025
+# date created: 23 Nov 2025
 # IP header --- ABOVE
 
 if [ -z ${WHIZROOT+x} ]; then

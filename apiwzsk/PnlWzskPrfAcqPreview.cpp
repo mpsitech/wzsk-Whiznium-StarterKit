@@ -42,14 +42,12 @@ string PnlWzskPrfAcqPreview::VecVDo::getSref(
  ******************************************************************************/
 
 PnlWzskPrfAcqPreview::ContIac::ContIac(
-			const bool Chk1
-			, const string& Txf2
+			const string& Txf1
 		) :
 			Block()
-			, Chk1(Chk1)
-			, Txf2(Txf2)
+			, Txf1(Txf1)
 		{
-	mask = {CHK1, TXF2};
+	mask = {TXF1};
 };
 
 bool PnlWzskPrfAcqPreview::ContIac::readXML(
@@ -69,8 +67,7 @@ bool PnlWzskPrfAcqPreview::ContIac::readXML(
 	string itemtag = "ContitemIacWzskPrfAcqPreview";
 
 	if (basefound) {
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "Chk1", Chk1)) add(CHK1);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "Txf2", Txf2)) add(TXF2);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "Txf1", Txf1)) add(TXF1);
 	};
 
 	return basefound;
@@ -88,8 +85,7 @@ void PnlWzskPrfAcqPreview::ContIac::writeXML(
 	else itemtag = "ContitemIacWzskPrfAcqPreview";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeBoolAttr(wr, itemtag, "sref", "Chk1", Chk1);
-		writeStringAttr(wr, itemtag, "sref", "Txf2", Txf2);
+		writeStringAttr(wr, itemtag, "sref", "Txf1", Txf1);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -98,8 +94,7 @@ set<uint> PnlWzskPrfAcqPreview::ContIac::comm(
 		) {
 	set<uint> items;
 
-	if (Chk1 == comp->Chk1) insert(items, CHK1);
-	if (Txf2 == comp->Txf2) insert(items, TXF2);
+	if (Txf1 == comp->Txf1) insert(items, TXF1);
 
 	return(items);
 };
@@ -112,7 +107,7 @@ set<uint> PnlWzskPrfAcqPreview::ContIac::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {CHK1, TXF2};
+	diffitems = {TXF1};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -124,15 +119,13 @@ set<uint> PnlWzskPrfAcqPreview::ContIac::diff(
 
 PnlWzskPrfAcqPreview::StatShr::StatShr(
 			const uint ixWzskVExpstate
-			, const bool Chk1Clean
-			, const bool Txf2Clean
+			, const bool Txf1Clean
 		) :
 			Block()
 			, ixWzskVExpstate(ixWzskVExpstate)
-			, Chk1Clean(Chk1Clean)
-			, Txf2Clean(Txf2Clean)
+			, Txf1Clean(Txf1Clean)
 		{
-	mask = {IXWZSKVEXPSTATE, CHK1CLEAN, TXF2CLEAN};
+	mask = {IXWZSKVEXPSTATE, TXF1CLEAN};
 };
 
 bool PnlWzskPrfAcqPreview::StatShr::readXML(
@@ -158,8 +151,7 @@ bool PnlWzskPrfAcqPreview::StatShr::readXML(
 			ixWzskVExpstate = VecWzskVExpstate::getIx(srefIxWzskVExpstate);
 			add(IXWZSKVEXPSTATE);
 		};
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "Chk1Clean", Chk1Clean)) add(CHK1CLEAN);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "Txf2Clean", Txf2Clean)) add(TXF2CLEAN);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "Txf1Clean", Txf1Clean)) add(TXF1CLEAN);
 	};
 
 	return basefound;
@@ -171,8 +163,7 @@ set<uint> PnlWzskPrfAcqPreview::StatShr::comm(
 	set<uint> items;
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
-	if (Chk1Clean == comp->Chk1Clean) insert(items, CHK1CLEAN);
-	if (Txf2Clean == comp->Txf2Clean) insert(items, TXF2CLEAN);
+	if (Txf1Clean == comp->Txf1Clean) insert(items, TXF1CLEAN);
 
 	return(items);
 };
@@ -185,7 +176,7 @@ set<uint> PnlWzskPrfAcqPreview::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, CHK1CLEAN, TXF2CLEAN};
+	diffitems = {IXWZSKVEXPSTATE, TXF1CLEAN};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -198,14 +189,12 @@ set<uint> PnlWzskPrfAcqPreview::StatShr::diff(
 PnlWzskPrfAcqPreview::Tag::Tag(
 			const string& Cpt
 			, const string& Cpt1
-			, const string& Cpt2
 		) :
 			Block()
 			, Cpt(Cpt)
 			, Cpt1(Cpt1)
-			, Cpt2(Cpt2)
 		{
-	mask = {CPT, CPT1, CPT2};
+	mask = {CPT, CPT1};
 };
 
 bool PnlWzskPrfAcqPreview::Tag::readXML(
@@ -227,7 +216,6 @@ bool PnlWzskPrfAcqPreview::Tag::readXML(
 	if (basefound) {
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "Cpt", Cpt)) add(CPT);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "Cpt1", Cpt1)) add(CPT1);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "Cpt2", Cpt2)) add(CPT2);
 	};
 
 	return basefound;

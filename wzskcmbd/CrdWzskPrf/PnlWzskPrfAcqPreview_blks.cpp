@@ -40,14 +40,12 @@ string PnlWzskPrfAcqPreview::VecVDo::getSref(
  ******************************************************************************/
 
 PnlWzskPrfAcqPreview::ContIac::ContIac(
-			const bool Chk1
-			, const string& Txf2
+			const string& Txf1
 		) :
 			Block()
-			, Chk1(Chk1)
-			, Txf2(Txf2)
+			, Txf1(Txf1)
 		{
-	mask = {CHK1, TXF2};
+	mask = {TXF1};
 };
 
 bool PnlWzskPrfAcqPreview::ContIac::readJSON(
@@ -63,8 +61,7 @@ bool PnlWzskPrfAcqPreview::ContIac::readJSON(
 	basefound = (me != Json::nullValue);
 
 	if (basefound) {
-		if (me.isMember("Chk1")) {Chk1 = me["Chk1"].asBool(); add(CHK1);};
-		if (me.isMember("Txf2")) {Txf2 = me["Txf2"].asString(); add(TXF2);};
+		if (me.isMember("Txf1")) {Txf1 = me["Txf1"].asString(); add(TXF1);};
 	};
 
 	return basefound;
@@ -87,8 +84,7 @@ bool PnlWzskPrfAcqPreview::ContIac::readXML(
 	string itemtag = "ContitemIacWzskPrfAcqPreview";
 
 	if (basefound) {
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "Chk1", Chk1)) add(CHK1);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "Txf2", Txf2)) add(TXF2);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "Txf1", Txf1)) add(TXF1);
 	};
 
 	return basefound;
@@ -102,8 +98,7 @@ void PnlWzskPrfAcqPreview::ContIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["Chk1"] = Chk1;
-	me["Txf2"] = Txf2;
+	me["Txf1"] = Txf1;
 };
 
 void PnlWzskPrfAcqPreview::ContIac::writeXML(
@@ -118,8 +113,7 @@ void PnlWzskPrfAcqPreview::ContIac::writeXML(
 	else itemtag = "ContitemIacWzskPrfAcqPreview";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeBoolAttr(wr, itemtag, "sref", "Chk1", Chk1);
-		writeStringAttr(wr, itemtag, "sref", "Txf2", Txf2);
+		writeStringAttr(wr, itemtag, "sref", "Txf1", Txf1);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -128,8 +122,7 @@ set<uint> PnlWzskPrfAcqPreview::ContIac::comm(
 		) {
 	set<uint> items;
 
-	if (Chk1 == comp->Chk1) insert(items, CHK1);
-	if (Txf2 == comp->Txf2) insert(items, TXF2);
+	if (Txf1 == comp->Txf1) insert(items, TXF1);
 
 	return(items);
 };
@@ -142,7 +135,7 @@ set<uint> PnlWzskPrfAcqPreview::ContIac::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {CHK1, TXF2};
+	diffitems = {TXF1};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -154,15 +147,13 @@ set<uint> PnlWzskPrfAcqPreview::ContIac::diff(
 
 PnlWzskPrfAcqPreview::StatShr::StatShr(
 			const uint ixWzskVExpstate
-			, const bool Chk1Clean
-			, const bool Txf2Clean
+			, const bool Txf1Clean
 		) :
 			Block()
 			, ixWzskVExpstate(ixWzskVExpstate)
-			, Chk1Clean(Chk1Clean)
-			, Txf2Clean(Txf2Clean)
+			, Txf1Clean(Txf1Clean)
 		{
-	mask = {IXWZSKVEXPSTATE, CHK1CLEAN, TXF2CLEAN};
+	mask = {IXWZSKVEXPSTATE, TXF1CLEAN};
 };
 
 void PnlWzskPrfAcqPreview::StatShr::writeJSON(
@@ -174,8 +165,7 @@ void PnlWzskPrfAcqPreview::StatShr::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
-	me["Chk1Clean"] = Chk1Clean;
-	me["Txf2Clean"] = Txf2Clean;
+	me["Txf1Clean"] = Txf1Clean;
 };
 
 void PnlWzskPrfAcqPreview::StatShr::writeXML(
@@ -191,8 +181,7 @@ void PnlWzskPrfAcqPreview::StatShr::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeStringAttr(wr, itemtag, "sref", "srefIxWzskVExpstate", VecWzskVExpstate::getSref(ixWzskVExpstate));
-		writeBoolAttr(wr, itemtag, "sref", "Chk1Clean", Chk1Clean);
-		writeBoolAttr(wr, itemtag, "sref", "Txf2Clean", Txf2Clean);
+		writeBoolAttr(wr, itemtag, "sref", "Txf1Clean", Txf1Clean);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -202,8 +191,7 @@ set<uint> PnlWzskPrfAcqPreview::StatShr::comm(
 	set<uint> items;
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
-	if (Chk1Clean == comp->Chk1Clean) insert(items, CHK1CLEAN);
-	if (Txf2Clean == comp->Txf2Clean) insert(items, TXF2CLEAN);
+	if (Txf1Clean == comp->Txf1Clean) insert(items, TXF1CLEAN);
 
 	return(items);
 };
@@ -216,7 +204,7 @@ set<uint> PnlWzskPrfAcqPreview::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, CHK1CLEAN, TXF2CLEAN};
+	diffitems = {IXWZSKVEXPSTATE, TXF1CLEAN};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -237,8 +225,7 @@ void PnlWzskPrfAcqPreview::Tag::writeJSON(
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["Cpt"] = "JobWzskAcqPreview settings";
-		me["Cpt1"] = "rgbNotGray";
-		me["Cpt2"] = "decim";
+		me["Cpt1"] = "sizePvwbuf";
 	};
 };
 
@@ -257,8 +244,7 @@ void PnlWzskPrfAcqPreview::Tag::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "JobWzskAcqPreview settings");
-			writeStringAttr(wr, itemtag, "sref", "Cpt1", "rgbNotGray");
-			writeStringAttr(wr, itemtag, "sref", "Cpt2", "decim");
+			writeStringAttr(wr, itemtag, "sref", "Cpt1", "sizePvwbuf");
 		};
 	xmlTextWriterEndElement(wr);
 };

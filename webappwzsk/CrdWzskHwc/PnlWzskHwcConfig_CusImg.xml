@@ -13,10 +13,16 @@
 		<!-- IP pre - INSERT -->
 		<table cellspacing="0" border="0" cellpadding="0">
 			<colgroup>
-				<!-- IP colgrp - INSERT -->
+				<col width="690"/><!-- IP colgrp - ILINE -->
 			</colgroup>
 			<tbody id="tbl">
-				<!-- IP tbody - INSERT -->
+				<!-- IP tbody - IBEGIN -->
+				<tr id="trImg" class="show">
+					<td id="tdImg" height="250" colspan="1">
+						<canvas style="display:block;cursor:pointer" id="cvs" width="690" height="250">This page needs a web-browser capable of displaying canvasses!</canvas>
+					</td>
+				</tr>
+				<!-- IP tbody - IEND -->
 			</tbody>
 		</table>
 	</body>

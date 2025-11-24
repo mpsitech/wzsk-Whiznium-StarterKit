@@ -4,9 +4,8 @@
 	<head>
 		<title>AcqPreview_bcont</title>
 		<script>
-			function handleChk1Change() {parent.parent.window.handleChkChange(document,"Chk1");};
-			function handleTxf2Key(evt) {return parent.parent.window.handleTxfKey(document,"Txf2","s",evt);};
-			function handleTxf2Change() {parent.parent.window.handleTxfChange(document,"Txf2","s");};
+			function handleTxf1Key(evt) {return parent.parent.window.handleTxfKey(document,"Txf1","s",evt);};
+			function handleTxf1Change() {parent.parent.window.handleTxfChange(document,"Txf1","s");};
 			<!-- IP custScript - INSERT -->
 		</script>
 		<link href="../style/pnlDetail3_2.css" rel="styleSheet" type="text/css"/>
@@ -35,19 +34,8 @@
 						<span id="Cpt1" class="cpt">Cpt1</span>
 					</td>
 					<td></td>
-					<td align="left">
-						<input id="Chk1" class="chk" name="Chk1" type="checkbox" checked="checked" onchange="handleChk1Change()"/>
-					</td>
-					<td colspan="7"></td>
-				</tr>
-				<tr id="tr2" class="show">
-					<td height="25"></td>
-					<td align="right">
-						<span id="Cpt2" class="cpt">Cpt2</span>
-					</td>
-					<td></td>
 					<td colspan="3" align="left">
-						<input id="Txf2" class="txfs" type="text" value="Txf2" onchange="handleTxf2Change()" onkeypress="return handleTxf2Key(event)"/>
+						<input id="Txf1" class="txfs" type="text" value="Txf1" onchange="handleTxf1Change()" onkeypress="return handleTxf1Key(event)"/>
 					</td>
 					<td></td>
 					<td colspan="4"></td>

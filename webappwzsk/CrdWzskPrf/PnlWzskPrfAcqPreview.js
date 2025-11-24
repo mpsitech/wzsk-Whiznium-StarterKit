@@ -45,7 +45,6 @@ function initBD(bNotD) {
 	// IP initBD --- BEGIN
 	initCpt(hdrdoc, "Cpt", retrieveTi(srcdoc, "TagWzskPrfAcqPreview", "Cpt"));
 	initCpt(contcontdoc, "Cpt1", retrieveTi(srcdoc, "TagWzskPrfAcqPreview", "Cpt1"));
-	initCpt(contcontdoc, "Cpt2", retrieveTi(srcdoc, "TagWzskPrfAcqPreview", "Cpt2"));
 	// IP initBD --- END
 
 	refreshBD(bNotD);
@@ -69,16 +68,14 @@ function refreshA() {
 function refreshBD(bNotD) {
 	if (!contcontdoc) return;
 
-	var height = 60; // full cont height
+	var height = 35; // full cont height
 
 	// IP refreshBD.vars --- BEGIN
 
 	// IP refreshBD.vars --- END
 
 	// IP refreshBD --- BEGIN
-	refreshChk(contcontdoc, "Chk1", (retrieveCi(srcdoc, "ContIacWzskPrfAcqPreview", "Chk1") == "true"), true);
-
-	refreshTxf(contcontdoc, "Txf2", "s", retrieveCi(srcdoc, "ContIacWzskPrfAcqPreview", "Txf2"), true, false, true);
+	refreshTxf(contcontdoc, "Txf1", "s", retrieveCi(srcdoc, "ContIacWzskPrfAcqPreview", "Txf1"), true, false, true);
 
 	// IP refreshBD --- END
 
@@ -122,19 +119,6 @@ function handleLoad() {
 
 function handleButClick(ctlsref) {
 	var str = serializeDpchAppDo(srcdoc, "DpchAppWzskPrfAcqPreviewDo", scrJref, ctlsref + "Click");
-	sendReq(str, doc, handleDpchAppDataDoReply);
-};
-
-function handleChkChange(_doc, ctlsref) {
-	var elem = _doc.getElementById(ctlsref);
-	var checked;
-
-	elem.setAttribute("class", "chkmod");
-
-	if (elem.checked == true) checked = "true"; else checked = "false";
-	setCi(srcdoc, "ContIacWzskPrfAcqPreview", ctlsref, checked);
-
-	var str = serializeDpchAppData(srcdoc, "DpchAppWzskPrfAcqPreviewData", scrJref, "ContIacWzskPrfAcqPreview");
 	sendReq(str, doc, handleDpchAppDataDoReply);
 };
 

@@ -22,9 +22,9 @@ using namespace std;
 using namespace Sbecore;
 using namespace Xmlio;
 
-// IP ns.cust --- INSERT
-
 using namespace Dbecore; // IP ns.cust --- ILINE
+
+// IP ns.spec --- INSERT
 
 // IP Shrdat.subs --- INSERT
 
@@ -102,20 +102,6 @@ JobWzskAcqMemtrack::~JobWzskAcqMemtrack() {
 };
 
 // IP cust --- IBEGIN
-/******************************************************************************
- class JobWzskAcqMemtrack::Claim
- ******************************************************************************/
-
- JobWzskAcqMemtrack::Claim::Claim(
-			const bool retractable
-			, const bool run
-			, const string path
-		) :
-			Sbecore::Claim(retractable, run)
-			, path(path)
-		{
-};
-
 void* JobWzskAcqMemtrack::runTrack(
 			void* arg
 		) {
@@ -150,14 +136,14 @@ void* JobWzskAcqMemtrack::runTrack(
 	vector<unsigned int> keys;
 	vector<string> vals;
 
-	Vcdwr vcdwr("Wskd", "Zuvsp", 1.0/fMemclk, 1);
+	Vcdwr vcdwr("Wskd", "Vsp", 1.0/fMemclk, 1);
 
 	Gptrack memtrack("memtrack", VecVWskdZuvspMemtrackCapture::getSref, 4*1024, fMemclk);
 
 	// - acquisition
 	zuvsp.memtrack->select(
 				VecVWskdZuvspMemtrackTrigger::VSYNC, // staTixVTrigger
-				false, // staFallingNotRising
+				true, // staFallingNotRising
 				VecVWskdZuvspMemtrackTrigger::VOID, // stoTixVTrigger
 				false // stoFallingNotRising
 			);
@@ -174,7 +160,7 @@ void* JobWzskAcqMemtrack::runTrack(
 
 		if (memTixVState != VecVWskdZuvspMemtrackState::DONE) {
 			zuvsp.memtrack->getInfo(memTixVState, memTCapt, memPtr0Seqbuf);
-			//if (memTixVState != memTixVState_last) cout << "memory tracking now is in state " << VecVWskdZuvspMemtrackState::getSref(rxTixVState) << endl;
+			//if (memTixVState != memTixVState_last) cout << "memory tracking now is in state " << VecVWskdZuvspMemtrackState::getSref(memTixVState) << endl;
 		};
 
 		if (memTixVState == VecVWskdZuvspMemtrackState::DONE) break;
@@ -250,12 +236,14 @@ void JobWzskAcqMemtrack::handleCall(
 			, Call* call
 		) {
 	if ((call->ixVCall == VecWzskVCall::CALLWZSKCALLBACK) && (call->jref == jref) && (ixVSge == VecVSge::RNG)) {
-		call->abort = handleCallWzskCallbackFromSelfInSgeRng(dbswzsk);
+		call->abort = handleCallWzskCallbackFromSelfInSgeRng(dbswzsk, call->argInv.ix, call->argInv.sref);
 	};
 };
 
 bool JobWzskAcqMemtrack::handleCallWzskCallbackFromSelfInSgeRng(
 			DbsWzsk* dbswzsk
+			, const uint ixInv
+			, const string& srefInv
 		) {
 	bool retval = false;
 	// IP handleCallWzskCallbackFromSelfInSgeRng --- IBEGIN
@@ -428,13 +416,14 @@ bool JobWzskAcqMemtrack::handleClaim(
 	// IP handleClaim --- IBEGIN
 
 	// claim policy:
-	// - no modification when running
+	// - no modification while running
 	// - exactly one claim can be fulfilled
+	// - only possible if src*vsp "memtrack" claim can be fulfilled
 	// - change stage to rng if fulfilled claim is run
 
 	if (ixVSge != VecVSge::IDLE) return false;
 
-	Claim* claim = NULL;
+	Wzsk::ClaimTrack* claim = NULL;
 
 	ubigint jrefFulfilled = 0;
 
@@ -446,17 +435,34 @@ bool JobWzskAcqMemtrack::handleClaim(
 	bool available;
 	bool reattributed;
 
+	CsjobWzsk* srcvsp = NULL;
+	bool vspTakenNotAvailable, vspFulfilled;
+
 	// survey
 	for (auto it = claims.begin(); it != claims.end(); it++) {
-		claim = (Claim*) it->second;
+		claim = (Wzsk::ClaimTrack*) it->second;
 
 		if (claim->fulfilled) {
 			jrefFulfilled = it->first;
 			retractable = claim->retractable;
+			run = claim->run;
+
 			path = claim->path;
 
 			break;
 		};
+	};
+
+	// add or remove "memtrack" claim with src*vsp
+	if (srcdcvsp) srcvsp = srcdcvsp;
+	else if (srctivsp)  srcvsp = srctivsp;
+	else if (srczuvsp) srcvsp = srczuvsp;
+
+	if (srcvsp) {
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcvsp);
+		else xchg->addCsjobClaim(dbswzsk, srcvsp, new Wzsk::ClaimVsp(false, Wzsk::ClaimVsp::VecWDomain::MEMTRACK));
+
+		xchg->getCsjobClaim(srcvsp, vspTakenNotAvailable, vspFulfilled);
 	};
 
 	// try to fulfill
@@ -464,9 +470,9 @@ bool JobWzskAcqMemtrack::handleClaim(
 
 	for (unsigned int i = 0; i < 2; i++) {
 		for (auto it = claims.begin(); it != claims.end(); it++) {
-			claim = (Claim*) it->second;
+			claim = (Wzsk::ClaimTrack*) it->second;
 
-			available = retractable;
+			available = retractable && vspFulfilled;
 
 			if (!available) break;
 
@@ -478,6 +484,7 @@ bool JobWzskAcqMemtrack::handleClaim(
 					claim->fulfilled = true;
 					retractable = claim->retractable;
 					run = claim->run;
+
 					path = claim->path;
 
 					reattributed = true;
@@ -492,16 +499,13 @@ bool JobWzskAcqMemtrack::handleClaim(
 	};
 
 	// update taken status
-	available = retractable;
-
 	for (auto it = claims.begin(); it != claims.end(); it++) {
-		claim = (Claim*) it->second;
-
-		claim->takenNotAvailable = !available;
+		claim = (Wzsk::ClaimTrack*) it->second;
+		claim->takenNotAvailable = !retractable;
 	};
 
 	// initiate stage change
-	if (!run) {
+	if (!run || !vspFulfilled) {
 		changeStage(dbswzsk, VecVSge::IDLE);
 
 	} else if (run && (ixVSge == VecVSge::IDLE)) {
@@ -512,6 +516,7 @@ bool JobWzskAcqMemtrack::handleClaim(
 	};
 
 	mod = true; // for simplicity
+
 	// IP handleClaim --- IEND
 
 	return mod;

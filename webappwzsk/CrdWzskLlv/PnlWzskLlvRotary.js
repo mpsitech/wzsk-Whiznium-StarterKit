@@ -1,4 +1,19 @@
-// IP cust --- INSERT
+// IP cust --- IBEGIN
+function handleCusSchFceSet(angle) {
+	setCi(srcdoc, "ContIacWzskLlvRotary", "TxfSchTrg", "" + angle);
+
+	var str = serializeDpchAppData(srcdoc, "DpchAppWzskLlvRotaryData", scrJref, "ContIacWzskLlvRotary");
+	sendReq(str, doc, handleDpchAppDataDoReply);
+};
+
+function refreshSvgTxt(contdoc, id, tit) {
+	var mytext;
+
+	mytext = contdoc.getElementById(id);
+	clearElem(mytext);
+	mytext.appendChild(contdoc.createTextNode(tit));
+};
+// IP cust --- IEND
 
 // --- expand state management
 function minimize() {
@@ -44,7 +59,6 @@ function initBD(bNotD) {
 
 	// IP initBD --- BEGIN
 	initCpt(hdrdoc, "Cpt", retrieveTi(srcdoc, "TagWzskLlvRotary", "Cpt"));
-	initCpt(contcontdoc, "CptTrg", retrieveTi(srcdoc, "TagWzskLlvRotary", "CptTrg"));
 	// IP initBD --- END
 
 	refreshBD(bNotD);
@@ -68,19 +82,36 @@ function refreshA() {
 function refreshBD(bNotD) {
 	if (!contcontdoc) return;
 
-	var height = 35; // full cont height
+	var height = 160; // full cont height
 
 	// IP refreshBD.vars --- BEGIN
 	var ButClaimActive = (retrieveSi(srcdoc, "StatShrWzskLlvRotary", "ButClaimActive") == "true");
-	var SldTrgActive = (retrieveSi(srcdoc, "StatShrWzskLlvRotary", "SldTrgActive") == "true");
+	var CusSchActive = (retrieveSi(srcdoc, "StatShrWzskLlvRotary", "CusSchActive") == "true");
 
 	// IP refreshBD.vars --- END
 
-	// IP refreshBD --- BEGIN
+	// IP refreshBD --- RBEGIN
 	refreshButicon(hdrdoc, "ButClaim", "icon/claim", ButClaimActive, retrieveCi(srcdoc, "ContInfWzskLlvRotary", "ButClaimOn") == "true");
-	refreshSld(contcontdoc, "SldTrg", true, false, parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", "SldTrgMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", "SldTrgMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskLlvRotary", "SldTrg")), SldTrgActive, false);
 
-	// IP refreshBD --- END
+	var target = parseFloat(retrieveCi(srcdoc, "ContIacWzskLlvRotary", "TxfSchTrg")); if (isNaN(target)) target = 0.0;
+	var angle = parseFloat(retrieveCi(srcdoc, "ContInfWzskLlvRotary", "TxtSchAng")); if (isNaN(angle)) angle = 0.0;
+
+	for (i = -180; i < 180; i += 5) {
+		var elem = contcontdoc.getElementById("CusSchFce" + ((i < 0) ? ("N" + (-i)) : ("" + i)));
+		if (CusSchActive) {
+			elem.setAttribute("class", "fceline");
+			elem.setAttribute("onclick", "handleCusSchFceSet(" + i + ")");
+		} else {
+			elem.setAttribute("class", "fcelineinact");
+			elem.setAttribute("onclick", "");
+		};
+	};
+
+	contcontdoc.getElementById("CusSchBrd").setAttribute("transform", "rotate(" + (-90-angle) + ")");
+	refreshSvgTxt(contcontdoc, "TxfSchTrg", "" + target.toFixed(1) + "\u00b0");
+	refreshSvgTxt(contcontdoc, "TxtSchAng", "" + angle.toFixed(1) + "\u00b0");
+	refreshCsi(contcontdoc, "CsiSchSte", srcdoc, "FeedFCsiSchSte", retrieveCi(srcdoc, "ContInfWzskLlvRotary", "numFCsiSchSte"));
+	// IP refreshBD --- REND
 
 	getCrdwnd().changeHeight("Rotary", height+31);
 	doc.getElementById("tdSide").setAttribute("height", "" + (height+31));
@@ -125,193 +156,16 @@ function handleButClick(ctlsref) {
 	sendReq(str, doc, handleDpchAppDataDoReply);
 };
 
-function handleSldJpleftMov(_doc, ctlsref) {
-	if (_doc.getElementById("td" + ctlsref).onmousemove == null) {
-		_doc.getElementById(ctlsref + "Jpleftl").setAttribute("class", "sldlhlt");
-	};
-};
+function handleTxfKey(_doc, ctlsref, size, evt) {
+	var elem = _doc.getElementById(ctlsref);
 
-function handleSldJpleftMou(_doc, ctlsref) {
-	_doc.getElementById(ctlsref + "Jpleftl").setAttribute("class", "sldl");
-};
-
-function handleSldJpleftClick(_doc, ctlsref, shr, log, _rast, evt) {
-	var pos, oldVal, val;
-
-	var min, max, rast;
-
-	if (shr) oldVal = parseFloat(retrieveCi(srcdoc, "ContIacWzskLlvRotary", ctlsref));
-	else oldVal = parseFloat(_doc.getElementById(ctlsref + "Val").value);
-	min = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Min"));
-	max = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Max"));
-
-	if (_rast) rast = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Rast"));
-
-	if (_rast) {
-		if (log) val = oldVal / rast;
-		else val = oldVal - rast;
-
-		if (val < min) val = min;
-		if (val > max) val = max;
-
-	} else {
-		pos = getSldPosFromEvtx(true, evt.clientX);
-		val = getSldValFromPos(min, max, rast, pos);
-	};
-
-	pos = getSldPosFromVal(min, max, val);
-
-	setSldPos(_doc, ctlsref, true, pos);
-	setSldVal(_doc, ctlsref, val, true, true);
-
-	if (shr) {
-		setCi(srcdoc, "ContIacWzskLlvRotary", ctlsref, "" + val);
-
-		var str = serializeDpchAppData(srcdoc, "DpchAppWzskLlvRotaryData", scrJref, "ContIacWzskLlvRotary");
-		sendReq(str, doc, handleDpchAppDataDoReply);
-
-	} else {
-		window["handle" + ctlsref + "Change"](val);
-	};
-};
-
-function handleSldJprightMov(_doc, ctlsref) {
-	if (_doc.getElementById("td" + ctlsref).onmousemove == null) {
-		_doc.getElementById(ctlsref + "Jprightl").setAttribute("class", "sldlhlt");
-	};
-};
-
-function handleSldJprightMou(_doc, ctlsref) {
-	_doc.getElementById(ctlsref + "Jprightl").setAttribute("class", "sldl");
-};
-
-function handleSldJprightClick(_doc, ctlsref, shr, log, _rast, evt) {
-	var pos, oldVal, val;
-
-	var min, max, rast;
-
-	if (shr) oldVal = parseFloat(retrieveCi(srcdoc, "ContIacWzskLlvRotary", ctlsref));
-	else oldVal = parseFloat(_doc.getElementById(ctlsref + "Val").value);
-	min = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Min"));
-	max = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Max"));
-
-	if (_rast) rast = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Rast"));
-
-	if (_rast) {
-		if (log) val = oldVal * rast;
-		else val = oldVal + rast;
-
-		if (val < min) val = min;
-		if (val > max) val = max;
-
-	} else {
-		pos = getSldPosFromEvtx(true, evt.clientX);
-		val = getSldValFromPos(min, max, rast, pos);
-	};
-
-	pos = getSldPosFromVal(min, max, val);
-
-	setSldPos(_doc, ctlsref, true, pos);
-	setSldVal(_doc, ctlsref, val, true, true);
-
-	if (shr) {
-		setCi(srcdoc, "ContIacWzskLlvRotary", ctlsref, "" + val);
-
-		var str = serializeDpchAppData(srcdoc, "DpchAppWzskLlvRotaryData", scrJref, "ContIacWzskLlvRotary");
-		sendReq(str, doc, handleDpchAppDataDoReply);
-
-	} else {
-		window["handle" + ctlsref + "Change"](val);
-	};
-};
-
-function handleSldMov(_doc, ctlsref) {
-	_doc.getElementById(ctlsref + "Bar").setAttribute("class", "sldlhlt");
-};
-
-function handleSldMou(_doc, ctlsref) {
-	if (_doc.getElementById("td" + ctlsref).onmousemove == null) {
-		_doc.getElementById(ctlsref + "Bar").setAttribute("class", "sldl");
-	};
-};
-
-function handleSldMdn(_doc, ctlsref) {
-	_doc.getElementById("td" + ctlsref).setAttribute("onmousemove", "handle" + ctlsref + "Move(event)");
-	_doc.getElementById("td" + ctlsref).setAttribute("onmouseup", "handle" + ctlsref + "Mup(event)");
-};
-
-function handleSldMove(_doc, ctlsref, shr, log, _rast, evt) {
-	var pos, val;
-
-	var min, max, rast;
-
-	min = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Min"));
-	max = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Max"));
-
-	if (_rast) rast = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Rast"));
-	else rast = 0.0;
-
-	pos = getSldPosFromEvtx(true, evt.clientX);
-
-	if (log) val = getSldLogvalFromPos(min, max, rast, pos);
-	else val = getSldValFromPos(min, max, rast, pos);
-
-	setSldPos(_doc, ctlsref, true, pos);
-	setSldVal(_doc, ctlsref, val, true, true);
-
-	if (shr) setCi(srcdoc, "ContIacWzskLlvRotary", ctlsref, "" + val);
-	else window["handle" + ctlsref + "Change"](val);
-};
-
-function handleSldMup(_doc, ctlsref, shr) {
-	_doc.getElementById("td" + ctlsref).onmousemove = null;
-	_doc.getElementById("td" + ctlsref).onmouseup = null;
-
-	if (shr) {
-		var str = serializeDpchAppData(srcdoc, "DpchAppWzskLlvRotaryData", scrJref, "ContIacWzskLlvRotary");
-		sendReq(str, doc, handleDpchAppDataDoReply);
-	};
-};
-
-function handleSldValKey(_doc, ctlsref, shr, log, _rast, evt) {
-	var elem = _doc.getElementById(ctlsref + "Val");
-
-	var pos, val;
-
-	var min, max, rast;
-
-	elem.setAttribute("class", "txfxsmod");
+	elem.setAttribute("class", "txf" + size + "mod");
 
 	if (evt.keyCode == 13) {
-		min = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Min"));
-		max = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Max"));
+		setCi(srcdoc, "ContIacWzskLlvRotary", ctlsref, elem.value);
 
-		if (_rast) rast = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Rast"));
-		else rast = 0.0;
-
-		val = parseFloat(elem.value);
-		if (isNaN(val)) val = 0.0;
-
-		if (log) {
-			val = alignSldLogval(min, max, rast, val);
-			pos = getSldPosFromLogval(min, max, val);
-		} else {
-			val = alignSldVal(min, max, rast, val);
-			pos = getSldPosFromVal(min, max, val);
-		};
-
-		setSldPos(_doc, ctlsref, true, pos);
-		setSldVal(_doc, ctlsref, val, true, true);
-
-		if (shr) {
-			setCi(srcdoc, "ContIacWzskLlvRotary", ctlsref, "" + val);
-
-			var str = serializeDpchAppData(srcdoc, "DpchAppWzskLlvRotaryData", scrJref, "ContIacWzskLlvRotary");
-			sendReq(str, doc, handleDpchAppDataDoReply);
-
-		} else {
-			window["handle" + ctlsref + "Change"](val);
-		};
+		var str = serializeDpchAppData(srcdoc, "DpchAppWzskLlvRotaryData", scrJref, "ContIacWzskLlvRotary");
+		sendReq(str, doc, handleDpchAppDataDoReply);
 
 		return false;
 	};
@@ -319,44 +173,15 @@ function handleSldValKey(_doc, ctlsref, shr, log, _rast, evt) {
 	return true;
 };
 
-function handleSldValChange(_doc, ctlsref, shr, log, _rast) {
-	var elem = _doc.getElementById(ctlsref + "Val");
+function handleTxfChange(_doc, ctlsref, size) {
+	var elem = _doc.getElementById(ctlsref);
 
-	var pos, val;
+	elem.setAttribute("class", "txf" + size + "mod");
 
-	var min, max, rast;
+	setCi(srcdoc, "ContIacWzskLlvRotary", ctlsref, elem.value);
 
-	elem.setAttribute("class", "txfxsmod");
-
-	min = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Min"));
-	max = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Max"));
-
-	if (_rast) rast = parseFloat(retrieveSi(srcdoc, "StatShrWzskLlvRotary", ctlsref + "Rast"));
-	else rast = 0.0;
-
-	val = parseFloat(elem.value);
-	if (isNaN(val)) val = 0.0;
-
-	if (log) {
-		val = alignSldLogval(min, max, rast, val);
-		pos = getSldPosFromLogval(min, max, val);
-	} else {
-		val = alignSldVal(min, max, rast, val);
-		pos = getSldPosFromVal(min, max, val);
-	};
-
-	setSldPos(_doc, ctlsref, true, pos);
-	setSldVal(_doc, ctlsref, val, true, true);
-
-	if (shr) {
-		setCi(srcdoc, "ContIacWzskLlvRotary", ctlsref, "" + val);
-
-		var str = serializeDpchAppData(srcdoc, "DpchAppWzskLlvRotaryData", scrJref, "ContIacWzskLlvRotary");
-		sendReq(str, doc, handleDpchAppDataDoReply);
-
-	} else {
-	window["handle" + ctlsref + "Change"](val);
-	};
+	var str = serializeDpchAppData(srcdoc, "DpchAppWzskLlvRotaryData", scrJref, "ContIacWzskLlvRotary");
+	sendReq(str, doc, handleDpchAppDataDoReply);
 };
 
 // --- server interaction
@@ -366,6 +191,7 @@ function mergeDpchEngData(dom) {
 	// IP mergeDpchEngData --- BEGIN
 	if (updateSrcblock(dom, "DpchEngWzskLlvRotaryData", "ContIacWzskLlvRotary", srcdoc)) mask.push("contiac");
 	if (updateSrcblock(dom, "DpchEngWzskLlvRotaryData", "ContInfWzskLlvRotary", srcdoc)) mask.push("continf");
+	if (updateSrcblock(dom, "DpchEngWzskLlvRotaryData", "FeedFCsiSchSte", srcdoc)) mask.push("feedFCsiSchSte");
 	if (updateSrcblock(dom, "DpchEngWzskLlvRotaryData", "StatShrWzskLlvRotary", srcdoc)) mask.push("statshr");
 	if (updateSrcblock(dom, "DpchEngWzskLlvRotaryData", "TagWzskLlvRotary", srcdoc)) mask.push("tag");
 	// IP mergeDpchEngData --- END

@@ -24,6 +24,10 @@
 #include "JobWzskSrcTivsp.h"
 #include "JobWzskSrcZuvsp.h"
 
+#define VecVJobWzskAcqHdrSge JobWzskAcqHdr::VecVSge
+
+#define StgJobWzskAcqHdr JobWzskAcqHdr::Stg
+
 #define ShrdatJobWzskAcqHdr JobWzskAcqHdr::Shrdat
 
 /**
@@ -32,11 +36,49 @@
 class JobWzskAcqHdr : public CsjobWzsk {
 
 public:
+	/**
+		* VecVSge (full: VecVJobWzskAcqHdrSge)
+		*/
+	class VecVSge {
+
+	public:
+		static const Sbecore::uint IDLE = 1;
+		static const Sbecore::uint RNG = 2;
+
+		static Sbecore::uint getIx(const std::string& sref);
+		static std::string getSref(const Sbecore::uint ix);
+
+		static void fillFeed(Sbecore::Feed& feed);
+	};
+
+	/**
+		* Stg (full: StgJobWzskAcqHdr)
+		*/
+	class Stg : public Sbecore::Block {
+
+	public:
+		static const Sbecore::uint PATH = 1;
+		static const Sbecore::uint NCHUNK = 2;
+		static const Sbecore::uint SIZECHUNK = 3;
+
+	public:
+		Stg(const std::string& path = "/dev/dbeaxishmem0", const Sbecore::utinyint NChunk = 12, const Sbecore::utinyint sizeChunk = 12);
+
+	public:
+		std::string path;
+		Sbecore::utinyint NChunk;
+		Sbecore::utinyint sizeChunk; // in MB
+
+	public:
+		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
+		void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true);
+		std::set<Sbecore::uint> comm(const Stg* comp);
+		std::set<Sbecore::uint> diff(const Stg* comp);
+	};
+
 	bool evalSrcdcvspConstr(DbsWzsk* dbswzsk);
 	bool evalSrctivspConstr(DbsWzsk* dbswzsk);
 	bool evalSrczuvspConstr(DbsWzsk* dbswzsk);
-
-	/// newline before subs!
 
 	/**
 		* Shrdat (full: ShrdatJobWzskAcqHdr)
@@ -46,12 +88,22 @@ public:
 	public:
 		// IP Shrdat.subs --- IBEGIN
 		/**
-			* Resultitem (full: ResultitemJobFrdpAcqFpgacube)
+			* Resultitem (full: ResultitemJobWzskAcqHdr)
 			*/
-		class Resultitem : public Frdp::ResultitemCube {
+		class Resultitem : public Sbecore::Resultitem {
 
 		public:
-			Resultitem(Shrdat& super, const Frdp::Cubeinfo& ci, const Sbecore::uint ixDma);
+			Resultitem(Shrdat& super, XchgWzsk* xchg, const Sbecore::uint ixDma);
+
+		public:
+			unsigned int w;
+			unsigned int h;
+
+			unsigned char* buf;
+			size_t lenBuf;
+
+			// converted from hdreng.getInfo()
+			double t;
 		};
 		// IP Shrdat.subs --- IEND
 
@@ -66,12 +118,12 @@ public:
 
 		unsigned char* bufDummy;
 
-		pthread_t cube;
-		Sbecore::Mutex mCube;
+		pthread_t hdr;
+		Sbecore::Mutex mHdr;
 
-		bool cancelCube;
+		bool cancelHdr;
 
-		Sbecore::Result resultCube;
+		Sbecore::Result resultHdr;
 		// IP Shrdat.vars.cust --- IEND
 
 	public:
@@ -84,6 +136,7 @@ public:
 	~JobWzskAcqHdr();
 
 public:
+	static Stg stg;
 	static Shrdat shrdat;
 
 	JobWzskSrcDcvsp* srcdcvsp;
@@ -96,8 +149,8 @@ public:
 
 public:
 	// IP cust --- IBEGIN
-	static void* runCube(void* arg);
-	static void cleanupCube(void* arg);
+	static void* runHdr(void* arg);
+	static void cleanupHdr(void* arg);
 	// IP cust --- IEND
 
 public:
@@ -108,9 +161,25 @@ public:
 public:
 	void handleRequest(DbsWzsk* dbswzsk, ReqWzsk* req);
 
-	/// and changeStage
 private:
-	bool handleCallFrdpCallbackFromSelfInSgeRng(DbsFrdp* dbsfrdp, const Sbecore::uint ixInv, const std::string& srefInv);
+
+public:
+	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
+
+private:
+	bool handleCallWzskCallbackFromSelfInSgeRng(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
+
+private:
+	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);
+
+public:
+	std::string getSquawk(DbsWzsk* dbswzsk);
+
+private:
+	Sbecore::uint enterSgeIdle(DbsWzsk* dbswzsk, const bool reenter);
+	void leaveSgeIdle(DbsWzsk* dbswzsk);
+	Sbecore::uint enterSgeRng(DbsWzsk* dbswzsk, const bool reenter);
+	void leaveSgeRng(DbsWzsk* dbswzsk);
 
 public:
 	bool handleClaim(DbsWzsk* dbswzsk, std::map<Sbecore::ubigint,Sbecore::Claim*>& claims, const Sbecore::ubigint jrefNewest);

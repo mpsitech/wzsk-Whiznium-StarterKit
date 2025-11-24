@@ -71,9 +71,11 @@ uint VecWzskVJob::getIx(
 	if (s == "pnlwzsknavheadbar") return PNLWZSKNAVHEADBAR;
 	if (s == "pnlwzsknavop") return PNLWZSKNAVOP;
 	if (s == "pnlwzskprfacqcorner") return PNLWZSKPRFACQCORNER;
+	if (s == "pnlwzskprfacqhdr") return PNLWZSKPRFACQHDR;
 	if (s == "pnlwzskprfacqpreview") return PNLWZSKPRFACQPREVIEW;
 	if (s == "pnlwzskprfacqtrace") return PNLWZSKPRFACQTRACE;
 	if (s == "pnlwzskprfactlaser") return PNLWZSKPRFACTLASER;
+	if (s == "pnlwzskprfactrotary") return PNLWZSKPRFACTROTARY;
 	if (s == "pnlwzskprfactvistorot") return PNLWZSKPRFACTVISTOROT;
 	if (s == "pnlwzskprfdaemon") return PNLWZSKPRFDAEMON;
 	if (s == "pnlwzskprfglobal") return PNLWZSKPRFGLOBAL;
@@ -172,9 +174,11 @@ string VecWzskVJob::getSref(
 	if (ix == PNLWZSKNAVHEADBAR) return("PnlWzskNavHeadbar");
 	if (ix == PNLWZSKNAVOP) return("PnlWzskNavOp");
 	if (ix == PNLWZSKPRFACQCORNER) return("PnlWzskPrfAcqCorner");
+	if (ix == PNLWZSKPRFACQHDR) return("PnlWzskPrfAcqHdr");
 	if (ix == PNLWZSKPRFACQPREVIEW) return("PnlWzskPrfAcqPreview");
 	if (ix == PNLWZSKPRFACQTRACE) return("PnlWzskPrfAcqTrace");
 	if (ix == PNLWZSKPRFACTLASER) return("PnlWzskPrfActLaser");
+	if (ix == PNLWZSKPRFACTROTARY) return("PnlWzskPrfActRotary");
 	if (ix == PNLWZSKPRFACTVISTOROT) return("PnlWzskPrfActVistorot");
 	if (ix == PNLWZSKPRFDAEMON) return("PnlWzskPrfDaemon");
 	if (ix == PNLWZSKPRFGLOBAL) return("PnlWzskPrfGlobal");

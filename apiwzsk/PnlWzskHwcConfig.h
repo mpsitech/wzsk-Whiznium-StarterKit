@@ -14,6 +14,7 @@
 
 #define VecVWzskHwcConfigDo PnlWzskHwcConfig::VecVDo
 #define VecVWzskHwcConfigMode PnlWzskHwcConfig::VecVMode
+#define VecVWzskHwcConfigSge PnlWzskHwcConfig::VecVSge
 
 #define ContIacWzskHwcConfig PnlWzskHwcConfig::ContIac
 #define ContIacWzskHwcConfigAlign PnlWzskHwcConfig::ContIacAlign
@@ -41,8 +42,12 @@ namespace PnlWzskHwcConfig {
 		static const Sbecore::uint BUTREGULARIZECLICK = 1;
 		static const Sbecore::uint BUTMINIMIZECLICK = 2;
 		static const Sbecore::uint BUTCLAIMCLICK = 3;
-		static const Sbecore::uint BUTSTACLICK = 4;
-		static const Sbecore::uint BUTSTOCLICK = 5;
+		static const Sbecore::uint BUTPLAYCLICK = 4;
+		static const Sbecore::uint BUTSTOPCLICK = 5;
+		static const Sbecore::uint BUTSNAPCLICK = 6;
+		static const Sbecore::uint BUTPFIVIEWCLICK = 7;
+		static const Sbecore::uint BUTSTACLICK = 8;
+		static const Sbecore::uint BUTSTOCLICK = 9;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -56,6 +61,21 @@ namespace PnlWzskHwcConfig {
 	public:
 		static const Sbecore::uint GRAY = 1;
 		static const Sbecore::uint RGB = 2;
+
+		static Sbecore::uint getIx(const std::string& sref);
+		static std::string getSref(const Sbecore::uint ix);
+	};
+
+	/**
+		* VecVSge (full: VecVWzskHwcConfigSge)
+		*/
+	class VecVSge {
+
+	public:
+		static const Sbecore::uint IDLE = 1;
+		static const Sbecore::uint CAPTURE = 2;
+		static const Sbecore::uint STOIDLE = 3;
+		static const Sbecore::uint STORE = 4;
 
 		static Sbecore::uint getIx(const std::string& sref);
 		static std::string getSref(const Sbecore::uint ix);
@@ -122,13 +142,15 @@ namespace PnlWzskHwcConfig {
 
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
-		static const Sbecore::uint TXTSTE = 2;
+		static const Sbecore::uint TXTPFI = 2;
+		static const Sbecore::uint TXTSTE = 3;
 
 	public:
-		ContInf(const bool ButClaimOn = false, const std::string& TxtSte = "");
+		ContInf(const bool ButClaimOn = false, const std::string& TxtPfi = "", const std::string& TxtSte = "");
 
 	public:
 		bool ButClaimOn;
+		std::string TxtPfi;
 		std::string TxtSte;
 
 	public:
@@ -145,28 +167,34 @@ namespace PnlWzskHwcConfig {
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
 		static const Sbecore::uint BUTCLAIMACTIVE = 2;
-		static const Sbecore::uint RBUMDEACTIVE = 3;
-		static const Sbecore::uint CUSIMGHEIGHT = 4;
-		static const Sbecore::uint UPDNFRACTIVE = 5;
-		static const Sbecore::uint UPDNFRMIN = 6;
-		static const Sbecore::uint UPDNFRMAX = 7;
-		static const Sbecore::uint SLDFSTACTIVE = 8;
-		static const Sbecore::uint SLDFSTMIN = 9;
-		static const Sbecore::uint SLDFSTMAX = 10;
-		static const Sbecore::uint SLDFSPACTIVE = 11;
-		static const Sbecore::uint SLDFSPMIN = 12;
-		static const Sbecore::uint SLDFSPMAX = 13;
-		static const Sbecore::uint BUTSTAACTIVE = 14;
-		static const Sbecore::uint BUTSTOACTIVE = 15;
+		static const Sbecore::uint CUSIMGHEIGHT = 3;
+		static const Sbecore::uint BUTPLAYACTIVE = 4;
+		static const Sbecore::uint BUTSTOPACTIVE = 5;
+		static const Sbecore::uint BUTSNAPACTIVE = 6;
+		static const Sbecore::uint BUTPFIVIEWACTIVE = 7;
+		static const Sbecore::uint UPDNFRACTIVE = 8;
+		static const Sbecore::uint UPDNFRMIN = 9;
+		static const Sbecore::uint UPDNFRMAX = 10;
+		static const Sbecore::uint SLDFSTACTIVE = 11;
+		static const Sbecore::uint SLDFSTMIN = 12;
+		static const Sbecore::uint SLDFSTMAX = 13;
+		static const Sbecore::uint SLDFSPACTIVE = 14;
+		static const Sbecore::uint SLDFSPMIN = 15;
+		static const Sbecore::uint SLDFSPMAX = 16;
+		static const Sbecore::uint BUTSTAACTIVE = 17;
+		static const Sbecore::uint BUTSTOACTIVE = 18;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool RbuMdeActive = true, const Sbecore::uint CusImgHeight = 384, const bool UpdNfrActive = true, const int UpdNfrMin = 10, const int UpdNfrMax = 100, const bool SldFstActive = true, const double SldFstMin = 1, const double SldFstMax = 1000, const bool SldFspActive = true, const double SldFspMin = 1, const double SldFspMax = 1000, const bool ButStaActive = true, const bool ButStoActive = true);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const Sbecore::uint CusImgHeight = 384, const bool ButPlayActive = true, const bool ButStopActive = true, const bool ButSnapActive = true, const bool ButPfiViewActive = true, const bool UpdNfrActive = true, const int UpdNfrMin = 10, const int UpdNfrMax = 100, const bool SldFstActive = true, const double SldFstMin = 1, const double SldFstMax = 1000, const bool SldFspActive = true, const double SldFspMin = 1, const double SldFspMax = 1000, const bool ButStaActive = true, const bool ButStoActive = true);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		bool ButClaimActive;
-		bool RbuMdeActive;
 		Sbecore::uint CusImgHeight;
+		bool ButPlayActive;
+		bool ButStopActive;
+		bool ButSnapActive;
+		bool ButPfiViewActive;
 		bool UpdNfrActive;
 		int UpdNfrMin;
 		int UpdNfrMax;
@@ -194,20 +222,22 @@ namespace PnlWzskHwcConfig {
 		static const Sbecore::uint CPT = 1;
 		static const Sbecore::uint HDGPVW = 2;
 		static const Sbecore::uint CPTMDE = 3;
-		static const Sbecore::uint CPTNFR = 4;
-		static const Sbecore::uint CPTFST = 5;
-		static const Sbecore::uint CPTFSP = 6;
-		static const Sbecore::uint CPTSTE = 7;
-		static const Sbecore::uint BUTSTA = 8;
-		static const Sbecore::uint BUTSTO = 9;
+		static const Sbecore::uint CPTPFI = 4;
+		static const Sbecore::uint CPTNFR = 5;
+		static const Sbecore::uint CPTFST = 6;
+		static const Sbecore::uint CPTFSP = 7;
+		static const Sbecore::uint CPTSTE = 8;
+		static const Sbecore::uint BUTSTA = 9;
+		static const Sbecore::uint BUTSTO = 10;
 
 	public:
-		Tag(const std::string& Cpt = "", const std::string& HdgPvw = "", const std::string& CptMde = "", const std::string& CptNfr = "", const std::string& CptFst = "", const std::string& CptFsp = "", const std::string& CptSte = "", const std::string& ButSta = "", const std::string& ButSto = "");
+		Tag(const std::string& Cpt = "", const std::string& HdgPvw = "", const std::string& CptMde = "", const std::string& CptPfi = "", const std::string& CptNfr = "", const std::string& CptFst = "", const std::string& CptFsp = "", const std::string& CptSte = "", const std::string& ButSta = "", const std::string& ButSto = "");
 
 	public:
 		std::string Cpt;
 		std::string HdgPvw;
 		std::string CptMde;
+		std::string CptPfi;
 		std::string CptNfr;
 		std::string CptFst;
 		std::string CptFsp;
@@ -343,19 +373,14 @@ namespace PnlWzskHwcConfig {
 	public:
 		static const Sbecore::uint SCRJREF = 1;
 		static const Sbecore::uint GRAY = 2;
-		static const Sbecore::uint RED = 3;
-		static const Sbecore::uint GREEN = 4;
-		static const Sbecore::uint BLUE = 5;
+		static const Sbecore::uint RGB = 3;
 
 	public:
 		DpchEngLive();
 
 	public:
 		std::vector<Sbecore::utinyint> gray;
-
-		std::vector<Sbecore::utinyint> red;
-		std::vector<Sbecore::utinyint> green;
-		std::vector<Sbecore::utinyint> blue;
+		std::vector<Sbecore::utinyint> rgb;
 
 	public:
 		std::string getSrefsMask();

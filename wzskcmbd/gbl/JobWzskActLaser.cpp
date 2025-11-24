@@ -41,7 +41,10 @@ void JobWzskActLaser::Shrdat::init(
 			XchgWzsk* xchg
 			, DbsWzsk* dbswzsk
 		) {
-	// IP Shrdat.init --- INSERT
+	// IP Shrdat.init --- IBEGIN
+	left = 0;
+	right = 0;
+	// IP Shrdat.init --- IEND
 };
 
 void JobWzskActLaser::Shrdat::term(
@@ -82,7 +85,9 @@ JobWzskActLaser::JobWzskActLaser(
 
 	// IP constructor.cust3 --- INSERT
 
-	// IP constructor.spec3 --- INSERT
+	// IP constructor.spec3 --- IBEGIN
+	if (srvNotCli) setLeft(dbswzsk, 0); // sufficient as shrdat.right == 0 and both are set at the same time
+	// IP constructor.spec3 --- IEND
 };
 
 JobWzskActLaser::~JobWzskActLaser() {
@@ -128,9 +133,9 @@ bool JobWzskActLaser::setLeft(
 	// IP setLeft --- IBEGIN
 	int res;
 
-	usmallint i = pToAbs(false, left);
-
-	if (srczuvsp) retval = srczuvsp->laser_set(pToAbs(false, shrdat.left), i);
+	if (srcdcvsp) retval = srcdcvsp->laser_set(pToAbs(false, left), pToAbs(true, shrdat.right));
+	else if (srctivsp) retval = srctivsp->laser_set(pToAbs(false, left), pToAbs(true, shrdat.right));
+	else if (srczuvsp) retval = srczuvsp->laser_set(pToAbs(false, left), pToAbs(true, shrdat.right));
 
 	if (retval) {
 		shrdat.wlockAccess(jref, "setLeft");
@@ -168,9 +173,9 @@ bool JobWzskActLaser::setRight(
 	// IP setRight --- IBEGIN
 	int res;
 
-	usmallint i = pToAbs(true, right);
-
-	if (srczuvsp) retval = srczuvsp->laser_set(pToAbs(true, shrdat.right), i);
+	if (srcdcvsp) retval = srcdcvsp->laser_set(pToAbs(false, shrdat.left), pToAbs(true, right));
+	else if (srctivsp) retval = srctivsp->laser_set(pToAbs(false, shrdat.left), pToAbs(true, right));
+	else if (srczuvsp) retval = srczuvsp->laser_set(pToAbs(false, shrdat.left), pToAbs(true, right));
 
 	if (retval) {
 		shrdat.wlockAccess(jref, "setRight");
@@ -225,7 +230,7 @@ bool JobWzskActLaser::handleClaim(
 
 	// claim policy:
 	// - exactly one claim can be fulfilled
-	// - only possible if srcfpga "laser" claim can be fulfilled
+	// - only possible if src*vsp "laser" claim can be fulfilled
 
 	Claim* claim = NULL;
 
@@ -236,7 +241,8 @@ bool JobWzskActLaser::handleClaim(
 	bool available;
 	bool reattributed;
 
-	bool laserTakenNotAvailable, laserFulfilled;
+	CsjobWzsk* srcvsp = NULL;
+	bool vspTakenNotAvailable, vspFulfilled;
 
 	// survey
 	for (auto it = claims.begin(); it != claims.end(); it++) {
@@ -248,16 +254,17 @@ bool JobWzskActLaser::handleClaim(
 		};
 	};
 
-	if (srczuvsp) {
-		// add or remove "laser" claim with srczuvsp
-		//if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srczuvsp);
-		//else xchg->addCsjobClaim(dbswzsk, srczuvsp, new Wzsk::ClaimFull(false, false, true, false));
+	// add or remove "laser" claim with src*vsp
+	if (srcdcvsp) srcvsp = srcdcvsp;
+	else if (srctivsp)  srcvsp = srctivsp;
+	else if (srczuvsp) srcvsp = srczuvsp;
 
-		//xchg->getCsjobClaim(srczuvsp, laserTakenNotAvailable, laserFulfilled);
+	if (srcvsp) {
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcvsp);
+		else xchg->addCsjobClaim(dbswzsk, srcvsp, new Wzsk::ClaimVsp(false, Wzsk::ClaimVsp::VecWDomain::LASER));
 
-		laserFulfilled = true;
-
-	} else laserFulfilled = true;
+		xchg->getCsjobClaim(srcvsp, vspTakenNotAvailable, vspFulfilled);
+	};
 
 	// try to fulfill
 	reattributed = false;
@@ -266,7 +273,7 @@ bool JobWzskActLaser::handleClaim(
 		for (auto it = claims.begin(); it != claims.end(); it++) {
 			claim = (Claim*) it->second;
 
-			available = retractable && laserFulfilled;
+			available = retractable && vspFulfilled;
 
 			if (!available) break;
 
@@ -289,15 +296,13 @@ bool JobWzskActLaser::handleClaim(
 	};
 
 	// update taken status
-	available = retractable;
-
 	for (auto it = claims.begin(); it != claims.end(); it++) {
 		claim = (Claim*) it->second;
-
-		claim->takenNotAvailable = !available;
+		claim->takenNotAvailable = !retractable;
 	};
 
 	mod = true; // for simplicity
+
 	// IP handleClaim --- IEND
 
 	return mod;

@@ -17,6 +17,7 @@
 #include "JobWzskActRotary.h"
 
 #define VecVWzskLlvRotaryDo PnlWzskLlvRotary::VecVDo
+#define VecVWzskLlvRotaryState PnlWzskLlvRotary::VecVState
 
 #define ContIacWzskLlvRotary PnlWzskLlvRotary::ContIac
 #define ContInfWzskLlvRotary PnlWzskLlvRotary::ContInf
@@ -48,18 +49,35 @@ public:
 	};
 
 	/**
+		* VecVState (full: VecVWzskLlvRotaryState)
+		*/
+	class VecVState {
+
+	public:
+		static const Sbecore::uint IDLE = 1;
+		static const Sbecore::uint MOVE = 2;
+
+		static Sbecore::uint getIx(const std::string& sref);
+		static std::string getSref(const Sbecore::uint ix);
+
+		static std::string getTitle(const Sbecore::uint ix);
+
+		static void fillFeed(Sbecore::Feed& feed);
+	};
+
+	/**
 	  * ContIac (full: ContIacWzskLlvRotary)
 	  */
 	class ContIac : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint SLDTRG = 1;
+		static const Sbecore::uint TXFSCHTRG = 1;
 
 	public:
-		ContIac(const double SldTrg = 0.0);
+		ContIac(const std::string& TxfSchTrg = "");
 
 	public:
-		double SldTrg;
+		std::string TxfSchTrg;
 
 	public:
 		bool readJSON(const Json::Value& sup, bool addbasetag = false);
@@ -77,12 +95,16 @@ public:
 
 	public:
 		static const Sbecore::uint BUTCLAIMON = 1;
+		static const Sbecore::uint TXTSCHANG = 2;
+		static const Sbecore::uint NUMFCSISCHSTE = 3;
 
 	public:
-		ContInf(const bool ButClaimOn = false);
+		ContInf(const bool ButClaimOn = false, const std::string& TxtSchAng = "", const Sbecore::uint numFCsiSchSte = 1);
 
 	public:
 		bool ButClaimOn;
+		std::string TxtSchAng;
+		Sbecore::uint numFCsiSchSte;
 
 	public:
 		void writeJSON(Json::Value& sup, std::string difftag = "");
@@ -99,19 +121,15 @@ public:
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
 		static const Sbecore::uint BUTCLAIMACTIVE = 2;
-		static const Sbecore::uint SLDTRGACTIVE = 3;
-		static const Sbecore::uint SLDTRGMIN = 4;
-		static const Sbecore::uint SLDTRGMAX = 5;
+		static const Sbecore::uint CUSSCHACTIVE = 3;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool SldTrgActive = true, const double SldTrgMin = 0, const double SldTrgMax = 360);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool ButClaimActive = true, const bool CusSchActive = true);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
 		bool ButClaimActive;
-		bool SldTrgActive;
-		double SldTrgMin;
-		double SldTrgMax;
+		bool CusSchActive;
 
 	public:
 		void writeJSON(Json::Value& sup, std::string difftag = "");
@@ -183,16 +201,18 @@ public:
 		static const Sbecore::uint JREF = 1;
 		static const Sbecore::uint CONTIAC = 2;
 		static const Sbecore::uint CONTINF = 3;
-		static const Sbecore::uint STATSHR = 4;
-		static const Sbecore::uint TAG = 5;
-		static const Sbecore::uint ALL = 6;
+		static const Sbecore::uint FEEDFCSISCHSTE = 4;
+		static const Sbecore::uint STATSHR = 5;
+		static const Sbecore::uint TAG = 6;
+		static const Sbecore::uint ALL = 7;
 
 	public:
-		DpchEngData(const Sbecore::ubigint jref = 0, ContIac* contiac = NULL, ContInf* continf = NULL, StatShr* statshr = NULL, const std::set<Sbecore::uint>& mask = {NONE});
+		DpchEngData(const Sbecore::ubigint jref = 0, ContIac* contiac = NULL, ContInf* continf = NULL, Sbecore::Feed* feedFCsiSchSte = NULL, StatShr* statshr = NULL, const std::set<Sbecore::uint>& mask = {NONE});
 
 	public:
 		ContIac contiac;
 		ContInf continf;
+		Sbecore::Feed feedFCsiSchSte;
 		StatShr statshr;
 
 	public:
@@ -204,7 +224,7 @@ public:
 	};
 
 	bool evalButClaimActive(DbsWzsk* dbswzsk);
-	bool evalSldTrgActive(DbsWzsk* dbswzsk);
+	bool evalCusSchActive(DbsWzsk* dbswzsk);
 
 public:
 	PnlWzskLlvRotary(XchgWzsk* xchg, DbsWzsk* dbswzsk, const Sbecore::ubigint jrefSup, const Sbecore::uint ixWzskVLocale);
@@ -214,6 +234,8 @@ public:
 	ContIac contiac;
 	ContInf continf;
 	StatShr statshr;
+
+	Sbecore::Feed feedFCsiSchSte;
 
 	JobWzskActRotary* actrotary;
 
@@ -246,6 +268,7 @@ public:
 
 private:
 	bool handleCallWzskClaimChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskSgeChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
 	bool handleCallWzskShrdatChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig, const Sbecore::uint ixInv, const std::string& srefInv);
 
 };

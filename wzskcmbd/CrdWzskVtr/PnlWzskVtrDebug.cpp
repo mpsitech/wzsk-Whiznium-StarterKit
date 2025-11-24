@@ -43,10 +43,16 @@ PnlWzskVtrDebug::PnlWzskVtrDebug(
 
 	acqvtrtrack = new JobWzskAcqVtrtrack(xchg, dbswzsk, jref, ixWzskVLocale);
 
-	// IP constructor.cust2 --- INSERT
+	// IP constructor.cust2 --- IBEGIN
+	numTrack = 0;
+	refFilTrack = 0;
+	// IP constructor.cust2 --- IEND
 
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
+
+	xchg->addClstn(VecWzskVCall::CALLWZSKSGECHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, acqvtrtrack->jref, false, Arg(), 0, Clstn::VecVJactype::LOCK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -89,27 +95,29 @@ void PnlWzskVtrDebug::refresh(
 
 	// IP refresh --- RBEGIN
 
-	// contiac
-	ContIac oldContiac(contiac);
+	bool takenNotAvailable, fulfilled;
 
-	contiac.TxfTfr = "fpgaeu_2025_";
-
-	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
+	xchg->getCsjobClaim(acqvtrtrack, takenNotAvailable, fulfilled);
 
 	// continf
 	ContInf oldContinf(continf);
 
-	continf.TxtTst = "done";
-	continf.TxtTtf = "fpgaeu_2025_7.vcd";
+	continf.ButClaimOn = fulfilled;
+	continf.TxtTst = acqvtrtrack->getSquawk(dbswzsk);
+	continf.TxtTtf = StubWzsk::getStubFilStd(dbswzsk, refFilTrack);
 
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 
 	// statshr
-	//statshr.ButClaimActive = CUSTOM;
-	//statshr.TxfTfrActive = CUSTOM;
-	//statshr.ButTsrActive = CUSTOM;
-	//statshr.ButTspActive = CUSTOM;
-	//statshr.ButTtfViewActive = CUSTOM;
+	statshr.ButClaimActive = !takenNotAvailable || fulfilled;
+
+	statshr.TxfTfrActive = continf.ButClaimOn && (acqvtrtrack->ixVSge == VecVJobWzskAcqVtrtrackSge::IDLE);
+
+	statshr.ButTsrActive = continf.ButClaimOn && (acqvtrtrack->ixVSge == VecVJobWzskAcqVtrtrackSge::IDLE);
+	statshr.ButTspActive = continf.ButClaimOn && (acqvtrtrack->ixVSge != VecVJobWzskAcqVtrtrackSge::IDLE);
+
+	statshr.ButTtfViewActive = (refFilTrack != 0);
+
 	// IP refresh --- REND
 
 	if (statshr.diff(&oldStatshr).size() != 0) insert(moditems, DpchEngData::STATSHR);
@@ -184,7 +192,14 @@ void PnlWzskVtrDebug::handleDpchAppDataContiac(
 	set<uint> moditems;
 
 	diffitems = _contiac->diff(&contiac);
-	// IP handleDpchAppDataContiac --- INSERT
+	// IP handleDpchAppDataContiac --- IBEGIN
+
+	if (has(diffitems, ContIac::TXFTFR)) {
+		contiac.TxfTfr = _contiac->TxfTfr;
+		numTrack = 0;
+	};
+
+	// IP handleDpchAppDataContiac --- IEND
 	insert(moditems, DpchEngData::CONTIAC);
 	*dpcheng = getNewDpchEng(moditems);
 };
@@ -213,26 +228,119 @@ void PnlWzskVtrDebug::handleDpchAppDoButClaimClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
-	// IP handleDpchAppDoButClaimClick --- INSERT
+	// IP handleDpchAppDoButClaimClick --- IBEGIN
+	if (statshr.ButClaimActive) {
+		muteRefresh = true;
+
+		if (!continf.ButClaimOn) xchg->addCsjobClaim(dbswzsk, acqvtrtrack, new Claim(true));
+		else xchg->removeCsjobClaim(dbswzsk, acqvtrtrack);
+
+		refreshWithDpchEng(dbswzsk, dpcheng, true);
+	};
+	// IP handleDpchAppDoButClaimClick --- IEND
 };
 
 void PnlWzskVtrDebug::handleDpchAppDoButTsrClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
-	// IP handleDpchAppDoButTsrClick --- INSERT
+	// IP handleDpchAppDoButTsrClick --- IBEGIN
+	string path;
+
+	if (statshr.ButTsrActive) {
+		muteRefresh = true;
+
+		if (contiac.TxfTfr == "") path = "track";
+		else path = contiac.TxfTfr;
+
+		path += "_" + to_string(numTrack) + ".vcd";
+
+		xchg->addCsjobClaim(dbswzsk, acqvtrtrack, new Wzsk::ClaimTrack(true, true, path));
+
+		refreshWithDpchEng(dbswzsk, dpcheng, true);
+	};
+	// IP handleDpchAppDoButTsrClick --- IEND
 };
 
 void PnlWzskVtrDebug::handleDpchAppDoButTspClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
-	// IP handleDpchAppDoButTspClick --- INSERT
+	// IP handleDpchAppDoButTspClick --- IBEGIN
+	if (statshr.ButTspActive) {
+		muteRefresh = true;
+
+		xchg->addCsjobClaim(dbswzsk, acqvtrtrack, new Wzsk::ClaimTrack(true, false, ""));
+
+		refreshWithDpchEng(dbswzsk, dpcheng, true);
+	};
+	// IP handleDpchAppDoButTspClick --- IEND
 };
 
 void PnlWzskVtrDebug::handleDpchAppDoButTtfViewClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
 		) {
-	// IP handleDpchAppDoButTtfViewClick --- INSERT
+	// IP handleDpchAppDoButTtfViewClick --- IBEGIN
+	ubigint jrefNew = 0;
+	string sref;
+
+	if (statshr.ButTtfViewActive) {
+		if (xchg->getIxPreset(VecWzskVPreset::PREWZSKIXCRDACCFIL, jref)) {
+			sref = "CrdWzskFil";
+			xchg->triggerIxRefSrefIntvalToRefCall(dbswzsk, VecWzskVCall::CALLWZSKCRDOPEN, jref, 0, 0, sref, refFilTrack, jrefNew);
+		};
+
+		if (jrefNew == 0) *dpcheng = new DpchEngWzskConfirm(false, 0, "");
+		else *dpcheng = new DpchEngWzskConfirm(true, jrefNew, sref);
+	};
+	// IP handleDpchAppDoButTtfViewClick --- IEND
+};
+
+void PnlWzskVtrDebug::handleCall(
+			DbsWzsk* dbswzsk
+			, Call* call
+		) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKSGECHG) {
+		call->abort = handleCallWzskSgeChg(dbswzsk, call->jref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && (call->jref == acqvtrtrack->jref)) {
+		call->abort = handleCallWzskResultNewFromAcqvtrtrack(dbswzsk, call->argInv.ix, call->argInv.ref, call->argInv.sref);
+	};
+};
+
+bool PnlWzskVtrDebug::handleCallWzskSgeChg(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+	// IP handleCallWzskSgeChg --- IBEGIN
+
+	set<uint> moditems;
+
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+
+	// IP handleCallWzskSgeChg --- IEND
+	return retval;
+};
+
+bool PnlWzskVtrDebug::handleCallWzskResultNewFromAcqvtrtrack(
+			DbsWzsk* dbswzsk
+			, const uint ixInv
+			, const ubigint refInv
+			, const string& srefInv
+		) {
+	bool retval = false;
+	// IP handleCallWzskResultNewFromAcqvtrtrack --- IBEGIN
+
+	set<uint> moditems;
+
+	refFilTrack = refInv;
+	numTrack++;
+
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+
+	// IP handleCallWzskResultNewFromAcqvtrtrack --- IEND
+	return retval;
 };

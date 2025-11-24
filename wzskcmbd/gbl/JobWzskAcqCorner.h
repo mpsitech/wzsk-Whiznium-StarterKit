@@ -110,6 +110,7 @@ public:
 	bool evalSrcdcvspConstr(DbsWzsk* dbswzsk);
 	bool evalSrctivspConstr(DbsWzsk* dbswzsk);
 	bool evalSrczuvspConstr(DbsWzsk* dbswzsk);
+
 	/**
 		* Shrdat (full: ShrdatJobWzskAcqCorner)
 		*/
@@ -175,7 +176,7 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskCallbackFromSelfInSgeAcq(DbsWzsk* dbswzsk);
+	bool handleCallWzskCallbackFromSelfInSgeAcq(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

@@ -45,9 +45,11 @@ CrdWzskPrf::CrdWzskPrf(
 	pnldaemon = NULL;
 	pnlglobal = NULL;
 	pnlacqcorner = NULL;
+	pnlacqhdr = NULL;
 	pnlacqpreview = NULL;
 	pnlacqtrace = NULL;
 	pnlactlaser = NULL;
+	pnlactrotary = NULL;
 	pnlactvistorot = NULL;
 	pnlsrcdcvsp = NULL;
 	pnlsrcsysinfo = NULL;
@@ -63,9 +65,11 @@ CrdWzskPrf::CrdWzskPrf(
 	pnldaemon = new PnlWzskPrfDaemon(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlglobal = new PnlWzskPrfGlobal(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlacqcorner = new PnlWzskPrfAcqCorner(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlacqhdr = new PnlWzskPrfAcqHdr(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlacqpreview = new PnlWzskPrfAcqPreview(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlacqtrace = new PnlWzskPrfAcqTrace(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlactlaser = new PnlWzskPrfActLaser(xchg, dbswzsk, jref, ixWzskVLocale);
+	pnlactrotary = new PnlWzskPrfActRotary(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlactvistorot = new PnlWzskPrfActVistorot(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlsrcdcvsp = new PnlWzskPrfSrcDcvsp(xchg, dbswzsk, jref, ixWzskVLocale);
 	pnlsrcsysinfo = new PnlWzskPrfSrcSysinfo(xchg, dbswzsk, jref, ixWzskVLocale);
@@ -78,9 +82,11 @@ CrdWzskPrf::CrdWzskPrf(
 	statshr.jrefDaemon = pnldaemon->jref;
 	statshr.jrefGlobal = pnlglobal->jref;
 	statshr.jrefAcqCorner = pnlacqcorner->jref;
+	statshr.jrefAcqHdr = pnlacqhdr->jref;
 	statshr.jrefAcqPreview = pnlacqpreview->jref;
 	statshr.jrefAcqTrace = pnlacqtrace->jref;
 	statshr.jrefActLaser = pnlactlaser->jref;
+	statshr.jrefActRotary = pnlactrotary->jref;
 	statshr.jrefActVistorot = pnlactvistorot->jref;
 	statshr.jrefSrcDcvsp = pnlsrcdcvsp->jref;
 	statshr.jrefSrcSysinfo = pnlsrcsysinfo->jref;
@@ -111,9 +117,11 @@ void CrdWzskPrf::setPref(
 	pnldaemon->setPref(dbswzsk, true);
 	pnlglobal->setPref(dbswzsk, true);
 	pnlacqcorner->setPref(dbswzsk, true);
+	pnlacqhdr->setPref(dbswzsk, true);
 	pnlacqpreview->setPref(dbswzsk, true);
 	pnlacqtrace->setPref(dbswzsk, true);
 	pnlactlaser->setPref(dbswzsk, true);
+	pnlactrotary->setPref(dbswzsk, true);
 	pnlactvistorot->setPref(dbswzsk, true);
 	pnlsrcdcvsp->setPref(dbswzsk, true);
 	pnlsrcsysinfo->setPref(dbswzsk, true);
@@ -135,9 +143,11 @@ void CrdWzskPrf::storePref() {
 	StgWzskUasrv* stgwzskuasrv = &(xchg->stgwzskuasrv);
 	StgWzskCamera* stgwzskcamera = &(xchg->stgwzskcamera);
 	JobWzskAcqCorner::Stg* stgjobwzskacqcorner = &(JobWzskAcqCorner::stg);
+	JobWzskAcqHdr::Stg* stgjobwzskacqhdr = &(JobWzskAcqHdr::stg);
 	JobWzskAcqPreview::Stg* stgjobwzskacqpreview = &(JobWzskAcqPreview::stg);
 	JobWzskAcqTrace::Stg* stgjobwzskacqtrace = &(JobWzskAcqTrace::stg);
 	JobWzskActLaser::Stg* stgjobwzskactlaser = &(JobWzskActLaser::stg);
+	JobWzskActRotary::Stg* stgjobwzskactrotary = &(JobWzskActRotary::stg);
 	JobWzskActVistorot::Stg* stgjobwzskactvistorot = &(JobWzskActVistorot::stg);
 	JobWzskSrcDcvsp::Stg* stgjobwzsksrcdcvsp = &(JobWzskSrcDcvsp::stg);
 	JobWzskSrcSysinfo::Stg* stgjobwzsksrcsysinfo = &(JobWzskSrcSysinfo::stg);
@@ -170,9 +180,11 @@ void CrdWzskPrf::storePref() {
 #endif
 	pnlglobal->getPref(stgwzskcamera);
 	pnlacqcorner->getPref(stgjobwzskacqcorner);
+	pnlacqhdr->getPref(stgjobwzskacqhdr);
 	pnlacqpreview->getPref(stgjobwzskacqpreview);
 	pnlacqtrace->getPref(stgjobwzskacqtrace);
 	pnlactlaser->getPref(stgjobwzskactlaser);
+	pnlactrotary->getPref(stgjobwzskactrotary);
 	pnlactvistorot->getPref(stgjobwzskactvistorot);
 	pnlsrcdcvsp->getPref(stgjobwzsksrcdcvsp);
 	pnlsrcsysinfo->getPref(stgjobwzsksrcsysinfo);
@@ -194,9 +206,11 @@ void CrdWzskPrf::storePref() {
 		stgwzskuasrv->writeXML(wr);
 		stgwzskcamera->writeXML(wr);
 		stgjobwzskacqcorner->writeXML(wr);
+		stgjobwzskacqhdr->writeXML(wr);
 		stgjobwzskacqpreview->writeXML(wr);
 		stgjobwzskacqtrace->writeXML(wr);
 		stgjobwzskactlaser->writeXML(wr);
+		stgjobwzskactrotary->writeXML(wr);
 		stgjobwzskactvistorot->writeXML(wr);
 		stgjobwzsksrcdcvsp->writeXML(wr);
 		stgjobwzsksrcsysinfo->writeXML(wr);

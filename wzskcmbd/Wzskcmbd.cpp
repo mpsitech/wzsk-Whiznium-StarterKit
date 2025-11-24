@@ -1269,7 +1269,7 @@ DpchEngWzskAlert* AlrWzsk::prepareAlrAbt(
 	continf.TxtCpt = StrMod::cap(continf.TxtCpt);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		continf.TxtMsg1 = "Whiznium StarterKit version v1.2.6 released on 12-10-2025";
+		continf.TxtMsg1 = "Whiznium StarterKit version v1.2.12 released on 23-11-2025";
 		continf.TxtMsg2 = "\\u00a9 MPSI Technologies GmbH";
 		continf.TxtMsg4 = "contributors: Alexander Wirthmueller";
 		continf.TxtMsg6 = "libraries: ezdevwskd 1.1.0";
@@ -2223,7 +2223,7 @@ void XchgWzskcmbd::startMon() {
 	Clstn* clstn = NULL;
 	Preset* preset = NULL;
 
-	mon.start("Whiznium StarterKit v1.2.6", stgwzskpath.monpath);
+	mon.start("Whiznium StarterKit v1.2.12", stgwzskpath.monpath);
 
 	rwmJobs.rlock("XchgWzskcmbd", "startMon");
 	for (auto it = jobs.begin(); it != jobs.end(); it++) {

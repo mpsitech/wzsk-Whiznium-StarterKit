@@ -42,20 +42,22 @@ string PnlWzskLlvIdent::VecVDo::getSref(
  ******************************************************************************/
 
 PnlWzskLlvIdent::ContInf::ContInf(
-			const string& TxtVve
+			const string& TxtSrf
+			, const string& TxtVve
 			, const string& TxtVgh
 			, const string& TxtVau
 			, const string& TxtVfm
 			, const string& TxtVfd
 		) :
 			Block()
+			, TxtSrf(TxtSrf)
 			, TxtVve(TxtVve)
 			, TxtVgh(TxtVgh)
 			, TxtVau(TxtVau)
 			, TxtVfm(TxtVfm)
 			, TxtVfd(TxtVfd)
 		{
-	mask = {TXTVVE, TXTVGH, TXTVAU, TXTVFM, TXTVFD};
+	mask = {TXTSRF, TXTVVE, TXTVGH, TXTVAU, TXTVFM, TXTVFD};
 };
 
 bool PnlWzskLlvIdent::ContInf::readXML(
@@ -75,6 +77,7 @@ bool PnlWzskLlvIdent::ContInf::readXML(
 	string itemtag = "ContitemInfWzskLlvIdent";
 
 	if (basefound) {
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "TxtSrf", TxtSrf)) add(TXTSRF);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "TxtVve", TxtVve)) add(TXTVVE);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "TxtVgh", TxtVgh)) add(TXTVGH);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "TxtVau", TxtVau)) add(TXTVAU);
@@ -90,6 +93,7 @@ set<uint> PnlWzskLlvIdent::ContInf::comm(
 		) {
 	set<uint> items;
 
+	if (TxtSrf == comp->TxtSrf) insert(items, TXTSRF);
 	if (TxtVve == comp->TxtVve) insert(items, TXTVVE);
 	if (TxtVgh == comp->TxtVgh) insert(items, TXTVGH);
 	if (TxtVau == comp->TxtVau) insert(items, TXTVAU);
@@ -107,7 +111,7 @@ set<uint> PnlWzskLlvIdent::ContInf::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {TXTVVE, TXTVGH, TXTVAU, TXTVFM, TXTVFD};
+	diffitems = {TXTSRF, TXTVVE, TXTVGH, TXTVAU, TXTVFM, TXTVFD};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -185,6 +189,7 @@ set<uint> PnlWzskLlvIdent::StatShr::diff(
 PnlWzskLlvIdent::Tag::Tag(
 			const string& Cpt
 			, const string& HdgVsp
+			, const string& CptSrf
 			, const string& CptVve
 			, const string& CptVgh
 			, const string& CptVau
@@ -194,13 +199,14 @@ PnlWzskLlvIdent::Tag::Tag(
 			Block()
 			, Cpt(Cpt)
 			, HdgVsp(HdgVsp)
+			, CptSrf(CptSrf)
 			, CptVve(CptVve)
 			, CptVgh(CptVgh)
 			, CptVau(CptVau)
 			, CptVfm(CptVfm)
 			, CptVfd(CptVfd)
 		{
-	mask = {CPT, HDGVSP, CPTVVE, CPTVGH, CPTVAU, CPTVFM, CPTVFD};
+	mask = {CPT, HDGVSP, CPTSRF, CPTVVE, CPTVGH, CPTVAU, CPTVFM, CPTVFD};
 };
 
 bool PnlWzskLlvIdent::Tag::readXML(
@@ -222,6 +228,7 @@ bool PnlWzskLlvIdent::Tag::readXML(
 	if (basefound) {
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "Cpt", Cpt)) add(CPT);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "HdgVsp", HdgVsp)) add(HDGVSP);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptSrf", CptSrf)) add(CPTSRF);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptVve", CptVve)) add(CPTVVE);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptVgh", CptVgh)) add(CPTVGH);
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptVau", CptVau)) add(CPTVAU);

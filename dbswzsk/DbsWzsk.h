@@ -10,10 +10,10 @@
 #ifndef DBSWZSK_H
 #define DBSWZSK_H
 
-#define WZSK_VERSION "1.2.6"
+#define WZSK_VERSION "1.2.12"
 #define WZSK_VERSION_MAJOR 1
 #define WZSK_VERSION_MINOR 2
-#define WZSK_VERSION_SUB 6
+#define WZSK_VERSION_SUB 12
 
 #include <sbecore/Types.h>
 

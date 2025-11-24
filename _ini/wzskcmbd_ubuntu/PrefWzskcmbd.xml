@@ -63,9 +63,13 @@
 		<Si sref="w">640</Si>
 		<Si sref="h">480</Si>
 	</StgJobWzskAcqCorner>
+	<StgJobWzskAcqHdr>
+		<Si sref="path">/dev/dbeaxishmem0</Si>
+		<Si sref="NChunk">12</Si>
+		<Si sref="sizeChunk">12</Si>
+	</StgJobWzskAcqHdr>
 	<StgJobWzskAcqPreview>
-		<Si sref="rgbNotGray">true</Si>
-		<Si sref="decim">10</Si>
+		<Si sref="sizePvwbuf">38</Si>
 	</StgJobWzskAcqPreview>
 	<StgJobWzskAcqTrace>
 		<Si sref="row0">100</Si>
@@ -74,11 +78,15 @@
 		<Si sref="h">480</Si>
 	</StgJobWzskAcqTrace>
 	<StgJobWzskActLaser>
-		<Si sref="leftMin">164</Si>
-		<Si sref="leftMax">245</Si>
-		<Si sref="rightMin">164</Si>
-		<Si sref="rightMax">245</Si>
+		<Si sref="leftMin">256</Si>
+		<Si sref="leftMax">512</Si>
+		<Si sref="rightMin">256</Si>
+		<Si sref="rightMax">512</Si>
 	</StgJobWzskActLaser>
+	<StgJobWzskActRotary>
+		<Si sref="ppr">16000</Si>
+		<Si sref="omega">9</Si>
+	</StgJobWzskActRotary>
 	<StgJobWzskActVistorot>
 		<Si sref="omegaMax">9</Si>
 		<Si sref="P">0.5</Si>

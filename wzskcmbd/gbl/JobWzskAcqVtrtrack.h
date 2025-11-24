@@ -46,6 +46,7 @@ public:
 	bool evalSrcdcvspConstr(DbsWzsk* dbswzsk);
 	bool evalSrctivspConstr(DbsWzsk* dbswzsk);
 	bool evalSrczuvspConstr(DbsWzsk* dbswzsk);
+
 	/**
 		* Shrdat (full: ShrdatJobWzskAcqVtrtrack)
 		*/
@@ -59,7 +60,16 @@ public:
 
 	public:
 
-		// IP Shrdat.vars.cust --- INSERT
+		// IP Shrdat.vars.cust --- IBEGIN
+		pthread_t track;
+		Sbecore::Mutex mTrack;
+
+		bool cancelTrack;
+
+		std::string path;
+		Sbecore::ubigint refWzskMFile;
+		std::string fullpath;
+		// IP Shrdat.vars.cust --- IEND
 
 	public:
 		void init(XchgWzsk* xchg, DbsWzsk* dbswzsk);
@@ -99,7 +109,7 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskCallbackFromSelfInSgeRng(DbsWzsk* dbswzsk);
+	bool handleCallWzskCallbackFromSelfInSgeRng(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

@@ -49,15 +49,13 @@ public:
 	class ContIac : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint CHK1 = 1;
-		static const Sbecore::uint TXF2 = 2;
+		static const Sbecore::uint TXF1 = 1;
 
 	public:
-		ContIac(const bool Chk1 = false, const std::string& Txf2 = "");
+		ContIac(const std::string& Txf1 = "");
 
 	public:
-		bool Chk1;
-		std::string Txf2;
+		std::string Txf1;
 
 	public:
 		bool readJSON(const Json::Value& sup, bool addbasetag = false);
@@ -75,16 +73,14 @@ public:
 
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
-		static const Sbecore::uint CHK1CLEAN = 2;
-		static const Sbecore::uint TXF2CLEAN = 3;
+		static const Sbecore::uint TXF1CLEAN = 2;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool Chk1Clean = false, const bool Txf2Clean = false);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool Txf1Clean = false);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
-		bool Chk1Clean;
-		bool Txf2Clean;
+		bool Txf1Clean;
 
 	public:
 		void writeJSON(Json::Value& sup, std::string difftag = "");

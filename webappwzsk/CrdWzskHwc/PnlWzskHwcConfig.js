@@ -1,4 +1,117 @@
-// IP cust --- INSERT
+// IP cust --- IBEGIN
+function refreshLive(mask) {
+	if (!contcontdoc) return;
+	var cusdoc = contcontdoc.getElementById("CusImg").contentDocument;
+
+	var cvs = cusdoc.getElementById("cvs");
+	var cvsctx = cvs.getContext("2d");
+
+	var wCvs = cvs.width;
+	var hCvs = cvs.height;
+
+	var scale_old = doc.scale;
+
+	var whbase = 0.0;
+
+	var w, h;
+	var x0, y0;
+
+	var ix, ix2;
+
+	// - scaling
+	var d = doc.imgdat.data;
+
+	// expect frame to be roughly in 4:3 format with hCvs (exact) revealing the exact integer scaling factor
+	if (mask.indexOf("rgb") != -1) whbase = Math.sqrt((doc.rgb.length/3)/12);
+	else if (mask.indexOf("gray") != -1) whbase = Math.sqrt(doc.gray.length/12);
+
+	if (whbase == 0.0) return;
+
+	doc.scale = Math.round((1.0 * hCvs)/(3.0 * whbase));
+
+	h = hCvs / doc.scale;
+
+	if (mask.indexOf("rgb") != -1) {
+		w = doc.rgb.length/3/h;
+		if (3*w*h != doc.rgb.length) return;
+
+	} else if (mask.indexOf("gray") != -1) {
+		w = doc.gray.length/h;
+		if (w*h != doc.gray.length) return;
+	};
+
+	console.log("determined scale = " + doc.scale + ", w = " + w + ", h = " + h);
+
+	if (doc.scale != scale_old) for (var i = 0; i < 4*hCvs*wCvs; i++) d[i] = 255;
+
+	x0 = Math.floor(wCvs/2 - (doc.scale * w) / 2);
+	y0 = Math.floor(hCvs/2 - (doc.scale * h) / 2);
+
+	// - canvas
+	if (mask.indexOf("rgb") != -1) {
+		for (var i = 0; i < h; i++) {
+			for (var j = 0; j < w; j++) {
+				ix = (h-i-1)*w + (w-j-1);
+				ix2 = 4 * ((y0 + doc.scale*i)*wCvs + x0 + doc.scale*j);
+
+				for (var k = 0; k < doc.scale; k++) {
+					for (var l = 0; l < doc.scale; l++) {
+						d[ix2] = doc.rgb[3*ix];
+						d[ix2+1] = doc.rgb[3*ix+1];
+						d[ix2+2] = doc.rgb[3*ix+2];
+						d[ix2+3] = 255;
+
+						ix2 += 4;
+					};
+
+					ix2 += 4 * (wCvs - doc.scale);
+				};
+			};
+		};
+
+	} else if (mask.indexOf("gray") != -1) {
+		for (var i = 0; i < h; i++) {
+			for (var j = 0; j < w; j++) {
+				ix = (h-i-1)*w + (w-j-1);
+				ix2 = 4 * ((y0 + doc.scale*i)*wCvs + x0 + doc.scale*j);
+
+				for (var k = 0; k < doc.scale; k++) {
+					for (var l = 0; l < doc.scale; l++) {
+
+						d[ix2] = doc.gray[ix];
+						d[ix2+1] = doc.gray[ix];
+						d[ix2+2] = doc.gray[ix];
+						d[ix2+3] = 255;
+
+						ix2 += 4;
+					};
+
+					ix2 += 4 * (wCvs - doc.scale);
+				};
+			};
+		};
+	};
+
+	cvsctx.putImageData(doc.imgdat, 0, 0);
+};
+
+function refreshCusImg() {
+	if (!contcontdoc) return;
+
+	var cusdoc = contcontdoc.getElementById("CusImg").contentDocument;
+	if (!cusdoc) return;
+
+	var CusImgHeight = parseInt(retrieveSi(srcdoc, "StatShrWzskHwcConfig", "CusImgHeight"));
+	var cvs = cusdoc.getElementById("cvs");
+
+	if ((CusImgHeight == cvs.height) && doc.imgdat) return;
+
+	cusdoc.getElementById("tdImg").setAttribute("height", "" + CusImgHeight);
+
+	cvs.setAttribute("height", "" + CusImgHeight);
+	if (!doc.imgdat) doc.imgdat = cvs.getContext("2d").createImageData(cvs.width, cvs.height);
+};
+// IP cust --- IEND
 
 // --- expand state management
 function minimize() {
@@ -46,7 +159,8 @@ function initBD(bNotD) {
 	initCpt(hdrdoc, "Cpt", retrieveTi(srcdoc, "TagWzskHwcConfig", "Cpt"));
 	initCpt(contcontdoc, "HdgPvw", retrieveTi(srcdoc, "TagWzskHwcConfig", "HdgPvw"));
 	initCpt(contcontdoc, "CptMde", retrieveTi(srcdoc, "TagWzskHwcConfig", "CptMde"));
-	refreshRbu(contcontdoc, srcdoc, "RbuMde", "FeedFRbuMde", retrieveCi(srcdoc, "ContIacWzskHwcConfig", "numFRbuMde"), retrieveSi(srcdoc, "StatShrWzskHwcConfig", "RbuMdeActive"));
+	refreshRbu(contcontdoc, srcdoc, "RbuMde", "FeedFRbuMde", retrieveCi(srcdoc, "ContIacWzskHwcConfig", "numFRbuMde"), true);
+	initCpt(contcontdoc, "CptPfi", retrieveTi(srcdoc, "TagWzskHwcConfig", "CptPfi"));
 	initCpt(contcontdoc, "CptNfr", retrieveTi(srcdoc, "TagWzskHwcConfig", "CptNfr"));
 	initCpt(contcontdoc, "CptFst", retrieveTi(srcdoc, "TagWzskHwcConfig", "CptFst"));
 	initCpt(contcontdoc, "CptFsp", retrieveTi(srcdoc, "TagWzskHwcConfig", "CptFsp"));
@@ -76,14 +190,18 @@ function refreshA() {
 function refreshBD(bNotD) {
 	if (!contcontdoc) return;
 
-	var height = 583; // full cont height
+	var height = 633; // full cont height
 
 	// IP refreshBD.vars --- BEGIN
 	var ButClaimActive = (retrieveSi(srcdoc, "StatShrWzskHwcConfig", "ButClaimActive") == "true");
 
-	var RbuMdeActive = (retrieveSi(srcdoc, "StatShrWzskHwcConfig", "RbuMdeActive") == "true");
-
 	var CusImgHeight = parseInt(retrieveSi(srcdoc, "StatShrWzskHwcConfig", "CusImgHeight"));
+
+	var ButPlayActive = (retrieveSi(srcdoc, "StatShrWzskHwcConfig", "ButPlayActive") == "true");
+	var ButStopActive = (retrieveSi(srcdoc, "StatShrWzskHwcConfig", "ButStopActive") == "true");
+	var ButSnapActive = (retrieveSi(srcdoc, "StatShrWzskHwcConfig", "ButSnapActive") == "true");
+
+	var ButPfiViewActive = (retrieveSi(srcdoc, "StatShrWzskHwcConfig", "ButPfiViewActive") == "true");
 
 	var UpdNfrActive = (retrieveSi(srcdoc, "StatShrWzskHwcConfig", "UpdNfrActive") == "true");
 
@@ -96,15 +214,26 @@ function refreshBD(bNotD) {
 
 	// IP refreshBD.vars --- END
 
-	// IP refreshBD --- BEGIN
+	// IP refreshBD --- RBEGIN
 	refreshButicon(hdrdoc, "ButClaim", "icon/claim", ButClaimActive, retrieveCi(srcdoc, "ContInfWzskHwcConfig", "ButClaimOn") == "true");
 
-	setRbuValue(contcontdoc, "RbuMde", retrieveCi(srcdoc, "ContIacWzskHwcConfig", "numFRbuMde"), RbuMdeActive);
+	setRbuValue(contcontdoc, "RbuMde", retrieveCi(srcdoc, "ContIacWzskHwcConfig", "numFRbuMde"), true);
 
 	mytd = contcontdoc.getElementById("tdImg");
 	mytd.setAttribute("height", "" + CusImgHeight);
 	contcontdoc.getElementById("CusImg").setAttribute("height", "" + CusImgHeight);
 	height += CusImgHeight-384;
+
+	///
+	refreshCusImg();
+
+	refreshButicon(contcontdoc, "ButPlay", "iconwzsk/play", ButPlayActive, false);
+	refreshButicon(contcontdoc, "ButStop", "iconwzsk/stop", ButStopActive, false);
+	refreshButicon(contcontdoc, "ButSnap", "iconwzsk/snap", ButSnapActive, false);
+
+	refreshTxt(contcontdoc, "TxtPfi", retrieveCi(srcdoc, "ContInfWzskHwcConfig", "TxtPfi"));
+
+	refreshButicon(contcontdoc, "ButPfiView", "icon/view", ButPfiViewActive, false);
 
 	refreshUpd(contcontdoc, "UpdNfr", parseInt(retrieveSi(srcdoc, "StatShrWzskHwcConfig", "UpdNfrMin")), parseInt(retrieveSi(srcdoc, "StatShrWzskHwcConfig", "UpdNfrMax")), parseInt(retrieveCi(srcdoc, "ContIacWzskHwcConfig", "UpdNfr")), UpdNfrActive, false);
 
@@ -117,7 +246,7 @@ function refreshBD(bNotD) {
 	refreshBut(contcontdoc, "ButSta", ButStaActive, false);
 	refreshBut(contcontdoc, "ButSto", ButStoActive, false);
 
-	// IP refreshBD --- END
+	// IP refreshBD --- REND
 
 	getCrdwnd().changeHeight("Config", height+31);
 	doc.getElementById("tdSide").setAttribute("height", "" + (height+31));
@@ -574,7 +703,28 @@ function handleDpchEngWzskHwcConfigAlign(dom) {
 };
 
 function handleDpchEngWzskHwcConfigLive(dom) {
-	// IP handleDpchEngWzskHwcConfigLive --- INSERT
+	// IP handleDpchEngWzskHwcConfigLive --- IBEGIN
+	var mask = [];
+
+	var resnode;
+
+	// gray
+	resnode = getNode(dom, "//wzsk:DpchEngWzskHwcConfigLive/wzsk:gray");
+	if (resnode) {
+		doc.gray = parseUtinyintvec(resnode.textContent);
+		mask.push("gray");
+	};
+
+	// rgb
+	resnode = getNode(dom, "//wzsk:DpchEngWzskHwcConfigLive/wzsk:rgb");
+	if (resnode) {
+		doc.rgb = parseUtinyintvec(resnode.textContent);
+		mask.push("rgb");
+	};
+
+	var srefIxWzskVExpstate = retrieveSi(srcdoc, "StatShrWzskHwcConfig", "srefIxWzskVExpstate");
+	if (srefIxWzskVExpstate == "regd") refreshLive(mask);
+	// IP handleDpchEngWzskHwcConfigLive --- IEND
 };
 
 function handleDpchAppInitReply() {

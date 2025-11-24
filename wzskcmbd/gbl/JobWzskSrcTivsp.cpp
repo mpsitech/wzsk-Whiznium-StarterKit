@@ -51,14 +51,22 @@ void JobWzskSrcTivsp::Shrdat::init(
 
 		// version check can fail if either ident.getVer() is not recognized by device or return value doesn't match API version
 		bool success;
-		string ver, hash, who;
+		string unt, ver, hash, who;
 
-		success = ident_get(ver, hash, who);
+		success = ident_get(unt, ver, hash, who);
 		if (!success) cout << "JobWzskSrcTivsp device version mismatch: identification command not recognized" << endl;
-		else {
-			if (Version(ver) == Version(WSKD_VERSION)) cout << "JobWzskSrcTivsp device version " WSKD_VERSION " identified" << endl;
-			else cout << "JobWzskSrcTivsp device version mismatch: identified " << ver << "expected " WSKD_VERSION << endl;
+
+		if (success) {
+			success = (unt == "tivsp");
+			if (!success) cout << "JobWzskSrcTivsp unit mismatch: identified " << unt << " expected tivsp at path " << stg.path << endl;
 		};
+
+		if (success) {
+			success = (Version(ver) == Version(WSKD_VERSION));
+			if (!success) cout << "JobWzskSrcTivsp device version mismatch: identified " << ver << " expected " WSKD_VERSION << endl;
+		};
+
+		if (success) cout << "JobWzskSrcTivsp device version " WSKD_VERSION " identified" << endl;
 
 	} catch (DbeException& e) {
 		cout << e.err << endl;
@@ -118,12 +126,15 @@ JobWzskSrcTivsp::~JobWzskSrcTivsp() {
 
 // ident
 bool JobWzskSrcTivsp::ident_get(
-			string& ver
+			string& unt
+			, string& ver
 			, string& hash
 			, string& who
 		) {
 	bool success = false;
 
+	unsigned char* _unt = NULL;
+	size_t untlen;
 	unsigned char* _ver = NULL;
 	size_t verlen;
 	unsigned char* _hash = NULL;
@@ -132,11 +143,12 @@ bool JobWzskSrcTivsp::ident_get(
 	size_t wholen;
 
 	try {
-		shrdat.hw.ident->get(_ver, verlen, _hash, hashlen, _who, wholen);
+		shrdat.hw.ident->get(_unt, untlen, _ver, verlen, _hash, hashlen, _who, wholen);
 
-		ver = string((const char*) _ver, verlen);
-		hash = string((const char*) _hash, hashlen);
-		who = string((const char*) _who, wholen);
+		unt = StrMod::spcex(string((const char*) _unt, untlen));
+		ver = StrMod::spcex(string((const char*) _ver, verlen));
+		hash = StrMod::spcex(string((const char*) _hash, hashlen));
+		who = StrMod::spcex(string((const char*) _who, wholen));
 
 		success = true;
 
@@ -144,9 +156,139 @@ bool JobWzskSrcTivsp::ident_get(
 		if (shrdat.excdump) cout << e.err << endl;
 	};
 
+	if (_unt) delete[] _unt;
 	if (_ver) delete[] _ver;
 	if (_hash) delete[] _hash;
 	if (_who) delete[] _who;
+
+	return success;
+};
+
+bool JobWzskSrcTivsp::ident_getCfg(
+			float& fMclk
+			, float& fMemclk
+		) {
+	bool success = false;
+
+	uint32_t _fMclk;
+	uint32_t _fMemclk;
+
+	try {
+		shrdat.hw.ident->getCfg(_fMclk, _fMemclk);
+
+		fMclk = 1e-3 * ((float) _fMclk);
+		fMemclk = 1e-3 * ((float) _fMemclk);
+
+		success = true;
+
+	} catch (DbeException& e) {
+		if (shrdat.excdump) cout << e.err << endl;
+	};
+
+	return success;
+};
+
+// laser
+bool JobWzskSrcTivsp::laser_set(
+			const uint16_t l
+			, const uint16_t r
+		) {
+	bool success = false;
+
+	try {
+		shrdat.hw.laser->set(l, r);
+
+		success = true;
+
+	} catch (DbeException& e) {
+		if (shrdat.excdump) cout << e.err << endl;
+	};
+
+	return success;
+};
+
+// rotary
+bool JobWzskSrcTivsp::rotary_getInfo(
+			string& srefTixVState
+			, float& angle
+		) {
+	bool success = false;
+
+	uint8_t tixVState;
+	uint16_t _angle;
+
+	try {
+		shrdat.hw.rotary->getInfo(tixVState, _angle);
+
+		srefTixVState = VecVWskdTivspRotaryState::getSref(tixVState);
+		angle = ((float) _angle) * 360.0/16000.0;
+
+		success = true;
+
+	} catch (DbeException& e) {
+		if (shrdat.excdump) cout << e.err << endl;
+	};
+
+	return success;
+};
+
+bool JobWzskSrcTivsp::rotary_moveto(
+			float& _angle
+		) {
+	bool success = false;
+
+	uint16_t angle;
+
+	float angle_imd = _angle;
+
+	while (angle_imd >= 360.0) angle_imd -= 360.0;
+	while (angle_imd < 0.0) angle_imd += 360.0;
+
+	angle = lround(16000.0 * angle_imd/360.0);
+	if (angle == 16000) angle = 0;
+
+	try {
+		shrdat.hw.rotary->moveto(angle);
+		_angle = 360.0 * ((float) angle) / 16000.0; // fix target to raster
+
+		success = true;
+
+	} catch (DbeException& e) {
+		if (shrdat.excdump) cout << e.err << endl;
+	};
+
+	return success;
+};
+
+bool JobWzskSrcTivsp::rotary_set(
+			const bool rng
+			, const bool ccwNotCw
+		) {
+	bool success = false;
+
+	try {
+		shrdat.hw.rotary->set(rng, ccwNotCw);
+
+		success = true;
+
+	} catch (DbeException& e) {
+		if (shrdat.excdump) cout << e.err << endl;
+	};
+
+	return success;
+};
+
+bool JobWzskSrcTivsp::rotary_zero() {
+	bool success = false;
+
+	try {
+		shrdat.hw.rotary->zero();
+
+		success = true;
+
+	} catch (DbeException& e) {
+		if (shrdat.excdump) cout << e.err << endl;
+	};
 
 	return success;
 };
@@ -300,7 +442,9 @@ bool JobWzskSrcTivsp::handleClaim(
 		) {
 	bool mod = false;
 
-	// IP handleClaim --- INSERT
+	// IP handleClaim --- IBEGIN
+	mod = Wzsk::ClaimVsp::handleClaim(dbswzsk, claims, jrefNewest);
+	// IP handleClaim --- IEND
 
 	return mod;
 };

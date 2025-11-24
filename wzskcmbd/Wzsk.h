@@ -10,10 +10,10 @@
 #ifndef WZSK_H
 #define WZSK_H
 
-#define WZSK_VERSION "1.2.6"
+#define WZSK_VERSION "1.2.12"
 #define WZSK_VERSION_MAJOR 1
 #define WZSK_VERSION_MINOR 2
-#define WZSK_VERSION_SUB 6
+#define WZSK_VERSION_SUB 12
 
 #include "DevWskd.h" // IP include.cust --- ILINE
 
@@ -95,6 +95,52 @@ namespace Tmp {
 	*/
 namespace Wzsk {
 	// IP gbl --- IBEGIN
+	/**
+		* ClaimTrack
+		*/
+	class ClaimTrack : public Sbecore::Claim {
+
+	public:
+		std::string path;
+	
+	public:
+		ClaimTrack(const bool retractable = true, const bool run = false, const std::string path = "");
+	};
+
+	/**
+		* ClaimVsp
+		*/
+	class ClaimVsp : public Sbecore::Claim {
+
+	public:
+		/**
+			* VecWDomain
+			*/
+		class VecWDomain {
+
+		public:
+			static const Sbecore::uint CORNER = 1;
+			static const Sbecore::uint DECIM = 2;
+			static const Sbecore::uint HDRENG = 4;
+			static const Sbecore::uint LASER = 8;
+			static const Sbecore::uint STEP = 16;
+			static const Sbecore::uint TRACE = 32;
+			static const Sbecore::uint CPUTRACK = 64;
+			static const Sbecore::uint HSHKTRACK = 128;
+			static const Sbecore::uint MEMTRACK = 256;
+			static const Sbecore::uint ALL = 511;
+		};
+
+	public:
+		Sbecore::uint ixWDomain;
+	
+	public:
+		ClaimVsp(const bool retractable = true, const Sbecore::uint ixWDomain = 0);
+
+	public:
+		static bool handleClaim(DbsWzsk* dbswzsk, std::map<Sbecore::ubigint,Sbecore::Claim*>& claims, const Sbecore::ubigint jrefNewest);
+	};
+
 	void parseCmd(UntWskd& unt, std::string s, Dbecore::Cmd*& cmd);
 	Sbecore::uint getCmdix(UntWskd& unt, const std::string& cmdsref);
 	std::string getCmdsref(UntWskd& unt, const Sbecore::uint cmdix);

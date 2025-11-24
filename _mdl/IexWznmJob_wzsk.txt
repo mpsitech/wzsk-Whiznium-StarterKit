@@ -11,13 +11,20 @@ JobWzskAcqCorner	true	true	acquires corner coordinates
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
 JobWzskAcqHdr	true	true	acquires HDR images
+	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	cmbeng;eng	cmbeng;eng	StgJobWzskAcqHdr
+		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
+		0	var	path	string		/dev/dbeaxishmem0
+		0	var	NChunk	utinyint		12
+		0	var	sizeChunk	utinyint		12		in MB
+		ImeIAMBlockItem.end
+	ImeIMBlock.end
 JobWzskAcqMemtrack	true	true	acquires tracks of DDR memory AXI signals
 JobWzskAcqPreview	true	true	acquires preview images
 	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
 	cmbeng;eng	cmbeng;eng	StgJobWzskAcqPreview
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		0	var	rgbNotGray	boolean		true
-		0	var	decim	utinyint		10
+		0	var	sizePvwbuf	utinyint		38		in kB
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
 JobWzskAcqTrace	true	true	acquires laser traces
@@ -35,13 +42,20 @@ JobWzskActLaser	true	true	controls the lhs/rhs line laser strobes
 	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
 	cmbeng;eng	cmbeng;eng	StgJobWzskActLaser
 		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
-		1	var	leftMin	usmallint		164		experimentally, full range corresponds to 16% .. 24%
-		1	var	leftMax	usmallint		245
-		2	var	rightMin	usmallint		164
-		2	var	rightMax	usmallint		245
+		1	var	leftMin	usmallint		256		experimentally, full range corresponds to 25% .. 50%
+		1	var	leftMax	usmallint		512
+		2	var	rightMin	usmallint		256
+		2	var	rightMax	usmallint		512
 		ImeIAMBlockItem.end
 	ImeIMBlock.end
 JobWzskActRotary	true	true	controls the stepper motor driving the rotary table
+	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	cmbeng;eng	cmbeng;eng	StgJobWzskActRotary
+		ImeIAMBlockItem.irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMVector	Defval	srefRefWznmMVectoritem	Comment
+		0	var	ppr	usmallint		16000		pulses per revolution
+		0	var	omega	float		9		[\u00a1/s]
+		ImeIAMBlockItem.end
+	ImeIMBlock.end
 JobWzskActVistorot	true	true	actuates the rotary table based on visual input
 	ImeIMBlock.srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
 	cmbeng;eng	cmbeng;eng	StgJobWzskActVistorot

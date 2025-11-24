@@ -46,6 +46,7 @@ public:
 	bool evalSrcdcvspConstr(DbsWzsk* dbswzsk);
 	bool evalSrctivspConstr(DbsWzsk* dbswzsk);
 	bool evalSrczuvspConstr(DbsWzsk* dbswzsk);
+
 	/**
 		* Shrdat (full: ShrdatJobWzskAcqMemtrack)
 		*/
@@ -92,18 +93,6 @@ public:
 
 public:
 	// IP cust --- IBEGIN
-	/**
-		* Claim (full: ClaimJobWzskAcqMemtrack)
-		*/
-	class Claim : public Sbecore::Claim {
-
-	public:
-		Claim(const bool retractable = true, const bool run = false, const std::string path = "");
-
-	public:
-		std::string path;
-	};
-
 	static void* runTrack(void* arg);
 	static void cleanupTrack(void* arg);
 	// IP cust --- IEND
@@ -123,7 +112,7 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskCallbackFromSelfInSgeRng(DbsWzsk* dbswzsk);
+	bool handleCallWzskCallbackFromSelfInSgeRng(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

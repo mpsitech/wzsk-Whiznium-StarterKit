@@ -40,16 +40,40 @@ string PnlWzskLlvRotary::VecVDo::getSref(
 };
 
 /******************************************************************************
+ class PnlWzskLlvRotary::VecVState
+ ******************************************************************************/
+
+uint PnlWzskLlvRotary::VecVState::getIx(
+			const string& sref
+		) {
+	string s = StrMod::lc(sref);
+
+	if (s == "idle") return IDLE;
+	if (s == "move") return MOVE;
+
+	return(0);
+};
+
+string PnlWzskLlvRotary::VecVState::getSref(
+			const uint ix
+		) {
+	if (ix == IDLE) return("idle");
+	if (ix == MOVE) return("move");
+
+	return("");
+};
+
+/******************************************************************************
  class PnlWzskLlvRotary::ContIac
  ******************************************************************************/
 
 PnlWzskLlvRotary::ContIac::ContIac(
-			const double SldTrg
+			const string& TxfSchTrg
 		) :
 			Block()
-			, SldTrg(SldTrg)
+			, TxfSchTrg(TxfSchTrg)
 		{
-	mask = {SLDTRG};
+	mask = {TXFSCHTRG};
 };
 
 bool PnlWzskLlvRotary::ContIac::readXML(
@@ -69,7 +93,7 @@ bool PnlWzskLlvRotary::ContIac::readXML(
 	string itemtag = "ContitemIacWzskLlvRotary";
 
 	if (basefound) {
-		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "SldTrg", SldTrg)) add(SLDTRG);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "TxfSchTrg", TxfSchTrg)) add(TXFSCHTRG);
 	};
 
 	return basefound;
@@ -87,7 +111,7 @@ void PnlWzskLlvRotary::ContIac::writeXML(
 	else itemtag = "ContitemIacWzskLlvRotary";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeDoubleAttr(wr, itemtag, "sref", "SldTrg", SldTrg);
+		writeStringAttr(wr, itemtag, "sref", "TxfSchTrg", TxfSchTrg);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -96,7 +120,7 @@ set<uint> PnlWzskLlvRotary::ContIac::comm(
 		) {
 	set<uint> items;
 
-	if (compareDouble(SldTrg, comp->SldTrg) < 1.0e-4) insert(items, SLDTRG);
+	if (TxfSchTrg == comp->TxfSchTrg) insert(items, TXFSCHTRG);
 
 	return(items);
 };
@@ -109,7 +133,7 @@ set<uint> PnlWzskLlvRotary::ContIac::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {SLDTRG};
+	diffitems = {TXFSCHTRG};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -121,11 +145,15 @@ set<uint> PnlWzskLlvRotary::ContIac::diff(
 
 PnlWzskLlvRotary::ContInf::ContInf(
 			const bool ButClaimOn
+			, const string& TxtSchAng
+			, const uint numFCsiSchSte
 		) :
 			Block()
 			, ButClaimOn(ButClaimOn)
+			, TxtSchAng(TxtSchAng)
+			, numFCsiSchSte(numFCsiSchSte)
 		{
-	mask = {BUTCLAIMON};
+	mask = {BUTCLAIMON, TXTSCHANG, NUMFCSISCHSTE};
 };
 
 bool PnlWzskLlvRotary::ContInf::readXML(
@@ -146,6 +174,8 @@ bool PnlWzskLlvRotary::ContInf::readXML(
 
 	if (basefound) {
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "ButClaimOn", ButClaimOn)) add(BUTCLAIMON);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "TxtSchAng", TxtSchAng)) add(TXTSCHANG);
+		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "numFCsiSchSte", numFCsiSchSte)) add(NUMFCSISCHSTE);
 	};
 
 	return basefound;
@@ -157,6 +187,8 @@ set<uint> PnlWzskLlvRotary::ContInf::comm(
 	set<uint> items;
 
 	if (ButClaimOn == comp->ButClaimOn) insert(items, BUTCLAIMON);
+	if (TxtSchAng == comp->TxtSchAng) insert(items, TXTSCHANG);
+	if (numFCsiSchSte == comp->numFCsiSchSte) insert(items, NUMFCSISCHSTE);
 
 	return(items);
 };
@@ -169,7 +201,7 @@ set<uint> PnlWzskLlvRotary::ContInf::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {BUTCLAIMON};
+	diffitems = {BUTCLAIMON, TXTSCHANG, NUMFCSISCHSTE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -182,18 +214,14 @@ set<uint> PnlWzskLlvRotary::ContInf::diff(
 PnlWzskLlvRotary::StatShr::StatShr(
 			const uint ixWzskVExpstate
 			, const bool ButClaimActive
-			, const bool SldTrgActive
-			, const double SldTrgMin
-			, const double SldTrgMax
+			, const bool CusSchActive
 		) :
 			Block()
 			, ixWzskVExpstate(ixWzskVExpstate)
 			, ButClaimActive(ButClaimActive)
-			, SldTrgActive(SldTrgActive)
-			, SldTrgMin(SldTrgMin)
-			, SldTrgMax(SldTrgMax)
+			, CusSchActive(CusSchActive)
 		{
-	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGACTIVE, SLDTRGMIN, SLDTRGMAX};
+	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, CUSSCHACTIVE};
 };
 
 bool PnlWzskLlvRotary::StatShr::readXML(
@@ -220,9 +248,7 @@ bool PnlWzskLlvRotary::StatShr::readXML(
 			add(IXWZSKVEXPSTATE);
 		};
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButClaimActive", ButClaimActive)) add(BUTCLAIMACTIVE);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "SldTrgActive", SldTrgActive)) add(SLDTRGACTIVE);
-		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "SldTrgMin", SldTrgMin)) add(SLDTRGMIN);
-		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "SldTrgMax", SldTrgMax)) add(SLDTRGMAX);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "CusSchActive", CusSchActive)) add(CUSSCHACTIVE);
 	};
 
 	return basefound;
@@ -235,9 +261,7 @@ set<uint> PnlWzskLlvRotary::StatShr::comm(
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
 	if (ButClaimActive == comp->ButClaimActive) insert(items, BUTCLAIMACTIVE);
-	if (SldTrgActive == comp->SldTrgActive) insert(items, SLDTRGACTIVE);
-	if (compareDouble(SldTrgMin, comp->SldTrgMin) < 1.0e-4) insert(items, SLDTRGMIN);
-	if (compareDouble(SldTrgMax, comp->SldTrgMax) < 1.0e-4) insert(items, SLDTRGMAX);
+	if (CusSchActive == comp->CusSchActive) insert(items, CUSSCHACTIVE);
 
 	return(items);
 };
@@ -250,7 +274,7 @@ set<uint> PnlWzskLlvRotary::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGACTIVE, SLDTRGMIN, SLDTRGMAX};
+	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, CUSSCHACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -262,13 +286,11 @@ set<uint> PnlWzskLlvRotary::StatShr::diff(
 
 PnlWzskLlvRotary::Tag::Tag(
 			const string& Cpt
-			, const string& CptTrg
 		) :
 			Block()
 			, Cpt(Cpt)
-			, CptTrg(CptTrg)
 		{
-	mask = {CPT, CPTTRG};
+	mask = {CPT};
 };
 
 bool PnlWzskLlvRotary::Tag::readXML(
@@ -289,7 +311,6 @@ bool PnlWzskLlvRotary::Tag::readXML(
 
 	if (basefound) {
 		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "Cpt", Cpt)) add(CPT);
-		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ti", "sref", "CptTrg", CptTrg)) add(CPTTRG);
 	};
 
 	return basefound;
@@ -380,6 +401,7 @@ void PnlWzskLlvRotary::DpchAppDo::writeXML(
 PnlWzskLlvRotary::DpchEngData::DpchEngData() :
 			DpchEngWzsk(VecWzskVDpch::DPCHENGWZSKLLVROTARYDATA)
 		{
+	feedFCsiSchSte.tag = "FeedFCsiSchSte";
 };
 
 string PnlWzskLlvRotary::DpchEngData::getSrefsMask() {
@@ -389,6 +411,7 @@ string PnlWzskLlvRotary::DpchEngData::getSrefsMask() {
 	if (has(SCRJREF)) ss.push_back("scrJref");
 	if (has(CONTIAC)) ss.push_back("contiac");
 	if (has(CONTINF)) ss.push_back("continf");
+	if (has(FEEDFCSISCHSTE)) ss.push_back("feedFCsiSchSte");
 	if (has(STATSHR)) ss.push_back("statshr");
 	if (has(TAG)) ss.push_back("tag");
 
@@ -415,11 +438,13 @@ void PnlWzskLlvRotary::DpchEngData::readXML(
 		if (extractStringUclc(docctx, basexpath, "scrJref", "", scrJref)) add(SCRJREF);
 		if (contiac.readXML(docctx, basexpath, true)) add(CONTIAC);
 		if (continf.readXML(docctx, basexpath, true)) add(CONTINF);
+		if (feedFCsiSchSte.readXML(docctx, basexpath, true)) add(FEEDFCSISCHSTE);
 		if (statshr.readXML(docctx, basexpath, true)) add(STATSHR);
 		if (tag.readXML(docctx, basexpath, true)) add(TAG);
 	} else {
 		contiac = ContIac();
 		continf = ContInf();
+		feedFCsiSchSte.clear();
 		statshr = StatShr();
 		tag = Tag();
 	};

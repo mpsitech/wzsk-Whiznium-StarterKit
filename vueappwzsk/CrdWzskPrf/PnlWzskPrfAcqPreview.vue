@@ -38,17 +38,10 @@
 		<v-card-text
 			v-if="statshr.srefIxWzskVExpstate=='regd'"
 		>
-			<v-checkbox
-				class="my-1"
-				v-model="contiac.Chk1"
-				v-on:change='updateEng(["contiac"])'
-				:label="tag.Cpt1"
-			/>
-
 			<v-text-field
 				class="my-1"
-				v-model="contiac.Txf2"
-				:label="tag.Cpt2"
+				v-model="contiac.Txf1"
+				:label="tag.Cpt1"
 			/>
 
 		</v-card-text>

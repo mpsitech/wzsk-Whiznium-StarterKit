@@ -52,16 +52,18 @@ public:
 	class ContInf : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint TXTVVE = 1;
-		static const Sbecore::uint TXTVGH = 2;
-		static const Sbecore::uint TXTVAU = 3;
-		static const Sbecore::uint TXTVFM = 4;
-		static const Sbecore::uint TXTVFD = 5;
+		static const Sbecore::uint TXTSRF = 1;
+		static const Sbecore::uint TXTVVE = 2;
+		static const Sbecore::uint TXTVGH = 3;
+		static const Sbecore::uint TXTVAU = 4;
+		static const Sbecore::uint TXTVFM = 5;
+		static const Sbecore::uint TXTVFD = 6;
 
 	public:
-		ContInf(const std::string& TxtVve = "", const std::string& TxtVgh = "", const std::string& TxtVau = "", const std::string& TxtVfm = "", const std::string& TxtVfd = "");
+		ContInf(const std::string& TxtSrf = "", const std::string& TxtVve = "", const std::string& TxtVgh = "", const std::string& TxtVau = "", const std::string& TxtVfm = "", const std::string& TxtVfd = "");
 
 	public:
+		std::string TxtSrf;
 		std::string TxtVve;
 		std::string TxtVgh;
 		std::string TxtVau;

@@ -34,15 +34,15 @@ using namespace Dbecore; // IP ns.cust --- ILINE
 JobWzskAcqPreview::Shrdat::Resultitem::Resultitem(
 			XchgWzsk* xchg
 		) :
-			w(xchg->stgwzskcamera.NColRaw/2)
-			, h(xchg->stgwzskcamera.NRowRaw/2)
+			w(xchg->stgwzskcamera.NColRaw/2/6)
+			, h(xchg->stgwzskcamera.NRowRaw/2/6)
 			, rgbNotGray(true)
 			, edge(6)
+			, sizeBuf(1024*stg.sizePvwbuf)
+			, lenBuf(w*h*3)
 			, t(0.0)
 		{
-	sizeBuf = w*h * ((rgbNotGray) ? 3 : 1) * edge*edge;
-
-	buf = new unsigned char[sizeBuf]; // allocate space for max i.e. rgb and edge 6
+	buf = new unsigned char[sizeBuf];
 };
 
 JobWzskAcqPreview::Shrdat::Resultitem::~Resultitem() {
@@ -50,13 +50,15 @@ JobWzskAcqPreview::Shrdat::Resultitem::~Resultitem() {
 };
 
 void JobWzskAcqPreview::Shrdat::Resultitem::config(
-			const bool _rgbNotGray
-			, const Sbecore::utinyint _edge
+			const unsigned int _w
+			, const unsigned int _h
+			, const bool _rgbNotGray
 		) {
+	w = _w;
+	h = _h;
 	rgbNotGray = _rgbNotGray;
-	edge = _edge;
 
-	sizeBuf = w*h * ((rgbNotGray) ? 3 : 1) * edge*edge;
+	lenBuf = w*h * ((rgbNotGray) ? 3 : 1);
 };
 // IP Shrdat.subs --- IEND
 
@@ -76,8 +78,7 @@ void JobWzskAcqPreview::Shrdat::init(
 	// IP Shrdat.init --- IBEGIN
 	pvw = 0;
 
-	rgbNotGray_next = false;
-	edge_next = 6;
+	calcDecim(xchg, false, 0);
 
 	cancelPvw = false;
 
@@ -162,131 +163,131 @@ void* JobWzskAcqPreview::runPvw(
 		) {
 	JobWzskAcqPreview* srv = (JobWzskAcqPreview*) arg;
 
-	uint ixWzskVPvwmode = 0;
-	unsigned int w, h;
-	size_t sizeBuf;
+	Call call(VecWzskVCall::CALLWZSKCALLBACK, srv->jref, Arg());
+	ExtcallWzsk extcall(srv->xchg, &call);
 
-	Wzsk::getPvwWh(srv->xchg->stgwzskglobal.ixWzskVTarget, VecWzskVPvwmode::BINRGB, w, h); // the larger of both possible buffer sizes
-	sizeBuf = 3 * w * h;
+	uint ixRi = shrdat.resultPvw.size();
+	Shrdat::Resultitem* ri = NULL;
 
-	unsigned char* auxbuf = new unsigned char[sizeBuf + 2]; // used if no external buffer is assigned
-	unsigned char* buf = NULL;
+	bool rgbNotGray = shrdat.rgbNotGray_next;
+	uint8_t edge = shrdat.edge_next;
+	uint16_t edge2 = shrdat.edge2_next;
+	uint16_t NDecim;
+
+	uint8_t tixVState;
+	uint32_t tkst;
 
 	size_t datalen;
 
-	uint ixRi;
-	Shrdat::ResultitemPvw* ri = NULL;
+	timespec deltatPoll = {.tv_sec = 0, .tv_nsec = 1000000}; // 1 ms
+	timespec deltatFrame = {.tv_sec = 0, .tv_nsec = 15000000}; // 15 ms
 
-	utinyint tixVPvwbufstate;
-	uint tkst;
+	UntWskdZuvsp& zuvsp = JobWzskSrcZuvsp::shrdat.hw;
 
-	timespec deltat;
+	bool first = true;
 
 	// thread settings
 	pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, 0);
 	pthread_cleanup_push(&cleanupPvw, arg);
 
 	try {
-		// - prepare
-		shrdat.mPvw.lock("JobWzskAcqPreview", "runPvw[1]");
-
-		if (srv->srczuvsp) {
-			srv->srczuvsp->camacq_setPvw(false, 0, 0);
-			srv->srczuvsp->camif_setRng(true);
-		};
-
-		shrdat.mPvw.unlock("JobWzskAcqPreview", "runPvw[1]");
-
 		// - loop
 		while (true) {
 			if (shrdat.cancelPvw) break;
 
-			if (shrdat.ixWzskVPvwmode != ixWzskVPvwmode) {
-				// allow preview mode to change while thread running
-				if (srv->srczuvsp) srv->srczuvsp->camacq_setPvw(true, Wzsk::getPvwRawNotBin(shrdat.ixWzskVPvwmode), Wzsk::getPvwGrayNotRgb(shrdat.ixWzskVPvwmode));
+			shrdat.mPvw.lock("JobWzskAcqPreview", "runPvw[1]");
 
-				ixWzskVPvwmode = shrdat.ixWzskVPvwmode;
+			if ((first) || ((rgbNotGray != shrdat.rgbNotGray_next) || (edge != shrdat.edge_next))) {
+				if (srv->srczuvsp) zuvsp.decim->set(false); // rng={false,true}
 
-				Wzsk::getPvwWh(srv->xchg->stgwzskglobal.ixWzskVTarget, ixWzskVPvwmode, w, h);
-				sizeBuf = w * h;
-				if (!Wzsk::getPvwGrayNotRgb(shrdat.ixWzskVPvwmode)) sizeBuf *= 3;
+				first = false;
 
-				// sleep for 1/4Hz - 10ms = 240ms
-				deltat = {.tv_sec = 0, .tv_nsec = 240000000};
-				//nanosleep(&deltat, NULL);
+				rgbNotGray = shrdat.rgbNotGray_next;
+				edge = shrdat.edge_next;
+				edge2 = shrdat.edge2_next;
 
-				continue;
+				NDecim = (srv->xchg->stgwzskcamera.NColRaw/2/edge)*(srv->xchg->stgwzskcamera.NRowRaw/2/edge) * ((rgbNotGray) ? 3 : 1);
+
+				cout << "JobWzskAcqPreview::runPvw re-configuring to " << ((rgbNotGray) ? "rgb" : "gray") << ", edge = " << ((int) edge) << ", edge2 = " << ((int) edge2) << ", NDecim = " << ((int) NDecim) << endl;
+
+				if (srv->srczuvsp) zuvsp.decim->config(
+							rgbNotGray // rgbNotGray={false,true}
+							, edge // edge=[uint8]
+							, edge2 // edge2=[uint16]
+							, NDecim // NDecim=[uint16]
+						);
+
+				if (srv->srczuvsp) {
+					zuvsp.decim->set(true); // rng={false,true}
+					if (ri) zuvsp.decim->acquire(0); // ixTExp=[uint8]
+				};
 			};
 
-			shrdat.mPvw.lock("JobWzskAcqPreview", "runPvw[2]");
+			shrdat.mPvw.unlock("JobWzskAcqPreview", "runPvw[1]");
 
-			if (srv->srczuvsp) srv->srczuvsp->camacq_getPvwinfo(tixVPvwbufstate, tkst);
-			//cout << "tixVPvwbufstate = " << VecVWskdArtyCamacqPvwbufstate::getSref(tixVPvwbufstate) << ", tkst = " << tkst << endl;
+			if (ri) {
+				shrdat.mPvw.lock("JobWzskAcqPreview", "runPvw[2]");
 
-			if ((tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::ABUF) || (tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::BBUF)) {
-				ri = NULL;
-				if (shrdat.resultPvw.dequeue(ixRi)) ri = (Shrdat::ResultitemPvw*) shrdat.resultPvw[ixRi];
+				tixVState = 0;
 
-				if (ri) {
-					ri->setPvwmode(srv->xchg->stgwzskglobal.ixWzskVTarget, ixWzskVPvwmode);
+				if (srv->srczuvsp) zuvsp.decim->getInfo(tixVState, tkst); // tixVState{idle,acq,lock},tkst[uint32]
 
-					if (srv->srczuvsp) ri->t = srv->srczuvsp->tkstToT(tkst);
+				if (tixVState == VecVWskdZuvspDecimState::LOCK) {
+					cout << "JobWzskAcqPreview::runPvw locked" << endl;
 
-					buf = ri->buf;
+					ri->config(srv->xchg->stgwzskcamera.NColRaw/2/edge, srv->xchg->stgwzskcamera.NRowRaw/2/edge, rgbNotGray);
 
-				} else buf = auxbuf;
+					try {
+						cout << "JobWzskAcqPreview::runPvw reading " << ri->sizeBuf << " bytes" << endl;
 
-				try {
-					if (tixVPvwbufstate == VecVWskdArtyCamacqPvwbufstate::ABUF) {
-						if (srv->srczuvsp) srv->srczuvsp->shrdat.hw.readPvwabufFromCamacq(sizeBuf, buf, datalen);
+						if (srv->srczuvsp) zuvsp.readPvwbufFromDecim(ri->sizeBuf, ri->buf, datalen);
+
+					} catch (DbeException& e) {
+						shrdat.resultPvw.unlock(srv->jref, ixRi); // put result item back in queue and try again
+
+						ri = NULL;
 					};
 
-				} catch (DbeException& e) {
+					if (srv->srczuvsp) zuvsp.decim->unlock();
+
 					if (ri) {
-						shrdat.resultPvw.unlock(srv->jref, ixRi); // put result item back in queue and try again, starting from camacq_getPvwinfo()
+						if (srv->srczuvsp) ri->t = srv->srczuvsp->tkstToT(tkst);
+
+						call.argInv = Arg(ixRi, 0, {}, "", 0, 0.0, false, "", Arg::IX);
+						XchgWzsk::runExtcall(&extcall);
+
 						ri = NULL;
 					};
 				};
 
-				if (ri) XchgWzsk::runExtcall(new ExtcallWzsk(srv->xchg, new Call(VecWzskVCall::CALLWZSKCALLBACK, srv->jref, Arg(ixRi, 0, {}, VecWzskVPvwmode::getSref(ixWzskVPvwmode), 0, 0.0, false, "", Arg::IX + Arg::SREF))));
-
 				shrdat.mPvw.unlock("JobWzskAcqPreview", "runPvw[2]");
 
-				if (ri) {
-					// sleep for 1/4Hz - 10ms = 240ms
-					deltat = {.tv_sec = 0, .tv_nsec = 240000000};
-					//nanosleep(&deltat, NULL);
-				};
+			} else if (shrdat.resultPvw.dequeue(ixRi)) {
+				ri = (Shrdat::Resultitem*) shrdat.resultPvw[ixRi];
 
-			} else {
-				shrdat.mPvw.unlock("JobWzskAcqPreview", "runPvw[3]");
-
-				// sleep for ten milliseconds
-				deltat = {.tv_sec = 0, .tv_nsec = 10000000};
-				nanosleep(&deltat, NULL);
+				if (srv->srczuvsp) zuvsp.decim->acquire(0); // ixTExp=[uint8]
 			};
+
+			if (ri) nanosleep(&deltatPoll, NULL);
+			else nanosleep(&deltatFrame, NULL);
 		};
 
 	} catch (DbeException& e) {
 		cout << e.err << endl;
 
-		XchgWzsk::runExtcall(new ExtcallWzsk(srv->xchg, new Call(VecWzskVCall::CALLWZSKCALLBACK, srv->jref, Arg())));
+		call.argInv = Arg(0, 0, {}, "err", 0, 0.0, false, "", Arg::SREF);
+		XchgWzsk::runExtcall(&extcall);
 
-		shrdat.mPvw.unlock("JobWzskAcqPreview", "runPvw[4]");
+		shrdat.mPvw.unlock("JobWzskAcqPreview", "runPvw[3]");
 	};
 
 	try {
 		// - clean up
-		if (srv->srczuvsp) {
-			srv->srczuvsp->camacq_setPvw(false, 0, 0);
-			srv->srczuvsp->camif_setRng(true);
-		};
+		if (srv->srczuvsp) zuvsp.decim->set(false); // rng={false,true}
 
 	} catch (DbeException& e) {
 		cout << e.err << endl;
 	};
-
-	delete[] auxbuf;
 
 	pthread_cleanup_pop(0);
 
@@ -303,6 +304,33 @@ void JobWzskAcqPreview::cleanupPvw(
 	shrdat.pvw = 0;
 
 	shrdat.mPvw.unlock("JobWzskAcqPreview", "cleanupPvw");
+};
+
+void JobWzskAcqPreview::calcDecim(
+			XchgWzsk* xchg
+			, const bool rgbNotGray
+			, const utinyint _edge
+		) {
+	unsigned int edge, edge2;
+
+	double d;
+
+	// calculate minimal edge (decimation factor) so that decimated frame still fits in the preview buffer
+	d = xchg->stgwzskcamera.NColRaw/2 * xchg->stgwzskcamera.NRowRaw/2 * ((rgbNotGray) ? 3 : 1);
+	d = d / ((double) (stg.sizePvwbuf * 1024));
+	edge = ceil(sqrt(d));
+
+	if (_edge > edge) edge = _edge;
+	if (edge < 6) edge = 6;
+	if (edge > 16) edge = 16;
+
+	// calculate pre >> 12 multiplier for best approximation of integer division
+	d = 1.0 / ((double) (edge*edge));
+	edge2 = floor(d/(1.0/4096.0));
+
+	shrdat.rgbNotGray_next = rgbNotGray;
+	shrdat.edge_next = edge;
+	shrdat.edge2_next = edge2;
 };
 // IP cust --- IEND
 
@@ -331,15 +359,42 @@ void JobWzskAcqPreview::handleCall(
 			, Call* call
 		) {
 	if ((call->ixVCall == VecWzskVCall::CALLWZSKCALLBACK) && (call->jref == jref) && (ixVSge == VecVSge::RNG)) {
-		call->abort = handleCallWzskCallbackFromSelfInSgeRng(dbswzsk);
+		call->abort = handleCallWzskCallbackFromSelfInSgeRng(dbswzsk, call->argInv.ix, call->argInv.sref);
 	};
 };
 
 bool JobWzskAcqPreview::handleCallWzskCallbackFromSelfInSgeRng(
 			DbsWzsk* dbswzsk
+			, const uint ixInv
+			, const string& srefInv
 		) {
 	bool retval = false;
-	// IP handleCallWzskCallbackFromSelfInSgeRng --- INSERT
+	// IP handleCallWzskCallbackFromSelfInSgeRng --- IBEGIN
+	if (trylockAccess("handleCallWzskCallbackFromSelfInSgeRng")) {
+		if (nextIxVSgeFailure != VecVSge::RNG) {
+			// claim run attribute has been retracted
+			changeStage(dbswzsk, VecVSge::IDLE);
+
+		} else if (srefInv == "err") {
+			// something went wrong, cancel thread
+			changeStage(dbswzsk, VecVSge::IDLE);
+
+		} else {
+			// new result available
+			shrdat.resultPvw.lock(jref, ixInv);
+
+			// inform super-jobs about new result
+			xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixInv, srefInv);
+
+			shrdat.resultPvw.unlock(jref, ixInv);
+		};
+
+		unlockAccess("handleCallWzskCallbackFromSelfInSgeRng");
+
+	} else {
+		if (srefInv != "err") shrdat.resultPvw.unlock(jref, ixInv);
+	};
+	// IP handleCallWzskCallbackFromSelfInSgeRng --- IEND
 	return retval;
 };
 
@@ -358,7 +413,7 @@ void JobWzskAcqPreview::changeStage(
 
 			setStage(dbswzsk, _ixVSge);
 			reenter = false;
-			// IP changeStage.refresh1 --- INSERT
+			//cout << "JobWzskAcqPreview now entering stage " << VecVSge::getSref(_ixVSge) << endl; // IP changeStage.refresh1 --- ILINE
 		};
 
 		switch (_ixVSge) {
@@ -394,7 +449,26 @@ uint JobWzskAcqPreview::enterSgeIdle(
 		) {
 	uint retval = VecVSge::IDLE;
 
-	// IP enterSgeIdle --- INSERT
+	// IP enterSgeIdle --- IBEGIN
+	pthread_t oldPvw;
+
+	shrdat.cancelPvw = true;
+
+	shrdat.mPvw.lock("JobWzskAcqPreview", "enterSgeIdle");
+
+	oldPvw = shrdat.pvw; // original will be set 0 in the process
+
+	if (oldPvw != 0) {
+		shrdat.mPvw.unlock("JobWzskAcqPreview", "enterSgeIdle[1]");
+
+		pthread_join(oldPvw, NULL);
+
+	} else shrdat.mPvw.unlock("JobWzskAcqPreview", "enterSgeIdle[2]");
+
+	xchg->clearCsjobRun(dbswzsk, ixWzskVJob);
+
+	for (unsigned int i = 0; i < shrdat.resultPvw.size(); i++) shrdat.resultPvw.unlock(jref, i);
+	// IP enterSgeIdle --- IEND
 
 	return retval;
 };
@@ -411,7 +485,28 @@ uint JobWzskAcqPreview::enterSgeRng(
 		) {
 	uint retval = VecVSge::RNG;
 
-	// IP enterSgeRng --- INSERT
+	// IP enterSgeRng --- IBEGIN
+	int res;
+	pthread_attr_t attr;
+
+	if (shrdat.pvw != 0) retval = VecVSge::IDLE;
+	else {
+		shrdat.mPvw.lock("JobWzskAcqPreview", "enterSgeRng");
+
+		shrdat.cancelPvw = false;
+
+		pthread_attr_init(&attr);
+		pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+
+		for (unsigned int i = 0; i < 3; i++) {
+			res = pthread_create(&shrdat.pvw, &attr, &runPvw, (void*) this);
+			if ((res == 0) || (res != EAGAIN)) break;
+		};
+		if (res != 0) cout << "JobWzskAcqPreview::enterSgeRng() error creating preview thread (" << res << ")" << endl;
+
+		shrdat.mPvw.unlock("JobWzskAcqPreview", "enterSgeRng");
+	};
+	// IP enterSgeRng --- IEND
 
 	return retval;
 };
@@ -429,7 +524,111 @@ bool JobWzskAcqPreview::handleClaim(
 		) {
 	bool mod = false;
 
-	// IP handleClaim --- INSERT
+	// IP handleClaim --- IBEGIN
+
+	// claim policy:
+	// - exactly one claim can be fulfilled
+	// - only possible if src*vsp "decim" claim can be fulfilled
+	// - change stage to rng if fulfilled claim is run (run is continuous)
+
+	Claim* claim = NULL;
+
+	ubigint jrefFulfilled = 0;
+
+	bool retractable = true;
+	bool run = false;
+
+	bool rgbNotGray = false;
+	utinyint edge = 0;
+
+	bool available;
+	bool reattributed;
+
+	CsjobWzsk* srcvsp = NULL;
+	bool vspTakenNotAvailable, vspFulfilled;
+
+	// survey
+	for (auto it = claims.begin(); it != claims.end(); it++) {
+		claim = (Claim*) it->second;
+
+		if (claim->fulfilled) {
+			jrefFulfilled = it->first;
+			retractable = claim->retractable;
+			run = claim->run;
+
+			rgbNotGray = claim->rgbNotGray;
+			edge = claim->edge;
+		};
+	};
+
+	// add or remove "decim" claim with src*vsp
+	if (srcdcvsp) srcvsp = srcdcvsp;
+	else if (srctivsp)  srcvsp = srctivsp;
+	else if (srczuvsp) srcvsp = srczuvsp;
+
+	if (srcvsp) {
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcvsp);
+		else xchg->addCsjobClaim(dbswzsk, srcvsp, new Wzsk::ClaimVsp(false, Wzsk::ClaimVsp::VecWDomain::CORNER));
+
+		xchg->getCsjobClaim(srcvsp, vspTakenNotAvailable, vspFulfilled);
+	};
+
+	// try to fulfill
+	reattributed = false;
+
+	for (unsigned int i = 0; i < 2; i++) {
+		for (auto it = claims.begin(); it != claims.end(); it++) {
+			claim = (Claim*) it->second;
+
+			available = retractable && vspFulfilled;
+
+			if (!available) break;
+
+			if (((i == 0) && (it->first == jrefNewest)) || ((i == 1) && (it->first != jrefNewest))) {
+				// preference given to newest claim
+				if (it->first != jrefFulfilled) {
+					if (jrefFulfilled != 0) claims[jrefFulfilled]->fulfilled = false;
+
+					claim->fulfilled = true;
+					retractable = claim->retractable;
+					run = claim->run;
+
+					rgbNotGray = claim->rgbNotGray;
+					edge = claim->edge;
+
+					reattributed = true;
+				};
+
+				if (reattributed) break;
+			};
+		};
+
+		if (!available) break;
+		if (reattributed) break;
+	};
+
+	// update taken status
+	for (auto it = claims.begin(); it != claims.end(); it++) {
+		claim = (Claim*) it->second;
+		claim->takenNotAvailable = !retractable;
+	};
+
+	// initiate stage change
+	if (!run || !vspFulfilled) {
+		// changeStage() not used, rather nextIxVSgeFailure will be detected at a point when it is safe to change to idle
+		nextIxVSgeFailure = VecVSge::IDLE;
+
+	} else if (run && vspFulfilled) {
+		calcDecim(xchg, rgbNotGray, edge);
+	
+		nextIxVSgeFailure = VecVSge::RNG;
+
+		if (ixVSge == VecVSge::IDLE) changeStage(dbswzsk, VecVSge::RNG);
+	};
+
+	mod = true; // for simplicity
+
+	// IP handleClaim --- IEND
 
 	return mod;
 };

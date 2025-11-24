@@ -24,6 +24,7 @@
 class JobWzskPrcAngle : public CsjobWzsk {
 
 public:
+
 	/**
 		* Shrdat (full: ShrdatJobWzskPrcAngle)
 		*/

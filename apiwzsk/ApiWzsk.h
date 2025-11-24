@@ -10,10 +10,10 @@
 #ifndef APIWZSK_H
 #define APIWZSK_H
 
-#define WZSK_VERSION "1.2.6"
+#define WZSK_VERSION "1.2.12"
 #define WZSK_VERSION_MAJOR 1
 #define WZSK_VERSION_MINOR 2
-#define WZSK_VERSION_SUB 6
+#define WZSK_VERSION_SUB 12
 
 #include "ApiWzsk_blks.h"
 
@@ -60,9 +60,11 @@
 #include "PnlWzskNavHeadbar.h"
 #include "PnlWzskNavOp.h"
 #include "PnlWzskPrfAcqCorner.h"
+#include "PnlWzskPrfAcqHdr.h"
 #include "PnlWzskPrfAcqPreview.h"
 #include "PnlWzskPrfAcqTrace.h"
 #include "PnlWzskPrfActLaser.h"
+#include "PnlWzskPrfActRotary.h"
 #include "PnlWzskPrfActVistorot.h"
 #include "PnlWzskPrfDaemon.h"
 #include "PnlWzskPrfGlobal.h"

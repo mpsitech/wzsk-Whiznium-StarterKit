@@ -15,17 +15,36 @@
 
 #include "JobWzskAcqHdr.h"
 
+#include "JobWzskAcqHdr_blks.cpp"
 #include "JobWzskAcqHdr_evals.cpp"
 
 using namespace std;
 using namespace Sbecore;
 using namespace Xmlio;
 
-// IP ns.cust --- INSERT
+using namespace Dbecore; // IP ns.cust --- ILINE
 
 // IP ns.spec --- INSERT
 
-// IP Shrdat.subs --- INSERT
+// IP Shrdat.subs --- IBEGIN
+/******************************************************************************
+ class JobWzskAcqHdr::Shrdat::Resultitem
+ ******************************************************************************/
+
+JobWzskAcqHdr::Shrdat::Resultitem::Resultitem(
+			Shrdat& super
+			, XchgWzsk* xchg
+			, const uint ixDma
+		) :
+			Sbecore::Resultitem()
+			, w(xchg->stgwzskcamera.NColRaw/2)
+			, h(xchg->stgwzskcamera.NRowRaw/2)
+			, t(0.0)
+		{
+	buf = &(((unsigned char*) super.buf)[ixDma * JobWzskAcqHdr::stg.sizeChunk * 1048576]);
+	lenBuf = 4*w*h;
+};
+// IP Shrdat.subs --- IEND
 
 /******************************************************************************
  class JobWzskAcqHdr::Shrdat
@@ -43,8 +62,6 @@ void JobWzskAcqHdr::Shrdat::init(
 	// IP Shrdat.init --- IBEGIN
 	bool success;
 
-	Frdp::Cubeinfo& ci = xchg->shrdatJobprc.cubeinfo;
-
 	fd = -1;
 	buf = NULL;
 
@@ -52,19 +69,19 @@ void JobWzskAcqHdr::Shrdat::init(
 		fd = open(stg.path.c_str(), O_RDWR);
 
 		success = (fd != -1);
-		if (!success) throw FrdpException(0, {{"msg","error opening reserved memory device (" + string(strerror(errno)) + ")"}});
+		if (!success) throw WzskException(0, {{"msg","error opening reserved memory device (" + string(strerror(errno)) + ")"}});
 
 		if (success) {
 			buf = mmap(NULL, stg.NChunk * stg.sizeChunk * 1048576, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0); // PROT_WRITE for debug functionality
 
 			success = (buf != MAP_FAILED);
-			if (!success) throw FrdpException(0, {{"msg","error mapping reserved memory (" + string(strerror(errno)) + ")"}});
+			if (!success) throw WzskException(0, {{"msg","error mapping reserved memory (" + string(strerror(errno)) + ")"}});
 		};
 
 		if (success) {
 			memset(buf, 0, stg.NChunk * stg.sizeChunk * 1048576);
 
-			for (unsigned int i = 0; i < stg.NChunk; i++) resultCube.append(new Resultitem(*this, ci, i));
+			for (unsigned int i = 0; i < stg.NChunk; i++) resultHdr.append(new Resultitem(*this, xchg, i));
 		};
 
 		if (!success && (fd != -1)) {
@@ -72,15 +89,15 @@ void JobWzskAcqHdr::Shrdat::init(
 			fd = 0;
 		};
 
-	} catch (FrdpException& e) {
-		cout << e.getSquawk(VecFrdpVError::getIx, VecFrdpVError::getTitle, VecFrdpVLocale::ENUS) << endl;
+	} catch (WzskException& e) {
+		cout << e.getSquawk(VecWzskVError::getIx, VecWzskVError::getTitle, VecWzskVLocale::ENUS) << endl;
 	};
 
 	bufDummy = NULL;
 
-	cube = 0;
+	hdr = 0;
 
-	cancelCube = false;
+	cancelHdr = false;
 	// IP Shrdat.init --- IEND
 };
 
@@ -129,6 +146,8 @@ JobWzskAcqHdr::JobWzskAcqHdr(
 
 	// IP constructor.spec2 --- INSERT
 
+	if (srvNotCli) xchg->addClstn(VecWzskVCall::CALLWZSKCALLBACK, jref, Clstn::VecVJobmask::SELF, 0, false, Arg(), VecVSge::RNG, Clstn::VecVJactype::WEAK);
+
 	// IP constructor.cust3 --- INSERT
 
 	// IP constructor.spec3 --- INSERT
@@ -143,17 +162,16 @@ JobWzskAcqHdr::~JobWzskAcqHdr() {
 };
 
 // IP cust --- IBEGIN
-void* JobFrdpAcqFpgacube::runCube(
+void* JobWzskAcqHdr::runHdr(
 			void* arg
 		) {
-	JobFrdpAcqFpgacube* srv = (JobFrdpAcqFpgacube*) arg;
+	JobWzskAcqHdr* srv = (JobWzskAcqHdr*) arg;
 
-	Call call(VecFrdpVCall::CALLFRDPCALLBACK, srv->jref, Arg());
-	ExtcallFrdp extcall(srv->xchg, &call);
+	Call call(VecWzskVCall::CALLWZSKCALLBACK, srv->jref, Arg());
+	ExtcallWzsk extcall(srv->xchg, &call);
 
 	uint ixRi;
-	Frdp::ResultitemCube* ri = NULL;
-	uint8_t tixVSuccess_expect;
+	Shrdat::Resultitem* ri = NULL;
 
 	const uint8_t ixMemInvalid = 0xFF;
 
@@ -161,16 +179,13 @@ void* JobFrdpAcqFpgacube::runCube(
 	uint8_t ixMem1 = ixMemInvalid;
 
 	uint8_t tixVState;
-	uint8_t ixMem;
-	uint8_t tixVSuccess;
-	uint16_t lanefault;
 	uint32_t tkst;
-	uint8_t ixMemLfft;
-	uint8_t ixMemSfft;
+	uint8_t ixMem;
+	uint8_t ixMemAcq;
 
 	bool resultNew;
 
-	// at any given time, there can be at most two ixMem's assign()ed to cubeacq
+	// at any given time, there can be at most two ixMem's assign()ed to hdreng
 	// accordingly, new results can only be associated with either ixMem0 or ixMem1
 
 	// - prepare
@@ -184,208 +199,106 @@ void* JobFrdpAcqFpgacube::runCube(
 	// if ixMem0 invalid: assign(ixMem0)
 	// else if ixMem1 invalid and ixMem0 in progress: assign(ixMem1)
 
-	timespec deltatFixed, deltatFrame;
+	timespec deltatPoll = {.tv_sec = 0, .tv_nsec = 1000000}; // 1 ms
+	timespec deltatFrame = {.tv_sec = 0, .tv_nsec = 100000000}; // 100 ms
 
-/*
-	deltatFixed = {.tv_sec = 0, .tv_nsec = 500000}; // 0.5 ms
+	UntWskdZuvsp& zuvsp = JobWzskSrcZuvsp::shrdat.hw;
 
-	// frame duration minus 2 ms, min. 0.5 ms
-	deltatFrame.tv_sec = 0;
-	deltatFrame.tv_nsec = (ci.TTrig > 2500) ? ci.TTrig : 2500;
-	deltatFrame.tv_nsec -= 2000;
-	if (deltatFrame.tv_nsec >= 1000000) deltatFrame.tv_nsec = 999999 * 1000;
-	else deltatFrame.tv_nsec *= 1000;
-*/
-	deltatFixed = {.tv_sec = 0, .tv_nsec = 10000000}; // 10 ms
-	deltatFrame = {.tv_sec = 0, .tv_nsec = 10000000}; // 10 ms
-	
+	uint32_t tkst_last = 0;
+
 	// thread settings
 	pthread_setcanceltype(PTHREAD_CANCEL_DEFERRED, 0);
-	pthread_cleanup_push(&cleanupCube, arg);
+	pthread_cleanup_push(&cleanupHdr, arg);
 
 	try {
 		// - prepare
-		shrdat.mCube.lock("JobFrdpAcqFpgacube", "runCube[1]");
+		shrdat.mHdr.lock("JobWzskAcqHdr", "runHdr[1]");
 
 		// switch on
-		if (srv->srcbase) {
-			srv->srcbase->shrdat.hw.cubeacq->set(
-						true, // rng={false,true}
-						false, // ixsimNotData={false,true}
-						false // ixsim4DNot3D={false,true}
-					);
+		if (srv->srczuvsp) zuvsp.hdreng->set(true); // rng={false,true}
 
-		} else if (srv->srcbasezero) {
-			srv->srcbasezero->shrdat.hw.cubeacq->set(
-						true, // rng={false,true}
-						false, // ixsimNotData={false,true}
-						false // ixsim4DNot3D={false,true}
-					);
-		};
-
-		shrdat.mCube.unlock("JobFrdpAcqFpgacube", "runCube[1]");
+		shrdat.mHdr.unlock("JobWzskAcqHdr", "runHdr[1]");
 
 		// - loop
 		while (true) {
-			if (shrdat.cancelCube) break;
+			if (shrdat.cancelHdr) break;
 
-			shrdat.mCube.lock("JobFrdpAcqFpgacube", "runCube[2]");
+			shrdat.mHdr.lock("JobWzskAcqHdr", "runHdr[2]");
 
 			resultNew = false;
 
-			if (srv->srcbase) {
-				srv->srcbase->shrdat.hw.cubeacq->getInfo(tixVState, ixMem, tixVSuccess, lanefault, tkst, ixMemLfft, ixMemSfft);
+			if (srv->srczuvsp) zuvsp.hdreng->getInfo(tixVState, tkst, ixMem, ixMemAcq); // tixVState{idle,acq,stall},tkst[uint32],ixMem[uint8],ixMemAcq[uint8]
 
-				// ixMem0: latest to have been assigned
+			// ixMem0: latest to have been assigned
 
-				if (ixMem != ixMemInvalid) {
-					if ((ixMem == ixMem0) || (ixMem == ixMem1)) {
-						// next frame fully processed
-						ri = (Frdp::ResultitemCube*) shrdat.resultCube[ixMem];
+			if (ixMem != ixMemInvalid) {
+				if ((ixMem == ixMem0) || (ixMem == ixMem1)) {
+					// next frame fully processed
+					ri = (Shrdat::Resultitem*) shrdat.resultHdr[ixMem];
 
-						if (ri->ixFrdpVCubeorder == VecFrdpVCubeorder::RVAE) tixVSuccess_expect = VecVFrpdBaseCubeacqSuccess::SFFT2;
-						else if ((ri->ixFrdpVCubeorder == VecFrdpVCubeorder::RVA) || (ri->ixFrdpVCubeorder == VecFrdpVCubeorder::E0RVA)) tixVSuccess_expect = VecVFrpdBaseCubeacqSuccess::SFFT1;
-						else if ((ri->ixFrdpVCubeorder == VecFrdpVCubeorder::RV) || (ri->ixFrdpVCubeorder == VecFrdpVCubeorder::A0RV) || (ri->ixFrdpVCubeorder == VecFrdpVCubeorder::AE0RV)) tixVSuccess_expect = VecVFrpdBaseCubeacqSuccess::SFFT0;
-						else tixVSuccess_expect = VecVFrpdBaseCubeacqSuccess::LFFT;
+					if (srv->srczuvsp) ri->t = srv->srczuvsp->tkstToT(tkst);
 
-						ri->tkst = tkst;
+					cout << "[" << (((double) tkst) / 10000.0) << "] acquired new frame with ixMem = " << ((unsigned int) ixMem) << " (ixMemAcq = " << ((unsigned int) ixMemAcq) << ")" << endl;
 
-						ri->tIn = srv->srcbase->tkstToT(tkst);
+					resultNew = true;
 
-						if (stg.verbose) cout << "[" << (((double) tkst) / 10000.0) << "] acquired new frame with ixMem = " << ((unsigned int) ixMem) << " (ixMemLfft = " << ((unsigned int) ixMemLfft) << ", ixMemSfft = " << ((unsigned int) ixMemSfft) << "); last successful FFT: " << VecVFrpdBaseCubeacqSuccess::getSref(tixVSuccess) << endl;
+					if (ixMem == ixMem0) {
+						// slip case (ixMem1 result was missed)
+						ixMem0 = ixMemInvalid;
 
-						resultNew = true;
-
-						if (ixMem == ixMem0) {
-							// slip case (ixMem1 result was missed)
-							ixMem0 = ixMemInvalid;
-
-							if (ixMem1 != ixMemInvalid) {
-								shrdat.resultCube.unlock(srv->jref, ixMem1);
-								ixMem1 = ixMemInvalid;
-							};
-
-						} else if (ixMem == ixMem1) {
-							// no-slip case
+						if (ixMem1 != ixMemInvalid) {
+							shrdat.resultHdr.unlock(srv->jref, ixMem1);
 							ixMem1 = ixMemInvalid;
 						};
 
-						if (stg.dummy || (tixVSuccess == tixVSuccess_expect)) {
-							call.argInv = Arg(ixMem, 0, {}, VecFrdpVCubeorder::getSref(ri->ixFrdpVCubeorder), 0, 0.0, false, "", Arg::IX + Arg::SREF);
-							XchgFrdp::runExtcall(&extcall);
-						} else shrdat.resultCube.unlock(srv->jref, ixMem);
+					} else if (ixMem == ixMem1) {
+						// no-slip case
+						ixMem1 = ixMemInvalid;
 					};
-				};
 
-				if ((ixMem0 != ixMemInvalid) && (ixMem1 == ixMemInvalid) && ((ixMemLfft == ixMem0) || (ixMemSfft == ixMem0)) ) {
-					// condition when processing at ixMem0 is in progress
-					ixMem1 = ixMem0;
-
-					if (shrdat.resultCube.dequeue(ixRi)) ixMem0 = ixRi;
-					else ixMem0 = ixMemInvalid;
-					srv->srcbase->shrdat.hw.cubeacq->assign(ixMem0);
-					//if (ixMem0 != ixMemInvalid) cout << "assigned ixMem0 = " << ((unsigned int) ixMem0) << " on top"  << " (ixMem = " << ((unsigned int) ixMem) << ", ixMemLfft = " << ((unsigned int) ixMemLfft) << ", ixMemSfft = " << ((unsigned int) ixMemSfft) << ")" << endl;
-
-				} else if (ixMem0 == ixMemInvalid) {
-					// condition at start or after slip
-					if (shrdat.resultCube.dequeue(ixRi)) ixMem0 = ixRi;
-					else ixMem0 = ixMemInvalid;
-					srv->srcbase->shrdat.hw.cubeacq->assign(ixMem0);
-					//if (ixMem0 != ixMemInvalid) cout << "assigned ixMem0 = " << ((unsigned int) ixMem0) << " after slip"  << " (ixMem = " << ((unsigned int) ixMem) << ", ixMemLfft = " << ((unsigned int) ixMemLfft) << ", ixMemSfft = " << ((unsigned int) ixMemSfft) << ")" << endl;
-				};
-
-			} else if (srv->srcbasezero) {
-				srv->srcbasezero->shrdat.hw.cubeacq->getInfo(tixVState, ixMem, tixVSuccess, lanefault, tkst, ixMemLfft);
-
-				// ixMem0: latest to have been assigned
-
-				if (ixMem != ixMemInvalid) {
-					if ((ixMem == ixMem0) || (ixMem == ixMem1)) {
-						// next frame fully processed
-						ri = (Frdp::ResultitemCube*) shrdat.resultCube[ixMem];
-
-						tixVSuccess_expect = VecVFrpdBasezeroCubeacqSuccess::LFFT;
-
-						ri->tkst = tkst;
-
-						ri->tIn = srv->srcbasezero->tkstToT(tkst);
-
-						if (stg.verbose) cout << "[" << (((double) tkst) / 10000.0) << "] acquired new frame with ixMem = " << ((unsigned int) ixMem) << " (ixMemLfft = " << ((unsigned int) ixMemLfft) << "); last successful FFT: " << VecVFrpdBasezeroCubeacqSuccess::getSref(tixVSuccess) << endl;
-
-						resultNew = true;
-
-						if (ixMem == ixMem0) {
-							// slip case (ixMem1 result was missed)
-							ixMem0 = ixMemInvalid;
-
-							if (ixMem1 != ixMemInvalid) {
-								shrdat.resultCube.unlock(srv->jref, ixMem1);
-								ixMem1 = ixMemInvalid;
-							};
-
-						} else if (ixMem == ixMem1) {
-							// no-slip case
-							ixMem1 = ixMemInvalid;
-						};
-
-						if (stg.dummy || (tixVSuccess == tixVSuccess_expect)) {
-							call.argInv = Arg(ixMem, 0, {}, VecFrdpVCubeorder::getSref(ri->ixFrdpVCubeorder), 0, 0.0, false, "", Arg::IX + Arg::SREF);
-							XchgFrdp::runExtcall(&extcall);
-						} else shrdat.resultCube.unlock(srv->jref, ixMem);
-					};
-				};
-
-				if ((ixMem0 != ixMemInvalid) && (ixMem1 == ixMemInvalid) && (ixMemLfft == ixMem0) ) {
-					// condition when processing at ixMem0 is in progress
-					ixMem1 = ixMem0;
-
-					if (shrdat.resultCube.dequeue(ixRi)) ixMem0 = ixRi;
-					else ixMem0 = ixMemInvalid;
-					srv->srcbasezero->shrdat.hw.cubeacq->assign(ixMem0);
-					//if (ixMem0 != ixMemInvalid) cout << "assigned ixMem0 = " << ((unsigned int) ixMem0) << " on top"  << " (ixMem = " << ((unsigned int) ixMem) << ", ixMemLfft = " << ((unsigned int) ixMemLfft) << ")" << endl;
-
-				} else if (ixMem0 == ixMemInvalid) {
-					// condition at start or after slip
-					if (shrdat.resultCube.dequeue(ixRi)) ixMem0 = ixRi;
-					else ixMem0 = ixMemInvalid;
-					srv->srcbasezero->shrdat.hw.cubeacq->assign(ixMem0);
-					//if (ixMem0 != ixMemInvalid) cout << "assigned ixMem0 = " << ((unsigned int) ixMem0) << " after slip"  << " (ixMem = " << ((unsigned int) ixMem) << ", ixMemLfft = " << ((unsigned int) ixMemLfft) << ")" << endl;
+					call.argInv = Arg(ixMem, 0, {}, "", 0, 0.0, false, "", Arg::IX);
+					XchgWzsk::runExtcall(&extcall);
 				};
 			};
 
-			shrdat.mCube.unlock("JobFrdpAcqFpgacube", "runCube[2]");
+			if ((ixMem0 != ixMemInvalid) && (ixMem1 == ixMemInvalid) && (ixMemAcq == ixMem0) ) {
+				// condition when processing at ixMem0 is in progress
+				ixMem1 = ixMem0;
+
+				if (shrdat.resultHdr.dequeue(ixRi)) ixMem0 = ixRi;
+				else ixMem0 = ixMemInvalid;
+
+				if (srv->srczuvsp) zuvsp.hdreng->assign(ixMem0);
+				//if (ixMem0 != ixMemInvalid) cout << "assigned ixMem0 = " << ((unsigned int) ixMem0) << " on top"  << " (ixMem = " << ((unsigned int) ixMem) << ", ixMemAcq = " << ((unsigned int) ixMemAcq) << ")" << endl;
+
+			} else if (ixMem0 == ixMemInvalid) {
+				// condition at start or after slip
+				if (shrdat.resultHdr.dequeue(ixRi)) ixMem0 = ixRi;
+				else ixMem0 = ixMemInvalid;
+
+				if (srv->srczuvsp) zuvsp.hdreng->assign(ixMem0);
+				//if (ixMem0 != ixMemInvalid) cout << "assigned ixMem0 = " << ((unsigned int) ixMem0) << " after slip"  << " (ixMem = " << ((unsigned int) ixMem) << ", ixMemAcq = " << ((unsigned int) ixMemAcq) << ")" << endl;
+			};
+			///
+
+			shrdat.mHdr.unlock("JobWzskAcqHdr", "runHdr[2]");
 
 			if (resultNew) nanosleep(&deltatFrame, NULL);
-			else nanosleep(&deltatFixed, NULL);
+			else nanosleep(&deltatPoll, NULL);
 		};
 
 	} catch (DbeException& e) {
 		cout << e.err << endl;
 
-		call.argInv = Arg();
-		XchgFrdp::runExtcall(&extcall);
+		call.argInv = Arg(0, 0, {}, "err", 0, 0.0, false, "", Arg::SREF);
+		XchgWzsk::runExtcall(&extcall);
 
-		shrdat.mCube.unlock("JobFrdpAcqFpgacube", "runCube[4]");
+		shrdat.mHdr.unlock("JobWzskAcqHdr", "runHdr[4]");
 	};
 
 	try {
 		// - clean up
-		//cout << "JobFrdpAcqFpgacube::runCube() cleaning up" << endl;
-
-		if (srv->srcbase) {
-			srv->srcbase->shrdat.hw.cubeacq->set(
-						false, // rng={false,true}
-						false, // ixsimNotData={false,true}
-						false // ixsim4DNot3D={false,true}
-					);
-
-		} else if (srv->srcbasezero) {
-			srv->srcbasezero->shrdat.hw.cubeacq->set(
-						false, // rng={false,true}
-						false, // ixsimNotData={false,true}
-						false // ixsim4DNot3D={false,true}
-					);
-		};
+		if (srv->srczuvsp) zuvsp.hdreng->set(false); // rng={false,true}
 
 	} catch (DbeException& e) {
 		cout << e.err << endl;
@@ -393,20 +306,20 @@ void* JobFrdpAcqFpgacube::runCube(
 
 	pthread_cleanup_pop(0);
 
-	shrdat.cube = 0;
+	shrdat.hdr = 0;
 
 	return NULL;
 };
 
-void JobFrdpAcqFpgacube::cleanupCube(
+void JobWzskAcqHdr::cleanupHdr(
 			void* arg
 		) {
-	shrdat.mCube.lock("JobFrdpAcqFpgacube", "cleanupCube");
+	shrdat.mHdr.lock("JobWzskAcqHdr", "cleanupHdr");
 
-	//cout << "JobFrdpAcqFpgacube::cleanupCube()" << endl;
-	shrdat.cube = 0;
+	//cout << "JobWzskAcqHdr::cleanupHdr()" << endl;
+	shrdat.hdr = 0;
 
-	shrdat.mCube.unlock("JobFrdpAcqFpgacube", "cleanupCube");
+	shrdat.mHdr.unlock("JobWzskAcqHdr", "cleanupHdr");
 };
 // IP cust --- IEND
 
@@ -430,50 +343,167 @@ void JobWzskAcqHdr::handleRequest(
 	};
 };
 
-bool JobFrdpAcqFpgacube::handleCallFrdpCallbackFromSelfInSgeRng(
-			DbsFrdp* dbsfrdp
+void JobWzskAcqHdr::handleCall(
+			DbsWzsk* dbswzsk
+			, Call* call
+		) {
+	if ((call->ixVCall == VecWzskVCall::CALLWZSKCALLBACK) && (call->jref == jref) && (ixVSge == VecVSge::RNG)) {
+		call->abort = handleCallWzskCallbackFromSelfInSgeRng(dbswzsk, call->argInv.ix, call->argInv.sref);
+	};
+};
+
+bool JobWzskAcqHdr::handleCallWzskCallbackFromSelfInSgeRng(
+			DbsWzsk* dbswzsk
 			, const uint ixInv
 			, const string& srefInv
 		) {
 	bool retval = false;
-	// IP handleCallFrdpCallbackFromSelfInSgeRng --- IBEGIN
-	unsigned char* buf_save = NULL;
-
-	if (trylockAccess("handleCallFrdpCallbackFromSelfInSgeRng")) {
+	// IP handleCallWzskCallbackFromSelfInSgeRng --- IBEGIN
+	if (trylockAccess("handleCallWzskCallbackFromSelfInSgeRng")) {
 		if (nextIxVSgeFailure != VecVSge::RNG) {
 			// claim run attribute has been retracted
-			changeStage(dbsfrdp, VecVSge::IDLE);
+			changeStage(dbswzsk, VecVSge::IDLE);
 
-		} else if (srefInv == "") {
+		} else if (srefInv == "err") {
 			// something went wrong, cancel thread
-			changeStage(dbsfrdp, VecVSge::IDLE);
+			changeStage(dbswzsk, VecVSge::IDLE);
 
 		} else {
 			// new result available
-			shrdat.resultCube.lock(jref, ixInv);
-
-			if (stg.dummy) {
-				// dummy behavior: temporarily swap out shared memory section for buffer containing dummy data
-				buf_save = ((Frdp::ResultitemCube*) shrdat.resultCube[ixInv])->buf;
-				((Frdp::ResultitemCube*) shrdat.resultCube[ixInv])->buf = shrdat.bufDummy;
-			};
+			shrdat.resultHdr.lock(jref, ixInv);
 
 			// inform super-jobs about new result
-			xchg->triggerIxSrefCall(dbsfrdp, VecFrdpVCall::CALLFRDPRESULTNEW, jref, ixInv, srefInv);
+			xchg->triggerIxSrefCall(dbswzsk, VecWzskVCall::CALLWZSKRESULTNEW, jref, ixInv, srefInv);
 
-			// resetting here interferes with deferred processing in JobFrdpAcqCube
-			//if (stg.dummy) ((Frdp::ResultitemCube*) shrdat.resultCube[ixInv])->buf = buf_save;
-
-			shrdat.resultCube.unlock(jref, ixInv);
+			shrdat.resultHdr.unlock(jref, ixInv);
 		};
 
-		unlockAccess("handleCallFrdpCallbackFromSelfInSgeRng");
+		unlockAccess("handleCallWzskCallbackFromSelfInSgeRng");
 
 	} else {
-		if (srefInv != "") shrdat.resultCube.unlock(0, ixInv);
+		if (srefInv != "err") shrdat.resultHdr.unlock(0, ixInv);
 	};
-	// IP handleCallFrdpCallbackFromSelfInSgeRng --- IEND
+	// IP handleCallWzskCallbackFromSelfInSgeRng --- IEND
 	return retval;
+};
+
+void JobWzskAcqHdr::changeStage(
+			DbsWzsk* dbswzsk
+			, uint _ixVSge
+		) {
+	bool reenter = true;
+
+	do {
+		if (ixVSge != _ixVSge) {
+			switch (ixVSge) {
+				case VecVSge::IDLE: leaveSgeIdle(dbswzsk); break;
+				case VecVSge::RNG: leaveSgeRng(dbswzsk); break;
+			};
+
+			setStage(dbswzsk, _ixVSge);
+			reenter = false;
+			//cout << "JobWzskAcqHdr now entering stage " << VecVSge::getSref(_ixVSge) << endl; // IP changeStage.refresh1 --- ILINE
+		};
+
+		switch (_ixVSge) {
+			case VecVSge::IDLE: _ixVSge = enterSgeIdle(dbswzsk, reenter); break;
+			case VecVSge::RNG: _ixVSge = enterSgeRng(dbswzsk, reenter); break;
+		};
+
+		// IP changeStage.refresh2 --- INSERT
+	} while (ixVSge != _ixVSge);
+};
+
+string JobWzskAcqHdr::getSquawk(
+			DbsWzsk* dbswzsk
+		) {
+	string retval;
+	// IP getSquawk --- BEGIN
+	if ( (ixVSge == VecVSge::IDLE) || (ixVSge == VecVSge::RNG) ) {
+		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
+			if (ixVSge == VecVSge::IDLE) retval = "idle";
+			else if (ixVSge == VecVSge::RNG) retval = "acquiring frames";
+		};
+
+	} else {
+		retval = VecVSge::getSref(ixVSge);
+	};
+	// IP getSquawk --- END
+	return retval;
+};
+
+uint JobWzskAcqHdr::enterSgeIdle(
+			DbsWzsk* dbswzsk
+			, const bool reenter
+		) {
+	uint retval = VecVSge::IDLE;
+
+	// IP enterSgeIdle --- IBEGIN
+	pthread_t oldHdr;
+
+	shrdat.cancelHdr = true;
+
+	shrdat.mHdr.lock("JobWzskAcqHdr", "enterSgeIdle");
+
+	oldHdr = shrdat.hdr; // original will be set 0 in the process
+
+	if (oldHdr != 0) {
+		shrdat.mHdr.unlock("JobWzskAcqHdr", "enterSgeIdle[1]");
+
+		pthread_join(oldHdr, NULL);
+
+	} else shrdat.mHdr.unlock("JobWzskAcqHdr", "enterSgeIdle[2]");
+
+	xchg->clearCsjobRun(dbswzsk, ixWzskVJob);
+
+	for (unsigned int i = 0; i < shrdat.resultHdr.size(); i++) shrdat.resultHdr.unlock(jref, i);
+	// IP enterSgeIdle --- IEND
+
+	return retval;
+};
+
+void JobWzskAcqHdr::leaveSgeIdle(
+			DbsWzsk* dbswzsk
+		) {
+	// IP leaveSgeIdle --- INSERT
+};
+
+uint JobWzskAcqHdr::enterSgeRng(
+			DbsWzsk* dbswzsk
+			, const bool reenter
+		) {
+	uint retval = VecVSge::RNG;
+
+	// IP enterSgeRng --- IBEGIN
+	int res;
+	pthread_attr_t attr;
+
+	if (shrdat.hdr != 0) retval = VecVSge::IDLE;
+	else {
+		shrdat.mHdr.lock("JobWzskAcqHdr", "enterSgeRng");
+
+		shrdat.cancelHdr = false;
+
+		pthread_attr_init(&attr);
+		pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+
+		for (unsigned int i = 0; i < 3; i++) {
+			res = pthread_create(&shrdat.hdr, &attr, &runHdr, (void*) this);
+			if ((res == 0) || (res != EAGAIN)) break;
+		};
+		if (res != 0) cout << "JobWzskAcqHdr::enterSgeRng() error creating acquisition thread (" << res << ")" << endl;
+
+		shrdat.mHdr.unlock("JobWzskAcqHdr", "enterSgeRng");
+	};
+	// IP enterSgeRng --- IEND
+
+	return retval;
+};
+
+void JobWzskAcqHdr::leaveSgeRng(
+			DbsWzsk* dbswzsk
+		) {
+	// IP leaveSgeRng --- INSERT
 };
 
 bool JobWzskAcqHdr::handleClaim(
@@ -483,7 +513,102 @@ bool JobWzskAcqHdr::handleClaim(
 		) {
 	bool mod = false;
 
-	// IP handleClaim --- INSERT
+	// IP handleClaim --- IBEGIN
+
+	// claim policy:
+	// - exactly one claim can be fulfilled
+	// - only possible if src*vsp "hdreng" claim can be fulfilled
+	// - change stage to rng if fulfilled claim is run (run is continuous)
+
+	Claim* claim = NULL;
+
+	ubigint jrefFulfilled = 0;
+
+	bool retractable = true;
+	bool run = false;
+
+	bool rgbNotGray = false;
+	utinyint edge = 0;
+
+	bool available;
+	bool reattributed;
+
+	CsjobWzsk* srcvsp = NULL;
+	bool vspTakenNotAvailable, vspFulfilled;
+
+	// survey
+	for (auto it = claims.begin(); it != claims.end(); it++) {
+		claim = (Claim*) it->second;
+
+		if (claim->fulfilled) {
+			jrefFulfilled = it->first;
+			retractable = claim->retractable;
+			run = claim->run;
+		};
+	};
+
+	// add or remove "hdreng" claim with src*vsp
+	if (srcdcvsp) srcvsp = srcdcvsp;
+	else if (srctivsp)  srcvsp = srctivsp;
+	else if (srczuvsp) srcvsp = srczuvsp;
+
+	if (srcvsp) {
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcvsp);
+		else xchg->addCsjobClaim(dbswzsk, srcvsp, new Wzsk::ClaimVsp(false, Wzsk::ClaimVsp::VecWDomain::HDRENG));
+
+		xchg->getCsjobClaim(srcvsp, vspTakenNotAvailable, vspFulfilled);
+	};
+
+	// try to fulfill
+	reattributed = false;
+
+	for (unsigned int i = 0; i < 2; i++) {
+		for (auto it = claims.begin(); it != claims.end(); it++) {
+			claim = (Claim*) it->second;
+
+			available = retractable && vspFulfilled;
+
+			if (!available) break;
+
+			if (((i == 0) && (it->first == jrefNewest)) || ((i == 1) && (it->first != jrefNewest))) {
+				// preference given to newest claim
+				if (it->first != jrefFulfilled) {
+					if (jrefFulfilled != 0) claims[jrefFulfilled]->fulfilled = false;
+
+					claim->fulfilled = true;
+					retractable = claim->retractable;
+					run = claim->run;
+
+					reattributed = true;
+				};
+
+				if (reattributed) break;
+			};
+		};
+
+		if (!available) break;
+		if (reattributed) break;
+	};
+
+	// update taken status
+	for (auto it = claims.begin(); it != claims.end(); it++) {
+		claim = (Claim*) it->second;
+		claim->takenNotAvailable = !retractable;
+	};
+
+	// initiate stage change
+	if (!run || !vspFulfilled) {
+		// changeStage() not used, rather nextIxVSgeFailure will be detected at a point when it is safe to change to idle
+		nextIxVSgeFailure = VecVSge::IDLE;
+
+	} else if (run && vspFulfilled) {
+		nextIxVSgeFailure = VecVSge::RNG;
+		if (ixVSge == VecVSge::IDLE) changeStage(dbswzsk, VecVSge::RNG);
+	};
+
+	mod = true; // for simplicity
+
+	// IP handleClaim --- IEND
 
 	return mod;
 };

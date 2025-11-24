@@ -18,9 +18,11 @@
 #include "PnlWzskPrfDaemon.h"
 #include "PnlWzskPrfGlobal.h"
 #include "PnlWzskPrfAcqCorner.h"
+#include "PnlWzskPrfAcqHdr.h"
 #include "PnlWzskPrfAcqPreview.h"
 #include "PnlWzskPrfAcqTrace.h"
 #include "PnlWzskPrfActLaser.h"
+#include "PnlWzskPrfActRotary.h"
 #include "PnlWzskPrfActVistorot.h"
 #include "PnlWzskPrfSrcDcvsp.h"
 #include "PnlWzskPrfSrcSysinfo.h"
@@ -103,8 +105,8 @@ public:
 	class StatApp {
 
 	public:
-		static void writeJSON(Json::Value& sup, std::string difftag = "", const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneDaemon = false, const bool initdoneGlobal = false, const bool initdoneAcqCorner = false, const bool initdoneAcqPreview = false, const bool initdoneAcqTrace = false, const bool initdoneActLaser = false, const bool initdoneActVistorot = false, const bool initdoneSrcDcvsp = false, const bool initdoneSrcSysinfo = false, const bool initdoneSrcTivsp = false, const bool initdoneSrcZuvsp = false);
-		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneDaemon = false, const bool initdoneGlobal = false, const bool initdoneAcqCorner = false, const bool initdoneAcqPreview = false, const bool initdoneAcqTrace = false, const bool initdoneActLaser = false, const bool initdoneActVistorot = false, const bool initdoneSrcDcvsp = false, const bool initdoneSrcSysinfo = false, const bool initdoneSrcTivsp = false, const bool initdoneSrcZuvsp = false);
+		static void writeJSON(Json::Value& sup, std::string difftag = "", const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneDaemon = false, const bool initdoneGlobal = false, const bool initdoneAcqCorner = false, const bool initdoneAcqHdr = false, const bool initdoneAcqPreview = false, const bool initdoneAcqTrace = false, const bool initdoneActLaser = false, const bool initdoneActRotary = false, const bool initdoneActVistorot = false, const bool initdoneSrcDcvsp = false, const bool initdoneSrcSysinfo = false, const bool initdoneSrcTivsp = false, const bool initdoneSrcZuvsp = false);
+		static void writeXML(xmlTextWriter* wr, std::string difftag = "", bool shorttags = true, const Sbecore::uint ixWzskVReqitmode = VecWzskVReqitmode::IDLE, const Sbecore::usmallint latency = 5, const std::string& shortMenu = "", const Sbecore::uint widthMenu = 0, const bool initdoneHeadbar = false, const bool initdoneDaemon = false, const bool initdoneGlobal = false, const bool initdoneAcqCorner = false, const bool initdoneAcqHdr = false, const bool initdoneAcqPreview = false, const bool initdoneAcqTrace = false, const bool initdoneActLaser = false, const bool initdoneActRotary = false, const bool initdoneActVistorot = false, const bool initdoneSrcDcvsp = false, const bool initdoneSrcSysinfo = false, const bool initdoneSrcTivsp = false, const bool initdoneSrcZuvsp = false);
 	};
 
 	/**
@@ -117,26 +119,30 @@ public:
 		static const Sbecore::uint JREFDAEMON = 2;
 		static const Sbecore::uint JREFGLOBAL = 3;
 		static const Sbecore::uint JREFACQCORNER = 4;
-		static const Sbecore::uint JREFACQPREVIEW = 5;
-		static const Sbecore::uint JREFACQTRACE = 6;
-		static const Sbecore::uint JREFACTLASER = 7;
-		static const Sbecore::uint JREFACTVISTOROT = 8;
-		static const Sbecore::uint JREFSRCDCVSP = 9;
-		static const Sbecore::uint JREFSRCSYSINFO = 10;
-		static const Sbecore::uint JREFSRCTIVSP = 11;
-		static const Sbecore::uint JREFSRCZUVSP = 12;
+		static const Sbecore::uint JREFACQHDR = 5;
+		static const Sbecore::uint JREFACQPREVIEW = 6;
+		static const Sbecore::uint JREFACQTRACE = 7;
+		static const Sbecore::uint JREFACTLASER = 8;
+		static const Sbecore::uint JREFACTROTARY = 9;
+		static const Sbecore::uint JREFACTVISTOROT = 10;
+		static const Sbecore::uint JREFSRCDCVSP = 11;
+		static const Sbecore::uint JREFSRCSYSINFO = 12;
+		static const Sbecore::uint JREFSRCTIVSP = 13;
+		static const Sbecore::uint JREFSRCZUVSP = 14;
 
 	public:
-		StatShr(const Sbecore::ubigint jrefHeadbar = 0, const Sbecore::ubigint jrefDaemon = 0, const Sbecore::ubigint jrefGlobal = 0, const Sbecore::ubigint jrefAcqCorner = 0, const Sbecore::ubigint jrefAcqPreview = 0, const Sbecore::ubigint jrefAcqTrace = 0, const Sbecore::ubigint jrefActLaser = 0, const Sbecore::ubigint jrefActVistorot = 0, const Sbecore::ubigint jrefSrcDcvsp = 0, const Sbecore::ubigint jrefSrcSysinfo = 0, const Sbecore::ubigint jrefSrcTivsp = 0, const Sbecore::ubigint jrefSrcZuvsp = 0);
+		StatShr(const Sbecore::ubigint jrefHeadbar = 0, const Sbecore::ubigint jrefDaemon = 0, const Sbecore::ubigint jrefGlobal = 0, const Sbecore::ubigint jrefAcqCorner = 0, const Sbecore::ubigint jrefAcqHdr = 0, const Sbecore::ubigint jrefAcqPreview = 0, const Sbecore::ubigint jrefAcqTrace = 0, const Sbecore::ubigint jrefActLaser = 0, const Sbecore::ubigint jrefActRotary = 0, const Sbecore::ubigint jrefActVistorot = 0, const Sbecore::ubigint jrefSrcDcvsp = 0, const Sbecore::ubigint jrefSrcSysinfo = 0, const Sbecore::ubigint jrefSrcTivsp = 0, const Sbecore::ubigint jrefSrcZuvsp = 0);
 
 	public:
 		Sbecore::ubigint jrefHeadbar;
 		Sbecore::ubigint jrefDaemon;
 		Sbecore::ubigint jrefGlobal;
 		Sbecore::ubigint jrefAcqCorner;
+		Sbecore::ubigint jrefAcqHdr;
 		Sbecore::ubigint jrefAcqPreview;
 		Sbecore::ubigint jrefAcqTrace;
 		Sbecore::ubigint jrefActLaser;
+		Sbecore::ubigint jrefActRotary;
 		Sbecore::ubigint jrefActVistorot;
 		Sbecore::ubigint jrefSrcDcvsp;
 		Sbecore::ubigint jrefSrcSysinfo;
@@ -227,9 +233,11 @@ public:
 	PnlWzskPrfDaemon* pnldaemon;
 	PnlWzskPrfGlobal* pnlglobal;
 	PnlWzskPrfAcqCorner* pnlacqcorner;
+	PnlWzskPrfAcqHdr* pnlacqhdr;
 	PnlWzskPrfAcqPreview* pnlacqpreview;
 	PnlWzskPrfAcqTrace* pnlacqtrace;
 	PnlWzskPrfActLaser* pnlactlaser;
+	PnlWzskPrfActRotary* pnlactrotary;
 	PnlWzskPrfActVistorot* pnlactvistorot;
 	PnlWzskPrfSrcDcvsp* pnlsrcdcvsp;
 	PnlWzskPrfSrcSysinfo* pnlsrcsysinfo;

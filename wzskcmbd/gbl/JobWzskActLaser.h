@@ -72,10 +72,10 @@ public:
 		static const Sbecore::uint RIGHTMAX = 4;
 
 	public:
-		Stg(const Sbecore::usmallint leftMin = 164, const Sbecore::usmallint leftMax = 245, const Sbecore::usmallint rightMin = 164, const Sbecore::usmallint rightMax = 245);
+		Stg(const Sbecore::usmallint leftMin = 256, const Sbecore::usmallint leftMax = 512, const Sbecore::usmallint rightMin = 256, const Sbecore::usmallint rightMax = 512);
 
 	public:
-		Sbecore::usmallint leftMin; // experimentally, full range corresponds to 16% .. 24%
+		Sbecore::usmallint leftMin; // experimentally, full range corresponds to 25% .. 50%
 		Sbecore::usmallint leftMax;
 
 		Sbecore::usmallint rightMin;
@@ -91,6 +91,7 @@ public:
 	bool evalSrcdcvspConstr(DbsWzsk* dbswzsk);
 	bool evalSrctivspConstr(DbsWzsk* dbswzsk);
 	bool evalSrczuvspConstr(DbsWzsk* dbswzsk);
+
 	/**
 		* Shrdat (full: ShrdatJobWzskActLaser)
 		*/

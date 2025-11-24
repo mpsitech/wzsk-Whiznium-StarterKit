@@ -41,7 +41,16 @@ void JobWzskActRotary::Shrdat::init(
 			XchgWzsk* xchg
 			, DbsWzsk* dbswzsk
 		) {
-	// IP Shrdat.init --- INSERT
+	// IP Shrdat.init --- IBEGIN
+	angle = 0.0;
+	target = 0.0;
+
+	ccwNotCw = false;
+	start = 0.0;
+
+	t0 = 0.0;
+	t1 = 0.0;
+	// IP Shrdat.init --- IEND
 };
 
 void JobWzskActRotary::Shrdat::term(
@@ -80,7 +89,13 @@ JobWzskActRotary::JobWzskActRotary(
 
 	// IP constructor.spec2 --- INSERT
 
-	// IP constructor.cust3 --- INSERT
+	// IP constructor.cust3 --- IBEGIN
+	if (srvNotCli) {
+		unsigned int TStep = lround(10000.0/2.0 / (((float) stg.ppr) * stg.omega / 360.0)); // 10000/2: tkclk baseline, omega/360: unit is °/s
+
+		if (srczuvsp) srczuvsp->shrdat.hw.rotary->config(VecVWskdZuvspRotaryStepmode::QUARTER, TStep); // tixVStepmode={full,half,quarter},TStep=[uint8]
+	};
+	// IP constructor.cust3 --- IEND
 
 	// IP constructor.spec3 --- INSERT
 };
@@ -97,15 +112,17 @@ JobWzskActRotary::~JobWzskActRotary() {
 void JobWzskActRotary::updateAngle(
 			DbsWzsk* dbswzsk
 		) {
-	double t;
-
 	float angle_old;
+
+	string s;
 
 	shrdat.wlockAccess(jref, "updateAngle");
 
 	angle_old = shrdat.angle;
 
-	//if (srczuvsp) srczuvsp->getAngle(shrdat.angle);
+	if (srcdcvsp) srcdcvsp->rotary_getInfo(s, shrdat.angle);
+	else if (srctivsp) srctivsp->rotary_getInfo(s, shrdat.angle);
+	else if (srczuvsp) srczuvsp->rotary_getInfo(s, shrdat.angle);
 
 	shrdat.wunlockAccess(jref, "updateAngle");
 
@@ -133,10 +150,11 @@ bool JobWzskActRotary::moveto(
 	lockAccess("moveto");
 
 	// IP moveto --- IBEGIN
-/*
 	if (ixVSge != VecVSge::IDLE) changeStage(dbswzsk, VecVSge::IDLE);
 
 	shrdat.wlockAccess(jref, "moveto");
+
+	//cout << "JobWzskActRotary::moveto() target = " << target << endl;
 
 	shrdat.target = target;
 	while (shrdat.target < 0.0) shrdat.target += 360.0;
@@ -148,7 +166,6 @@ bool JobWzskActRotary::moveto(
 		xchg->triggerSrefCall(dbswzsk, VecWzskVCall::CALLWZSKSHRDATCHG, jref, "angleTarget");
 		changeStage(dbswzsk, VecVSge::MOVE);
 	};
-*/
 	// IP moveto --- IEND
 
 	unlockAccess("moveto");
@@ -173,7 +190,7 @@ bool JobWzskActRotary::stop(
 	lockAccess("stop");
 
 	// IP stop --- IBEGIN
-//	if (ixVSge != VecVSge::IDLE) changeStage(dbswzsk, VecVSge::IDLE);
+	if (ixVSge != VecVSge::IDLE) changeStage(dbswzsk, VecVSge::IDLE);
 	// IP stop --- IEND
 
 	unlockAccess("stop");
@@ -199,7 +216,6 @@ bool JobWzskActRotary::turn(
 	lockAccess("turn");
 
 	// IP turn --- IBEGIN
-/*
 	if (ixVSge != VecVSge::IDLE) changeStage(dbswzsk, VecVSge::IDLE);
 
 	shrdat.wlockAccess(jref, "turn");
@@ -210,7 +226,6 @@ bool JobWzskActRotary::turn(
 
 	xchg->triggerSrefCall(dbswzsk, VecWzskVCall::CALLWZSKSHRDATCHG, jref, "angleTarget");
 	changeStage(dbswzsk, VecVSge::MOVE);
-*/
 	// IP turn --- IEND
 
 	unlockAccess("turn");
@@ -235,9 +250,10 @@ bool JobWzskActRotary::zero(
 	lockAccess("zero");
 
 	// IP zero --- IBEGIN
-/*
 	if (ixVSge == VecVSge::IDLE) {
-		if (srczuvsp) srczuvsp->rotary_zero();
+		if (srcdcvsp) srcdcvsp->rotary_zero();
+		else if (srctivsp) srctivsp->rotary_zero();
+		else if (srczuvsp) srczuvsp->rotary_zero();
 
 		shrdat.wlockAccess(jref, "zero");
 
@@ -249,7 +265,6 @@ bool JobWzskActRotary::zero(
 		xchg->triggerSrefCall(dbswzsk, VecWzskVCall::CALLWZSKSHRDATCHG, jref, "angleTarget");
 
 	} else retval = false;
-*/
 	// IP zero --- IEND
 
 	unlockAccess("zero");
@@ -375,7 +390,66 @@ uint JobWzskActRotary::enterSgeMove(
 
 	if (!reenter) wrefLast = xchg->addWakeup(jref, "mon", 250000, true);
 
-	// IP enterSgeMove --- INSERT
+	// IP enterSgeMove --- IBEGIN
+	float delta;
+	unsigned int dt;
+
+	if (!reenter) {
+		shrdat.start = shrdat.angle;
+
+		delta = shrdat.target;
+		if ((delta != -360.0) && (delta != 360.0)) delta -= shrdat.angle;
+
+		if (delta != 0.0) {
+			// determine in which direction to turn, and for how long
+			if (delta == -360.0) {
+				shrdat.ccwNotCw = true;
+
+			} else if ((delta > -360.0) && (delta <= -180.0)) {
+				shrdat.ccwNotCw = false;
+				delta += 360.0; // 0 .. 180.0, e.g. -330 becomes +60
+
+			} else if ((delta > -180.0) && (delta <= 0.0)) {
+				shrdat.ccwNotCw = true;
+
+			} else if ((delta > 0.0) && (delta <= 180.0)) {
+				shrdat.ccwNotCw = false;
+
+			} else if ((delta > 180.0) && (delta < 360.0)) {
+				shrdat.ccwNotCw = true;
+				delta -= 360.0; // -180 .. 0.0, e.g. 330 becomes -60
+
+			} else if (delta == 360.0) {
+				shrdat.ccwNotCw = false;
+			};
+
+			dt = fabs(1e6 * delta / 360.0 / stg.omega); // in microseconds
+
+			shrdat.t0 = Wzsk::getNow();
+
+			if ((delta == -360.0) || (delta == 360.0)) {
+				// no time limit
+				shrdat.t1 = 1e99;
+
+				if (srcdcvsp) srcdcvsp->rotary_set(true, (delta == -360.0));
+				else if (srctivsp) srctivsp->rotary_set(true, (delta == -360.0));
+				else if (srczuvsp) srczuvsp->rotary_set(true, (delta == -360.0));
+
+			} else {
+				shrdat.t1 = shrdat.t0 + 1.0e-6 * dt;
+
+				if (srcdcvsp) srcdcvsp->rotary_moveto(shrdat.target);
+				else if (srctivsp) srctivsp->rotary_moveto(shrdat.target);
+				else if (srczuvsp) srczuvsp->rotary_moveto(shrdat.target);
+			};
+		};
+	} else {
+		// update angle and/or stop movement
+		updateAngle(dbswzsk);
+
+		if (shrdat.angle == shrdat.target) retval = VecVSge::IDLE;
+	};
+	// IP enterSgeMove --- IEND
 
 	return retval;
 };
@@ -384,7 +458,13 @@ void JobWzskActRotary::leaveSgeMove(
 			DbsWzsk* dbswzsk
 		) {
 	invalidateWakeups();
-	// IP leaveSgeMove --- INSERT
+	// IP leaveSgeMove --- IBEGIN
+	updateAngle(dbswzsk);
+
+	if (srcdcvsp) srcdcvsp->rotary_set(false, false);
+	else if (srctivsp) srctivsp->rotary_set(false, false);
+	else if (srczuvsp) srczuvsp->rotary_set(false, false);
+	// IP leaveSgeMove --- IEND
 };
 
 bool JobWzskActRotary::handleClaim(
@@ -398,7 +478,7 @@ bool JobWzskActRotary::handleClaim(
 
 	// claim policy:
 	// - exactly one claim can be fulfilled
-	// - only possible if srcfpga "step" claim can be fulfilled
+	// - only possible if src*vsp "step" claim can be fulfilled
 
 	Claim* claim = NULL;
 
@@ -409,7 +489,8 @@ bool JobWzskActRotary::handleClaim(
 	bool available;
 	bool reattributed;
 
-	bool stepTakenNotAvailable, stepFulfilled;
+	CsjobWzsk* srcvsp = NULL;
+	bool vspTakenNotAvailable, vspFulfilled;
 
 	// survey
 	for (auto it = claims.begin(); it != claims.end(); it++) {
@@ -421,16 +502,17 @@ bool JobWzskActRotary::handleClaim(
 		};
 	};
 
-	if (srczuvsp) {
-		// add or remove "step" claim with srczuvsp
-		//if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srczuvsp);
-		//else xchg->addCsjobClaim(dbswzsk, srczuvsp, new Wzsk::ClaimFull(false, false, false, false, false, true));
+	// add or remove "step" claim with src*vsp
+	if (srcdcvsp) srcvsp = srcdcvsp;
+	else if (srctivsp)  srcvsp = srctivsp;
+	else if (srczuvsp) srcvsp = srczuvsp;
 
-		//xchg->getCsjobClaim(srczuvsp, stepTakenNotAvailable, stepFulfilled);
+	if (srcvsp) {
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcvsp);
+		else xchg->addCsjobClaim(dbswzsk, srcvsp, new Wzsk::ClaimVsp(false, Wzsk::ClaimVsp::VecWDomain::STEP));
 
-		stepFulfilled = true;
-
-	} else stepFulfilled = true;
+		xchg->getCsjobClaim(srcvsp, vspTakenNotAvailable, vspFulfilled);
+	};
 
 	// try to fulfill
 	reattributed = false;
@@ -439,7 +521,7 @@ bool JobWzskActRotary::handleClaim(
 		for (auto it = claims.begin(); it != claims.end(); it++) {
 			claim = (Claim*) it->second;
 
-			available = retractable && stepFulfilled;
+			available = retractable && vspFulfilled;
 
 			if (!available) break;
 
@@ -462,15 +544,13 @@ bool JobWzskActRotary::handleClaim(
 	};
 
 	// update taken status
-	available = retractable;
-
 	for (auto it = claims.begin(); it != claims.end(); it++) {
 		claim = (Claim*) it->second;
-
-		claim->takenNotAvailable = !available;
+		claim->takenNotAvailable = !retractable;
 	};
 
 	mod = true; // for simplicity
+
 	// IP handleClaim --- IEND
 
 	return mod;

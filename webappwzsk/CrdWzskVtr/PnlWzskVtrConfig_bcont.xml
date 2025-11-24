@@ -5,6 +5,8 @@
 		<title>Config_bcont</title>
 		<script>
 			function handleRbuMdeSelect(num) {parent.parent.window.handleRbuSelect(document,"RbuMde",num);};
+			function handleButPlayClick() {parent.parent.window.handleButClick("ButPlay");};
+			function handleButStopClick() {parent.parent.window.handleButClick("ButStop");};
 			function handleSldAspJpleftMov() {parent.parent.window.handleSldJpleftMov(document,"SldAsp");};
 			function handleSldAspJpleftMou() {parent.parent.window.handleSldJpleftMou(document,"SldAsp");};
 			function handleSldAspJpleftClick(evt) {parent.parent.window.handleSldJpleftClick(document,"SldAsp",true,false,false,evt);};
@@ -62,6 +64,14 @@
 				<tr id="trImg" class="show">
 					<td id="tdImg" colspan="11" height="384">
 						<iframe id="CusImg" name="CusImg" src="./PnlWzskVtrConfig_CusImg.xml" width="690" height="384" frameborder="0" scrolling="no">This page needs a web-browser capable of displaying inline frames!</iframe>
+					</td>
+				</tr>
+				<tr id="trPlaystop" class="show">
+					<td height="25"></td>
+					<td colspan="2"></td>
+					<td colspan="8" align="left">
+						<img id="ButPlay" class="but" src="../iconwzsk/play.png" width="16" height="16" alt="ButPlay" onmouseover="src='../iconwzsk/play_hlt.png'" onmouseout="src='../iconwzsk/play.png'" onclick="handleButPlayClick()"/>
+						&#160;<img id="ButStop" class="but" src="../iconwzsk/stop.png" width="16" height="16" alt="ButStop" onmouseover="src='../iconwzsk/stop_hlt.png'" onmouseout="src='../iconwzsk/stop.png'" onclick="handleButStopClick()"/>
 					</td>
 				</tr>
 				<tr id="tr11" class="show"><td colspan="11" height="3"></td></tr>

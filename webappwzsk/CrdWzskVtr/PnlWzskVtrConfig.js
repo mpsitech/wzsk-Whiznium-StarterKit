@@ -46,7 +46,7 @@ function initBD(bNotD) {
 	initCpt(hdrdoc, "Cpt", retrieveTi(srcdoc, "TagWzskVtrConfig", "Cpt"));
 	initCpt(contcontdoc, "HdgPvw", retrieveTi(srcdoc, "TagWzskVtrConfig", "HdgPvw"));
 	initCpt(contcontdoc, "CptMde", retrieveTi(srcdoc, "TagWzskVtrConfig", "CptMde"));
-	refreshRbu(contcontdoc, srcdoc, "RbuMde", "FeedFRbuMde", retrieveCi(srcdoc, "ContIacWzskVtrConfig", "numFRbuMde"), retrieveSi(srcdoc, "StatShrWzskVtrConfig", "RbuMdeActive"));
+	refreshRbu(contcontdoc, srcdoc, "RbuMde", "FeedFRbuMde", retrieveCi(srcdoc, "ContIacWzskVtrConfig", "numFRbuMde"), true);
 	initCpt(contcontdoc, "CptAsp", retrieveTi(srcdoc, "TagWzskVtrConfig", "CptAsp"));
 	initCpt(contcontdoc, "CptSte", retrieveTi(srcdoc, "TagWzskVtrConfig", "CptSte"));
 	initBut(contcontdoc, "ButSta", retrieveTi(srcdoc, "TagWzskVtrConfig", "ButSta"));
@@ -74,14 +74,15 @@ function refreshA() {
 function refreshBD(bNotD) {
 	if (!contcontdoc) return;
 
-	var height = 533; // full cont height
+	var height = 558; // full cont height
 
 	// IP refreshBD.vars --- BEGIN
 	var ButClaimActive = (retrieveSi(srcdoc, "StatShrWzskVtrConfig", "ButClaimActive") == "true");
 
-	var RbuMdeActive = (retrieveSi(srcdoc, "StatShrWzskVtrConfig", "RbuMdeActive") == "true");
-
 	var CusImgHeight = parseInt(retrieveSi(srcdoc, "StatShrWzskVtrConfig", "CusImgHeight"));
+
+	var ButPlayActive = (retrieveSi(srcdoc, "StatShrWzskVtrConfig", "ButPlayActive") == "true");
+	var ButStopActive = (retrieveSi(srcdoc, "StatShrWzskVtrConfig", "ButStopActive") == "true");
 
 	var SldAspActive = (retrieveSi(srcdoc, "StatShrWzskVtrConfig", "SldAspActive") == "true");
 
@@ -93,12 +94,15 @@ function refreshBD(bNotD) {
 	// IP refreshBD --- BEGIN
 	refreshButicon(hdrdoc, "ButClaim", "icon/claim", ButClaimActive, retrieveCi(srcdoc, "ContInfWzskVtrConfig", "ButClaimOn") == "true");
 
-	setRbuValue(contcontdoc, "RbuMde", retrieveCi(srcdoc, "ContIacWzskVtrConfig", "numFRbuMde"), RbuMdeActive);
+	setRbuValue(contcontdoc, "RbuMde", retrieveCi(srcdoc, "ContIacWzskVtrConfig", "numFRbuMde"), true);
 
 	mytd = contcontdoc.getElementById("tdImg");
 	mytd.setAttribute("height", "" + CusImgHeight);
 	contcontdoc.getElementById("CusImg").setAttribute("height", "" + CusImgHeight);
 	height += CusImgHeight-384;
+
+	refreshButicon(contcontdoc, "ButPlay", "iconwzsk/play", ButPlayActive, false);
+	refreshButicon(contcontdoc, "ButStop", "iconwzsk/stop", ButStopActive, false);
 
 	refreshSld(contcontdoc, "SldAsp", true, false, parseFloat(retrieveSi(srcdoc, "StatShrWzskVtrConfig", "SldAspMin")), parseFloat(retrieveSi(srcdoc, "StatShrWzskVtrConfig", "SldAspMax")), parseFloat(retrieveCi(srcdoc, "ContIacWzskVtrConfig", "SldAsp")), SldAspActive, false);
 

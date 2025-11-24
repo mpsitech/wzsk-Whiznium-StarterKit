@@ -40,20 +40,22 @@ string PnlWzskLlvIdent::VecVDo::getSref(
  ******************************************************************************/
 
 PnlWzskLlvIdent::ContInf::ContInf(
-			const string& TxtVve
+			const string& TxtSrf
+			, const string& TxtVve
 			, const string& TxtVgh
 			, const string& TxtVau
 			, const string& TxtVfm
 			, const string& TxtVfd
 		) :
 			Block()
+			, TxtSrf(TxtSrf)
 			, TxtVve(TxtVve)
 			, TxtVgh(TxtVgh)
 			, TxtVau(TxtVau)
 			, TxtVfm(TxtVfm)
 			, TxtVfd(TxtVfd)
 		{
-	mask = {TXTVVE, TXTVGH, TXTVAU, TXTVFM, TXTVFD};
+	mask = {TXTSRF, TXTVVE, TXTVGH, TXTVAU, TXTVFM, TXTVFD};
 };
 
 void PnlWzskLlvIdent::ContInf::writeJSON(
@@ -64,6 +66,7 @@ void PnlWzskLlvIdent::ContInf::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
+	me["TxtSrf"] = TxtSrf;
 	me["TxtVve"] = TxtVve;
 	me["TxtVgh"] = TxtVgh;
 	me["TxtVau"] = TxtVau;
@@ -83,6 +86,7 @@ void PnlWzskLlvIdent::ContInf::writeXML(
 	else itemtag = "ContitemInfWzskLlvIdent";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
+		writeStringAttr(wr, itemtag, "sref", "TxtSrf", TxtSrf);
 		writeStringAttr(wr, itemtag, "sref", "TxtVve", TxtVve);
 		writeStringAttr(wr, itemtag, "sref", "TxtVgh", TxtVgh);
 		writeStringAttr(wr, itemtag, "sref", "TxtVau", TxtVau);
@@ -96,6 +100,7 @@ set<uint> PnlWzskLlvIdent::ContInf::comm(
 		) {
 	set<uint> items;
 
+	if (TxtSrf == comp->TxtSrf) insert(items, TXTSRF);
 	if (TxtVve == comp->TxtVve) insert(items, TXTVVE);
 	if (TxtVgh == comp->TxtVgh) insert(items, TXTVGH);
 	if (TxtVau == comp->TxtVau) insert(items, TXTVAU);
@@ -113,7 +118,7 @@ set<uint> PnlWzskLlvIdent::ContInf::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {TXTVVE, TXTVGH, TXTVAU, TXTVFM, TXTVFD};
+	diffitems = {TXTSRF, TXTVVE, TXTVGH, TXTVAU, TXTVFM, TXTVFD};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -199,6 +204,7 @@ void PnlWzskLlvIdent::Tag::writeJSON(
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 		me["Cpt"] = "FPGA self-identification";
 		me["HdgVsp"] = "VSP core";
+		me["CptSrf"] = "identifier";
 		me["CptVve"] = "version";
 		me["CptVgh"] = "Git hash";
 		me["CptVau"] = "author";
@@ -223,6 +229,7 @@ void PnlWzskLlvIdent::Tag::writeXML(
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "FPGA self-identification");
 			writeStringAttr(wr, itemtag, "sref", "HdgVsp", "VSP core");
+			writeStringAttr(wr, itemtag, "sref", "CptSrf", "identifier");
 			writeStringAttr(wr, itemtag, "sref", "CptVve", "version");
 			writeStringAttr(wr, itemtag, "sref", "CptVgh", "Git hash");
 			writeStringAttr(wr, itemtag, "sref", "CptVau", "author");

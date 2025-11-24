@@ -59,7 +59,7 @@ JobWzskAcqCorner
 		acquiring corner coordinates
 		ImeIMSquawk.end
 		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
-		cal	CallWzskCallback	lock	self					cust
+		cal	CallWzskCallback	weak	self					cust
 		ImeIMSensitivity2.end
 	immcb	calcidle		calc
 	other	calc
@@ -95,6 +95,19 @@ JobWzskAcqCorner
 	JobWzskSrcZuvsp	srczuvsp	false	stgwzskglobal.ixwzskvtargetEq(zudvk)
 	ImeIRMJobMJob.end
 JobWzskAcqHdr
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+		ImeIMSquawk.Title	Example
+		idle
+		ImeIMSquawk.end
+	other	rng
+		ImeIMSquawk.Title	Example
+		acquiring frames
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		cal	CallWzskCallback	weak	self					cust
+		ImeIMSensitivity2.end
+	ImeIMStage.end
 	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
 	JobWzskSrcDcvsp	srcdcvsp	false	stgwzskglobal.ixwzskvtargetEq(disco)
 	JobWzskSrcTivsp	srctivsp	false	stgwzskglobal.ixwzskvtargetEq(titdvk)
@@ -346,73 +359,29 @@ JobWzskSrcZuvsp
 	stopRxtxdump
 	test
 	ImeIAMJobCmd.end
-PnlWzskLlvIdent
-	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
-	JobWzskSrcDcvsp	srcdcvsp	false	stgwzskglobal.ixwzskvtargetEq(disco)
-	JobWzskSrcTivsp	srctivsp	false	stgwzskglobal.ixwzskvtargetEq(titdvk)
-	JobWzskSrcZuvsp	srczuvsp	false	stgwzskglobal.ixwzskvtargetEq(zudvk)
-	ImeIRMJobMJob.end
-PnlWzskLlvLaser
-	ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	retr				StatShrWzskLlvLaser
-		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		retrupd	0		SldLleMin							0
-		retrupd	0		SldLleMax							100
-		retrupd	0		SldLriMin							0
-		retrupd	0		SldLriMax							100
-		ImeIAMBlockItem1.end
-	ImeIMBlock1.end
-	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
-	cal	CallWzskClaimChg	weak	imm					cust
-	cal	CallWzskShrdatChg	try	imm					cust
-	ImeIMSensitivity1.end
-	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
-	JobWzskActLaser	actlaser	false
-	ImeIRMJobMJob.end
-PnlWzskLlvRotary
-	ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	retr				StatShrWzskLlvRotary
-		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		retrupd	0		SldTrgMin							0
-		retrupd	0		SldTrgMax							360
-		ImeIAMBlockItem1.end
-	ImeIMBlock1.end
-	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
-	cal	CallWzskClaimChg	weak	imm					cust
-	cal	CallWzskShrdatChg	try	imm					cust
-	ImeIMSensitivity1.end
-	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
-	JobWzskActRotary	actrotary	false
-	ImeIRMJobMJob.end
-PnlWzskLlvSysmon
-	ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
-	ins	dpch	app	eng;cmbeng	DpchEngWzskLlvSysmonLive
-		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
-		ins	0	var	jref	scrref						0
-		ins	0	var	ts	floatvec
-		ins	0	var	cldtots	floatvec
-		ins	0	var	cld1s	floatvec
-		ins	0	var	cld2s	floatvec
-		ins	0	var	cld3s	floatvec
-		ins	0	var	cld4s	floatvec
-		ImeIAMBlockItem1.end
-	ImeIMBlock1.end
-	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
-	cal	CallWzskShrdatChg	weak	spec	srcfpgainfo				cust
-	cal	CallWzskShrdatChg	weak	spec	srcsysinfo				cust
-	ImeIMSensitivity1.end
-	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
-	JobWzskSrcFpgainfo	srcfpgainfo	false
-	JobWzskSrcSysinfo	srcsysinfo	false
-	ImeIRMJobMJob.end
-PnlWzskLlvTermDcvsp
-PnlWzskLlvTermTivsp
-PnlWzskLlvTermZuvsp
 PnlWzskHwcAsys
 	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
 	JobWzskPrcWavelet	prcwavelet	false
 	ImeIRMJobMJob.end
 PnlWzskHwcConfig
+	ImeIMStage.srefIxVBasetype	sref	Monitvl	snxSrefWznmMStage	fnxSrefWznmMStage	enxSrefWznmMStage	Comment
+	other	idle
+		ImeIMSquawk.Title	Example
+		idle
+		ImeIMSquawk.end
+	other	capture
+		ImeIMSquawk.Title	Example
+		capturing HDR frame
+		ImeIMSquawk.end
+		ImeIMSensitivity2.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+		cal	CallWzskResultNew	lock	spec	acqhdr				cust
+		ImeIMSensitivity2.end
+	immcb	stoidle		store
+	other	store
+		ImeIMSquawk.Title	Example
+		storing data to RGBE file
+		ImeIMSquawk.end
+	ImeIMStage.end
 	ImeIMVector.srefIxWznmVIop	srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
 	retrupd		VecVWzskHwcConfigMode
 		ImeIMVectoritem.sref	Title	Comment
@@ -442,9 +411,7 @@ PnlWzskHwcConfig
 		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
 		ins	0	var	jref	scrref						0
 		ins	0	var	gray	utinyintvec
-		ins	1	var	red	utinyintvec
-		ins	1	var	green	utinyintvec
-		ins	1	var	blue	utinyintvec
+		ins	0	var	rgb	utinyintvec
 		ImeIAMBlockItem1.end
 	retr				StatShrWzskHwcConfig
 		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
@@ -456,14 +423,86 @@ PnlWzskHwcConfig
 		retrupd			SldFspMax							1000
 		ImeIAMBlockItem1.end
 	ImeIMBlock1.end
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskSgeChg	weak	imm					cust
+	cal	CallWzskResultNew	lock	spec	acqpreview				cust
+	ImeIMSensitivity1.end
 	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
+	JobWzskAcqHdr	acqhdr	false
 	JobWzskAcqPreview	acqpreview	false
 	JobWzskPrcWavelet	prcwavelet	false
 	ImeIRMJobMJob.end
 PnlWzskHwcDebug
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskSgeChg	weak	imm					cust
+	cal	CallWzskResultNew	lock	spec	acqmemtrack				cust
+	ImeIMSensitivity1.end
 	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
 	JobWzskAcqMemtrack	acqmemtrack	false
 	ImeIRMJobMJob.end
+PnlWzskLlvIdent
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
+	JobWzskSrcDcvsp	srcdcvsp	false	stgwzskglobal.ixwzskvtargetEq(disco)
+	JobWzskSrcTivsp	srctivsp	false	stgwzskglobal.ixwzskvtargetEq(titdvk)
+	JobWzskSrcZuvsp	srczuvsp	false	stgwzskglobal.ixwzskvtargetEq(zudvk)
+	ImeIRMJobMJob.end
+PnlWzskLlvLaser
+	ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	retr				StatShrWzskLlvLaser
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		retrupd	0		SldLleMin							0
+		retrupd	0		SldLleMax							100
+		retrupd	0		SldLriMin							0
+		retrupd	0		SldLriMax							100
+		ImeIAMBlockItem1.end
+	ImeIMBlock1.end
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskClaimChg	weak	imm					cust
+	cal	CallWzskShrdatChg	try	imm					cust
+	ImeIMSensitivity1.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
+	JobWzskActLaser	actlaser	false
+	ImeIRMJobMJob.end
+PnlWzskLlvRotary
+	ImeIMVector.srefIxWznmVIop	srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
+	retrupd		VecVWzskLlvRotaryState
+		ImeIMVectoritem.sref	Title	Comment
+		idle
+		move
+		ImeIMVectoritem.end
+	ImeIMVector.end
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskClaimChg	weak	imm					cust
+	cal	CallWzskSgeChg	weak	imm					cust
+	cal	CallWzskShrdatChg	try	imm					cust
+	ImeIMSensitivity1.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
+	JobWzskActRotary	actrotary	false
+	ImeIRMJobMJob.end
+PnlWzskLlvSysmon
+	ImeIMBlock1.srefIxWznmVIop	srefIxVBasetype	srefsReaIxWznmWScope	srefsWriIxWznmWScope	sref	Comment
+	ins	dpch	app	eng;cmbeng	DpchEngWzskLlvSysmonLive
+		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
+		ins	0	var	jref	scrref						0
+		ins	0	var	ts	floatvec
+		ins	0	var	cldtots	floatvec
+		ins	0	var	cld1s	floatvec
+		ins	0	var	cld2s	floatvec
+		ins	0	var	cld3s	floatvec
+		ins	0	var	cld4s	floatvec
+		ImeIAMBlockItem1.end
+	ImeIMBlock1.end
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskShrdatChg	weak	spec	srcfpgainfo				cust
+	cal	CallWzskShrdatChg	weak	spec	srcsysinfo				cust
+	ImeIMSensitivity1.end
+	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
+	JobWzskSrcFpgainfo	srcfpgainfo	false
+	JobWzskSrcSysinfo	srcsysinfo	false
+	ImeIRMJobMJob.end
+PnlWzskLlvTermDcvsp
+PnlWzskLlvTermTivsp
+PnlWzskLlvTermZuvsp
 PnlWzskVtrConfig
 	ImeIMVector.srefIxWznmVIop	srefIxVBasetype	sref	osrefWznmKTaggrp	srefsKOption
 	retrupd		VecVWzskVtrConfigMode
@@ -494,9 +533,7 @@ PnlWzskVtrConfig
 		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
 		ins	0	var	jref	scrref						0
 		ins	0	var	gray	utinyintvec
-		ins	1	var	red	utinyintvec
-		ins	1	var	green	utinyintvec
-		ins	1	var	blue	utinyintvec
+		ins	0	var	rgb	utinyintvec
 		ImeIAMBlockItem1.end
 	retr				StatShrWzskVtrConfig
 		ImeIAMBlockItem1.srefIxWznmVIop	irefRefWznmCAMBlockItem	srefIxVBasetype	sref	srefIxWznmVVartype	srefRefWznmMControl	srefRefWznmMVector	srefRefWznmMFeed	srefRefWznmMTable	srefRefWznmMBlock	Defval	srefRefWznmMVectoritem	Comment
@@ -504,11 +541,19 @@ PnlWzskVtrConfig
 		retrupd			SldAspMax							180.0
 		ImeIAMBlockItem1.end
 	ImeIMBlock1.end
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskSgeChg	weak	imm					cust
+	cal	CallWzskResultNew	lock	spec	acqpreview				cust
+	ImeIMSensitivity1.end
 	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
 	JobWzskAcqPreview	acqpreview	false
 	JobWzskActVistorot	actvistorot	false
 	ImeIRMJobMJob.end
 PnlWzskVtrDebug
+	ImeIMSensitivity1.srefIxVBasetype	srefRefWznmMCall	srefIxVJactype	srefIxVJobmask	Jobshort	Argpatt	srefRefWznmMControl	Srefmask	srefIxVAction	srefCsgRefWznmMStage	Custcode
+	cal	CallWzskSgeChg	weak	imm					cust
+	cal	CallWzskResultNew	lock	spec	acqvtrtrack				cust
+	ImeIMSensitivity1.end
 	ImeIRMJobMJob.srefSubRefWznmMJob	Short	Multi	Constr
 	JobWzskAcqVtrtrack	acqvtrtrack	false
 	ImeIRMJobMJob.end
@@ -538,6 +583,6 @@ RootWzsk
 	ImeIAMJobCmd.end
 ImeIMJob.end
 ImeIMCall.srefIxVBasetype	srefsInvIxWznmWArgtype	srefsRetIxWznmWArgtype	sref	Comment
-evt			CallWzskCallback
-evt	ref;sref		CallWzskResultNew
+evt	ix;sref		CallWzskCallback
+evt	ix;ref;sref		CallWzskResultNew
 ImeIMCall.end

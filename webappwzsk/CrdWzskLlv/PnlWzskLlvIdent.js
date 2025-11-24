@@ -45,6 +45,7 @@ function initBD(bNotD) {
 	// IP initBD --- BEGIN
 	initCpt(hdrdoc, "Cpt", retrieveTi(srcdoc, "TagWzskLlvIdent", "Cpt"));
 	initCpt(contcontdoc, "HdgVsp", retrieveTi(srcdoc, "TagWzskLlvIdent", "HdgVsp"));
+	initCpt(contcontdoc, "CptSrf", retrieveTi(srcdoc, "TagWzskLlvIdent", "CptSrf"));
 	initCpt(contcontdoc, "CptVve", retrieveTi(srcdoc, "TagWzskLlvIdent", "CptVve"));
 	initCpt(contcontdoc, "CptVgh", retrieveTi(srcdoc, "TagWzskLlvIdent", "CptVgh"));
 	initCpt(contcontdoc, "CptVau", retrieveTi(srcdoc, "TagWzskLlvIdent", "CptVau"));
@@ -73,13 +74,15 @@ function refreshA() {
 function refreshBD(bNotD) {
 	if (!contcontdoc) return;
 
-	var height = 160; // full cont height
+	var height = 185; // full cont height
 
 	// IP refreshBD.vars --- BEGIN
 
 	// IP refreshBD.vars --- END
 
 	// IP refreshBD --- BEGIN
+
+	refreshTxt(contcontdoc, "TxtSrf", retrieveCi(srcdoc, "ContInfWzskLlvIdent", "TxtSrf"));
 
 	refreshTxt(contcontdoc, "TxtVve", retrieveCi(srcdoc, "ContInfWzskLlvIdent", "TxtVve"));
 

@@ -80,7 +80,7 @@ JobWzskAcqCorner::JobWzskAcqCorner(
 
 	// IP constructor.spec2 --- INSERT
 
-	if (srvNotCli) xchg->addClstn(VecWzskVCall::CALLWZSKCALLBACK, jref, Clstn::VecVJobmask::SELF, 0, false, Arg(), VecVSge::ACQ, Clstn::VecVJactype::LOCK);
+	if (srvNotCli) xchg->addClstn(VecWzskVCall::CALLWZSKCALLBACK, jref, Clstn::VecVJobmask::SELF, 0, false, Arg(), VecVSge::ACQ, Clstn::VecVJactype::WEAK);
 
 	// IP constructor.cust3 --- INSERT
 
@@ -176,12 +176,14 @@ void JobWzskAcqCorner::handleCall(
 			, Call* call
 		) {
 	if ((call->ixVCall == VecWzskVCall::CALLWZSKCALLBACK) && (call->jref == jref) && (ixVSge == VecVSge::ACQ)) {
-		call->abort = handleCallWzskCallbackFromSelfInSgeAcq(dbswzsk);
+		call->abort = handleCallWzskCallbackFromSelfInSgeAcq(dbswzsk, call->argInv.ix, call->argInv.sref);
 	};
 };
 
 bool JobWzskAcqCorner::handleCallWzskCallbackFromSelfInSgeAcq(
 			DbsWzsk* dbswzsk
+			, const uint ixInv
+			, const string& srefInv
 		) {
 	bool retval = false;
 	// IP handleCallWzskCallbackFromSelfInSgeAcq --- INSERT
@@ -335,7 +337,84 @@ bool JobWzskAcqCorner::handleClaim(
 		) {
 	bool mod = false;
 
-	// IP handleClaim --- INSERT
+	// IP handleClaim --- IBEGIN
+
+	// claim policy:
+	// - exactly one claim can be fulfilled
+	// - only possible if src*vsp "corner" claim can be fulfilled
+
+	Claim* claim = NULL;
+
+	ubigint jrefFulfilled = 0;
+
+	bool retractable = true;
+
+	bool available;
+	bool reattributed;
+
+	CsjobWzsk* srcvsp = NULL;
+	bool vspTakenNotAvailable, vspFulfilled;
+
+	// survey
+	for (auto it = claims.begin(); it != claims.end(); it++) {
+		claim = (Claim*) it->second;
+
+		if (claim->fulfilled) {
+			jrefFulfilled = it->first;
+			retractable = claim->retractable;
+		};
+	};
+
+	// add or remove "corner" claim with src*vsp
+	if (srcdcvsp) srcvsp = srcdcvsp;
+	else if (srctivsp)  srcvsp = srctivsp;
+	else if (srczuvsp) srcvsp = srczuvsp;
+
+	if (srcvsp) {
+		if (claims.empty()) xchg->removeCsjobClaim(dbswzsk, srcvsp);
+		else xchg->addCsjobClaim(dbswzsk, srcvsp, new Wzsk::ClaimVsp(false, Wzsk::ClaimVsp::VecWDomain::CORNER));
+
+		xchg->getCsjobClaim(srcvsp, vspTakenNotAvailable, vspFulfilled);
+	};
+
+	// try to fulfill
+	reattributed = false;
+
+	for (unsigned int i = 0; i < 2; i++) {
+		for (auto it = claims.begin(); it != claims.end(); it++) {
+			claim = (Claim*) it->second;
+
+			available = retractable && vspFulfilled;
+
+			if (!available) break;
+
+			if (((i == 0) && (it->first == jrefNewest)) || ((i == 1) && (it->first != jrefNewest))) {
+				// preference given to newest claim
+				if (it->first != jrefFulfilled) {
+					if (jrefFulfilled != 0) claims[jrefFulfilled]->fulfilled = false;
+
+					claim->fulfilled = true;
+					retractable = claim->retractable;
+					reattributed = true;
+				};
+
+				if (reattributed) break;
+			};
+		};
+
+		if (!available) break;
+		if (reattributed) break;
+	};
+
+	// update taken status
+	for (auto it = claims.begin(); it != claims.end(); it++) {
+		claim = (Claim*) it->second;
+		claim->takenNotAvailable = !retractable;
+	};
+
+	mod = true; // for simplicity
+
+	// IP handleClaim --- IEND
 
 	return mod;
 };

@@ -24,6 +24,7 @@
 class JobWzskPrcWavelet : public CsjobWzsk {
 
 public:
+
 	/**
 		* Shrdat (full: ShrdatJobWzskPrcWavelet)
 		*/

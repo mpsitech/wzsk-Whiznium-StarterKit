@@ -63,7 +63,7 @@ void JobWzskSrcZuvsp::Shrdat::init(
 
 		if (success) {
 			success = (Version(ver) == Version(WSKD_VERSION));
-			if (!success) cout << "JobWzskSrcZuvsp device version mismatch: identified " << ver << "expected " WSKD_VERSION << endl;
+			if (!success) cout << "JobWzskSrcZuvsp device version mismatch: identified " << ver << " expected " WSKD_VERSION << endl;
 		};
 
 		if (success) cout << "JobWzskSrcZuvsp device version " WSKD_VERSION " identified" << endl;
@@ -109,7 +109,15 @@ JobWzskSrcZuvsp::JobWzskSrcZuvsp(
 
 	// IP constructor.spec2 --- INSERT
 
-	// IP constructor.cust3 --- INSERT
+	// IP constructor.cust3 --- IBEGIN
+	if (srvNotCli) {
+		shrdat.hw.camif->configSynth(VecVWskdZuvspCamifSynthmode::CHK, 1000, 100); // tixVSynthmode={rgb,hdr,chk},TFramepad=[uint16],TLinepad=[uint8]
+		shrdat.hw.camif->config(true, false); // hdrNotFix={false,true},synthNotLive={false,true}
+
+		shrdat.hw.director->config(xchg->stgwzskcamera.NRowRaw, xchg->stgwzskcamera.NColRaw); // NRowRaw=[uint16],NColRaw=[uint16]
+		shrdat.hw.director->set(true); // rng={false,true}
+	};
+	// IP constructor.cust3 --- IEND
 
 	// IP constructor.spec3 --- INSERT
 };
@@ -117,7 +125,9 @@ JobWzskSrcZuvsp::JobWzskSrcZuvsp(
 JobWzskSrcZuvsp::~JobWzskSrcZuvsp() {
 	// IP destructor.spec --- INSERT
 
-	// IP destructor.cust --- INSERT
+	// IP destructor.cust --- IBEGIN
+	if (srvNotCli) shrdat.hw.director->set(false); // rng={false,true}
+	// IP destructor.cust --- IEND
 
 	xchg->removeJobByJref(jref);
 };
@@ -249,7 +259,7 @@ bool JobWzskSrcZuvsp::rotary_getInfo(
 		shrdat.hw.rotary->getInfo(tixVState, _angle);
 
 		srefTixVState = VecVWskdZuvspRotaryState::getSref(tixVState);
-		angle = ((float) _angle) * 360.0/1000.0;
+		angle = ((float) _angle) * 360.0/16000.0;
 
 		success = true;
 
@@ -262,32 +272,22 @@ bool JobWzskSrcZuvsp::rotary_getInfo(
 
 bool JobWzskSrcZuvsp::rotary_moveto(
 			float& _angle
-			, const float omega
 		) {
 	bool success = false;
 
 	uint16_t angle;
-
-	uint8_t Tstep;
 
 	float angle_imd = _angle;
 
 	while (angle_imd >= 360.0) angle_imd -= 360.0;
 	while (angle_imd < 0.0) angle_imd += 360.0;
 
-	angle = lround(1000.0 * angle_imd/360.0);
-	if (angle == 1000) angle = 0;
-
-	// rotational speed is 1 / (1000 * Tstep * 2e-4s)
-	float Tstep_imd = 1.0 / (1000.0 * omega * 2e-4);
-
-	if (Tstep_imd < 25.0) Tstep = 25;
-	else if (Tstep_imd > 255.0) Tstep = 255;
-	else Tstep = lround(Tstep_imd);
+	angle = lround(16000.0 * angle_imd/360.0);
+	if (angle == 16000) angle = 0;
 
 	try {
-		shrdat.hw.rotary->moveto(angle, Tstep);
-		_angle = 360.0 * ((float) angle) / 1000.0; // fix target to raster
+		shrdat.hw.rotary->moveto(angle);
+		_angle = 360.0 * ((float) angle) / 16000.0; // fix target to raster
 
 		success = true;
 
@@ -301,22 +301,11 @@ bool JobWzskSrcZuvsp::rotary_moveto(
 bool JobWzskSrcZuvsp::rotary_set(
 			const bool rng
 			, const bool ccwNotCw
-			, const string& srefTixVStepmode
-			, const float omega
 		) {
 	bool success = false;
 
-	uint8_t Tstep;
-
-	// rotational speed is 1 / (1000 * Tstep * 2e-4s)
-	float Tstep_imd = 1.0 / (1000.0 * omega * 2e-4);
-
-	if (Tstep_imd < 25.0) Tstep = 25;
-	else if (Tstep_imd > 255.0) Tstep = 255;
-	else Tstep = lround(Tstep_imd);
-
 	try {
-		shrdat.hw.rotary->set(rng, ccwNotCw, VecVWskdZuvspRotaryStepmode::getTix(srefTixVStepmode), Tstep);
+		shrdat.hw.rotary->set(rng, ccwNotCw);
 
 		success = true;
 
@@ -514,9 +503,7 @@ bool JobWzskSrcZuvsp::handleClaim(
 	bool mod = false;
 
 	// IP handleClaim --- IBEGIN
-	for (auto it = claims.begin(); it != claims.end(); it++) if (it->first == jrefNewest) it->second->fulfilled = true; else it->second->fulfilled = false;
-
-	mod = true;
+	mod = Wzsk::ClaimVsp::handleClaim(dbswzsk, claims, jrefNewest);
 	// IP handleClaim --- IEND
 
 	return mod;

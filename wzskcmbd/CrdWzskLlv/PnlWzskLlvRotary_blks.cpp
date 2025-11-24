@@ -38,16 +38,56 @@ string PnlWzskLlvRotary::VecVDo::getSref(
 };
 
 /******************************************************************************
+ class PnlWzskLlvRotary::VecVState
+ ******************************************************************************/
+
+uint PnlWzskLlvRotary::VecVState::getIx(
+			const string& sref
+		) {
+	string s = StrMod::lc(sref);
+
+	if (s == "idle") return IDLE;
+	if (s == "move") return MOVE;
+
+	return(0);
+};
+
+string PnlWzskLlvRotary::VecVState::getSref(
+			const uint ix
+		) {
+	if (ix == IDLE) return("idle");
+	if (ix == MOVE) return("move");
+
+	return("");
+};
+
+string PnlWzskLlvRotary::VecVState::getTitle(
+			const uint ix
+		) {
+	return(getSref(ix));
+
+	return("");
+};
+
+void PnlWzskLlvRotary::VecVState::fillFeed(
+			Feed& feed
+		) {
+	feed.clear();
+
+	for (unsigned int i = 1; i <= 2; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i));
+};
+
+/******************************************************************************
  class PnlWzskLlvRotary::ContIac
  ******************************************************************************/
 
 PnlWzskLlvRotary::ContIac::ContIac(
-			const double SldTrg
+			const string& TxfSchTrg
 		) :
 			Block()
-			, SldTrg(SldTrg)
+			, TxfSchTrg(TxfSchTrg)
 		{
-	mask = {SLDTRG};
+	mask = {TXFSCHTRG};
 };
 
 bool PnlWzskLlvRotary::ContIac::readJSON(
@@ -63,7 +103,7 @@ bool PnlWzskLlvRotary::ContIac::readJSON(
 	basefound = (me != Json::nullValue);
 
 	if (basefound) {
-		if (me.isMember("SldTrg")) {SldTrg = me["SldTrg"].asDouble(); add(SLDTRG);};
+		if (me.isMember("TxfSchTrg")) {TxfSchTrg = me["TxfSchTrg"].asString(); add(TXFSCHTRG);};
 	};
 
 	return basefound;
@@ -86,7 +126,7 @@ bool PnlWzskLlvRotary::ContIac::readXML(
 	string itemtag = "ContitemIacWzskLlvRotary";
 
 	if (basefound) {
-		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "SldTrg", SldTrg)) add(SLDTRG);
+		if (extractStringAttrUclc(docctx, basexpath, itemtag, "Ci", "sref", "TxfSchTrg", TxfSchTrg)) add(TXFSCHTRG);
 	};
 
 	return basefound;
@@ -100,7 +140,7 @@ void PnlWzskLlvRotary::ContIac::writeJSON(
 
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
-	me["SldTrg"] = SldTrg;
+	me["TxfSchTrg"] = TxfSchTrg;
 };
 
 void PnlWzskLlvRotary::ContIac::writeXML(
@@ -115,7 +155,7 @@ void PnlWzskLlvRotary::ContIac::writeXML(
 	else itemtag = "ContitemIacWzskLlvRotary";
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
-		writeDoubleAttr(wr, itemtag, "sref", "SldTrg", SldTrg);
+		writeStringAttr(wr, itemtag, "sref", "TxfSchTrg", TxfSchTrg);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -124,7 +164,7 @@ set<uint> PnlWzskLlvRotary::ContIac::comm(
 		) {
 	set<uint> items;
 
-	if (compareDouble(SldTrg, comp->SldTrg) < 1.0e-4) insert(items, SLDTRG);
+	if (TxfSchTrg == comp->TxfSchTrg) insert(items, TXFSCHTRG);
 
 	return(items);
 };
@@ -137,7 +177,7 @@ set<uint> PnlWzskLlvRotary::ContIac::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {SLDTRG};
+	diffitems = {TXFSCHTRG};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -149,11 +189,15 @@ set<uint> PnlWzskLlvRotary::ContIac::diff(
 
 PnlWzskLlvRotary::ContInf::ContInf(
 			const bool ButClaimOn
+			, const string& TxtSchAng
+			, const uint numFCsiSchSte
 		) :
 			Block()
 			, ButClaimOn(ButClaimOn)
+			, TxtSchAng(TxtSchAng)
+			, numFCsiSchSte(numFCsiSchSte)
 		{
-	mask = {BUTCLAIMON};
+	mask = {BUTCLAIMON, TXTSCHANG, NUMFCSISCHSTE};
 };
 
 void PnlWzskLlvRotary::ContInf::writeJSON(
@@ -165,6 +209,8 @@ void PnlWzskLlvRotary::ContInf::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	me["ButClaimOn"] = ButClaimOn;
+	me["TxtSchAng"] = TxtSchAng;
+	me["numFCsiSchSte"] = (Json::Value::UInt) numFCsiSchSte;
 };
 
 void PnlWzskLlvRotary::ContInf::writeXML(
@@ -180,6 +226,8 @@ void PnlWzskLlvRotary::ContInf::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeBoolAttr(wr, itemtag, "sref", "ButClaimOn", ButClaimOn);
+		writeStringAttr(wr, itemtag, "sref", "TxtSchAng", TxtSchAng);
+		writeUintAttr(wr, itemtag, "sref", "numFCsiSchSte", numFCsiSchSte);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -189,6 +237,8 @@ set<uint> PnlWzskLlvRotary::ContInf::comm(
 	set<uint> items;
 
 	if (ButClaimOn == comp->ButClaimOn) insert(items, BUTCLAIMON);
+	if (TxtSchAng == comp->TxtSchAng) insert(items, TXTSCHANG);
+	if (numFCsiSchSte == comp->numFCsiSchSte) insert(items, NUMFCSISCHSTE);
 
 	return(items);
 };
@@ -201,7 +251,7 @@ set<uint> PnlWzskLlvRotary::ContInf::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {BUTCLAIMON};
+	diffitems = {BUTCLAIMON, TXTSCHANG, NUMFCSISCHSTE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -214,18 +264,14 @@ set<uint> PnlWzskLlvRotary::ContInf::diff(
 PnlWzskLlvRotary::StatShr::StatShr(
 			const uint ixWzskVExpstate
 			, const bool ButClaimActive
-			, const bool SldTrgActive
-			, const double SldTrgMin
-			, const double SldTrgMax
+			, const bool CusSchActive
 		) :
 			Block()
 			, ixWzskVExpstate(ixWzskVExpstate)
 			, ButClaimActive(ButClaimActive)
-			, SldTrgActive(SldTrgActive)
-			, SldTrgMin(SldTrgMin)
-			, SldTrgMax(SldTrgMax)
+			, CusSchActive(CusSchActive)
 		{
-	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGACTIVE, SLDTRGMIN, SLDTRGMAX};
+	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, CUSSCHACTIVE};
 };
 
 void PnlWzskLlvRotary::StatShr::writeJSON(
@@ -238,9 +284,7 @@ void PnlWzskLlvRotary::StatShr::writeJSON(
 
 	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
 	me["ButClaimActive"] = ButClaimActive;
-	me["SldTrgActive"] = SldTrgActive;
-	me["SldTrgMin"] = SldTrgMin;
-	me["SldTrgMax"] = SldTrgMax;
+	me["CusSchActive"] = CusSchActive;
 };
 
 void PnlWzskLlvRotary::StatShr::writeXML(
@@ -257,9 +301,7 @@ void PnlWzskLlvRotary::StatShr::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeStringAttr(wr, itemtag, "sref", "srefIxWzskVExpstate", VecWzskVExpstate::getSref(ixWzskVExpstate));
 		writeBoolAttr(wr, itemtag, "sref", "ButClaimActive", ButClaimActive);
-		writeBoolAttr(wr, itemtag, "sref", "SldTrgActive", SldTrgActive);
-		writeDoubleAttr(wr, itemtag, "sref", "SldTrgMin", SldTrgMin);
-		writeDoubleAttr(wr, itemtag, "sref", "SldTrgMax", SldTrgMax);
+		writeBoolAttr(wr, itemtag, "sref", "CusSchActive", CusSchActive);
 	xmlTextWriterEndElement(wr);
 };
 
@@ -270,9 +312,7 @@ set<uint> PnlWzskLlvRotary::StatShr::comm(
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
 	if (ButClaimActive == comp->ButClaimActive) insert(items, BUTCLAIMACTIVE);
-	if (SldTrgActive == comp->SldTrgActive) insert(items, SLDTRGACTIVE);
-	if (compareDouble(SldTrgMin, comp->SldTrgMin) < 1.0e-4) insert(items, SLDTRGMIN);
-	if (compareDouble(SldTrgMax, comp->SldTrgMax) < 1.0e-4) insert(items, SLDTRGMAX);
+	if (CusSchActive == comp->CusSchActive) insert(items, CUSSCHACTIVE);
 
 	return(items);
 };
@@ -285,7 +325,7 @@ set<uint> PnlWzskLlvRotary::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, SLDTRGACTIVE, SLDTRGMIN, SLDTRGMAX};
+	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, CUSSCHACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -305,8 +345,7 @@ void PnlWzskLlvRotary::Tag::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-		me["Cpt"] = "Rotary table";
-		me["CptTrg"] = "angle [\\u00b0]";
+		me["Cpt"] = "Turntable";
 	};
 };
 
@@ -324,8 +363,7 @@ void PnlWzskLlvRotary::Tag::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		if (ixWzskVLocale == VecWzskVLocale::ENUS) {
-			writeStringAttr(wr, itemtag, "sref", "Cpt", "Rotary table");
-			writeStringAttr(wr, itemtag, "sref", "CptTrg", "angle [\\u00b0]");
+			writeStringAttr(wr, itemtag, "sref", "Cpt", "Turntable");
 		};
 	xmlTextWriterEndElement(wr);
 };
@@ -477,16 +515,18 @@ PnlWzskLlvRotary::DpchEngData::DpchEngData(
 			const ubigint jref
 			, ContIac* contiac
 			, ContInf* continf
+			, Feed* feedFCsiSchSte
 			, StatShr* statshr
 			, const set<uint>& mask
 		) :
 			DpchEngWzsk(VecWzskVDpch::DPCHENGWZSKLLVROTARYDATA, jref)
 		{
-	if (find(mask, ALL)) this->mask = {JREF, CONTIAC, CONTINF, STATSHR, TAG};
+	if (find(mask, ALL)) this->mask = {JREF, CONTIAC, CONTINF, FEEDFCSISCHSTE, STATSHR, TAG};
 	else this->mask = mask;
 
 	if (find(this->mask, CONTIAC) && contiac) this->contiac = *contiac;
 	if (find(this->mask, CONTINF) && continf) this->continf = *continf;
+	if (find(this->mask, FEEDFCSISCHSTE) && feedFCsiSchSte) this->feedFCsiSchSte = *feedFCsiSchSte;
 	if (find(this->mask, STATSHR) && statshr) this->statshr = *statshr;
 };
 
@@ -497,6 +537,7 @@ string PnlWzskLlvRotary::DpchEngData::getSrefsMask() {
 	if (has(JREF)) ss.push_back("jref");
 	if (has(CONTIAC)) ss.push_back("contiac");
 	if (has(CONTINF)) ss.push_back("continf");
+	if (has(FEEDFCSISCHSTE)) ss.push_back("feedFCsiSchSte");
 	if (has(STATSHR)) ss.push_back("statshr");
 	if (has(TAG)) ss.push_back("tag");
 
@@ -513,6 +554,7 @@ void PnlWzskLlvRotary::DpchEngData::merge(
 	if (src->has(JREF)) {jref = src->jref; add(JREF);};
 	if (src->has(CONTIAC)) {contiac = src->contiac; add(CONTIAC);};
 	if (src->has(CONTINF)) {continf = src->continf; add(CONTINF);};
+	if (src->has(FEEDFCSISCHSTE)) {feedFCsiSchSte = src->feedFCsiSchSte; add(FEEDFCSISCHSTE);};
 	if (src->has(STATSHR)) {statshr = src->statshr; add(STATSHR);};
 	if (src->has(TAG)) add(TAG);
 };
@@ -526,6 +568,7 @@ void PnlWzskLlvRotary::DpchEngData::writeJSON(
 	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
 	if (has(CONTIAC)) contiac.writeJSON(me);
 	if (has(CONTINF)) continf.writeJSON(me);
+	if (has(FEEDFCSISCHSTE)) feedFCsiSchSte.writeJSON(me);
 	if (has(STATSHR)) statshr.writeJSON(me);
 	if (has(TAG)) Tag::writeJSON(ixWzskVLocale, me);
 };
@@ -539,6 +582,7 @@ void PnlWzskLlvRotary::DpchEngData::writeXML(
 		if (has(JREF)) writeString(wr, "scrJref", Scr::scramble(jref));
 		if (has(CONTIAC)) contiac.writeXML(wr);
 		if (has(CONTINF)) continf.writeXML(wr);
+		if (has(FEEDFCSISCHSTE)) feedFCsiSchSte.writeXML(wr);
 		if (has(STATSHR)) statshr.writeXML(wr);
 		if (has(TAG)) Tag::writeXML(ixWzskVLocale, wr);
 	xmlTextWriterEndElement(wr);

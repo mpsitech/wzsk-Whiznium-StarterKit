@@ -60,10 +60,9 @@ PnlWzskPrfAcqPreview::~PnlWzskPrfAcqPreview() {
 void PnlWzskPrfAcqPreview::getPref(
 			JobWzskAcqPreview::Stg*& _stgjobwzskacqpreview
 		) {
-	if (!(statshr.Chk1Clean && statshr.Txf2Clean)) {
+	if (!(statshr.Txf1Clean)) {
 		_stgjobwzskacqpreview = &stgjobwzskacqpreview;
-		stgjobwzskacqpreview.rgbNotGray = contiac.Chk1;
-		stgjobwzskacqpreview.decim = atoi(contiac.Txf2.c_str());
+		stgjobwzskacqpreview.sizePvwbuf = atoi(contiac.Txf1.c_str());
 	};
 
 };
@@ -74,8 +73,7 @@ void PnlWzskPrfAcqPreview::setPref(
 		) {
 	set<uint> moditems;
 
-	contiac.Chk1 = JobWzskAcqPreview::stg.rgbNotGray;
-	contiac.Txf2 = to_string(JobWzskAcqPreview::stg.decim);
+	contiac.Txf1 = to_string(JobWzskAcqPreview::stg.sizePvwbuf);
 
 	if (_refresh) {
 		refresh(dbswzsk, moditems);
@@ -110,8 +108,7 @@ void PnlWzskPrfAcqPreview::refresh(
 
 	// IP refresh --- BEGIN
 	// statshr
-	statshr.Chk1Clean = (contiac.Chk1 == JobWzskAcqPreview::stg.rgbNotGray);
-	statshr.Txf2Clean = (contiac.Txf2 == to_string(JobWzskAcqPreview::stg.decim));
+	statshr.Txf1Clean = (contiac.Txf1 == to_string(JobWzskAcqPreview::stg.sizePvwbuf));
 
 	// IP refresh --- END
 
@@ -178,8 +175,7 @@ void PnlWzskPrfAcqPreview::handleDpchAppDataContiac(
 
 	diffitems = _contiac->diff(&contiac);
 	// IP handleDpchAppDataContiac --- BEGIN
-	if (has(diffitems, ContIac::CHK1)) contiac.Chk1 = _contiac->Chk1;
-	if (has(diffitems, ContIac::TXF2)) contiac.Txf2 = _contiac->Txf2;
+	if (has(diffitems, ContIac::TXF1)) contiac.Txf1 = _contiac->Txf1;
 
 	if (!diffitems.empty()) refresh(dbswzsk, moditems);
 	// IP handleDpchAppDataContiac --- END

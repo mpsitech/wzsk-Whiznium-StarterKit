@@ -33,6 +33,18 @@
 						<span id="HdgVsp" class="cpt">HdgVsp</span>&#160;&#160;
 					</td>
 				</tr>
+				<tr id="trSrf" class="show">
+					<td height="25"></td>
+					<td align="right">
+						<span id="CptSrf" class="cpt">CptSrf</span>
+					</td>
+					<td></td>
+					<td colspan="3" align="left">
+						<input id="TxtSrf" class="txfsnoed" type="text" readonly="readonly" value="TxtSrf"/>
+					</td>
+					<td></td>
+					<td colspan="4"></td>
+				</tr>
 				<tr id="trVve" class="show">
 					<td height="25"></td>
 					<td align="right">

@@ -155,9 +155,11 @@ void CrdWzskPrf::StatApp::writeJSON(
 			, const bool initdoneDaemon
 			, const bool initdoneGlobal
 			, const bool initdoneAcqCorner
+			, const bool initdoneAcqHdr
 			, const bool initdoneAcqPreview
 			, const bool initdoneAcqTrace
 			, const bool initdoneActLaser
+			, const bool initdoneActRotary
 			, const bool initdoneActVistorot
 			, const bool initdoneSrcDcvsp
 			, const bool initdoneSrcSysinfo
@@ -176,9 +178,11 @@ void CrdWzskPrf::StatApp::writeJSON(
 	me["initdoneDaemon"] = initdoneDaemon;
 	me["initdoneGlobal"] = initdoneGlobal;
 	me["initdoneAcqCorner"] = initdoneAcqCorner;
+	me["initdoneAcqHdr"] = initdoneAcqHdr;
 	me["initdoneAcqPreview"] = initdoneAcqPreview;
 	me["initdoneAcqTrace"] = initdoneAcqTrace;
 	me["initdoneActLaser"] = initdoneActLaser;
+	me["initdoneActRotary"] = initdoneActRotary;
 	me["initdoneActVistorot"] = initdoneActVistorot;
 	me["initdoneSrcDcvsp"] = initdoneSrcDcvsp;
 	me["initdoneSrcSysinfo"] = initdoneSrcSysinfo;
@@ -198,9 +202,11 @@ void CrdWzskPrf::StatApp::writeXML(
 			, const bool initdoneDaemon
 			, const bool initdoneGlobal
 			, const bool initdoneAcqCorner
+			, const bool initdoneAcqHdr
 			, const bool initdoneAcqPreview
 			, const bool initdoneAcqTrace
 			, const bool initdoneActLaser
+			, const bool initdoneActRotary
 			, const bool initdoneActVistorot
 			, const bool initdoneSrcDcvsp
 			, const bool initdoneSrcSysinfo
@@ -222,9 +228,11 @@ void CrdWzskPrf::StatApp::writeXML(
 		writeBoolAttr(wr, itemtag, "sref", "initdoneDaemon", initdoneDaemon);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneGlobal", initdoneGlobal);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneAcqCorner", initdoneAcqCorner);
+		writeBoolAttr(wr, itemtag, "sref", "initdoneAcqHdr", initdoneAcqHdr);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneAcqPreview", initdoneAcqPreview);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneAcqTrace", initdoneAcqTrace);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneActLaser", initdoneActLaser);
+		writeBoolAttr(wr, itemtag, "sref", "initdoneActRotary", initdoneActRotary);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneActVistorot", initdoneActVistorot);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneSrcDcvsp", initdoneSrcDcvsp);
 		writeBoolAttr(wr, itemtag, "sref", "initdoneSrcSysinfo", initdoneSrcSysinfo);
@@ -242,9 +250,11 @@ CrdWzskPrf::StatShr::StatShr(
 			, const ubigint jrefDaemon
 			, const ubigint jrefGlobal
 			, const ubigint jrefAcqCorner
+			, const ubigint jrefAcqHdr
 			, const ubigint jrefAcqPreview
 			, const ubigint jrefAcqTrace
 			, const ubigint jrefActLaser
+			, const ubigint jrefActRotary
 			, const ubigint jrefActVistorot
 			, const ubigint jrefSrcDcvsp
 			, const ubigint jrefSrcSysinfo
@@ -256,16 +266,18 @@ CrdWzskPrf::StatShr::StatShr(
 			, jrefDaemon(jrefDaemon)
 			, jrefGlobal(jrefGlobal)
 			, jrefAcqCorner(jrefAcqCorner)
+			, jrefAcqHdr(jrefAcqHdr)
 			, jrefAcqPreview(jrefAcqPreview)
 			, jrefAcqTrace(jrefAcqTrace)
 			, jrefActLaser(jrefActLaser)
+			, jrefActRotary(jrefActRotary)
 			, jrefActVistorot(jrefActVistorot)
 			, jrefSrcDcvsp(jrefSrcDcvsp)
 			, jrefSrcSysinfo(jrefSrcSysinfo)
 			, jrefSrcTivsp(jrefSrcTivsp)
 			, jrefSrcZuvsp(jrefSrcZuvsp)
 		{
-	mask = {JREFHEADBAR, JREFDAEMON, JREFGLOBAL, JREFACQCORNER, JREFACQPREVIEW, JREFACQTRACE, JREFACTLASER, JREFACTVISTOROT, JREFSRCDCVSP, JREFSRCSYSINFO, JREFSRCTIVSP, JREFSRCZUVSP};
+	mask = {JREFHEADBAR, JREFDAEMON, JREFGLOBAL, JREFACQCORNER, JREFACQHDR, JREFACQPREVIEW, JREFACQTRACE, JREFACTLASER, JREFACTROTARY, JREFACTVISTOROT, JREFSRCDCVSP, JREFSRCSYSINFO, JREFSRCTIVSP, JREFSRCZUVSP};
 };
 
 void CrdWzskPrf::StatShr::writeJSON(
@@ -280,9 +292,11 @@ void CrdWzskPrf::StatShr::writeJSON(
 	me["scrJrefDaemon"] = Scr::scramble(jrefDaemon);
 	me["scrJrefGlobal"] = Scr::scramble(jrefGlobal);
 	me["scrJrefAcqCorner"] = Scr::scramble(jrefAcqCorner);
+	me["scrJrefAcqHdr"] = Scr::scramble(jrefAcqHdr);
 	me["scrJrefAcqPreview"] = Scr::scramble(jrefAcqPreview);
 	me["scrJrefAcqTrace"] = Scr::scramble(jrefAcqTrace);
 	me["scrJrefActLaser"] = Scr::scramble(jrefActLaser);
+	me["scrJrefActRotary"] = Scr::scramble(jrefActRotary);
 	me["scrJrefActVistorot"] = Scr::scramble(jrefActVistorot);
 	me["scrJrefSrcDcvsp"] = Scr::scramble(jrefSrcDcvsp);
 	me["scrJrefSrcSysinfo"] = Scr::scramble(jrefSrcSysinfo);
@@ -306,9 +320,11 @@ void CrdWzskPrf::StatShr::writeXML(
 		writeStringAttr(wr, itemtag, "sref", "scrJrefDaemon", Scr::scramble(jrefDaemon));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefGlobal", Scr::scramble(jrefGlobal));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefAcqCorner", Scr::scramble(jrefAcqCorner));
+		writeStringAttr(wr, itemtag, "sref", "scrJrefAcqHdr", Scr::scramble(jrefAcqHdr));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefAcqPreview", Scr::scramble(jrefAcqPreview));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefAcqTrace", Scr::scramble(jrefAcqTrace));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefActLaser", Scr::scramble(jrefActLaser));
+		writeStringAttr(wr, itemtag, "sref", "scrJrefActRotary", Scr::scramble(jrefActRotary));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefActVistorot", Scr::scramble(jrefActVistorot));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefSrcDcvsp", Scr::scramble(jrefSrcDcvsp));
 		writeStringAttr(wr, itemtag, "sref", "scrJrefSrcSysinfo", Scr::scramble(jrefSrcSysinfo));
@@ -326,9 +342,11 @@ set<uint> CrdWzskPrf::StatShr::comm(
 	if (jrefDaemon == comp->jrefDaemon) insert(items, JREFDAEMON);
 	if (jrefGlobal == comp->jrefGlobal) insert(items, JREFGLOBAL);
 	if (jrefAcqCorner == comp->jrefAcqCorner) insert(items, JREFACQCORNER);
+	if (jrefAcqHdr == comp->jrefAcqHdr) insert(items, JREFACQHDR);
 	if (jrefAcqPreview == comp->jrefAcqPreview) insert(items, JREFACQPREVIEW);
 	if (jrefAcqTrace == comp->jrefAcqTrace) insert(items, JREFACQTRACE);
 	if (jrefActLaser == comp->jrefActLaser) insert(items, JREFACTLASER);
+	if (jrefActRotary == comp->jrefActRotary) insert(items, JREFACTROTARY);
 	if (jrefActVistorot == comp->jrefActVistorot) insert(items, JREFACTVISTOROT);
 	if (jrefSrcDcvsp == comp->jrefSrcDcvsp) insert(items, JREFSRCDCVSP);
 	if (jrefSrcSysinfo == comp->jrefSrcSysinfo) insert(items, JREFSRCSYSINFO);
@@ -346,7 +364,7 @@ set<uint> CrdWzskPrf::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {JREFHEADBAR, JREFDAEMON, JREFGLOBAL, JREFACQCORNER, JREFACQPREVIEW, JREFACQTRACE, JREFACTLASER, JREFACTVISTOROT, JREFSRCDCVSP, JREFSRCSYSINFO, JREFSRCTIVSP, JREFSRCZUVSP};
+	diffitems = {JREFHEADBAR, JREFDAEMON, JREFGLOBAL, JREFACQCORNER, JREFACQHDR, JREFACQPREVIEW, JREFACQTRACE, JREFACTLASER, JREFACTROTARY, JREFACTVISTOROT, JREFSRCDCVSP, JREFSRCSYSINFO, JREFSRCTIVSP, JREFSRCZUVSP};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);

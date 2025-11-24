@@ -155,7 +155,20 @@ bool JobWzskAcqTrace::handleClaim(
 		) {
 	bool mod = false;
 
-	// IP handleClaim --- INSERT
+	// IP handleClaim --- IBEGIN
+
+	// preliminary: fulfill all claims
+
+	Claim* claim = NULL;
+
+	for (auto it = claims.begin(); it != claims.end(); it++) {
+		claim = (Claim*) it->second;
+		claim->fulfilled = true;
+	};
+
+	mod = true; // for simplicity
+
+	// IP handleClaim --- IEND
 
 	return mod;
 };

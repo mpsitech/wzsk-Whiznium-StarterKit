@@ -45,15 +45,13 @@ namespace PnlWzskPrfAcqPreview {
 	class ContIac : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint CHK1 = 1;
-		static const Sbecore::uint TXF2 = 2;
+		static const Sbecore::uint TXF1 = 1;
 
 	public:
-		ContIac(const bool Chk1 = false, const std::string& Txf2 = "");
+		ContIac(const std::string& Txf1 = "");
 
 	public:
-		bool Chk1;
-		std::string Txf2;
+		std::string Txf1;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -69,16 +67,14 @@ namespace PnlWzskPrfAcqPreview {
 
 	public:
 		static const Sbecore::uint IXWZSKVEXPSTATE = 1;
-		static const Sbecore::uint CHK1CLEAN = 2;
-		static const Sbecore::uint TXF2CLEAN = 3;
+		static const Sbecore::uint TXF1CLEAN = 2;
 
 	public:
-		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool Chk1Clean = false, const bool Txf2Clean = false);
+		StatShr(const Sbecore::uint ixWzskVExpstate = VecWzskVExpstate::MIND, const bool Txf1Clean = false);
 
 	public:
 		Sbecore::uint ixWzskVExpstate;
-		bool Chk1Clean;
-		bool Txf2Clean;
+		bool Txf1Clean;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -94,15 +90,13 @@ namespace PnlWzskPrfAcqPreview {
 	public:
 		static const Sbecore::uint CPT = 1;
 		static const Sbecore::uint CPT1 = 2;
-		static const Sbecore::uint CPT2 = 3;
 
 	public:
-		Tag(const std::string& Cpt = "", const std::string& Cpt1 = "", const std::string& Cpt2 = "");
+		Tag(const std::string& Cpt = "", const std::string& Cpt1 = "");
 
 	public:
 		std::string Cpt;
 		std::string Cpt1;
-		std::string Cpt2;
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);

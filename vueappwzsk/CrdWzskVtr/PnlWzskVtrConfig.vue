@@ -64,6 +64,32 @@
 				<!-- IP divImg - INSERT -->
 			</div>
 
+			<v-row class="my-1">
+				<v-col>
+					<v-btn
+						v-on:click="handleButClick('ButPlayClick')"
+						:disabled="!statshr.ButPlayActive"
+						fab
+						small
+						light
+						color="primary"
+					>
+						<v-icon color="white">mdi-play</v-icon>
+					</v-btn>
+					&#160;
+					<v-btn
+						v-on:click="handleButClick('ButStopClick')"
+						:disabled="!statshr.ButStopActive"
+						fab
+						small
+						light
+						color="primary"
+					>
+						<v-icon color="white">mdi-stop</v-icon>
+					</v-btn>
+				</v-col>
+			</v-row>
+
 			<v-divider/>
 
 			<v-slider

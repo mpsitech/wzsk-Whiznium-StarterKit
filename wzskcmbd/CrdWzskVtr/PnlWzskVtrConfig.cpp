@@ -53,6 +53,9 @@ PnlWzskVtrConfig::PnlWzskVtrConfig(
 	set<uint> moditems;
 	refresh(dbswzsk, moditems);
 
+	xchg->addClstn(VecWzskVCall::CALLWZSKSGECHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKRESULTNEW, jref, Clstn::VecVJobmask::SPEC, acqpreview->jref, false, Arg(), 0, Clstn::VecVJactype::LOCK);
+
 	// IP constructor.cust3 --- INSERT
 
 };
@@ -161,6 +164,10 @@ void PnlWzskVtrConfig::handleRequest(
 					handleDpchAppDoButMinimizeClick(dbswzsk, &(req->dpcheng));
 				} else if (dpchappdo->ixVDo == VecVDo::BUTCLAIMCLICK) {
 					handleDpchAppDoButClaimClick(dbswzsk, &(req->dpcheng));
+				} else if (dpchappdo->ixVDo == VecVDo::BUTPLAYCLICK) {
+					handleDpchAppDoButPlayClick(dbswzsk, &(req->dpcheng));
+				} else if (dpchappdo->ixVDo == VecVDo::BUTSTOPCLICK) {
+					handleDpchAppDoButStopClick(dbswzsk, &(req->dpcheng));
 				} else if (dpchappdo->ixVDo == VecVDo::BUTSTACLICK) {
 					handleDpchAppDoButStaClick(dbswzsk, &(req->dpcheng));
 				} else if (dpchappdo->ixVDo == VecVDo::BUTSTOCLICK) {
@@ -230,6 +237,20 @@ void PnlWzskVtrConfig::handleDpchAppDoButClaimClick(
 	// IP handleDpchAppDoButClaimClick --- INSERT
 };
 
+void PnlWzskVtrConfig::handleDpchAppDoButPlayClick(
+			DbsWzsk* dbswzsk
+			, DpchEngWzsk** dpcheng
+		) {
+	// IP handleDpchAppDoButPlayClick --- INSERT
+};
+
+void PnlWzskVtrConfig::handleDpchAppDoButStopClick(
+			DbsWzsk* dbswzsk
+			, DpchEngWzsk** dpcheng
+		) {
+	// IP handleDpchAppDoButStopClick --- INSERT
+};
+
 void PnlWzskVtrConfig::handleDpchAppDoButStaClick(
 			DbsWzsk* dbswzsk
 			, DpchEngWzsk** dpcheng
@@ -242,4 +263,35 @@ void PnlWzskVtrConfig::handleDpchAppDoButStoClick(
 			, DpchEngWzsk** dpcheng
 		) {
 	// IP handleDpchAppDoButStoClick --- INSERT
+};
+
+void PnlWzskVtrConfig::handleCall(
+			DbsWzsk* dbswzsk
+			, Call* call
+		) {
+	if (call->ixVCall == VecWzskVCall::CALLWZSKSGECHG) {
+		call->abort = handleCallWzskSgeChg(dbswzsk, call->jref);
+	} else if ((call->ixVCall == VecWzskVCall::CALLWZSKRESULTNEW) && (call->jref == acqpreview->jref)) {
+		call->abort = handleCallWzskResultNewFromAcqpreview(dbswzsk, call->argInv.ix, call->argInv.ref, call->argInv.sref);
+	};
+};
+
+bool PnlWzskVtrConfig::handleCallWzskSgeChg(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+	// IP handleCallWzskSgeChg --- INSERT
+	return retval;
+};
+
+bool PnlWzskVtrConfig::handleCallWzskResultNewFromAcqpreview(
+			DbsWzsk* dbswzsk
+			, const uint ixInv
+			, const ubigint refInv
+			, const string& srefInv
+		) {
+	bool retval = false;
+	// IP handleCallWzskResultNewFromAcqpreview --- INSERT
+	return retval;
 };

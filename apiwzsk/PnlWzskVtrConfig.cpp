@@ -25,6 +25,8 @@ uint PnlWzskVtrConfig::VecVDo::getIx(
 	if (s == "butregularizeclick") return BUTREGULARIZECLICK;
 	if (s == "butminimizeclick") return BUTMINIMIZECLICK;
 	if (s == "butclaimclick") return BUTCLAIMCLICK;
+	if (s == "butplayclick") return BUTPLAYCLICK;
+	if (s == "butstopclick") return BUTSTOPCLICK;
 	if (s == "butstaclick") return BUTSTACLICK;
 	if (s == "butstoclick") return BUTSTOCLICK;
 
@@ -37,6 +39,8 @@ string PnlWzskVtrConfig::VecVDo::getSref(
 	if (ix == BUTREGULARIZECLICK) return("ButRegularizeClick");
 	if (ix == BUTMINIMIZECLICK) return("ButMinimizeClick");
 	if (ix == BUTCLAIMCLICK) return("ButClaimClick");
+	if (ix == BUTPLAYCLICK) return("ButPlayClick");
+	if (ix == BUTSTOPCLICK) return("ButStopClick");
 	if (ix == BUTSTACLICK) return("ButStaClick");
 	if (ix == BUTSTOCLICK) return("ButStoClick");
 
@@ -310,8 +314,9 @@ set<uint> PnlWzskVtrConfig::ContInf::diff(
 PnlWzskVtrConfig::StatShr::StatShr(
 			const uint ixWzskVExpstate
 			, const bool ButClaimActive
-			, const bool RbuMdeActive
 			, const uint CusImgHeight
+			, const bool ButPlayActive
+			, const bool ButStopActive
 			, const bool SldAspActive
 			, const double SldAspMin
 			, const double SldAspMax
@@ -321,15 +326,16 @@ PnlWzskVtrConfig::StatShr::StatShr(
 			Block()
 			, ixWzskVExpstate(ixWzskVExpstate)
 			, ButClaimActive(ButClaimActive)
-			, RbuMdeActive(RbuMdeActive)
 			, CusImgHeight(CusImgHeight)
+			, ButPlayActive(ButPlayActive)
+			, ButStopActive(ButStopActive)
 			, SldAspActive(SldAspActive)
 			, SldAspMin(SldAspMin)
 			, SldAspMax(SldAspMax)
 			, ButStaActive(ButStaActive)
 			, ButStoActive(ButStoActive)
 		{
-	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, RBUMDEACTIVE, CUSIMGHEIGHT, SLDASPACTIVE, SLDASPMIN, SLDASPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
+	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, CUSIMGHEIGHT, BUTPLAYACTIVE, BUTSTOPACTIVE, SLDASPACTIVE, SLDASPMIN, SLDASPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
 };
 
 bool PnlWzskVtrConfig::StatShr::readXML(
@@ -356,8 +362,9 @@ bool PnlWzskVtrConfig::StatShr::readXML(
 			add(IXWZSKVEXPSTATE);
 		};
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButClaimActive", ButClaimActive)) add(BUTCLAIMACTIVE);
-		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "RbuMdeActive", RbuMdeActive)) add(RBUMDEACTIVE);
 		if (extractUintAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "CusImgHeight", CusImgHeight)) add(CUSIMGHEIGHT);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButPlayActive", ButPlayActive)) add(BUTPLAYACTIVE);
+		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "ButStopActive", ButStopActive)) add(BUTSTOPACTIVE);
 		if (extractBoolAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "SldAspActive", SldAspActive)) add(SLDASPACTIVE);
 		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "SldAspMin", SldAspMin)) add(SLDASPMIN);
 		if (extractDoubleAttrUclc(docctx, basexpath, itemtag, "Si", "sref", "SldAspMax", SldAspMax)) add(SLDASPMAX);
@@ -375,8 +382,9 @@ set<uint> PnlWzskVtrConfig::StatShr::comm(
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
 	if (ButClaimActive == comp->ButClaimActive) insert(items, BUTCLAIMACTIVE);
-	if (RbuMdeActive == comp->RbuMdeActive) insert(items, RBUMDEACTIVE);
 	if (CusImgHeight == comp->CusImgHeight) insert(items, CUSIMGHEIGHT);
+	if (ButPlayActive == comp->ButPlayActive) insert(items, BUTPLAYACTIVE);
+	if (ButStopActive == comp->ButStopActive) insert(items, BUTSTOPACTIVE);
 	if (SldAspActive == comp->SldAspActive) insert(items, SLDASPACTIVE);
 	if (compareDouble(SldAspMin, comp->SldAspMin) < 1.0e-4) insert(items, SLDASPMIN);
 	if (compareDouble(SldAspMax, comp->SldAspMax) < 1.0e-4) insert(items, SLDASPMAX);
@@ -394,7 +402,7 @@ set<uint> PnlWzskVtrConfig::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, RBUMDEACTIVE, CUSIMGHEIGHT, SLDASPACTIVE, SLDASPMIN, SLDASPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
+	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, CUSIMGHEIGHT, BUTPLAYACTIVE, BUTSTOPACTIVE, SLDASPACTIVE, SLDASPMIN, SLDASPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -685,9 +693,7 @@ string PnlWzskVtrConfig::DpchEngLive::getSrefsMask() {
 
 	if (has(SCRJREF)) ss.push_back("scrJref");
 	if (has(GRAY)) ss.push_back("gray");
-	if (has(RED)) ss.push_back("red");
-	if (has(GREEN)) ss.push_back("green");
-	if (has(BLUE)) ss.push_back("blue");
+	if (has(RGB)) ss.push_back("rgb");
 
 	StrMod::vectorToString(ss, srefs);
 
@@ -711,9 +717,7 @@ void PnlWzskVtrConfig::DpchEngLive::readXML(
 	if (basefound) {
 		if (extractStringUclc(docctx, basexpath, "scrJref", "", scrJref)) add(SCRJREF);
 		if (extractUtinyintvecUclc(docctx, basexpath, "gray", "", gray)) add(GRAY);
-		if (extractUtinyintvecUclc(docctx, basexpath, "red", "", red)) add(RED);
-		if (extractUtinyintvecUclc(docctx, basexpath, "green", "", green)) add(GREEN);
-		if (extractUtinyintvecUclc(docctx, basexpath, "blue", "", blue)) add(BLUE);
+		if (extractUtinyintvecUclc(docctx, basexpath, "rgb", "", rgb)) add(RGB);
 	} else {
 	};
 };

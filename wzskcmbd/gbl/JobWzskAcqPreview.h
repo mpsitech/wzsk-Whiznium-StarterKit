@@ -51,15 +51,13 @@ public:
 	class Stg : public Sbecore::Block {
 
 	public:
-		static const Sbecore::uint RGBNOTGRAY = 1;
-		static const Sbecore::uint DECIM = 2;
+		static const Sbecore::uint SIZEPVWBUF = 1;
 
 	public:
-		Stg(const bool rgbNotGray = true, const Sbecore::utinyint decim = 10);
+		Stg(const Sbecore::utinyint sizePvwbuf = 38);
 
 	public:
-		bool rgbNotGray;
-		Sbecore::utinyint decim;
+		Sbecore::utinyint sizePvwbuf; // in kB
 
 	public:
 		bool readXML(xmlXPathContext* docctx, std::string basexpath = "", bool addbasetag = false);
@@ -71,6 +69,7 @@ public:
 	bool evalSrcdcvspConstr(DbsWzsk* dbswzsk);
 	bool evalSrctivspConstr(DbsWzsk* dbswzsk);
 	bool evalSrczuvspConstr(DbsWzsk* dbswzsk);
+
 	/**
 		* Shrdat (full: ShrdatJobWzskAcqPreview)
 		*/
@@ -96,12 +95,13 @@ public:
 
 			unsigned char* buf; // allocate space for max i.e. rgb and edge 6
 			size_t sizeBuf;
+			size_t lenBuf;
 
 			// converted from decim.getInfo()
 			double t;
 
 		public:
-			void config(const bool _rgbNotGray, const Sbecore::utinyint _edge);
+			void config(const unsigned int _w, const unsigned int _h, const bool _rgbNotGray);
 		};
 		// IP Shrdat.subs --- IEND
 
@@ -117,6 +117,7 @@ public:
 		// info passed to pvw sub-thread
 		bool rgbNotGray_next;
 		Sbecore::utinyint edge_next;
+		Sbecore::usmallint edge2_next;
 
 		bool cancelPvw;
 
@@ -161,6 +162,8 @@ public:
 
 	static void* runPvw(void* arg);
 	static void cleanupPvw(void* arg);
+
+	static void calcDecim(XchgWzsk* xchg, const bool rgbNotGray, const Sbecore::utinyint edge);
 	// IP cust --- IEND
 
 public:
@@ -177,7 +180,7 @@ public:
 	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
 
 private:
-	bool handleCallWzskCallbackFromSelfInSgeRng(DbsWzsk* dbswzsk);
+	bool handleCallWzskCallbackFromSelfInSgeRng(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const std::string& srefInv);
 
 private:
 	void changeStage(DbsWzsk* dbswzsk, Sbecore::uint _ixVSge);

@@ -37,6 +37,10 @@ PnlWzskLlvRotary::PnlWzskLlvRotary(
 		{
 	jref = xchg->addJob(dbswzsk, this, jrefSup);
 
+	feedFCsiSchSte.tag = "FeedFCsiSchSte";
+	feedFCsiSchSte.appendIxSrefTitles(VecVWzskLlvRotaryState::IDLE, "grn", VecVWzskLlvRotaryState::getTitle(VecVWzskLlvRotaryState::IDLE));
+	feedFCsiSchSte.appendIxSrefTitles(VecVWzskLlvRotaryState::MOVE, "ong.fl", VecVWzskLlvRotaryState::getTitle(VecVWzskLlvRotaryState::MOVE));
+
 	actrotary = NULL;
 
 	// IP constructor.cust1 --- INSERT
@@ -49,6 +53,7 @@ PnlWzskLlvRotary::PnlWzskLlvRotary(
 	refresh(dbswzsk, moditems);
 
 	xchg->addClstn(VecWzskVCall::CALLWZSKCLAIMCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
+	xchg->addClstn(VecWzskVCall::CALLWZSKSGECHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::WEAK);
 	xchg->addClstn(VecWzskVCall::CALLWZSKSHRDATCHG, jref, Clstn::VecVJobmask::IMM, 0, false, Arg(), 0, Clstn::VecVJactype::TRY);
 
 	// IP constructor.cust3 --- INSERT
@@ -74,7 +79,7 @@ DpchEngWzsk* PnlWzskLlvRotary::getNewDpchEng(
 		dpcheng = new DpchEngWzskConfirm(true, jref, "");
 	} else {
 		insert(items, DpchEngData::JREF);
-		dpcheng = new DpchEngData(jref, &contiac, &continf, &statshr, items);
+		dpcheng = new DpchEngData(jref, &contiac, &continf, &feedFCsiSchSte, &statshr, items);
 	};
 
 	return dpcheng;
@@ -98,7 +103,7 @@ void PnlWzskLlvRotary::refresh(
 	// contiac
 	ContIac oldContiac(contiac);
 
-	contiac.SldTrg = actrotary->shrdat.angle; // not target, target only used for input
+	contiac.TxfSchTrg = to_string(actrotary->shrdat.target);
 
 	if (contiac.diff(&oldContiac).size() != 0) insert(moditems, DpchEngData::CONTIAC);
 
@@ -106,13 +111,14 @@ void PnlWzskLlvRotary::refresh(
 	ContInf oldContinf(continf);
 
 	continf.ButClaimOn = fulfilled;
+	continf.TxtSchAng = to_string(actrotary->shrdat.angle);
+	continf.numFCsiSchSte = actrotary->ixVSge;
 
 	if (continf.diff(&oldContinf).size() != 0) insert(moditems, DpchEngData::CONTINF);
 
 	// statshr
 	statshr.ButClaimActive = !takenNotAvailable || fulfilled;
-
-	statshr.SldTrgActive = fulfilled;
+	statshr.CusSchActive = fulfilled;
 
 	// IP refresh --- REND
 
@@ -186,7 +192,7 @@ void PnlWzskLlvRotary::handleDpchAppDataContiac(
 
 	muteRefresh = true;
 
-	if (has(diffitems, ContIac::SLDTRG) && statshr.SldTrgActive) actrotary->moveto(dbswzsk, _contiac->SldTrg);
+	if (has(diffitems, ContIac::TXFSCHTRG)) actrotary->moveto(dbswzsk, atof(_contiac->TxfSchTrg.c_str()));
 
 	refresh(dbswzsk, moditems, true);
 
@@ -237,6 +243,8 @@ void PnlWzskLlvRotary::handleCall(
 		) {
 	if (call->ixVCall == VecWzskVCall::CALLWZSKCLAIMCHG) {
 		call->abort = handleCallWzskClaimChg(dbswzsk, call->jref);
+	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSGECHG) {
+		call->abort = handleCallWzskSgeChg(dbswzsk, call->jref);
 	} else if (call->ixVCall == VecWzskVCall::CALLWZSKSHRDATCHG) {
 		call->abort = handleCallWzskShrdatChg(dbswzsk, call->jref, call->argInv.ix, call->argInv.sref);
 	};
@@ -253,6 +261,20 @@ bool PnlWzskLlvRotary::handleCallWzskClaimChg(
 	refresh(dbswzsk, moditems);
 	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
 	// IP handleCallWzskClaimChg --- IEND
+	return retval;
+};
+
+bool PnlWzskLlvRotary::handleCallWzskSgeChg(
+			DbsWzsk* dbswzsk
+			, const ubigint jrefTrig
+		) {
+	bool retval = false;
+	// IP handleCallWzskSgeChg --- IBEGIN
+	set<uint> moditems;
+
+	refresh(dbswzsk, moditems);
+	if (!moditems.empty()) xchg->submitDpch(getNewDpchEng(moditems));
+	// IP handleCallWzskSgeChg --- IEND
 	return retval;
 };
 

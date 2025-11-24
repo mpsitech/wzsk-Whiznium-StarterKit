@@ -229,7 +229,10 @@ public:
 
 	JobWzskAcqMemtrack* acqmemtrack;
 
-	// IP vars.cust --- INSERT
+	// IP vars.cust --- IBEGIN
+	unsigned int numTrack;
+	Sbecore::ubigint refFilTrack;
+	// IP vars.cust --- IEND
 
 public:
 	// IP cust --- INSERT
@@ -255,6 +258,13 @@ private:
 	void handleDpchAppDoButTsrClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButTspClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
 	void handleDpchAppDoButTtfViewClick(DbsWzsk* dbswzsk, DpchEngWzsk** dpcheng);
+
+public:
+	void handleCall(DbsWzsk* dbswzsk, Sbecore::Call* call);
+
+private:
+	bool handleCallWzskSgeChg(DbsWzsk* dbswzsk, const Sbecore::ubigint jrefTrig);
+	bool handleCallWzskResultNewFromAcqmemtrack(DbsWzsk* dbswzsk, const Sbecore::uint ixInv, const Sbecore::ubigint refInv, const std::string& srefInv);
 
 };
 

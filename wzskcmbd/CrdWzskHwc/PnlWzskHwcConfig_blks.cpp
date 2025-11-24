@@ -23,6 +23,10 @@ uint PnlWzskHwcConfig::VecVDo::getIx(
 	if (s == "butregularizeclick") return BUTREGULARIZECLICK;
 	if (s == "butminimizeclick") return BUTMINIMIZECLICK;
 	if (s == "butclaimclick") return BUTCLAIMCLICK;
+	if (s == "butplayclick") return BUTPLAYCLICK;
+	if (s == "butstopclick") return BUTSTOPCLICK;
+	if (s == "butsnapclick") return BUTSNAPCLICK;
+	if (s == "butpfiviewclick") return BUTPFIVIEWCLICK;
 	if (s == "butstaclick") return BUTSTACLICK;
 	if (s == "butstoclick") return BUTSTOCLICK;
 
@@ -35,6 +39,10 @@ string PnlWzskHwcConfig::VecVDo::getSref(
 	if (ix == BUTREGULARIZECLICK) return("ButRegularizeClick");
 	if (ix == BUTMINIMIZECLICK) return("ButMinimizeClick");
 	if (ix == BUTCLAIMCLICK) return("ButClaimClick");
+	if (ix == BUTPLAYCLICK) return("ButPlayClick");
+	if (ix == BUTSTOPCLICK) return("ButStopClick");
+	if (ix == BUTSNAPCLICK) return("ButSnapClick");
+	if (ix == BUTPFIVIEWCLICK) return("ButPfiViewClick");
 	if (ix == BUTSTACLICK) return("ButStaClick");
 	if (ix == BUTSTOCLICK) return("ButStoClick");
 
@@ -85,6 +93,42 @@ void PnlWzskHwcConfig::VecVMode::fillFeed(
 	feed.clear();
 
 	for (unsigned int i = 1; i <= 2; i++) feed.appendIxSrefTitles(i, getSref(i), getTitle(i, ixWzskVLocale));
+};
+
+/******************************************************************************
+ class PnlWzskHwcConfig::VecVSge
+ ******************************************************************************/
+
+uint PnlWzskHwcConfig::VecVSge::getIx(
+			const string& sref
+		) {
+	string s = StrMod::lc(sref);
+
+	if (s == "idle") return IDLE;
+	if (s == "capture") return CAPTURE;
+	if (s == "stoidle") return STOIDLE;
+	if (s == "store") return STORE;
+
+	return(0);
+};
+
+string PnlWzskHwcConfig::VecVSge::getSref(
+			const uint ix
+		) {
+	if (ix == IDLE) return("idle");
+	if (ix == CAPTURE) return("capture");
+	if (ix == STOIDLE) return("stoidle");
+	if (ix == STORE) return("store");
+
+	return("");
+};
+
+void PnlWzskHwcConfig::VecVSge::fillFeed(
+			Feed& feed
+		) {
+	feed.clear();
+
+	for (unsigned int i = 1; i <= 4; i++) feed.appendIxSrefTitles(i, getSref(i), getSref(i));
 };
 
 /******************************************************************************
@@ -347,13 +391,15 @@ set<uint> PnlWzskHwcConfig::ContIacAlign::diff(
 
 PnlWzskHwcConfig::ContInf::ContInf(
 			const bool ButClaimOn
+			, const string& TxtPfi
 			, const string& TxtSte
 		) :
 			Block()
 			, ButClaimOn(ButClaimOn)
+			, TxtPfi(TxtPfi)
 			, TxtSte(TxtSte)
 		{
-	mask = {BUTCLAIMON, TXTSTE};
+	mask = {BUTCLAIMON, TXTPFI, TXTSTE};
 };
 
 void PnlWzskHwcConfig::ContInf::writeJSON(
@@ -365,6 +411,7 @@ void PnlWzskHwcConfig::ContInf::writeJSON(
 	Json::Value& me = sup[difftag] = Json::Value(Json::objectValue);
 
 	me["ButClaimOn"] = ButClaimOn;
+	me["TxtPfi"] = TxtPfi;
 	me["TxtSte"] = TxtSte;
 };
 
@@ -381,6 +428,7 @@ void PnlWzskHwcConfig::ContInf::writeXML(
 
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeBoolAttr(wr, itemtag, "sref", "ButClaimOn", ButClaimOn);
+		writeStringAttr(wr, itemtag, "sref", "TxtPfi", TxtPfi);
 		writeStringAttr(wr, itemtag, "sref", "TxtSte", TxtSte);
 	xmlTextWriterEndElement(wr);
 };
@@ -391,6 +439,7 @@ set<uint> PnlWzskHwcConfig::ContInf::comm(
 	set<uint> items;
 
 	if (ButClaimOn == comp->ButClaimOn) insert(items, BUTCLAIMON);
+	if (TxtPfi == comp->TxtPfi) insert(items, TXTPFI);
 	if (TxtSte == comp->TxtSte) insert(items, TXTSTE);
 
 	return(items);
@@ -404,7 +453,7 @@ set<uint> PnlWzskHwcConfig::ContInf::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {BUTCLAIMON, TXTSTE};
+	diffitems = {BUTCLAIMON, TXTPFI, TXTSTE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -417,8 +466,11 @@ set<uint> PnlWzskHwcConfig::ContInf::diff(
 PnlWzskHwcConfig::StatShr::StatShr(
 			const uint ixWzskVExpstate
 			, const bool ButClaimActive
-			, const bool RbuMdeActive
 			, const uint CusImgHeight
+			, const bool ButPlayActive
+			, const bool ButStopActive
+			, const bool ButSnapActive
+			, const bool ButPfiViewActive
 			, const bool UpdNfrActive
 			, const int UpdNfrMin
 			, const int UpdNfrMax
@@ -434,8 +486,11 @@ PnlWzskHwcConfig::StatShr::StatShr(
 			Block()
 			, ixWzskVExpstate(ixWzskVExpstate)
 			, ButClaimActive(ButClaimActive)
-			, RbuMdeActive(RbuMdeActive)
 			, CusImgHeight(CusImgHeight)
+			, ButPlayActive(ButPlayActive)
+			, ButStopActive(ButStopActive)
+			, ButSnapActive(ButSnapActive)
+			, ButPfiViewActive(ButPfiViewActive)
 			, UpdNfrActive(UpdNfrActive)
 			, UpdNfrMin(UpdNfrMin)
 			, UpdNfrMax(UpdNfrMax)
@@ -448,7 +503,7 @@ PnlWzskHwcConfig::StatShr::StatShr(
 			, ButStaActive(ButStaActive)
 			, ButStoActive(ButStoActive)
 		{
-	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, RBUMDEACTIVE, CUSIMGHEIGHT, UPDNFRACTIVE, UPDNFRMIN, UPDNFRMAX, SLDFSTACTIVE, SLDFSTMIN, SLDFSTMAX, SLDFSPACTIVE, SLDFSPMIN, SLDFSPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
+	mask = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, CUSIMGHEIGHT, BUTPLAYACTIVE, BUTSTOPACTIVE, BUTSNAPACTIVE, BUTPFIVIEWACTIVE, UPDNFRACTIVE, UPDNFRMIN, UPDNFRMAX, SLDFSTACTIVE, SLDFSTMIN, SLDFSTMAX, SLDFSPACTIVE, SLDFSPMIN, SLDFSPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
 };
 
 void PnlWzskHwcConfig::StatShr::writeJSON(
@@ -461,8 +516,11 @@ void PnlWzskHwcConfig::StatShr::writeJSON(
 
 	me["srefIxWzskVExpstate"] = VecWzskVExpstate::getSref(ixWzskVExpstate);
 	me["ButClaimActive"] = ButClaimActive;
-	me["RbuMdeActive"] = RbuMdeActive;
 	me["CusImgHeight"] = (Json::Value::UInt) CusImgHeight;
+	me["ButPlayActive"] = ButPlayActive;
+	me["ButStopActive"] = ButStopActive;
+	me["ButSnapActive"] = ButSnapActive;
+	me["ButPfiViewActive"] = ButPfiViewActive;
 	me["UpdNfrActive"] = UpdNfrActive;
 	me["UpdNfrMin"] = (Json::Value::Int) UpdNfrMin;
 	me["UpdNfrMax"] = (Json::Value::Int) UpdNfrMax;
@@ -490,8 +548,11 @@ void PnlWzskHwcConfig::StatShr::writeXML(
 	xmlTextWriterStartElement(wr, BAD_CAST difftag.c_str());
 		writeStringAttr(wr, itemtag, "sref", "srefIxWzskVExpstate", VecWzskVExpstate::getSref(ixWzskVExpstate));
 		writeBoolAttr(wr, itemtag, "sref", "ButClaimActive", ButClaimActive);
-		writeBoolAttr(wr, itemtag, "sref", "RbuMdeActive", RbuMdeActive);
 		writeUintAttr(wr, itemtag, "sref", "CusImgHeight", CusImgHeight);
+		writeBoolAttr(wr, itemtag, "sref", "ButPlayActive", ButPlayActive);
+		writeBoolAttr(wr, itemtag, "sref", "ButStopActive", ButStopActive);
+		writeBoolAttr(wr, itemtag, "sref", "ButSnapActive", ButSnapActive);
+		writeBoolAttr(wr, itemtag, "sref", "ButPfiViewActive", ButPfiViewActive);
 		writeBoolAttr(wr, itemtag, "sref", "UpdNfrActive", UpdNfrActive);
 		writeIntAttr(wr, itemtag, "sref", "UpdNfrMin", UpdNfrMin);
 		writeIntAttr(wr, itemtag, "sref", "UpdNfrMax", UpdNfrMax);
@@ -513,8 +574,11 @@ set<uint> PnlWzskHwcConfig::StatShr::comm(
 
 	if (ixWzskVExpstate == comp->ixWzskVExpstate) insert(items, IXWZSKVEXPSTATE);
 	if (ButClaimActive == comp->ButClaimActive) insert(items, BUTCLAIMACTIVE);
-	if (RbuMdeActive == comp->RbuMdeActive) insert(items, RBUMDEACTIVE);
 	if (CusImgHeight == comp->CusImgHeight) insert(items, CUSIMGHEIGHT);
+	if (ButPlayActive == comp->ButPlayActive) insert(items, BUTPLAYACTIVE);
+	if (ButStopActive == comp->ButStopActive) insert(items, BUTSTOPACTIVE);
+	if (ButSnapActive == comp->ButSnapActive) insert(items, BUTSNAPACTIVE);
+	if (ButPfiViewActive == comp->ButPfiViewActive) insert(items, BUTPFIVIEWACTIVE);
 	if (UpdNfrActive == comp->UpdNfrActive) insert(items, UPDNFRACTIVE);
 	if (UpdNfrMin == comp->UpdNfrMin) insert(items, UPDNFRMIN);
 	if (UpdNfrMax == comp->UpdNfrMax) insert(items, UPDNFRMAX);
@@ -538,7 +602,7 @@ set<uint> PnlWzskHwcConfig::StatShr::diff(
 
 	commitems = comm(comp);
 
-	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, RBUMDEACTIVE, CUSIMGHEIGHT, UPDNFRACTIVE, UPDNFRMIN, UPDNFRMAX, SLDFSTACTIVE, SLDFSTMIN, SLDFSTMAX, SLDFSPACTIVE, SLDFSPMIN, SLDFSPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
+	diffitems = {IXWZSKVEXPSTATE, BUTCLAIMACTIVE, CUSIMGHEIGHT, BUTPLAYACTIVE, BUTSTOPACTIVE, BUTSNAPACTIVE, BUTPFIVIEWACTIVE, UPDNFRACTIVE, UPDNFRMIN, UPDNFRMAX, SLDFSTACTIVE, SLDFSTMIN, SLDFSTMAX, SLDFSPACTIVE, SLDFSPMIN, SLDFSPMAX, BUTSTAACTIVE, BUTSTOACTIVE};
 	for (auto it = commitems.begin(); it != commitems.end(); it++) diffitems.erase(*it);
 
 	return(diffitems);
@@ -561,6 +625,7 @@ void PnlWzskHwcConfig::Tag::writeJSON(
 		me["Cpt"] = "Configuration";
 		me["HdgPvw"] = "Preview and ROI";
 		me["CptMde"] = "mode";
+		me["CptPfi"] = "snapshot file";
 		me["CptNfr"] = "frequencies";
 		me["CptFst"] = "start frequency";
 		me["CptFsp"] = "stop frequency";
@@ -587,6 +652,7 @@ void PnlWzskHwcConfig::Tag::writeXML(
 			writeStringAttr(wr, itemtag, "sref", "Cpt", "Configuration");
 			writeStringAttr(wr, itemtag, "sref", "HdgPvw", "Preview and ROI");
 			writeStringAttr(wr, itemtag, "sref", "CptMde", "mode");
+			writeStringAttr(wr, itemtag, "sref", "CptPfi", "snapshot file");
 			writeStringAttr(wr, itemtag, "sref", "CptNfr", "frequencies");
 			writeStringAttr(wr, itemtag, "sref", "CptFst", "start frequency");
 			writeStringAttr(wr, itemtag, "sref", "CptFsp", "stop frequency");
@@ -951,18 +1017,14 @@ void PnlWzskHwcConfig::DpchEngData::writeXML(
 PnlWzskHwcConfig::DpchEngLive::DpchEngLive(
 			const ubigint jref
 			, const vector<utinyint>& gray
-			, const vector<utinyint>& red
-			, const vector<utinyint>& green
-			, const vector<utinyint>& blue
+			, const vector<utinyint>& rgb
 			, const set<uint>& mask
 		) :
 			DpchEngWzsk(VecWzskVDpch::DPCHENGWZSKHWCCONFIGLIVE, jref)
 			, gray(gray)
-			, red(red)
-			, green(green)
-			, blue(blue)
+			, rgb(rgb)
 		{
-	if (find(mask, ALL)) this->mask = {JREF, GRAY, RED, GREEN, BLUE};
+	if (find(mask, ALL)) this->mask = {JREF, GRAY, RGB};
 	else this->mask = mask;
 
 };
@@ -973,9 +1035,7 @@ string PnlWzskHwcConfig::DpchEngLive::getSrefsMask() {
 
 	if (has(JREF)) ss.push_back("jref");
 	if (has(GRAY)) ss.push_back("gray");
-	if (has(RED)) ss.push_back("red");
-	if (has(GREEN)) ss.push_back("green");
-	if (has(BLUE)) ss.push_back("blue");
+	if (has(RGB)) ss.push_back("rgb");
 
 	StrMod::vectorToString(ss, srefs);
 
@@ -989,9 +1049,7 @@ void PnlWzskHwcConfig::DpchEngLive::merge(
 
 	if (src->has(JREF)) {jref = src->jref; add(JREF);};
 	if (src->has(GRAY)) {gray = src->gray; add(GRAY);};
-	if (src->has(RED)) {red = src->red; add(RED);};
-	if (src->has(GREEN)) {green = src->green; add(GREEN);};
-	if (src->has(BLUE)) {blue = src->blue; add(BLUE);};
+	if (src->has(RGB)) {rgb = src->rgb; add(RGB);};
 };
 
 void PnlWzskHwcConfig::DpchEngLive::writeJSON(
@@ -1002,9 +1060,7 @@ void PnlWzskHwcConfig::DpchEngLive::writeJSON(
 
 	if (has(JREF)) me["scrJref"] = Scr::scramble(jref);
 	if (has(GRAY)) Jsonio::writeUtinyintvec(me, "gray", gray);
-	if (has(RED)) Jsonio::writeUtinyintvec(me, "red", red);
-	if (has(GREEN)) Jsonio::writeUtinyintvec(me, "green", green);
-	if (has(BLUE)) Jsonio::writeUtinyintvec(me, "blue", blue);
+	if (has(RGB)) Jsonio::writeUtinyintvec(me, "rgb", rgb);
 };
 
 void PnlWzskHwcConfig::DpchEngLive::writeXML(
@@ -1015,8 +1071,6 @@ void PnlWzskHwcConfig::DpchEngLive::writeXML(
 	xmlTextWriterWriteAttribute(wr, BAD_CAST "xmlns", BAD_CAST "http://www.mpsitech.com/wzsk");
 		if (has(JREF)) writeString(wr, "scrJref", Scr::scramble(jref));
 		if (has(GRAY)) writeUtinyintvec(wr, "gray", gray);
-		if (has(RED)) writeUtinyintvec(wr, "red", red);
-		if (has(GREEN)) writeUtinyintvec(wr, "green", green);
-		if (has(BLUE)) writeUtinyintvec(wr, "blue", blue);
+		if (has(RGB)) writeUtinyintvec(wr, "rgb", rgb);
 	xmlTextWriterEndElement(wr);
 };

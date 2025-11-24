@@ -16,6 +16,11 @@
 			ref="PnlWzskPrfAcqCorner"
 			:scrJref=statshr.scrJrefAcqCorner
 		/>
+		<PnlWzskPrfAcqHdr
+			v-on:request="handleRequest"
+			ref="PnlWzskPrfAcqHdr"
+			:scrJref=statshr.scrJrefAcqHdr
+		/>
 		<PnlWzskPrfAcqPreview
 			v-on:request="handleRequest"
 			ref="PnlWzskPrfAcqPreview"
@@ -30,6 +35,11 @@
 			v-on:request="handleRequest"
 			ref="PnlWzskPrfActLaser"
 			:scrJref=statshr.scrJrefActLaser
+		/>
+		<PnlWzskPrfActRotary
+			v-on:request="handleRequest"
+			ref="PnlWzskPrfActRotary"
+			:scrJref=statshr.scrJrefActRotary
 		/>
 		<PnlWzskPrfActVistorot
 			v-on:request="handleRequest"
@@ -67,9 +77,11 @@
 	import PnlWzskPrfDaemon from './PnlWzskPrfDaemon';
 	import PnlWzskPrfGlobal from './PnlWzskPrfGlobal';
 	import PnlWzskPrfAcqCorner from './PnlWzskPrfAcqCorner';
+	import PnlWzskPrfAcqHdr from './PnlWzskPrfAcqHdr';
 	import PnlWzskPrfAcqPreview from './PnlWzskPrfAcqPreview';
 	import PnlWzskPrfAcqTrace from './PnlWzskPrfAcqTrace';
 	import PnlWzskPrfActLaser from './PnlWzskPrfActLaser';
+	import PnlWzskPrfActRotary from './PnlWzskPrfActRotary';
 	import PnlWzskPrfActVistorot from './PnlWzskPrfActVistorot';
 	import PnlWzskPrfSrcDcvsp from './PnlWzskPrfSrcDcvsp';
 	import PnlWzskPrfSrcSysinfo from './PnlWzskPrfSrcSysinfo';
@@ -95,9 +107,11 @@
 			PnlWzskPrfDaemon,
 			PnlWzskPrfGlobal,
 			PnlWzskPrfAcqCorner,
+			PnlWzskPrfAcqHdr,
 			PnlWzskPrfAcqPreview,
 			PnlWzskPrfAcqTrace,
 			PnlWzskPrfActLaser,
+			PnlWzskPrfActRotary,
 			PnlWzskPrfActVistorot,
 			PnlWzskPrfSrcDcvsp,
 			PnlWzskPrfSrcSysinfo,
@@ -157,9 +171,11 @@
 					if (obj.scrJref == this.statshr.scrJrefDaemon) this.$refs.PnlWzskPrfDaemon.handleReply(obj);
 					else if (obj.scrJref == this.statshr.scrJrefGlobal) this.$refs.PnlWzskPrfGlobal.handleReply(obj);
 					else if (obj.scrJref == this.statshr.scrJrefAcqCorner) this.$refs.PnlWzskPrfAcqCorner.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefAcqHdr) this.$refs.PnlWzskPrfAcqHdr.handleReply(obj);
 					else if (obj.scrJref == this.statshr.scrJrefAcqPreview) this.$refs.PnlWzskPrfAcqPreview.handleReply(obj);
 					else if (obj.scrJref == this.statshr.scrJrefAcqTrace) this.$refs.PnlWzskPrfAcqTrace.handleReply(obj);
 					else if (obj.scrJref == this.statshr.scrJrefActLaser) this.$refs.PnlWzskPrfActLaser.handleReply(obj);
+					else if (obj.scrJref == this.statshr.scrJrefActRotary) this.$refs.PnlWzskPrfActRotary.handleReply(obj);
 					else if (obj.scrJref == this.statshr.scrJrefActVistorot) this.$refs.PnlWzskPrfActVistorot.handleReply(obj);
 					else if (obj.scrJref == this.statshr.scrJrefSrcDcvsp) this.$refs.PnlWzskPrfSrcDcvsp.handleReply(obj);
 					else if (obj.scrJref == this.statshr.scrJrefSrcSysinfo) this.$refs.PnlWzskPrfSrcSysinfo.handleReply(obj);
@@ -196,6 +212,9 @@
 					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefAcqCorner) {
 						this.$refs.PnlWzskPrfAcqCorner.handleUpdate(obj);
 						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefAcqHdr) {
+						this.$refs.PnlWzskPrfAcqHdr.handleUpdate(obj);
+						processed = true;
 					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefAcqPreview) {
 						this.$refs.PnlWzskPrfAcqPreview.handleUpdate(obj);
 						processed = true;
@@ -204,6 +223,9 @@
 						processed = true;
 					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefActLaser) {
 						this.$refs.PnlWzskPrfActLaser.handleUpdate(obj);
+						processed = true;
+					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefActRotary) {
+						this.$refs.PnlWzskPrfActRotary.handleUpdate(obj);
 						processed = true;
 					} else if (obj.dpcheng.scrJref == this.statshr.scrJrefActVistorot) {
 						this.$refs.PnlWzskPrfActVistorot.handleUpdate(obj);
